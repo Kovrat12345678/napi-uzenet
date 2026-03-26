@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DailyBot">
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="apple-touch-icon" href="icon/dailybot-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <title>DailyBot</title>
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+        html{background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);height:100%}
+        body{width:100%;min-height:100%;min-height:100dvh;overflow:hidden;touch-action:manipulation;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            background: linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+        .star{position:absolute;width:0;height:0}
+        .star::before{content:'✦';color:rgba(255,255,255,0.6);font-size:var(--s);position:absolute;animation:twinkle var(--d) ease-in-out infinite}
+        @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.3)}}
+
+        .app {
+            position:relative;z-index:1;
+            display:flex;flex-direction:column;align-items:center;
+            width:100%;max-width:400px;
+            height:100dvh;height:100vh;
+            padding:16px 20px;
+            padding-top:calc(env(safe-area-inset-top, 20px) + 28px);
+            padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 8px);
+            justify-content:space-between;
+        }
+
+        /* FEJLÉC */
+        .top{text-align:center;flex-shrink:0}
+        .top h1{font-size:24px;font-weight:800;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.2)}
+        .date{font-size:13px;color:rgba(255,255,255,.7);margin-top:3px;font-weight:500}
+        .streak{display:none;margin-top:8px;padding:4px 14px;border-radius:100px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.2)}
+        .streak.on{display:inline-block}
+
+        /* BUBORÉK */
+        .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
+        .bubble{
+            position:relative;width:100%;
+            background:rgba(255,255,255,.15);
+            backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+            border:1.5px solid rgba(255,255,255,.3);
+            border-radius:22px;padding:22px 20px 26px;text-align:center;
+            box-shadow:0 10px 35px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.3);
+            opacity:0;transform:scale(.4) translateY(20px);pointer-events:none;
+            transition:all .5s cubic-bezier(.34,1.56,.64,1);
+        }
+        .bubble.show{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+        .bubble::after{content:'';position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);border-left:13px solid transparent;border-right:13px solid transparent;border-top:16px solid rgba(255,255,255,.15)}
+        .bubble-heart{position:absolute;top:-12px;right:-6px;font-size:26px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15));opacity:0;transform:scale(0);transition:all .4s cubic-bezier(.34,1.56,.64,1) .3s}
+        .bubble.show .bubble-heart{opacity:1;transform:scale(1) rotate(-12deg)}
+        .b-emoji{font-size:34px;display:block;margin-bottom:10px}
+        .b-text{font-size:17px;line-height:1.55;color:#fff;font-weight:600;min-height:52px;text-shadow:0 1px 6px rgba(0,0,0,.2)}
+        .cursor{display:inline-block;width:2px;height:18px;background:#fff;margin-left:2px;vertical-align:text-bottom;animation:blink .6s step-end infinite}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+        /* PLACEHOLDER */
+        .ph{text-align:center;position:absolute;transition:opacity .3s}
+        .ph.hide{opacity:0;pointer-events:none}
+        .ph p{color:rgba(255,255,255,.7);font-size:16px;font-weight:600;line-height:1.5}
+        .ph .arr{display:inline-block;margin-top:10px;font-size:28px;animation:bob 1.3s ease-in-out infinite}
+        @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+        /* ===== ROBOT ===== */
+        .robot-area{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;width:100%}
+        .robot-btn{background:none;border:none;cursor:pointer;padding:0;outline:none;-webkit-tap-highlight-color:transparent}
+        .robot-btn:active .robot{transform:scale(.95)}
+
+        .robot{
+            width:200px;height:280px;position:relative;
+            transition:transform .15s ease;
+            animation:float 3s ease-in-out infinite;
+            filter:drop-shadow(0 20px 30px rgba(0,0,0,.2));
+        }
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+        /* Antenna */
+        .antenna-stick{position:absolute;top:0;left:50%;transform:translateX(-50%);width:4px;height:28px;background:linear-gradient(to bottom,#94a3b8,#cbd5e1);border-radius:2px}
+        .antenna-ball{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:16px;height:16px;background:radial-gradient(circle at 40% 35%,#fde68a,#f59e0b);border-radius:50%;box-shadow:0 0 12px rgba(251,191,36,.6);animation:glow 2s ease-in-out infinite}
+        @keyframes glow{0%,100%{box-shadow:0 0 8px rgba(251,191,36,.4)}50%{box-shadow:0 0 24px rgba(251,191,36,.9),0 0 48px rgba(251,191,36,.3)}}
+
+        /* Fej */
+        .head{
+            position:absolute;top:26px;left:50%;transform:translateX(-50%);
+            width:130px;height:110px;
+            background:linear-gradient(165deg,#f1f5f9 0%,#e2e8f0 40%,#cbd5e1 100%);
+            border-radius:40px 40px 32px 32px;
+            box-shadow:0 4px 15px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,.8),inset 0 -2px 4px rgba(0,0,0,.05);
+            overflow:hidden;
+        }
+
+        /* Arc kijelző */
+        .face-screen{
+            position:absolute;top:18px;left:14px;right:14px;bottom:18px;
+            background:linear-gradient(180deg,#0f172a,#1e293b);
+            border-radius:24px;
+            box-shadow:inset 0 2px 8px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.15);
+            overflow:hidden;
+        }
+        .face-screen::before{content:'';position:absolute;top:0;left:20%;width:60%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent)}
+
+        /* Szemek */
+        .eyes{display:flex;justify-content:center;gap:26px;padding-top:20px;position:relative;z-index:2}
+        .eye{
+            width:24px;height:24px;
+            background:radial-gradient(circle at 50% 50%,#7dd3fc,#38bdf8,#0284c7);
+            border-radius:50%;
+            box-shadow:0 0 10px rgba(56,189,248,.6),0 0 20px rgba(56,189,248,.3);
+            position:relative;
+            animation:eyeIdle 4s ease-in-out infinite;
+        }
+        .eye::after{content:'';position:absolute;top:3px;left:5px;width:7px;height:7px;background:rgba(255,255,255,.7);border-radius:50%}
+
+        @keyframes eyeIdle{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+
+        /* Beszéd közben szemek */
+        .robot-btn.talking .eye{
+            animation:none;
+            box-shadow:0 0 14px rgba(56,189,248,.8),0 0 28px rgba(56,189,248,.4);
+        }
+
+        /* Száj */
+        .mouth{
+            width:28px;height:3px;
+            background:#38bdf8;
+            border-radius:3px;
+            margin:14px auto 0;
+            box-shadow:0 0 8px rgba(56,189,248,.5);
+            transition:all .3s ease;
+        }
+        .robot-btn.talking .mouth{
+            width:20px;height:14px;
+            border-radius:50%;
+            background:transparent;
+            border:2px solid #38bdf8;
+            animation:speak .3s ease infinite;
+        }
+        @keyframes speak{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.5)}}
+
+        /* happy alapstílusok az új reakció blokkban vannak */
+
+        /* Fül */
+        .ear{
+            position:absolute;top:50px;
+            width:14px;height:24px;
+            background:linear-gradient(to bottom,#e2e8f0,#cbd5e1);
+            border-radius:6px;
+            box-shadow:0 2px 4px rgba(0,0,0,.1);
+        }
+        .ear-l{left:22px}.ear-r{right:22px}
+        .ear::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:#94a3b8}
+
+        /* Nyak */
+        .neck{position:absolute;top:134px;left:50%;transform:translateX(-50%);width:30px;height:16px;background:linear-gradient(to bottom,#cbd5e1,#94a3b8);border-radius:4px}
+        .neck::before,.neck::after{content:'';position:absolute;width:24px;height:3px;background:#94a3b8;border-radius:2px;left:50%;transform:translateX(-50%)}
+        .neck::before{top:3px}.neck::after{bottom:3px}
+
+        /* Törzs */
+        .torso{
+            position:absolute;top:148px;left:50%;transform:translateX(-50%);
+            width:120px;height:90px;
+            background:linear-gradient(165deg,#f1f5f9 0%,#e2e8f0 50%,#cbd5e1 100%);
+            border-radius:20px 20px 24px 24px;
+            box-shadow:0 6px 20px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,.6);
+        }
+
+        /* Mellkas panel */
+        .chest{
+            position:absolute;top:12px;left:50%;transform:translateX(-50%);
+            width:56px;height:56px;
+            background:linear-gradient(145deg,#0f172a,#1e293b);
+            border-radius:14px;
+            box-shadow:inset 0 2px 6px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.1);
+            display:flex;align-items:center;justify-content:center;
+            overflow:hidden;
+        }
+        .chest::before{content:'';position:absolute;inset:2px;border-radius:12px;border:1px solid rgba(56,189,248,.15)}
+        .heart-icon{font-size:24px;animation:heartbeat 1.5s ease infinite;position:relative;z-index:1}
+        @keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}}
+
+        .robot-btn.talking .heart-icon{animation:heartbeat .6s ease infinite}
+
+        /* Mellkas fények */
+        .chest-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+        .chest-dot{width:4px;height:4px;border-radius:50%;background:#38bdf8;opacity:.4}
+        .robot-btn.talking .chest-dot{animation:dotPulse .8s ease infinite}
+        .chest-dot:nth-child(2){animation-delay:.15s!important}
+        .chest-dot:nth-child(3){animation-delay:.3s!important}
+        @keyframes dotPulse{0%,100%{opacity:.3}50%{opacity:1;box-shadow:0 0 6px rgba(56,189,248,.8)}}
+
+        /* Karok */
+        .arm{
+            position:absolute;top:155px;
+            width:24px;height:70px;
+            background:linear-gradient(to bottom,#e2e8f0,#cbd5e1);
+            border-radius:12px;
+            transform-origin:top center;
+            box-shadow:0 4px 8px rgba(0,0,0,.08);
+        }
+        .arm-l{left:18px;transform:rotate(6deg)}.arm-r{right:18px;transform:rotate(-6deg)}
+        .arm::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:20px;height:16px;background:linear-gradient(to bottom,#cbd5e1,#94a3b8);border-radius:0 0 10px 10px}
+
+        .robot-btn.talking .arm-l{animation:waveL 1s ease infinite}
+        .robot-btn.talking .arm-r{animation:waveR 1s ease infinite}
+        .robot-btn.happy .arm-l{transform:rotate(-25deg)}
+        .robot-btn.happy .arm-r{transform:rotate(25deg)}
+        @keyframes waveL{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-10deg)}}
+        @keyframes waveR{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(10deg)}}
+
+        /* Vállpánt */
+        .shoulder{position:absolute;top:150px;width:12px;height:12px;background:#cbd5e1;border-radius:50%;box-shadow:inset 0 1px 2px rgba(0,0,0,.15)}
+        .shoulder-l{left:26px}.shoulder-r{right:26px}
+
+        /* Lábak */
+        .legs{position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;gap:16px}
+        .leg{width:28px;height:36px;background:linear-gradient(to bottom,#cbd5e1,#94a3b8);border-radius:8px 8px 12px 12px;box-shadow:0 4px 8px rgba(0,0,0,.1)}
+        .foot{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:36px;height:10px;background:linear-gradient(to bottom,#94a3b8,#64748b);border-radius:0 0 8px 8px}
+
+
+        /* ===== ROBOT REAKCIÓK ===== */
+
+        /* EXCITED — izgatott ugrálás, tapsolás, ragyogó szemek */
+        .robot-btn.excited .robot{animation:excitedBounce .5s cubic-bezier(.36,1.4,.5,1) infinite}
+        @keyframes excitedBounce{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-20px) scale(1.05)}60%{transform:translateY(-5px) scale(.98)}}
+        .robot-btn.excited .eye{
+            animation:excitedEye .6s ease infinite;
+            background:radial-gradient(circle,#fff,#67e8f9,#06b6d4);
+            box-shadow:0 0 20px rgba(6,182,212,.9),0 0 40px rgba(6,182,212,.4),0 0 60px rgba(6,182,212,.2);
+        }
+        @keyframes excitedEye{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+        .robot-btn.excited .antenna-ball{
+            animation:excitedAntenna .3s ease-in-out infinite;
+            box-shadow:0 0 20px rgba(251,191,36,.9),0 0 40px rgba(251,191,36,.5);
+        }
+        @keyframes excitedAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.4)}}
+        .robot-btn.excited .arm-l{animation:excitedArmL .25s ease infinite;transform-origin:top center}
+        .robot-btn.excited .arm-r{animation:excitedArmR .25s ease infinite;transform-origin:top center}
+        @keyframes excitedArmL{0%{transform:rotate(-40deg)}50%{transform:rotate(15deg)}100%{transform:rotate(-40deg)}}
+        @keyframes excitedArmR{0%{transform:rotate(40deg)}50%{transform:rotate(-15deg)}100%{transform:rotate(40deg)}}
+        .robot-btn.excited .mouth{
+            width:24px;height:12px;background:transparent;
+            border-bottom:3px solid #22d3ee;border-radius:0 0 50% 50%;
+            box-shadow:0 4px 12px rgba(34,211,238,.5);animation:none;border-top:none;border-left:none;border-right:none;
+        }
+        .robot-btn.excited .heart-icon{animation:heartbeat .3s ease infinite}
+        .robot-btn.excited .chest-dot{animation:dotPulse .3s ease infinite}
+        .robot-btn.excited .leg{animation:excitedLeg .5s ease infinite}
+        .robot-btn.excited .leg:nth-child(2){animation-delay:.25s}
+        @keyframes excitedLeg{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+        /* CARING — gyengéd ringás, lila fény, ölelő karok */
+        .robot-btn.caring .robot{animation:caringFloat 3s ease-in-out infinite}
+        @keyframes caringFloat{0%,100%{transform:translateY(0) rotate(-2deg)}25%{transform:translateY(-6px) rotate(0deg)}50%{transform:translateY(-3px) rotate(2deg)}75%{transform:translateY(-8px) rotate(0deg)}}
+        .robot-btn.caring .eye{
+            animation:caringEye 3s ease-in-out infinite;
+            background:radial-gradient(circle,#e9d5ff,#c084fc,#9333ea);
+            box-shadow:0 0 16px rgba(147,51,234,.7),0 0 32px rgba(147,51,234,.3);
+        }
+        @keyframes caringEye{0%,100%{transform:scaleY(1)}40%{transform:scaleY(1)}45%{transform:scaleY(.3)}50%{transform:scaleY(1)}90%{transform:scaleY(1)}95%{transform:scaleY(.3)}}
+        .robot-btn.caring .mouth{
+            width:20px;height:10px;background:transparent;
+            border-bottom:3px solid #c084fc;border-radius:0 0 50% 50%;
+            box-shadow:0 3px 8px rgba(192,132,252,.4);animation:none;border-top:none;border-left:none;border-right:none;
+        }
+        .robot-btn.caring .arm-l{animation:caringArmL 2s ease-in-out infinite;transform-origin:top center}
+        .robot-btn.caring .arm-r{animation:caringArmR 2s ease-in-out infinite;transform-origin:top center}
+        @keyframes caringArmL{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-20deg)}}
+        @keyframes caringArmR{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(20deg)}}
+        .robot-btn.caring .heart-icon{animation:caringHeart 1.5s ease infinite}
+        @keyframes caringHeart{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(1)}75%{transform:scale(1.15)}}
+        .robot-btn.caring .antenna-ball{
+            background:radial-gradient(circle at 40% 35%,#e9d5ff,#a855f7);
+            box-shadow:0 0 16px rgba(168,85,247,.7),0 0 32px rgba(168,85,247,.3);
+            animation:caringGlow 2s ease-in-out infinite;
+        }
+        @keyframes caringGlow{0%,100%{box-shadow:0 0 10px rgba(168,85,247,.4)}50%{box-shadow:0 0 28px rgba(168,85,247,.9),0 0 50px rgba(168,85,247,.3)}}
+        .robot-btn.caring .chest-dot{background:#c084fc}
+
+        /* THINKING — fej döntés, szemek keresgélnek, száj "hmm" */
+        .robot-btn.thinking .robot{animation:thinkFloat 4s ease-in-out infinite}
+        @keyframes thinkFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-5px) rotate(4deg)}60%{transform:translateY(-2px) rotate(-2deg)}}
+        .robot-btn.thinking .head{animation:thinkHead 4s ease-in-out infinite}
+        @keyframes thinkHead{0%,100%{transform:translateX(-50%) rotate(0deg)}30%{transform:translateX(-50%) rotate(6deg)}70%{transform:translateX(-50%) rotate(-3deg)}}
+        .robot-btn.thinking .eye{
+            animation:thinkEye 3s ease-in-out infinite;
+            background:radial-gradient(circle,#fef9c3,#fbbf24,#d97706);
+            box-shadow:0 0 12px rgba(251,191,36,.6),0 0 24px rgba(251,191,36,.3);
+        }
+        @keyframes thinkEye{0%,100%{transform:translateX(0) scaleY(1)}20%{transform:translateX(5px) scaleY(.9)}50%{transform:translateX(-4px) scaleY(1)}70%{transform:translateX(3px) scaleY(.85)}85%{transform:translateX(0) scaleY(1)}}
+        .robot-btn.thinking .mouth{
+            width:14px;height:14px;background:transparent;
+            border:2px solid #fbbf24;border-radius:50%;
+            box-shadow:0 0 8px rgba(251,191,36,.4);animation:thinkMouth 2s ease infinite;
+            border-top:none;border-left:none;border-right:none;
+            border-bottom:2px solid #fbbf24;border-radius:0 0 50% 50%;
+            width:18px;height:8px;
+        }
+        @keyframes thinkMouth{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.7)}}
+        .robot-btn.thinking .arm-l{transform:rotate(6deg)}
+        .robot-btn.thinking .arm-r{animation:thinkArmR 4s ease-in-out infinite;transform-origin:top center}
+        @keyframes thinkArmR{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(-50deg)}}
+        .robot-btn.thinking .antenna-ball{
+            animation:thinkAntenna 1s ease-in-out infinite;
+            background:radial-gradient(circle at 40% 35%,#fef9c3,#f59e0b);
+            box-shadow:0 0 14px rgba(245,158,11,.7),0 0 28px rgba(245,158,11,.3);
+        }
+        @keyframes thinkAntenna{0%,100%{box-shadow:0 0 8px rgba(245,158,11,.4);transform:translateX(-50%) scale(1)}50%{box-shadow:0 0 24px rgba(245,158,11,1),0 0 48px rgba(245,158,11,.4);transform:translateX(-50%) scale(1.3)}}
+
+        /* DANCING — party mód, teljes test táncol */
+        .robot-btn.dancing .robot{animation:danceBody .8s cubic-bezier(.4,0,.2,1) infinite}
+        @keyframes danceBody{0%{transform:translateY(0) rotate(-4deg) scaleY(1)}25%{transform:translateY(-14px) rotate(0deg) scaleY(1.03)}50%{transform:translateY(0) rotate(4deg) scaleY(.97)}75%{transform:translateY(-10px) rotate(0deg) scaleY(1.02)}100%{transform:translateY(0) rotate(-4deg) scaleY(1)}}
+        .robot-btn.dancing .eye{
+            animation:discoEye .4s ease infinite;
+            box-shadow:0 0 18px rgba(236,72,153,.9),0 0 36px rgba(236,72,153,.4);
+            background:radial-gradient(circle,#fff,#f9a8d4,#ec4899);
+        }
+        @keyframes discoEye{0%,100%{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899);transform:scale(1)}33%{background:radial-gradient(circle,#fff,#67e8f9,#06b6d4)}66%{background:radial-gradient(circle,#fff,#c4b5fd,#8b5cf6);transform:scale(1.1)}}
+        .robot-btn.dancing .mouth{
+            width:28px;height:14px;background:transparent;
+            border-bottom:3px solid #ec4899;border-radius:0 0 50% 50%;
+            box-shadow:0 4px 12px rgba(236,72,153,.5);animation:none;border-top:none;border-left:none;border-right:none;
+        }
+        .robot-btn.dancing .arm-l{animation:danceArmL .4s cubic-bezier(.4,0,.2,1) infinite;transform-origin:top center}
+        .robot-btn.dancing .arm-r{animation:danceArmR .4s cubic-bezier(.4,0,.2,1) infinite;transform-origin:top center}
+        @keyframes danceArmL{0%{transform:rotate(-45deg)}50%{transform:rotate(20deg)}100%{transform:rotate(-45deg)}}
+        @keyframes danceArmR{0%{transform:rotate(20deg)}50%{transform:rotate(-45deg)}100%{transform:rotate(20deg)}}
+        .robot-btn.dancing .leg:first-child{animation:danceLegL .8s ease infinite}
+        .robot-btn.dancing .leg:last-child{animation:danceLegR .8s ease infinite}
+        @keyframes danceLegL{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-6px) rotate(-8deg)}}
+        @keyframes danceLegR{0%,100%{transform:translateY(-6px) rotate(8deg)}50%{transform:translateY(0) rotate(0deg)}}
+        .robot-btn.dancing .antenna-ball{
+            animation:discoAntenna .4s ease infinite;
+        }
+        @keyframes discoAntenna{0%,100%{background:radial-gradient(circle,#fde68a,#f59e0b);box-shadow:0 0 20px rgba(251,191,36,.8)}33%{background:radial-gradient(circle,#f9a8d4,#ec4899);box-shadow:0 0 20px rgba(236,72,153,.8)}66%{background:radial-gradient(circle,#c4b5fd,#8b5cf6);box-shadow:0 0 20px rgba(139,92,246,.8)}}
+        .robot-btn.dancing .heart-icon{animation:heartbeat .4s ease infinite}
+        .robot-btn.dancing .chest-dot{animation:dotPulse .25s ease infinite}
+        .robot-btn.dancing .head{animation:danceHead .4s ease infinite}
+        @keyframes danceHead{0%,100%{transform:translateX(-50%) rotate(-3deg)}50%{transform:translateX(-50%) rotate(3deg)}}
+
+        /* HAPPY — boldog (alapértelmezett, továbbfejlesztve) */
+        .robot-btn.happy .robot{animation:happyFloat 2s ease-in-out infinite}
+        @keyframes happyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .robot-btn.happy .mouth{
+            width:32px;height:16px;background:transparent;
+            border-bottom:3px solid #38bdf8;border-radius:0 0 50% 50%;
+            box-shadow:0 4px 10px rgba(56,189,248,.4);border-top:none;border-left:none;border-right:none;
+        }
+        .robot-btn.happy .eye{
+            animation:happyEye 3s ease-in-out infinite;
+            height:6px;border-radius:6px 6px 0 0;background:#38bdf8;
+            box-shadow:0 0 14px rgba(56,189,248,.7),0 0 28px rgba(56,189,248,.3);
+        }
+        .robot-btn.happy .eye::after{display:none}
+        @keyframes happyEye{0%,80%,100%{transform:scaleX(1)}90%{transform:scaleX(.8)}}
+        .robot-btn.happy .arm-l{animation:happyArmL 1.5s ease-in-out infinite;transform-origin:top center}
+        .robot-btn.happy .arm-r{animation:happyArmR 1.5s ease-in-out infinite;transform-origin:top center}
+        @keyframes happyArmL{0%,100%{transform:rotate(-25deg)}50%{transform:rotate(-35deg)}}
+        @keyframes happyArmR{0%,100%{transform:rotate(25deg)}50%{transform:rotate(35deg)}}
+
+        /* ===== TAP REAKCIÓK (interaktív) ===== */
+
+        /* Pörgés */
+        .robot-btn.tap-spin .robot{animation:tapSpin .6s cubic-bezier(.4,0,.2,1) forwards}
+        @keyframes tapSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(.9)}100%{transform:rotate(360deg) scale(1)}}
+
+        /* Ugrás */
+        .robot-btn.tap-jump .robot{animation:tapJump .5s cubic-bezier(.4,0,.2,1) forwards}
+        @keyframes tapJump{0%{transform:translateY(0) scaleY(1)}15%{transform:translateY(4px) scaleY(.85) scaleX(1.1)}40%{transform:translateY(-40px) scaleY(1.1) scaleX(.95)}70%{transform:translateY(0) scaleY(.9)}100%{transform:translateY(0) scaleY(1)}}
+
+        /* Kacsintás */
+        .robot-btn.tap-wink .eye:first-child{animation:tapWink .4s ease forwards}
+        @keyframes tapWink{0%{transform:scaleY(1)}30%{transform:scaleY(.1)}100%{transform:scaleY(1)}}
+
+        /* Fejrázás (nem-nem) */
+        .robot-btn.tap-shake .head{animation:tapShake .4s ease forwards}
+        @keyframes tapShake{0%{transform:translateX(-50%) rotate(0)}20%{transform:translateX(-50%) rotate(8deg)}40%{transform:translateX(-50%) rotate(-8deg)}60%{transform:translateX(-50%) rotate(5deg)}80%{transform:translateX(-50%) rotate(-3deg)}100%{transform:translateX(-50%) rotate(0)}}
+
+        /* Bólintás (igen) */
+        .robot-btn.tap-nod .head{animation:tapNod .5s ease forwards}
+        @keyframes tapNod{0%{transform:translateX(-50%) rotate(0)}25%{transform:translateX(-50%) rotate(-10deg)}50%{transform:translateX(-50%) rotate(0)}75%{transform:translateX(-50%) rotate(-8deg)}100%{transform:translateX(-50%) rotate(0)}}
+
+        /* Taps (meghajlás) */
+        .robot-btn.tap-bow .robot{animation:tapBow .7s ease forwards}
+        @keyframes tapBow{0%{transform:rotate(0) translateY(0)}40%{transform:rotate(15deg) translateY(5px)}100%{transform:rotate(0) translateY(0)}}
+
+        /* Wave (integetés) */
+        .robot-btn.tap-wave .arm-r{animation:tapWave .6s ease forwards;transform-origin:top center}
+        @keyframes tapWave{0%{transform:rotate(-6deg)}15%{transform:rotate(-50deg)}30%{transform:rotate(-30deg)}45%{transform:rotate(-50deg)}60%{transform:rotate(-30deg)}80%{transform:rotate(-50deg)}100%{transform:rotate(-6deg)}}
+
+        /* Szívdobbanás */
+        .robot-btn.tap-love .heart-icon{animation:tapLove .6s ease forwards}
+        @keyframes tapLove{0%{transform:scale(1)}20%{transform:scale(1.8)}40%{transform:scale(1)}60%{transform:scale(1.5)}100%{transform:scale(1)}}
+        .robot-btn.tap-love .eye{animation:tapLoveEye .6s ease forwards}
+        @keyframes tapLoveEye{0%,100%{background:radial-gradient(circle,#7dd3fc,#38bdf8,#0284c7)}50%{background:radial-gradient(circle,#fda4af,#fb7185,#e11d48);box-shadow:0 0 16px rgba(225,29,72,.7)}}
+
+        /* ===== FEHÉR NYUSZI MÓD (húsvét) ===== */
+
+        /* Hosszú fehér fülek */
+        .robot.bunny .antenna-stick{
+            width:16px;height:60px;top:-34px;left:calc(50% - 24px);
+            background:linear-gradient(to bottom,#fff,#f8fafc);
+            border-radius:24px 24px 8px 8px;transform:rotate(-10deg);
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+        }
+        .robot.bunny .antenna-stick::after{
+            content:'';position:absolute;top:10px;left:3px;width:10px;height:38px;
+            background:linear-gradient(to bottom,#fecdd3,#fda4af);border-radius:18px;
+        }
+        .robot.bunny .antenna-ball{
+            width:16px;height:60px;top:-34px;left:calc(50% + 8px);
+            background:linear-gradient(to bottom,#fff,#f8fafc);
+            border-radius:24px 24px 8px 8px;transform:none;
+            box-shadow:0 2px 8px rgba(0,0,0,.08);
+            animation:bunnyEarR 2.5s ease-in-out infinite;
+        }
+        .robot.bunny .antenna-ball::after{
+            content:'';position:absolute;top:10px;left:3px;width:10px;height:38px;
+            background:linear-gradient(to bottom,#fecdd3,#fda4af);border-radius:18px;
+        }
+        @keyframes bunnyEarR{0%,100%{transform:rotate(0deg)}30%{transform:rotate(10deg)}60%{transform:rotate(-3deg)}}
+
+        /* Hófehér fej */
+        .robot.bunny .head{
+            background:linear-gradient(165deg,#ffffff 0%,#f8fafc 40%,#f1f5f9 100%);
+            border-radius:46px 46px 36px 36px;
+            box-shadow:0 4px 15px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,1);
+        }
+
+        /* Fehér arc kijelző helyett nyuszi arc */
+        .robot.bunny .face-screen{
+            background:linear-gradient(180deg,#f8fafc,#f1f5f9);
+            box-shadow:inset 0 1px 4px rgba(0,0,0,.05);
+        }
+
+        /* Piros nyuszi szemek */
+        .robot.bunny .eye{
+            background:radial-gradient(circle,#fff,#fca5a5,#ef4444)!important;
+            box-shadow:0 0 10px rgba(239,68,68,.4),0 0 20px rgba(239,68,68,.15)!important;
+        }
+        .robot.bunny .eye::after{background:rgba(255,255,255,.8)}
+
+        /* Rózsaszín orr */
+        .robot.bunny .mouth{
+            width:12px!important;height:10px!important;
+            background:radial-gradient(circle,#fecdd3,#fb7185)!important;
+            border:none!important;border-radius:50%!important;
+            box-shadow:0 2px 6px rgba(251,113,133,.3)!important;
+            animation:bunnyNose 2s ease-in-out infinite!important;
+            margin-top:12px!important;
+        }
+        @keyframes bunnyNose{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+
+        /* Bajusz */
+        .robot.bunny .face-screen::after{
+            content:'';position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+            width:70px;height:16px;
+            background:
+                linear-gradient(170deg,transparent 0%,rgba(0,0,0,.08) 10%,transparent 22%) 0 0/100% 1.5px no-repeat,
+                linear-gradient(175deg,transparent 0%,rgba(0,0,0,.08) 10%,transparent 22%) 0 6px/100% 1.5px no-repeat,
+                linear-gradient(190deg,transparent 78%,rgba(0,0,0,.08) 90%,transparent 100%) 0 0/100% 1.5px no-repeat,
+                linear-gradient(185deg,transparent 78%,rgba(0,0,0,.08) 90%,transparent 100%) 0 6px/100% 1.5px no-repeat;
+        }
+
+        /* Hófehér test */
+        .robot.bunny .torso{background:linear-gradient(165deg,#ffffff 0%,#f8fafc 50%,#f1f5f9 100%);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+        .robot.bunny .neck{background:linear-gradient(to bottom,#f1f5f9,#e2e8f0)}
+
+        /* Fehér karok */
+        .robot.bunny .arm{background:linear-gradient(to bottom,#ffffff,#f1f5f9)}
+        .robot.bunny .arm::after{background:linear-gradient(to bottom,#f1f5f9,#e2e8f0)}
+        .robot.bunny .shoulder{background:#f1f5f9}
+
+        /* Fehér fülek (oldalsó) */
+        .robot.bunny .ear{background:linear-gradient(to bottom,#ffffff,#f8fafc)}
+        .robot.bunny .ear::after{background:#fecdd3}
+
+        /* Fehér lábak, kerek tappancs */
+        .robot.bunny .leg{background:linear-gradient(to bottom,#f8fafc,#f1f5f9)}
+        .robot.bunny .foot{
+            background:linear-gradient(to bottom,#fecdd3,#fda4af)!important;
+            border-radius:50%!important;width:28px!important;height:14px!important;
+        }
+
+        /* Mellkas — fehér, rózsaszín szív */
+        .robot.bunny .chest{
+            background:linear-gradient(145deg,#f8fafc,#f1f5f9);
+            box-shadow:inset 0 2px 4px rgba(0,0,0,.05);
+        }
+        .robot.bunny .chest::before{border-color:rgba(251,113,133,.15)}
+        .robot.bunny .chest-dot{background:#fda4af}
+        .robot.bunny .heart-icon{font-size:22px}
+
+        /* Pompom farok */
+        .robot.bunny .legs::after{
+            content:'';position:absolute;top:-12px;right:-22px;
+            width:22px;height:22px;
+            background:radial-gradient(circle at 40% 40%,#ffffff,#f1f5f9);
+            border-radius:50%;
+            box-shadow:0 2px 8px rgba(0,0,0,.08),inset 0 -2px 4px rgba(0,0,0,.03);
+            animation:bunnyTail 1.5s ease-in-out infinite;
+        }
+        @keyframes bunnyTail{0%,100%{transform:translateX(0) scale(1)}50%{transform:translateX(5px) scale(1.1)}}
+
+        /* ===== DRAG (húzás) ===== */
+        .robot-btn.dragging .robot{animation:none!important;transition:none}
+        .robot-btn.dragging .eye{
+            animation:none!important;width:28px;height:28px;
+            background:radial-gradient(circle,#fff,#fca5a5,#ef4444)!important;
+            box-shadow:0 0 16px rgba(239,68,68,.8)!important;
+        }
+        .robot-btn.dragging .eye::after{width:10px;height:10px;top:4px;left:4px}
+        .robot-btn.dragging .mouth{
+            width:32px!important;height:18px!important;background:transparent!important;
+            border:3px solid #ef4444!important;border-radius:50%!important;
+            animation:dragMouth .2s ease infinite!important;
+            box-shadow:0 0 10px rgba(239,68,68,.5)!important;
+        }
+        @keyframes dragMouth{0%,100%{transform:scaleY(1) scaleX(1)}50%{transform:scaleY(1.3) scaleX(.8)}}
+        .robot-btn.dragging .arm-l{transform:rotate(-40deg)!important;animation:none!important}
+        .robot-btn.dragging .arm-r{transform:rotate(40deg)!important;animation:none!important}
+        .robot-btn.dragging .antenna-ball{
+            animation:dragAntenna .3s ease infinite!important;
+            background:radial-gradient(circle,#fca5a5,#ef4444)!important;
+        }
+        @keyframes dragAntenna{0%,100%{box-shadow:0 0 12px rgba(239,68,68,.6)}50%{box-shadow:0 0 24px rgba(239,68,68,1)}}
+
+        /* ===== ÖLTÖZÉKEK ===== */
+        .outfit{position:absolute;z-index:10;pointer-events:none;transition:all .3s}
+        .outfit-hat{top:-10px;left:50%;transform:translateX(-50%);font-size:36px}
+        .outfit-face{top:40px;left:50%;transform:translateX(-50%);font-size:28px;z-index:11}
+        .outfit-neck{top:128px;left:50%;transform:translateX(-50%);font-size:22px}
+
+        /* ===== IDŐJÁRÁS ANIMÁCIÓK ===== */
+        .weather-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+
+        /* Eső */
+        .raindrop{position:absolute;width:2px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4));border-radius:0 0 2px 2px;animation:rain var(--d) linear infinite;top:-20px}
+        @keyframes rain{0%{transform:translateY(-20px);opacity:0}10%{opacity:1}100%{transform:translateY(100vh);opacity:.3}}
+
+        /* Hó */
+        .snowflake{position:absolute;border-radius:50%;background:rgba(255,255,255,.8);animation:snow var(--d) linear infinite;top:-10px}
+        @keyframes snow{0%{transform:translateY(-10px) translateX(0) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(100vh) translateX(var(--sx)) rotate(360deg);opacity:.4}}
+
+        /* Napsugarak */
+        .sunray{position:absolute;top:-60px;left:50%;width:3px;background:linear-gradient(to bottom,rgba(255,255,0,.3),transparent);transform-origin:top center;animation:sunray 4s ease-in-out infinite}
+        @keyframes sunray{0%,100%{opacity:.2;height:120px}50%{opacity:.5;height:180px}}
+
+        /* Konfetti */
+        .cfx{position:fixed;inset:0;pointer-events:none;z-index:99}
+        .cf{position:absolute;animation:fly 1.1s ease-out forwards}
+        @keyframes fly{0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(0)}}
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="weather-layer" id="weatherLayer"></div>
+
+    <div class="app">
+        <div class="top">
+            <h1>✨ DailyBot ✨</h1>
+            <div class="date" id="date"></div>
+            <div class="streak" id="streak">🔥 <span id="sn"></span> napos sorozat</div>
+        </div>
+
+        <div class="bubble-wrap">
+            <div class="ph" id="ph">
+                <p id="phText">Koppints a robotra!</p>
+                <p id="phEvent" style="font-size:14px;color:rgba(255,255,255,.85);margin-top:6px;font-weight:700"></p>
+                <span class="arr">👇</span>
+            </div>
+            <div class="bubble" id="bubble">
+                <span class="bubble-heart">❤️</span>
+                <span class="b-emoji" id="bE"></span>
+                <div class="b-text" id="bT"></div>
+            </div>
+        </div>
+
+        <div class="robot-area">
+            <button class="robot-btn" id="btn" aria-label="Napi üzenet">
+                <div class="robot" id="robot">
+                    <!-- Öltözék -->
+                    <span class="outfit outfit-hat" id="outfitHat"></span>
+                    <span class="outfit outfit-face" id="outfitFace"></span>
+                    <span class="outfit outfit-neck" id="outfitNeck"></span>
+                    <!-- Antenna -->
+                    <div class="antenna-stick"></div>
+                    <div class="antenna-ball"></div>
+
+                    <!-- Fülek -->
+                    <div class="ear ear-l"></div>
+                    <div class="ear ear-r"></div>
+
+                    <!-- Fej -->
+                    <div class="head">
+                        <div class="face-screen">
+                            <div class="eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="mouth"></div>
+                        </div>
+                    </div>
+
+                    <!-- Nyak -->
+                    <div class="neck"></div>
+
+                    <!-- Vállak -->
+                    <div class="shoulder shoulder-l"></div>
+                    <div class="shoulder shoulder-r"></div>
+
+                    <!-- Karok -->
+                    <div class="arm arm-l"></div>
+                    <div class="arm arm-r"></div>
+
+                    <!-- Törzs -->
+                    <div class="torso">
+                        <div class="chest">
+                            <span class="heart-icon">❤️</span>
+                            <div class="chest-dots">
+                                <span class="chest-dot"></span>
+                                <span class="chest-dot"></span>
+                                <span class="chest-dot"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lábak -->
+                    <div class="legs">
+                        <div class="leg"><div class="foot"></div></div>
+                        <div class="leg"><div class="foot"></div></div>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="cfx" id="cfx"></div>
+
+    <script>
+        // Csillagok
+        (function(){const c=document.getElementById('stars');for(let i=0;i<20;i++){const s=document.createElement('span');s.className='star';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--s:${Math.random()*12+8}px;--d:${(Math.random()*3+2).toFixed(1)}s`;c.appendChild(s)}})();
+
+        // ========== NAPSZAK HÁTTÉR ==========
+        (function(){
+            const h=new Date().getHours();
+            let bg;
+            if(h>=5&&h<8) bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; // reggel
+            else if(h>=8&&h<17) bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)'; // nappal
+            else if(h>=17&&h<20) bg='linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)'; // este
+            else bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)'; // éjjel
+            document.documentElement.style.background=bg;
+            document.body.style.background=bg;
+        })();
+
+        // ========== ROBOT ÖLTÖZÉKEK ==========
+        (function(){
+            const d=new Date(), month=d.getMonth(), day=d.getDate(), dow=d.getDay();
+            const seed=(d.getFullYear()*10000+(month+1)*100+day);
+            const hatEl=document.getElementById('outfitHat');
+            const faceEl=document.getElementById('outfitFace');
+            const neckEl=document.getElementById('outfitNeck');
+
+            // Szezonális + napi öltözékek
+            let hat='',face='',neck='';
+
+            // Húsvét kiszámítása (Gauss-algoritmus)
+            function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,dd=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-dd-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=(h+l-7*m+114)%31+1;return{m:mo,d:da}}
+            const easterDate=easter(d.getFullYear());
+            const isEaster=(month+1===easterDate.m&&day>=easterDate.d-3&&day<=easterDate.d+1);
+
+            // Ünnepek — csak ilyenkor van öltözék
+            const evtEl=document.getElementById('phEvent');
+            let evt='';
+
+            if(isEaster) {
+                document.getElementById('robot').classList.add('bunny');
+                evt='🐰 Boldog Húsvétot! 🥚';
+            }
+            else if(month===2&&day===26) { hat='🎂'; face='🥳'; neck='🎉'; evt='🎂 Ma van a szülinapom! 🥳'; }
+            else if(month===11&&day===24) { hat='🎅'; neck='🎄'; evt='🎄 Boldog Karácsonyt! 🎅'; }
+            else if(month===11&&day>=20&&day<=23) { hat='🎅'; neck='🎄'; evt='🎄 Hamarosan Karácsony! 🎅'; }
+            else if(month===11&&day>=25&&day<=26) { hat='🎅'; neck='🎄'; evt='🎄 Kellemes Karácsonyt! 🎅'; }
+            else if(month===11&&day===6) { hat='🎅'; neck='🎁'; evt='🎅 Ma van Mikulás! 🎁'; }
+            else if(month===11&&day===31) { hat='🎉'; face='🥂'; evt='🎉 Boldog Szilvesztert! 🥂'; }
+            else if(month===0&&day===1) { hat='🎉'; face='🥂'; evt='🎊 Boldog Új Évet! 🎉'; }
+            else if(month===9&&day===31) { hat='🎃'; face='👻'; evt='🎃 Halloween! 👻'; }
+            else if(month===1&&day===14) { hat='💝'; neck='💕'; evt='💝 Boldog Valentin-napot! 💕'; }
+            else if(month===3&&day===1) { hat='🤡'; face='🥸'; evt='🤡 Április bolondok napja! 😜'; }
+            else if(month===2&&day===15) { hat='🇭🇺'; neck='🎖️'; evt='🇭🇺 Március 15. — Nemzeti Ünnep!'; }
+            else if(month===9&&day===23) { hat='🇭🇺'; evt='🇭🇺 Október 23. — Nemzeti Ünnep!'; }
+            else if(month===7&&day===20) { hat='🇭🇺'; evt='🇭🇺 Augusztus 20. — Nemzeti Ünnep!'; }
+
+            if(evt) evtEl.textContent=evt;
+
+            hatEl.textContent=hat;
+            faceEl.textContent=face;
+            neckEl.textContent=neck;
+        })();
+
+        // ========== IDŐJÁRÁS ==========
+        (function(){
+            if(!navigator.geolocation) return;
+            navigator.geolocation.getCurrentPosition(pos=>{
+                const lat=pos.coords.latitude.toFixed(2);
+                const lon=pos.coords.longitude.toFixed(2);
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+                .then(r=>r.json()).then(data=>{
+                    const code=data.current_weather.weathercode;
+                    const wl=document.getElementById('weatherLayer');
+                    // WMO kódok: 0-1 derült, 2-3 felhős, 51-67 eső, 71-77 hó, 95-99 vihar
+                    if(code>=51&&code<=67||code>=95){
+                        // Eső
+                        for(let i=0;i<40;i++){
+                            const drop=document.createElement('div');drop.className='raindrop';
+                            const h=Math.random()*20+10;
+                            drop.style.cssText=`left:${Math.random()*100}%;height:${h}px;--d:${(Math.random()*0.5+0.4).toFixed(2)}s;animation-delay:${(Math.random()*-2).toFixed(2)}s`;
+                            wl.appendChild(drop);
+                        }
+                    } else if(code>=71&&code<=77){
+                        // Hó
+                        for(let i=0;i<35;i++){
+                            const flake=document.createElement('div');flake.className='snowflake';
+                            const sz=Math.random()*6+3;
+                            flake.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${(Math.random()*3+3).toFixed(1)}s;--sx:${(Math.random()*60-30).toFixed(0)}px;animation-delay:${(Math.random()*-5).toFixed(1)}s`;
+                            wl.appendChild(flake);
+                        }
+                    } else if(code<=1){
+                        // Napsütés — sugarak
+                        for(let i=0;i<8;i++){
+                            const ray=document.createElement('div');ray.className='sunray';
+                            ray.style.cssText=`transform:rotate(${i*45}deg);animation-delay:${(i*0.5).toFixed(1)}s;left:calc(50% - 1.5px)`;
+                            wl.appendChild(ray);
+                        }
+                    }
+                }).catch(()=>{});
+            },()=>{},{enableHighAccuracy:false,timeout:5000});
+        })();
+
+        // ========== ÜZENETEK (365 db — TopJoy stílus) ==========
+        const M=[
+            // --- 1–30: Önbizalom ---
+            {t:"Ne feledd, hogy nem vagy egyedül.",e:"💛"},
+            {t:"Higgy magadban, mert képes vagy rá!",e:"⭐"},
+            {t:"Ma is ragyogsz, még ha nem is látod.",e:"✨"},
+            {t:"Valaki most épp rád gondol és mosolyog.",e:"😊"},
+            {t:"Te vagy elég. Pontosan így, ahogy vagy.",e:"💫"},
+            {t:"A te történeted különleges és megismételhetetlen.",e:"📖"},
+            {t:"Büszke lehetsz magadra, mert messzire jutottál.",e:"🏅"},
+            {t:"A világnak szüksége van rád, pontosan ilyenre.",e:"🌍"},
+            {t:"Ma minden okod megvan a mosolyra.",e:"😄"},
+            {t:"Te vagy valakinek a kedvenc embere.",e:"❤️"},
+            {t:"A te fényed másokat is felemel.",e:"🌟"},
+            {t:"Légy büszke arra, aki lettél!",e:"🦋"},
+            {t:"Többre vagy képes, mint gondolnád.",e:"💪"},
+            {t:"A te jelenléted ajándék a világnak.",e:"🎁"},
+            {t:"Ma mondd ki: elég vagyok, és tényleg az is vagy.",e:"🗣️"},
+            {t:"Nem kell tökéletesnek lenned ahhoz, hogy csodálatos légy.",e:"🌈"},
+            {t:"A te hangod fontos. Ne hallgass el!",e:"🎤"},
+            {t:"Csillagokból lettél. Szó szerint.",e:"⭐"},
+            {t:"Senki nem tud úgy ragyogni, ahogy te.",e:"💎"},
+            {t:"A te mosolyod a világ legszebb dísze.",e:"😊"},
+            {t:"Ma is érdemes volt felébredni.",e:"🌅"},
+            {t:"Te vagy a saját szuperhősöd.",e:"🦸"},
+            {t:"Az erőd nagyobb, mint a félelmeid.",e:"🛡️"},
+            {t:"Ne hagyd, hogy bárki megmondja, mit érsz.",e:"👑"},
+            {t:"Ma légy a saját napfényed!",e:"☀️"},
+            {t:"Mindig van okod a reményre.",e:"🕊️"},
+            {t:"A te szíved aranyat ér.",e:"💛"},
+            {t:"Képes vagy csodálatos dolgokra!",e:"🚀"},
+            {t:"Ma indulj el bátran a célod felé!",e:"🎯"},
+            {t:"Soha ne add fel — a legjobb most jön!",e:"🔥"},
+            // --- 31–60: Szeretet & Kapcsolatok ---
+            {t:"Akit szeretsz, az most épp rád gondol.",e:"💕"},
+            {t:"Egy ölelés mindent megold. Képzeld el, most kapsz egyet!",e:"🤗"},
+            {t:"A szeretet nem fogy el, ha adod.",e:"💝"},
+            {t:"Ma mondj valakinek valami kedveset!",e:"💬"},
+            {t:"A barátság a lélek vitaminja.",e:"🧡"},
+            {t:"Írj ma valakinek, akit régen nem kerestél!",e:"📱"},
+            {t:"A kedvességed láncreakciót indít.",e:"🔗"},
+            {t:"Ne feledd: valakit boldoggá teszel pusztán azzal, hogy létezel.",e:"🌸"},
+            {t:"A legjobb ajándék a figyelmed.",e:"👀"},
+            {t:"Ma ölelj meg valakit egy kicsit hosszabban!",e:"🫂"},
+            {t:"A szeretet a legerősebb erő a világon.",e:"❤️"},
+            {t:"Aki melletted van a rossz napokon, az az igazi.",e:"🤝"},
+            {t:"Gondolj arra, aki szeret — máris jobb, ugye?",e:"😌"},
+            {t:"Ma mondj köszönetet valakinek!",e:"🙏"},
+            {t:"A mosoly a legjobb üzenet, amit küldhetsz.",e:"😊"},
+            {t:"Ne feledd: sosem vagy egyedül, még ha úgy is érzed.",e:"🫶"},
+            {t:"Valahol most épp valaki imádkozik érted.",e:"🕯️"},
+            {t:"Adj ma egy esélyt a megbocsátásnak!",e:"🕊️"},
+            {t:"A legjobb napok azok, amiket szeretteiddel töltöd.",e:"👨‍👩‍👧‍👦"},
+            {t:"Légy hálás azokért, akik szeretnek!",e:"🙌"},
+            {t:"Egy kedves szó napokat menthet meg.",e:"💌"},
+            {t:"Ma figyelj oda arra, aki csendben van.",e:"🤫"},
+            {t:"A szeretet nyelve az idő, amit adsz.",e:"⏰"},
+            {t:"Ma légy az a fény, amire másoknak szüksége van.",e:"🔆"},
+            {t:"A legjobb beszélgetések szívből jönnek.",e:"💗"},
+            {t:"Valaki ma nagyon hálás, hogy ismert téged.",e:"🌻"},
+            {t:"Adj egy esélyt a mai napnak — meglephet!",e:"🎉"},
+            {t:"Az igazi gazdagság a kapcsolataidban rejlik.",e:"💰"},
+            {t:"Ma mondj igent egy közös programra!",e:"🎪"},
+            {t:"A törődés a legszebb emberi vonás.",e:"🌹"},
+            // --- 61–90: Bölcsesség ---
+            {t:"Minden nehéz nap erősebbé tesz.",e:"💪"},
+            {t:"A kudarc nem a végpont, hanem az újrakezdés.",e:"🔄"},
+            {t:"A türelem a bátrak erénye.",e:"⏳"},
+            {t:"Ami mögötted van, semmi ahhoz képest, ami benned van.",e:"💎"},
+            {t:"Minden szakértő egyszer kezdő volt.",e:"🌱"},
+            {t:"A legjobb időpont elkezdeni: most.",e:"⏰"},
+            {t:"Ne hasonlítsd magad másokhoz — a te utad egyedi.",e:"🛤️"},
+            {t:"A hála a boldogság titkos kulcsa.",e:"🔑"},
+            {t:"A legegyszerűbb dolgok adják a legnagyobb örömöt.",e:"🌸"},
+            {t:"Az élet 10% az, ami történik, 90% a reakciód.",e:"🎲"},
+            {t:"A bátorság nem a félelem hiánya, hanem a továbblépés.",e:"🦁"},
+            {t:"Minden naplemente után napfelkelte jön.",e:"🌅"},
+            {t:"A legjobb verziódat építed éppen.",e:"🏗️"},
+            {t:"A változás az egyetlen állandó.",e:"🔄"},
+            {t:"A boldog ember nem az, akinek mindene megvan.",e:"🧘"},
+            {t:"Ma tanulj valamit, amit tegnap még nem tudtál!",e:"📚"},
+            {t:"Az igazi luxus: idő, béke, egészség.",e:"🌿"},
+            {t:"A legnagyobb kalandok a komfortzónádon kívül várnak.",e:"🗺️"},
+            {t:"Amit ma megteszel, formálja, ki leszel holnap.",e:"🔮"},
+            {t:"A sikered mértéke az, amit leküzdesz közben.",e:"🏆"},
+            {t:"Az élet nem arról szól, hogy megtaláld magad, hanem megalkossad.",e:"🎨"},
+            {t:"Lépésről lépésre — csak a következő számít.",e:"👟"},
+            {t:"A víz mindig megtalálja az utat. Te is.",e:"🌊"},
+            {t:"A legsötétebb éjszaka után jön a legszebb hajnal.",e:"🌄"},
+            {t:"Engedd el, ami nem szolgál téged.",e:"🎈"},
+            {t:"Ma ne a problémára fókuszálj, hanem a megoldásra!",e:"🧠"},
+            {t:"Az igazi erő belülről jön.",e:"🔥"},
+            {t:"A legfontosabb döntés: hogyan reagálsz.",e:"🧭"},
+            {t:"A mai nap ajándék — bontsd ki lassan!",e:"🎁"},
+            {t:"Minden döntésed a jövőbeli éned formálja.",e:"🗳️"},
+            // --- 91–120: Kitartás ---
+            {t:"Ne add fel — a legjobb fejezet most íródik.",e:"📖"},
+            {t:"A gyémánt is csak nyomás alatt lesz gyémánt.",e:"💎"},
+            {t:"A bambusz 5 évig nő a föld alatt. Te is építkezel.",e:"🎋"},
+            {t:"Nem az számít, hányszor esel. Az, hogy felállsz.",e:"🥊"},
+            {t:"A kitartásod erősebb, mint a nehézségeid.",e:"🪨"},
+            {t:"Ma tedd meg azt az egy dolgot, amit halogatol!",e:"✅"},
+            {t:"A repülő is széllel szemben száll fel.",e:"✈️"},
+            {t:"Ha fáradt vagy, pihenj — de ne add fel!",e:"⛺"},
+            {t:"Minden egyes nap egy új esély.",e:"🎯"},
+            {t:"A sas a vihart használja, hogy magasabbra repüljön.",e:"🦅"},
+            {t:"Haladás > tökéletesség.",e:"📈"},
+            {t:"Kezdd el csinálni — a motiváció majd utolér.",e:"🏃"},
+            {t:"A tökéletes pillanat nem létezik. A legjobb: most.",e:"⚡"},
+            {t:"Ne várd, hogy kész legyél. Sosem leszel. Ugorj!",e:"🪂"},
+            {t:"A hegyet lépésről lépésre kell megmászni.",e:"🧗"},
+            {t:"Ma legyél 1%-kal jobb, mint tegnap.",e:"📊"},
+            {t:"Az akadály az utat mutatja, nem a végét.",e:"🚧"},
+            {t:"Nem kell hegyeket megmozgatnod. Elég, ha mész tovább.",e:"🏔️"},
+            {t:"A türelem nem passzivitás — aktív várakozás.",e:"🎣"},
+            {t:"Minden próbálkozás közelebb visz a célhoz.",e:"🎯"},
+            {t:"Az erőfeszítésed sosincs elveszve.",e:"💪"},
+            {t:"Hibázhatsz — ettől leszel emberi és bátor.",e:"🌟"},
+            {t:"Ma ne azon gondolkodj, miért nem. Azon, hogy miért igen!",e:"💡"},
+            {t:"A vihar után tisztább a levegő.",e:"🌤️"},
+            {t:"Egy kis lépés ma többet ér egy nagy tervnél holnap.",e:"🪜"},
+            {t:"A félelem gyakran iránytű — arrafelé menj!",e:"🧭"},
+            {t:"A legjobb dolgok azoknak jönnek, akik nem adják fel.",e:"🏆"},
+            {t:"Te már annyi mindent túléltél. Ez is menni fog.",e:"💫"},
+            {t:"Ma hozz egy döntést, ami közelebb visz az álmaidhoz!",e:"🌙"},
+            {t:"Az, hogy nehéz, nem jelenti, hogy lehetetlen.",e:"🔓"},
+            // --- 121–150: Nyugalom & Mindfulness ---
+            {t:"Lélegezz. Minden rendben van.",e:"🍃"},
+            {t:"Ma engedd meg magadnak a pihenést.",e:"🛌"},
+            {t:"Zárd be a szemed és érezd, hogy élsz.",e:"🧘"},
+            {t:"Igyál egy pohár vizet — a tested megköszöni.",e:"💧"},
+            {t:"Ma nézz fel az égre. Gyönyörű, ugye?",e:"🌤️"},
+            {t:"A csend tele van válaszokkal.",e:"🤫"},
+            {t:"Ma élj a pillanatban. Csak ebben az egyben.",e:"☀️"},
+            {t:"A belső hangod bölcsebb, mint gondolnád.",e:"🧘"},
+            {t:"Ma adj magadnak engedélyt arra, hogy boldog légy.",e:"🌈"},
+            {t:"Az élet túl rövid a felesleges aggódáshoz.",e:"🫖"},
+            {t:"Néha a legjobb terv: nincs terv.",e:"🌿"},
+            {t:"A természet nem siet, mégis mindent elvégez.",e:"🐌"},
+            {t:"Ma sétálj egy kicsit lassabban.",e:"🚶"},
+            {t:"Fogadd el a bókokat — megérdemled!",e:"💐"},
+            {t:"A nap mindig süt, csak néha felhők takarják.",e:"⛅"},
+            {t:"Ma hallgass meg egy dalt, ami boldoggá tesz!",e:"🎶"},
+            {t:"A legjobb self-care: egy mosoly és egy mély levegő.",e:"😌"},
+            {t:"Gondolj a kedvenc helyedre. Érezd a békét.",e:"🏖️"},
+            {t:"Ma este nézd meg a csillagokat.",e:"🌠"},
+            {t:"Engedd el a feszültséget — nem a tied.",e:"🎈"},
+            {t:"Ma figyelj meg egy fát. Erős és türelmes.",e:"🌳"},
+            {t:"Egy mély levegő több, mint gondolnád.",e:"🌬️"},
+            {t:"A béke nem kívülről jön — benned van.",e:"☮️"},
+            {t:"Ma ne rohanj. Élvezd az utat!",e:"🛤️"},
+            {t:"Valahol most épp rád gondolnak jóságosan.",e:"💭"},
+            {t:"A legszebb pillanatok a legcsendesebbek.",e:"🕊️"},
+            {t:"Ma adj hálát 3 dologért, ami eszedbe jut.",e:"🙏"},
+            {t:"A tested csoda — becsüld meg!",e:"🫁"},
+            {t:"Ma este mondd magadnak: eleget tettem.",e:"😌"},
+            {t:"A jelen pillanat a tied. Ölelj bele!",e:"💖"},
+            // --- 151–180: Humor & Könnyedség ---
+            {t:"Ha az élet citromost ad, csinálj limonádét!",e:"🍋"},
+            {t:"A pingvinek egész nap öltönyben járnak, mégis lazák.",e:"🐧"},
+            {t:"Még a pizza sem tetszik mindenkinek. (Pedig lehetetlen.)",e:"🍕"},
+            {t:"A macskák napi 16 órát alszanak. Légy ma kicsit macska!",e:"🐱"},
+            {t:"A mosoly fertőző — indíts ma egy járványt!",e:"😁"},
+            {t:"Ma a terved: kávé, mosoly, világ megváltása.",e:"☕"},
+            {t:"A GPS sem mondja, hogy feladom — hanem: újratervezés!",e:"🗺️"},
+            {t:"Ma légy a saját cheerleadered!",e:"📣"},
+            {t:"A Post-it is egy elrontott ragasztóból született.",e:"📝"},
+            {t:"A teknősök 200 évig élnek. A titok: ne stresszelj!",e:"🐢"},
+            {t:"Ma egyél valami finomat bűntudat nélkül!",e:"🍰"},
+            {t:"A stressz úgy sem kalória, szóval egyél inkább egy sütit.",e:"🧁"},
+            {t:"Ha a napod szar: valahol egy kutya most nagyon boldog.",e:"🐶"},
+            {t:"Az agyad 70.000 gondolatot termel naponta. Tegyél közéjük 3 jót!",e:"💭"},
+            {t:"Ma úgy járj, mintha epikus filmzene szólna a fejedben.",e:"🎻"},
+            {t:"A napodnak ugyanannyi órája van, mint Beyoncé-nak. Használd!",e:"💃"},
+            {t:"Ma küldj egy random szív emojit valakinek!",e:"💜"},
+            {t:"Húzz fel egy kedvenc zoknit. A lábujjaid is megérdemlik!",e:"🧦"},
+            {t:"Csinálj egy power pose-t a tükör előtt. Működik!",e:"🦸"},
+            {t:"A nevetés 15 percet ad az életedhez. Ma nevess sokat!",e:"😂"},
+            {t:"Ma te vagy a főszereplő. A kamera forog!",e:"🎬"},
+            {t:"Valahol egy párhuzamos univerzumban most minden sikerül. Talán ez az!",e:"🌌"},
+            {t:"A WiFi-d lehet gyenge, de az akaraterőd nem.",e:"📶"},
+            {t:"Ma csinálj meg valamit 2 perc alatt, amit régóta halogatod!",e:"⚡"},
+            {t:"Minden profi valaha amatőr volt. Te épp úton vagy!",e:"🛣️"},
+            {t:"A legjobb befektetés: amikor hittél magadban.",e:"💰"},
+            {t:"A kávéd neve ma: Reménysugár.",e:"☕"},
+            {t:"A mosolygás 43 izmot használ. Ma edzd meg az arcod!",e:"😁"},
+            {t:"Ma adj nevet egy felhőnek. Komolyan!",e:"☁️"},
+            {t:"Az emberiség a Holdra is eljutott. Te is kibírod a hétfőt.",e:"🌕"},
+            // --- 181–210: Kreativitás ---
+            {t:"Ma nézd meg, amit minden nap látsz — de most figyelj jobban!",e:"🔎"},
+            {t:"Rajzolj ma valamit. Mindegy mit. Csak rajzolj!",e:"✍️"},
+            {t:"Az unalom a kreativitás szülőszobája.",e:"💡"},
+            {t:"Ma hallgass meg egy dalt, amit még soha nem hallottál!",e:"🎧"},
+            {t:"Főzz meg ma valamit, amit még soha!",e:"👨‍🍳"},
+            {t:"Írj le 3 dolgot, amit szeretsz magadban!",e:"📝"},
+            {t:"Ma csinálj egy fotót valamiről, ami szépnek találsz!",e:"📸"},
+            {t:"A kíváncsiság szuperképesség. Kérdezz bátran!",e:"🧐"},
+            {t:"Ma figyelj meg egy gyereket — ők tudják a titkot.",e:"🧒"},
+            {t:"Gondolj ki egy feltalálást, amire szükség lenne!",e:"🔧"},
+            {t:"Ma találj ki egy új szót a boldogságra!",e:"✏️"},
+            {t:"A kreativitásod határtalan. Engedd szabadjára!",e:"🎨"},
+            {t:"Ma nézz ki az ablakon és keress valamit, amit még nem láttál!",e:"🪟"},
+            {t:"Tanulj meg egy szót egy új nyelven!",e:"🌐"},
+            {t:"Írj levelet a jövőbeli önmagadnak!",e:"✉️"},
+            {t:"Ma olvasd el egy könyv első mondatát. Ha megfog, vidd haza!",e:"📖"},
+            {t:"A világ tele van ajtókkal. Ma nyiss ki egyet!",e:"🚪"},
+            {t:"Ma gondolj ki, mi lenne a szupererőd!",e:"🦹"},
+            {t:"Tanulj meg ma egy varázstrükköt!",e:"🪄"},
+            {t:"A legjobb ötletek váratlanul jönnek. Légy nyitott!",e:"💡"},
+            {t:"Ma próbálj ki valami újat. Légy kezdő!",e:"🌱"},
+            {t:"A képzeleted erősebb, mint a valóság korlátai.",e:"🌈"},
+            {t:"Figyelj ma egy madárra — repül, mert hisz benne.",e:"🐦"},
+            {t:"Gondolj ki egy történetet 3 szóban!",e:"📚"},
+            {t:"Ma fedezz fel egy új zenei műfajt!",e:"🎵"},
+            {t:"Nézd meg a naplementét — ingyen van és felbecsülhetetlen.",e:"🌅"},
+            {t:"A legszebb művészet az életed — te alkotod!",e:"🖼️"},
+            {t:"Ma csinálj valamit csak azért, mert örömet okoz!",e:"🎉"},
+            {t:"A világ színesebb, ha te is hozzáadsz egy színt!",e:"🎨"},
+            {t:"Ma lepd meg magad valami váratlannal!",e:"🎊"},
+            // --- 211–240: Természet ---
+            {t:"Ma sétálj egyet a szabadban — jót tesz a léleknek!",e:"🌲"},
+            {t:"Figyelj meg ma egy virágot. Mikor csináltad utoljára?",e:"🌺"},
+            {t:"A tenger hullámzik, de a mélyben nyugodt. Te is lehetsz.",e:"🌊"},
+            {t:"Ma gyere ki a négy fal közül! 5 perc napfény csodákat tesz.",e:"☀️"},
+            {t:"A virág nem versenyez a mellette lévővel. Csak nyílik.",e:"🌷"},
+            {t:"Ma figyelj a szélre. Honnan fúj? Te hova tartasz?",e:"💨"},
+            {t:"Járj ma mezítláb a fűben — a lelked megköszöni!",e:"🦶"},
+            {t:"Szagolj meg ma egy virágot. Komolyan!",e:"🌹"},
+            {t:"A legszebb fotókat szemmel és szívvel csinálják.",e:"📷"},
+            {t:"Ma hallgasd meg az esőt — vagy képzeld el!",e:"🌧️"},
+            {t:"Egy fa nem siet, mégis magasabbra nő, mint bármi más.",e:"🌴"},
+            {t:"Ma nézz fel a felhőkre. Gyerekként órákat tudtál!",e:"☁️"},
+            {t:"A természet a legjobb gyógyszer.",e:"🌿"},
+            {t:"Egyszer minden évben eljön a legjobb napod. Ma talán az!",e:"🎉"},
+            {t:"Ma ülj le és csak légy. Ennyi elég.",e:"🧘"},
+            {t:"A csillagokat nézni összeköt azzal, aki volt és aki lesz.",e:"🌠"},
+            {t:"Egy pohár víz, mély levegő, mosoly. Ennyi a self-care.",e:"💧"},
+            {t:"Az eső után minden tisztább. Az érzések is.",e:"🌈"},
+            {t:"Ma keress egy helyet, ahol csend van. Maradj ott kicsit!",e:"🏞️"},
+            {t:"A napfény ingyen van — ma élvezd ki!",e:"🌞"},
+            {t:"Nézd meg az eget — ugyanaz a kék, mint az őseidé volt.",e:"🔵"},
+            {t:"A hold is csak félig világít néha, mégis gyönyörű.",e:"🌙"},
+            {t:"A természetben nincs hibás — csak különböző.",e:"🍂"},
+            {t:"Ma légy hálás a levegőért, amit belélegzel.",e:"🌬️"},
+            {t:"Egy madárdal többet mond ezer szónál.",e:"🐦"},
+            {t:"Ma találj egy szép követ és vidd haza emlékbe!",e:"🪨"},
+            {t:"Az évszakok váltakozása azt üzeni: minden elmúlik.",e:"🍁"},
+            {t:"A legjobb séta az, aminek nincs célja.",e:"🚶"},
+            {t:"Ma légy kíváncsi, mint egy gyerek a kertben!",e:"🌻"},
+            {t:"A föld forgása sosem áll meg. Te se állj meg!",e:"🌍"},
+            // --- 241–270: Érzelmek ---
+            {t:"Sírni is szabad. Az is erő.",e:"💧"},
+            {t:"Ma engedd meg magadnak, hogy érezz.",e:"💗"},
+            {t:"A boldogság apró pillanatokból áll.",e:"🌟"},
+            {t:"Ha szomorú vagy, az is rendben van. El fog múlni.",e:"🌧️"},
+            {t:"Ma mondj valami szépet magadnak!",e:"💬"},
+            {t:"Az érzéseid érvényesek — mindegyik.",e:"🫶"},
+            {t:"Nem kell mindig erősnek lenni.",e:"🧸"},
+            {t:"Ma engedj el egy régi fájdalmat.",e:"🎈"},
+            {t:"A sebezhetőség bátorság, nem gyengeség.",e:"🦁"},
+            {t:"Ma öleld meg magad — megérdemled!",e:"🤗"},
+            {t:"A könnyeid is részei a történetednek.",e:"📖"},
+            {t:"Adj magadnak időt a gyógyulásra.",e:"🩹"},
+            {t:"Ma nevess hangosan — nem kell ok hozzá!",e:"😂"},
+            {t:"Az öröm választás. Ma válaszd azt!",e:"🌈"},
+            {t:"A szíved többet tud, mint az eszed.",e:"❤️"},
+            {t:"Ha elveszettnek érzed magad, nézz a szívedbe.",e:"🧭"},
+            {t:"A legjobb érzés: amikor valaki őszintén örül neked.",e:"🥹"},
+            {t:"Ma mutasd meg az igazi éned — az a legszebb!",e:"🪞"},
+            {t:"A hálaérzet mindent megváltoztat.",e:"🙏"},
+            {t:"Nem kell megmagyarázni az érzéseidet.",e:"🤍"},
+            {t:"Ma légy kedves magadhoz — ez a legfontosabb.",e:"🌸"},
+            {t:"Az igazi bátorság: megmutatni, ki vagy valójában.",e:"🦋"},
+            {t:"Ma engedd be a szeretetet!",e:"💕"},
+            {t:"Az érzések hullámok — jönnek és mennek.",e:"🌊"},
+            {t:"A szomorúság után mindig jön a megkönnyebbülés.",e:"🌤️"},
+            {t:"Ma adj magadnak egy kis extra törődést!",e:"🫧"},
+            {t:"A gyerekkorod ártatlanságát még mindig magadban hordod.",e:"🧒"},
+            {t:"Ma mosolyogj egy idegenen — csodát tesz!",e:"😊"},
+            {t:"A legjobb napok váratlanul jönnek.",e:"✨"},
+            {t:"Az igazi boldogság: elfogadni magad olyannak, amilyen vagy.",e:"💫"},
+            // --- 271–300: Energia & Cselekvés ---
+            {t:"Ma csináld meg! Ne holnap.",e:"⚡"},
+            {t:"Az energia nem véges — minél többet adsz, annál több jön.",e:"🔋"},
+            {t:"Ma reggel ne a hírekkel kezdd. Kezdd azzal, ami fontos!",e:"📵"},
+            {t:"Állj fel, nyújtózkodj, igyál vizet. Lássuk!",e:"🧘"},
+            {t:"A világ azokat jutalmazza, akik cselekednek.",e:"🏆"},
+            {t:"Ma hozz egy döntést, ami boldoggá tesz!",e:"🎯"},
+            {t:"A nem is szupererő. Ma mondj nemet arra, ami nem szolgál!",e:"🛡️"},
+            {t:"Ma legalább 1 apró lépést tegyél a célod felé!",e:"👟"},
+            {t:"A tervezés jó, de a cselekvés jobb.",e:"📋"},
+            {t:"Ma tedd a dolgod — a többit bízd a sorsra!",e:"🍀"},
+            {t:"Csináld, amitől félsz. Ott kezdődik a növekedés.",e:"🌱"},
+            {t:"Ma add bele magad 100%-ban!",e:"💯"},
+            {t:"Egy befejezett 70% jobb, mint egy soha el nem készült 100%.",e:"✅"},
+            {t:"Ma ne tökéletességre törekedj — haladásra!",e:"📈"},
+            {t:"Cselekedj ma úgy, mintha nem félnél!",e:"🦸"},
+            {t:"A rutinod a szuperhatalmad. Építsd tudatosan!",e:"🧱"},
+            {t:"Ma egyetlen dologra fókuszálj — és csináld jól!",e:"🔍"},
+            {t:"A pici szokások hozzák a nagy változásokat.",e:"🪜"},
+            {t:"Ma reggel tedd meg az első lépést. A többit majd meglátod!",e:"🌅"},
+            {t:"Ne gondolkodj túl sokat. Csináld!",e:"🚀"},
+            {t:"Az a nap, amit tegnap vártál — ma itt van!",e:"🌞"},
+            {t:"Ma légy aktív — a tested és a lelked is megköszöni!",e:"🏃"},
+            {t:"A siker apró döntésekből épül. Ma hozz egy jót!",e:"🧩"},
+            {t:"Ne várd a megfelelő pillanatot — teremtsd meg!",e:"⏰"},
+            {t:"Ma küzdj azért, amit szeretsz!",e:"🥊"},
+            {t:"Az ébresztő szólt — a lehetőségek várnak!",e:"⏰"},
+            {t:"Légy ma bátrabb, mint tegnap!",e:"🦁"},
+            {t:"Minden nap egy új oldal. Írd tele szépséggel!",e:"📝"},
+            {t:"Ma ne panaszkodj — cselekedj!",e:"💪"},
+            {t:"A jövőd attól függ, amit ma teszel.",e:"🔮"},
+            // --- 301–330: Mélység ---
+            {t:"A múlt tanított, a jelen formál, a jövő vár.",e:"⏳"},
+            {t:"Ma légy hálás a testedért — minden lélegzeted csoda.",e:"🫁"},
+            {t:"Az élet nem probléma, amit meg kell oldani. Élmény.",e:"🎪"},
+            {t:"Nem az a lényeg, mit hagy a világ neked, hanem mit hagysz te.",e:"🌎"},
+            {t:"A szavaid hatalom. Válaszd őket bölcsen!",e:"🗝️"},
+            {t:"Az élet nem fair — de szép. Mindkettő igaz.",e:"⚖️"},
+            {t:"Ma ne aggodalmakat számolj — áldásokat!",e:"📿"},
+            {t:"Légy olyan ember, akit a gyerek-éned csodálna.",e:"👦"},
+            {t:"A legfontosabb beszélgetés: amit magaddal folytatsz.",e:"💬"},
+            {t:"Holnap is lesz üzenet. De a mai csak a tied.",e:"💖"},
+            {t:"Te többre vagy képes, mint gondolnád. Ezt neked mondom.",e:"📢"},
+            {t:"Légy büszke arra, ami vagy. Izgatott azért, ami leszel.",e:"🦊"},
+            {t:"Ma indulj el valami felé, ami boldoggá tesz!",e:"🛤️"},
+            {t:"A világ nem tökéletes, te sem — és pont ez a szép.",e:"🌈"},
+            {t:"Végül minden rendben lesz. Ha nincs, az nem a vég.",e:"🌟"},
+            {t:"Ma minden percben ott van egy kis mágia.",e:"🔮"},
+            {t:"Gondolj bele: a kedvenc dalod egyszer még ismeretlen volt.",e:"🎬"},
+            {t:"Egy nap visszanézel és azt mondod: itt fordult jobbra.",e:"🔮"},
+            {t:"A legjobb projekt, amin dolgozhatsz: te magad.",e:"🛠️"},
+            {t:"Az élet olyan, mint a kerékpározás — az egyensúlyhoz mozogni kell.",e:"🚲"},
+            {t:"Ma engedd meg magadnak, hogy változz.",e:"🔄"},
+            {t:"A legjobb dolgok az életben nem dolgok.",e:"🌸"},
+            {t:"A Föld 4,5 milliárd éve létezik, és pont most vagy itt.",e:"🌍"},
+            {t:"Ha a tested gép lenne, a szíved az a motor, ami sosem áll le.",e:"❤️"},
+            {t:"A félelmed olyan, mint a sötét szoba — kapcsold fel a villanyt!",e:"💡"},
+            {t:"Ma gondolj arra, mi tett boldoggá 10 évesen. Csinálj belőle valamit!",e:"🎠"},
+            {t:"Valahol a világon valaki pont arról álmodik, amid neked megvan.",e:"💭"},
+            {t:"A pillangó nem tudja, milyen szép. Te se mindig. De az vagy.",e:"🦋"},
+            {t:"Három dolog ma biztosan igaz: létezel, értékes vagy, valaki szeret.",e:"💛"},
+            {t:"Ma reggel a Világegyetem adott neked egy újabb napot. Használd!",e:"🌅"},
+            // --- 331–365: Extra bölcsességek ---
+            {t:"Ne keresd a boldogságot — teremtsd meg!",e:"🌻"},
+            {t:"A hited hegyeket mozgat. Higgy magadban!",e:"⛰️"},
+            {t:"Ma adj a világnak valamit, amit csak te tudsz adni.",e:"🎁"},
+            {t:"Az álmod nem túl nagy — a félelmeid túl hangosak.",e:"🌙"},
+            {t:"Minden egyes reggel egy újabb csoda.",e:"🌅"},
+            {t:"A te utad egyedi — ne hasonlítsd másokéhoz!",e:"🛤️"},
+            {t:"Ma csak légy jelen. Ez elég.",e:"🧘"},
+            {t:"A szíved tudja az utat — kövesd!",e:"❤️"},
+            {t:"Nem kell mindent értened — elég, ha bízol.",e:"🕊️"},
+            {t:"Ma légy az, akire szükséged volt, amikor gyerek voltál.",e:"🧸"},
+            {t:"A kedvesség sosem megy kárba.",e:"🌹"},
+            {t:"Gondolj arra az egy emberre, aki mindig melletted volt. Köszönd meg!",e:"🫂"},
+            {t:"A mai nap tele van lehetőségekkel!",e:"🚪"},
+            {t:"Nem a cél számít, hanem az út, amin jársz.",e:"🗺️"},
+            {t:"Ma tanulj meg elengedni — a könnyebbség megéri.",e:"🎈"},
+            {t:"A te életed a te mestermunkád.",e:"🎨"},
+            {t:"Ma fogadj el egy bókot szívből!",e:"💐"},
+            {t:"Gondolj bele, hány embernek tettél jót az életedben!",e:"🌟"},
+            {t:"A remény nem naivitás — a bátorság jele.",e:"🌱"},
+            {t:"Ma mondj igent az életre!",e:"✨"},
+            {t:"A legjobb dolog, ami ma történhet: rád gondolnak.",e:"🫶"},
+            {t:"Nem kell megváltoztatnod a világot — elég, ha a sajátodat szebbé teszed.",e:"🏡"},
+            {t:"A szíved nagyobb, mint a félelmeid.",e:"💗"},
+            {t:"Ma tedd azt, ami boldoggá tesz — bűntudat nélkül!",e:"🎉"},
+            {t:"A legjobb verziódat ma is építed. Légy türelmes!",e:"🏗️"},
+            {t:"Ma ne a hiányt nézd — nézd, mi minden van!",e:"📋"},
+            {t:"A napod pont olyan szép, amilyenné teszed.",e:"🌞"},
+            {t:"A jóság visszatalál hozzád. Mindig.",e:"🔄"},
+            {t:"Ma mosolyogj a tükörbe — a legjobb barátod néz vissza!",e:"🪞"},
+            {t:"A mai nap soha nem jön vissza. Tedd emlékezetessé!",e:"💎"},
+            {t:"Ma csak annyit kell tenned: lenni. Ez is elég.",e:"🍃"},
+            {t:"A te életed számít. Ma is, holnap is, mindig.",e:"💫"},
+            {t:"Minden végződés egy új kezdet.",e:"🌅"},
+            {t:"Szeretnek. Ne feledd ezt soha!",e:"❤️"},
+            {t:"A holnap egy üres lap — rajzolj rá valami szépet!",e:"🎨"},
+        ];
+
+        // ========== APP ==========
+        const btn=document.getElementById('btn'),bubble=document.getElementById('bubble'),ph=document.getElementById('ph'),cfx=document.getElementById('cfx');
+        let done=false;
+        const td=()=>new Date().toDateString();
+
+        // Egyedi user ID — minden felhasználó más üzenetet kap
+        function getUid(){
+            let u=localStorage.getItem('nu_uid');
+            if(!u){u=Math.floor(Math.random()*100000).toString();localStorage.setItem('nu_uid',u)}
+            return parseInt(u);
+        }
+        const uid=getUid();
+
+        function dm(){
+            const d=new Date();
+            // Április 1. speciális üzenet
+            if(d.getMonth()===3 && d.getDate()===1){
+                return {t:"Az admin azt üzeni hogy legyen szép napod!",e:"😄"};
+            }
+            const s=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()+uid;
+            return M[s%M.length];
+        }
+
+        document.getElementById('date').textContent=new Date().toLocaleDateString('hu-HU',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+
+        // Streak
+        (function(){const t=td(),l=localStorage.getItem('nu_l');let s=parseInt(localStorage.getItem('nu_s')||'0');if(l!==t){const y=new Date();y.setDate(y.getDate()-1);s=l===y.toDateString()?s+1:1;localStorage.setItem('nu_l',t);localStorage.setItem('nu_s',s.toString())}if(s>1){document.getElementById('streak').classList.add('on');document.getElementById('sn').textContent=s}})();
+
+        function seen(){return localStorage.getItem('nu_d')===td()}
+        function mark(){localStorage.setItem('nu_d',td())}
+
+        // Hang effekt (iOS-en is működik, vibrate nem)
+        let audioCtx=null;
+        function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)()}
+        function tickSound(){
+            if(!audioCtx)return;
+            const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+            o.connect(g);g.connect(audioCtx.destination);
+            o.frequency.value=800+Math.random()*400;
+            g.gain.value=0.03;
+            g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.04);
+            o.start();o.stop(audioCtx.currentTime+0.04);
+        }
+        function doneSound(){
+            if(!audioCtx)return;
+            [0,80,160].forEach((delay,i)=>{
+                setTimeout(()=>{
+                    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+                    o.connect(g);g.connect(audioCtx.destination);
+                    o.frequency.value=[900,1100,1400][i];
+                    g.gain.value=0.05;
+                    g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.1);
+                    o.start();o.stop(audioCtx.currentTime+0.1);
+                },delay);
+            });
+        }
+
+        // Gépelő effekt hanggal
+        function typeText(el,text,cb){
+            el.innerHTML='';
+            let i=0;
+            const cursor=document.createElement('span');
+            cursor.className='cursor';
+            el.appendChild(cursor);
+
+            function tick(){
+                if(i<text.length){
+                    el.insertBefore(document.createTextNode(text[i]),cursor);
+                    if(i%2===0){tickSound();if(navigator.vibrate)navigator.vibrate(15)}
+                    i++;
+                    setTimeout(tick, 30 + Math.random()*25);
+                } else {
+                    doneSound();
+                    if(navigator.vibrate)navigator.vibrate([50,30,50]);
+                    setTimeout(()=>{cursor.remove();if(cb)cb()},500);
+                }
+            }
+            tick();
+        }
+
+        // Reakció az üzenet hangulata alapján
+        function pickReaction(m){
+            const t=m.t.toLowerCase();
+            if(m.e==='😂'||m.e==='😁'||m.e==='🐧'||m.e==='🍕'||m.e==='🐱'||m.e==='💃'||m.e==='🎬'||m.e==='😄'||t.includes('nevess')||t.includes('tánc')||t.includes('vicces')) return 'dancing';
+            if(m.e==='💧'||m.e==='🧸'||m.e==='🤗'||m.e==='🫂'||m.e==='🩹'||t.includes('szomorú')||t.includes('sírni')||t.includes('ölelés')||t.includes('egyedül')||t.includes('fájdal')) return 'caring';
+            if(m.e==='🔎'||m.e==='🧐'||m.e==='💡'||m.e==='🔮'||m.e==='🧭'||t.includes('gondolj')||t.includes('kérdezd')||t.includes('tanulj')) return 'thinking';
+            if(m.e==='⚡'||m.e==='🚀'||m.e==='🔥'||m.e==='💪'||m.e==='🏆'||m.e==='💯'||t.includes('csináld')||t.includes('ugorj')||t.includes('add bele')) return 'excited';
+            return 'happy';
+        }
+
+        function show(anim){
+            const m=dm();
+            document.getElementById('bE').textContent=m.e;
+            ph.classList.add('hide');
+            const reaction=pickReaction(m);
+
+            if(anim){
+                initAudio();
+                btn.classList.add('talking');
+                setTimeout(()=>bubble.classList.add('show'),200);
+                setTimeout(()=>{
+                    typeText(document.getElementById('bT'),m.t,()=>{
+                        btn.classList.remove('talking');
+                        btn.classList.add(reaction);
+                    });
+                },500);
+                boom();mark();
+            } else {
+                document.getElementById('bT').textContent=m.t;
+                bubble.classList.add('show');
+                btn.classList.add(reaction);
+            }
+            done=true;
+        }
+
+        function boom(){
+            const cols=['#fff','#fde68a','#fbbf24','#818cf8','#a855f7','#ec4899','#38bdf8','#34d399'];
+            const r=btn.getBoundingClientRect();
+            const cx=r.left+r.width/2,cy=r.top+r.height/3;
+            for(let i=0;i<50;i++){
+                const el=document.createElement('div');el.className='cf';
+                const sz=Math.random()*10+4,col=cols[Math.floor(Math.random()*cols.length)];
+                const x=(Math.random()-.5)*400,y=(Math.random()-.8)*400,rot=(Math.random()-.5)*720;
+                el.style.cssText=`width:${sz}px;height:${sz}px;background:${col};left:${cx}px;top:${cy}px;--x:${x}px;--y:${y}px;--r:${rot}deg;border-radius:${Math.random()>.5?'50%':'3px'}`;
+                cfx.appendChild(el);setTimeout(()=>el.remove(),1200);
+            }
+        }
+
+        // Tap reakció — integetés + "Hello!"
+        let tapBusy=false;
+
+        function playTapReaction(){
+            if(tapBusy)return;
+            tapBusy=true;
+            initAudio();
+
+            // Robot integet + szája mozog (talking)
+            btn.classList.add('tap-wave');
+            btn.classList.add('talking');
+
+            // Cuki robot hang — "bi-bu-bí-bú-bíp!"
+            if(audioCtx){
+                const notes=[
+                    {f:500,t:0,d:.15,type:'sine'},
+                    {f:350,t:.16,d:.15,type:'sine'},
+                    {f:700,t:.32,d:.12,type:'triangle'},
+                    {f:450,t:.45,d:.1,type:'sine'},
+                    {f:900,t:.56,d:.2,type:'triangle'},
+                    {f:1100,t:.7,d:.12,type:'sine'},
+                    {f:800,t:.82,d:.25,type:'triangle'},
+                ];
+                notes.forEach(n=>{
+                    setTimeout(()=>{
+                        const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+                        o.connect(g);g.connect(audioCtx.destination);
+                        o.frequency.value=n.f;
+                        o.type=n.type;
+                        g.gain.value=0.07;
+                        g.gain.linearRampToValueAtTime(0.08,audioCtx.currentTime+n.d*0.3);
+                        g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+n.d);
+                        o.start();o.stop(audioCtx.currentTime+n.d);
+                    },n.t*1000);
+                });
+            }
+
+            // Buborékban "Hello!" megjelenik
+            const bE=document.getElementById('bE');
+            const bT=document.getElementById('bT');
+            const oldE=bE.textContent, oldT=bT.textContent;
+            bE.textContent='👋';
+            bT.textContent='';
+            bubble.classList.add('show');
+
+            // "Hello!" gépelés
+            typeText(bT,'Hello!',()=>{
+                btn.classList.remove('talking');
+                // 1.5 mp múlva visszaáll az eredeti üzenetre
+                setTimeout(()=>{
+                    bE.textContent=oldE;
+                    bT.textContent=oldT;
+                    btn.classList.remove('tap-wave');
+                    tapBusy=false;
+                },1500);
+            });
+
+            if(navigator.vibrate)navigator.vibrate(30);
+        }
+
+        // ========== DRAG (húzd meg a robotot) ==========
+        let isDragging=false, dragStartX=0, dragStartY=0, hasMoved=false;
+        const robotEl=document.getElementById('robot');
+
+        btn.addEventListener('touchstart',e=>{
+            const t=e.touches[0];
+            dragStartX=t.clientX;dragStartY=t.clientY;
+            hasMoved=false;
+        },{passive:true});
+
+        btn.addEventListener('touchmove',e=>{
+            if(tapBusy)return;
+            const t=e.touches[0];
+            const dx=t.clientX-dragStartX, dy=t.clientY-dragStartY;
+            if(!isDragging&&(Math.abs(dx)>10||Math.abs(dy)>10)){
+                isDragging=true;hasMoved=true;
+                btn.classList.add('dragging');
+            }
+            if(isDragging){
+                // Robot pozíció limitálva
+                const mx=Math.max(-80,Math.min(80,dx));
+                const my=Math.max(-80,Math.min(80,dy));
+                robotEl.style.transform=`translate(${mx}px,${my}px)`;
+                // Szemek követik az ujjat
+                const rot=Math.atan2(dy,dx)*180/Math.PI;
+                robotEl.style.filter=`drop-shadow(0 20px 30px rgba(0,0,0,.3)) hue-rotate(${rot}deg)`;
+            }
+        },{passive:true});
+
+        btn.addEventListener('touchend',()=>{
+            if(isDragging){
+                isDragging=false;
+                btn.classList.remove('dragging');
+                // Visszapattanás
+                robotEl.style.transition='transform .4s cubic-bezier(.34,1.56,.64,1), filter .4s ease';
+                robotEl.style.transform='';
+                robotEl.style.filter='';
+                setTimeout(()=>{robotEl.style.transition='';},500);
+            }
+        },{passive:true});
+
+        btn.addEventListener('click',e=>{
+            if(hasMoved){hasMoved=false;return}
+            if(!done){show(true)}
+            else{playTapReaction()}
+        });
+        if(seen())show(false);
+
+        // Service Worker + Napi értesítés
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('sw.js').then(reg=>{
+                // Értesítés engedély kérés első koppintáskor
+                btn.addEventListener('click',function askNotif(){
+                    if('Notification' in window && Notification.permission==='default'){
+                        Notification.requestPermission().then(p=>{
+                            if(p==='granted') scheduleNotification(reg);
+                        });
+                    }
+                    btn.removeEventListener('click',askNotif);
+                },{once:false});
+                // Ha már engedélyezve van
+                if('Notification' in window && Notification.permission==='granted'){
+                    scheduleNotification(reg);
+                }
+            });
+        }
+        function scheduleNotification(reg){
+            // Naponta egyszer reggel 8-kor ellenőriz a service worker
+            if(reg.active) reg.active.postMessage({type:'schedule'});
+        }
+    </script>
+</body>
+</html>

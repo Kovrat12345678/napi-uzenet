@@ -1,0 +1,21 @@
+{
+    "name": "DailyBot",
+    "short_name": "DailyBot",
+    "description": "Napi motivációs üzenet egy aranyos robottól",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#7c3aed",
+    "theme_color": "#7c3aed",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icon/dailybot-icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "permissions_policy": {
+        "periodic-background-sync": ["self"]
+    }
+}
