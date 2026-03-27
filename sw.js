@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v3';
+const CACHE_NAME = 'dailybot-v4';
 const ASSETS = [
     './',
     './index.html',
@@ -22,14 +22,26 @@ self.addEventListener('activate', e => {
     self.clients.claim();
 });
 
-// Fetch — cache first
+// Fetch — network first az index.html-hez (friss tartalom), cache first a többihez
 self.addEventListener('fetch', e => {
-    e.respondWith(
-        caches.match(e.request).then(r => r || fetch(e.request))
-    );
+    const url = new URL(e.request.url);
+    if (url.pathname.endsWith('/') || url.pathname.endsWith('index.html')) {
+        // Network first — mindig friss HTML
+        e.respondWith(
+            fetch(e.request).then(r => {
+                const clone = r.clone();
+                caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+                return r;
+            }).catch(() => caches.match(e.request))
+        );
+    } else {
+        e.respondWith(
+            caches.match(e.request).then(r => r || fetch(e.request))
+        );
+    }
 });
 
-// Napi értesítés ütemezés
+// ========== ÉRTESÍTÉSEK ==========
 const NOTIF_MESSAGES = [
     "Ma is vár a napi üzeneted! ✨",
     "A robotod már izgatottan vár rád! 🤖",
@@ -45,32 +57,46 @@ function getRandomNotifMsg() {
     return NOTIF_MESSAGES[Math.floor(Math.random() * NOTIF_MESSAGES.length)];
 }
 
-// Értesítés küldés
+// Értesítés küldés — naponta max 1x (tag alapján)
 function showDailyNotification() {
     const today = new Date().toDateString();
-    // Ellenőrizzük, hogy ma küldtünk-e már
-    return self.registration.getNotifications().then(() => {
-        return self.registration.showNotification('DailyBot 🤖', {
-            body: getRandomNotifMsg(),
-            icon: './icon/dailybot-icon.png',
-            badge: './icon/dailybot-icon.png',
-            tag: 'daily-' + today, // Naponta 1 értesítés
-            renotify: false,
-            requireInteraction: false,
-            silent: false
-        });
+    return self.registration.showNotification('DailyBot 🤖', {
+        body: getRandomNotifMsg(),
+        icon: './icon/dailybot-icon.png',
+        badge: './icon/dailybot-icon.png',
+        tag: 'daily-' + today,
+        renotify: false,
+        requireInteraction: false,
+        silent: false
     });
 }
 
-// Üzenet a főoldalról
+// Üzenet a főoldalról — értesítés küldés ha kell
 self.addEventListener('message', e => {
+    if (e.data && e.data.type === 'check-notify') {
+        // Ellenőrizzük az aktív értesítéseket
+        const today = new Date().toDateString();
+        self.registration.getNotifications({ tag: 'daily-' + today }).then(notifs => {
+            if (notifs.length === 0) {
+                // Ma még nem volt értesítés
+                const hour = new Date().getHours();
+                if (hour >= 8) {
+                    showDailyNotification();
+                }
+            }
+        });
+    }
     if (e.data && e.data.type === 'schedule') {
         scheduleDaily();
     }
 });
 
-// Napi időzítés
+// setTimeout alapú ütemezés (működik amíg a SW él)
+let scheduled = false;
 function scheduleDaily() {
+    if (scheduled) return;
+    scheduled = true;
+
     const now = new Date();
     const next8am = new Date();
     next8am.setHours(8, 0, 0, 0);
@@ -81,10 +107,8 @@ function scheduleDaily() {
 
     setTimeout(() => {
         showDailyNotification();
-        // Következő nap újra
-        setInterval(() => {
-            showDailyNotification();
-        }, 24 * 60 * 60 * 1000);
+        scheduled = false;
+        scheduleDaily();
     }, delay);
 }
 
@@ -101,7 +125,7 @@ self.addEventListener('notificationclick', e => {
     );
 });
 
-// Periodic Background Sync (ha támogatott — Android Chrome)
+// Periodic Background Sync (Android Chrome)
 self.addEventListener('periodicsync', e => {
     if (e.tag === 'daily-notification') {
         e.waitUntil(showDailyNotification());

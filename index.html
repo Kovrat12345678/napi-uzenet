@@ -1444,27 +1444,44 @@
         });
         if(seen())show(false);
 
-        // Service Worker + Napi értesítés
+        // ========== Service Worker + Értesítések ==========
         if('serviceWorker' in navigator){
             navigator.serviceWorker.register('sw.js').then(reg=>{
                 // Értesítés engedély kérés első koppintáskor
                 btn.addEventListener('click',function askNotif(){
                     if('Notification' in window && Notification.permission==='default'){
                         Notification.requestPermission().then(p=>{
-                            if(p==='granted') scheduleNotification(reg);
+                            if(p==='granted') startNotifications(reg);
                         });
                     }
                     btn.removeEventListener('click',askNotif);
-                },{once:false});
-                // Ha már engedélyezve van
+                },{once:true});
+
+                // Ha már engedélyezve van — rögtön indít
                 if('Notification' in window && Notification.permission==='granted'){
-                    scheduleNotification(reg);
+                    startNotifications(reg);
                 }
             });
         }
-        function scheduleNotification(reg){
-            // Naponta egyszer reggel 8-kor ellenőriz a service worker
+
+        function startNotifications(reg){
+            // 1) Service worker-nek szólunk: ütemezze a 8 órás értesítést
             if(reg.active) reg.active.postMessage({type:'schedule'});
+
+            // 2) Azonnal ellenőrizzük: ha 8 óra után vagyunk és ma még nem volt értesítés
+            if(reg.active) reg.active.postMessage({type:'check-notify'});
+
+            // 3) Periodic Background Sync regisztráció (Android Chrome)
+            if('periodicSync' in reg){
+                reg.periodicSync.register('daily-notification',{minInterval:24*60*60*1000}).catch(()=>{});
+            }
+
+            // 4) Ha az app visszatér az előtérbe (pl. feloldod a telefont) → ellenőriz
+            document.addEventListener('visibilitychange',function(){
+                if(document.visibilityState==='visible' && reg.active){
+                    reg.active.postMessage({type:'check-notify'});
+                }
+            });
         }
     </script>
 </body>
