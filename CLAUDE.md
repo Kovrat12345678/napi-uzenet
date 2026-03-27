@@ -26,6 +26,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Idle**: lebeges (`float`), szem pislogas (`eyeIdle`), antenna pulzalas (`glow`), sziv dobolas (`heartbeat`)
   - **Beszed**: szaj animacio (`speak`), kar mozgas (`waveL/R`), mellkas LED-ek (`dotPulse`), szem fenyesedes
   - **Boldog**: mosolygo szaj, hunyorgo szemek, karok felfele
+  - **Excited**: ugralас, tapsolas, ragyogo szemek (energia/motivacio uzeneteкnel)
+  - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
+  - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
+  - **Dancing**: tancolo mozgas, gyors kar lengetеs (vicces/humor uzeneteknel)
+  - **Love**: rozsaszin tema, szives mellkas, ringo animacio (marc 28. Kovrat nap)
+- Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
 
 ### Napszak-fuggo hatter
 
@@ -37,12 +43,16 @@ Az ora alapjan automatikusan valtozik (`getHours()`):
 
 ### Unnepi oltozekek
 
-A robot naphoz kotodom emoji oltozeket visel:
+A robot naphoz kotodo emoji oltozeket visel:
+- **Kovrat nap (marc 28.)** — egesz napos kulonleges mod:
+  - Fix uzenet: "Kovrat uzeni: Szep napot mindenkinek! ❤️"
+  - Robot `love` osztaly: rozsaszin/piros tema, pink szemek, piros antenna, ringo animacio
+  - Rozsaszin-piros gradiens hatter 30 lebegoо szivecskevel (love-heart animacio)
+  - Marc 29-en automatikusan visszaall
 - Husvet (dinamikus datumszamitas), Karacsony (dec 20–26), Mikulas (dec 6)
 - Szilveszter (dec 31), Ujev (jan 1), Halloween (okt 31), Valentin-nap (feb 14)
 - Aprilis bolondok (apr 1), Robot szulinapja (mar 26)
 - Nemzeti unnepek: marc 15, aug 20, okt 23
-- Hetfotol penitkig: random napi emoji-kiegeszitok
 
 ### UI elemek
 
@@ -50,17 +60,29 @@ A robot naphoz kotodom emoji oltozeket visel:
 - **Gepelo effekt**: `typeText()` fuggveny — betuenkent irja ki a szoveget villogo kurzorral
 - **Konfetti effekt**: DOM elemek `fly` animacioval
 - **Streak szamlalo**: egymast koveto napok szama
+- **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation)
+- **Drag interakcio**: robot huzhato, meglepett arckifejezеssel reagal
+- **Tap reakcio**: koppintasra integet es robot hangokat ad ("bi-bu-bi!")
+
+### Push ertesitesek
+
+- **Service Worker** (`sw.js`) — reggel 8 utan ertesitest kuld ha a felhasznalo megnyitja az appot
+- 4 trigger: app megnyitas, telefon feloldas (visibilitychange), SW setTimeout, periodicSync (Android)
+- Naponta max 1 ertesites (tag alapu deduplikalas)
+- Engedelykerest az elso robot-koppintaskor ker
+- `index.html` → network-first cache strategia (mindig friss tartalom)
 
 ## File Structure
 
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
 manifest.json       — PWA manifest
-sw.js               — Service Worker (offline tamogatas)
+sw.js               — Service Worker (cache + push ertesitesek)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
+README.md           — felhasznaloi dokumentacio
 icon/
   dailybot-icon.png — PWA ikon (PNG)
-  dailybot-icon.svg — PWA ikon (SVG)
+  dailybot-icon.svg — PWA ikon (SVG forras)
   Gemini_Generated_Image_nkummfnkummfnkum.png — eredeti app ikon
 ```
 
