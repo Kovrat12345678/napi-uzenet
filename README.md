@@ -48,10 +48,10 @@ Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincse
 
 ## Push ertesitesek
 
-Az app naponta reggel 8-kor kuld egy emlekeztetot ha meg nem nezted meg a napi uzeneted. Naponta maximum 1 ertesites erkezik.
+Az app naponta reggel 8-kor kuld egy emlekeztetot ha meg nem nezted meg a napi uzeneted. Naponta maximum 1 ertesites erkezik. Ha az app nyitva van, nem kuld felesleges ertesitest.
 
 - **Android**: hatterbeli szinkronizacio is tamogatott (periodicSync)
-- **iPhone**: az ertesites az app megnyitasakor vagy a telefon feloldasakor aktivolodik (8 ora utan)
+- **iPhone**: az ertesites akkor aktivolodik ha az app hatterbe kerul (bezarod/valtasz) es 8 ora utan vagyunk
 
 Engedelyezes: elso alkalommal a robotra koppintaskor keri.
 

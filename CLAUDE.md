@@ -79,7 +79,8 @@ A robot naphoz kotodo emoji oltozeket visel:
 - `scheduleDaily()`: setTimeout-tal utemezi a kovetkezo reggel 8 orat, SW eletcikluson belul ujraindul
 - `tag: 'daily-' + today`: naponta max 1 ertesites (tag alapu deduplikalas, Android + iOS)
 - `periodicSync` (Android Chrome): hatterbeli szinkronizacio napi intervallumon
-- `visibilitychange`: ha az app eloterbe kerul es 8 ora utan vagyunk, ellenorzi volt-e mar ertesites
+- **Nem kuld ertesitest ha az app nyitva van**: a SW `check-notify`-nal ellenorzi `clients.matchAll()` → ha van lathato ablak, nem kuld
+- `visibilitychange: 'hidden'`: csak ha az app hatterbe kerul, akkor triggerel ertesites-ellenorzest (nem megnyitaskor)
 - Engedelykerest az elso robot-koppintaskor ker
 - `index.html` → network-first cache strategia (mindig friss tartalom)
 
