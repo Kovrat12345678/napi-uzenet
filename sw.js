@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v4';
+const CACHE_NAME = 'dailybot-v5';
 const ASSETS = [
     './',
     './index.html',
@@ -71,25 +71,8 @@ function showDailyNotification() {
     });
 }
 
-// Üzenet a főoldalról — értesítés küldés ha kell
+// Üzenet a főoldalról — csak ütemezés, nem küldünk értesítést azonnal
 self.addEventListener('message', e => {
-    if (e.data && e.data.type === 'check-notify') {
-        // Csak akkor küldünk értesítést, ha NINCS nyitott app ablak előtérben
-        self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cls => {
-            const hasVisibleClient = cls.some(c => c.visibilityState === 'visible');
-            if (hasVisibleClient) return; // Az app nyitva van — ne zavarjuk
-
-            const today = new Date().toDateString();
-            self.registration.getNotifications({ tag: 'daily-' + today }).then(notifs => {
-                if (notifs.length === 0) {
-                    const hour = new Date().getHours();
-                    if (hour >= 8) {
-                        showDailyNotification();
-                    }
-                }
-            });
-        });
-    }
     if (e.data && e.data.type === 'schedule') {
         scheduleDaily();
     }
@@ -129,9 +112,17 @@ self.addEventListener('notificationclick', e => {
     );
 });
 
-// Periodic Background Sync (Android Chrome)
+// Periodic Background Sync (Android Chrome) — csak reggel 8-kor küld
 self.addEventListener('periodicsync', e => {
     if (e.tag === 'daily-notification') {
-        e.waitUntil(showDailyNotification());
+        const hour = new Date().getHours();
+        if (hour < 8 || hour > 9) return; // Csak 8-9 óra között
+        e.waitUntil(
+            self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cls => {
+                const hasVisibleClient = cls.some(c => c.visibilityState === 'visible');
+                if (hasVisibleClient) return; // App nyitva van
+                return showDailyNotification();
+            })
+        );
     }
 });

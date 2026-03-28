@@ -515,61 +515,6 @@
         }
         @keyframes bunnyTail{0%,100%{transform:translateX(0) scale(1)}50%{transform:translateX(5px) scale(1.1)}}
 
-        /* ===== KOVRAT NAP (márc 28.) — szíves robot ===== */
-        .robot.love{animation:loveFloat 3s ease-in-out infinite}
-        @keyframes loveFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
-
-        .robot.love .head{background:linear-gradient(165deg,#fff0f3 0%,#fecdd3 50%,#fda4af 100%);box-shadow:0 6px 20px rgba(244,63,94,.15)}
-        .robot.love .face-screen{background:linear-gradient(145deg,#1a0010,#2d0020)}
-        .robot.love .eye{
-            background:radial-gradient(circle at 35% 35%,#fff,#fda4af,#f43f5e,#e11d48)!important;
-            box-shadow:0 0 16px rgba(244,63,94,.7),0 0 32px rgba(244,63,94,.3)!important;
-            animation:loveEye 2s ease-in-out infinite!important;
-        }
-        @keyframes loveEye{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-        .robot.love .mouth{
-            width:20px!important;height:10px!important;background:transparent!important;
-            border-bottom:3px solid #f43f5e!important;border-radius:0 0 50% 50%!important;
-            border-top:none!important;border-left:none!important;border-right:none!important;
-            box-shadow:0 3px 10px rgba(244,63,94,.4)!important;animation:none!important;
-        }
-        .robot.love .torso{background:linear-gradient(165deg,#fff0f3 0%,#fecdd3 50%,#fda4af 100%);box-shadow:0 6px 20px rgba(244,63,94,.12)}
-        .robot.love .chest{background:linear-gradient(145deg,#4c0020,#2d0015);box-shadow:inset 0 2px 6px rgba(0,0,0,.5),0 0 10px rgba(244,63,94,.2)}
-        .robot.love .chest::before{border-color:rgba(244,63,94,.25)}
-        .robot.love .chest-dot{background:#f43f5e}
-        .robot.love .heart-icon{font-size:28px;animation:loveHeart 1s ease infinite!important}
-        @keyframes loveHeart{0%,100%{transform:scale(1)}25%{transform:scale(1.35)}50%{transform:scale(1)}}
-        .robot.love .neck{background:linear-gradient(to bottom,#fecdd3,#fda4af)}
-        .robot.love .neck::before,.robot.love .neck::after{background:#fda4af}
-        .robot.love .arm{background:linear-gradient(to bottom,#fecdd3,#fda4af)}
-        .robot.love .arm::after{background:linear-gradient(to bottom,#fda4af,#fb7185)}
-        .robot.love .shoulder{background:#fecdd3}
-        .robot.love .ear{background:linear-gradient(to bottom,#fff0f3,#fecdd3)}
-        .robot.love .ear::after{background:#f43f5e}
-        .robot.love .leg{background:linear-gradient(to bottom,#fecdd3,#fda4af)}
-        .robot.love .foot{background:linear-gradient(to bottom,#fb7185,#f43f5e)!important;border-radius:0 0 10px 10px!important}
-        .robot.love .antenna-ball{
-            background:radial-gradient(circle at 35% 35%,#fda4af,#f43f5e,#e11d48)!important;
-            box-shadow:0 0 14px rgba(244,63,94,.7)!important;
-            animation:loveAntenna 1.5s ease-in-out infinite!important;
-        }
-        @keyframes loveAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.25)}}
-        .robot.love .antenna-stick{background:linear-gradient(to top,#fda4af,#f43f5e)!important}
-
-        /* Lebegő szívek */
-        .love-heart{
-            position:fixed;font-size:var(--sz);
-            animation:floatHeart var(--d) linear infinite;
-            top:-40px;left:var(--x);opacity:0;
-            pointer-events:none;z-index:0;
-        }
-        @keyframes floatHeart{
-            0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0}
-            8%{opacity:.7}
-            50%{transform:translateY(50vh) translateX(var(--sx)) rotate(180deg);opacity:.5}
-            100%{transform:translateY(105vh) translateX(calc(var(--sx) * -1)) rotate(360deg);opacity:0}
-        }
-
         /* ===== DRAG (húzás) ===== */
         .robot-btn.dragging .robot{animation:none!important;transition:none}
         .robot-btn.dragging .robot::before{
@@ -864,29 +809,9 @@
         // Csillagok
         (function(){const c=document.getElementById('stars');for(let i=0;i<20;i++){const s=document.createElement('span');s.className='star';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--s:${Math.random()*12+8}px;--d:${(Math.random()*3+2).toFixed(1)}s`;c.appendChild(s)}})();
 
-        // ========== KOVRAT NAP DETEKTÁLÁS ==========
-        const _now=new Date();
-        const isKovratDay=(_now.getMonth()===2&&_now.getDate()===28); // márc 28.
-
         // ========== NAPSZAK HÁTTÉR ==========
         (function(){
             const tc=document.getElementById('themeColor');
-            if(isKovratDay){
-                const bg='linear-gradient(165deg,#fda4af 0%,#fb7185 25%,#f43f5e 50%,#e11d48 75%,#be123c 100%)';
-                document.documentElement.style.background=bg;
-                document.body.style.background=bg;
-                tc.content='#f43f5e';
-                // Lebegő szívek
-                const hearts=['❤️','💕','💖','💗','💝','💘','🩷','♥️'];
-                const wl=document.getElementById('weatherLayer');
-                for(let i=0;i<30;i++){
-                    const h=document.createElement('div');h.className='love-heart';
-                    h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
-                    h.style.cssText=`--x:${Math.random()*100}%;--sz:${(Math.random()*20+14).toFixed(0)}px;--d:${(Math.random()*5+4).toFixed(1)}s;--sx:${(Math.random()*80-40).toFixed(0)}px;animation-delay:${(Math.random()*-8).toFixed(1)}s`;
-                    wl.appendChild(h);
-                }
-                return;
-            }
             const h=new Date().getHours();
             let bg,theme;
             if(h>=5&&h<8) { bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme='#f97316'; }
@@ -918,12 +843,7 @@
             const evtEl=document.getElementById('phEvent');
             let evt='';
 
-            if(isKovratDay) {
-                document.getElementById('robot').classList.add('love');
-                hat='💝'; face='💕'; neck='💖';
-                evt='💖 Kovrat napja! 💖';
-            }
-            else if(isEaster) {
+            if(isEaster) {
                 document.getElementById('robot').classList.add('bunny');
                 evt='🐰 Boldog Húsvétot! 🥚';
             }
@@ -1459,7 +1379,7 @@
         }
 
         function show(anim){
-            const m=isKovratDay?{t:"Kovrat üzeni: Szép napot mindenkinek! ❤️",e:"💖"}:dm();
+            const m=dm();
             document.getElementById('bE').textContent=m.e;
             ph.classList.add('hide');
             const reaction=pickReaction(m);
@@ -1638,20 +1558,13 @@
         }
 
         function startNotifications(reg){
-            // 1) Service worker-nek szólunk: ütemezze a 8 órás értesítést
+            // 1) Service worker-nek szólunk: ütemezze a reggel 8 órás értesítést
             if(reg.active) reg.active.postMessage({type:'schedule'});
 
             // 2) Periodic Background Sync regisztráció (Android Chrome)
             if('periodicSync' in reg){
                 reg.periodicSync.register('daily-notification',{minInterval:24*60*60*1000}).catch(()=>{});
             }
-
-            // 3) Ha az app háttérbe kerül → ellenőriz (értesítés csak ha nem látható az app)
-            document.addEventListener('visibilitychange',function(){
-                if(document.visibilityState==='hidden' && reg.active){
-                    reg.active.postMessage({type:'check-notify'});
-                }
-            });
         }
     </script>
 </body>
