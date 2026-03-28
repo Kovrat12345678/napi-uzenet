@@ -68,6 +68,14 @@
         .b-text{font-size:17px;line-height:1.55;color:#fff;font-weight:600;min-height:52px;text-shadow:0 1px 6px rgba(0,0,0,.2)}
         .cursor{display:inline-block;width:2px;height:18px;background:#fff;margin-left:2px;vertical-align:text-bottom;animation:blink .6s step-end infinite}
         @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+        .share-btn{
+            display:none;margin:14px auto 0;padding:8px 20px;
+            background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);
+            border-radius:100px;color:#fff;font-size:13px;font-weight:600;
+            cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;
+        }
+        .share-btn.show{display:inline-block;animation:obIn .4s cubic-bezier(.34,1.56,.64,1)}
+        .share-btn:active{transform:scale(.95);background:rgba(255,255,255,.3)}
 
         /* PLACEHOLDER */
         .ph{text-align:center;position:absolute;transition:opacity .3s}
@@ -644,7 +652,7 @@
 
     <div class="app" id="appMain">
         <div class="top">
-            <h1>✨ DailyBot ✨</h1>
+            <h1 id="greeting">✨ DailyBot ✨</h1>
             <div class="date" id="date"></div>
             <div class="streak" id="streak">🔥 <span id="sn"></span> napos sorozat</div>
         </div>
@@ -659,6 +667,7 @@
                 <span class="bubble-heart">❤️</span>
                 <span class="b-emoji" id="bE"></span>
                 <div class="b-text" id="bT"></div>
+                <button class="share-btn" id="shareBtn" aria-label="Megosztás">📤 Megosztás</button>
             </div>
         </div>
 
@@ -1323,6 +1332,15 @@
 
         document.getElementById('date').textContent=new Date().toLocaleDateString('hu-HU',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 
+        // Személyes köszöntés
+        (function(){
+            const name=localStorage.getItem('nu_name');
+            if(name){
+                document.getElementById('greeting').textContent='Szia, '+name+'! ✨';
+                document.getElementById('phText').textContent='Koppints a robotra!';
+            }
+        })();
+
         // Streak
         (function(){const t=td(),l=localStorage.getItem('nu_l');let s=parseInt(localStorage.getItem('nu_s')||'0');if(l!==t){const y=new Date();y.setDate(y.getDate()-1);s=l===y.toDateString()?s+1:1;localStorage.setItem('nu_l',t);localStorage.setItem('nu_s',s.toString())}if(s>1){document.getElementById('streak').classList.add('on');document.getElementById('sn').textContent=s}})();
 
@@ -1387,11 +1405,14 @@
             return 'happy';
         }
 
+        let lastMsg=null;
         function show(anim){
             const m=dm();
+            lastMsg=m;
             document.getElementById('bE').textContent=m.e;
             ph.classList.add('hide');
             const reaction=pickReaction(m);
+            const shareBtn=document.getElementById('shareBtn');
 
             if(anim){
                 initAudio();
@@ -1401,6 +1422,7 @@
                     typeText(document.getElementById('bT'),m.t,()=>{
                         btn.classList.remove('talking');
                         btn.classList.add(reaction);
+                        if(navigator.share) shareBtn.classList.add('show');
                     });
                 },500);
                 boom();mark();updateCountdown();
@@ -1408,9 +1430,21 @@
                 document.getElementById('bT').textContent=m.t;
                 bubble.classList.add('show');
                 btn.classList.add(reaction);
+                if(navigator.share) shareBtn.classList.add('show');
             }
             done=true;
         }
+
+        // Megosztás gomb
+        document.getElementById('shareBtn').addEventListener('click',function(e){
+            e.stopPropagation();
+            if(!lastMsg||!navigator.share) return;
+            navigator.share({
+                title:'DailyBot — Napi üzenet',
+                text:lastMsg.e+' '+lastMsg.t+'\n\n— DailyBot 🤖',
+                url:'https://kovrat12345678.github.io/napi-uzenet/'
+            }).catch(()=>{});
+        });
 
         function boom(){
             const cols=['#fff','#fde68a','#fbbf24','#818cf8','#a855f7','#ec4899','#38bdf8','#34d399'];
