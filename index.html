@@ -44,6 +44,9 @@
         .streak{display:none;margin-top:8px;padding:4px 14px;border-radius:100px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.2)}
         .streak.on{display:inline-block}
 
+        /* KÖVETKEZŐ ÜZENET VISSZASZÁMLÁLÓ */
+        .next-msg{text-align:center;flex-shrink:0;min-height:20px;padding:4px 0;color:rgba(255,255,255,.65);font-size:12px;font-weight:500;letter-spacing:.3px}
+
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
         .bubble{
@@ -699,6 +702,7 @@
             </button>
         </div>
 
+        <div class="next-msg" id="nextMsg"></div>
     </div>
 
     <div class="cfx" id="cfx"></div>
@@ -1314,7 +1318,7 @@
                         btn.classList.add(reaction);
                     });
                 },500);
-                boom();mark();
+                boom();mark();updateCountdown();
             } else {
                 document.getElementById('bT').textContent=m.t;
                 bubble.classList.add('show');
@@ -1439,10 +1443,27 @@
 
         btn.addEventListener('click',e=>{
             if(hasMoved){hasMoved=false;return}
-            if(!done){show(true)}
-            else{playTapReaction()}
+            if(!done&&!seen()){show(true)}
+            else if(done){playTapReaction()}
         });
         if(seen())show(false);
+
+        // ========== VISSZASZÁMLÁLÓ ==========
+        const nextMsgEl=document.getElementById('nextMsg');
+        function updateCountdown(){
+            if(!seen()){nextMsgEl.textContent='';return}
+            const now=new Date();
+            const tomorrow8=new Date(now);
+            tomorrow8.setDate(tomorrow8.getDate()+1);
+            tomorrow8.setHours(8,0,0,0);
+            const diff=tomorrow8-now;
+            const h=Math.floor(diff/3600000);
+            const m=Math.floor((diff%3600000)/60000);
+            const s=Math.floor((diff%60000)/1000);
+            nextMsgEl.textContent=`🕐 Következő üzenet: ${h} óra ${m} perc ${s} mp múlva`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown,1000);
 
         // ========== Service Worker + Értesítések ==========
         if('serviceWorker' in navigator){
