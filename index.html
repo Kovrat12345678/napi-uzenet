@@ -12,7 +12,7 @@
     <title>DailyBot</title>
     <style>
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
-        html{background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);height:100%}
+        html{background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);min-height:100%;min-height:100dvh}
         body{width:100%;min-height:100%;min-height:100dvh;overflow:hidden;touch-action:manipulation;
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
             background: linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);
@@ -575,7 +575,7 @@
         @keyframes fly{0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(0)}}
 
         /* ===== ONBOARDING ===== */
-        .onboarding{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+        .onboarding{position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;padding-top:calc(env(safe-area-inset-top, 0px) + 20px);padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 20px);background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%)}
         .onboarding.hidden{display:none}
         .ob-card{
             width:100%;max-width:360px;
@@ -732,6 +732,14 @@
             const app=document.getElementById('appMain');
             ob.classList.remove('hidden');
             app.style.display='none';
+            // Onboarding háttér napszak szerint
+            const _h=new Date().getHours();
+            let _bg;
+            if(_h>=5&&_h<8) _bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)';
+            else if(_h>=8&&_h<17) _bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)';
+            else if(_h>=17&&_h<20) _bg='linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)';
+            else _bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
+            ob.style.background=_bg;
 
             const steps=[
                 {emoji:'👋',title:'Hogy hívnak?',sub:'Írd be a neved, hogy személyesen köszönthesselek!',placeholder:'A neved...',type:'text',key:'nu_name'},
