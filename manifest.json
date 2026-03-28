@@ -4,8 +4,8 @@
     "description": "Napi motivációs üzenet egy aranyos robottól",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#7c3aed",
-    "theme_color": "#7c3aed",
+    "background_color": "#38bdf8",
+    "theme_color": "#38bdf8",
     "orientation": "portrait",
     "icons": [
         {
