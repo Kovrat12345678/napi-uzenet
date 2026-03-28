@@ -63,12 +63,23 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation)
 - **Drag interakcio**: robot huzhato, meglepett arckifejezеssel reagal
 - **Tap reakcio**: koppintasra integet es robot hangokat ad ("bi-bu-bi!")
+- **Visszaszamlalo**: az app aljan mutatja mikor erkezik a kovetkezo uzenet (masnapig reggel 8-ig szamol vissza, masodpercenkent frissul)
+
+### Napi korlatozas
+
+- Naponta 1 uzenet — a robot koppintasa csak egyszer ad uj uzenetet
+- Ha mar latta a felhasznalo (`seen()` true), a koppintas csak tap-reakciot valt ki (integetes + "Hello!")
+- A `mark()` fuggveny rogziti `localStorage`-ba (`nu_d` kulcs) hogy ma mar latta
+- A `!done&&!seen()` feltetel biztositja az 1 uzenet/nap korlatot
+- Az app aljan (`#nextMsg` elem) visszaszamlalo jelenik meg a kovetkezo reggel 8 oraig
 
 ### Push ertesitesek
 
-- **Service Worker** (`sw.js`) — reggel 8 utan ertesitest kuld ha a felhasznalo megnyitja az appot
-- 4 trigger: app megnyitas, telefon feloldas (visibilitychange), SW setTimeout, periodicSync (Android)
-- Naponta max 1 ertesites (tag alapu deduplikalas)
+- **Service Worker** (`sw.js`) — naponta pontosan reggel 8-kor kuld ertesitest
+- `scheduleDaily()`: setTimeout-tal utemezi a kovetkezo reggel 8 orat, SW eletcikluson belul ujraindul
+- `tag: 'daily-' + today`: naponta max 1 ertesites (tag alapu deduplikalas, Android + iOS)
+- `periodicSync` (Android Chrome): hatterbeli szinkronizacio napi intervallumon
+- `visibilitychange`: ha az app eloterbe kerul es 8 ora utan vagyunk, ellenorzi volt-e mar ertesites
 - Engedelykerest az elso robot-koppintaskor ker
 - `index.html` → network-first cache strategia (mindig friss tartalom)
 
