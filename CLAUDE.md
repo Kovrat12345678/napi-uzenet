@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-"Napi Uzenet" — napi motivacios uzenet alkalmazas iPhone-ra (PWA). Egy elethu CSS robot all a kepernyo kozepen animaciokkal (lebeges, pislogas, antenna pulzalas). Megnyomod → a robot "beszel" animacio, majd folotte sarga kepregeny-szovegbuborekban gepeloeffekttel megjelenik a napi uzenet. Naponta 1 uzenet, mint a TopJoy napi kupak.
+"Napi Uzenet" — napi motivacios uzenet alkalmazas iPhone-ra es Androidra (PWA). Egy elethu CSS robot all a kepernyo kozepen animaciokkal (lebeges, pislogas, antenna pulzalas). Megnyomod → a robot "beszel" animacio, majd folotte szovegbuborekban gepeloeffekttel megjelenik a napi uzenet. Naponta 1 uzenet, mint a TopJoy napi kupak.
 
 ## Tech Stack
 
 - **Egyetlen HTML fajl** (`index.html`) — beagyazott CSS + vanilla JS, nincsenek fuggosegek
-- **PWA** — `manifest.json` + `sw.js` service worker + apple-mobile-web-app meta tagek, iPhone-on kezdokepernyore teheto
+- **PWA** — `manifest.json` + `sw.js` service worker + apple-mobile-web-app meta tagek, iPhone-on es Androidon kezdokepernyore teheto
 - **Hosting**: GitHub Pages — `https://kovrat12345678.github.io/napi-uzenet/`
 - **Lokalis fejlesztes**: XAMPP — `http://localhost/napi%20üzenet%20hivatalos/`
 
@@ -17,8 +17,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **365 uzenet** a `M` tombben az `index.html` `<script>` reszeben, 12 kategoriabol:
   - Motivacio, Humor, Bolcsesseg, Erzelmek, Kitartas, Mindfulness, Kreativitas, Eletbolcsesseg, Energia, Termeszet, Vicces, Melyseg
-- Napi uzenet kivalasztas: datum-alapu seed (`ev*10000 + ho*100 + nap`) → determinisztikus index, evente mas sorrend
-- `localStorage` kulcsok: `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
+- Napi uzenet kivalasztas: datum-alapu seed (`ev*10000 + ho*100 + nap + uid`) → determinisztikus index, evente mas sorrend
+- `localStorage` kulcsok:
+  - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
+  - `nu_reg` (regisztracio kesz), `nu_name` (nev), `nu_email` (email), `nu_age` (eletkor), `nu_city` (lakhely)
+  - `nu_favs` (kedvenc uzenetek JSON tomb)
+
+### Onboarding (regisztracio)
+
+- Elso megnyitaskor 4+1 lepesu regisztracio: Intro → Nev → Email → Eletkor → Lakhely
+- Kulon kepernyokon, animalt atmenettekkel
+- `nu_reg` && `nu_name` letezese alapjan donti el, hogy megjelenjen-e
+- Az app (`#appMain`) rejtett amig a regisztracio nem kesz
 
 ### Robot
 
@@ -26,12 +36,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Idle**: lebeges (`float`), szem pislogas (`eyeIdle`), antenna pulzalas (`glow`), sziv dobolas (`heartbeat`)
   - **Beszed**: szaj animacio (`speak`), kar mozgas (`waveL/R`), mellkas LED-ek (`dotPulse`), szem fenyesedes
   - **Boldog**: mosolygo szaj, hunyorgo szemek, karok felfele
-  - **Excited**: ugralас, tapsolas, ragyogo szemek (energia/motivacio uzeneteкnel)
+  - **Excited**: ugralas, tapsolas, ragyogo szemek (energia/motivacio uzeneteкnel)
   - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
   - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
-  - **Dancing**: tancolo mozgas, gyors kar lengetеs (vicces/humor uzeneteknel)
-  - **Love**: rozsaszin tema, szives mellkas, ringo animacio (marc 28. Kovrat nap)
+  - **Dancing**: tancolo mozgas, gyors kar lengetes (vicces/humor uzeneteknel)
 - Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
+
+### Szemelyes koszrontes
+
+- A fejlecben "Szia, [Nev]! ✨" jelenik meg a regisztralt nev alapjan
+- Nevnapon: "Boldog nevnapot, [Nev]! 🎉"
+
+### Nevnapok
+
+- Teljes magyar nevnap lista a `NEVNAPOK` objektumban (365 nap, ~700 nev)
+- `MM-DD` kulcs formatum, ertekek nevek tombje
+- A regisztralt nev (`nu_name`) osszevetessel ellenorzi, hogy ma van-e a nevnapja
+
+### Kedvencek
+
+- Uzenet buborekban "🤍 Kedvenc" gomb — koppintasra elmenti/torli
+- `nu_favs` localStorage kulcsban JSON tombkent tarolva: `{t, e, d}` (szoveg, emoji, datum)
+- Jobb felso sarokban ❤️ gomb badge-dzsel a kedvencek szamaval
+- Panel megnyitasakor lista: emoji + szoveg + datum + torles gomb
+- `getFavs()`, `saveFavs()`, `isFaved()`, `updateFavBtn()`, `renderFavsList()` fuggvenyek
 
 ### Napszak-fuggo hatter
 
@@ -41,14 +69,15 @@ Az ora alapjan automatikusan valtozik (`getHours()`):
 - **Este** (17–20): narancs-lila-sotetlila gradiens
 - **Ejjel** (20–5): sotet kek-indigo gradiens
 
+A `theme-color` meta tag (`#themeColor`) dinamikusan koveti a napszakot — Android status bar egybeolvad a hatterrel.
+
 ### Unnepi oltozekek
 
 A robot naphoz kotodo emoji oltozeket visel:
-- **Kovrat nap (marc 28.)** — egesz napos kulonleges mod:
-  - Fix uzenet: "Kovrat uzeni: Szep napot mindenkinek! ❤️"
-  - Robot `love` osztaly: rozsaszin/piros tema, pink szemek, piros antenna, ringo animacio
-  - Rozsaszin-piros gradiens hatter 30 lebegoо szivecskevel (love-heart animacio)
-  - Marc 29-en automatikusan visszaall
+- **Mama szulinapja (apr 4–5.)** — szulinapi mod:
+  - Fix uzenet: "Boldog 63. szulinapot, draga Mama!"
+  - Arany-rozsaszin-lila gradiens hatter, lebego lufik/konfetti (birthday-balloon animacio)
+  - Robot: 🥳 sapka, 🎂 arc, 🎀 nyak
 - Husvet (dinamikus datumszamitas), Karacsony (dec 20–26), Mikulas (dec 6)
 - Szilveszter (dec 31), Ujev (jan 1), Halloween (okt 31), Valentin-nap (feb 14)
 - Aprilis bolondok (apr 1), Robot szulinapja (mar 26)
@@ -56,14 +85,15 @@ A robot naphoz kotodo emoji oltozeket visel:
 
 ### UI elemek
 
-- **Szovegbuborek**: sarga gradiens, szivecske a sarkan, CSS transition animacio
+- **Szovegbuborek**: uveg-blur hatter, szivecske a sarkan, CSS transition animacio
 - **Gepelo effekt**: `typeText()` fuggveny — betuenkent irja ki a szoveget villogo kurzorral
 - **Konfetti effekt**: DOM elemek `fly` animacioval
 - **Streak szamlalo**: egymast koveto napok szama
 - **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation)
-- **Drag interakcio**: robot huzhato, meglepett arckifejezеssel reagal
+- **Drag interakcio**: robot huzhato, CSS glow effekttel reagal (::before pseudo-element, iOS kompatibilis)
 - **Tap reakcio**: koppintasra integet es robot hangokat ad ("bi-bu-bi!")
 - **Visszaszamlalo**: az app aljan mutatja mikor erkezik a kovetkezo uzenet (masnapig reggel 8-ig szamol vissza, masodpercenkent frissul)
+- **Kedvenc gomb**: uzenet buborekban, elmentheto kedvencek listaja
 
 ### Napi korlatozas
 
@@ -75,12 +105,10 @@ A robot naphoz kotodo emoji oltozeket visel:
 
 ### Push ertesitesek
 
-- **Service Worker** (`sw.js`) — naponta pontosan reggel 8-kor kuld ertesitest
+- **Service Worker** (`sw.js`, cache v6) — naponta pontosan reggel 8-kor kuld ertesitest
 - `scheduleDaily()`: setTimeout-tal utemezi a kovetkezo reggel 8 orat, SW eletcikluson belul ujraindul
-- `tag: 'daily-' + today`: naponta max 1 ertesites (tag alapu deduplikalas, Android + iOS)
-- `periodicSync` (Android Chrome): hatterbeli szinkronizacio napi intervallumon
-- **Nem kuld ertesitest ha az app nyitva van**: a SW `check-notify`-nal ellenorzi `clients.matchAll()` → ha van lathato ablak, nem kuld
-- `visibilitychange: 'hidden'`: csak ha az app hatterbe kerul, akkor triggerel ertesites-ellenorzest (nem megnyitaskor)
+- `tag: 'daily-' + today`: naponta max 1 ertesites (tag alapu deduplikalas)
+- `periodicSync` (Android Chrome): hatterbeli szinkronizacio, csak 8-9 ora kozott kuld, ellenorzi hogy az app nincs-e nyitva
 - Engedelykerest az elso robot-koppintaskor ker
 - `index.html` → network-first cache strategia (mindig friss tartalom)
 
@@ -93,15 +121,16 @@ sw.js               — Service Worker (cache + push ertesitesek)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasznaloi dokumentacio
 icon/
-  dailybot-icon.png — PWA ikon (PNG)
-  dailybot-icon.svg — PWA ikon (SVG forras)
-  Gemini_Generated_Image_nkummfnkummfnkum.png — eredeti app ikon
+  dailybot-icon.png — PWA ikon (PNG, SVG-bol renderelve)
+  dailybot-icon.svg — PWA ikon (SVG forras, nagy robot kozepen)
+  Gemini_Generated_Image_nkummfnkummfnkum.png — eredeti Gemini altal generalt ikon
 ```
 
 ## App Icon
 
-- Helye: `icon/Gemini_Generated_Image_nkummfnkummfnkum.png`
-- Leiras: aranyos feher robot kek szemekkel, villanykortevel a fejen, sarga szovegbuborekot tart szivecskevel
+- Fo ikon: `icon/dailybot-icon.svg` (SVG) + `icon/dailybot-icon.png` (PNG rendereles)
+- Leiras: nagy feher robot kek szemekkel, szivecske mellkassal, szines gradiens hatteren
+- Eredeti Gemini kep: `icon/Gemini_Generated_Image_nkummfnkummfnkum.png`
 - Hasznalat: PWA ikon (manifest.json + apple-touch-icon)
 
 ## Language
