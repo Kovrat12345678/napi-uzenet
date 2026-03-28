@@ -728,7 +728,7 @@
     <script>
         // ========== ONBOARDING ==========
         (function(){
-            if(localStorage.getItem('nu_reg')) return;
+            if(localStorage.getItem('nu_reg')&&localStorage.getItem('nu_name')) return;
             const ob=document.getElementById('onboarding');
             const app=document.getElementById('appMain');
             ob.classList.remove('hidden');
@@ -1366,12 +1366,11 @@
             function tick(){
                 if(i<text.length){
                     el.insertBefore(document.createTextNode(text[i]),cursor);
-                    if(i%2===0){tickSound();if(navigator.vibrate)navigator.vibrate(15)}
+                    if(i%2===0){tickSound()}
                     i++;
                     setTimeout(tick, 30 + Math.random()*25);
                 } else {
                     doneSound();
-                    if(navigator.vibrate)navigator.vibrate([50,30,50]);
                     setTimeout(()=>{cursor.remove();if(cb)cb()},500);
                 }
             }
@@ -1483,7 +1482,6 @@
                 },1500);
             });
 
-            if(navigator.vibrate)navigator.vibrate(30);
         }
 
         // ========== DRAG (húzd meg a robotot) ==========
