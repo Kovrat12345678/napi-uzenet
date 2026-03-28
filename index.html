@@ -1489,17 +1489,14 @@
             // 1) Service worker-nek szólunk: ütemezze a 8 órás értesítést
             if(reg.active) reg.active.postMessage({type:'schedule'});
 
-            // 2) Azonnal ellenőrizzük: ha 8 óra után vagyunk és ma még nem volt értesítés
-            if(reg.active) reg.active.postMessage({type:'check-notify'});
-
-            // 3) Periodic Background Sync regisztráció (Android Chrome)
+            // 2) Periodic Background Sync regisztráció (Android Chrome)
             if('periodicSync' in reg){
                 reg.periodicSync.register('daily-notification',{minInterval:24*60*60*1000}).catch(()=>{});
             }
 
-            // 4) Ha az app visszatér az előtérbe (pl. feloldod a telefont) → ellenőriz
+            // 3) Ha az app háttérbe kerül → ellenőriz (értesítés csak ha nem látható az app)
             document.addEventListener('visibilitychange',function(){
-                if(document.visibilityState==='visible' && reg.active){
+                if(document.visibilityState==='hidden' && reg.active){
                     reg.active.postMessage({type:'check-notify'});
                 }
             });

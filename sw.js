@@ -74,16 +74,20 @@ function showDailyNotification() {
 // Üzenet a főoldalról — értesítés küldés ha kell
 self.addEventListener('message', e => {
     if (e.data && e.data.type === 'check-notify') {
-        // Ellenőrizzük az aktív értesítéseket
-        const today = new Date().toDateString();
-        self.registration.getNotifications({ tag: 'daily-' + today }).then(notifs => {
-            if (notifs.length === 0) {
-                // Ma még nem volt értesítés
-                const hour = new Date().getHours();
-                if (hour >= 8) {
-                    showDailyNotification();
+        // Csak akkor küldünk értesítést, ha NINCS nyitott app ablak előtérben
+        self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cls => {
+            const hasVisibleClient = cls.some(c => c.visibilityState === 'visible');
+            if (hasVisibleClient) return; // Az app nyitva van — ne zavarjuk
+
+            const today = new Date().toDateString();
+            self.registration.getNotifications({ tag: 'daily-' + today }).then(notifs => {
+                if (notifs.length === 0) {
+                    const hour = new Date().getHours();
+                    if (hour >= 8) {
+                        showDailyNotification();
+                    }
                 }
-            }
+            });
         });
     }
     if (e.data && e.data.type === 'schedule') {
