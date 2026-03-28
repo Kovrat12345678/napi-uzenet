@@ -12,10 +12,11 @@
     <title>DailyBot</title>
     <style>
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
-        html{background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);min-height:100%;min-height:100dvh;min-height:-webkit-fill-available}
-        body{width:100%;min-height:100%;min-height:100dvh;min-height:-webkit-fill-available;overflow:hidden;touch-action:manipulation;
+        html{background-color:#f97316;min-height:100%;min-height:100dvh;min-height:-webkit-fill-available}
+        body{width:100%;height:100%;min-height:100dvh;min-height:-webkit-fill-available;overflow:hidden;touch-action:manipulation;
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
             background: linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);
+            background-attachment:fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -575,7 +576,7 @@
         @keyframes fly{0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(0)}}
 
         /* ===== ONBOARDING ===== */
-        .onboarding{position:fixed;top:calc(env(safe-area-inset-top, 0px) * -1);left:0;right:0;bottom:calc(env(safe-area-inset-bottom, 0px) * -1);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;padding-top:calc(env(safe-area-inset-top, 0px) + 20px);padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 20px);background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%)}
+        .onboarding{position:fixed;top:-50px;left:-50px;right:-50px;bottom:-50px;z-index:200;display:flex;align-items:center;justify-content:center;padding:70px 70px;background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%)}
         .onboarding.hidden{display:none}
         .ob-card{
             width:100%;max-width:360px;
@@ -821,13 +822,14 @@
         (function(){
             const tc=document.getElementById('themeColor');
             const h=new Date().getHours();
-            let bg,theme;
-            if(h>=5&&h<8) { bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme='#f97316'; }
-            else if(h>=8&&h<17) { bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)'; theme='#38bdf8'; }
-            else if(h>=17&&h<20) { bg='linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)'; theme='#f97316'; }
-            else { bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)'; theme='#0f172a'; }
-            document.documentElement.style.background=bg;
+            let bg,theme,bottomColor;
+            if(h>=5&&h<8) { bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme='#f97316'; bottomColor='#c2410c'; }
+            else if(h>=8&&h<17) { bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)'; theme='#38bdf8'; bottomColor='#f97316'; }
+            else if(h>=17&&h<20) { bg='linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)'; theme='#f97316'; bottomColor='#4c1d95'; }
+            else { bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)'; theme='#0f172a'; bottomColor='#0f172a'; }
+            document.documentElement.style.backgroundColor=bottomColor;
             document.body.style.background=bg;
+            document.body.style.backgroundAttachment='fixed';
             tc.content=theme;
         })();
 
