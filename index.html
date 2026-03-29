@@ -69,14 +69,23 @@
         .cursor{display:inline-block;width:2px;height:18px;background:#fff;margin-left:2px;vertical-align:text-bottom;animation:blink .6s step-end infinite}
         @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
         .fav-btn{
-            display:none;margin:14px auto 0;padding:8px 20px;
+            padding:8px 20px;
             background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);
             border-radius:100px;color:#fff;font-size:14px;font-weight:600;
             cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;
         }
-        .fav-btn.show{display:inline-block;animation:obIn .4s cubic-bezier(.34,1.56,.64,1)}
         .fav-btn:active{transform:scale(.95)}
         .fav-btn.saved{background:rgba(239,68,68,.25);border-color:rgba(239,68,68,.4)}
+        .bubble-actions{display:none;gap:8px;margin-top:14px;justify-content:center}
+        .bubble.show .bubble-actions{display:flex}
+        .share-btn{
+            padding:8px 20px;
+            background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);
+            border-radius:100px;color:#fff;font-size:14px;font-weight:600;
+            cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;
+        }
+        .share-btn:active{transform:scale(.95)}
+        .share-btn.copied{background:rgba(34,197,94,.25);border-color:rgba(34,197,94,.4)}
 
         /* Kedvencek lista */
         .favs-toggle{
@@ -727,7 +736,10 @@
                 <span class="bubble-heart">❤️</span>
                 <span class="b-emoji" id="bE"></span>
                 <div class="b-text" id="bT"></div>
-                <button class="fav-btn" id="favBtn">🤍 Kedvenc</button>
+                <div class="bubble-actions">
+                    <button class="fav-btn show" id="favBtn">🤍 Kedvenc</button>
+                    <button class="share-btn" id="shareBtn">📤 Megosztás</button>
+                </div>
             </div>
         </div>
 
@@ -824,7 +836,7 @@
             ob.style.background=_bg;
 
             const steps=[
-                {emoji:'👋',title:'Hogy hívnak?',sub:'Írd be a neved, hogy személyesen köszönthesselek!',placeholder:'A neved...',type:'text',key:'nu_name'},
+                {emoji:'👋',title:'Mi a keresztneved?',sub:'Csak az utóneved írd be, hogy személyesen köszönthesselek!',placeholder:'Keresztneved...',type:'text',key:'nu_name'},
                 {emoji:'📧',title:'Mi az email címed?',sub:'Ha később értesítéseket szeretnél kapni.',placeholder:'Email címed...',type:'email',key:'nu_email'},
                 {emoji:'🎂',title:'Hány éves vagy?',sub:'Hogy a korodhoz illő üzeneteket kapj!',placeholder:'Életkorod...',type:'number',key:'nu_age'},
                 {emoji:'📍',title:'Hol laksz?',sub:'Hogy helyi időjárást is mutathassak!',placeholder:'Város neve...',type:'text',key:'nu_city'}
@@ -889,6 +901,8 @@
             });
 
             input.addEventListener('input',()=>{
+                // Név mezőnél szóköz tiltása (csak utónév)
+                if(step===0) input.value=input.value.replace(/\s/g,'');
                 btn.disabled=!input.value.trim();
             });
             input.addEventListener('keydown',e=>{
@@ -900,7 +914,7 @@
         (function(){const c=document.getElementById('stars');for(let i=0;i<20;i++){const s=document.createElement('span');s.className='star';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--s:${Math.random()*12+8}px;--d:${(Math.random()*3+2).toFixed(1)}s`;c.appendChild(s)}})();
 
         // ========== SZÜLINAP DETEKTÁLÁS ==========
-        const _bd=new Date();
+        const _bd=msgDay();
         const isBirthday=(_bd.getMonth()===3&&_bd.getDate()>=4&&_bd.getDate()<=5); // ápr 4-5.
 
         // ========== NAPSZAK HÁTTÉR ==========
@@ -937,7 +951,7 @@
 
         // ========== ROBOT ÖLTÖZÉKEK ==========
         (function(){
-            const d=new Date(), month=d.getMonth(), day=d.getDate(), dow=d.getDay();
+            const d=msgDay(), month=d.getMonth(), day=d.getDate(), dow=d.getDay();
             const seed=(d.getFullYear()*10000+(month+1)*100+day);
             const hatEl=document.getElementById('outfitHat');
             const faceEl=document.getElementById('outfitFace');
@@ -1025,389 +1039,391 @@
 
         // ========== ÜZENETEK (365 db — TopJoy stílus) ==========
         const M=[
-            // --- 1–30: Önbizalom ---
-            {t:"Ne feledd, hogy nem vagy egyedül.",e:"💛"},
-            {t:"Higgy magadban, mert képes vagy rá!",e:"⭐"},
-            {t:"Ma is ragyogsz, még ha nem is látod.",e:"✨"},
-            {t:"Valaki most épp rád gondol és mosolyog.",e:"😊"},
-            {t:"Te vagy elég. Pontosan így, ahogy vagy.",e:"💫"},
-            {t:"A te történeted különleges és megismételhetetlen.",e:"📖"},
-            {t:"Büszke lehetsz magadra, mert messzire jutottál.",e:"🏅"},
-            {t:"A világnak szüksége van rád, pontosan ilyenre.",e:"🌍"},
-            {t:"Ma minden okod megvan a mosolyra.",e:"😄"},
-            {t:"Te vagy valakinek a kedvenc embere.",e:"❤️"},
-            {t:"A te fényed másokat is felemel.",e:"🌟"},
-            {t:"Légy büszke arra, aki lettél!",e:"🦋"},
-            {t:"Többre vagy képes, mint gondolnád.",e:"💪"},
-            {t:"A te jelenléted ajándék a világnak.",e:"🎁"},
-            {t:"Ma mondd ki: elég vagyok, és tényleg az is vagy.",e:"🗣️"},
-            {t:"Nem kell tökéletesnek lenned ahhoz, hogy csodálatos légy.",e:"🌈"},
-            {t:"A te hangod fontos. Ne hallgass el!",e:"🎤"},
-            {t:"Csillagokból lettél. Szó szerint.",e:"⭐"},
-            {t:"Senki nem tud úgy ragyogni, ahogy te.",e:"💎"},
-            {t:"A te mosolyod a világ legszebb dísze.",e:"😊"},
-            {t:"Ma is érdemes volt felébredni.",e:"🌅"},
-            {t:"Te vagy a saját szuperhősöd.",e:"🦸"},
-            {t:"Az erőd nagyobb, mint a félelmeid.",e:"🛡️"},
-            {t:"Ne hagyd, hogy bárki megmondja, mit érsz.",e:"👑"},
-            {t:"Ma légy a saját napfényed!",e:"☀️"},
-            {t:"Mindig van okod a reményre.",e:"🕊️"},
-            {t:"A te szíved aranyat ér.",e:"💛"},
-            {t:"Képes vagy csodálatos dolgokra!",e:"🚀"},
-            {t:"Ma indulj el bátran a célod felé!",e:"🎯"},
-            {t:"Soha ne add fel — a legjobb most jön!",e:"🔥"},
-            // --- 31–60: Szeretet & Kapcsolatok ---
-            {t:"Akit szeretsz, az most épp rád gondol.",e:"💕"},
-            {t:"Egy ölelés mindent megold. Képzeld el, most kapsz egyet!",e:"🤗"},
-            {t:"A szeretet nem fogy el, ha adod.",e:"💝"},
-            {t:"Ma mondj valakinek valami kedveset!",e:"💬"},
-            {t:"A barátság a lélek vitaminja.",e:"🧡"},
-            {t:"Írj ma valakinek, akit régen nem kerestél!",e:"📱"},
-            {t:"A kedvességed láncreakciót indít.",e:"🔗"},
-            {t:"Ne feledd: valakit boldoggá teszel pusztán azzal, hogy létezel.",e:"🌸"},
-            {t:"A legjobb ajándék a figyelmed.",e:"👀"},
-            {t:"Ma ölelj meg valakit egy kicsit hosszabban!",e:"🫂"},
-            {t:"A szeretet a legerősebb erő a világon.",e:"❤️"},
-            {t:"Aki melletted van a rossz napokon, az az igazi.",e:"🤝"},
-            {t:"Gondolj arra, aki szeret — máris jobb, ugye?",e:"😌"},
-            {t:"Ma mondj köszönetet valakinek!",e:"🙏"},
-            {t:"A mosoly a legjobb üzenet, amit küldhetsz.",e:"😊"},
-            {t:"Ne feledd: sosem vagy egyedül, még ha úgy is érzed.",e:"🫶"},
-            {t:"Valahol most épp valaki imádkozik érted.",e:"🕯️"},
-            {t:"Adj ma egy esélyt a megbocsátásnak!",e:"🕊️"},
-            {t:"A legjobb napok azok, amiket szeretteiddel töltöd.",e:"👨‍👩‍👧‍👦"},
-            {t:"Légy hálás azokért, akik szeretnek!",e:"🙌"},
-            {t:"Egy kedves szó napokat menthet meg.",e:"💌"},
-            {t:"Ma figyelj oda arra, aki csendben van.",e:"🤫"},
-            {t:"A szeretet nyelve az idő, amit adsz.",e:"⏰"},
-            {t:"Ma légy az a fény, amire másoknak szüksége van.",e:"🔆"},
-            {t:"A legjobb beszélgetések szívből jönnek.",e:"💗"},
-            {t:"Valaki ma nagyon hálás, hogy ismert téged.",e:"🌻"},
-            {t:"Adj egy esélyt a mai napnak — meglephet!",e:"🎉"},
-            {t:"Az igazi gazdagság a kapcsolataidban rejlik.",e:"💰"},
-            {t:"Ma mondj igent egy közös programra!",e:"🎪"},
-            {t:"A törődés a legszebb emberi vonás.",e:"🌹"},
-            // --- 61–90: Bölcsesség ---
-            {t:"Minden nehéz nap erősebbé tesz.",e:"💪"},
-            {t:"A kudarc nem a végpont, hanem az újrakezdés.",e:"🔄"},
-            {t:"A türelem a bátrak erénye.",e:"⏳"},
-            {t:"Ami mögötted van, semmi ahhoz képest, ami benned van.",e:"💎"},
-            {t:"Minden szakértő egyszer kezdő volt.",e:"🌱"},
-            {t:"A legjobb időpont elkezdeni: most.",e:"⏰"},
-            {t:"Ne hasonlítsd magad másokhoz — a te utad egyedi.",e:"🛤️"},
-            {t:"A hála a boldogság titkos kulcsa.",e:"🔑"},
-            {t:"A legegyszerűbb dolgok adják a legnagyobb örömöt.",e:"🌸"},
-            {t:"Az élet 10% az, ami történik, 90% a reakciód.",e:"🎲"},
-            {t:"A bátorság nem a félelem hiánya, hanem a továbblépés.",e:"🦁"},
-            {t:"Minden naplemente után napfelkelte jön.",e:"🌅"},
-            {t:"A legjobb verziódat építed éppen.",e:"🏗️"},
-            {t:"A változás az egyetlen állandó.",e:"🔄"},
-            {t:"A boldog ember nem az, akinek mindene megvan.",e:"🧘"},
-            {t:"Ma tanulj valamit, amit tegnap még nem tudtál!",e:"📚"},
-            {t:"Az igazi luxus: idő, béke, egészség.",e:"🌿"},
-            {t:"A legnagyobb kalandok a komfortzónádon kívül várnak.",e:"🗺️"},
-            {t:"Amit ma megteszel, formálja, ki leszel holnap.",e:"🔮"},
-            {t:"A sikered mértéke az, amit leküzdesz közben.",e:"🏆"},
-            {t:"Az élet nem arról szól, hogy megtaláld magad, hanem megalkossad.",e:"🎨"},
-            {t:"Lépésről lépésre — csak a következő számít.",e:"👟"},
-            {t:"A víz mindig megtalálja az utat. Te is.",e:"🌊"},
-            {t:"A legsötétebb éjszaka után jön a legszebb hajnal.",e:"🌄"},
-            {t:"Engedd el, ami nem szolgál téged.",e:"🎈"},
-            {t:"Ma ne a problémára fókuszálj, hanem a megoldásra!",e:"🧠"},
-            {t:"Az igazi erő belülről jön.",e:"🔥"},
-            {t:"A legfontosabb döntés: hogyan reagálsz.",e:"🧭"},
-            {t:"A mai nap ajándék — bontsd ki lassan!",e:"🎁"},
-            {t:"Minden döntésed a jövőbeli éned formálja.",e:"🗳️"},
-            // --- 91–120: Kitartás ---
-            {t:"Ne add fel — a legjobb fejezet most íródik.",e:"📖"},
-            {t:"A gyémánt is csak nyomás alatt lesz gyémánt.",e:"💎"},
-            {t:"A bambusz 5 évig nő a föld alatt. Te is építkezel.",e:"🎋"},
-            {t:"Nem az számít, hányszor esel. Az, hogy felállsz.",e:"🥊"},
-            {t:"A kitartásod erősebb, mint a nehézségeid.",e:"🪨"},
-            {t:"Ma tedd meg azt az egy dolgot, amit halogatol!",e:"✅"},
-            {t:"A repülő is széllel szemben száll fel.",e:"✈️"},
-            {t:"Ha fáradt vagy, pihenj — de ne add fel!",e:"⛺"},
-            {t:"Minden egyes nap egy új esély.",e:"🎯"},
-            {t:"A sas a vihart használja, hogy magasabbra repüljön.",e:"🦅"},
-            {t:"Haladás > tökéletesség.",e:"📈"},
-            {t:"Kezdd el csinálni — a motiváció majd utolér.",e:"🏃"},
-            {t:"A tökéletes pillanat nem létezik. A legjobb: most.",e:"⚡"},
-            {t:"Ne várd, hogy kész legyél. Sosem leszel. Ugorj!",e:"🪂"},
-            {t:"A hegyet lépésről lépésre kell megmászni.",e:"🧗"},
-            {t:"Ma legyél 1%-kal jobb, mint tegnap.",e:"📊"},
-            {t:"Az akadály az utat mutatja, nem a végét.",e:"🚧"},
-            {t:"Nem kell hegyeket megmozgatnod. Elég, ha mész tovább.",e:"🏔️"},
-            {t:"A türelem nem passzivitás — aktív várakozás.",e:"🎣"},
-            {t:"Minden próbálkozás közelebb visz a célhoz.",e:"🎯"},
-            {t:"Az erőfeszítésed sosincs elveszve.",e:"💪"},
-            {t:"Hibázhatsz — ettől leszel emberi és bátor.",e:"🌟"},
-            {t:"Ma ne azon gondolkodj, miért nem. Azon, hogy miért igen!",e:"💡"},
-            {t:"A vihar után tisztább a levegő.",e:"🌤️"},
-            {t:"Egy kis lépés ma többet ér egy nagy tervnél holnap.",e:"🪜"},
-            {t:"A félelem gyakran iránytű — arrafelé menj!",e:"🧭"},
-            {t:"A legjobb dolgok azoknak jönnek, akik nem adják fel.",e:"🏆"},
-            {t:"Te már annyi mindent túléltél. Ez is menni fog.",e:"💫"},
-            {t:"Ma hozz egy döntést, ami közelebb visz az álmaidhoz!",e:"🌙"},
-            {t:"Az, hogy nehéz, nem jelenti, hogy lehetetlen.",e:"🔓"},
-            // --- 121–150: Nyugalom & Mindfulness ---
-            {t:"Lélegezz. Minden rendben van.",e:"🍃"},
-            {t:"Ma engedd meg magadnak a pihenést.",e:"🛌"},
-            {t:"Zárd be a szemed és érezd, hogy élsz.",e:"🧘"},
-            {t:"Igyál egy pohár vizet — a tested megköszöni.",e:"💧"},
-            {t:"Ma nézz fel az égre. Gyönyörű, ugye?",e:"🌤️"},
-            {t:"A csend tele van válaszokkal.",e:"🤫"},
-            {t:"Ma élj a pillanatban. Csak ebben az egyben.",e:"☀️"},
-            {t:"A belső hangod bölcsebb, mint gondolnád.",e:"🧘"},
-            {t:"Ma adj magadnak engedélyt arra, hogy boldog légy.",e:"🌈"},
-            {t:"Az élet túl rövid a felesleges aggódáshoz.",e:"🫖"},
-            {t:"Néha a legjobb terv: nincs terv.",e:"🌿"},
-            {t:"A természet nem siet, mégis mindent elvégez.",e:"🐌"},
-            {t:"Ma sétálj egy kicsit lassabban.",e:"🚶"},
-            {t:"Fogadd el a bókokat — megérdemled!",e:"💐"},
-            {t:"A nap mindig süt, csak néha felhők takarják.",e:"⛅"},
-            {t:"Ma hallgass meg egy dalt, ami boldoggá tesz!",e:"🎶"},
-            {t:"A legjobb self-care: egy mosoly és egy mély levegő.",e:"😌"},
-            {t:"Gondolj a kedvenc helyedre. Érezd a békét.",e:"🏖️"},
-            {t:"Ma este nézd meg a csillagokat.",e:"🌠"},
-            {t:"Engedd el a feszültséget — nem a tied.",e:"🎈"},
-            {t:"Ma figyelj meg egy fát. Erős és türelmes.",e:"🌳"},
-            {t:"Egy mély levegő több, mint gondolnád.",e:"🌬️"},
-            {t:"A béke nem kívülről jön — benned van.",e:"☮️"},
-            {t:"Ma ne rohanj. Élvezd az utat!",e:"🛤️"},
-            {t:"Valahol most épp rád gondolnak jóságosan.",e:"💭"},
-            {t:"A legszebb pillanatok a legcsendesebbek.",e:"🕊️"},
-            {t:"Ma adj hálát 3 dologért, ami eszedbe jut.",e:"🙏"},
-            {t:"A tested csoda — becsüld meg!",e:"🫁"},
-            {t:"Ma este mondd magadnak: eleget tettem.",e:"😌"},
-            {t:"A jelen pillanat a tied. Ölelj bele!",e:"💖"},
-            // --- 151–180: Humor & Könnyedség ---
-            {t:"Ha az élet citromost ad, csinálj limonádét!",e:"🍋"},
-            {t:"A pingvinek egész nap öltönyben járnak, mégis lazák.",e:"🐧"},
-            {t:"Még a pizza sem tetszik mindenkinek. (Pedig lehetetlen.)",e:"🍕"},
-            {t:"A macskák napi 16 órát alszanak. Légy ma kicsit macska!",e:"🐱"},
-            {t:"A mosoly fertőző — indíts ma egy járványt!",e:"😁"},
-            {t:"Ma a terved: kávé, mosoly, világ megváltása.",e:"☕"},
-            {t:"A GPS sem mondja, hogy feladom — hanem: újratervezés!",e:"🗺️"},
-            {t:"Ma légy a saját cheerleadered!",e:"📣"},
-            {t:"A Post-it is egy elrontott ragasztóból született.",e:"📝"},
-            {t:"A teknősök 200 évig élnek. A titok: ne stresszelj!",e:"🐢"},
-            {t:"Ma egyél valami finomat bűntudat nélkül!",e:"🍰"},
-            {t:"A stressz úgy sem kalória, szóval egyél inkább egy sütit.",e:"🧁"},
-            {t:"Ha a napod szar: valahol egy kutya most nagyon boldog.",e:"🐶"},
-            {t:"Az agyad 70.000 gondolatot termel naponta. Tegyél közéjük 3 jót!",e:"💭"},
-            {t:"Ma úgy járj, mintha epikus filmzene szólna a fejedben.",e:"🎻"},
-            {t:"A napodnak ugyanannyi órája van, mint Beyoncé-nak. Használd!",e:"💃"},
-            {t:"Ma küldj egy random szív emojit valakinek!",e:"💜"},
-            {t:"Húzz fel egy kedvenc zoknit. A lábujjaid is megérdemlik!",e:"🧦"},
-            {t:"Csinálj egy power pose-t a tükör előtt. Működik!",e:"🦸"},
-            {t:"A nevetés 15 percet ad az életedhez. Ma nevess sokat!",e:"😂"},
-            {t:"Ma te vagy a főszereplő. A kamera forog!",e:"🎬"},
-            {t:"Valahol egy párhuzamos univerzumban most minden sikerül. Talán ez az!",e:"🌌"},
-            {t:"A WiFi-d lehet gyenge, de az akaraterőd nem.",e:"📶"},
-            {t:"Ma csinálj meg valamit 2 perc alatt, amit régóta halogatod!",e:"⚡"},
-            {t:"Minden profi valaha amatőr volt. Te épp úton vagy!",e:"🛣️"},
-            {t:"A legjobb befektetés: amikor hittél magadban.",e:"💰"},
-            {t:"A kávéd neve ma: Reménysugár.",e:"☕"},
-            {t:"A mosolygás 43 izmot használ. Ma edzd meg az arcod!",e:"😁"},
-            {t:"Ma adj nevet egy felhőnek. Komolyan!",e:"☁️"},
-            {t:"Az emberiség a Holdra is eljutott. Te is kibírod a hétfőt.",e:"🌕"},
-            // --- 181–210: Kreativitás ---
-            {t:"Ma nézd meg, amit minden nap látsz — de most figyelj jobban!",e:"🔎"},
-            {t:"Rajzolj ma valamit. Mindegy mit. Csak rajzolj!",e:"✍️"},
-            {t:"Az unalom a kreativitás szülőszobája.",e:"💡"},
-            {t:"Ma hallgass meg egy dalt, amit még soha nem hallottál!",e:"🎧"},
-            {t:"Főzz meg ma valamit, amit még soha!",e:"👨‍🍳"},
-            {t:"Írj le 3 dolgot, amit szeretsz magadban!",e:"📝"},
-            {t:"Ma csinálj egy fotót valamiről, ami szépnek találsz!",e:"📸"},
-            {t:"A kíváncsiság szuperképesség. Kérdezz bátran!",e:"🧐"},
-            {t:"Ma figyelj meg egy gyereket — ők tudják a titkot.",e:"🧒"},
-            {t:"Gondolj ki egy feltalálást, amire szükség lenne!",e:"🔧"},
-            {t:"Ma találj ki egy új szót a boldogságra!",e:"✏️"},
-            {t:"A kreativitásod határtalan. Engedd szabadjára!",e:"🎨"},
-            {t:"Ma nézz ki az ablakon és keress valamit, amit még nem láttál!",e:"🪟"},
-            {t:"Tanulj meg egy szót egy új nyelven!",e:"🌐"},
-            {t:"Írj levelet a jövőbeli önmagadnak!",e:"✉️"},
-            {t:"Ma olvasd el egy könyv első mondatát. Ha megfog, vidd haza!",e:"📖"},
-            {t:"A világ tele van ajtókkal. Ma nyiss ki egyet!",e:"🚪"},
-            {t:"Ma gondolj ki, mi lenne a szupererőd!",e:"🦹"},
-            {t:"Tanulj meg ma egy varázstrükköt!",e:"🪄"},
-            {t:"A legjobb ötletek váratlanul jönnek. Légy nyitott!",e:"💡"},
-            {t:"Ma próbálj ki valami újat. Légy kezdő!",e:"🌱"},
-            {t:"A képzeleted erősebb, mint a valóság korlátai.",e:"🌈"},
-            {t:"Figyelj ma egy madárra — repül, mert hisz benne.",e:"🐦"},
-            {t:"Gondolj ki egy történetet 3 szóban!",e:"📚"},
-            {t:"Ma fedezz fel egy új zenei műfajt!",e:"🎵"},
-            {t:"Nézd meg a naplementét — ingyen van és felbecsülhetetlen.",e:"🌅"},
-            {t:"A legszebb művészet az életed — te alkotod!",e:"🖼️"},
-            {t:"Ma csinálj valamit csak azért, mert örömet okoz!",e:"🎉"},
-            {t:"A világ színesebb, ha te is hozzáadsz egy színt!",e:"🎨"},
-            {t:"Ma lepd meg magad valami váratlannal!",e:"🎊"},
-            // --- 211–240: Természet ---
-            {t:"Ma sétálj egyet a szabadban — jót tesz a léleknek!",e:"🌲"},
-            {t:"Figyelj meg ma egy virágot. Mikor csináltad utoljára?",e:"🌺"},
-            {t:"A tenger hullámzik, de a mélyben nyugodt. Te is lehetsz.",e:"🌊"},
-            {t:"Ma gyere ki a négy fal közül! 5 perc napfény csodákat tesz.",e:"☀️"},
-            {t:"A virág nem versenyez a mellette lévővel. Csak nyílik.",e:"🌷"},
-            {t:"Ma figyelj a szélre. Honnan fúj? Te hova tartasz?",e:"💨"},
-            {t:"Járj ma mezítláb a fűben — a lelked megköszöni!",e:"🦶"},
-            {t:"Szagolj meg ma egy virágot. Komolyan!",e:"🌹"},
-            {t:"A legszebb fotókat szemmel és szívvel csinálják.",e:"📷"},
-            {t:"Ma hallgasd meg az esőt — vagy képzeld el!",e:"🌧️"},
-            {t:"Egy fa nem siet, mégis magasabbra nő, mint bármi más.",e:"🌴"},
-            {t:"Ma nézz fel a felhőkre. Gyerekként órákat tudtál!",e:"☁️"},
-            {t:"A természet a legjobb gyógyszer.",e:"🌿"},
-            {t:"Egyszer minden évben eljön a legjobb napod. Ma talán az!",e:"🎉"},
-            {t:"Ma ülj le és csak légy. Ennyi elég.",e:"🧘"},
-            {t:"A csillagokat nézni összeköt azzal, aki volt és aki lesz.",e:"🌠"},
-            {t:"Egy pohár víz, mély levegő, mosoly. Ennyi a self-care.",e:"💧"},
-            {t:"Az eső után minden tisztább. Az érzések is.",e:"🌈"},
-            {t:"Ma keress egy helyet, ahol csend van. Maradj ott kicsit!",e:"🏞️"},
-            {t:"A napfény ingyen van — ma élvezd ki!",e:"🌞"},
-            {t:"Nézd meg az eget — ugyanaz a kék, mint az őseidé volt.",e:"🔵"},
-            {t:"A hold is csak félig világít néha, mégis gyönyörű.",e:"🌙"},
-            {t:"A természetben nincs hibás — csak különböző.",e:"🍂"},
-            {t:"Ma légy hálás a levegőért, amit belélegzel.",e:"🌬️"},
-            {t:"Egy madárdal többet mond ezer szónál.",e:"🐦"},
-            {t:"Ma találj egy szép követ és vidd haza emlékbe!",e:"🪨"},
-            {t:"Az évszakok váltakozása azt üzeni: minden elmúlik.",e:"🍁"},
-            {t:"A legjobb séta az, aminek nincs célja.",e:"🚶"},
-            {t:"Ma légy kíváncsi, mint egy gyerek a kertben!",e:"🌻"},
-            {t:"A föld forgása sosem áll meg. Te se állj meg!",e:"🌍"},
-            // --- 241–270: Érzelmek ---
-            {t:"Sírni is szabad. Az is erő.",e:"💧"},
-            {t:"Ma engedd meg magadnak, hogy érezz.",e:"💗"},
-            {t:"A boldogság apró pillanatokból áll.",e:"🌟"},
-            {t:"Ha szomorú vagy, az is rendben van. El fog múlni.",e:"🌧️"},
-            {t:"Ma mondj valami szépet magadnak!",e:"💬"},
-            {t:"Az érzéseid érvényesek — mindegyik.",e:"🫶"},
-            {t:"Nem kell mindig erősnek lenni.",e:"🧸"},
-            {t:"Ma engedj el egy régi fájdalmat.",e:"🎈"},
-            {t:"A sebezhetőség bátorság, nem gyengeség.",e:"🦁"},
-            {t:"Ma öleld meg magad — megérdemled!",e:"🤗"},
-            {t:"A könnyeid is részei a történetednek.",e:"📖"},
-            {t:"Adj magadnak időt a gyógyulásra.",e:"🩹"},
-            {t:"Ma nevess hangosan — nem kell ok hozzá!",e:"😂"},
-            {t:"Az öröm választás. Ma válaszd azt!",e:"🌈"},
-            {t:"A szíved többet tud, mint az eszed.",e:"❤️"},
-            {t:"Ha elveszettnek érzed magad, nézz a szívedbe.",e:"🧭"},
-            {t:"A legjobb érzés: amikor valaki őszintén örül neked.",e:"🥹"},
-            {t:"Ma mutasd meg az igazi éned — az a legszebb!",e:"🪞"},
-            {t:"A hálaérzet mindent megváltoztat.",e:"🙏"},
-            {t:"Nem kell megmagyarázni az érzéseidet.",e:"🤍"},
-            {t:"Ma légy kedves magadhoz — ez a legfontosabb.",e:"🌸"},
-            {t:"Az igazi bátorság: megmutatni, ki vagy valójában.",e:"🦋"},
-            {t:"Ma engedd be a szeretetet!",e:"💕"},
-            {t:"Az érzések hullámok — jönnek és mennek.",e:"🌊"},
-            {t:"A szomorúság után mindig jön a megkönnyebbülés.",e:"🌤️"},
-            {t:"Ma adj magadnak egy kis extra törődést!",e:"🫧"},
-            {t:"A gyerekkorod ártatlanságát még mindig magadban hordod.",e:"🧒"},
-            {t:"Ma mosolyogj egy idegenen — csodát tesz!",e:"😊"},
-            {t:"A legjobb napok váratlanul jönnek.",e:"✨"},
-            {t:"Az igazi boldogság: elfogadni magad olyannak, amilyen vagy.",e:"💫"},
-            // --- 271–300: Energia & Cselekvés ---
-            {t:"Ma csináld meg! Ne holnap.",e:"⚡"},
-            {t:"Az energia nem véges — minél többet adsz, annál több jön.",e:"🔋"},
-            {t:"Ma reggel ne a hírekkel kezdd. Kezdd azzal, ami fontos!",e:"📵"},
-            {t:"Állj fel, nyújtózkodj, igyál vizet. Lássuk!",e:"🧘"},
-            {t:"A világ azokat jutalmazza, akik cselekednek.",e:"🏆"},
-            {t:"Ma hozz egy döntést, ami boldoggá tesz!",e:"🎯"},
-            {t:"A nem is szupererő. Ma mondj nemet arra, ami nem szolgál!",e:"🛡️"},
-            {t:"Ma legalább 1 apró lépést tegyél a célod felé!",e:"👟"},
-            {t:"A tervezés jó, de a cselekvés jobb.",e:"📋"},
-            {t:"Ma tedd a dolgod — a többit bízd a sorsra!",e:"🍀"},
-            {t:"Csináld, amitől félsz. Ott kezdődik a növekedés.",e:"🌱"},
-            {t:"Ma add bele magad 100%-ban!",e:"💯"},
-            {t:"Egy befejezett 70% jobb, mint egy soha el nem készült 100%.",e:"✅"},
-            {t:"Ma ne tökéletességre törekedj — haladásra!",e:"📈"},
-            {t:"Cselekedj ma úgy, mintha nem félnél!",e:"🦸"},
-            {t:"A rutinod a szuperhatalmad. Építsd tudatosan!",e:"🧱"},
-            {t:"Ma egyetlen dologra fókuszálj — és csináld jól!",e:"🔍"},
-            {t:"A pici szokások hozzák a nagy változásokat.",e:"🪜"},
-            {t:"Ma reggel tedd meg az első lépést. A többit majd meglátod!",e:"🌅"},
-            {t:"Ne gondolkodj túl sokat. Csináld!",e:"🚀"},
-            {t:"Az a nap, amit tegnap vártál — ma itt van!",e:"🌞"},
-            {t:"Ma légy aktív — a tested és a lelked is megköszöni!",e:"🏃"},
-            {t:"A siker apró döntésekből épül. Ma hozz egy jót!",e:"🧩"},
-            {t:"Ne várd a megfelelő pillanatot — teremtsd meg!",e:"⏰"},
-            {t:"Ma küzdj azért, amit szeretsz!",e:"🥊"},
-            {t:"Az ébresztő szólt — a lehetőségek várnak!",e:"⏰"},
-            {t:"Légy ma bátrabb, mint tegnap!",e:"🦁"},
-            {t:"Minden nap egy új oldal. Írd tele szépséggel!",e:"📝"},
-            {t:"Ma ne panaszkodj — cselekedj!",e:"💪"},
-            {t:"A jövőd attól függ, amit ma teszel.",e:"🔮"},
-            // --- 301–330: Mélység ---
-            {t:"A múlt tanított, a jelen formál, a jövő vár.",e:"⏳"},
-            {t:"Ma légy hálás a testedért — minden lélegzeted csoda.",e:"🫁"},
-            {t:"Az élet nem probléma, amit meg kell oldani. Élmény.",e:"🎪"},
-            {t:"Nem az a lényeg, mit hagy a világ neked, hanem mit hagysz te.",e:"🌎"},
-            {t:"A szavaid hatalom. Válaszd őket bölcsen!",e:"🗝️"},
-            {t:"Az élet nem fair — de szép. Mindkettő igaz.",e:"⚖️"},
-            {t:"Ma ne aggodalmakat számolj — áldásokat!",e:"📿"},
-            {t:"Légy olyan ember, akit a gyerek-éned csodálna.",e:"👦"},
-            {t:"A legfontosabb beszélgetés: amit magaddal folytatsz.",e:"💬"},
-            {t:"Holnap is lesz üzenet. De a mai csak a tied.",e:"💖"},
-            {t:"Te többre vagy képes, mint gondolnád. Ezt neked mondom.",e:"📢"},
-            {t:"Légy büszke arra, ami vagy. Izgatott azért, ami leszel.",e:"🦊"},
-            {t:"Ma indulj el valami felé, ami boldoggá tesz!",e:"🛤️"},
-            {t:"A világ nem tökéletes, te sem — és pont ez a szép.",e:"🌈"},
-            {t:"Végül minden rendben lesz. Ha nincs, az nem a vég.",e:"🌟"},
-            {t:"Ma minden percben ott van egy kis mágia.",e:"🔮"},
-            {t:"Gondolj bele: a kedvenc dalod egyszer még ismeretlen volt.",e:"🎬"},
-            {t:"Egy nap visszanézel és azt mondod: itt fordult jobbra.",e:"🔮"},
-            {t:"A legjobb projekt, amin dolgozhatsz: te magad.",e:"🛠️"},
-            {t:"Az élet olyan, mint a kerékpározás — az egyensúlyhoz mozogni kell.",e:"🚲"},
-            {t:"Ma engedd meg magadnak, hogy változz.",e:"🔄"},
-            {t:"A legjobb dolgok az életben nem dolgok.",e:"🌸"},
-            {t:"A Föld 4,5 milliárd éve létezik, és pont most vagy itt.",e:"🌍"},
-            {t:"Ha a tested gép lenne, a szíved az a motor, ami sosem áll le.",e:"❤️"},
-            {t:"A félelmed olyan, mint a sötét szoba — kapcsold fel a villanyt!",e:"💡"},
-            {t:"Ma gondolj arra, mi tett boldoggá 10 évesen. Csinálj belőle valamit!",e:"🎠"},
-            {t:"Valahol a világon valaki pont arról álmodik, amid neked megvan.",e:"💭"},
-            {t:"A pillangó nem tudja, milyen szép. Te se mindig. De az vagy.",e:"🦋"},
-            {t:"Három dolog ma biztosan igaz: létezel, értékes vagy, valaki szeret.",e:"💛"},
-            {t:"Ma reggel a Világegyetem adott neked egy újabb napot. Használd!",e:"🌅"},
-            // --- 331–365: Extra bölcsességek ---
-            {t:"Ne keresd a boldogságot — teremtsd meg!",e:"🌻"},
-            {t:"A hited hegyeket mozgat. Higgy magadban!",e:"⛰️"},
-            {t:"Ma adj a világnak valamit, amit csak te tudsz adni.",e:"🎁"},
-            {t:"Az álmod nem túl nagy — a félelmeid túl hangosak.",e:"🌙"},
-            {t:"Minden egyes reggel egy újabb csoda.",e:"🌅"},
-            {t:"A te utad egyedi — ne hasonlítsd másokéhoz!",e:"🛤️"},
-            {t:"Ma csak légy jelen. Ez elég.",e:"🧘"},
-            {t:"A szíved tudja az utat — kövesd!",e:"❤️"},
-            {t:"Nem kell mindent értened — elég, ha bízol.",e:"🕊️"},
-            {t:"Ma légy az, akire szükséged volt, amikor gyerek voltál.",e:"🧸"},
-            {t:"A kedvesség sosem megy kárba.",e:"🌹"},
-            {t:"Gondolj arra az egy emberre, aki mindig melletted volt. Köszönd meg!",e:"🫂"},
-            {t:"A mai nap tele van lehetőségekkel!",e:"🚪"},
-            {t:"Nem a cél számít, hanem az út, amin jársz.",e:"🗺️"},
-            {t:"Ma tanulj meg elengedni — a könnyebbség megéri.",e:"🎈"},
-            {t:"A te életed a te mestermunkád.",e:"🎨"},
-            {t:"Ma fogadj el egy bókot szívből!",e:"💐"},
-            {t:"Gondolj bele, hány embernek tettél jót az életedben!",e:"🌟"},
-            {t:"A remény nem naivitás — a bátorság jele.",e:"🌱"},
-            {t:"Ma mondj igent az életre!",e:"✨"},
-            {t:"A legjobb dolog, ami ma történhet: rád gondolnak.",e:"🫶"},
-            {t:"Nem kell megváltoztatnod a világot — elég, ha a sajátodat szebbé teszed.",e:"🏡"},
-            {t:"A szíved nagyobb, mint a félelmeid.",e:"💗"},
-            {t:"Ma tedd azt, ami boldoggá tesz — bűntudat nélkül!",e:"🎉"},
-            {t:"A legjobb verziódat ma is építed. Légy türelmes!",e:"🏗️"},
-            {t:"Ma ne a hiányt nézd — nézd, mi minden van!",e:"📋"},
-            {t:"A napod pont olyan szép, amilyenné teszed.",e:"🌞"},
-            {t:"A jóság visszatalál hozzád. Mindig.",e:"🔄"},
-            {t:"Ma mosolyogj a tükörbe — a legjobb barátod néz vissza!",e:"🪞"},
-            {t:"A mai nap soha nem jön vissza. Tedd emlékezetessé!",e:"💎"},
-            {t:"Ma csak annyit kell tenned: lenni. Ez is elég.",e:"🍃"},
-            {t:"A te életed számít. Ma is, holnap is, mindig.",e:"💫"},
-            {t:"Minden végződés egy új kezdet.",e:"🌅"},
-            {t:"Szeretnek. Ne feledd ezt soha!",e:"❤️"},
-            {t:"A holnap egy üres lap — rajzolj rá valami szépet!",e:"🎨"},
+            // --- 1–30: Csend & Önismeret ---
+            {t:"Nem kell mindig erősnek látszanod. Elég, ha őszinte vagy.",e:"🤍"},
+            {t:"Vannak napok, amikor a legnagyobb tett: felkelni.",e:"🌅"},
+            {t:"Nem az a baj, ha lassan haladsz. Az a baj, ha nem a sajátodat éled.",e:"🐚"},
+            {t:"A csend nem üresség. Néha a legtisztább válasz.",e:"🕊️"},
+            {t:"Nem kell megfelelned senkinek. Csak önmagadnak.",e:"🪞"},
+            {t:"A legtöbb, amit magadért tehetsz: meghallgatod magad.",e:"🫧"},
+            {t:"Az nem gyengeség, ha nem bírod. Az is élet.",e:"🍂"},
+            {t:"Néha a legbátrabb dolog: bevallani, hogy fáradt vagy.",e:"💤"},
+            {t:"A tested emlékszik mindenre. Hallgasd meg néha.",e:"🫁"},
+            {t:"Nem kell tudnod, hova tartasz. Elég, ha itt vagy.",e:"🧭"},
+            {t:"Vannak gondolatok, amiket nem kell kimondani. Elég, ha érzed.",e:"💭"},
+            {t:"A legerősebb emberek is szoktak félni. Ettől még erősek.",e:"🌿"},
+            {t:"Nem az számít, mit gondolnak rólad. Az számít, mit gondolsz magadról.",e:"🪷"},
+            {t:"A te életed nem verseny. Nincs, akivel össze kellene mérned.",e:"🌙"},
+            {t:"Néha az önszeretet abban áll, hogy nem csinálsz semmit.",e:"☁️"},
+            {t:"Az emberek elfelejtik, mit mondtál. Azt soha, amit éreztettél velük.",e:"🌸"},
+            {t:"A legfontosabb kérdés nem az, hogy mit akarsz. Hanem hogy ki akarsz lenni.",e:"🔮"},
+            {t:"Nem kell meggyógyítanod magad. Néha elég, ha hagyod, hogy gyógyulj.",e:"🩵"},
+            {t:"A tükör csak a felszínt mutatja. A mélységed láthatatlan — és gyönyörű.",e:"💎"},
+            {t:"Nem az a fontos, hány ember ismer. Hanem hogy ismered-e önmagad.",e:"🌊"},
+            {t:"A régi éned is te voltál. Ne harcolj ellene — tanulj tőle.",e:"📖"},
+            {t:"Nem kell mindent megértened ahhoz, hogy elfogadd.",e:"🍃"},
+            {t:"Vannak sebek, amik nem tűnnek el. De vannak, amik erőssé tesznek.",e:"🪨"},
+            {t:"A legcsendesebb szobában hallod a legjobban önmagad.",e:"🤫"},
+            {t:"Te vagy az egyetlen, aki belülről látja az életedet. Bízz abban, amit látsz.",e:"👁️"},
+            {t:"Az igazi szabadság nem ott kezdődik, hogy mehetsz. Hanem hogy megállhatsz.",e:"🦋"},
+            {t:"Nem kell igazolnod az érzéseidet. Azok már önmagukban igazak.",e:"💫"},
+            {t:"A leghalkabb hangod mondja a legfontosabb dolgokat.",e:"🌬️"},
+            {t:"Vannak napok, amik csak arra valók, hogy túlélj. Az is elég.",e:"🕯️"},
+            {t:"Nem kell hősnek lenned. Elég, ha ember maradsz.",e:"🤍"},
+            // --- 31–60: Kapcsolatok & Közelség ---
+            {t:"A legjobb beszélgetések nem szavakból állnak. Hanem jelenlétből.",e:"🫂"},
+            {t:"Nem kell mindig mondanod valamit. Néha az is elég, ha ott vagy.",e:"🤝"},
+            {t:"Az igazi közelség ott kezdődik, ahol a maszkok véget érnek.",e:"💛"},
+            {t:"Vannak emberek, akik melletted csendesednek el. Ők a tieid.",e:"🌙"},
+            {t:"A szeretet nem hangos. A legmélyebb érzések halkan jönnek.",e:"💗"},
+            {t:"Nem az a fontos, hány barátod van. Hanem hogy van-e, akinek szólhatsz éjjel.",e:"📱"},
+            {t:"Az igazi szeretet nem feltételekhez kötött. Csak van.",e:"🌿"},
+            {t:"Néha a legnagyobb ajándék: valaki ideje.",e:"⏳"},
+            {t:"Vannak tekintetek, amik többet mondanak minden szónál.",e:"👀"},
+            {t:"A régi barátok olyanok, mint a régi dalok. Azonnal visszahoznak.",e:"🎶"},
+            {t:"Az ember ott lesz otthon, ahol nem kell magyarázkodnia.",e:"🏡"},
+            {t:"A távolság semmit nem jelent, ha a szívek közel vannak.",e:"💕"},
+            {t:"Nem kell megjavítanod senkit. Néha elég, ha meghallgatod.",e:"🤍"},
+            {t:"A legszebb szeretetnyelv a figyelem.",e:"🌸"},
+            {t:"Vannak kapcsolatok, amiket nem az idő mér. Hanem a mélység.",e:"🌊"},
+            {t:"Az igazi család nem mindig vér kérdése. Néha választás.",e:"🫶"},
+            {t:"Nem kell megértened valakit ahhoz, hogy szeresd.",e:"❤️"},
+            {t:"A megbocsátás nem nekik szól. Hanem neked.",e:"🕊️"},
+            {t:"Vannak emberek, akik nélkül a csend túl hangos lenne.",e:"🌙"},
+            {t:"A legjobb ölelések azok, amikor nem akarod elengedni.",e:"🤗"},
+            {t:"Az igazán fontos emberek nem a leghangosabbak. Hanem akik maradnak.",e:"🪵"},
+            {t:"Néha a szeretet abban áll, hogy hagyod a másikat szabadnak.",e:"🦋"},
+            {t:"A hála nem kötelezettség. Hanem amikor észreveszed, mi minden van.",e:"🙏"},
+            {t:"Egy kedves szó néha egész napot megment.",e:"💌"},
+            {t:"Vannak pillanatok, amiket nem kell megörökíteni. Elég átélni.",e:"📷"},
+            {t:"Az emberek nem azért fontosak, mert tökéletesek. Hanem mert valódiak.",e:"🌻"},
+            {t:"A legnagyobb bátorság: sebezhetőnek lenni valaki előtt.",e:"🛡️"},
+            {t:"Nem kell mindig segítened. Néha elég, ha ott vagy.",e:"🫂"},
+            {t:"Az igazi kapcsolat nem a szavakban van. Hanem a csendben, ami közöttetek természetes.",e:"☕"},
+            {t:"Vannak emberek, akik jobban hisznek benned, mint te magadban. Fogadd el.",e:"💫"},
+            // --- 61–90: Bölcsesség & Idő ---
+            {t:"Az idő nem az ellenséged. Inkább a legjobb tanárod.",e:"⏳"},
+            {t:"Nem kell mindent most eldöntened. Vannak dolgok, amik idővel válnak világossá.",e:"🌫️"},
+            {t:"A legbölcsebb döntés néha az, hogy vársz.",e:"🧘"},
+            {t:"Ami most fáj, egyszer majd értelmet nyer. Vagy nem — és az is rendben van.",e:"🌧️"},
+            {t:"A világ nem igazságos. De a szép dolgok ettől még léteznek.",e:"🌈"},
+            {t:"Nem kell mindent kontrollálnod. Néha az elengedés a válasz.",e:"🎈"},
+            {t:"A legfontosabb leckéket senki nem tanítja. Azokat éled.",e:"📖"},
+            {t:"Az igazi tudás ott kezdődik, ahol beismered, mit nem tudsz.",e:"🔑"},
+            {t:"A legnagyobb ajándék, amit az idő ad: távlat.",e:"🏔️"},
+            {t:"Nem az a kérdés, mi történt veled. Hanem mit kezdesz vele.",e:"🧩"},
+            {t:"A boldogság nem állapot. Inkább pillanatok sorozata.",e:"✨"},
+            {t:"Ami elmúlt, megtanított. Ami jön, felkészít. Ami most van: az a tied.",e:"🎁"},
+            {t:"Nem kell minden ajtón bemenned. Néha a zárt ajtó is válasz.",e:"🚪"},
+            {t:"A változás ijesztő. De a változatlanság néha még ijesztőbb.",e:"🔄"},
+            {t:"Az ember akkor a legbölcsebb, amikor rájön, mennyire keveset tud.",e:"🌿"},
+            {t:"A legnagyobb luxus nem a pénz. Hanem a belső béke.",e:"☮️"},
+            {t:"Néha az út fontosabb, mint az úticél. Nézz körül.",e:"🛤️"},
+            {t:"A legszebb igazságokat nem bizonyítani kell. Érezni.",e:"💎"},
+            {t:"Amit ma fontosnak tartasz, lehet, hogy egy év múlva elfelejted. Gondolkodj ezen.",e:"🔮"},
+            {t:"A kudarc nem ellentéte a sikernek. Hanem része.",e:"🧱"},
+            {t:"Az élet nem arról szól, hogy mindent megkapj. Hanem hogy megtanuld, mi kell valóban.",e:"🍃"},
+            {t:"Nem az erős ember az, aki sosem sír. Hanem aki sírás után is felkel.",e:"🌅"},
+            {t:"A legjobb döntéseket néha a szíved hozza, nem az eszed.",e:"❤️"},
+            {t:"Vannak dolgok, amiket nem kell megoldani. Elég, ha elfogadod.",e:"🌊"},
+            {t:"A legmélyebb nyugalom onnan jön, ha abbahagyod a harcot önmagaddal.",e:"🧘"},
+            {t:"Nem kell mindig tanulságnak lennie. Néha a dolgok egyszerűen megtörténnek.",e:"🍂"},
+            {t:"Az igazi gazdagság: ha van időd azokra, akiket szeretsz.",e:"⏰"},
+            {t:"A legszebb napok általában váratlanul jönnek.",e:"🌸"},
+            {t:"Nem kell megváltoztatnod a világot. Elég, ha nem hagyod, hogy a világ megváltoztasson.",e:"🌍"},
+            {t:"A bölcsesség nem az évekkel jön. Hanem azzal, hogy figyelsz.",e:"🦉"},
+            // --- 91–120: Kitartás & Türelem ---
+            {t:"Nem kell gyorsan menned. Elég, ha nem állsz meg.",e:"🐢"},
+            {t:"A legtöbb csoda csendben történik. A tied is úton van.",e:"🌱"},
+            {t:"Nem az a kérdés, meddig tart. Hanem hogy kitartasz-e.",e:"🪨"},
+            {t:"A nehéz napoknak is van feladata. Általában a legfontosabb.",e:"⛈️"},
+            {t:"Nem kell látni a célvonalat ahhoz, hogy tovább menj.",e:"🌫️"},
+            {t:"A víz nem azért erős, mert kemény. Hanem mert nem áll meg.",e:"🌊"},
+            {t:"A legsötétebb pillanat közvetlenül hajnal előtt van.",e:"🌄"},
+            {t:"Nem kell hinnünk a végében ahhoz, hogy elkezdjük.",e:"🪜"},
+            {t:"Vannak idők, amikor a kitartás az egyetlen stratégia. És az elég.",e:"🔥"},
+            {t:"A fa nem azért erős, mert soha nem hajlott meg. Hanem mert mindig visszaegyenesedett.",e:"🌳"},
+            {t:"Nem a sebességed számít. Hanem az irányod.",e:"🧭"},
+            {t:"A legtöbb sikertörténet ott kezdődik, ahol valaki nem adta fel.",e:"📖"},
+            {t:"Néha a legbátrabb lépés: az a következő. Bármelyik következő.",e:"👟"},
+            {t:"Az erő nem abban van, hogy sosem fáradsz el. Hanem hogy fáradtan is mész tovább.",e:"🏔️"},
+            {t:"Nem kell hegyeket mozgatnod. Elég, ha a sajátodat megmászod.",e:"⛰️"},
+            {t:"A türelem nem tétlenség. Hanem csendes erő.",e:"🎋"},
+            {t:"Vannak napok, amik nem az elérésről szólnak. Hanem a túlélésről. És az is győzelem.",e:"🏅"},
+            {t:"A bambusz évekig a föld alatt nő. Te sem látod mindig a haladást. De az ott van.",e:"🎋"},
+            {t:"Nem kell mindent egyszerre megoldanod. Egy nap, egy lépés.",e:"🪜"},
+            {t:"A leghosszabb utak is egyetlen lépéssel kezdődnek.",e:"🛤️"},
+            {t:"Vannak viharok, amik nem elpusztítani jönnek. Hanem megtisztítani.",e:"⛈️"},
+            {t:"Nem az a kérdés, hányszor estél el. Hanem hogy most felállsz-e.",e:"🌅"},
+            {t:"A sötétben is nő a vetés. Akkor is, ha nem látod.",e:"🌾"},
+            {t:"Néha az a haladás, hogy nem lépsz hátra.",e:"🪵"},
+            {t:"A pillangó is a sötétben alakul át. A te változásod is dolgozik.",e:"🦋"},
+            {t:"A kitartás nem hangos. Csendes, türelmes, és hatalmas.",e:"💎"},
+            {t:"Nem kell erősnek érezned magad ahhoz, hogy erős legyél.",e:"🛡️"},
+            {t:"A holnap csak azért létezik, mert a ma is lehetséges volt.",e:"🌙"},
+            {t:"Ha most nehéz, az azt jelenti, hogy valami változik. És a változás fáj, mielőtt gyógyít.",e:"🩵"},
+            {t:"Nem kell hinned magadban minden percben. Elég, ha nem adod fel.",e:"💫"},
+            // --- 121–150: Nyugalom & Jelenlét ---
+            {t:"Nem kell sehova siess. A pillanat itt van, vár rád.",e:"🍃"},
+            {t:"A csend nem a magány hangja. Hanem a béke nyelve.",e:"🤫"},
+            {t:"Nem kell kitöltened minden percet. Az üres idő is érték.",e:"☁️"},
+            {t:"A legmélyebb béke ott kezdődik, ahol abbahagyod az összehasonlítást.",e:"🧘"},
+            {t:"Egy mély levegő néha többet ér, mint ezer szó.",e:"🌬️"},
+            {t:"Nem kell megoldanod semmit most. Csak lélegezz.",e:"🫧"},
+            {t:"A lassúság nem lustaság. Hanem odafigyelés.",e:"🐌"},
+            {t:"Vannak pillanatok, amiket csak azzal értékelsz igazán, hogy jelen vagy bennük.",e:"☀️"},
+            {t:"A reggeli csend a nap legtisztább része. Hallgasd meg.",e:"🌅"},
+            {t:"Nem az a fontos, mit csinálsz. Hanem hogy milyen figyelemmel csinálod.",e:"🔍"},
+            {t:"A belső csend nem üres. Hanem tele van válaszokkal.",e:"🌊"},
+            {t:"Nem kell minden gondolatodat komolyan venned. A legtöbb csak átutazó.",e:"🚂"},
+            {t:"A legjobb napok általában azok, amikor nem terveztél semmit.",e:"🌸"},
+            {t:"Egy csésze tea és egy ablak — néha ennyi a gyógyulás.",e:"🫖"},
+            {t:"Nem kell megfutamod az élet elől. Elég, ha megállsz benne.",e:"🧎"},
+            {t:"A hold nem siet. A folyó nem siet. Te sem kell.",e:"🌙"},
+            {t:"A tested jeleket küld. Hallgasd meg, mielőtt kiabálnia kell.",e:"🫁"},
+            {t:"Nem kell minden este megoldanod a holnapot. Csak fektesd le a mai napot.",e:"🛌"},
+            {t:"Az igazi pihenés nem az, amikor nem csinálsz semmit. Hanem amikor nem aggódsz semmin.",e:"😌"},
+            {t:"A leghalkabb este néha a leggazdagabb.",e:"🌠"},
+            {t:"Vannak pillanatok, amikor a legjobb döntés: elengedni a kontrollt.",e:"🎈"},
+            {t:"A virágok nem gondolkodnak azon, mikor nyíljanak. Egyszerűen nyílnak.",e:"🌷"},
+            {t:"Nem kell értelmet találnod mindenben. Néha elég megélni.",e:"🌿"},
+            {t:"A jelen pillanat az egyetlen, amiben valóban létezel.",e:"💫"},
+            {t:"Az ég akkor is ott van, ha felhős. A belső békéd is.",e:"⛅"},
+            {t:"Nem kell mindig termelned. Létezni is elég.",e:"🍵"},
+            {t:"A legszebb gondolatok csendben születnek.",e:"🕊️"},
+            {t:"Nem az a kérdés, mi vár rád holnap. Hanem hogy ma békében vagy-e.",e:"🌙"},
+            {t:"A szíved ritmusát nem kell irányítanod. Csak hallgatnod.",e:"❤️"},
+            {t:"Az igazi szabadság: elfogadni, hogy most is elég ez a pillanat.",e:"🍃"},
+            // --- 151–180: Könnyedség & Mosoly ---
+            {t:"Néha a legjobb terv: nincs terv. Csak egy mosoly és meglátjuk.",e:"😊"},
+            {t:"Az élet túl rövid ahhoz, hogy komolyan vedd a komoly dolgokat.",e:"🎈"},
+            {t:"A gyerekek azért boldogok, mert nem gondolkodnak azon, hogyan legyenek boldogok.",e:"🧒"},
+            {t:"Nem kell mindent kielemezned. Néha a dolgok egyszerűen szépek.",e:"🌺"},
+            {t:"A legjobb napok általában egy apró döntéssel kezdődnek: ma jól leszek.",e:"☀️"},
+            {t:"Az öröm nem a nagy pillanatokban rejtőzik. Hanem a kis csendekben.",e:"🫧"},
+            {t:"Néha a legokosabb dolog: hülyeséget csinálni.",e:"🤭"},
+            {t:"A tökéletesség unalmas. A valódi élet kuszább — és épp attól szép.",e:"🎨"},
+            {t:"A legjobb nevetések azok, amiknél elfelejted, miért nevetsz.",e:"😂"},
+            {t:"Nem kell minden nap produktívnak lenned. Létezni is elfoglaltság.",e:"🐱"},
+            {t:"A legjobb gondolatok sétálás közben jönnek. Próbáld ki.",e:"🚶"},
+            {t:"A macskák tudják a titkot: a napfolt a legjobb hely.",e:"🐈"},
+            {t:"Nem kell mindent megoldani ma. A világ holnap is itt lesz.",e:"🌍"},
+            {t:"A kávé nem oldja meg a problémákat. De segít elviselni, amíg megoldódnak.",e:"☕"},
+            {t:"Az eső nem rossz idő. Csak más fajta szép.",e:"🌧️"},
+            {t:"Néha a legjobb válasz egy vállrándítás és egy mosoly.",e:"🤷"},
+            {t:"A boldogság nem úticél. Inkább az a mód, ahogy sétálsz.",e:"🛤️"},
+            {t:"Nem kell mindenre választ adnod. A kérdőjel is szép írásjel.",e:"❓"},
+            {t:"A mai nap pontosan egyszer történik meg. Érdemes észrevenni.",e:"✨"},
+            {t:"Felejtsd el a tökéletes napot. Csinálj egy valódit.",e:"🌻"},
+            {t:"A felhők mindig mozgásban vannak. Az érzéseid is.",e:"☁️"},
+            {t:"Nem kell oknak lenni a mosolyra. Néha a mosoly maga az ok.",e:"😊"},
+            {t:"A legjobb kalandok a terv és a spontaneitás között élnek.",e:"🗺️"},
+            {t:"A teknős eljut mindenhová. Csak kicsit lassabban.",e:"🐢"},
+            {t:"Nem kell megváltanod a világot. Elég, ha ma mosollyal találkozol.",e:"🌸"},
+            {t:"A legjobb pillanatok nem tervezhetők. Csak fogadhatók.",e:"🎁"},
+            {t:"Az élet néha zűrös. De a zűr is tud szép lenni.",e:"🌪️"},
+            {t:"Nem kell mindent értened. Néha elég, ha élvezed.",e:"🎶"},
+            {t:"A boldogság néha egyetlen mondatban elfér. Mint ez.",e:"💛"},
+            {t:"Ha ma nem sikerült semmi — az is egy történet, amit mesélhetsz majd nevetve.",e:"😌"},
+            // --- 181–210: Alkotás & Figyelem ---
+            {t:"A legszebb dolgokat nem a szemeddel látod. Hanem azzal, ahogy figyelsz.",e:"🔎"},
+            {t:"Minden nap alkothatsz valamit. Akár egy gondolatot, ami szép.",e:"✍️"},
+            {t:"A csend az a vászon, amire a nap rajzol.",e:"🖼️"},
+            {t:"Nem kell művésznek lenned ahhoz, hogy szépet alkoss.",e:"🎨"},
+            {t:"A legjobb ötletek ott születnek, ahol a figyelem és a szabadság találkozik.",e:"💡"},
+            {t:"Vannak pillanatok, amiket nem lefotózni kell. Hanem érezni.",e:"📷"},
+            {t:"A kíváncsiság a lélek oxigénje.",e:"🧐"},
+            {t:"Nem kell újat kitalálnod. Néha elég máshogy nézni a régit.",e:"🔄"},
+            {t:"A legszebb zene néha a csend a két hang között.",e:"🎵"},
+            {t:"Az alkotás nem a végeredményről szól. Hanem az útról, ami közben történik.",e:"🛤️"},
+            {t:"A világ tele van részletekkel, amiket csak az lát, aki lassan jár.",e:"🌿"},
+            {t:"Nem kell nagy dolgot csinálnod. A kicsi is lehet mély.",e:"🐚"},
+            {t:"A legjobb gondolatok a séták mellékterméke.",e:"🚶"},
+            {t:"Az ihlet nem jön, ha hívod. De eljön, ha figyelmes vagy.",e:"🦋"},
+            {t:"A kreativitás nem tehetség. Hanem bátorság.",e:"🌈"},
+            {t:"Vannak könyvek, amik azért szépek, mert egy mondatukon megállsz.",e:"📖"},
+            {t:"Az igazi művészet nem tökéletes. Hanem őszinte.",e:"🎭"},
+            {t:"Nem kell minden gondolatot megosztanod. Vannak, amik csak a tieid.",e:"💭"},
+            {t:"A reggeli fény mindig más. Ha figyeled, minden nap új.",e:"🌅"},
+            {t:"Néha a legjobb dolog, amit tehetsz: figyelni, ahogy minden változik.",e:"🍂"},
+            {t:"Az ember akkor ír igazán, amikor nem az olvasóra gondol.",e:"✏️"},
+            {t:"A szépség ott van, ahol keresd. De ott is, ahol nem.",e:"🌸"},
+            {t:"Nem kell nagy vászon ahhoz, hogy szépet alkoss. Egy gondolat is elég.",e:"🧠"},
+            {t:"A legrégibb történetek azért szépek, mert valaki egyszer figyelt.",e:"🏛️"},
+            {t:"Nem az számít, mit látsz. Hanem amit észreveszel.",e:"👁️"},
+            {t:"A kedvenc dalod azért kedvenc, mert egyszer valaki pontosan azt érezte, amit te.",e:"🎧"},
+            {t:"Az igazi figyelem ajándék. A legritkább, amit adhatsz.",e:"🎁"},
+            {t:"Nem kell megörökítened mindent. Vannak pillanatok, amik a memóriádban a legszebbek.",e:"🧡"},
+            {t:"A teremtés nem a semmiből jön. Hanem a csendből.",e:"🌙"},
+            {t:"Az igazi szépség mindig csendes. Mint a hajnali harmat.",e:"🌅"},
+            // --- 211–240: Természet & Csoda ---
+            {t:"A természet nem siet. Mégis minden elkészül.",e:"🌳"},
+            {t:"Nem kell messzire menned a szépért. Nézz ki az ablakon.",e:"🪟"},
+            {t:"A tenger nem gondolkodik a hullámokon. Csak hullámzik.",e:"🌊"},
+            {t:"Vannak helyek, ahol a csend hangosabb, mint bármelyik város.",e:"🏞️"},
+            {t:"A virág nem kérdezi, ki nézi. Egyszerűen nyílik.",e:"🌷"},
+            {t:"Az eső nem szomorúság. Hanem a föld módja, hogy újjászülessen.",e:"🌧️"},
+            {t:"A legszebb dolgok a természetben nem szimmetrikusak. Ettől szépek.",e:"🍂"},
+            {t:"A szél nem lát, mégis mindent megérint.",e:"💨"},
+            {t:"Egyetlen fa több bölcsességet hordoz, mint száz könyv.",e:"🌲"},
+            {t:"A hajnal mindig eljön. Akkor is, ha az éjszaka végtelen volt.",e:"🌄"},
+            {t:"Nem kell értened a természetet. Elég, ha részt veszel benne.",e:"🌿"},
+            {t:"A felhők sosem azonosak. Minden pillanat egyszeri az égen.",e:"☁️"},
+            {t:"A föld csendben forog. A legnagyobb erők nem hangosak.",e:"🌍"},
+            {t:"Vannak napfelkelték, amikről senki sem tud. Ettől nem kevésbé szépek.",e:"🌅"},
+            {t:"Az ősz nem a vége valaminek. Hanem az elengedés művészete.",e:"🍁"},
+            {t:"A csillagok nem versenyeznek. Mindegyik a maga fényével világít.",e:"⭐"},
+            {t:"A víz mindig megtalálja az utat. Még a sziklán keresztül is.",e:"💧"},
+            {t:"A hold nem fél a sötétségtől. Azzal együtt szép.",e:"🌙"},
+            {t:"A legmélyebb gyökerek láthatatlanok. Mint a legigazabb erő.",e:"🌱"},
+            {t:"A madarak nem azért énekelnek, mert válaszuk van. Hanem mert daluk van.",e:"🐦"},
+            {t:"A hó csendben érkezik. A legnagyobb változások is.",e:"❄️"},
+            {t:"Nem az a csoda, hogy a nap felkel. Hanem hogy minden nap újra.",e:"☀️"},
+            {t:"A hegyek nem siettek, hogy ilyen magasak legyenek.",e:"⛰️"},
+            {t:"A tavasz nem kéri az engedélyed. Egyszerűen jön.",e:"🌺"},
+            {t:"A folyó nem fél az ismeretlentől. Egyszerűen folyik tovább.",e:"🏞️"},
+            {t:"Vannak esték, amikor az ég önmagáért fest. Csak nézned kell.",e:"🌇"},
+            {t:"A természet nyelve csend. De mindent elmond.",e:"🤫"},
+            {t:"A legkisebb mag is tudja, mivé akar lenni. Te is tudod.",e:"🌰"},
+            {t:"Az éjszaka nem az ellentéte a nappalnak. Hanem a kiegészítője.",e:"🌌"},
+            {t:"A legszebb tájak azok, amiket gyalog érsz el.",e:"🥾"},
+            // --- 241–270: Érzések & Mélység ---
+            {t:"Az érzések nem ellenségeid. Hanem tájékozódási pontjaid.",e:"🧭"},
+            {t:"Nem kell minden könnyet megmagyaráznod. Van, ami egyszerűen fáj.",e:"💧"},
+            {t:"A boldogság néha olyan halk, hogy csak csendben hallod.",e:"🌸"},
+            {t:"Nem kell félned attól, amit érzel. Az érzés azt jelenti: élsz.",e:"💗"},
+            {t:"A szomorúság nem a boldogság ellentéte. Hanem a testvére.",e:"🌧️"},
+            {t:"Az ember néha úgy gyógyul, hogy először összetörik.",e:"🫧"},
+            {t:"Nem kell mindig erősnek lenned. A puhaság is tartóerő.",e:"🧸"},
+            {t:"A régi fájdalmak nem azért térnek vissza, mert nem gyógyultál. Hanem mert mélyülsz.",e:"🌊"},
+            {t:"Az igazi öröm nem hangos. Inkább az a meleg érzés, ami belülről jön.",e:"☀️"},
+            {t:"Nem kell ok a könnyekhez. És nem kell ok a mosolyhoz sem.",e:"🌈"},
+            {t:"A sebezhetőség nem gyengeség. Hanem a kapcsolódás nyelve.",e:"🤝"},
+            {t:"Vannak napok, amik csak a gyászolásra valók. Azok is fontosak.",e:"🕯️"},
+            {t:"A legmélyebb érzések nem szavakban élnek. Hanem a csendben közöttük.",e:"💭"},
+            {t:"Az öröm nem véletlenül jön. Hanem akkor, amikor megengedsz magadnak.",e:"🌻"},
+            {t:"Nem kell elrejtened, amit érzel. Az érzés a tied, és jogos.",e:"🤍"},
+            {t:"A szív nem logikus. Ezért tud olyan gyönyörűen érezni.",e:"❤️"},
+            {t:"Vannak éjszakák, amikben a sötétség tanít. Hallgasd meg.",e:"🌙"},
+            {t:"Az igazi erő nem az érzések elnyomása. Hanem az átélésük.",e:"🌊"},
+            {t:"A hála nem üres szó. Hanem az a pillanat, amikor észreveszed: ez is szép.",e:"🙏"},
+            {t:"Nem kell megmagyaráznod senkinek, mit érzel. Magadnak sem mindig.",e:"🍃"},
+            {t:"A belső hang néha suttog. Érdemes lehalkítani a világot, hogy halld.",e:"🤫"},
+            {t:"Az érzések olyanok, mint az évszakok. Jönnek, maradnak, mennek. Mind kell.",e:"🍂"},
+            {t:"Nem kell választanod az erő és a lágyság között. Lehetsz mindkettő.",e:"🦋"},
+            {t:"A legigazabb pillanatok azok, amikor nem próbálsz semmit mutatni.",e:"🪞"},
+            {t:"A fájdalom nem az ellensége az életnek. Hanem a bizonyítéka.",e:"💎"},
+            {t:"Az ember akkor a legszebb, amikor nem tudja, hogy figyelik.",e:"🌸"},
+            {t:"Vannak érzések, amiknek nem kell nevük. Elég, ha vannak.",e:"💫"},
+            {t:"A szíved olyan helyekre visz, ahova az eszed sosem menne.",e:"🧭"},
+            {t:"Nem kell választ adnod minden érzésre. Néha elég, ha hagyod, hogy átvonuljon.",e:"🌬️"},
+            {t:"Az igazi mélység nem a szavakban van. Hanem abban, amit szavak nélkül is értesz.",e:"🌌"},
+            // --- 271–300: Erő & Változás ---
+            {t:"A változás nem kér engedélyt. De meghallgat, ha együttműködsz.",e:"🔄"},
+            {t:"Nem kell felkészültnek lenned ahhoz, hogy elkezdd.",e:"🌱"},
+            {t:"A legfontosabb döntéseket nem a fejed hozza. Hanem a bátorságod.",e:"🦁"},
+            {t:"Vannak napok, amik arra valók, hogy új irányt válassz.",e:"🧭"},
+            {t:"Nem kell tudnod, hogyan. Elég, ha elindulsz.",e:"🚶"},
+            {t:"A legnagyobb változások belülről kezdődnek. Csendben, észrevétlenül.",e:"🌊"},
+            {t:"Nem kell mást utánoznod. A saját utad a legrövidebb.",e:"🛤️"},
+            {t:"Vannak pillanatok, amik után semmi sem ugyanolyan. Engedd, hogy megtörténjenek.",e:"✨"},
+            {t:"Az nem baj, ha félsz. Az lenne baj, ha a félelem döntene helyetted.",e:"🌅"},
+            {t:"A legigazabb erő: kimondani, amit érzel, és tenni, amit gondolsz.",e:"💬"},
+            {t:"Nem kell megvárni a tökéletes pillanatot. A tökéletes pillanat az, amit kihasználsz.",e:"⚡"},
+            {t:"A régi szokásaid nem te vagy. Bármikor változhatsz.",e:"🦋"},
+            {t:"Nem az a kérdés, merész vagy-e. Hanem hogy megengeded-e magadnak.",e:"🔓"},
+            {t:"A leghalkabb igen néha a leghangosabb fordulópont.",e:"🌙"},
+            {t:"Vannak utak, amik nem térképen vannak. Azokat a szíveddel találod.",e:"❤️"},
+            {t:"Nem kell mindent lerombolnod ahhoz, hogy újat építs.",e:"🏗️"},
+            {t:"A kezdet nem mindig látványos. De mindig fontos.",e:"🌱"},
+            {t:"Az igazi erő nem a gyorsaságban van. Hanem a tudatosságban.",e:"🧘"},
+            {t:"Néha a legbátrabb dolog: elengedni, amit megszoktál.",e:"🎈"},
+            {t:"A holnap nem ígér semmit. De a ma igen — ha éled.",e:"☀️"},
+            {t:"Nem kell mindent értened a változáshoz. Elég, ha megengeded.",e:"🌀"},
+            {t:"A legjobb verziódat nem tervezed. Hanem éled.",e:"🌟"},
+            {t:"Vannak döntések, amik nem logikusak. De igazak.",e:"💎"},
+            {t:"Nem az a kérdés, mire vagy képes. Hanem mire vagy hajlandó.",e:"🔥"},
+            {t:"A változás fáj, mielőtt felszabadít. De mindig felszabadít.",e:"🌈"},
+            {t:"Az igazi bátorság nem a hangos kiállás. Hanem a csendes kezdés.",e:"🌅"},
+            {t:"Nem kell engedélyt kérned ahhoz, hogy a saját életedet éld.",e:"🦅"},
+            {t:"A legjobb napod nem mögötted van. Hanem benned.",e:"💫"},
+            {t:"Vannak pillanatok, amik után nem lehetsz ugyanaz. Ezek a legfontosabbak.",e:"🔮"},
+            {t:"Nem kell nagy lépésnek lennie. A legkisebb mozdulat is változás.",e:"🐚"},
+            // --- 301–330: Mélység & Értelem ---
+            {t:"Az élet nem kérdés, amire válaszolni kell. Hanem titok, amit megélni.",e:"🌌"},
+            {t:"Nem kell mindent megértened. Néha a titok maga a szépség.",e:"🔮"},
+            {t:"A legmélyebb igazságok nem bizonyíthatóak. Csak érezhetőek.",e:"💎"},
+            {t:"Az idő nem vesz el semmit. Csak átalakít.",e:"⏳"},
+            {t:"Nem az a lényeg, mit kapsz az élettől. Hanem mit adsz neki.",e:"🌍"},
+            {t:"A csend és a zaj között van egy hely. Ott vagy te.",e:"🧘"},
+            {t:"Vannak szavak, amik évek múlva érnek be. Mint a jó bor.",e:"🍷"},
+            {t:"Nem kell nyomot hagynod a világban. Elég, ha nyomot hagy benned az élet.",e:"🌿"},
+            {t:"A legszemélyesebb dolgaid a legemberibbek is.",e:"🤍"},
+            {t:"Az ember nem onnan indul, ahonnan akar. De odaérhet, ahova álmodik.",e:"🌅"},
+            {t:"Nem az a kérdés, van-e értelme. Hanem hogy adsz-e neki.",e:"💡"},
+            {t:"A legszebb könyvek azok, amik után csendben maradsz.",e:"📖"},
+            {t:"Vannak dolgok, amikről nem lehet beszélni. Csak együtt hallgatni.",e:"🫂"},
+            {t:"Az élet nem azoknak szól, akik sietnek. Hanem akik figyelnek.",e:"🦉"},
+            {t:"Nem kell megtanulnod az életet. Elég, ha éled.",e:"🌸"},
+            {t:"A legfontosabb dolgok általában a legegyszerűbbek.",e:"🍃"},
+            {t:"Vannak emlékek, amik nem fakítanak. Hanem mélyülnek.",e:"🌊"},
+            {t:"Az igazi gazdagság: reggel felkelni, és tudni, miért.",e:"☀️"},
+            {t:"Nem az a fontos, mit értesz el. Hanem kivel éred el.",e:"🤝"},
+            {t:"A legszebb történetek nem a végükről szólnak. Hanem az útról.",e:"🛤️"},
+            {t:"Vannak gondolatok, amik nem a fejben születnek. Hanem a szívben.",e:"❤️"},
+            {t:"Az ember néha csak azért létezik, hogy egy pillanatban ott legyen valakinek.",e:"🕯️"},
+            {t:"Nem kell okosnak lenned. Elég, ha figyelmes vagy.",e:"🌿"},
+            {t:"A legmélyebb kapcsolat az, amit magaddal tartasz fenn.",e:"🪞"},
+            {t:"Az élet nem a nagy pillanatokból áll. Hanem abból, ami közöttük van.",e:"✨"},
+            {t:"Nem kell bizonyítanod semmit. A létezésed önmagában válasz.",e:"🌙"},
+            {t:"A legszebb gondolatok nem azok, amiket kimondasz. Hanem amiket megélsz.",e:"💭"},
+            {t:"Vannak napok, amik nem a tieid. És vannak, amik csak a tieid. Ma az utóbbi.",e:"💛"},
+            {t:"Az igazi értelem nem odakint van. Hanem abban, ahogy nézel.",e:"👁️"},
+            {t:"A holnap csak egy szó. De a ma — az valóság.",e:"🌅"},
+            // --- 331–365: Záró bölcsességek ---
+            {t:"Nem kell mindent megoldanod. Néha elég, ha megéled.",e:"🌿"},
+            {t:"A legszebb napok nem a tökéletesek. Hanem az igaziak.",e:"🌸"},
+            {t:"Nem kell okot keresned arra, hogy jól légy. Jól lenni is elég ok.",e:"☀️"},
+            {t:"A régi önmagad nem ellenfél. Hanem alapkő.",e:"🪨"},
+            {t:"Vannak reggelek, amik új fejezetet nyitnak. Ma talán az.",e:"📖"},
+            {t:"Az igazi béke nem ott van, ahol nincs zaj. Hanem ahol a zaj nem zavar.",e:"🧘"},
+            {t:"Nem kell mindent értened az életből. Az élet sem ért mindent belőled.",e:"🌙"},
+            {t:"A szíved nem téved. Néha csak hamarabb tud, mint az eszed.",e:"❤️"},
+            {t:"Az elengedés nem feladás. Hanem helycsinálás.",e:"🎈"},
+            {t:"Nem kell megvárnod, hogy minden jó legyen. Kezdd azzal, ami szép.",e:"🌷"},
+            {t:"A kedvesség nem gyengeség. Hanem a legerősebb nyelv.",e:"🌹"},
+            {t:"Vannak emberek, akiknek nem kell szólnod. Ők érzik.",e:"🫶"},
+            {t:"Nem kell hőssé válnod. Elég, ha emberi maradsz.",e:"🤍"},
+            {t:"A legfontosabb út nem a leghosszabb. Hanem amelyiken jelen vagy.",e:"🛤️"},
+            {t:"Az elengedés művészet. És mint minden művészet: gyakorlást igényel.",e:"🎨"},
+            {t:"Nem kell nagy szavakat mondanod. A kicsik néha mélyebben érnek.",e:"💬"},
+            {t:"A reggel mindig hoz valami újat. Még ha nem is látod azonnal.",e:"🌅"},
+            {t:"Vannak pillanatok, amik nem ismétlődnek. De örökre benned maradnak.",e:"💎"},
+            {t:"Nem az a fontos, hányszor kezdted újra. Hanem hogy újra kezdted.",e:"🔄"},
+            {t:"Az élet nem vár. De mindig ad egy újabb esélyt.",e:"✨"},
+            {t:"A legjobb dolog, amit ma tehetsz: észrevenni, mi minden szép körülötted.",e:"🌻"},
+            {t:"Nem kell senkinek megfelelned. Csak annak, aki a tükörből néz.",e:"🪞"},
+            {t:"A csend néha a legbátrabb válasz.",e:"🤫"},
+            {t:"Vannak napok, amik csendesek. Azok is számítanak.",e:"🍃"},
+            {t:"Nem kell megtervezned az egész életedet. Elég a következő lépés.",e:"👟"},
+            {t:"A szépség mindig ott van. Csak néha elfelejtjük keresni.",e:"🌺"},
+            {t:"Az emberek nem azért szépek, mert tökéletesek. Hanem mert próbálkoznak.",e:"🌟"},
+            {t:"Nem kell bizonyítékot keresned arra, hogy értékes vagy. A szíved tudja.",e:"💛"},
+            {t:"A legjobb este az, amikor békével fekszel le.",e:"🌙"},
+            {t:"Ma is kaptál egy napot. Ez nem semmi.",e:"🌅"},
+            {t:"Nem kell nagy dolgokat tenned. A kicsik is összeadódnak.",e:"🧩"},
+            {t:"A világ néha nehéz. De te sosem vagy egyedül benne.",e:"🫂"},
+            {t:"Vannak gondolatok, amik gyógyítanak. Ez most egy ilyen.",e:"🩵"},
+            {t:"Nem kell sietned sehova. Pont ott vagy, ahol lenned kell.",e:"🍃"},
+            {t:"Holnap is lesz üzenet. De a mait csak te kapod, csak most, csak egyszer.",e:"💫"},
         ];
 
         // ========== APP ==========
         const btn=document.getElementById('btn'),bubble=document.getElementById('bubble'),ph=document.getElementById('ph'),cfx=document.getElementById('cfx');
         let done=false;
-        const td=()=>new Date().toDateString();
+        // "Üzenet-nap" = reggel 8-tól számít (nem éjféltől)
+        function msgDay(){const n=new Date();if(n.getHours()<8)n.setDate(n.getDate()-1);n.setHours(8,0,0,0);return n}
+        const td=()=>msgDay().toDateString();
 
         // Egyedi user ID — minden felhasználó más üzenetet kap
         function getUid(){
@@ -1418,7 +1434,7 @@
         const uid=getUid();
 
         function dm(){
-            const d=new Date();
+            const d=msgDay();
             // Mama szülinapja (ápr 4-5.)
             if(isBirthday){
                 return {t:"Boldog 63. születésnapot, drága Mama! 🎂 Nagyon szeretünk! Isten éltessen sokáig, egészségben és boldogságban! 💝",e:"🥳"};
@@ -1431,7 +1447,7 @@
             return M[s%M.length];
         }
 
-        document.getElementById('date').textContent=new Date().toLocaleDateString('hu-HU',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+        document.getElementById('date').textContent=msgDay().toLocaleDateString('hu-HU',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 
         // ========== NÉVNAPOK ==========
         const NEVNAPOK={
@@ -1456,7 +1472,7 @@
             document.getElementById('greeting').textContent='Szia, '+name+'! ✨';
 
             // Névnap ellenőrzés
-            const d=new Date();
+            const d=msgDay();
             const key=(d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0');
             const todayNames=NEVNAPOK[key]||[];
             const nameNorm=name.trim();
@@ -1469,7 +1485,7 @@
         })();
 
         // Streak
-        (function(){const t=td(),l=localStorage.getItem('nu_l');let s=parseInt(localStorage.getItem('nu_s')||'0');if(l!==t){const y=new Date();y.setDate(y.getDate()-1);s=l===y.toDateString()?s+1:1;localStorage.setItem('nu_l',t);localStorage.setItem('nu_s',s.toString())}if(s>1){document.getElementById('streak').classList.add('on');document.getElementById('sn').textContent=s}})();
+        (function(){const t=td(),l=localStorage.getItem('nu_l');let s=parseInt(localStorage.getItem('nu_s')||'0');if(l!==t){const y=msgDay();y.setDate(y.getDate()-1);s=l===y.toDateString()?s+1:1;localStorage.setItem('nu_l',t);localStorage.setItem('nu_s',s.toString())}if(s>1){document.getElementById('streak').classList.add('on');document.getElementById('sn').textContent=s}})();
 
         function seen(){return localStorage.getItem('nu_d')===td()}
         function mark(){localStorage.setItem('nu_d',td())}
@@ -1588,6 +1604,21 @@
 
         updateFavsUI();
 
+        // Megosztás gomb
+        document.getElementById('shareBtn').addEventListener('click',function(e){
+            e.stopPropagation();
+            if(!lastMsg)return;
+            const text=lastMsg.e+' '+lastMsg.t+'\n\n— DailyBot 🤖';
+            if(navigator.share){
+                navigator.share({text:text}).catch(()=>{});
+            } else {
+                navigator.clipboard.writeText(text).then(()=>{
+                    const btn=this;btn.textContent='✅ Másolva';btn.classList.add('copied');
+                    setTimeout(()=>{btn.textContent='📤 Megosztás';btn.classList.remove('copied')},2000);
+                }).catch(()=>{});
+            }
+        });
+
         function show(anim){
             const m=dm();
             lastMsg=m;
@@ -1604,7 +1635,7 @@
                     typeText(document.getElementById('bT'),m.t,()=>{
                         btn.classList.remove('talking');
                         btn.classList.add(reaction);
-                        favBtn.classList.add('show');updateFavBtn();
+                        updateFavBtn();
                     });
                 },500);
                 boom();mark();updateCountdown();
@@ -1612,7 +1643,7 @@
                 document.getElementById('bT').textContent=m.t;
                 bubble.classList.add('show');
                 btn.classList.add(reaction);
-                favBtn.classList.add('show');updateFavBtn();
+                updateFavBtn();
             }
             done=true;
         }
@@ -1738,10 +1769,10 @@
         function updateCountdown(){
             if(!seen()){nextMsgEl.textContent='';return}
             const now=new Date();
-            const tomorrow8=new Date(now);
-            tomorrow8.setDate(tomorrow8.getDate()+1);
-            tomorrow8.setHours(8,0,0,0);
-            const diff=tomorrow8-now;
+            const next8=new Date(now);
+            if(now.getHours()>=8)next8.setDate(next8.getDate()+1);
+            next8.setHours(8,0,0,0);
+            const diff=next8-now;
             const h=Math.floor(diff/3600000);
             const m=Math.floor((diff%3600000)/60000);
             const s=Math.floor((diff%60000)/1000);
@@ -1750,34 +1781,46 @@
         updateCountdown();
         setInterval(updateCountdown,1000);
 
-        // ========== Service Worker + Értesítések ==========
+        // ========== Service Worker + Push Értesítések ==========
+        const PUSH_SERVER='https://dailybot-push.vercel.app'; // <-- Vercel deploy után ide írd az URL-t
+        const VAPID_PUBLIC='BDXWRumZqiHnsn-vfeKPiMKhZ_m1ZoBlNcLUz1X7A35EhGjhWJFvB1W3vu_h4KgMnzZt6ABNjk4qf-_htTyx7qU';
+
         if('serviceWorker' in navigator){
             navigator.serviceWorker.register('sw.js').then(reg=>{
                 // Értesítés engedély kérés első koppintáskor
                 btn.addEventListener('click',function askNotif(){
                     if('Notification' in window && Notification.permission==='default'){
                         Notification.requestPermission().then(p=>{
-                            if(p==='granted') startNotifications(reg);
+                            if(p==='granted') subscribePush(reg);
                         });
                     }
                     btn.removeEventListener('click',askNotif);
                 },{once:true});
 
-                // Ha már engedélyezve van — rögtön indít
+                // Ha már engedélyezve van — feliratkozás
                 if('Notification' in window && Notification.permission==='granted'){
-                    startNotifications(reg);
+                    subscribePush(reg);
                 }
             });
         }
 
-        function startNotifications(reg){
-            // 1) Service worker-nek szólunk: ütemezze a reggel 8 órás értesítést
-            if(reg.active) reg.active.postMessage({type:'schedule'});
+        function subscribePush(reg){
+            reg.pushManager.getSubscription().then(existing=>{
+                if(existing) return sendSubscriptionToServer(existing);
+                const key=Uint8Array.from(atob(VAPID_PUBLIC.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+                return reg.pushManager.subscribe({
+                    userVisibleOnly:true,
+                    applicationServerKey:key
+                }).then(sub=>sendSubscriptionToServer(sub));
+            }).catch(e=>console.log('Push subscribe failed:',e));
+        }
 
-            // 2) Periodic Background Sync regisztráció (Android Chrome)
-            if('periodicSync' in reg){
-                reg.periodicSync.register('daily-notification',{minInterval:24*60*60*1000}).catch(()=>{});
-            }
+        function sendSubscriptionToServer(sub){
+            fetch(PUSH_SERVER+'/api/subscribe',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify(sub.toJSON())
+            }).catch(e=>console.log('Push register failed:',e));
         }
     </script>
 </body>
