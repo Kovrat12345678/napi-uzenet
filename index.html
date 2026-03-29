@@ -1859,46 +1859,43 @@
         updateCountdown();
         setInterval(updateCountdown,1000);
 
-        // ========== Service Worker + Push Értesítések ==========
-        const PUSH_SERVER='https://dailybot-push.vercel.app'; // <-- Vercel deploy után ide írd az URL-t
-        const VAPID_PUBLIC='BDXWRumZqiHnsn-vfeKPiMKhZ_m1ZoBlNcLUz1X7A35EhGjhWJFvB1W3vu_h4KgMnzZt6ABNjk4qf-_htTyx7qU';
-
+        // ========== Service Worker + Értesítések ==========
         if('serviceWorker' in navigator){
             navigator.serviceWorker.register('sw.js').then(reg=>{
                 // Értesítés engedély kérés első koppintáskor
                 btn.addEventListener('click',function askNotif(){
                     if('Notification' in window && Notification.permission==='default'){
                         Notification.requestPermission().then(p=>{
-                            if(p==='granted') subscribePush(reg);
+                            if(p==='granted') startNotifications(reg);
                         });
                     }
                     btn.removeEventListener('click',askNotif);
                 },{once:true});
 
-                // Ha már engedélyezve van — feliratkozás
+                // Ha már engedélyezve van
                 if('Notification' in window && Notification.permission==='granted'){
-                    subscribePush(reg);
+                    startNotifications(reg);
                 }
             });
         }
 
-        function subscribePush(reg){
-            reg.pushManager.getSubscription().then(existing=>{
-                if(existing) return sendSubscriptionToServer(existing);
-                const key=Uint8Array.from(atob(VAPID_PUBLIC.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
-                return reg.pushManager.subscribe({
-                    userVisibleOnly:true,
-                    applicationServerKey:key
-                }).then(sub=>sendSubscriptionToServer(sub));
-            }).catch(e=>console.log('Push subscribe failed:',e));
-        }
+        function startNotifications(reg){
+            // Értesítés belépéskor
+            if(!seen()){
+                reg.showNotification('DailyBot 🤖',{
+                    body:'Ma is vár rád egy új gondolat! ✨',
+                    icon:'./icon/dailybot-icon.png',
+                    tag:'open-'+td()
+                });
+            }
 
-        function sendSubscriptionToServer(sub){
-            fetch(PUSH_SERVER+'/api/subscribe',{
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(sub.toJSON())
-            }).catch(e=>console.log('Push register failed:',e));
+            // SW-nek szólunk: ütemezzen értesítéseket
+            if(reg.active) reg.active.postMessage({type:'schedule'});
+
+            // Periodic Background Sync (Android Chrome)
+            if('periodicSync' in reg){
+                reg.periodicSync.register('daily-notification',{minInterval:4*60*60*1000}).catch(()=>{});
+            }
         }
     </script>
 </body>

@@ -1,12 +1,15 @@
 {
-    "name": "DailyBot",
+    "name": "DailyBot — Napi Üzenet",
     "short_name": "DailyBot",
-    "description": "Napi motivációs üzenet egy aranyos robottól",
+    "description": "Napi gondolat egy aranyos robottól",
     "start_url": ".",
+    "scope": ".",
     "display": "standalone",
     "background_color": "#38bdf8",
     "theme_color": "#38bdf8",
     "orientation": "portrait",
+    "lang": "hu",
+    "categories": ["lifestyle", "entertainment"],
     "icons": [
         {
             "src": "icon/dailybot-icon.svg",
@@ -18,7 +21,7 @@
             "src": "icon/dailybot-icon.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any"
+            "purpose": "any maskable"
         }
     ],
     "permissions_policy": {

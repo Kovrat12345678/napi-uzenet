@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v7';
+const CACHE_NAME = 'dailybot-v8';
 const ASSETS = [
     './',
     './index.html',
@@ -22,7 +22,7 @@ self.addEventListener('activate', e => {
     self.clients.claim();
 });
 
-// Fetch — network first az index.html-hez (friss tartalom), cache first a többihez
+// Fetch — network first az index.html-hez, cache first a többihez
 self.addEventListener('fetch', e => {
     const url = new URL(e.request.url);
     if (url.pathname.endsWith('/') || url.pathname.endsWith('index.html')) {
@@ -40,25 +40,58 @@ self.addEventListener('fetch', e => {
     }
 });
 
-// ========== PUSH ÉRTESÍTÉS (szerver küldi) ==========
-self.addEventListener('push', e => {
-    let data = { title: 'DailyBot 🤖', body: 'Ma is vár a napi üzeneted! ✨' };
-    try {
-        if (e.data) data = e.data.json();
-    } catch (err) {}
+// ========== ÉRTESÍTÉSEK ==========
+const NOTIF_MESSAGES = [
+    "Ma is vár a napi üzeneted! ✨",
+    "A robotod már izgatottan vár rád! 🤖",
+    "Nyisd meg és kapd meg a mai gondolatot! 💛",
+    "Egy kis inspiráció vár rád ma! 🌟",
+    "A mai üzeneted különleges — nézd meg! 🎁",
+    "Ne feledd megnézni a napi üzeneted! 🔥",
+    "A DailyBot robotod üzen neked! 💬",
+    "Ma is készült neked valami szép! 🌈",
+];
 
-    e.waitUntil(
-        self.registration.showNotification(data.title, {
-            body: data.body,
-            icon: data.icon || './icon/dailybot-icon.png',
-            badge: data.badge || './icon/dailybot-icon.png',
-            tag: data.tag || 'daily',
-            renotify: false,
-            requireInteraction: false,
-            silent: false
-        })
-    );
+function getRandomNotifMsg() {
+    return NOTIF_MESSAGES[Math.floor(Math.random() * NOTIF_MESSAGES.length)];
+}
+
+// Értesítés küldés
+function showDailyNotification() {
+    return self.registration.showNotification('DailyBot 🤖', {
+        body: getRandomNotifMsg(),
+        icon: './icon/dailybot-icon.png',
+        badge: './icon/dailybot-icon.png',
+        tag: 'daily-' + new Date().toDateString(),
+        renotify: true,
+        requireInteraction: false,
+        silent: false
+    });
+}
+
+// Üzenet a főoldalról — ütemezés indítása
+self.addEventListener('message', e => {
+    if (e.data && e.data.type === 'schedule') {
+        scheduleNotifications();
+    }
 });
+
+// Több értesítés naponta (reggel 8, délben, este 6)
+function scheduleNotifications() {
+    const now = new Date();
+    const times = [8, 12, 18]; // 8:00, 12:00, 18:00
+
+    times.forEach(hour => {
+        const target = new Date(now);
+        target.setHours(hour, 0, 0, 0);
+        if (target <= now) return; // már elmúlt
+
+        const delay = target - now;
+        setTimeout(() => {
+            showDailyNotification();
+        }, delay);
+    });
+}
 
 // Értesítésre kattintás → app megnyitás
 self.addEventListener('notificationclick', e => {
@@ -71,4 +104,17 @@ self.addEventListener('notificationclick', e => {
             return clients.openWindow('./');
         })
     );
+});
+
+// Periodic Background Sync (Android Chrome) — emlékeztető ha nem nyitottad meg
+self.addEventListener('periodicsync', e => {
+    if (e.tag === 'daily-notification') {
+        e.waitUntil(
+            self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cls => {
+                const hasVisibleClient = cls.some(c => c.visibilityState === 'visible');
+                if (hasVisibleClient) return; // App nyitva van, nem kell értesítés
+                return showDailyNotification();
+            })
+        );
+    }
 });
