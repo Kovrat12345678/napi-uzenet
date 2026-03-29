@@ -1604,20 +1604,98 @@
 
         updateFavsUI();
 
-        // Megosztás gomb
+        // Megosztás gomb — képes kártya generálás
         document.getElementById('shareBtn').addEventListener('click',function(e){
             e.stopPropagation();
             if(!lastMsg)return;
-            const text=lastMsg.e+' '+lastMsg.t+'\n\n— DailyBot 🤖';
-            if(navigator.share){
-                navigator.share({text:text}).catch(()=>{});
-            } else {
-                navigator.clipboard.writeText(text).then(()=>{
-                    const btn=this;btn.textContent='✅ Másolva';btn.classList.add('copied');
-                    setTimeout(()=>{btn.textContent='📤 Megosztás';btn.classList.remove('copied')},2000);
-                }).catch(()=>{});
-            }
+            const shareBtn=this;
+            shareBtn.textContent='⏳ Készül...';
+            createShareCard(lastMsg).then(blob=>{
+                if(navigator.share&&navigator.canShare){
+                    const file=new File([blob],'dailybot.png',{type:'image/png'});
+                    if(navigator.canShare({files:[file]})){
+                        navigator.share({files:[file]}).catch(()=>{});
+                    } else {
+                        navigator.share({text:lastMsg.e+' '+lastMsg.t+'\n\n— DailyBot 🤖'}).catch(()=>{});
+                    }
+                } else {
+                    // Fallback: letöltés
+                    const a=document.createElement('a');
+                    a.href=URL.createObjectURL(blob);a.download='dailybot.png';a.click();
+                    URL.revokeObjectURL(a.href);
+                }
+                shareBtn.textContent='📤 Megosztás';
+            }).catch(()=>{shareBtn.textContent='📤 Megosztás'});
         });
+
+        function createShareCard(msg){
+            return new Promise(resolve=>{
+                const W=720,H=960;
+                const c=document.createElement('canvas');c.width=W;c.height=H;
+                const ctx=c.getContext('2d');
+
+                // Háttér gradiens
+                const bg=ctx.createLinearGradient(0,0,W,H);
+                bg.addColorStop(0,'#38bdf8');bg.addColorStop(0.35,'#818cf8');
+                bg.addColorStop(0.6,'#a855f7');bg.addColorStop(0.85,'#ec4899');
+                bg.addColorStop(1,'#f97316');
+                ctx.fillStyle=bg;
+                roundRect(ctx,0,0,W,H,0);ctx.fill();
+
+                // Üveg kártya
+                ctx.fillStyle='rgba(255,255,255,0.12)';
+                roundRect(ctx,50,200,W-100,H-340,36);ctx.fill();
+                ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.lineWidth=2;
+                roundRect(ctx,50,200,W-100,H-340,36);ctx.stroke();
+
+                // Emoji
+                ctx.font='80px sans-serif';
+                ctx.textAlign='center';
+                ctx.fillText(msg.e,W/2,320);
+
+                // Üzenet szöveg — sortörés
+                ctx.fillStyle='#ffffff';
+                ctx.font='bold 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.textAlign='center';
+                const lines=wrapText(ctx,msg.t,W-160);
+                const startY=380;
+                lines.forEach((line,i)=>{
+                    ctx.fillText(line,W/2,startY+i*44);
+                });
+
+                // DailyBot felirat alul
+                ctx.fillStyle='rgba(255,255,255,0.5)';
+                ctx.font='600 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.fillText('DailyBot 🤖',W/2,H-80);
+
+                // Dátum
+                ctx.font='16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.fillStyle='rgba(255,255,255,0.4)';
+                ctx.fillText(msgDay().toLocaleDateString('hu-HU',{year:'numeric',month:'long',day:'numeric'}),W/2,H-50);
+
+                c.toBlob(blob=>resolve(blob),'image/png');
+            });
+        }
+
+        function wrapText(ctx,text,maxW){
+            const words=text.split(' ');
+            const lines=[];let line='';
+            for(const w of words){
+                const test=line?line+' '+w:w;
+                if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=w}
+                else{line=test}
+            }
+            if(line)lines.push(line);
+            return lines;
+        }
+
+        function roundRect(ctx,x,y,w,h,r){
+            ctx.beginPath();
+            ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+            ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+            ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+            ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+        }
 
         function show(anim){
             const m=dm();

@@ -53,7 +53,7 @@
   <rect width="512" height="512" rx="112" ry="112" fill="url(#bg)"/>
 
   <!-- Robot - NAGY, középen -->
-  <g filter="url(#bigShadow)" transform="translate(256,256) scale(1.35) translate(-256,-256)">
+  <g filter="url(#bigShadow)" transform="translate(256,256) scale(1.05) translate(-256,-256)">
     <!-- Antenna rúd -->
     <rect x="250" y="68" width="8" height="44" rx="4" fill="#94a3b8"/>
     <!-- Antenna gömb -->
