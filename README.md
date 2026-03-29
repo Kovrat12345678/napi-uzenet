@@ -1,16 +1,18 @@
-# Napi Uzenet
+# DailyBot — Napi Uzenet
 
-Napi motivacios uzenet alkalmazas — egy aranyos CSS robot minden nap mas uzenetet mond neked.
+Napi gondolat alkalmazas — egy aranyos CSS robot minden nap mas, elmelkedo uzenetet kuld neked. TopJoy stilusu, rovid, koltoei gondolatok.
+
+**Link**: https://kovrat12345678.github.io/napi-uzenet/
 
 ## Telepites
 
 ### iPhone (Safari)
 
 1. Nyisd meg **Safari**-ban: **https://kovrat12345678.github.io/napi-uzenet/**
-2. Nyomd meg a **Megosztas** gombot (negyzet + nyil ikon)
+2. Nyomd meg a **Megosztas** gombot (negyzet + nyil ikon alul)
 3. Valaszd: **Hozzaadas a Fokepernyohoz**
 4. Kattints a **Hozzaadas** gombra
-5. Nyisd meg az appot a fokepernyorol
+5. Nyisd meg az appot a fokepernyorol — teljes kepernyon nyilik
 6. Koppints a robotra es **engedelyezd az ertesiteseket**
 
 ### Android (Chrome)
@@ -21,49 +23,66 @@ Napi motivacios uzenet alkalmazas — egy aranyos CSS robot minden nap mas uzene
 4. Erositsd meg a **Telepites** gombbal
 5. Koppints a robotra es **engedelyezd az ertesiteseket**
 
-Az alkalmazas ezutan teljes kepernyon nyilik meg, mint egy nativ app.
+Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy nativ app.
 
 ## Funkciok
 
-- **365 egyedi uzenet** — naponta 1, mint a TopJoy napi kupak
-- **Regisztracio** — elso megnyitaskor nev, email, eletkor, lakhely megadasa kulon kepernyokon
+- **365 egyedi uzenet** — naponta 1, TopJoy stilusu (csendes, koltoei, elmelkedo gondolatok)
+- **Reggel 8-kor valt** — az uj uzenet reggel 8 orakor erkezik, nem ejfelkor
+- **Regisztracio** — elso megnyitaskor keresztnev, email, eletkor, lakhely megadasa
 - **Szemelyes koszrontes** — "Szia, [Nev]!" a fejlecben
 - **Nevnap koszrontes** — ha a neved ma unnepli a nevnapjat, a robot felkoszront
-- **Kedvencek** — uzenet melletti szivecskere koppintva elmentheto, kesobb visszanezheto
-- **Napi 1 uzenet korlatozas** — naponta egyszer koppinthatsz uj uzenetert, utana a robot csak integet
-- **Visszaszamlalo** — az app aljan latod, hany ora/perc/mp mulva jon a kovetkezo uzenet
+- **Kedvencek** — szivecskere koppintva elmentheto, kesobb visszanezheto
+- **Megosztas** — szep kepes kartya generalas es megosztas (WhatsApp, Messenger, Instagram stb.)
+- **Napi 1 uzenet korlatozas** — naponta egyszer koppinthatsz, utana a robot csak integet
+- **Visszaszamlalo** — az app aljan latod mikor jon a kovetkezo uzenet (kovetkezo reggel 8-ig)
+- **Ertesitesek** — belepeskor + naponta tobbszor emlekeztet
 - **Elethu CSS robot** — lebeges, pislogas, antenna pulzalas animaciokkal
-- **Robot reakciok** — az uzenet hangulata alapjan mas-mas arckifejezest mutat:
-  - Izgatott (energia), gondolkodo (bolcsesseg), tancos (humor), gyenged (erzelmek)
+- **Robot reakciok** — az uzenet hangulata alapjan mas arckifejezest mutat
 - **Gepelo effekt** — az uzenet betuenkent jelenik meg, mint egy chatben
 - **Napszak-fuggo hatter** — reggel narancs, nappal kek-lila, este sotet, ejjel indigo
 - **Idojaras animaciok** — valos eso, ho vagy napsutes a helyzeted alapjan
-- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, nemzeti unnepek, szulinap es meg tobb
+- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, szulinap, nemzeti unnepek es meg tobb
 - **Szulinapi mod** — kulonleges hatter, lebego lufik, szulinapi sapka a roboton
-- **Streak szamlalo** — koveti, hany egymast koveto napon nyitottad meg
+- **Streak szamlalo** — koveti hany egymast koveto napon nyitottad meg
 - **Konfetti** — minden napi uzenetnel unnepel
-- **Push ertesites** — naponta reggel 8-kor emlekeztet
 - **Drag interakcio** — huzd meg a robotot, meglepodik es szinesen vilagit
-- **Robot hangok** — koppintasra cuki "bi-bu-bi" hangeffektek
+- **Robot hangok** — koppintasra cuki hangeffektek
+
+## Uzenet kategoriak
+
+365 uzenet, 12 kategoriaban:
+
+1. Csend & Onismeret
+2. Kapcsolatok & Kozelseg
+3. Bolcsesseg & Ido
+4. Kitartas & Turelem
+5. Nyugalom & Jelenlet
+6. Konnyedseg & Mosoly
+7. Alkotas & Figyelem
+8. Termeszet & Csoda
+9. Erzesek & Melyseg
+10. Ero & Valtozas
+11. Melyseg & Ertelem
+12. Zaro bolcsessegek
+
+## Hogyan mukodik
+
+1. Elso megnyitaskor regisztralj — add meg a keresztneved, emailed, eletkored, lakhelyed
+2. Nyisd meg az appot → koppints a robotra → megkapod a napi gondolatot
+3. Naponta 1 uzenet jar (reggel 8-tol) — ha mar megkaptad, a robot csak integet
+4. Szivecskere koppintva elmentheted kedvencnek
+5. Megosztas gombbal szep kepes kartyat kuldhetsz barmelyik appban
+6. Az app aljan latod a visszaszamlalot: mikor jon a kovetkezo uzenet
 
 ## Tech Stack
 
 Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is.
 
-## Push ertesitesek
+## Ertesitesek
 
-Az app naponta reggel 8-kor kuld egy emlekeztetot ha meg nem nezted meg a napi uzeneted. Naponta maximum 1 ertesites erkezik.
-
-- **Android**: hatterbeli szinkronizacio tamogatott (periodicSync), csak 8-9 ora kozott kuld
-- **iPhone**: az ertesites a Service Worker `scheduleDaily()` fuggvenyen keresztul megy
+- Belepeskor: ha meg nem lattad a mai uzenetet, azonnal emlekeztet
+- Naponta 3x: reggel 8, delben 12, este 6 (amig a bongeszo el)
+- Android hatterben: periodicSync 4 oranként
 
 Engedelyezes: elso alkalommal a robotra koppintaskor keri.
-
-## Hogyan mukodik
-
-1. Elso megnyitaskor regisztralj — add meg a neved, emailed, eletkored, lakhelyed
-2. Nyisd meg az appot → koppints a robotra → megkapod a napi uzeneted
-3. Naponta 1 uzenet jar — ha mar megkaptad, a robot csak integet
-4. Szivecskere koppintva elmentheted kedvencnek az uzenetet
-5. Az app aljan latod a visszaszamlalot: mikor jon a kovetkezo uzenet
-6. Masnap reggel 8-kor push ertesites emlekeztet
