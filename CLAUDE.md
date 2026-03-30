@@ -18,27 +18,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **365 uzenet** a `M` tombben az `index.html` `<script>` reszeben, 12 kategoriabol:
   - Csend & Onismeret, Kapcsolatok & Kozelseg, Bolcsesseg & Ido, Kitartas & Turelem, Nyugalom & Jelenlet, Konnyedseg & Mosoly, Alkotas & Figyelem, Termeszet & Csoda, Erzesek & Melyseg, Ero & Valtozas, Melyseg & Ertelem, Zaro bolcsessegek
 - **Uzenet stilus**: TopJoy-szeru — rovid, ketmondatos, csendes, koltoei, elmelkedo. Nem motivacios poster stilus.
-- Napi uzenet kivalasztas: datum-alapu seed (`ev*10000 + ho*100 + nap + uid`) → determinisztikus index, evente mas sorrend
-- **Reggel 8 logika**: az "uzenet-nap" reggel 6-kor valt, nem ejfelkor. A `msgDay()` fuggveny adja az aktualis uzenet-napot (6 ora elott az elozo nap szamit).
+- Napi uzenet kivalasztas: datum-alapu hash seed — datum es uid osszekeverese (multiply-xor hash), minden felhasznalo mas uzenetet kap
+- **Reggel 6 logika**: az "uzenet-nap" reggel 6-kor valt, nem ejfelkor. A `msgDay()` fuggveny adja az aktualis uzenet-napot (6 ora elott az elozo nap szamit).
 - `localStorage` kulcsok:
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
-  - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev), `nu_email` (email), `nu_age` (eletkor), `nu_city` (lakhely)
+  - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev)
   - `nu_favs` (kedvenc uzenetek JSON tomb)
+  - `nu_game_best` (jatek rekord), `nu_gold_day` (arany robot nap)
 
-### Reggel 8 logika
+### Reggel 6 logika
 
 - `msgDay()` fuggveny: ha `getHours() < 6`, az elozo nap szamit uzenet-napnak
 - `td()` = `msgDay().toDateString()` — minden localStorage muvelet ezt hasznalja
 - Erintett rendszerek: uzenet kivalasztas (`dm()`), streak, seen/mark, visszaszamlalo, nevnap, unnepi oltozekek, datum kijelzes
-- Visszaszamlalo: ha 8 elott → ma 8-ig szamol, ha 8 utan → holnap 8-ig
+- Visszaszamlalo: ha 6 elott → ma 6-ig szamol, ha 6 utan → holnap 6-ig
 
 ### Onboarding (regisztracio)
 
-- Elso megnyitaskor 4+1 lepesu regisztracio: Intro → Keresztnev → Email → Eletkor → Lakhely
+- Elso megnyitaskor 2 lepesu regisztracio: Intro → Keresztnev
 - **Csak utonevt ker** — szokoz tiltva az input mezoben (vezeteknev nem adhato meg)
-- Kulon kepernyokon, animalt atmenettekkel
 - `nu_reg` && `nu_name` letezese alapjan donti el, hogy megjelenjen-e
-- Az app (`#appMain`) rejtett amig a regisztracio nem kesz
+- Az app (`#appMain`) CSS-bol rejtett (`pre-reg` class) amig a regisztracio nem kesz — Android PWA-n nem villan
 
 ### Robot
 
@@ -50,6 +50,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
   - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
   - **Dancing**: tancolo mozgas, gyors kar lengetes (vicces/humor uzeneteknel)
+  - **Arany**: 1000+ pont a minijatekban → 1 napig arany szinu robot (fej, test, szemek, antenna, labak)
 - Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
 
 ### Szemelyes koszrontes
@@ -62,7 +63,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Teljes magyar nevnap lista a `NEVNAPOK` objektumban (365 nap, ~700 nev)
 - `MM-DD` kulcs formatum, ertekek nevek tombje
 - A regisztralt nev (`nu_name`) osszevetessel ellenorzi, hogy ma van-e a nevnapja
-- A `msgDay()` datumot hasznalja (8 AM logika)
+- A `msgDay()` datumot hasznalja (6 AM logika)
 
 ### Kedvencek
 
@@ -84,8 +85,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Napszak-fuggo hatter
 
 Az ora alapjan automatikusan valtozik (`getHours()`):
-- **Reggel** (5–8): narancs gradiens (napfelkelte)
-- **Nappal** (8–17): kek-lila-rozsaszin gradiens + CSS csillagok (`twinkle`)
+- **Reggel** (5–6): narancs gradiens (napfelkelte)
+- **Nappal** (6–17): kek-lila-rozsaszin gradiens + CSS csillagok (`twinkle`)
 - **Este** (17–20): narancs-lila-sotetlila gradiens (naplemente)
 - **Ejjel** (20–5): sotet kek-indigo gradiens
 
@@ -108,13 +109,26 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Szovegbuborek**: uveg-blur hatter, szivecske a sarkan, CSS transition animacio
 - **Gepelo effekt**: `typeText()` fuggveny — betuenkent irja ki a szoveget villogo kurzorral
 - **Konfetti effekt**: DOM elemek `fly` animacioval
-- **Streak szamlalo**: egymast koveto napok szama (8 AM alapu)
-- **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation)
+- **Streak szamlalo**: egymast koveto napok szama (6 AM alapu)
+- **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation, fallback: geojs.io IP-alapu)
 - **Drag interakcio**: robot huzhato, CSS glow effekttel reagal (::before pseudo-element, iOS kompatibilis)
 - **Tap reakcio**: koppintasra integet es robot hangokat ad ("bi-bu-bi!")
 - **Visszaszamlalo**: az app aljan mutatja mikor erkezik a kovetkezo uzenet (kovetkezo reggel 6-ig szamol vissza)
+- **TikTok link**: az app aljan, a visszaszamlalo alatt
 - **Kedvenc gomb**: uzenet buborekban, elmentheto kedvencek listaja
 - **Megosztas gomb**: kepes kartya generalas es megosztas
+
+### Emoji Dodge minijáték
+
+- **Inditas**: robot hosszan nyomva tartasa (600ms long press)
+- **Jatekos**: CSS mini robot (nem emoji), az also reszben rogzitett, csak jobbra-balra mozog ujjal huzva
+- **Emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, egyre gyorsabban
+- **Hatter**: az aktualis napszak gradiens hattere
+- **Pontszam**: folyamatosan no, rekord mentese (`nu_game_best` localStorage)
+- **Jutalom**: 1000+ pont = arany robot 1 napra (`nu_gold_day` localStorage, `golden` CSS class)
+- **HUD**: pontszam, cel szoveg ("1000 pont = 1 napig arany robot!"), kilepes gomb
+- **Game Over**: vegso pontszam, rekord, arany uzenet ha elerte, ujra/vissza gombok
+- Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
 
 ### Napi korlatozas
 
@@ -134,6 +148,14 @@ A robot naphoz kotodo emoji oltozeket visel:
 - Engedelykerest az elso robot-koppintaskor ker
 - `renotify: true` — minden ertesites megjelenik (nem deduplikalja)
 - `index.html` → network-first cache strategia (mindig friss tartalom)
+
+### Idojaras
+
+- Geolocation API → ha elerheto, pontos GPS koordinatak
+- Fallback: geojs.io IP-alapu helymeghatározas (CORS kompatibilis, engedelykerds nelkul)
+- Open-Meteo API → WMO kodok: 0-1 derult, 51-67 eso, 71-77 ho, 95+ vihar
+- CSS animaciok: `raindrop` (eso), `snowflake` (ho), `sunray` (napsutes)
+- `#weatherLayer` fix pozicioban, `pointer-events:none`
 
 ## File Structure
 
@@ -157,6 +179,10 @@ push-server/        — (nem hasznalatban) Vercel push szerver eloallitva, de ni
 - Manifest: `any maskable` purpose mindket ikonra
 - Eredeti Gemini kep: `icon/Gemini_Generated_Image_nkummfnkummfnkum.png`
 - Hasznalat: PWA ikon (manifest.json + apple-touch-icon)
+
+## Social
+
+- TikTok: http://www.tiktok.com/@dailybot_dailymessage (link az app aljan)
 
 ## Language
 
