@@ -125,8 +125,8 @@ A robot naphoz kotodo emoji oltozeket visel:
 
 - **Inditas**: robot hosszan nyomva tartasa (600ms long press)
 - **Jatekos**: CSS mini robot (nem emoji), az also reszben rogzitett, csak jobbra-balra mozog ujjal huzva
-- **Veszelyes emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, ki kell kerulni
-- **XP rendszer**: minden sikeresen kikerult emoji = 1 XP, XP halmozodik jatekok kozott (`nu_xp` localStorage)
+- **Emojik**: arany/rainbow/gyemant temaju (🪙🌈💎), felulrol esnek, ki kell kerulni — utkozes = halal
+- **XP rendszer**: 10 sikeresen kikerult emoji = 50 XP, XP halmozodik jatekok kozott (`nu_xp` localStorage)
 - **Nehezseg**: kozepes — sebesseg 1.8–3.2, spawn 900ms, lassan gyorsul (600 frame-enkent)
 - **Hatter**: az aktualis napszak gradiens hattere
 - **Pontszam**: ido-alapu + rekord mentese (`nu_game_best` localStorage)
@@ -139,7 +139,7 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Robot kinezetek** (XP-ert vasarolhatok):
   - Alap (ingyenes), Arany (200 XP), Rainbow (500 XP), Gyemant (1000 XP)
 - **Hatterek** (XP-ert vasarolhatok):
-  - Napszak (ingyenes), Sarki feny (150 XP), Naplemente (300 XP), Ocean (450 XP), Ur (700 XP), Cseresznyevirag (900 XP)
+  - Napszak (ingyenes), Arany hatter (200 XP), Rainbow hatter (500 XP), Gyemant hatter (1000 XP)
 - Megvett targyak orokre megmaradnak (`nu_owned` JSON tomb)
 - Kivalasztott skin: `nu_active_skin`, kivalasztott hatter: `nu_active_bg`
 - Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
