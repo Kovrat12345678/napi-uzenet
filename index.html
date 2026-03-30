@@ -59,6 +59,8 @@
         .game-goal{font-size:11px;color:rgba(255,255,255,.6);text-align:center;flex:1}
         .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer;z-index:10;position:relative}
         .game-golden-msg{color:#fbbf24;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(251,191,36,.5);margin:0}
+        .game-rainbow-msg{color:#f472b6;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(244,114,182,.5);margin:0}
+        .game-diamond-msg{color:#67e8f9;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(103,232,249,.5);margin:0}
         .game-player{position:absolute;bottom:30px;z-index:1;pointer-events:none;width:100px;height:145px}
         .game-player .gp-antenna{width:3px;height:18px;background:#94a3b8;margin:0 auto;position:relative}
         .game-player .gp-antenna::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:radial-gradient(circle,#fde68a,#f59e0b);border-radius:50%;box-shadow:0 0 12px rgba(251,191,36,.6);animation:glow 2s ease-in-out infinite}
@@ -89,6 +91,46 @@
         .robot.golden .neck{background:linear-gradient(to bottom,#fbbf24,#d97706)!important}
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
+
+        /* Rainbow robot jutalom */
+        @keyframes rainbowShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+        .game-player.rainbow,.robot.rainbow{animation:rainbowShift 3s linear infinite}
+        .game-player.rainbow .gp-head{background:linear-gradient(165deg,#f9a8d4,#a78bfa,#67e8f9)!important}
+        .game-player.rainbow .gp-body{background:linear-gradient(165deg,#fbbf24,#34d399,#818cf8)!important}
+        .game-player.rainbow .gp-eye{background:radial-gradient(circle,#f9a8d4,#a78bfa)!important;box-shadow:0 0 8px rgba(167,139,250,.8)!important}
+        .game-player.rainbow .gp-leg{background:linear-gradient(to bottom,#34d399,#818cf8)!important}
+        .robot.rainbow .head,.robot.rainbow .torso{background:linear-gradient(165deg,#f9a8d4 0%,#a78bfa 40%,#67e8f9 100%)!important}
+        .robot.rainbow .eye{background:radial-gradient(circle,#f9a8d4,#a78bfa,#818cf8)!important;box-shadow:0 0 14px rgba(167,139,250,.8),0 0 28px rgba(167,139,250,.4)!important}
+        .robot.rainbow .antenna-ball{background:radial-gradient(circle,#fff,#f9a8d4)!important;box-shadow:0 0 20px rgba(244,114,182,1),0 0 40px rgba(167,139,250,.5)!important}
+        .robot.rainbow .arm-l,.robot.rainbow .arm-r{background:linear-gradient(to bottom,#fbbf24,#34d399)!important}
+        .robot.rainbow .leg{background:linear-gradient(to bottom,#34d399,#818cf8)!important}
+        .robot.rainbow .shoulder-l,.robot.rainbow .shoulder-r{background:radial-gradient(circle,#fbbf24,#34d399)!important}
+        .robot.rainbow .heart-icon{filter:brightness(1.5) saturate(1.5)!important}
+        .robot.rainbow .chest-dot{background:#f9a8d4!important;box-shadow:0 0 6px rgba(249,168,212,.8)!important}
+        .robot.rainbow .mouth{background:#a78bfa!important;box-shadow:0 0 6px rgba(167,139,250,.5)!important}
+        .robot.rainbow .neck{background:linear-gradient(to bottom,#f9a8d4,#a78bfa)!important}
+        .robot.rainbow .ear-l,.robot.rainbow .ear-r{background:#a78bfa!important}
+        .robot.rainbow .foot{background:#7c3aed!important}
+
+        /* Gyémánt robot jutalom */
+        @keyframes diamondSparkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+        .game-player.diamond,.robot.diamond{animation:diamondSparkle 2s ease-in-out infinite}
+        .game-player.diamond .gp-head{background:linear-gradient(165deg,#ecfeff,#67e8f9,#06b6d4)!important}
+        .game-player.diamond .gp-body{background:linear-gradient(165deg,#ecfeff,#a5f3fc,#22d3ee)!important}
+        .game-player.diamond .gp-eye{background:radial-gradient(circle,#fff,#67e8f9)!important;box-shadow:0 0 10px rgba(103,232,249,.9)!important}
+        .game-player.diamond .gp-leg{background:linear-gradient(to bottom,#22d3ee,#0891b2)!important}
+        .robot.diamond .head,.robot.diamond .torso{background:linear-gradient(165deg,#ecfeff 0%,#67e8f9 40%,#06b6d4 100%)!important}
+        .robot.diamond .eye{background:radial-gradient(circle,#fff,#67e8f9,#06b6d4)!important;box-shadow:0 0 14px rgba(103,232,249,.9),0 0 28px rgba(6,182,212,.4)!important}
+        .robot.diamond .antenna-ball{background:radial-gradient(circle,#fff,#a5f3fc)!important;box-shadow:0 0 20px rgba(103,232,249,1),0 0 40px rgba(6,182,212,.5)!important}
+        .robot.diamond .arm-l,.robot.diamond .arm-r{background:linear-gradient(to bottom,#67e8f9,#0891b2)!important}
+        .robot.diamond .leg{background:linear-gradient(to bottom,#67e8f9,#0891b2)!important}
+        .robot.diamond .shoulder-l,.robot.diamond .shoulder-r{background:radial-gradient(circle,#a5f3fc,#22d3ee)!important}
+        .robot.diamond .heart-icon{filter:brightness(1.5) saturate(1.2)!important}
+        .robot.diamond .chest-dot{background:#a5f3fc!important;box-shadow:0 0 8px rgba(165,243,252,.9)!important}
+        .robot.diamond .mouth{background:#22d3ee!important;box-shadow:0 0 6px rgba(34,211,238,.5)!important}
+        .robot.diamond .neck{background:linear-gradient(to bottom,#67e8f9,#0891b2)!important}
+        .robot.diamond .ear-l,.robot.diamond .ear-r{background:#22d3ee!important}
+        .robot.diamond .foot{background:#0e7490!important}
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
         .game-over-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-align:center;gap:12px}
         .game-over-screen h2{font-size:32px;margin:0}
@@ -868,7 +910,7 @@
     <div class="game-overlay" id="gameOverlay">
         <div class="game-hud">
             <div class="game-score">🏆 <span id="gameScore">0</span></div>
-            <div class="game-goal">🎯 1000 pont = 1 napig arany robot!</div>
+            <div class="game-goal">🎯 200=arany 🌈500=rainbow 💎1000=gyémánt</div>
             <button class="game-exit" id="gameExit">✕ Kilépés</button>
         </div>
         <div class="game-over-screen" id="gameOverScreen" style="display:none">
@@ -876,6 +918,8 @@
             <p>Pontszám: <span id="gameFinalScore">0</span></p>
             <p class="game-best">Rekord: <span id="gameBestScore">0</span></p>
             <p class="game-golden-msg" id="gameGoldenMsg" style="display:none">✨ Arany robot feloldva 1 napra! ✨</p>
+            <p class="game-rainbow-msg" id="gameRainbowMsg" style="display:none">🌈 Rainbow robot feloldva 1 napra! 🌈</p>
+            <p class="game-diamond-msg" id="gameDiamondMsg" style="display:none">💎 Gyémánt robot feloldva 1 napra! 💎</p>
             <button class="game-retry" id="gameRetry">🔄 Újra</button>
             <button class="game-back" id="gameBack">← Vissza</button>
         </div>
@@ -1942,10 +1986,13 @@
         btn.addEventListener('touchend',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
         btn.addEventListener('touchmove',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
 
-        // ========== ARANY ROBOT JUTALOM ==========
+        // ========== ROBOT SKIN JUTALOM ==========
         (function(){
-            const gd=localStorage.getItem('nu_gold_day');
-            if(gd===td()) document.getElementById('robot').classList.add('golden');
+            const r=document.getElementById('robot');
+            const today=td();
+            if(localStorage.getItem('nu_diamond_day')===today) r.classList.add('diamond');
+            else if(localStorage.getItem('nu_rainbow_day')===today) r.classList.add('rainbow');
+            else if(localStorage.getItem('nu_gold_day')===today) r.classList.add('golden');
         })();
 
         // ========== EMOJI DODGE MINIJÁTÉK ==========
@@ -1957,6 +2004,8 @@
             const finalScoreEl=document.getElementById('gameFinalScore');
             const bestScoreEl=document.getElementById('gameBestScore');
             const goldenMsg=document.getElementById('gameGoldenMsg');
+            const rainbowMsg=document.getElementById('gameRainbowMsg');
+            const diamondMsg=document.getElementById('gameDiamondMsg');
             const retryBtn=document.getElementById('gameRetry');
             const backBtn=document.getElementById('gameBack');
 
@@ -1976,8 +2025,11 @@
             function createMiniRobot(){
                 const p=document.createElement('div');
                 p.className='game-player';
-                // Arany ha már megvan
-                if(localStorage.getItem('nu_gold_day')===td()) p.classList.add('golden');
+                // Skin ha már megvan
+                const today=td();
+                if(localStorage.getItem('nu_diamond_day')===today) p.classList.add('diamond');
+                else if(localStorage.getItem('nu_rainbow_day')===today) p.classList.add('rainbow');
+                else if(localStorage.getItem('nu_gold_day')===today) p.classList.add('golden');
                 p.innerHTML='<div class="gp-antenna"></div><div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div><div class="gp-legs"><div class="gp-leg"></div><div class="gp-leg"></div></div>';
                 return p;
             }
@@ -1987,6 +2039,8 @@
                 overlay.classList.add('active');
                 overScreen.style.display='none';
                 goldenMsg.style.display='none';
+                rainbowMsg.style.display='none';
+                diamondMsg.style.display='none';
                 score=0;alive=true;diff=1;
                 scoreEl.textContent='0';
                 emojis=[];
@@ -2079,13 +2133,26 @@
                 finalScoreEl.textContent=finalScore;
                 bestScoreEl.textContent=bestScore;
 
-                // 1000+ pont = arany robot 1 napra
+                // Skin jutalmak: 200=arany, 500=rainbow, 1000=gyémánt
+                const r=document.getElementById('robot');
+                goldenMsg.style.display='none';
+                rainbowMsg.style.display='none';
+                diamondMsg.style.display='none';
                 if(finalScore>=1000){
+                    localStorage.setItem('nu_diamond_day',td());
+                    r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
+                    r.classList.add('diamond');
+                    diamondMsg.style.display='block';
+                } else if(finalScore>=500){
+                    localStorage.setItem('nu_rainbow_day',td());
+                    r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
+                    r.classList.add('rainbow');
+                    rainbowMsg.style.display='block';
+                } else if(finalScore>=200){
                     localStorage.setItem('nu_gold_day',td());
-                    document.getElementById('robot').classList.add('golden');
+                    r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
+                    r.classList.add('golden');
                     goldenMsg.style.display='block';
-                } else {
-                    goldenMsg.style.display='none';
                 }
                 overScreen.style.display='flex';
             }

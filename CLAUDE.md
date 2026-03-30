@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
   - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev)
   - `nu_favs` (kedvenc uzenetek JSON tomb)
-  - `nu_game_best` (jatek rekord), `nu_gold_day` (arany robot nap)
+  - `nu_game_best` (jatek rekord), `nu_gold_day` (arany robot nap), `nu_rainbow_day` (rainbow robot nap), `nu_diamond_day` (gyemant robot nap)
 
 ### Reggel 6 logika
 
@@ -50,7 +50,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
   - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
   - **Dancing**: tancolo mozgas, gyors kar lengetes (vicces/humor uzeneteknel)
-  - **Arany**: 1000+ pont a minijatekban → 1 napig arany szinu robot (fej, test, szemek, antenna, labak)
+  - **Arany**: 200+ pont a minijatekban → 1 napig arany szinu robot (fej, test, szemek, antenna, labak)
+  - **Rainbow**: 500+ pont → 1 napig szivarvanyos robot (hue-rotate animacio)
+  - **Gyemant**: 1000+ pont → 1 napig gyemant robot (cyan/jegkek szin, csillogo animacio)
 - Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
 
 ### Szemelyes koszrontes
@@ -125,7 +127,7 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, egyre gyorsabban
 - **Hatter**: az aktualis napszak gradiens hattere
 - **Pontszam**: folyamatosan no, rekord mentese (`nu_game_best` localStorage)
-- **Jutalom**: 1000+ pont = arany robot 1 napra (`nu_gold_day` localStorage, `golden` CSS class)
+- **Jutalmak**: 200+ pont = arany robot 1 napra, 500+ pont = rainbow robot 1 napra, 1000+ pont = gyémánt robot 1 napra (`nu_gold_day`, `nu_rainbow_day`, `nu_diamond_day` localStorage, `golden`/`rainbow`/`diamond` CSS class)
 - **HUD**: pontszam, cel szoveg ("1000 pont = 1 napig arany robot!"), kilepes gomb
 - **Game Over**: vegso pontszam, rekord, arany uzenet ha elerte, ujra/vissza gombok
 - Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
