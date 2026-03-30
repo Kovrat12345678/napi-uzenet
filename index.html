@@ -132,6 +132,13 @@
         .robot.diamond .ear-l,.robot.diamond .ear-r{background:#22d3ee!important}
         .robot.diamond .foot{background:#0e7490!important}
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
+        .game-emoji.collectible{animation:collectiblePulse 1s ease-in-out infinite;z-index:2}
+        .game-emoji.gold-item{filter:drop-shadow(0 0 8px rgba(251,191,36,.8))}
+        .game-emoji.rainbow-item{filter:drop-shadow(0 0 8px rgba(167,139,250,.8))}
+        .game-emoji.diamond-item{filter:drop-shadow(0 0 10px rgba(103,232,249,.9))}
+        @keyframes collectiblePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+        .game-collect-fx{position:absolute;z-index:4;pointer-events:none;font-size:20px;font-weight:700;color:#fbbf24;text-shadow:0 0 10px rgba(251,191,36,.6);animation:collectFx .8s ease-out forwards}
+        @keyframes collectFx{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.5)}}
         .game-over-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-align:center;gap:12px}
         .game-over-screen h2{font-size:32px;margin:0}
         .game-over-screen p{font-size:18px;opacity:.8;margin:0}
@@ -910,7 +917,7 @@
     <div class="game-overlay" id="gameOverlay">
         <div class="game-hud">
             <div class="game-score">🏆 <span id="gameScore">0</span></div>
-            <div class="game-goal">🎯 200=arany 🌈500=rainbow 💎1000=gyémánt</div>
+            <div class="game-goal">🪙🌈💎 Gyűjtsd össze!<br>🎯 200=arany 🌈500=rainbow 💎1000=gyémánt</div>
             <button class="game-exit" id="gameExit">✕ Kilépés</button>
         </div>
         <div class="game-over-screen" id="gameOverScreen" style="display:none">
@@ -2010,7 +2017,12 @@
             const backBtn=document.getElementById('gameBack');
 
             const EMOJIS=['⚡','💧','🧲','🔧','🔩','🦠','🕷️','💦','🌊','🪫'];
-            let player, score, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
+            const COLLECTIBLES=[
+                {emoji:'🪙',type:'gold',points:30,cls:'gold-item'},
+                {emoji:'🌈',type:'rainbow',points:80,cls:'rainbow-item'},
+                {emoji:'💎',type:'diamond',points:150,cls:'diamond-item'}
+            ];
+            let player, score, bestScore, gameLoop, spawnTimer, collectTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
 
             bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
 
@@ -2045,7 +2057,7 @@
                 scoreEl.textContent='0';
                 emojis=[];
 
-                overlay.querySelectorAll('.game-emoji,.game-player').forEach(e=>e.remove());
+                overlay.querySelectorAll('.game-emoji,.game-player,.game-collect-fx').forEach(e=>e.remove());
 
                 player=createMiniRobot();
                 playerX=window.innerWidth/2-50;
@@ -2055,7 +2067,8 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                spawnTimer=setInterval(spawnEmoji, Math.max(300,800-diff*20));
+                spawnTimer=setInterval(spawnEmoji, Math.max(500,1200-diff*30));
+                collectTimer=setInterval(spawnCollectible, 2500);
                 gameLoop=requestAnimationFrame(update);
             };
 
@@ -2084,8 +2097,32 @@
                 em.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
                 em.style.left=Math.random()*(window.innerWidth-50)+'px';
                 em.style.top='-50px';
-                em._speed=(Math.random()*2+2+diff*0.3);
+                em._speed=(Math.random()*1.5+1.5+diff*0.2);
                 em._size=sz;
+                em._collectible=false;
+                overlay.appendChild(em);
+                emojis.push(em);
+            }
+
+            function spawnCollectible(){
+                if(!alive)return;
+                const em=document.createElement('div');
+                const currentScore=Math.floor(score/10);
+                let pool=COLLECTIBLES.filter(c=>c.type==='gold');
+                if(currentScore>=100) pool=pool.concat(COLLECTIBLES.filter(c=>c.type==='rainbow'));
+                if(currentScore>=300) pool=pool.concat(COLLECTIBLES.filter(c=>c.type==='diamond'));
+                const item=pool[Math.floor(Math.random()*pool.length)];
+                em.className='game-emoji collectible '+item.cls;
+                const sz=42;
+                em.style.fontSize=sz+'px';
+                em.textContent=item.emoji;
+                em.style.left=Math.random()*(window.innerWidth-50)+'px';
+                em.style.top='-50px';
+                em._speed=(Math.random()*1+1.5);
+                em._size=sz;
+                em._collectible=true;
+                em._points=item.points;
+                em._type=item.type;
                 overlay.appendChild(em);
                 emojis.push(em);
             }
@@ -2093,12 +2130,12 @@
             function update(){
                 if(!alive)return;
                 score++;
-                diff=1+Math.floor(score/300);
+                diff=1+Math.floor(score/500);
                 scoreEl.textContent=Math.floor(score/10);
 
-                if(score%200===0){
+                if(score%400===0){
                     clearInterval(spawnTimer);
-                    spawnTimer=setInterval(spawnEmoji, Math.max(200,800-diff*50));
+                    spawnTimer=setInterval(spawnEmoji, Math.max(500,1200-diff*40));
                 }
 
                 // Játékos pozíció: alul fix, vízszintesen mozog
@@ -2115,6 +2152,18 @@
                     // Ütközés (téglalap alapú)
                     const ex=parseFloat(em.style.left), ey=top, esz=em._size;
                     if(ex+esz>px+8 && ex<px+pw-8 && ey+esz>py+8 && ey<py+ph-8){
+                        if(em._collectible){
+                            score+=em._points*10;
+                            scoreEl.textContent=Math.floor(score/10);
+                            const fx=document.createElement('div');
+                            fx.className='game-collect-fx';
+                            fx.style.left=ex+'px';fx.style.top=ey+'px';
+                            fx.style.color=em._type==='diamond'?'#67e8f9':em._type==='rainbow'?'#c084fc':'#fbbf24';
+                            fx.textContent='+'+em._points;
+                            overlay.appendChild(fx);
+                            setTimeout(()=>fx.remove(),800);
+                            em.remove();emojis.splice(i,1);continue;
+                        }
                         gameOver();return;
                     }
                 }
@@ -2124,6 +2173,7 @@
             function gameOver(){
                 alive=false;
                 clearInterval(spawnTimer);
+                clearInterval(collectTimer);
                 cancelAnimationFrame(gameLoop);
                 overlay.removeEventListener('touchstart',onTouchStart);
                 overlay.removeEventListener('touchmove',onTouchMove);
@@ -2164,7 +2214,7 @@
                 overlay.removeEventListener('touchstart',onTouchStart);
                 overlay.removeEventListener('touchmove',onTouchMove);
                 overlay.classList.remove('active');
-                overlay.querySelectorAll('.game-emoji,.game-player').forEach(e=>e.remove());
+                overlay.querySelectorAll('.game-emoji,.game-player,.game-collect-fx').forEach(e=>e.remove());
                 emojis=[];
             }
 
