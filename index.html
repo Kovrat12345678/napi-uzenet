@@ -2075,11 +2075,9 @@
             if(skin&&owns(skin)) r.classList.add(skin);
         }
         const CUSTOM_BGS={
-            'bg-aurora':'linear-gradient(165deg,#064e3b 0%,#065f46 20%,#047857 40%,#6d28d9 60%,#7c3aed 80%,#4c1d95 100%)',
-            'bg-sunset':'linear-gradient(165deg,#fbbf24 0%,#f59e0b 20%,#f97316 40%,#ec4899 60%,#f472b6 80%,#e879f9 100%)',
-            'bg-ocean':'linear-gradient(165deg,#0c4a6e 0%,#0369a1 20%,#0284c7 40%,#0891b2 60%,#155e75 80%,#164e63 100%)',
-            'bg-space':'linear-gradient(165deg,#0f0521 0%,#1a0533 20%,#2e1065 40%,#4c1d95 60%,#1e1b4b 80%,#0f172a 100%)',
-            'bg-cherry':'linear-gradient(165deg,#fce7f3 0%,#fbcfe8 20%,#f9a8d4 40%,#f472b6 60%,#ec4899 80%,#be185d 100%)'
+            'bg-golden':'linear-gradient(165deg,#fef3c7 0%,#fde68a 20%,#fbbf24 40%,#f59e0b 60%,#d97706 80%,#92400e 100%)',
+            'bg-rainbow':'linear-gradient(165deg,#f9a8d4 0%,#a78bfa 20%,#67e8f9 40%,#34d399 60%,#fbbf24 80%,#f472b6 100%)',
+            'bg-diamond':'linear-gradient(165deg,#ecfeff 0%,#a5f3fc 20%,#67e8f9 40%,#22d3ee 60%,#06b6d4 80%,#0e7490 100%)'
         };
         function applyCustomBg(){
             const bg=getActiveBg();
@@ -2088,10 +2086,16 @@
                 document.body.style.backgroundAttachment='fixed';
             }
         }
-        // Migráció régi rendszerből
+        // Migráció + owner setup
         (function(){
             const old=localStorage.getItem('nu_skins');
             if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
+            // Owner: minden feloldva
+            if(!localStorage.getItem('nu_owner_init')){
+                ['golden','rainbow','diamond','bg-golden','bg-rainbow','bg-diamond'].forEach(i=>buyItem(i));
+                if(getXP()<5000) setXP(5000);
+                localStorage.setItem('nu_owner_init','1');
+            }
             applyRobotSkin();
             applyCustomBg();
         })();
@@ -2112,11 +2116,9 @@
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus napszak háttér',icon:'🌅',cost:0},
-                {id:'bg-aurora',name:'Sarki fény',desc:'Zöld-lila aurora háttér',icon:'🌌',cost:150},
-                {id:'bg-sunset',name:'Naplemente',desc:'Narancs-rózsaszín égbolt',icon:'🌇',cost:300},
-                {id:'bg-ocean',name:'Óceán',desc:'Mélykék víz alatti világ',icon:'🌊',cost:450},
-                {id:'bg-space',name:'Űr',desc:'Csillagos galaxia háttér',icon:'🚀',cost:700},
-                {id:'bg-cherry',name:'Cseresznyevirág',desc:'Rózsaszín virágos kert',icon:'🌸',cost:900}
+                {id:'bg-golden',name:'Arany háttér',desc:'Csillogó arany gradiens',icon:'✨',cost:200},
+                {id:'bg-rainbow',name:'Rainbow háttér',desc:'Szivárványos gradiens',icon:'🌈',cost:500},
+                {id:'bg-diamond',name:'Gyémánt háttér',desc:'Jégkék gyémánt gradiens',icon:'💎',cost:1000}
             ];
             function renderShop(){
                 const xp=getXP();
@@ -2179,7 +2181,7 @@
             const backBtn=document.getElementById('gameBack');
             const timerEl=document.getElementById('gameTimer');
 
-            const ENEMIES=['⚡','💧','🧲','🔧','🔩','🦠','🕷️','💦','🌊','🪫'];
+            const ENEMIES=['🪙','🌈','💎','🪙','🌈','💎','🪙','🌈','🪙','💎'];
             let player, score, dodged, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
 
             bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
@@ -2207,7 +2209,7 @@
                 overScreen.style.display='none';
                 score=0;dodged=0;alive=true;diff=1;
                 scoreEl.textContent='0';
-                timerEl.textContent='⭐ 0 XP';
+                timerEl.textContent='⭐ 0 XP (0/10)';
                 emojis=[];
 
                 overlay.querySelectorAll('.game-emoji,.game-player,.game-collect-fx').forEach(e=>e.remove());
@@ -2277,9 +2279,13 @@
                     let top=parseFloat(em.style.top)+em._speed;
                     em.style.top=top+'px';
 
-                    // Sikeresen kikerülte — XP pont
+                    // Sikeresen kikerülte — 10 kikerülésenként 50 XP
                     if(top>window.innerHeight+60){
-                        if(!em._counted){dodged++;timerEl.textContent='⭐ '+dodged+' XP'}
+                        if(!em._counted){
+                            dodged++;
+                            const xpNow=Math.floor(dodged/10)*50;
+                            timerEl.textContent='⭐ '+xpNow+' XP ('+dodged+'/'+((Math.floor(dodged/10)+1)*10)+')';
+                        }
                         em.remove();emojis.splice(i,1);continue;
                     }
 
@@ -2304,8 +2310,8 @@
                 finalScoreEl.textContent=finalScore;
                 bestScoreEl.textContent=bestScore;
 
-                // XP hozzáadás — minden kikerült emoji 1 XP
-                const earnedXP=dodged;
+                // XP hozzáadás — 10 kikerülésenként 50 XP
+                const earnedXP=Math.floor(dodged/10)*50;
                 const totalXP=addXP(earnedXP);
                 xpEarnedEl.textContent='+'+earnedXP+' XP';
                 totalXpEl.textContent=totalXP;
