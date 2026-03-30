@@ -128,8 +128,8 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Hatter**: az aktualis napszak gradiens hattere
 - **Pontszam**: folyamatosan no, rekord mentese (`nu_game_best` localStorage)
 - **Jutalmak**: 200+ pont = arany robot 1 napra, 500+ pont = rainbow robot 1 napra, 1000+ pont = gyémánt robot 1 napra (`nu_gold_day`, `nu_rainbow_day`, `nu_diamond_day` localStorage, `golden`/`rainbow`/`diamond` CSS class)
-- **HUD**: pontszam, cel szoveg ("1000 pont = 1 napig arany robot!"), kilepes gomb
-- **Game Over**: vegso pontszam, rekord, arany uzenet ha elerte, ujra/vissza gombok
+- **HUD**: pontszam, cel szoveg ("200=arany 🌈500=rainbow 💎1000=gyémánt"), kilepes gomb
+- **Game Over**: vegso pontszam, rekord, skin feloldas uzenet (arany/rainbow/gyemant), ujra/vissza gombok
 - Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
 
 ### Napi korlatozas

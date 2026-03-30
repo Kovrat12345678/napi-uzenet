@@ -52,7 +52,7 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Drag interakcio** — huzd meg a robotot, meglepodik es szinesen vilagit
 - **Robot hangok** — koppintasra cuki hangeffektek
 - **Emoji Dodge minijáték** — nyomd hosszan a robotot es kerüld ki a hulló emojikat!
-- **Arany robot jutalom** — 1000 pont a jatekban = 1 napig arany robot
+- **Robot skinek** — 200 pont = arany, 500 pont = rainbow, 1000 pont = gyemant robot (1 napra)
 
 ## Emoji Dodge minijáték
 
@@ -61,7 +61,10 @@ A robotot hosszan nyomva tartva (kb. 1 mp) elindul egy minijáték:
 - A kepernyo aljan egy mini robot (igazi CSS robot, nem emoji) jobbra-balra mozgatható
 - Felülrol robot-veszelyes emojik hullanak: ⚡💧🧲🔧🔩🦠🕷️💦🌊🪫
 - Egyre gyorsabban esnek — minél tovabb bírod, annál több pontot kapsz
-- **1000 pont feletti eredmény = 1 napig arany robot** az egész appban!
+- **3 szintu jutalom** — mindegyik 1 napra oldodik fel:
+  - **200+ pont** = arany robot (arany szin)
+  - **500+ pont** = rainbow robot (szivarvanyos animacio)
+  - **1000+ pont** = gyemant robot (jegkek csillogas)
 - A hatter az aktualis napszakhoz igazodik
 
 ## Uzenet kategoriak
