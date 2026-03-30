@@ -56,8 +56,38 @@
         .game-overlay.active{display:flex}
         .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 16px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:16px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
         .game-score{font-size:22px}
-        .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer}
-        .game-player{position:absolute;font-size:48px;z-index:1;transition:none;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));pointer-events:none}
+        .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer;z-index:10;position:relative}
+        .game-golden-msg{color:#fbbf24;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(251,191,36,.5);margin:0}
+        .game-player{position:absolute;bottom:30px;z-index:1;pointer-events:none;width:60px;height:84px}
+        .game-player .gp-head{width:40px;height:34px;background:linear-gradient(165deg,#f1f5f9,#cbd5e1);border-radius:12px 12px 10px 10px;margin:0 auto;position:relative;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+        .game-player .gp-screen{position:absolute;top:6px;left:5px;right:5px;bottom:6px;background:#0f172a;border-radius:8px}
+        .game-player .gp-eyes{display:flex;justify-content:center;gap:8px;padding-top:6px}
+        .game-player .gp-eye{width:8px;height:8px;background:radial-gradient(circle,#7dd3fc,#0284c7);border-radius:50%;box-shadow:0 0 6px rgba(56,189,248,.8);animation:eyeIdle 4s ease-in-out infinite}
+        .game-player .gp-mouth{width:10px;height:5px;background:#38bdf8;border-radius:0 0 5px 5px;margin:3px auto 0;box-shadow:0 0 4px rgba(56,189,248,.5)}
+        .game-player .gp-antenna{width:2px;height:10px;background:#94a3b8;margin:0 auto;position:relative}
+        .game-player .gp-antenna::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:radial-gradient(circle,#fde68a,#f59e0b);border-radius:50%;box-shadow:0 0 8px rgba(251,191,36,.6);animation:glow 2s ease-in-out infinite}
+        .game-player .gp-body{width:36px;height:28px;background:linear-gradient(165deg,#e2e8f0,#94a3b8);border-radius:6px 6px 8px 8px;margin:2px auto 0;position:relative;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+        .game-player .gp-heart{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-size:10px}
+        .game-player .gp-legs{display:flex;justify-content:center;gap:6px;margin-top:1px}
+        .game-player .gp-leg{width:10px;height:12px;background:linear-gradient(to bottom,#94a3b8,#64748b);border-radius:0 0 4px 4px}
+        .game-player.golden .gp-head{background:linear-gradient(165deg,#fef3c7,#fbbf24)!important}
+        .game-player.golden .gp-body{background:linear-gradient(165deg,#fef3c7,#f59e0b)!important}
+        .game-player.golden .gp-eye{background:radial-gradient(circle,#fde68a,#f59e0b)!important;box-shadow:0 0 6px rgba(251,191,36,.8)!important}
+        .game-player.golden .gp-leg{background:linear-gradient(to bottom,#fbbf24,#d97706)!important}
+
+        /* Arany robot jutalom */
+        .robot.golden .head,.robot.golden .torso{background:linear-gradient(165deg,#fef3c7 0%,#fbbf24 40%,#f59e0b 100%)!important}
+        .robot.golden .eye{background:radial-gradient(circle,#fde68a,#f59e0b,#d97706)!important;box-shadow:0 0 14px rgba(251,191,36,.8),0 0 28px rgba(251,191,36,.4)!important}
+        .robot.golden .antenna-ball{background:radial-gradient(circle,#fff,#fde68a)!important;box-shadow:0 0 20px rgba(251,191,36,1),0 0 40px rgba(251,191,36,.5)!important}
+        .robot.golden .arm-l,.robot.golden .arm-r{background:linear-gradient(to bottom,#fbbf24,#d97706)!important}
+        .robot.golden .leg{background:linear-gradient(to bottom,#fbbf24,#d97706)!important}
+        .robot.golden .shoulder-l,.robot.golden .shoulder-r{background:radial-gradient(circle,#fde68a,#f59e0b)!important}
+        .robot.golden .heart-icon{filter:brightness(1.5)!important}
+        .robot.golden .chest-dot{background:#fde68a!important;box-shadow:0 0 6px rgba(253,230,138,.8)!important}
+        .robot.golden .mouth{background:#f59e0b!important;box-shadow:0 0 6px rgba(245,158,11,.5)!important}
+        .robot.golden .neck{background:linear-gradient(to bottom,#fbbf24,#d97706)!important}
+        .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
+        .robot.golden .foot{background:#b45309!important}
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
         .game-over-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-align:center;gap:12px}
         .game-over-screen h2{font-size:32px;margin:0}
@@ -849,6 +879,7 @@
             <h2>💥 Vége!</h2>
             <p>Pontszám: <span id="gameFinalScore">0</span></p>
             <p class="game-best">Rekord: <span id="gameBestScore">0</span></p>
+            <p class="game-golden-msg" id="gameGoldenMsg" style="display:none">✨ Arany robot feloldva 1 napra! ✨</p>
             <button class="game-retry" id="gameRetry">🔄 Újra</button>
             <button class="game-back" id="gameBack">← Vissza</button>
         </div>
@@ -1931,6 +1962,12 @@
         btn.addEventListener('touchend',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
         btn.addEventListener('touchmove',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
 
+        // ========== ARANY ROBOT JUTALOM ==========
+        (function(){
+            const gd=localStorage.getItem('nu_gold_day');
+            if(gd===td()) document.getElementById('robot').classList.add('golden');
+        })();
+
         // ========== EMOJI DODGE MINIJÁTÉK ==========
         (function(){
             const overlay=document.getElementById('gameOverlay');
@@ -1939,11 +1976,12 @@
             const overScreen=document.getElementById('gameOverScreen');
             const finalScoreEl=document.getElementById('gameFinalScore');
             const bestScoreEl=document.getElementById('gameBestScore');
+            const goldenMsg=document.getElementById('gameGoldenMsg');
             const retryBtn=document.getElementById('gameRetry');
             const backBtn=document.getElementById('gameBack');
 
-            const EMOJIS=['😈','💀','👻','🔥','💣','⚡','🌪️','☄️','🦠','🕷️','🎃','❄️','🌊','🍕','⭐','💎','🎵','🪨'];
-            let player, score, bestScore, gameLoop, spawnTimer, emojis, playerX, playerY, alive, touchOffX, touchOffY, diff;
+            const EMOJIS=['⚡','💧','🧲','🔧','🔩','🦠','🕷️','💦','🌊','🪫'];
+            let player, score, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
 
             bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
 
@@ -1955,49 +1993,52 @@
                 return 'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
             }
 
+            function createMiniRobot(){
+                const p=document.createElement('div');
+                p.className='game-player';
+                // Arany ha már megvan
+                if(localStorage.getItem('nu_gold_day')===td()) p.classList.add('golden');
+                p.innerHTML='<div class="gp-antenna"></div><div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div><div class="gp-legs"><div class="gp-leg"></div><div class="gp-leg"></div></div>';
+                return p;
+            }
+
             window.startGame=function(){
                 overlay.style.background=getGameBg();
                 overlay.classList.add('active');
                 overScreen.style.display='none';
+                goldenMsg.style.display='none';
                 score=0;alive=true;diff=1;
                 scoreEl.textContent='0';
                 emojis=[];
 
-                // Régi emojik törlése
                 overlay.querySelectorAll('.game-emoji,.game-player').forEach(e=>e.remove());
 
-                // Játékos robot
-                player=document.createElement('div');
-                player.className='game-player';
-                player.textContent='🤖';
-                playerX=window.innerWidth/2-24;
-                playerY=window.innerHeight-120;
+                player=createMiniRobot();
+                playerX=window.innerWidth/2-30;
                 player.style.left=playerX+'px';
-                player.style.top=playerY+'px';
                 overlay.appendChild(player);
 
-                // Touch mozgatás
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                // Játék ciklus
                 spawnTimer=setInterval(spawnEmoji, Math.max(300,800-diff*20));
                 gameLoop=requestAnimationFrame(update);
             };
 
             function onTouchStart(e){
+                if(e.target.closest('.game-exit,.game-retry,.game-back,.game-over-screen'))return;
                 e.preventDefault();
                 const t=e.touches[0];
-                touchOffX=t.clientX-playerX;
-                touchOffY=t.clientY-playerY;
+                touchStartX=t.clientX;
+                playerStartX=playerX;
             }
             function onTouchMove(e){
+                if(!alive)return;
                 e.preventDefault();
                 const t=e.touches[0];
-                playerX=Math.max(0,Math.min(window.innerWidth-48,t.clientX-touchOffX));
-                playerY=Math.max(60,Math.min(window.innerHeight-60,t.clientY-touchOffY));
+                const dx=t.clientX-touchStartX;
+                playerX=Math.max(0,Math.min(window.innerWidth-60,playerStartX+dx));
                 player.style.left=playerX+'px';
-                player.style.top=playerY+'px';
             }
 
             function spawnEmoji(){
@@ -2017,35 +2058,29 @@
 
             function update(){
                 if(!alive)return;
-                // Pontszám és nehézség
                 score++;
                 diff=1+Math.floor(score/300);
                 scoreEl.textContent=Math.floor(score/10);
 
-                // Spawn gyorsítás
                 if(score%200===0){
                     clearInterval(spawnTimer);
                     spawnTimer=setInterval(spawnEmoji, Math.max(200,800-diff*50));
                 }
 
-                // Emojik mozgatása + ütközés
-                const px=playerX, py=playerY, ps=40;
+                // Játékos pozíció: alul fix, vízszintesen mozog
+                const px=playerX, py=window.innerHeight-114, pw=60, ph=84;
                 for(let i=emojis.length-1;i>=0;i--){
                     const em=emojis[i];
                     let top=parseFloat(em.style.top)+em._speed;
                     em.style.top=top+'px';
 
-                    // Képernyőről kilépett
                     if(top>window.innerHeight+60){
                         em.remove();emojis.splice(i,1);continue;
                     }
 
-                    // Ütközés (kör alapú)
-                    const ex=parseFloat(em.style.left)+em._size/2;
-                    const ey=top+em._size/2;
-                    const cx=px+ps/2, cy=py+ps/2;
-                    const dist=Math.sqrt((ex-cx)**2+(ey-cy)**2);
-                    if(dist<(ps/2+em._size/3)){
+                    // Ütközés (téglalap alapú)
+                    const ex=parseFloat(em.style.left), ey=top, esz=em._size;
+                    if(ex+esz>px+8 && ex<px+pw-8 && ey+esz>py+8 && ey<py+ph-8){
                         gameOver();return;
                     }
                 }
@@ -2063,6 +2098,15 @@
                 if(finalScore>bestScore){bestScore=finalScore;localStorage.setItem('nu_game_best',bestScore.toString())}
                 finalScoreEl.textContent=finalScore;
                 bestScoreEl.textContent=bestScore;
+
+                // 1000+ pont = arany robot 1 napra
+                if(finalScore>=1000){
+                    localStorage.setItem('nu_gold_day',td());
+                    document.getElementById('robot').classList.add('golden');
+                    goldenMsg.style.display='block';
+                } else {
+                    goldenMsg.style.display='none';
+                }
                 overScreen.style.display='flex';
             }
 
@@ -2077,9 +2121,12 @@
                 emojis=[];
             }
 
-            exitBtn.addEventListener('click',closeGame);
-            backBtn.addEventListener('click',closeGame);
-            retryBtn.addEventListener('click',()=>{overScreen.style.display='none';startGame()});
+            exitBtn.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();closeGame()});
+            backBtn.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();closeGame()});
+            retryBtn.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();overScreen.style.display='none';startGame()});
+            exitBtn.addEventListener('click',e=>{e.stopPropagation();closeGame()});
+            backBtn.addEventListener('click',e=>{e.stopPropagation();closeGame()});
+            retryBtn.addEventListener('click',e=>{e.stopPropagation();overScreen.style.display='none';startGame()});
         })();
 
         function startNotifications(reg){
