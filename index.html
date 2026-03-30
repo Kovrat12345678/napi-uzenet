@@ -2090,12 +2090,6 @@
         (function(){
             const old=localStorage.getItem('nu_skins');
             if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
-            // Owner: minden feloldva
-            if(!localStorage.getItem('nu_owner_init')){
-                ['golden','rainbow','diamond','bg-golden','bg-rainbow','bg-diamond'].forEach(i=>buyItem(i));
-                if(getXP()<5000) setXP(5000);
-                localStorage.setItem('nu_owner_init','1');
-            }
             applyRobotSkin();
             applyCustomBg();
         })();
