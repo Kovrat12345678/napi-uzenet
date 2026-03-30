@@ -51,7 +51,8 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Konfetti** — minden napi uzenetnel unnepel
 - **Drag interakcio** — huzd meg a robotot, meglepodik es szinesen vilagit
 - **Robot hangok** — koppintasra cuki hangeffektek
-- **Emoji Dodge minijáték** — nyomd hosszan a robotot es kerüld ki a hulló emojikat!
+- **Emoji Dodge minijáték** — nyomd hosszan a robotot, kerüld ki a hulló emojikat es gyüjtsd az aranyat, rainbow-t, gyemantot!
+- **Gyüjtheto targyak** — 🪙 arany erme (+30), 🌈 rainbow (+80), 💎 gyemant (+150) esik az egbol
 - **Robot skinek** — 200 pont = arany, 500 pont = rainbow, 1000 pont = gyemant robot (1 napra)
 
 ## Emoji Dodge minijáték
@@ -59,8 +60,12 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 A robotot hosszan nyomva tartva (kb. 1 mp) elindul egy minijáték:
 
 - A kepernyo aljan egy mini robot (igazi CSS robot, nem emoji) jobbra-balra mozgatható
-- Felülrol robot-veszelyes emojik hullanak: ⚡💧🧲🔧🔩🦠🕷️💦🌊🪫
-- Egyre gyorsabban esnek — minél tovabb bírod, annál több pontot kapsz
+- Felülrol robot-veszelyes emojik hullanak: ⚡💧🧲🔧🔩🦠🕷️💦🌊🪫 — ezeket ki kell kerulni!
+- **Gyujtheto targyak esnek az egbol** — ezeket ossze kell gyujteni:
+  - 🪙 **Arany erme** (+30 pont) — mindig megjelenik
+  - 🌈 **Rainbow** (+80 pont) — 100 pont felett kezd hullani
+  - 💎 **Gyemant** (+150 pont) — 300 pont felett kezd hullani
+- A gyujthetok pulzalo animacioval es szines izzassal tunik ki — konnyu megkulonboztetni
 - **3 szintu jutalom** — mindegyik 1 napra oldodik fel:
   - **200+ pont** = arany robot (arany szin)
   - **500+ pont** = rainbow robot (szivarvanyos animacio)

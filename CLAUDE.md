@@ -124,13 +124,22 @@ A robot naphoz kotodo emoji oltozeket visel:
 
 - **Inditas**: robot hosszan nyomva tartasa (600ms long press)
 - **Jatekos**: CSS mini robot (nem emoji), az also reszben rogzitett, csak jobbra-balra mozog ujjal huzva
-- **Emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, egyre gyorsabban
+- **Veszelyes emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, ezeket ki kell kerulni
+- **Gyujtheto targyak**: az egbol arany, rainbow es gyemant targyak hullanak, amiket ossze kell gyujteni pontokert:
+  - 🪙 Arany erme (+30 pont) — mindig megjelenik, arany izzas effekt
+  - 🌈 Rainbow (+80 pont) — 100 pont felett kezd esni, lila izzas effekt
+  - 💎 Gyemant (+150 pont) — 300 pont felett kezd esni, cyan izzas effekt
+  - Pulzalo animacio (`collectiblePulse`) megkulonbozteti a veszelyes emojiaktol
+  - Gyujteskor "+pont" felirat szall felfele szines animacioval (`collectFx`)
+- **Nehezseg**: konnyebb alapbeallitas — lassabb emoji sebesseg (1.5–3), ritkabb spawn (1200ms), lassabb rampa (500 pontonkent)
+- **Spawn**: veszelyes emojik `spawnEmoji()` (max 500ms), gyujthetok `spawnCollectible()` (2500ms fix)
 - **Hatter**: az aktualis napszak gradiens hattere
-- **Pontszam**: folyamatosan no, rekord mentese (`nu_game_best` localStorage)
-- **Jutalmak**: 200+ pont = arany robot 1 napra, 500+ pont = rainbow robot 1 napra, 1000+ pont = gyémánt robot 1 napra (`nu_gold_day`, `nu_rainbow_day`, `nu_diamond_day` localStorage, `golden`/`rainbow`/`diamond` CSS class)
-- **HUD**: pontszam, cel szoveg ("200=arany 🌈500=rainbow 💎1000=gyémánt"), kilepes gomb
+- **Pontszam**: folyamatosan no + gyujthetok bonusza, rekord mentese (`nu_game_best` localStorage)
+- **Jutalmak**: 200+ pont = arany robot 1 napra, 500+ pont = rainbow robot 1 napra, 1000+ pont = gyemant robot 1 napra (`nu_gold_day`, `nu_rainbow_day`, `nu_diamond_day` localStorage, `golden`/`rainbow`/`diamond` CSS class)
+- **HUD**: pontszam, cel szoveg ("🪙🌈💎 Gyujtsd ossze! 🎯 200=arany 🌈500=rainbow 💎1000=gyemant"), kilepes gomb
 - **Game Over**: vegso pontszam, rekord, skin feloldas uzenet (arany/rainbow/gyemant), ujra/vissza gombok
 - Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
+- **CSS classok**: `.collectible`, `.gold-item`, `.rainbow-item`, `.diamond-item`, `.game-collect-fx`
 
 ### Napi korlatozas
 
