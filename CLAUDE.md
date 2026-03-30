@@ -19,7 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - Csend & Onismeret, Kapcsolatok & Kozelseg, Bolcsesseg & Ido, Kitartas & Turelem, Nyugalom & Jelenlet, Konnyedseg & Mosoly, Alkotas & Figyelem, Termeszet & Csoda, Erzesek & Melyseg, Ero & Valtozas, Melyseg & Ertelem, Zaro bolcsessegek
 - **Uzenet stilus**: TopJoy-szeru — rovid, ketmondatos, csendes, koltoei, elmelkedo. Nem motivacios poster stilus.
 - Napi uzenet kivalasztas: datum-alapu seed (`ev*10000 + ho*100 + nap + uid`) → determinisztikus index, evente mas sorrend
-- **Reggel 8 logika**: az "uzenet-nap" reggel 8-kor valt, nem ejfelkor. A `msgDay()` fuggveny adja az aktualis uzenet-napot (8 ora elott az elozo nap szamit).
+- **Reggel 8 logika**: az "uzenet-nap" reggel 6-kor valt, nem ejfelkor. A `msgDay()` fuggveny adja az aktualis uzenet-napot (6 ora elott az elozo nap szamit).
 - `localStorage` kulcsok:
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
   - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev), `nu_email` (email), `nu_age` (eletkor), `nu_city` (lakhely)
@@ -27,7 +27,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Reggel 8 logika
 
-- `msgDay()` fuggveny: ha `getHours() < 8`, az elozo nap szamit uzenet-napnak
+- `msgDay()` fuggveny: ha `getHours() < 6`, az elozo nap szamit uzenet-napnak
 - `td()` = `msgDay().toDateString()` — minden localStorage muvelet ezt hasznalja
 - Erintett rendszerek: uzenet kivalasztas (`dm()`), streak, seen/mark, visszaszamlalo, nevnap, unnepi oltozekek, datum kijelzes
 - Visszaszamlalo: ha 8 elott → ma 8-ig szamol, ha 8 utan → holnap 8-ig
@@ -112,7 +112,7 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation)
 - **Drag interakcio**: robot huzhato, CSS glow effekttel reagal (::before pseudo-element, iOS kompatibilis)
 - **Tap reakcio**: koppintasra integet es robot hangokat ad ("bi-bu-bi!")
-- **Visszaszamlalo**: az app aljan mutatja mikor erkezik a kovetkezo uzenet (kovetkezo reggel 8-ig szamol vissza)
+- **Visszaszamlalo**: az app aljan mutatja mikor erkezik a kovetkezo uzenet (kovetkezo reggel 6-ig szamol vissza)
 - **Kedvenc gomb**: uzenet buborekban, elmentheto kedvencek listaja
 - **Megosztas gomb**: kepes kartya generalas es megosztas
 
@@ -122,14 +122,14 @@ A robot naphoz kotodo emoji oltozeket visel:
 - Ha mar latta a felhasznalo (`seen()` true), a koppintas csak tap-reakciot valt ki (integetes + "Hello!")
 - A `mark()` fuggveny rogziti `localStorage`-ba (`nu_d` kulcs) hogy ma mar latta
 - A `!done&&!seen()` feltetel biztositja az 1 uzenet/nap korlatot
-- A nap reggel 8-kor valt (`msgDay()` fuggveny)
-- Az app aljan (`#nextMsg` elem) visszaszamlalo jelenik meg a kovetkezo reggel 8 oraig
+- A nap reggel 6-kor valt (`msgDay()` fuggveny)
+- Az app aljan (`#nextMsg` elem) visszaszamlalo jelenik meg a kovetkezo reggel 6 oraig
 
 ### Ertesitesek
 
-- **Service Worker** (`sw.js`, cache v8)
+- **Service Worker** (`sw.js`, cache v9)
 - Belepeskor: ha meg nem lattad a mai uzenetet, azonnal kuld ertesitest
-- SW utemez 3 ertesitest naponta: reggel 8, delben 12, este 18 (setTimeout, amig a SW el)
+- SW utemez 3 ertesitest naponta: reggel 6, delben 12, este 18 (setTimeout, amig a SW el)
 - `periodicSync` (Android Chrome): 4 oranként hatterbeli emlekeztetо, csak ha az app nincs nyitva
 - Engedelykerest az elso robot-koppintaskor ker
 - `renotify: true` — minden ertesites megjelenik (nem deduplikalja)
@@ -140,7 +140,7 @@ A robot naphoz kotodo emoji oltozeket visel:
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
 manifest.json       — PWA manifest (standalone, maskable ikonok)
-sw.js               — Service Worker (cache v8 + ertesitesek)
+sw.js               — Service Worker (cache v9 + ertesitesek)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasznaloi dokumentacio
 icon/

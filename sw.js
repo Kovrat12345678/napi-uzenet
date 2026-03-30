@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v8';
+const CACHE_NAME = 'dailybot-v9';
 const ASSETS = [
     './',
     './index.html',
@@ -76,10 +76,10 @@ self.addEventListener('message', e => {
     }
 });
 
-// Több értesítés naponta (reggel 8, délben, este 6)
+// Több értesítés naponta (reggel 6, délben, este 6)
 function scheduleNotifications() {
     const now = new Date();
-    const times = [8, 12, 18]; // 8:00, 12:00, 18:00
+    const times = [6, 12, 18]; // 6:00, 12:00, 18:00
 
     times.forEach(hour => {
         const target = new Date(now);

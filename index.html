@@ -47,6 +47,24 @@
 
         /* KÖVETKEZŐ ÜZENET VISSZASZÁMLÁLÓ */
         .next-msg{text-align:center;flex-shrink:0;min-height:20px;padding:4px 0;color:rgba(255,255,255,.65);font-size:12px;font-weight:500;letter-spacing:.3px}
+        .tiktok-link{display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,.6);font-size:11px;text-decoration:none;margin-top:4px;transition:color .3s}
+        .tiktok-link:hover,.tiktok-link:active{color:#fff}
+        .tiktok-link svg{width:14px;height:14px;fill:currentColor}
+
+        /* ===== EMOJI DODGE MINIJÁTÉK ===== */
+        .game-overlay{position:fixed;inset:0;z-index:300;display:none;flex-direction:column;touch-action:none;overflow:hidden}
+        .game-overlay.active{display:flex}
+        .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 16px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:16px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+        .game-score{font-size:22px}
+        .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer}
+        .game-player{position:absolute;font-size:48px;z-index:1;transition:none;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));pointer-events:none}
+        .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
+        .game-over-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-align:center;gap:12px}
+        .game-over-screen h2{font-size:32px;margin:0}
+        .game-over-screen p{font-size:18px;opacity:.8;margin:0}
+        .game-over-screen .game-best{font-size:14px;opacity:.6;margin:0}
+        .game-retry{background:linear-gradient(135deg,#818cf8,#a855f7);border:none;color:#fff;font-size:18px;padding:14px 36px;border-radius:30px;font-weight:700;cursor:pointer;margin-top:8px;box-shadow:0 4px 20px rgba(139,92,246,.4)}
+        .game-back{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:14px;padding:10px 28px;border-radius:20px;font-weight:600;cursor:pointer}
 
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
@@ -655,6 +673,7 @@
         /* ===== ONBOARDING ===== */
         .onboarding{position:fixed;top:-50px;left:-50px;right:-50px;bottom:-50px;z-index:200;display:flex;align-items:center;justify-content:center;padding:70px 70px;background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%)}
         .onboarding.hidden{display:none}
+        .app.pre-reg{display:none}
         .ob-card{
             width:100%;max-width:360px;
             background:rgba(255,255,255,.12);
@@ -719,7 +738,7 @@
     <div class="stars" id="stars"></div>
     <div class="weather-layer" id="weatherLayer"></div>
 
-    <div class="app" id="appMain">
+    <div class="app pre-reg" id="appMain">
         <div class="top">
             <h1 id="greeting">✨ DailyBot ✨</h1>
             <div class="date" id="date"></div>
@@ -802,6 +821,10 @@
         </div>
 
         <div class="next-msg" id="nextMsg"></div>
+        <a class="tiktok-link" href="http://www.tiktok.com/@dailybot_dailymessage" target="_blank" rel="noopener">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M34.1 0h-8v32.4c0 3-2.4 5.5-5.4 5.5s-5.4-2.5-5.4-5.5 2.4-5.5 5.4-5.5c.6 0 1.1.1 1.6.3v-8.2c-.5-.1-1-.1-1.6-.1C13 18.9 7 24.9 7 32.4S13 46 20.7 46c7.6 0 13.7-6 13.7-13.6V15.7c2.9 2 6.4 3.2 10.2 3.2v-8c-5.6-.1-10.5-4.5-10.5-10.9z"/></svg>
+            TikTok
+        </a>
     </div>
 
     <!-- Kedvencek gomb -->
@@ -816,21 +839,35 @@
         </div>
     </div>
 
+    <!-- Emoji Dodge minijáték -->
+    <div class="game-overlay" id="gameOverlay">
+        <div class="game-hud">
+            <div class="game-score">🏆 <span id="gameScore">0</span></div>
+            <button class="game-exit" id="gameExit">✕ Kilépés</button>
+        </div>
+        <div class="game-over-screen" id="gameOverScreen" style="display:none">
+            <h2>💥 Vége!</h2>
+            <p>Pontszám: <span id="gameFinalScore">0</span></p>
+            <p class="game-best">Rekord: <span id="gameBestScore">0</span></p>
+            <button class="game-retry" id="gameRetry">🔄 Újra</button>
+            <button class="game-back" id="gameBack">← Vissza</button>
+        </div>
+    </div>
+
     <div class="cfx" id="cfx"></div>
 
     <script>
         // ========== ONBOARDING ==========
         (function(){
-            if(localStorage.getItem('nu_reg')&&localStorage.getItem('nu_name')) return;
-            const ob=document.getElementById('onboarding');
             const app=document.getElementById('appMain');
+            if(localStorage.getItem('nu_reg')&&localStorage.getItem('nu_name')){app.classList.remove('pre-reg');return}
+            const ob=document.getElementById('onboarding');
             ob.classList.remove('hidden');
-            app.style.display='none';
             // Onboarding háttér napszak szerint
             const _h=new Date().getHours();
             let _bg;
-            if(_h>=5&&_h<8) _bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)';
-            else if(_h>=8&&_h<17) _bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)';
+            if(_h>=5&&_h<6) _bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)';
+            else if(_h>=6&&_h<17) _bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)';
             else if(_h>=17&&_h<20) _bg='linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)';
             else _bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
             ob.style.background=_bg;
@@ -895,7 +932,7 @@
                     card.classList.add('ob-out');
                     setTimeout(()=>{
                         ob.classList.add('hidden');
-                        app.style.display='';
+                        app.classList.remove('pre-reg');
                     },300);
                 }
             });
@@ -939,8 +976,8 @@
             }
             const h=new Date().getHours();
             let bg,theme,bottomColor;
-            if(h>=5&&h<8) { bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme='#f97316'; bottomColor='#c2410c'; }
-            else if(h>=8&&h<17) { bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)'; theme='#38bdf8'; bottomColor='#f97316'; }
+            if(h>=5&&h<6) { bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme='#f97316'; bottomColor='#c2410c'; }
+            else if(h>=6&&h<17) { bg='linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)'; theme='#38bdf8'; bottomColor='#f97316'; }
             else if(h>=17&&h<20) { bg='linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)'; theme='#f97316'; bottomColor='#4c1d95'; }
             else { bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)'; theme='#0f172a'; bottomColor='#0f172a'; }
             document.documentElement.style.backgroundColor=bottomColor;
@@ -1421,8 +1458,8 @@
         // ========== APP ==========
         const btn=document.getElementById('btn'),bubble=document.getElementById('bubble'),ph=document.getElementById('ph'),cfx=document.getElementById('cfx');
         let done=false;
-        // "Üzenet-nap" = reggel 8-tól számít (nem éjféltől)
-        function msgDay(){const n=new Date();if(n.getHours()<8)n.setDate(n.getDate()-1);n.setHours(8,0,0,0);return n}
+        // "Üzenet-nap" = reggel 6-tól számít (nem éjféltől)
+        function msgDay(){const n=new Date();if(n.getHours()<6)n.setDate(n.getDate()-1);n.setHours(6,0,0,0);return n}
         const td=()=>msgDay().toDateString();
 
         // Egyedi user ID — minden felhasználó más üzenetet kap
@@ -1443,7 +1480,11 @@
             if(d.getMonth()===3 && d.getDate()===1){
                 return {t:"Az admin azt üzeni hogy legyen szép napod!",e:"😄"};
             }
-            const s=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()+uid;
+            let s=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+            s=s*2654435761+uid*2246822519;
+            s=Math.imul(s^(s>>>16),0x45d9f3b);
+            s=Math.imul(s^(s>>>13),0x45d9f3b);
+            s=(s^(s>>>16))>>>0;
             return M[s%M.length];
         }
 
@@ -1847,10 +1888,10 @@
         function updateCountdown(){
             if(!seen()){nextMsgEl.textContent='';return}
             const now=new Date();
-            const next8=new Date(now);
-            if(now.getHours()>=8)next8.setDate(next8.getDate()+1);
-            next8.setHours(8,0,0,0);
-            const diff=next8-now;
+            const next6=new Date(now);
+            if(now.getHours()>=6)next6.setDate(next6.getDate()+1);
+            next6.setHours(6,0,0,0);
+            const diff=next6-now;
             const h=Math.floor(diff/3600000);
             const m=Math.floor((diff%3600000)/60000);
             const s=Math.floor((diff%60000)/1000);
@@ -1878,6 +1919,168 @@
                 }
             });
         }
+
+        // ========== LONG PRESS → MINIJÁTÉK ==========
+        let longPressTimer=null;
+        btn.addEventListener('touchstart',e=>{
+            longPressTimer=setTimeout(()=>{
+                longPressTimer=null;
+                startGame();
+            },600);
+        },{passive:true});
+        btn.addEventListener('touchend',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
+        btn.addEventListener('touchmove',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
+
+        // ========== EMOJI DODGE MINIJÁTÉK ==========
+        (function(){
+            const overlay=document.getElementById('gameOverlay');
+            const scoreEl=document.getElementById('gameScore');
+            const exitBtn=document.getElementById('gameExit');
+            const overScreen=document.getElementById('gameOverScreen');
+            const finalScoreEl=document.getElementById('gameFinalScore');
+            const bestScoreEl=document.getElementById('gameBestScore');
+            const retryBtn=document.getElementById('gameRetry');
+            const backBtn=document.getElementById('gameBack');
+
+            const EMOJIS=['😈','💀','👻','🔥','💣','⚡','🌪️','☄️','🦠','🕷️','🎃','❄️','🌊','🍕','⭐','💎','🎵','🪨'];
+            let player, score, bestScore, gameLoop, spawnTimer, emojis, playerX, playerY, alive, touchOffX, touchOffY, diff;
+
+            bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
+
+            function getGameBg(){
+                const h=new Date().getHours();
+                if(h>=5&&h<6) return 'linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)';
+                if(h>=6&&h<17) return 'linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)';
+                if(h>=17&&h<20) return 'linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)';
+                return 'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
+            }
+
+            window.startGame=function(){
+                overlay.style.background=getGameBg();
+                overlay.classList.add('active');
+                overScreen.style.display='none';
+                score=0;alive=true;diff=1;
+                scoreEl.textContent='0';
+                emojis=[];
+
+                // Régi emojik törlése
+                overlay.querySelectorAll('.game-emoji,.game-player').forEach(e=>e.remove());
+
+                // Játékos robot
+                player=document.createElement('div');
+                player.className='game-player';
+                player.textContent='🤖';
+                playerX=window.innerWidth/2-24;
+                playerY=window.innerHeight-120;
+                player.style.left=playerX+'px';
+                player.style.top=playerY+'px';
+                overlay.appendChild(player);
+
+                // Touch mozgatás
+                overlay.addEventListener('touchstart',onTouchStart,{passive:false});
+                overlay.addEventListener('touchmove',onTouchMove,{passive:false});
+
+                // Játék ciklus
+                spawnTimer=setInterval(spawnEmoji, Math.max(300,800-diff*20));
+                gameLoop=requestAnimationFrame(update);
+            };
+
+            function onTouchStart(e){
+                e.preventDefault();
+                const t=e.touches[0];
+                touchOffX=t.clientX-playerX;
+                touchOffY=t.clientY-playerY;
+            }
+            function onTouchMove(e){
+                e.preventDefault();
+                const t=e.touches[0];
+                playerX=Math.max(0,Math.min(window.innerWidth-48,t.clientX-touchOffX));
+                playerY=Math.max(60,Math.min(window.innerHeight-60,t.clientY-touchOffY));
+                player.style.left=playerX+'px';
+                player.style.top=playerY+'px';
+            }
+
+            function spawnEmoji(){
+                if(!alive)return;
+                const em=document.createElement('div');
+                em.className='game-emoji';
+                const sz=Math.random()*24+32;
+                em.style.fontSize=sz+'px';
+                em.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+                em.style.left=Math.random()*(window.innerWidth-50)+'px';
+                em.style.top='-50px';
+                em._speed=(Math.random()*2+2+diff*0.3);
+                em._size=sz;
+                overlay.appendChild(em);
+                emojis.push(em);
+            }
+
+            function update(){
+                if(!alive)return;
+                // Pontszám és nehézség
+                score++;
+                diff=1+Math.floor(score/300);
+                scoreEl.textContent=Math.floor(score/10);
+
+                // Spawn gyorsítás
+                if(score%200===0){
+                    clearInterval(spawnTimer);
+                    spawnTimer=setInterval(spawnEmoji, Math.max(200,800-diff*50));
+                }
+
+                // Emojik mozgatása + ütközés
+                const px=playerX, py=playerY, ps=40;
+                for(let i=emojis.length-1;i>=0;i--){
+                    const em=emojis[i];
+                    let top=parseFloat(em.style.top)+em._speed;
+                    em.style.top=top+'px';
+
+                    // Képernyőről kilépett
+                    if(top>window.innerHeight+60){
+                        em.remove();emojis.splice(i,1);continue;
+                    }
+
+                    // Ütközés (kör alapú)
+                    const ex=parseFloat(em.style.left)+em._size/2;
+                    const ey=top+em._size/2;
+                    const cx=px+ps/2, cy=py+ps/2;
+                    const dist=Math.sqrt((ex-cx)**2+(ey-cy)**2);
+                    if(dist<(ps/2+em._size/3)){
+                        gameOver();return;
+                    }
+                }
+                gameLoop=requestAnimationFrame(update);
+            }
+
+            function gameOver(){
+                alive=false;
+                clearInterval(spawnTimer);
+                cancelAnimationFrame(gameLoop);
+                overlay.removeEventListener('touchstart',onTouchStart);
+                overlay.removeEventListener('touchmove',onTouchMove);
+
+                const finalScore=Math.floor(score/10);
+                if(finalScore>bestScore){bestScore=finalScore;localStorage.setItem('nu_game_best',bestScore.toString())}
+                finalScoreEl.textContent=finalScore;
+                bestScoreEl.textContent=bestScore;
+                overScreen.style.display='flex';
+            }
+
+            function closeGame(){
+                alive=false;
+                clearInterval(spawnTimer);
+                cancelAnimationFrame(gameLoop);
+                overlay.removeEventListener('touchstart',onTouchStart);
+                overlay.removeEventListener('touchmove',onTouchMove);
+                overlay.classList.remove('active');
+                overlay.querySelectorAll('.game-emoji,.game-player').forEach(e=>e.remove());
+                emojis=[];
+            }
+
+            exitBtn.addEventListener('click',closeGame);
+            backBtn.addEventListener('click',closeGame);
+            retryBtn.addEventListener('click',()=>{overScreen.style.display='none';startGame()});
+        })();
 
         function startNotifications(reg){
             // Értesítés belépéskor
