@@ -1070,8 +1070,8 @@
             }
             // Fallback: IP alapú helymeghatározás
             function fallbackLocation(){
-                fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
-                    if(d.latitude&&d.longitude) showWeather(d.latitude.toFixed(2),d.longitude.toFixed(2));
+                fetch('https://get.geojs.io/v1/ip/geo.json').then(r=>r.json()).then(d=>{
+                    if(d.latitude&&d.longitude) showWeather(parseFloat(d.latitude).toFixed(2),parseFloat(d.longitude).toFixed(2));
                 }).catch(()=>{});
             }
             if(navigator.geolocation){
