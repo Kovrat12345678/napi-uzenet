@@ -56,6 +56,7 @@
         .game-overlay.active{display:flex}
         .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 16px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:16px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
         .game-score{font-size:22px}
+        .game-goal{font-size:11px;color:rgba(255,255,255,.6);text-align:center;flex:1}
         .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer;z-index:10;position:relative}
         .game-golden-msg{color:#fbbf24;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(251,191,36,.5);margin:0}
         .game-player{position:absolute;bottom:30px;z-index:1;pointer-events:none;width:100px;height:145px}
@@ -867,6 +868,7 @@
     <div class="game-overlay" id="gameOverlay">
         <div class="game-hud">
             <div class="game-score">🏆 <span id="gameScore">0</span></div>
+            <div class="game-goal">🎯 1000 pont = 1 napig arany robot!</div>
             <button class="game-exit" id="gameExit">✕ Kilépés</button>
         </div>
         <div class="game-over-screen" id="gameOverScreen" style="display:none">
@@ -1038,17 +1040,12 @@
 
         // ========== IDŐJÁRÁS ==========
         (function(){
-            if(!navigator.geolocation) return;
-            navigator.geolocation.getCurrentPosition(pos=>{
-                const lat=pos.coords.latitude.toFixed(2);
-                const lon=pos.coords.longitude.toFixed(2);
+            function showWeather(lat,lon){
                 fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
                 .then(r=>r.json()).then(data=>{
                     const code=data.current_weather.weathercode;
                     const wl=document.getElementById('weatherLayer');
-                    // WMO kódok: 0-1 derült, 2-3 felhős, 51-67 eső, 71-77 hó, 95-99 vihar
                     if(code>=51&&code<=67||code>=95){
-                        // Eső
                         for(let i=0;i<40;i++){
                             const drop=document.createElement('div');drop.className='raindrop';
                             const h=Math.random()*20+10;
@@ -1056,7 +1053,6 @@
                             wl.appendChild(drop);
                         }
                     } else if(code>=71&&code<=77){
-                        // Hó
                         for(let i=0;i<35;i++){
                             const flake=document.createElement('div');flake.className='snowflake';
                             const sz=Math.random()*6+3;
@@ -1064,7 +1060,6 @@
                             wl.appendChild(flake);
                         }
                     } else if(code<=1){
-                        // Napsütés — sugarak
                         for(let i=0;i<8;i++){
                             const ray=document.createElement('div');ray.className='sunray';
                             ray.style.cssText=`transform:rotate(${i*45}deg);animation-delay:${(i*0.5).toFixed(1)}s;left:calc(50% - 1.5px)`;
@@ -1072,7 +1067,22 @@
                         }
                     }
                 }).catch(()=>{});
-            },()=>{},{enableHighAccuracy:false,timeout:5000});
+            }
+            // Fallback: IP alapú helymeghatározás
+            function fallbackLocation(){
+                fetch('https://ipapi.co/json/').then(r=>r.json()).then(d=>{
+                    if(d.latitude&&d.longitude) showWeather(d.latitude.toFixed(2),d.longitude.toFixed(2));
+                }).catch(()=>{});
+            }
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(
+                    pos=>showWeather(pos.coords.latitude.toFixed(2),pos.coords.longitude.toFixed(2)),
+                    ()=>fallbackLocation(),
+                    {enableHighAccuracy:false,timeout:5000}
+                );
+            } else {
+                fallbackLocation();
+            }
         })();
 
         // ========== ÜZENETEK (365 db — TopJoy stílus) ==========
