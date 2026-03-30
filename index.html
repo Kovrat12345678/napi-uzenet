@@ -145,6 +145,44 @@
         .game-over-screen .game-best{font-size:14px;opacity:.6;margin:0}
         .game-retry{background:linear-gradient(135deg,#818cf8,#a855f7);border:none;color:#fff;font-size:18px;padding:14px 36px;border-radius:30px;font-weight:700;cursor:pointer;margin-top:8px;box-shadow:0 4px 20px rgba(139,92,246,.4)}
         .game-back{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:14px;padding:10px 28px;border-radius:20px;font-weight:600;cursor:pointer}
+        .game-timer{font-size:22px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+
+        /* SKIN MENÜ */
+        .skin-toggle{
+            position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:62px;z-index:50;
+            background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.2);border-radius:50%;
+            width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+            font-size:20px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+        }
+        .skin-panel{
+            position:fixed;inset:0;z-index:100;
+            background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+            display:none;align-items:center;justify-content:center;padding:20px;
+        }
+        .skin-panel.open{display:flex}
+        .skin-card{
+            width:100%;max-width:380px;max-height:75vh;
+            background:rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+            border:1.5px solid rgba(255,255,255,.25);border-radius:24px;
+            padding:24px;overflow-y:auto;color:#fff;
+        }
+        .skin-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:16px}
+        .skin-list{display:flex;flex-direction:column;gap:10px}
+        .skin-option{
+            display:flex;align-items:center;gap:12px;padding:14px 16px;
+            border-radius:16px;border:1.5px solid rgba(255,255,255,.15);
+            background:rgba(255,255,255,.06);cursor:pointer;transition:all .2s;
+        }
+        .skin-option:active{transform:scale(.97)}
+        .skin-option.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15)}
+        .skin-option.locked{opacity:.4;cursor:default}
+        .skin-option .skin-icon{font-size:28px;width:36px;text-align:center}
+        .skin-option .skin-info{flex:1}
+        .skin-option .skin-name{font-weight:700;font-size:15px}
+        .skin-option .skin-desc{font-size:12px;opacity:.6;margin-top:2px}
+        .skin-option .skin-lock{font-size:12px;opacity:.5}
+        .skin-close{width:100%;margin-top:16px;padding:12px;border:none;border-radius:16px;background:rgba(255,255,255,.12);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
 
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
@@ -901,6 +939,18 @@
         </a>
     </div>
 
+    <!-- Skin választó gomb -->
+    <div class="skin-toggle" id="skinToggle">🎨</div>
+
+    <!-- Skin választó panel -->
+    <div class="skin-panel" id="skinPanel">
+        <div class="skin-card">
+            <div class="skin-title">🎨 Robot kinézet</div>
+            <div class="skin-list" id="skinList"></div>
+            <button class="skin-close" id="skinClose">Bezárás</button>
+        </div>
+    </div>
+
     <!-- Kedvencek gomb -->
     <div class="favs-toggle" id="favsToggle">❤️<span class="favs-badge" id="favsBadge">0</span></div>
 
@@ -917,16 +967,16 @@
     <div class="game-overlay" id="gameOverlay">
         <div class="game-hud">
             <div class="game-score">🏆 <span id="gameScore">0</span></div>
-            <div class="game-goal">🪙🌈💎 Gyűjtsd össze!<br>🎯 200=arany 🌈500=rainbow 💎1000=gyémánt</div>
+            <div class="game-timer" id="gameTimer">⏱️ 60</div>
             <button class="game-exit" id="gameExit">✕ Kilépés</button>
         </div>
         <div class="game-over-screen" id="gameOverScreen" style="display:none">
-            <h2>💥 Vége!</h2>
+            <h2>⏱️ Lejárt az idő!</h2>
             <p>Pontszám: <span id="gameFinalScore">0</span></p>
             <p class="game-best">Rekord: <span id="gameBestScore">0</span></p>
-            <p class="game-golden-msg" id="gameGoldenMsg" style="display:none">✨ Arany robot feloldva 1 napra! ✨</p>
-            <p class="game-rainbow-msg" id="gameRainbowMsg" style="display:none">🌈 Rainbow robot feloldva 1 napra! 🌈</p>
-            <p class="game-diamond-msg" id="gameDiamondMsg" style="display:none">💎 Gyémánt robot feloldva 1 napra! 💎</p>
+            <p class="game-golden-msg" id="gameGoldenMsg" style="display:none">✨ Arany robot feloldva! ✨</p>
+            <p class="game-rainbow-msg" id="gameRainbowMsg" style="display:none">🌈 Rainbow robot feloldva! 🌈</p>
+            <p class="game-diamond-msg" id="gameDiamondMsg" style="display:none">💎 Gyémánt robot feloldva! 💎</p>
             <button class="game-retry" id="gameRetry">🔄 Újra</button>
             <button class="game-back" id="gameBack">← Vissza</button>
         </div>
@@ -1993,13 +2043,63 @@
         btn.addEventListener('touchend',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
         btn.addEventListener('touchmove',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
 
-        // ========== ROBOT SKIN JUTALOM ==========
-        (function(){
+        // ========== ROBOT SKIN RENDSZER ==========
+        function getSkins(){try{return JSON.parse(localStorage.getItem('nu_skins')||'[]')}catch(e){return[]}}
+        function saveSkins(arr){localStorage.setItem('nu_skins',JSON.stringify(arr))}
+        function unlockSkin(name){const s=getSkins();if(!s.includes(name)){s.push(name);saveSkins(s)}return true}
+        function getActiveSkin(){return localStorage.getItem('nu_active_skin')||''}
+        function setActiveSkin(name){localStorage.setItem('nu_active_skin',name)}
+        function applyRobotSkin(){
             const r=document.getElementById('robot');
+            r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
+            const skin=getActiveSkin();
+            if(skin&&getSkins().includes(skin)) r.classList.add(skin);
+        }
+        // Migráció régi rendszerből
+        (function(){
             const today=td();
-            if(localStorage.getItem('nu_diamond_day')===today) r.classList.add('diamond');
-            else if(localStorage.getItem('nu_rainbow_day')===today) r.classList.add('rainbow');
-            else if(localStorage.getItem('nu_gold_day')===today) r.classList.add('golden');
+            if(localStorage.getItem('nu_diamond_day')===today) unlockSkin('diamond');
+            if(localStorage.getItem('nu_rainbow_day')===today) unlockSkin('rainbow');
+            if(localStorage.getItem('nu_gold_day')===today) unlockSkin('golden');
+            // Ha nincs aktív skin, állítsuk be a legjobbat
+            if(!getActiveSkin()){
+                const s=getSkins();
+                if(s.includes('diamond')) setActiveSkin('diamond');
+                else if(s.includes('rainbow')) setActiveSkin('rainbow');
+                else if(s.includes('golden')) setActiveSkin('golden');
+            }
+            applyRobotSkin();
+        })();
+
+        // ========== SKIN MENÜ ==========
+        (function(){
+            const toggle=document.getElementById('skinToggle');
+            const panel=document.getElementById('skinPanel');
+            const list=document.getElementById('skinList');
+            const closeBtn=document.getElementById('skinClose');
+            const SKIN_DEFS=[
+                {id:'',name:'Alap',desc:'Az eredeti robot',icon:'🤖',req:''},
+                {id:'golden',name:'Arany',desc:'Arany robot skin',icon:'✨',req:'200 pont a játékban'},
+                {id:'rainbow',name:'Rainbow',desc:'Szivárványos robot skin',icon:'🌈',req:'500 pont a játékban'},
+                {id:'diamond',name:'Gyémánt',desc:'Gyémánt robot skin',icon:'💎',req:'1000 pont a játékban'}
+            ];
+            function renderSkins(){
+                const skins=getSkins();
+                const active=getActiveSkin();
+                list.innerHTML='';
+                SKIN_DEFS.forEach(s=>{
+                    const unlocked=s.id===''||skins.includes(s.id);
+                    const isActive=s.id===active;
+                    const el=document.createElement('div');
+                    el.className='skin-option'+(isActive?' active':'')+(unlocked?'':' locked');
+                    el.innerHTML=`<div class="skin-icon">${s.icon}</div><div class="skin-info"><div class="skin-name">${s.name}${isActive?' ✓':''}</div><div class="skin-desc">${s.desc}</div>${unlocked?'':'<div class="skin-lock">🔒 '+s.req+'</div>'}</div>`;
+                    if(unlocked) el.addEventListener('click',()=>{setActiveSkin(s.id);applyRobotSkin();renderSkins()});
+                    list.appendChild(el);
+                });
+            }
+            toggle.addEventListener('click',()=>{renderSkins();panel.classList.add('open')});
+            closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
+            panel.addEventListener('click',e=>{if(e.target===panel)panel.classList.remove('open')});
         })();
 
         // ========== EMOJI DODGE MINIJÁTÉK ==========
@@ -2016,13 +2116,13 @@
             const retryBtn=document.getElementById('gameRetry');
             const backBtn=document.getElementById('gameBack');
 
-            const EMOJIS=['⚡','💧','🧲','🔧','🔩','🦠','🕷️','💦','🌊','🪫'];
             const COLLECTIBLES=[
                 {emoji:'🪙',type:'gold',points:30,cls:'gold-item'},
                 {emoji:'🌈',type:'rainbow',points:80,cls:'rainbow-item'},
                 {emoji:'💎',type:'diamond',points:150,cls:'diamond-item'}
             ];
-            let player, score, bestScore, gameLoop, spawnTimer, collectTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
+            let player, score, bestScore, gameLoop, collectTimer, emojis, playerX, alive, touchStartX, playerStartX, gameTimerInterval, gameTimeLeft;
+            const timerEl=document.getElementById('gameTimer');
 
             bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
 
@@ -2037,11 +2137,8 @@
             function createMiniRobot(){
                 const p=document.createElement('div');
                 p.className='game-player';
-                // Skin ha már megvan
-                const today=td();
-                if(localStorage.getItem('nu_diamond_day')===today) p.classList.add('diamond');
-                else if(localStorage.getItem('nu_rainbow_day')===today) p.classList.add('rainbow');
-                else if(localStorage.getItem('nu_gold_day')===today) p.classList.add('golden');
+                const skin=getActiveSkin();
+                if(skin&&getSkins().includes(skin)) p.classList.add(skin);
                 p.innerHTML='<div class="gp-antenna"></div><div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div><div class="gp-legs"><div class="gp-leg"></div><div class="gp-leg"></div></div>';
                 return p;
             }
@@ -2053,7 +2150,7 @@
                 goldenMsg.style.display='none';
                 rainbowMsg.style.display='none';
                 diamondMsg.style.display='none';
-                score=0;alive=true;diff=1;
+                score=0;alive=true;
                 scoreEl.textContent='0';
                 emojis=[];
 
@@ -2067,8 +2164,14 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                spawnTimer=setInterval(spawnEmoji, Math.max(500,1200-diff*30));
-                collectTimer=setInterval(spawnCollectible, 2500);
+                gameTimeLeft=60;
+                timerEl.textContent='⏱️ 60';
+                collectTimer=setInterval(spawnCollectible, 1200);
+                gameTimerInterval=setInterval(function(){
+                    gameTimeLeft--;
+                    timerEl.textContent='⏱️ '+gameTimeLeft;
+                    if(gameTimeLeft<=0){gameOver();return}
+                },1000);
                 gameLoop=requestAnimationFrame(update);
             };
 
@@ -2088,22 +2191,6 @@
                 player.style.left=playerX+'px';
             }
 
-            function spawnEmoji(){
-                if(!alive)return;
-                const em=document.createElement('div');
-                em.className='game-emoji';
-                const sz=Math.random()*24+32;
-                em.style.fontSize=sz+'px';
-                em.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
-                em.style.left=Math.random()*(window.innerWidth-50)+'px';
-                em.style.top='-50px';
-                em._speed=(Math.random()*1.5+1.5+diff*0.2);
-                em._size=sz;
-                em._collectible=false;
-                overlay.appendChild(em);
-                emojis.push(em);
-            }
-
             function spawnCollectible(){
                 if(!alive)return;
                 const em=document.createElement('div');
@@ -2118,7 +2205,7 @@
                 em.textContent=item.emoji;
                 em.style.left=Math.random()*(window.innerWidth-50)+'px';
                 em.style.top='-50px';
-                em._speed=(Math.random()*1+1.5);
+                em._speed=(Math.random()*1.5+1.5);
                 em._size=sz;
                 em._collectible=true;
                 em._points=item.points;
@@ -2129,14 +2216,7 @@
 
             function update(){
                 if(!alive)return;
-                score++;
-                diff=1+Math.floor(score/500);
                 scoreEl.textContent=Math.floor(score/10);
-
-                if(score%400===0){
-                    clearInterval(spawnTimer);
-                    spawnTimer=setInterval(spawnEmoji, Math.max(500,1200-diff*40));
-                }
 
                 // Játékos pozíció: alul fix, vízszintesen mozog
                 const px=playerX, py=window.innerHeight-175, pw=100, ph=145;
@@ -2149,22 +2229,19 @@
                         em.remove();emojis.splice(i,1);continue;
                     }
 
-                    // Ütközés (téglalap alapú)
+                    // Ütközés — gyűjtés
                     const ex=parseFloat(em.style.left), ey=top, esz=em._size;
                     if(ex+esz>px+8 && ex<px+pw-8 && ey+esz>py+8 && ey<py+ph-8){
-                        if(em._collectible){
-                            score+=em._points*10;
-                            scoreEl.textContent=Math.floor(score/10);
-                            const fx=document.createElement('div');
-                            fx.className='game-collect-fx';
-                            fx.style.left=ex+'px';fx.style.top=ey+'px';
-                            fx.style.color=em._type==='diamond'?'#67e8f9':em._type==='rainbow'?'#c084fc':'#fbbf24';
-                            fx.textContent='+'+em._points;
-                            overlay.appendChild(fx);
-                            setTimeout(()=>fx.remove(),800);
-                            em.remove();emojis.splice(i,1);continue;
-                        }
-                        gameOver();return;
+                        score+=em._points*10;
+                        scoreEl.textContent=Math.floor(score/10);
+                        const fx=document.createElement('div');
+                        fx.className='game-collect-fx';
+                        fx.style.left=ex+'px';fx.style.top=ey+'px';
+                        fx.style.color=em._type==='diamond'?'#67e8f9':em._type==='rainbow'?'#c084fc':'#fbbf24';
+                        fx.textContent='+'+em._points;
+                        overlay.appendChild(fx);
+                        setTimeout(()=>fx.remove(),800);
+                        em.remove();emojis.splice(i,1);continue;
                     }
                 }
                 gameLoop=requestAnimationFrame(update);
@@ -2172,8 +2249,8 @@
 
             function gameOver(){
                 alive=false;
-                clearInterval(spawnTimer);
                 clearInterval(collectTimer);
+                clearInterval(gameTimerInterval);
                 cancelAnimationFrame(gameLoop);
                 overlay.removeEventListener('touchstart',onTouchStart);
                 overlay.removeEventListener('touchmove',onTouchMove);
@@ -2183,33 +2260,32 @@
                 finalScoreEl.textContent=finalScore;
                 bestScoreEl.textContent=bestScore;
 
-                // Skin jutalmak: 200=arany, 500=rainbow, 1000=gyémánt
-                const r=document.getElementById('robot');
+                // Skin jutalmak: 200=arany, 500=rainbow, 1000=gyémánt (permanens)
                 goldenMsg.style.display='none';
                 rainbowMsg.style.display='none';
                 diamondMsg.style.display='none';
-                if(finalScore>=1000){
-                    localStorage.setItem('nu_diamond_day',td());
-                    r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
-                    r.classList.add('diamond');
+                let newSkin='';
+                if(finalScore>=1000&&!getSkins().includes('diamond')){
+                    unlockSkin('diamond');newSkin='diamond';
                     diamondMsg.style.display='block';
-                } else if(finalScore>=500){
-                    localStorage.setItem('nu_rainbow_day',td());
-                    r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
-                    r.classList.add('rainbow');
+                }
+                if(finalScore>=500&&!getSkins().includes('rainbow')){
+                    unlockSkin('rainbow');if(!newSkin)newSkin='rainbow';
                     rainbowMsg.style.display='block';
-                } else if(finalScore>=200){
-                    localStorage.setItem('nu_gold_day',td());
-                    r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
-                    r.classList.add('golden');
+                }
+                if(finalScore>=200&&!getSkins().includes('golden')){
+                    unlockSkin('golden');if(!newSkin)newSkin='golden';
                     goldenMsg.style.display='block';
                 }
+                // Ha új skint szerzett, automatikusan beállítjuk a legjobbat
+                if(newSkin){setActiveSkin(newSkin);applyRobotSkin()}
                 overScreen.style.display='flex';
             }
 
             function closeGame(){
                 alive=false;
-                clearInterval(spawnTimer);
+                clearInterval(collectTimer);
+                clearInterval(gameTimerInterval);
                 cancelAnimationFrame(gameLoop);
                 overlay.removeEventListener('touchstart',onTouchStart);
                 overlay.removeEventListener('touchmove',onTouchMove);

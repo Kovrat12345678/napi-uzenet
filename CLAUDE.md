@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
   - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev)
   - `nu_favs` (kedvenc uzenetek JSON tomb)
-  - `nu_game_best` (jatek rekord), `nu_gold_day` (arany robot nap), `nu_rainbow_day` (rainbow robot nap), `nu_diamond_day` (gyemant robot nap)
+  - `nu_game_best` (jatek rekord), `nu_skins` (feloldott skinek JSON tomb), `nu_active_skin` (aktualis skin)
 
 ### Reggel 6 logika
 
@@ -50,9 +50,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
   - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
   - **Dancing**: tancolo mozgas, gyors kar lengetes (vicces/humor uzeneteknel)
-  - **Arany**: 200+ pont a minijatekban → 1 napig arany szinu robot (fej, test, szemek, antenna, labak)
-  - **Rainbow**: 500+ pont → 1 napig szivarvanyos robot (hue-rotate animacio)
-  - **Gyemant**: 1000+ pont → 1 napig gyemant robot (cyan/jegkek szin, csillogo animacio)
+  - **Arany**: 200+ pont a minijatekban → permanens arany szinu robot (fej, test, szemek, antenna, labak)
+  - **Rainbow**: 500+ pont → permanens szivarvanyos robot (hue-rotate animacio)
+  - **Gyemant**: 1000+ pont → permanens gyemant robot (cyan/jegkek szin, csillogo animacio)
+  - Skin valaszto menu: 🎨 gomb → panel ahol feloldott skinek kozul lehet valasztani
 - Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
 
 ### Szemelyes koszrontes
@@ -120,23 +121,23 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Kedvenc gomb**: uzenet buborekban, elmentheto kedvencek listaja
 - **Megosztas gomb**: kepes kartya generalas es megosztas
 
-### Emoji Dodge minijáték
+### Emoji Gyujto minijáték
 
 - **Inditas**: robot hosszan nyomva tartasa (600ms long press)
 - **Jatekos**: CSS mini robot (nem emoji), az also reszben rogzitett, csak jobbra-balra mozog ujjal huzva
-- **Veszelyes emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, ezeket ki kell kerulni
-- **Gyujtheto targyak**: az egbol arany, rainbow es gyemant targyak hullanak, amiket ossze kell gyujteni pontokert:
+- **Jatek**: 60 masodperces idolimit, csak gyujtheto targyak esnek az egbol, nincs veszelyes emoji
+- **Gyujtheto targyak**: arany, rainbow es gyemant targyak hullanak, amiket ossze kell gyujteni pontokert:
   - 🪙 Arany erme (+30 pont) — mindig megjelenik, arany izzas effekt
   - 🌈 Rainbow (+80 pont) — 100 pont felett kezd esni, lila izzas effekt
   - 💎 Gyemant (+150 pont) — 300 pont felett kezd esni, cyan izzas effekt
-  - Pulzalo animacio (`collectiblePulse`) megkulonbozteti a veszelyes emojiaktol
+  - Pulzalo animacio (`collectiblePulse`)
   - Gyujteskor "+pont" felirat szall felfele szines animacioval (`collectFx`)
-- **Nehezseg**: konnyebb alapbeallitas — lassabb emoji sebesseg (1.5–3), ritkabb spawn (1200ms), lassabb rampa (500 pontonkent)
-- **Spawn**: veszelyes emojik `spawnEmoji()` (max 500ms), gyujthetok `spawnCollectible()` (2500ms fix)
+- **Spawn**: `spawnCollectible()` 1200ms intervallumonkent
 - **Hatter**: az aktualis napszak gradiens hattere
-- **Pontszam**: folyamatosan no + gyujthetok bonusza, rekord mentese (`nu_game_best` localStorage)
-- **Jutalmak**: 200+ pont = arany robot 1 napra, 500+ pont = rainbow robot 1 napra, 1000+ pont = gyemant robot 1 napra (`nu_gold_day`, `nu_rainbow_day`, `nu_diamond_day` localStorage, `golden`/`rainbow`/`diamond` CSS class)
-- **HUD**: pontszam, cel szoveg ("🪙🌈💎 Gyujtsd ossze! 🎯 200=arany 🌈500=rainbow 💎1000=gyemant"), kilepes gomb
+- **Pontszam**: csak gyujtesbol jon, rekord mentese (`nu_game_best` localStorage)
+- **Jutalmak**: 200+ pont = arany robot, 500+ pont = rainbow robot, 1000+ pont = gyemant robot — PERMANENS feloldas (`nu_skins` JSON tomb, `nu_active_skin` valasztott skin)
+- **Skin valaszto menu**: 🎨 gomb a jobb felso sarokban, feloldott skinek kozul valaszthato (alap/arany/rainbow/gyemant)
+- **HUD**: pontszam, visszaszamlalo timer (60s), kilepes gomb
 - **Game Over**: vegso pontszam, rekord, skin feloldas uzenet (arany/rainbow/gyemant), ujra/vissza gombok
 - Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
 - **CSS classok**: `.collectible`, `.gold-item`, `.rainbow-item`, `.diamond-item`, `.game-collect-fx`
