@@ -58,18 +58,18 @@
         .game-score{font-size:22px}
         .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer;z-index:10;position:relative}
         .game-golden-msg{color:#fbbf24;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(251,191,36,.5);margin:0}
-        .game-player{position:absolute;bottom:30px;z-index:1;pointer-events:none;width:60px;height:84px}
-        .game-player .gp-head{width:40px;height:34px;background:linear-gradient(165deg,#f1f5f9,#cbd5e1);border-radius:12px 12px 10px 10px;margin:0 auto;position:relative;box-shadow:0 2px 6px rgba(0,0,0,.15)}
-        .game-player .gp-screen{position:absolute;top:6px;left:5px;right:5px;bottom:6px;background:#0f172a;border-radius:8px}
-        .game-player .gp-eyes{display:flex;justify-content:center;gap:8px;padding-top:6px}
-        .game-player .gp-eye{width:8px;height:8px;background:radial-gradient(circle,#7dd3fc,#0284c7);border-radius:50%;box-shadow:0 0 6px rgba(56,189,248,.8);animation:eyeIdle 4s ease-in-out infinite}
-        .game-player .gp-mouth{width:10px;height:5px;background:#38bdf8;border-radius:0 0 5px 5px;margin:3px auto 0;box-shadow:0 0 4px rgba(56,189,248,.5)}
-        .game-player .gp-antenna{width:2px;height:10px;background:#94a3b8;margin:0 auto;position:relative}
-        .game-player .gp-antenna::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:radial-gradient(circle,#fde68a,#f59e0b);border-radius:50%;box-shadow:0 0 8px rgba(251,191,36,.6);animation:glow 2s ease-in-out infinite}
-        .game-player .gp-body{width:36px;height:28px;background:linear-gradient(165deg,#e2e8f0,#94a3b8);border-radius:6px 6px 8px 8px;margin:2px auto 0;position:relative;box-shadow:0 2px 6px rgba(0,0,0,.1)}
-        .game-player .gp-heart{position:absolute;top:4px;left:50%;transform:translateX(-50%);font-size:10px}
-        .game-player .gp-legs{display:flex;justify-content:center;gap:6px;margin-top:1px}
-        .game-player .gp-leg{width:10px;height:12px;background:linear-gradient(to bottom,#94a3b8,#64748b);border-radius:0 0 4px 4px}
+        .game-player{position:absolute;bottom:30px;z-index:1;pointer-events:none;width:100px;height:145px}
+        .game-player .gp-antenna{width:3px;height:18px;background:#94a3b8;margin:0 auto;position:relative}
+        .game-player .gp-antenna::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:radial-gradient(circle,#fde68a,#f59e0b);border-radius:50%;box-shadow:0 0 12px rgba(251,191,36,.6);animation:glow 2s ease-in-out infinite}
+        .game-player .gp-head{width:70px;height:58px;background:linear-gradient(165deg,#f1f5f9,#cbd5e1);border-radius:20px 20px 16px 16px;margin:0 auto;position:relative;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+        .game-player .gp-screen{position:absolute;top:10px;left:8px;right:8px;bottom:10px;background:#0f172a;border-radius:12px}
+        .game-player .gp-eyes{display:flex;justify-content:center;gap:14px;padding-top:10px}
+        .game-player .gp-eye{width:14px;height:14px;background:radial-gradient(circle,#7dd3fc,#0284c7);border-radius:50%;box-shadow:0 0 8px rgba(56,189,248,.8);animation:eyeIdle 4s ease-in-out infinite}
+        .game-player .gp-mouth{width:16px;height:8px;background:#38bdf8;border-radius:0 0 8px 8px;margin:4px auto 0;box-shadow:0 0 6px rgba(56,189,248,.5)}
+        .game-player .gp-body{width:60px;height:46px;background:linear-gradient(165deg,#e2e8f0,#94a3b8);border-radius:8px 8px 12px 12px;margin:3px auto 0;position:relative;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+        .game-player .gp-heart{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:16px}
+        .game-player .gp-legs{display:flex;justify-content:center;gap:10px;margin-top:2px}
+        .game-player .gp-leg{width:16px;height:20px;background:linear-gradient(to bottom,#94a3b8,#64748b);border-radius:0 0 6px 6px}
         .game-player.golden .gp-head{background:linear-gradient(165deg,#fef3c7,#fbbf24)!important}
         .game-player.golden .gp-body{background:linear-gradient(165deg,#fef3c7,#f59e0b)!important}
         .game-player.golden .gp-eye{background:radial-gradient(circle,#fde68a,#f59e0b)!important;box-shadow:0 0 6px rgba(251,191,36,.8)!important}
@@ -753,15 +753,9 @@
         <div class="ob-card" id="obCard">
             <span class="ob-emoji" id="obEmoji">🤖</span>
             <div class="ob-title" id="obTitle">Szia! Én vagyok DailyBot!</div>
-            <div class="ob-sub" id="obSub">Minden nap küldök neked egy motivációs üzenetet. De először ismerkedjünk meg!</div>
-            <input class="ob-input" id="obInput" type="text" placeholder="A neved..." autocomplete="off" style="display:none">
+            <div class="ob-sub" id="obSub">Minden nap küldök neked egy gondolatot. De először ismerkedjünk meg!</div>
+            <input class="ob-input" id="obInput" type="text" placeholder="Keresztneved..." autocomplete="off" style="display:none">
             <button class="ob-btn" id="obBtn">Kezdjük! 🚀</button>
-            <div class="ob-dots">
-                <span class="ob-dot active" id="obD0"></span>
-                <span class="ob-dot" id="obD1"></span>
-                <span class="ob-dot" id="obD2"></span>
-                <span class="ob-dot" id="obD3"></span>
-            </div>
         </div>
     </div>
 
@@ -903,14 +897,7 @@
             else _bg='linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
             ob.style.background=_bg;
 
-            const steps=[
-                {emoji:'👋',title:'Mi a keresztneved?',sub:'Csak az utóneved írd be, hogy személyesen köszönthesselek!',placeholder:'Keresztneved...',type:'text',key:'nu_name'},
-                {emoji:'📧',title:'Mi az email címed?',sub:'Ha később értesítéseket szeretnél kapni.',placeholder:'Email címed...',type:'email',key:'nu_email'},
-                {emoji:'🎂',title:'Hány éves vagy?',sub:'Hogy a korodhoz illő üzeneteket kapj!',placeholder:'Életkorod...',type:'number',key:'nu_age'},
-                {emoji:'📍',title:'Hol laksz?',sub:'Hogy helyi időjárást is mutathassak!',placeholder:'Város neve...',type:'text',key:'nu_city'}
-            ];
-
-            let step=-1; // -1 = intro képernyő
+            let step=-1; // -1 = intro, 0 = név kérés
             const card=document.getElementById('obCard');
             const emoji=document.getElementById('obEmoji');
             const title=document.getElementById('obTitle');
@@ -918,59 +905,42 @@
             const input=document.getElementById('obInput');
             const btn=document.getElementById('obBtn');
 
-            function updateDots(){
-                for(let i=0;i<4;i++){
-                    document.getElementById('obD'+i).classList.toggle('active',i<=step);
-                }
-            }
-
-            function showStep(){
-                const s=steps[step];
+            function showNameStep(){
                 card.classList.remove('ob-out');
                 card.style.animation='none';
                 card.offsetHeight;
                 card.style.animation='obIn .5s cubic-bezier(.34,1.56,.64,1)';
-                emoji.textContent=s.emoji;
-                title.textContent=s.title;
-                sub.textContent=s.sub;
+                emoji.textContent='👋';
+                title.textContent='Mi a keresztneved?';
+                sub.textContent='Csak az utóneved írd be, hogy személyesen köszönthesselek!';
                 input.style.display='block';
-                input.type=s.type;
-                input.placeholder=s.placeholder;
+                input.placeholder='Keresztneved...';
                 input.value='';
-                input.inputMode=s.type==='number'?'numeric':'text';
-                btn.textContent=step<3?'Tovább ➜':'Kész! ✨';
+                btn.textContent='Kész! ✨';
                 btn.disabled=true;
-                updateDots();
                 setTimeout(()=>input.focus(),400);
             }
 
             btn.addEventListener('click',function(){
                 if(step===-1){
-                    // Intro → első lépés
                     step=0;
                     card.classList.add('ob-out');
-                    setTimeout(()=>showStep(),300);
+                    setTimeout(()=>showNameStep(),300);
                     return;
                 }
                 const val=input.value.trim();
                 if(!val)return;
-                localStorage.setItem(steps[step].key,val);
-                if(step<3){
-                    card.classList.add('ob-out');
-                    setTimeout(()=>{step++;showStep()},300);
-                } else {
-                    localStorage.setItem('nu_reg','1');
-                    card.classList.add('ob-out');
-                    setTimeout(()=>{
-                        ob.classList.add('hidden');
-                        app.classList.remove('pre-reg');
-                    },300);
-                }
+                localStorage.setItem('nu_name',val);
+                localStorage.setItem('nu_reg','1');
+                card.classList.add('ob-out');
+                setTimeout(()=>{
+                    ob.classList.add('hidden');
+                    app.classList.remove('pre-reg');
+                },300);
             });
 
             input.addEventListener('input',()=>{
-                // Név mezőnél szóköz tiltása (csak utónév)
-                if(step===0) input.value=input.value.replace(/\s/g,'');
+                input.value=input.value.replace(/\s/g,'');
                 btn.disabled=!input.value.trim();
             });
             input.addEventListener('keydown',e=>{
@@ -2014,7 +1984,7 @@
                 overlay.querySelectorAll('.game-emoji,.game-player').forEach(e=>e.remove());
 
                 player=createMiniRobot();
-                playerX=window.innerWidth/2-30;
+                playerX=window.innerWidth/2-50;
                 player.style.left=playerX+'px';
                 overlay.appendChild(player);
 
@@ -2037,7 +2007,7 @@
                 e.preventDefault();
                 const t=e.touches[0];
                 const dx=t.clientX-touchStartX;
-                playerX=Math.max(0,Math.min(window.innerWidth-60,playerStartX+dx));
+                playerX=Math.max(0,Math.min(window.innerWidth-100,playerStartX+dx));
                 player.style.left=playerX+'px';
             }
 
@@ -2068,7 +2038,7 @@
                 }
 
                 // Játékos pozíció: alul fix, vízszintesen mozog
-                const px=playerX, py=window.innerHeight-114, pw=60, ph=84;
+                const px=playerX, py=window.innerHeight-175, pw=100, ph=145;
                 for(let i=emojis.length-1;i>=0;i--){
                     const em=emojis[i];
                     let top=parseFloat(em.style.top)+em._speed;
