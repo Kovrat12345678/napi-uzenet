@@ -146,8 +146,9 @@
         .game-retry{background:linear-gradient(135deg,#818cf8,#a855f7);border:none;color:#fff;font-size:18px;padding:14px 36px;border-radius:30px;font-weight:700;cursor:pointer;margin-top:8px;box-shadow:0 4px 20px rgba(139,92,246,.4)}
         .game-back{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:14px;padding:10px 28px;border-radius:20px;font-weight:600;cursor:pointer}
         .game-timer{font-size:22px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+        .game-xp-earned{font-size:22px;font-weight:700;color:#fbbf24;margin:4px 0}
 
-        /* SKIN MENÜ */
+        /* SKIN/BOLT MENÜ */
         .skin-toggle{
             position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:62px;z-index:50;
             background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -162,12 +163,14 @@
         }
         .skin-panel.open{display:flex}
         .skin-card{
-            width:100%;max-width:380px;max-height:75vh;
+            width:100%;max-width:400px;max-height:80vh;
             background:rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
             border:1.5px solid rgba(255,255,255,.25);border-radius:24px;
             padding:24px;overflow-y:auto;color:#fff;
         }
-        .skin-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:16px}
+        .skin-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
+        .skin-xp-display{text-align:center;font-size:16px;font-weight:700;color:#fbbf24;margin-bottom:14px}
+        .skin-section{font-size:14px;font-weight:700;opacity:.7;margin:14px 0 8px;padding-left:4px}
         .skin-list{display:flex;flex-direction:column;gap:10px}
         .skin-option{
             display:flex;align-items:center;gap:12px;padding:14px 16px;
@@ -176,12 +179,19 @@
         }
         .skin-option:active{transform:scale(.97)}
         .skin-option.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15)}
-        .skin-option.locked{opacity:.4;cursor:default}
+        .skin-option.locked{opacity:.5;cursor:default}
+        .skin-option.buyable{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
         .skin-option .skin-icon{font-size:28px;width:36px;text-align:center}
         .skin-option .skin-info{flex:1}
         .skin-option .skin-name{font-weight:700;font-size:15px}
         .skin-option .skin-desc{font-size:12px;opacity:.6;margin-top:2px}
         .skin-option .skin-lock{font-size:12px;opacity:.5}
+        .skin-option .skin-buy-btn{
+            padding:6px 14px;border-radius:12px;border:none;
+            background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1e1b4b;
+            font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;
+        }
+        .skin-option .skin-buy-btn:active{transform:scale(.95)}
         .skin-close{width:100%;margin-top:16px;padding:12px;border:none;border-radius:16px;background:rgba(255,255,255,.12);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
 
         /* BUBORÉK */
@@ -942,11 +952,15 @@
     <!-- Skin választó gomb -->
     <div class="skin-toggle" id="skinToggle">🎨</div>
 
-    <!-- Skin választó panel -->
+    <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
         <div class="skin-card">
-            <div class="skin-title">🎨 Robot kinézet</div>
+            <div class="skin-title">🏪 Robot Bolt</div>
+            <div class="skin-xp-display" id="shopXpDisplay">⭐ 0 XP</div>
+            <div class="skin-section">🤖 Robot kinézet</div>
             <div class="skin-list" id="skinList"></div>
+            <div class="skin-section">🖼️ Hátterek</div>
+            <div class="skin-list" id="bgList"></div>
             <button class="skin-close" id="skinClose">Bezárás</button>
         </div>
     </div>
@@ -971,12 +985,11 @@
             <button class="game-exit" id="gameExit">✕ Kilépés</button>
         </div>
         <div class="game-over-screen" id="gameOverScreen" style="display:none">
-            <h2>⏱️ Lejárt az idő!</h2>
+            <h2>💥 Vége!</h2>
             <p>Pontszám: <span id="gameFinalScore">0</span></p>
             <p class="game-best">Rekord: <span id="gameBestScore">0</span></p>
-            <p class="game-golden-msg" id="gameGoldenMsg" style="display:none">✨ Arany robot feloldva! ✨</p>
-            <p class="game-rainbow-msg" id="gameRainbowMsg" style="display:none">🌈 Rainbow robot feloldva! 🌈</p>
-            <p class="game-diamond-msg" id="gameDiamondMsg" style="display:none">💎 Gyémánt robot feloldva! 💎</p>
+            <p class="game-xp-earned" id="gameXpEarned">+0 XP</p>
+            <p style="font-size:13px;opacity:.6">Összesen: <span id="gameTotalXp">0</span> XP</p>
             <button class="game-retry" id="gameRetry">🔄 Újra</button>
             <button class="game-back" id="gameBack">← Vissza</button>
         </div>
@@ -2043,61 +2056,111 @@
         btn.addEventListener('touchend',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
         btn.addEventListener('touchmove',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
 
-        // ========== ROBOT SKIN RENDSZER ==========
-        function getSkins(){try{return JSON.parse(localStorage.getItem('nu_skins')||'[]')}catch(e){return[]}}
-        function saveSkins(arr){localStorage.setItem('nu_skins',JSON.stringify(arr))}
-        function unlockSkin(name){const s=getSkins();if(!s.includes(name)){s.push(name);saveSkins(s)}return true}
+        // ========== XP + BOLT RENDSZER ==========
+        function getXP(){return parseInt(localStorage.getItem('nu_xp')||'0')}
+        function setXP(v){localStorage.setItem('nu_xp',v.toString())}
+        function addXP(v){const n=getXP()+v;setXP(n);return n}
+        function getOwned(){try{return JSON.parse(localStorage.getItem('nu_owned')||'[]')}catch(e){return[]}}
+        function saveOwned(arr){localStorage.setItem('nu_owned',JSON.stringify(arr))}
+        function owns(id){return id===''||getOwned().includes(id)}
+        function buyItem(id){const o=getOwned();if(!o.includes(id)){o.push(id);saveOwned(o)}}
         function getActiveSkin(){return localStorage.getItem('nu_active_skin')||''}
         function setActiveSkin(name){localStorage.setItem('nu_active_skin',name)}
+        function getActiveBg(){return localStorage.getItem('nu_active_bg')||''}
+        function setActiveBg(name){localStorage.setItem('nu_active_bg',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
             r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
             const skin=getActiveSkin();
-            if(skin&&getSkins().includes(skin)) r.classList.add(skin);
+            if(skin&&owns(skin)) r.classList.add(skin);
+        }
+        const CUSTOM_BGS={
+            'bg-aurora':'linear-gradient(165deg,#064e3b 0%,#065f46 20%,#047857 40%,#6d28d9 60%,#7c3aed 80%,#4c1d95 100%)',
+            'bg-sunset':'linear-gradient(165deg,#fbbf24 0%,#f59e0b 20%,#f97316 40%,#ec4899 60%,#f472b6 80%,#e879f9 100%)',
+            'bg-ocean':'linear-gradient(165deg,#0c4a6e 0%,#0369a1 20%,#0284c7 40%,#0891b2 60%,#155e75 80%,#164e63 100%)',
+            'bg-space':'linear-gradient(165deg,#0f0521 0%,#1a0533 20%,#2e1065 40%,#4c1d95 60%,#1e1b4b 80%,#0f172a 100%)',
+            'bg-cherry':'linear-gradient(165deg,#fce7f3 0%,#fbcfe8 20%,#f9a8d4 40%,#f472b6 60%,#ec4899 80%,#be185d 100%)'
+        };
+        function applyCustomBg(){
+            const bg=getActiveBg();
+            if(bg&&owns(bg)&&CUSTOM_BGS[bg]){
+                document.body.style.background=CUSTOM_BGS[bg];
+                document.body.style.backgroundAttachment='fixed';
+            }
         }
         // Migráció régi rendszerből
         (function(){
-            const today=td();
-            if(localStorage.getItem('nu_diamond_day')===today) unlockSkin('diamond');
-            if(localStorage.getItem('nu_rainbow_day')===today) unlockSkin('rainbow');
-            if(localStorage.getItem('nu_gold_day')===today) unlockSkin('golden');
-            // Ha nincs aktív skin, állítsuk be a legjobbat
-            if(!getActiveSkin()){
-                const s=getSkins();
-                if(s.includes('diamond')) setActiveSkin('diamond');
-                else if(s.includes('rainbow')) setActiveSkin('rainbow');
-                else if(s.includes('golden')) setActiveSkin('golden');
-            }
+            const old=localStorage.getItem('nu_skins');
+            if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
             applyRobotSkin();
+            applyCustomBg();
         })();
 
-        // ========== SKIN MENÜ ==========
+        // ========== BOLT MENÜ ==========
         (function(){
             const toggle=document.getElementById('skinToggle');
             const panel=document.getElementById('skinPanel');
-            const list=document.getElementById('skinList');
+            const skinList=document.getElementById('skinList');
+            const bgList=document.getElementById('bgList');
+            const xpDisp=document.getElementById('shopXpDisplay');
             const closeBtn=document.getElementById('skinClose');
-            const SKIN_DEFS=[
-                {id:'',name:'Alap',desc:'Az eredeti robot',icon:'🤖',req:''},
-                {id:'golden',name:'Arany',desc:'Arany robot skin',icon:'✨',req:'200 pont a játékban'},
-                {id:'rainbow',name:'Rainbow',desc:'Szivárványos robot skin',icon:'🌈',req:'500 pont a játékban'},
-                {id:'diamond',name:'Gyémánt',desc:'Gyémánt robot skin',icon:'💎',req:'1000 pont a játékban'}
+            const SKINS=[
+                {id:'',name:'Alap',desc:'Az eredeti robot',icon:'🤖',cost:0},
+                {id:'golden',name:'Arany',desc:'Csillogó arany robot',icon:'✨',cost:200},
+                {id:'rainbow',name:'Rainbow',desc:'Szivárványos robot',icon:'🌈',cost:500},
+                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt robot',icon:'💎',cost:1000}
             ];
-            function renderSkins(){
-                const skins=getSkins();
-                const active=getActiveSkin();
-                list.innerHTML='';
-                SKIN_DEFS.forEach(s=>{
-                    const unlocked=s.id===''||skins.includes(s.id);
-                    const isActive=s.id===active;
+            const BGS=[
+                {id:'',name:'Napszak',desc:'Automatikus napszak háttér',icon:'🌅',cost:0},
+                {id:'bg-aurora',name:'Sarki fény',desc:'Zöld-lila aurora háttér',icon:'🌌',cost:150},
+                {id:'bg-sunset',name:'Naplemente',desc:'Narancs-rózsaszín égbolt',icon:'🌇',cost:300},
+                {id:'bg-ocean',name:'Óceán',desc:'Mélykék víz alatti világ',icon:'🌊',cost:450},
+                {id:'bg-space',name:'Űr',desc:'Csillagos galaxia háttér',icon:'🚀',cost:700},
+                {id:'bg-cherry',name:'Cseresznyevirág',desc:'Rózsaszín virágos kert',icon:'🌸',cost:900}
+            ];
+            function renderShop(){
+                const xp=getXP();
+                xpDisp.textContent='⭐ '+xp+' XP';
+                const activeSkin=getActiveSkin();
+                const activeBg=getActiveBg();
+                skinList.innerHTML='';
+                bgList.innerHTML='';
+                SKINS.forEach(s=>{
+                    const owned=owns(s.id);
+                    const isActive=s.id===activeSkin;
+                    const canBuy=!owned&&xp>=s.cost;
                     const el=document.createElement('div');
-                    el.className='skin-option'+(isActive?' active':'')+(unlocked?'':' locked');
-                    el.innerHTML=`<div class="skin-icon">${s.icon}</div><div class="skin-info"><div class="skin-name">${s.name}${isActive?' ✓':''}</div><div class="skin-desc">${s.desc}</div>${unlocked?'':'<div class="skin-lock">🔒 '+s.req+'</div>'}</div>`;
-                    if(unlocked) el.addEventListener('click',()=>{setActiveSkin(s.id);applyRobotSkin();renderSkins()});
-                    list.appendChild(el);
+                    el.className='skin-option'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'));
+                    let right='';
+                    if(!owned&&s.cost>0){
+                        if(canBuy) right=`<button class="skin-buy-btn">🛒 ${s.cost} XP</button>`;
+                        else right=`<div class="skin-lock">🔒 ${s.cost} XP</div>`;
+                    }
+                    el.innerHTML=`<div class="skin-icon">${s.icon}</div><div class="skin-info"><div class="skin-name">${s.name}${isActive?' ✓':''}</div><div class="skin-desc">${s.desc}</div></div>${right}`;
+                    if(owned) el.addEventListener('click',()=>{setActiveSkin(s.id);applyRobotSkin();renderShop()});
+                    const buyBtn=el.querySelector('.skin-buy-btn');
+                    if(buyBtn) buyBtn.addEventListener('click',e=>{e.stopPropagation();setXP(xp-s.cost);buyItem(s.id);setActiveSkin(s.id);applyRobotSkin();renderShop()});
+                    skinList.appendChild(el);
+                });
+                BGS.forEach(b=>{
+                    const owned=owns(b.id);
+                    const isActive=b.id===activeBg;
+                    const canBuy=!owned&&xp>=b.cost;
+                    const el=document.createElement('div');
+                    el.className='skin-option'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'));
+                    let right='';
+                    if(!owned&&b.cost>0){
+                        if(canBuy) right=`<button class="skin-buy-btn">🛒 ${b.cost} XP</button>`;
+                        else right=`<div class="skin-lock">🔒 ${b.cost} XP</div>`;
+                    }
+                    el.innerHTML=`<div class="skin-icon">${b.icon}</div><div class="skin-info"><div class="skin-name">${b.name}${isActive?' ✓':''}</div><div class="skin-desc">${b.desc}</div></div>${right}`;
+                    if(owned) el.addEventListener('click',()=>{setActiveBg(b.id);applyCustomBg();renderShop()});
+                    const buyBtn=el.querySelector('.skin-buy-btn');
+                    if(buyBtn) buyBtn.addEventListener('click',e=>{e.stopPropagation();setXP(getXP()-b.cost);buyItem(b.id);setActiveBg(b.id);applyCustomBg();renderShop()});
+                    bgList.appendChild(el);
                 });
             }
-            toggle.addEventListener('click',()=>{renderSkins();panel.classList.add('open')});
+            toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
             panel.addEventListener('click',e=>{if(e.target===panel)panel.classList.remove('open')});
         })();
@@ -2110,19 +2173,14 @@
             const overScreen=document.getElementById('gameOverScreen');
             const finalScoreEl=document.getElementById('gameFinalScore');
             const bestScoreEl=document.getElementById('gameBestScore');
-            const goldenMsg=document.getElementById('gameGoldenMsg');
-            const rainbowMsg=document.getElementById('gameRainbowMsg');
-            const diamondMsg=document.getElementById('gameDiamondMsg');
+            const xpEarnedEl=document.getElementById('gameXpEarned');
+            const totalXpEl=document.getElementById('gameTotalXp');
             const retryBtn=document.getElementById('gameRetry');
             const backBtn=document.getElementById('gameBack');
-
-            const COLLECTIBLES=[
-                {emoji:'🪙',type:'gold',points:30,cls:'gold-item'},
-                {emoji:'🌈',type:'rainbow',points:80,cls:'rainbow-item'},
-                {emoji:'💎',type:'diamond',points:150,cls:'diamond-item'}
-            ];
-            let player, score, bestScore, gameLoop, collectTimer, emojis, playerX, alive, touchStartX, playerStartX, gameTimerInterval, gameTimeLeft;
             const timerEl=document.getElementById('gameTimer');
+
+            const ENEMIES=['⚡','💧','🧲','🔧','🔩','🦠','🕷️','💦','🌊','🪫'];
+            let player, score, dodged, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
 
             bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
 
@@ -2138,7 +2196,7 @@
                 const p=document.createElement('div');
                 p.className='game-player';
                 const skin=getActiveSkin();
-                if(skin&&getSkins().includes(skin)) p.classList.add(skin);
+                if(skin&&owns(skin)) p.classList.add(skin);
                 p.innerHTML='<div class="gp-antenna"></div><div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div><div class="gp-legs"><div class="gp-leg"></div><div class="gp-leg"></div></div>';
                 return p;
             }
@@ -2147,11 +2205,9 @@
                 overlay.style.background=getGameBg();
                 overlay.classList.add('active');
                 overScreen.style.display='none';
-                goldenMsg.style.display='none';
-                rainbowMsg.style.display='none';
-                diamondMsg.style.display='none';
-                score=0;alive=true;
+                score=0;dodged=0;alive=true;diff=1;
                 scoreEl.textContent='0';
+                timerEl.textContent='⭐ 0 XP';
                 emojis=[];
 
                 overlay.querySelectorAll('.game-emoji,.game-player,.game-collect-fx').forEach(e=>e.remove());
@@ -2164,14 +2220,8 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                gameTimeLeft=60;
-                timerEl.textContent='⏱️ 60';
-                collectTimer=setInterval(spawnCollectible, 1200);
-                gameTimerInterval=setInterval(function(){
-                    gameTimeLeft--;
-                    timerEl.textContent='⏱️ '+gameTimeLeft;
-                    if(gameTimeLeft<=0){gameOver();return}
-                },1000);
+                // Emoji spawn: közepes tempó, fokozatosan gyorsul
+                spawnTimer=setInterval(spawnEnemy, 900);
                 gameLoop=requestAnimationFrame(update);
             };
 
@@ -2191,57 +2241,52 @@
                 player.style.left=playerX+'px';
             }
 
-            function spawnCollectible(){
+            function spawnEnemy(){
                 if(!alive)return;
                 const em=document.createElement('div');
-                const currentScore=Math.floor(score/10);
-                let pool=COLLECTIBLES.filter(c=>c.type==='gold');
-                if(currentScore>=100) pool=pool.concat(COLLECTIBLES.filter(c=>c.type==='rainbow'));
-                if(currentScore>=300) pool=pool.concat(COLLECTIBLES.filter(c=>c.type==='diamond'));
-                const item=pool[Math.floor(Math.random()*pool.length)];
-                em.className='game-emoji collectible '+item.cls;
-                const sz=42;
+                em.className='game-emoji';
+                const sz=Math.random()*20+34;
                 em.style.fontSize=sz+'px';
-                em.textContent=item.emoji;
+                em.textContent=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
                 em.style.left=Math.random()*(window.innerWidth-50)+'px';
                 em.style.top='-50px';
-                em._speed=(Math.random()*1.5+1.5);
+                // Közepes sebesség: 1.8–3.2, lassan gyorsul
+                em._speed=(Math.random()*1.4+1.8+diff*0.15);
                 em._size=sz;
-                em._collectible=true;
-                em._points=item.points;
-                em._type=item.type;
+                em._counted=false;
                 overlay.appendChild(em);
                 emojis.push(em);
             }
 
             function update(){
                 if(!alive)return;
-                scoreEl.textContent=Math.floor(score/10);
+                score++;
+                diff=1+Math.floor(score/600);
+                const displayScore=Math.floor(score/10);
+                scoreEl.textContent=displayScore;
 
-                // Játékos pozíció: alul fix, vízszintesen mozog
+                // Fokozatos nehezítés
+                if(score%500===0){
+                    clearInterval(spawnTimer);
+                    spawnTimer=setInterval(spawnEnemy, Math.max(400,900-diff*35));
+                }
+
                 const px=playerX, py=window.innerHeight-175, pw=100, ph=145;
                 for(let i=emojis.length-1;i>=0;i--){
                     const em=emojis[i];
                     let top=parseFloat(em.style.top)+em._speed;
                     em.style.top=top+'px';
 
+                    // Sikeresen kikerülte — XP pont
                     if(top>window.innerHeight+60){
+                        if(!em._counted){dodged++;timerEl.textContent='⭐ '+dodged+' XP'}
                         em.remove();emojis.splice(i,1);continue;
                     }
 
-                    // Ütközés — gyűjtés
+                    // Ütközés — halál
                     const ex=parseFloat(em.style.left), ey=top, esz=em._size;
-                    if(ex+esz>px+8 && ex<px+pw-8 && ey+esz>py+8 && ey<py+ph-8){
-                        score+=em._points*10;
-                        scoreEl.textContent=Math.floor(score/10);
-                        const fx=document.createElement('div');
-                        fx.className='game-collect-fx';
-                        fx.style.left=ex+'px';fx.style.top=ey+'px';
-                        fx.style.color=em._type==='diamond'?'#67e8f9':em._type==='rainbow'?'#c084fc':'#fbbf24';
-                        fx.textContent='+'+em._points;
-                        overlay.appendChild(fx);
-                        setTimeout(()=>fx.remove(),800);
-                        em.remove();emojis.splice(i,1);continue;
+                    if(ex+esz>px+10 && ex<px+pw-10 && ey+esz>py+10 && ey<py+ph-10){
+                        gameOver();return;
                     }
                 }
                 gameLoop=requestAnimationFrame(update);
@@ -2249,8 +2294,7 @@
 
             function gameOver(){
                 alive=false;
-                clearInterval(collectTimer);
-                clearInterval(gameTimerInterval);
+                clearInterval(spawnTimer);
                 cancelAnimationFrame(gameLoop);
                 overlay.removeEventListener('touchstart',onTouchStart);
                 overlay.removeEventListener('touchmove',onTouchMove);
@@ -2260,32 +2304,18 @@
                 finalScoreEl.textContent=finalScore;
                 bestScoreEl.textContent=bestScore;
 
-                // Skin jutalmak: 200=arany, 500=rainbow, 1000=gyémánt (permanens)
-                goldenMsg.style.display='none';
-                rainbowMsg.style.display='none';
-                diamondMsg.style.display='none';
-                let newSkin='';
-                if(finalScore>=1000&&!getSkins().includes('diamond')){
-                    unlockSkin('diamond');newSkin='diamond';
-                    diamondMsg.style.display='block';
-                }
-                if(finalScore>=500&&!getSkins().includes('rainbow')){
-                    unlockSkin('rainbow');if(!newSkin)newSkin='rainbow';
-                    rainbowMsg.style.display='block';
-                }
-                if(finalScore>=200&&!getSkins().includes('golden')){
-                    unlockSkin('golden');if(!newSkin)newSkin='golden';
-                    goldenMsg.style.display='block';
-                }
-                // Ha új skint szerzett, automatikusan beállítjuk a legjobbat
-                if(newSkin){setActiveSkin(newSkin);applyRobotSkin()}
+                // XP hozzáadás — minden kikerült emoji 1 XP
+                const earnedXP=dodged;
+                const totalXP=addXP(earnedXP);
+                xpEarnedEl.textContent='+'+earnedXP+' XP';
+                totalXpEl.textContent=totalXP;
+
                 overScreen.style.display='flex';
             }
 
             function closeGame(){
                 alive=false;
-                clearInterval(collectTimer);
-                clearInterval(gameTimerInterval);
+                clearInterval(spawnTimer);
                 cancelAnimationFrame(gameLoop);
                 overlay.removeEventListener('touchstart',onTouchStart);
                 overlay.removeEventListener('touchmove',onTouchMove);

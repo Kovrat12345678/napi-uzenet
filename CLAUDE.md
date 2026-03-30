@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
   - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev)
   - `nu_favs` (kedvenc uzenetek JSON tomb)
-  - `nu_game_best` (jatek rekord), `nu_skins` (feloldott skinek JSON tomb), `nu_active_skin` (aktualis skin)
+  - `nu_game_best` (jatek rekord), `nu_xp` (osszes XP), `nu_owned` (megvett targyak JSON tomb), `nu_active_skin` (aktualis skin), `nu_active_bg` (aktualis hatter)
 
 ### Reggel 6 logika
 
@@ -50,10 +50,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
   - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
   - **Dancing**: tancolo mozgas, gyors kar lengetes (vicces/humor uzeneteknel)
-  - **Arany**: 200+ pont a minijatekban → permanens arany szinu robot (fej, test, szemek, antenna, labak)
-  - **Rainbow**: 500+ pont → permanens szivarvanyos robot (hue-rotate animacio)
-  - **Gyemant**: 1000+ pont → permanens gyemant robot (cyan/jegkek szin, csillogo animacio)
-  - Skin valaszto menu: 🎨 gomb → panel ahol feloldott skinek kozul lehet valasztani
+  - **Arany**: 200 XP-ert vasarolhato arany szinu robot (fej, test, szemek, antenna, labak)
+  - **Rainbow**: 500 XP-ert vasarolhato szivarvanyos robot (hue-rotate animacio)
+  - **Gyemant**: 1000 XP-ert vasarolhato gyemant robot (cyan/jegkek szin, csillogo animacio)
+  - Robot Bolt: 🎨 gomb → bolt panel ahol XP-ert vasarolhatok skinek es hatterek
 - Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
 
 ### Szemelyes koszrontes
@@ -121,26 +121,28 @@ A robot naphoz kotodo emoji oltozeket visel:
 - **Kedvenc gomb**: uzenet buborekban, elmentheto kedvencek listaja
 - **Megosztas gomb**: kepes kartya generalas es megosztas
 
-### Emoji Gyujto minijáték
+### Emoji Dodge minijáték
 
 - **Inditas**: robot hosszan nyomva tartasa (600ms long press)
 - **Jatekos**: CSS mini robot (nem emoji), az also reszben rogzitett, csak jobbra-balra mozog ujjal huzva
-- **Jatek**: 60 masodperces idolimit, csak gyujtheto targyak esnek az egbol, nincs veszelyes emoji
-- **Gyujtheto targyak**: arany, rainbow es gyemant targyak hullanak, amiket ossze kell gyujteni pontokert:
-  - 🪙 Arany erme (+30 pont) — mindig megjelenik, arany izzas effekt
-  - 🌈 Rainbow (+80 pont) — 100 pont felett kezd esni, lila izzas effekt
-  - 💎 Gyemant (+150 pont) — 300 pont felett kezd esni, cyan izzas effekt
-  - Pulzalo animacio (`collectiblePulse`)
-  - Gyujteskor "+pont" felirat szall felfele szines animacioval (`collectFx`)
-- **Spawn**: `spawnCollectible()` 1200ms intervallumonkent
+- **Veszelyes emojik**: robot-veszelyes temaju (⚡💧🧲🔧🔩🦠🕷️💦🌊🪫), felulrol esnek, ki kell kerulni
+- **XP rendszer**: minden sikeresen kikerult emoji = 1 XP, XP halmozodik jatekok kozott (`nu_xp` localStorage)
+- **Nehezseg**: kozepes — sebesseg 1.8–3.2, spawn 900ms, lassan gyorsul (600 frame-enkent)
 - **Hatter**: az aktualis napszak gradiens hattere
-- **Pontszam**: csak gyujtesbol jon, rekord mentese (`nu_game_best` localStorage)
-- **Jutalmak**: 200+ pont = arany robot, 500+ pont = rainbow robot, 1000+ pont = gyemant robot — PERMANENS feloldas (`nu_skins` JSON tomb, `nu_active_skin` valasztott skin)
-- **Skin valaszto menu**: 🎨 gomb a jobb felso sarokban, feloldott skinek kozul valaszthato (alap/arany/rainbow/gyemant)
-- **HUD**: pontszam, visszaszamlalo timer (60s), kilepes gomb
-- **Game Over**: vegso pontszam, rekord, skin feloldas uzenet (arany/rainbow/gyemant), ujra/vissza gombok
+- **Pontszam**: ido-alapu + rekord mentese (`nu_game_best` localStorage)
+- **Game Over**: utkozes eseten — vegso pontszam, rekord, szerzett XP, osszes XP
+
+### Robot Bolt
+
+- **Megnyitas**: 🎨 gomb a jobb felso sarokban (🏪 Robot Bolt)
+- **XP kijelzes**: aktualis XP egyenleg a bolt tetején
+- **Robot kinezetek** (XP-ert vasarolhatok):
+  - Alap (ingyenes), Arany (200 XP), Rainbow (500 XP), Gyemant (1000 XP)
+- **Hatterek** (XP-ert vasarolhatok):
+  - Napszak (ingyenes), Sarki feny (150 XP), Naplemente (300 XP), Ocean (450 XP), Ur (700 XP), Cseresznyevirag (900 XP)
+- Megvett targyak orokre megmaradnak (`nu_owned` JSON tomb)
+- Kivalasztott skin: `nu_active_skin`, kivalasztott hatter: `nu_active_bg`
 - Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
-- **CSS classok**: `.collectible`, `.gold-item`, `.rainbow-item`, `.diamond-item`, `.game-collect-fx`
 
 ### Napi korlatozas
 
