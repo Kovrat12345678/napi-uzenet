@@ -51,26 +51,38 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Konfetti** — minden napi uzenetnel unnepel
 - **Drag interakcio** — huzd meg a robotot, meglepodik es szinesen vilagit
 - **Robot hangok** — koppintasra cuki hangeffektek
-- **Emoji Dodge minijáték** — nyomd hosszan a robotot, kerüld ki a hulló emojikat es gyüjtsd az aranyat, rainbow-t, gyemantot!
-- **Gyüjtheto targyak** — 🪙 arany erme (+30), 🌈 rainbow (+80), 💎 gyemant (+150) esik az egbol
-- **Robot skinek** — 200 pont = arany, 500 pont = rainbow, 1000 pont = gyemant robot (1 napra)
+- **Emoji Dodge minijáték** — nyomd hosszan a robotot, kerüld ki a hulló 🪙🌈💎 emojikat es gyüjts XP-t!
+- **XP rendszer** — 10 kikerult emoji = 50 XP, halmozodik jatekok kozott
+- **Robot Bolt** — 🎨 gomb: robot skinek es hatterek vasarlasa XP-ert
 
 ## Emoji Dodge minijáték
 
 A robotot hosszan nyomva tartva (kb. 1 mp) elindul egy minijáték:
 
 - A kepernyo aljan egy mini robot (igazi CSS robot, nem emoji) jobbra-balra mozgatható
-- Felülrol robot-veszelyes emojik hullanak: ⚡💧🧲🔧🔩🦠🕷️💦🌊🪫 — ezeket ki kell kerulni!
-- **Gyujtheto targyak esnek az egbol** — ezeket ossze kell gyujteni:
-  - 🪙 **Arany erme** (+30 pont) — mindig megjelenik
-  - 🌈 **Rainbow** (+80 pont) — 100 pont felett kezd hullani
-  - 💎 **Gyemant** (+150 pont) — 300 pont felett kezd hullani
-- A gyujthetok pulzalo animacioval es szines izzassal tunik ki — konnyu megkulonboztetni
-- **3 szintu jutalom** — mindegyik 1 napra oldodik fel:
-  - **200+ pont** = arany robot (arany szin)
-  - **500+ pont** = rainbow robot (szivarvanyos animacio)
-  - **1000+ pont** = gyemant robot (jegkek csillogas)
+- Felülrol arany 🪙, rainbow 🌈 es gyemant 💎 emojik hullanak — ezeket ki kell kerulni!
+- Ha belemégy egy emojiba, vege a jateknak
+- **XP szerzés**: minden 10 sikeresen kikerült emoji utan 50 XP-t kapsz
+- Az XP jatekok kozott halmozodik — a Robot Boltban koltheted el
+- A nehezseg fokozatosan no: az emojik gyorsabban es surobben jonnek
 - A hatter az aktualis napszakhoz igazodik
+
+## Robot Bolt
+
+A jobb felso sarokban a 🎨 gombra koppintva megnyilik a Robot Bolt:
+
+- **Robot kinezetek** (XP-ert vasarolhatok):
+  - 🤖 **Alap** — ingyenes, az eredeti robot
+  - ✨ **Arany robot** — 200 XP, csillogo arany szin
+  - 🌈 **Rainbow robot** — 500 XP, szivarvanyos animacio
+  - 💎 **Gyemant robot** — 1000 XP, jegkek csillogo robot
+- **Hatterek** (XP-ert vasarolhatok):
+  - 🌅 **Napszak** — ingyenes, automatikus napszak hatter
+  - ✨ **Arany hatter** — 200 XP, meleg arany gradiens
+  - 🌈 **Rainbow hatter** — 500 XP, szivarvanyos gradiens
+  - 💎 **Gyemant hatter** — 1000 XP, jegkek gyemant gradiens
+- A megvett targyak orokre megmaradnak
+- Barmelyik feloldott skin/hatter kozott szabadon valtogathatsz
 
 ## Uzenet kategoriak
 
@@ -97,7 +109,7 @@ A robotot hosszan nyomva tartva (kb. 1 mp) elindul egy minijáték:
 4. Szivecskere koppintva elmentheted kedvencnek
 5. Megosztas gombbal szep kepes kartyat kuldhetsz barmelyik appban
 6. Az app aljan latod a visszaszamlalot: mikor jon a kovetkezo uzenet
-7. Nyomd hosszan a robotot a minijátékhoz!
+7. Nyomd hosszan a robotot a minijátékhoz — gyüjts XP-t es vegyel robot skineket a boltban!
 
 ## Tech Stack
 
