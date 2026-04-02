@@ -278,6 +278,30 @@
         /* ALIVE RAINBOW */
         .robot.rainbow { animation: rainbowFlow 8s linear infinite; }
 
+        /* GRAFFITI SKIN */
+        .robot.graffiti .head, .robot.graffiti .torso {
+            background: #1e293b!important;
+            background-image: 
+                radial-gradient(circle at 20% 30%, #f472b6 0%, transparent 40%),
+                radial-gradient(circle at 80% 60%, #22d3ee 0%, transparent 45%),
+                radial-gradient(circle at 40% 80%, #fbbf24 0%, transparent 35%)!important;
+        }
+        .robot.graffiti .torso::before {
+            content: ''; position: absolute; top: 10px; left: 10px; width: 4px; height: 30px;
+            background: #f472b6; border-radius: 2px; box-shadow: 12px 15px 0 #22d3ee, 25px 5px 0 #fbbf24;
+            opacity: 0.8;
+        }
+        .robot.graffiti .arm-r::after {
+            content: '🥫'; position: absolute; bottom: -5px; right: -10px; font-size: 18px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+        .robot.graffiti .arm-r::before {
+            content: ''; position: absolute; bottom: 5px; right: -15px; width: 10px; height: 10px;
+            background: radial-gradient(circle, #f472b6, transparent); border-radius: 50%;
+            animation: sprayEffect 1s infinite linear;
+        }
+        .robot.graffiti .eye { background: radial-gradient(circle, #fff, #f472b6, #db2777)!important; box-shadow: 0 0 10px #f472b6!important; }
+
         /* Chicky robot skin */
         .game-player.chicky .gp-head{background:linear-gradient(165deg,#fffbeb,#fcd34d)!important}
         .game-player.chicky .gp-body{background:linear-gradient(165deg,#fef3c7,#f59e0b)!important}
@@ -361,6 +385,11 @@
         @keyframes sparklePop {
             0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
             50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        @keyframes sprayEffect {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2) translateY(-5px); opacity: 0.6; }
+            100% { transform: scale(1.5) translateY(-10px); opacity: 0; }
         }
 
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
@@ -1343,7 +1372,7 @@
     <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
         <div class="shop-header">
-            <div class="shop-title">🏪 Robot Bolt</div>
+            <div class="shop-title">🏪 Skin Bolt</div>
             <div class="shop-xp" id="shopXpDisplay">⭐ 0 XP</div>
             <button class="shop-close-btn" id="skinClose">✕</button>
         </div>
@@ -1362,7 +1391,7 @@
             </div>
         </div>
         <div class="shop-section">
-            <div class="shop-section-title">🤖 Robot kinézet <span class="shop-sale-badge">AKCIÓ</span></div>
+            <div class="shop-section-title">🤖 Skin választék <span class="shop-sale-badge">AKCIÓ</span></div>
             <div class="shop-scroll" id="skinList"></div>
         </div>
         <div class="shop-section">
@@ -2545,7 +2574,7 @@
         function setActiveBg(name){localStorage.setItem('nu_active_bg',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|school)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|school|graffiti)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -2568,11 +2597,11 @@
         // Migráció + owner setup
         function checkMasterUnlock() {
             if(localStorage.getItem('nu_name') === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky'];
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky','graffiti'];
                 const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-classroom'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
-                console.log('✅ Master Unlock aktív: Minden szkin feloldva Kovrat számára.');
+                console.log('✅ Master Unlock aktív: Minden skin feloldva Kovrat számára.');
             }
         }
 
@@ -2596,16 +2625,17 @@
             const greet=document.getElementById('shopGreeting');
 
             const SKINS=[
-                {id:'',name:'Alap',desc:'Az eredeti robot',icon:'🤖',cost:0},
-                {id:'galaxy',name:'Galaxy',desc:'Kozmikus robot',icon:'🌌',cost:150},
-                {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:300},
-                {id:'fire',name:'Fire',desc:'Lángoló robot',icon:'🔥',cost:500},
-                {id:'stealth',name:'Stealth',desc:'Titkos ügynök',icon:'👤',cost:750},
-                {id:'school',name:'Sulis Robot',desc:'A legmenőbb középiskolás',icon:'🎒',cost:300},
-                {id:'golden',name:'Arany',desc:'Csillogó arany',icon:'✨',cost:1000},
-                {id:'rainbow',name:'Rainbow',desc:'Szivárványos',icon:'🌈',cost:1500,sale:999},
-                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt',icon:'💎',cost:2500,sale:1999},
-                {id:'chicky',name:'Csibés',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true}
+                {id:'',name:'Alap Skin',desc:'Az eredeti klasszikus',icon:'🤖',cost:0},
+                {id:'galaxy',name:'Galaxy Skin',desc:'Kozmikus ragyogás',icon:'🌌',cost:150},
+                {id:'sakura',name:'Sakura Skin',desc:'Cseresznyevirág',icon:'🌸',cost:300},
+                {id:'fire',name:'Fire Skin',desc:'Lángoló vörös izzás',icon:'🔥',cost:500},
+                {id:'stealth',name:'Stealth Skin',desc:'High-tech titkos ügynök',icon:'👤',cost:750},
+                {id:'school',name:'Sulis Skin',desc:'Hátizsákos diák robot',icon:'🎒',cost:300},
+                {id:'golden',name:'Golden Skin',desc:'Tiszta arany csillogás',icon:'✨',cost:1000},
+                {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500,sale:999},
+                {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500,sale:1999},
+                {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
+                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🎨'}
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
@@ -2628,9 +2658,11 @@
                 // TITKOS TIPP ÉS BEJELENTÉSEK
                 let announcement = '';
                 if(!owns('chicky')) {
-                    announcement += `<div style="margin-top:10px;padding:10px;background:rgba(251,191,36,0.1);border:1px dashed #fbbf24;border-radius:12px;font-size:12px;color:#fbbf24;font-weight:800;">🤫 FIGYELEM: Egy titkos húsvéti Csibés szkin el van rejtve az appban! 🥚</div>`;
+                    announcement += `<div style="margin-top:10px;padding:10px;background:rgba(251,191,36,0.1);border:1px dashed #fbbf24;border-radius:12px;font-size:12px;color:#fbbf24;font-weight:800;">🤫 FIGYELEM: Egy titkos húsvéti Csibés skin el van rejtve az appban! 🥚</div>`;
                 }
-                announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ SZKIN ÉRKEZIK: Április 10-én jön a "Graffiti Robot"!</div>`;
+                if(localStorage.getItem('nu_name') !== 'Kovrat' && !owns('graffiti')) {
+                    announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ SKIN ÉRKEZIK: Április 10-én jön a "Graffiti Skin"!</div>`;
+                }
                 greet.innerHTML += announcement;
 
                 const activeSkin=getActiveSkin();
@@ -2648,7 +2680,7 @@
                             <div class="daily-deal-icon">${deal.icon}</div>
                         </div>
                         <div class="daily-deal-info">
-                            <div class="daily-deal-name">${deal.name} ${deal.type==='skin'?'(Robot)':'(Háttér)'}</div>
+                            <div class="daily-deal-name">${deal.name} ${deal.type==='skin'?'(Skin)':'(Háttér)'}</div>
                             <div class="daily-deal-price">
                                 <span class="daily-deal-orig">${deal.origCost}</span>
                                 <span class="daily-deal-now">${deal.nowCost} XP</span>
