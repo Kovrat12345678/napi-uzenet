@@ -273,6 +273,30 @@
         .robot.chicky .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
         .robot.chicky .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
 
+        /* SULIS (SCHOOL) ROBOT SKIN */
+        .robot.school .head,.robot.school .torso{background:linear-gradient(165deg,#bae6fd 0%,#38bdf8 40%,#0284c7 100%)!important}
+        .robot.school .torso::before {
+            content: '🎒'; position: absolute; top: 10px; right: -15px; font-size: 24px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+        .robot.school .eye{background:radial-gradient(circle,#fff,#7dd3fc,#0284c7)!important;box-shadow:0 0 10px rgba(56,189,248,.6)!important}
+        .robot.school .mouth{background:#0284c7!important}
+        .robot.school .antenna-ball{background:radial-gradient(circle,#38bdf8,#0369a1)!important}
+        
+        .game-player.school .gp-head{background:linear-gradient(165deg,#bae6fd,#38bdf8)!important}
+        .game-player.school .gp-body{background:linear-gradient(165deg,#bae6fd,#0284c7)!important}
+        .game-player.school .gp-eye{background:radial-gradient(circle,#fff,#38bdf8)!important}
+
+        /* ISKOLAI TÁBLA HÁTTÉR */
+        body.bg-classroom {
+            background: linear-gradient(165deg, #14532d 0%, #064e3b 40%, #022c22 100%)!important;
+            background-attachment: fixed!important;
+        }
+        body.bg-classroom::before {
+            content: 'E = mc²   2+2=4   A=πr²'; position: fixed; inset: 0; 
+            font-family: 'Courier New', monospace; font-size: 20px; color: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center; white-space: pre-wrap; transform: rotate(-10deg); pointer-events: none;
+        }
+
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
         .game-emoji.collectible{animation:collectiblePulse 1s ease-in-out infinite;z-index:2}
         .game-emoji.gold-item{filter:drop-shadow(0 0 8px rgba(251,191,36,.8))}
@@ -2454,7 +2478,7 @@
         function setActiveBg(name){localStorage.setItem('nu_active_bg',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|school)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -2498,10 +2522,10 @@
                 {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:300},
                 {id:'fire',name:'Fire',desc:'Lángoló robot',icon:'🔥',cost:500},
                 {id:'stealth',name:'Stealth',desc:'Titkos ügynök',icon:'👤',cost:750},
+                {id:'school',name:'Sulis Robot',desc:'A legmenőbb középiskolás',icon:'🎒',cost:300},
                 {id:'golden',name:'Arany',desc:'Csillogó arany',icon:'✨',cost:1000},
                 {id:'rainbow',name:'Rainbow',desc:'Szivárványos',icon:'🌈',cost:1500,sale:999},
-                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt',icon:'💎',cost:2500,sale:1999},
-                {id:'chicky',name:'Csibés',desc:'Húsvéti titok 🐣',icon:'🐥',cost:0}
+                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt',icon:'💎',cost:2500,sale:1999}
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
@@ -2509,6 +2533,7 @@
                 {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:200},
                 {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:400},
                 {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:600},
+                {id:'bg-classroom',name:'Suli Tábla',desc:'Klasszikus kréta-stílus',icon:'📚',cost:180},
                 {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1200},
                 {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:1500},
                 {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:2500}
