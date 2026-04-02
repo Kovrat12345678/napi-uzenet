@@ -241,9 +241,42 @@
         .robot.stealth .ear::after{background:#475569!important}
         .robot.stealth .foot{background:#0f172a!important}
         .robot.stealth .chest-dot{background:#ef4444!important;box-shadow:0 0 4px rgba(239,68,68,.6)!important}
-        .robot.stealth .face-screen{background:linear-gradient(180deg,#020617,#0f172a)!important}
         .robot.stealth .chest{background:linear-gradient(145deg,#020617,#0f172a)!important}
         .robot.stealth .chest::before{border-color:rgba(239,68,68,.15)!important}
+
+        /* ALIVE FIRE */
+        .robot.fire .torso, .robot.fire .head { animation: flameFlicker 1.5s ease-in-out infinite; }
+        .robot.fire .torso { background: #dc2626!important; }
+
+        /* ALIVE GALAXY */
+        .robot.galaxy .torso { overflow: hidden; position: relative; }
+        .robot.galaxy .torso::after {
+            content: '✦ . ✦ .'; position: absolute; inset: 0; color: #fff; font-size: 10px;
+            display: flex; align-items: center; justify-content: center;
+            animation: starTwinkle 3s infinite; text-shadow: 0 0 5px #fff;
+        }
+
+        /* ALIVE STEALTH */
+        .robot.stealth .face-screen::after {
+            content: ''; position: absolute; left: 0; right: 0; height: 2px;
+            background: #ef4444; box-shadow: 0 0 8px #ef4444; 
+            animation: stealthScan 2s ease-in-out infinite; z-index: 10;
+        }
+
+        /* ALIVE GOLDEN & DIAMOND */
+        .robot.golden .torso, .robot.diamond .torso { overflow: hidden; position: relative; }
+        .robot.golden .torso::before, .robot.diamond .torso::before {
+            content: ''; position: absolute; inset: 0; top: -50%; bottom: -50%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            width: 50%; animation: shimmerGlint 3s infinite ease-in-out;
+        }
+        .robot.diamond .head::after {
+            content: '✨'; position: absolute; top: -5px; right: -5px; font-size: 14px;
+            animation: sparklePop 4s infinite;
+        }
+
+        /* ALIVE RAINBOW */
+        .robot.rainbow { animation: rainbowFlow 8s linear infinite; }
 
         /* Chicky robot skin */
         .game-player.chicky .gp-head{background:linear-gradient(165deg,#fffbeb,#fcd34d)!important}
@@ -255,9 +288,9 @@
         /* CIKKCAKKOS TOJÁSHÉJ A SEGGÉN */
         .robot.chicky .torso::after {
             content: ''; position: absolute; bottom: -2px; left: -2px; right: -2px; height: 40px;
-            background: #fff; border-radius: 0 0 24px 24px;
+            background: linear-gradient(to bottom, #fff, #f3f4f6); border-radius: 0 0 24px 24px;
             clip-path: polygon(0% 20%, 10% 0%, 20% 20%, 30% 0%, 40% 20%, 50% 0%, 60% 20%, 70% 0%, 80% 20%, 90% 0%, 100% 20%, 100% 100%, 0% 100%);
-            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.05);
+            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.1);
         }
         
         .robot.chicky .eye{background:radial-gradient(circle,#fbbf24,#f59e0b,#d97706)!important;box-shadow:0 0 14px rgba(245,158,11,.8),0 0 28px rgba(245,158,11,.4)!important}
@@ -286,15 +319,48 @@
         .game-player.school .gp-body{background:linear-gradient(165deg,#bae6fd,#0284c7)!important}
         .game-player.school .gp-eye{background:radial-gradient(circle,#fff,#38bdf8)!important}
 
-        /* ISKOLAI TÁBLA HÁTTÉR */
+        /* ISKOLAI TÁBLA HÁTTÉR — PRÉMIUM TEXTÚRA */
         body.bg-classroom {
-            background: linear-gradient(165deg, #14532d 0%, #064e3b 40%, #022c22 100%)!important;
+            background: #064e3b!important;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 80%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3C%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")!important;
             background-attachment: fixed!important;
         }
         body.bg-classroom::before {
-            content: 'E = mc²   2+2=4   A=πr²'; position: fixed; inset: 0; 
-            font-family: 'Courier New', monospace; font-size: 20px; color: rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: center; white-space: pre-wrap; transform: rotate(-10deg); pointer-events: none;
+            content: 'E = mc²   π ≈ 3.14   H₂O'; position: fixed; inset: 0; 
+            font-family: 'Courier New', monospace; font-size: 24px; color: rgba(255,255,255,0.07);
+            display: flex; align-items: center; justify-content: center; transform: rotate(-5deg); pointer-events: none;
+            letter-spacing: 5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        body.bg-classroom::after {
+            content: '📚 ✏️ 🍎'; position: fixed; bottom: 20px; right: 20px; font-size: 30px; opacity: 0.2; transform: rotate(10deg); pointer-events: none;
+        }
+
+        /* ALIVE SKINS ANIMATIONS */
+        @keyframes flameFlicker {
+            0%, 100% { box-shadow: 0 0 20px rgba(249,115,22,0.4), inset 0 0 10px rgba(220,38,38,0.2); filter: blur(0px); }
+            50% { box-shadow: 0 0 45px rgba(249,115,22,0.7), inset 0 0 20px rgba(220,38,38,0.5); filter: blur(0.5px); }
+        }
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        @keyframes shimmerGlint {
+            0% { transform: translateX(-150%) skewX(-20deg); }
+            100% { transform: translateX(150%) skewX(-20deg); }
+        }
+        @keyframes stealthScan {
+            0%, 100% { transform: translateY(-5px); opacity: 0.3; }
+            50% { transform: translateY(5px); opacity: 0.8; }
+        }
+        @keyframes rainbowFlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        @keyframes sparklePop {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
         }
 
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
@@ -1400,6 +1466,7 @@
                 if(!val)return;
                 localStorage.setItem('nu_name',val);
                 localStorage.setItem('nu_reg','1');
+                if(typeof checkMasterUnlock === 'function') checkMasterUnlock();
                 card.classList.add('ob-out');
                 setTimeout(()=>{
                     ob.classList.add('hidden');
@@ -2499,9 +2566,21 @@
             }
         }
         // Migráció + owner setup
+        function checkMasterUnlock() {
+            if(localStorage.getItem('nu_name') === 'Kovrat') {
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky'];
+                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-classroom'];
+                skins.forEach(s => buyItem(s));
+                bgs.forEach(b => buyItem(b));
+                console.log('✅ Master Unlock aktív: Minden szkin feloldva Kovrat számára.');
+            }
+        }
+
         (function(){
             const old=localStorage.getItem('nu_skins');
             if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
+            
+            checkMasterUnlock();
             applyRobotSkin();
             applyCustomBg();
         })();
@@ -2546,6 +2625,14 @@
                 const name=localStorage.getItem('nu_name')||'Barátom';
                 greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>A <span style="color:#38bdf8">DailyBot</span> üdvözöl a boltban! Kattints az akciókért! 🔥`;
                 
+                // TITKOS TIPP ÉS BEJELENTÉSEK
+                let announcement = '';
+                if(!owns('chicky')) {
+                    announcement += `<div style="margin-top:10px;padding:10px;background:rgba(251,191,36,0.1);border:1px dashed #fbbf24;border-radius:12px;font-size:12px;color:#fbbf24;font-weight:800;">🤫 FIGYELEM: Egy titkos húsvéti Csibés szkin el van rejtve az appban! 🥚</div>`;
+                }
+                announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ SZKIN ÉRKEZIK: Április 10-én jön a "Graffiti Robot"!</div>`;
+                greet.innerHTML += announcement;
+
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
                 skinList.innerHTML='';
@@ -2628,14 +2715,6 @@
                         });
                         cfg.list.appendChild(el);
                     });
-                    
-                    // REJTETT TIPP A BOLTBAN
-                    if(cfg.id === 'skinList' && !owns('chicky')) {
-                        const hint = document.createElement('div');
-                        hint.style.cssText = 'flex:0 0 135px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:11px;font-weight:600;text-align:center;padding:0 10px;line-height:1.4;';
-                        hint.innerHTML = 'Valahol el van rejtve egy titkos Csibés robot... 🥚🤫';
-                        cfg.list.appendChild(hint);
-                    }
                 });
             }
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
