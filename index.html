@@ -371,6 +371,31 @@
             font-family: monospace; color: #38bdf8; opacity: 0.3; font-size: 10px; letter-spacing: 2px;
         }
 
+        /* WEATHER EFFECTS */
+        #weather-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; transition: 1s; }
+        
+        #rain-container, #snow-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 6; }
+        
+        .rain-drop { position: absolute; background: #fff; width: 1px; height: 15px; opacity: 0.4; animation: fall linear infinite; }
+        .snow-flake { position: absolute; background: #fff; border-radius: 50%; opacity: 0.8; animation: fall linear infinite; }
+        
+        @keyframes fall { to { transform: translateY(100vh); } }
+
+        #lightning-flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; opacity: 0; pointer-events: none; z-index: 100; transition: 0.1s; }
+        @keyframes thunderFlash { 0%{opacity:0} 10%{opacity:0.6} 15%{opacity:0.2} 20%{opacity:0.8} 100%{opacity:0} }
+
+        /* ROBOT ACCESSORIES */
+        .accessory-umbrella { position: absolute; top: -110px; right: -40px; width: 130px; height: 130px; background: url('https://img.icons8.com/emoji/96/umbrella-with-rain-drops.png') no-repeat center; background-size: contain; display: none; z-index: 20; transform-origin: bottom center; animation: swaying 3s ease-in-out infinite; }
+        .accessory-scarf { position: absolute; top: 70px; left: 50%; transform: translateX(-50%); width: 70px; height: 30px; background: #ef4444; border-radius: 0 0 15px 15px; z-index: 6; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: none; border-top: 5px solid #b91c1c; }
+        .accessory-sunnies { position: absolute; top: 20px; left: 10px; right: 10px; height: 15px; background: #000; border-radius: 5px; z-index: 10; display: none; box-shadow: 0 2px 4px rgba(0,0,0,0.5); border-bottom: 2px solid #333; }
+        .accessory-sunnies::before, .accessory-sunnies::after { content: ''; position: absolute; top: 0; width: 35%; height: 100%; background: #000; border-radius: 4px; }
+        .accessory-sunnies::before { left: 0; } .accessory-sunnies::after { right: 0; }
+
+        /* WEATHER THEMES ON OVERLAY */
+        .weather-sunny #weather-overlay { background: radial-gradient(circle at 10% 10%, rgba(253,224,71,0.2), transparent 50%); }
+        .weather-cloudy #weather-overlay { background: rgba(148,163,184,0.1); }
+        .weather-storm #weather-overlay { background: rgba(30,41,59,0.3); }
+
         /* ALIVE FIRE */
         .robot.fire .torso, .robot.fire .head { animation: flameFlicker 1.5s ease-in-out infinite; }
         .robot.fire .torso { background: #dc2626!important; }
@@ -1393,6 +1418,66 @@
         .ob-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);transition:all .3s}
         .ob-dot.active{background:#fff;transform:scale(1.2)}
         .ob-skip{margin-top:14px;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;background:none;border:none;cursor:pointer;text-decoration:underline}
+
+        /* VALÓS IDEJŰ IDŐJÁRÁS EFFEKTEK */
+        .weather-layer { position: fixed; inset: 0; pointer-events: none; z-index: 5; transition: 1s; }
+        .rain-box, .snow-box { position: absolute; inset: 0; }
+        .rain-drop { position: absolute; width: 1.5px; height: 18px; background: rgba(255,255,255,0.4); animation: weatherFall linear infinite; }
+        .snow-flake { position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; opacity: 0.8; animation: weatherFall linear infinite; }
+        @keyframes weatherFall { to { transform: translateY(100vh); } }
+
+        #lightningFlash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 100; transition: 0.1s; }
+        @keyframes thunderStrike { 0%{opacity:0} 10%{opacity:0.7} 15%{opacity:0.2} 20%{opacity:0.9} 100%{opacity:0} }
+
+        .weather-sunny .weather-layer { background: radial-gradient(circle at 10% 10%, rgba(253,224,71,0.2), transparent 50%); }
+        .weather-storm .weather-layer { background: rgba(30,41,59,0.3); }
+
+        /* ROBOT IDŐJÁRÁS KIEGÉSZÍTŐK */
+        .acc-u { position: absolute; top: -115px; right: -45px; width: 140px; height: 140px; background: url('https://img.icons8.com/emoji/96/umbrella-with-rain-drops.png') no-repeat center; background-size: contain; display: none; z-index: 25; transform-origin: bottom center; animation: swaying 4s ease-in-out infinite; }
+        .acc-s { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 75px; height: 35px; background: #ef4444; border-radius: 0 0 15px 15px; z-index: 7; display: none; border-top: 6px solid #b91c1c; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .acc-sun { position: absolute; top: 22px; left: 12px; right: 12px; height: 16px; background: #000; border-radius: 6px; z-index: 15; display: none; border-bottom: 2px solid #333; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
+        .acc-sun::before, .acc-sun::after { content: ''; position: absolute; top: 0; width: 38%; height: 100%; background: #000; border-radius: 5px; }
+        .acc-sun::before { left: 0; border-right: 1px solid #222; } .acc-sun::after { right: 0; border-left: 1px solid #222; }
+
+        @keyframes swaying { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+
+        /* GAMER SKIN JAVÍTÁS */
+        .robot.gamer .head::after { top: -45px!important; font-size: 68px!important; }
+        .robot.gamer .head::before {
+            content: ''; position: absolute; top: 15px; left: 5px; right: 5px; height: 32px;
+            background: linear-gradient(90deg, rgba(56,189,248,0.4), rgba(236,72,153,0.4));
+            border: 2px solid #fff; border-radius: 8px; box-shadow: 0 0 25px #38bdf8; z-index: 2;
+            animation: pulse 1s infinite alternate;
+        }
+        .robot.gamer .head, .robot.gamer .torso {
+            background: linear-gradient(165deg, #020617 0%, #1e1b4b 100%)!important;
+            border: 1px solid rgba(56,189,248,0.4)!important;
+        }
+        .robot.gamer .chest-dot { box-shadow: 0 0 25px #38bdf8, 0 0 50px #ec4899!important; animation: pulse 0.5s infinite!important; }
+
+        /* VALÓS IDEJŰ IDŐJÁRÁS EFFEKTEK */
+        .weather-layer { position: fixed; inset: 0; pointer-events: none; z-index: 5; transition: 1s; }
+        .rain-box, .snow-box { position: absolute; inset: 0; }
+        
+        .rain-drop { position: absolute; width: 1.5px; height: 18px; background: rgba(255,255,255,0.4); animation: weatherFall linear infinite; }
+        .snow-flake { position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; opacity: 0.8; animation: weatherFall linear infinite; }
+        @keyframes weatherFall { to { transform: translateY(100vh); } }
+
+        #lightningFlash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 100; transition: 0.1s; }
+        @keyframes thunderStrike { 0%{opacity:0} 10%{opacity:0.7} 15%{opacity:0.2} 20%{opacity:0.9} 100%{opacity:0} }
+
+        /* IDŐJÁRÁS TÉMÁK */
+        .weather-sunny .weather-layer { background: radial-gradient(circle at 10% 10%, rgba(253,224,71,0.2), transparent 50%); }
+        .weather-storm .weather-layer { background: rgba(30,41,59,0.3); }
+
+        /* ROBOT IDŐJÁRÁS KIEGÉSZÍTŐK */
+        .acc-u { position: absolute; top: -115px; right: -45px; width: 140px; height: 140px; background: url('https://img.icons8.com/emoji/96/umbrella-with-rain-drops.png') no-repeat center; background-size: contain; display: none; z-index: 25; transform-origin: bottom center; animation: swaying 4s ease-in-out infinite; }
+        .acc-s { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 75px; height: 35px; background: #ef4444; border-radius: 0 0 15px 15px; z-index: 7; display: none; border-top: 6px solid #b91c1c; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .acc-sun { position: absolute; top: 22px; left: 12px; right: 12px; height: 16px; background: #000; border-radius: 6px; z-index: 15; display: none; border-bottom: 2px solid #333; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
+        .acc-sun::before, .acc-sun::after { content: ''; position: absolute; top: 0; width: 38%; height: 100%; background: #000; border-radius: 5px; }
+        .acc-sun::before { left: 0; border-right: 1px solid #222; } .acc-sun::after { right: 0; border-left: 1px solid #222; }
+
+        @keyframes swaying { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
     </style>
 </head>
 <body>
@@ -1408,7 +1493,11 @@
     </div>
 
     <div class="stars" id="stars"></div>
-    <div class="weather-layer" id="weatherLayer"></div>
+    <div class="weather-layer" id="weatherLayer">
+        <div class="rain-box" id="rainBox"></div>
+        <div class="snow-box" id="snowBox"></div>
+    </div>
+    <div id="lightningFlash"></div>
 
     <div class="app pre-reg" id="appMain">
         <div class="top">
@@ -1437,6 +1526,10 @@
         <div class="robot-area">
             <button class="robot-btn" id="btn" aria-label="Napi üzenet">
                 <div class="robot" id="robot">
+                    <!-- IDŐJÁRÁS KIEGÉSZÍTŐK -->
+                    <div class="acc-u" id="accU"></div>
+                    <div class="acc-s" id="accS"></div>
+                    <div class="acc-sun" id="accSun"></div>
                     <!-- Öltözék -->
                     <span class="outfit outfit-hat" id="outfitHat"></span>
                     <span class="outfit outfit-face" id="outfitFace"></span>
@@ -2779,6 +2872,87 @@
             }
         }
 
+        // VALÓS IDEJŰ IDŐJÁRÁS LOGIKA
+        const WEATHER_API = "https://api.open-meteo.com/v1/forecast";
+        async function updateWeather() {
+            let lat = 47.4979, lon = 19.0402; // Alapértelmezett: Budapest
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    fetchWeatherData(pos.coords.latitude, pos.coords.longitude);
+                }, () => { fetchWeatherData(lat, lon); });
+            } else { fetchWeatherData(lat, lon); }
+        }
+
+        async function fetchWeatherData(lat, lon) {
+            try {
+                const res = await fetch(`${WEATHER_API}?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const data = await res.json();
+                if(data && data.current_weather) renderWeather(data.current_weather.weathercode);
+            } catch (e) { console.error("Weather error", e); }
+        }
+
+        function renderWeather(code) {
+            const body = document.body;
+            body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rain', 'weather-snow', 'weather-storm');
+            
+            const accU = document.getElementById('accU'), accS = document.getElementById('accS'), accSun = document.getElementById('accSun');
+            const rainBox = document.getElementById('rainBox'), snowBox = document.getElementById('snowBox'), lightning = document.getElementById('lightningFlash');
+            
+            if(accU) accU.style.display = 'none';
+            if(accS) accS.style.display = 'none';
+            if(accSun) accSun.style.display = 'none';
+            if(rainBox) rainBox.innerHTML = '';
+            if(snowBox) snowBox.innerHTML = '';
+            if(window._weatherInterval) clearInterval(window._weatherInterval);
+
+            // WMO Kódok (0-1: Derült, 2-3: Felhős, 51-82: Eső, 71-86: Hó, 95-99: Vihar)
+            if([0, 1].includes(code)) {
+                body.classList.add('weather-sunny');
+                if(accSun) accSun.style.display = 'block';
+            } else if([2, 3].includes(code)) {
+                body.classList.add('weather-cloudy');
+            } else if([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
+                body.classList.add('weather-rain');
+                if(accU) accU.style.display = 'block';
+                spawnWeatherParticles('rain-drop', 40, rainBox);
+            } else if([71, 73, 75, 85, 86].includes(code)) {
+                body.classList.add('weather-snow');
+                if(accS) accS.style.display = 'block';
+                spawnWeatherParticles('snow-flake', 25, snowBox);
+            } else if([95, 96, 99].includes(code)) {
+                body.classList.add('weather-storm');
+                if(accU) accU.style.display = 'block';
+                spawnWeatherParticles('rain-drop', 60, rainBox);
+                initLightningEffect(lightning);
+            }
+        }
+
+        function spawnWeatherParticles(cls, count, container) {
+            if(!container) return;
+            for(let i=0; i<count; i++) {
+                const p = document.createElement('div');
+                p.className = cls;
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 0.8 + 0.6) + 's';
+                p.style.animationDelay = Math.random() * 2 + 's';
+                if(cls === 'snow-flake') {
+                    const s = (Math.random() * 4 + 2) + 'px';
+                    p.style.width = p.style.height = s;
+                }
+                container.appendChild(p);
+            }
+        }
+
+        function initLightningEffect(el) {
+            if(!el) return;
+            window._weatherInterval = setInterval(() => {
+                if(Math.random() > 0.85) {
+                    el.style.animation = 'thunderStrike 0.4s ease-out';
+                    setTimeout(() => el.style.animation = '', 400);
+                }
+            }, 4000);
+        }
+
         (function(){
             const old=localStorage.getItem('nu_skins');
             if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
@@ -2787,6 +2961,8 @@
             applyRobotSkin();
             applyCustomBg();
             applyAura();
+            updateWeather();
+            setInterval(updateWeather, 900000); // 15 percenként
         })();
 
         // ========== BOLT MENÜ ==========
