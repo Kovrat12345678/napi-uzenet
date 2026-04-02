@@ -381,14 +381,20 @@
             background-attachment: fixed!important;
         }
         body.bg-classroom::before {
-            content: 'E = mc²   π ≈ 3.14   H₂O'; position: fixed; inset: 0; 
-            font-family: 'Courier New', monospace; font-size: 24px; color: rgba(255,255,255,0.07);
-            display: flex; align-items: center; justify-content: center; transform: rotate(-5deg); pointer-events: none;
-            letter-spacing: 5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            content: 'DailyBot 🤖 \A E = mc²   π ≈ 3.14 \A Szia Barátom! \A Matek óra: 14:00 \A H₂O + CO₂'; 
+            position: fixed; inset: 0; 
+            font-family: 'Courier New', monospace; font-size: 28px; color: rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center; 
+            transform: rotate(-3deg); pointer-events: none;
+            letter-spacing: 3px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            white-space: pre-wrap; text-align: center; line-height: 2.5;
+            z-index: -1;
         }
         body.bg-classroom::after {
-            content: '📚 ✏️ 🍎'; position: fixed; bottom: 20px; right: 20px; font-size: 30px; opacity: 0.2; transform: rotate(10deg); pointer-events: none;
+            content: '📚 ✏️ 🍎 🎒'; position: fixed; bottom: 30px; right: 30px; font-size: 36px; opacity: 0.15; transform: rotate(10deg); pointer-events: none;
+            z-index: -1;
         }
+        body.bg-classroom .container { position: relative; z-index: 1; }
 
         /* ALIVE SKINS ANIMATIONS */
         @keyframes flameFlicker {
