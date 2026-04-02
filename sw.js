@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v9';
+const CACHE_NAME = 'dailybot-v10';
 const ASSETS = [
     './',
     './index.html',
@@ -12,7 +12,7 @@ self.addEventListener('install', e => {
     self.skipWaiting();
 });
 
-// Activate — régi cache törlés
+// Activate — régi cache törlés + azonnal átveszi az irányítást
 self.addEventListener('activate', e => {
     e.waitUntil(
         caches.keys().then(keys =>
@@ -20,6 +20,8 @@ self.addEventListener('activate', e => {
         )
     );
     self.clients.claim();
+    // Aktiválás után azonnal ütemezzük az értesítéseket
+    scheduleMorningNotification();
 });
 
 // Fetch — network first az index.html-hez, cache first a többihez
@@ -69,29 +71,34 @@ function showDailyNotification() {
     });
 }
 
+// Reggel 6:00 értesítés ütemezése — ismétlődő
+function scheduleMorningNotification() {
+    const now = new Date();
+    const target = new Date(now);
+    target.setHours(6, 0, 0, 0);
+
+    // Ha ma már elmúlt 6 óra, holnapra ütemezünk
+    if (target <= now) {
+        target.setDate(target.getDate() + 1);
+    }
+
+    const delay = target - now;
+
+    setTimeout(() => {
+        showDailyNotification();
+        // Következő napra újra ütemez (24 óra múlva)
+        setTimeout(() => {
+            scheduleMorningNotification();
+        }, 1000); // 1 mp múlva újra ütemez a következő napra
+    }, delay);
+}
+
 // Üzenet a főoldalról — ütemezés indítása
 self.addEventListener('message', e => {
     if (e.data && e.data.type === 'schedule') {
-        scheduleNotifications();
+        scheduleMorningNotification();
     }
 });
-
-// Több értesítés naponta (reggel 6, délben, este 6)
-function scheduleNotifications() {
-    const now = new Date();
-    const times = [6, 12, 18]; // 6:00, 12:00, 18:00
-
-    times.forEach(hour => {
-        const target = new Date(now);
-        target.setHours(hour, 0, 0, 0);
-        if (target <= now) return; // már elmúlt
-
-        const delay = target - now;
-        setTimeout(() => {
-            showDailyNotification();
-        }, delay);
-    });
-}
 
 // Értesítésre kattintás → app megnyitás
 self.addEventListener('notificationclick', e => {

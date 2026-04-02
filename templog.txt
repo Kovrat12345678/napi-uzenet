@@ -1,0 +1,30 @@
+fca5d58 Fix syntax errors and change galaxy prices to 50 XP
+06dfc3e Add Galaxy theme and language selection
+3565d78 Dokumentacio frissites: README.md naprakesz (XP rendszer, Robot Bolt, uj jatek leiras)
+4b8caf4 Owner init kod eltavolitva — mindenki XP-vel szerzi meg a targyakat
+18c5d61 Dokumentacio frissites: jatek es bolt leiras naprakesz
+8ac2aeb Jatek: arany/rainbow/gyemant emojik + themed hatterek + 10 kikerulesenkent 50 XP
+84165ec Jatek: XP rendszer + Robot Bolt (skinek + hatterek vasarlasa XP-ert)
+756e3ea Jatek: csak gyujtheto targyak (arany/rainbow/gyemant) + 60s timer + permanens skin rendszer + skin valaszto menu
+e80869e Dokumentacio frissites: gyujtheto targyak es konnyebb jatek
+34bd9da Jatek: konnyebb nehezseg + gyujtheto arany/rainbow/gyemant targyak
+8688d71 Dokumentacio frissites: 3 szintu robot skin (arany/rainbow/gyemant)
+bc00675 Jatek: 3 szintu robot skin (200=arany, 500=rainbow, 1000=gyemant)
+c3afe09 Dokumentacio frissites: CLAUDE.md es README.md naprakesz
+35338af Idojaras fallback javitas: ipapi.co -> geojs.io (CORS kompatibilis)
+2e741d6 Jatek cel szoveg, idojaras fallback IP-alapu helymeghatározassal
+0f4c354 Jatek robot nagyobb, onboarding egyszerusites (csak keresztnev)
+5d8d756 Jatek: CSS mini robot, csak jobbra-balra mozgas, robot-temas emojik, arany jutalom
+31a75e6 Emoji dodge minijáték, TikTok link, 8→6 óra váltás, Android onboarding fix, üzenet hash javítás
+2d84374 Dokumentacio frissites: CLAUDE.md es README.md naprakesz
+e30b40e Ertesitesek visszaallitva (belepeskor + naponta tobbszor), app manifest javitas
+4c4e27a Megosztas: kepes kartya generalas + ikon kicsinyites
+a127413 Uzenetek atrasa TopJoy stilusra, reggel 8 logika, megosztas gomb, push szerver
+8f5ba51 Dokumentacio frissites: onboarding, kedvencek, nevnap, szulinap
+88202fc Nevnap koszrontes + Mama szulinapja (apr 4-5.)
+c98de1a Megosztas gomb kicserelve Kedvencek funkcióra
+0decbf1 Szemelyes koszsontes + megosztas gomb
+fa6bf10 Ikon: javitott nagy robot verzio visszaallitva
+05e3a02 SW cache v6: frissites kenyszerites Android onboarding-hoz
+0588e15 Ikon visszaallitva az eredetire (Gemini kep)
+c50bcc3 Onboarding fix Android + rezges eltavolitva

@@ -7,9 +7,29 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="DailyBot">
     <meta name="theme-color" content="#38bdf8" id="themeColor">
-    <link rel="apple-touch-icon" href="icon/dailybot-icon.png">
-    <link rel="manifest" href="manifest.json">
-    <title>DailyBot</title>
+    <link rel="apple-touch-icon" id="appleIcon" href="easter_robot_icon_1775165541166.png?v=2">
+    <link rel="icon" id="favicon" type="image/png" href="easter_robot_icon_1775165541166.png?v=2">
+    <link rel="manifest" id="manifestLink" href="manifest.json?v=2">
+    <script>
+        // Ellenőrzés: Húsvét után vagyunk-e (Ápr 7.)
+        const isPastEaster = (function(){
+            const d = new Date();
+            return d.getFullYear() > 2026 || (d.getFullYear() === 2026 && (d.getMonth() > 3 || (d.getMonth() === 3 && d.getDate() > 7)));
+        })();
+
+        // Automatikus ikon-visszaállítás
+        (function(){
+            if(isPastEaster){
+                document.addEventListener('DOMContentLoaded', () => {
+                    const appleIcon = document.getElementById('appleIcon');
+                    const favicon = document.getElementById('favicon');
+                    if(appleIcon) appleIcon.href = "icon/dailybot-icon.png";
+                    if(favicon) favicon.href = "icon/dailybot-icon.png";
+                });
+            }
+        })();
+    </script>
+    <title>DailyBot 🤖</title>
     <style>
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
         html{background-color:#f97316;min-height:100%;min-height:100dvh;min-height:-webkit-fill-available}
@@ -56,6 +76,10 @@
         .game-overlay.active{display:flex}
         .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 16px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:16px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
         .game-score{font-size:22px}
+        .game-lives{font-size:20px;letter-spacing:2px}
+        .game-lives .life-lost{opacity:.25}
+        @keyframes hitFlash{0%{opacity:1}20%{opacity:.2}40%{opacity:1}60%{opacity:.2}80%{opacity:1}100%{opacity:1}}
+        .game-player.hit{animation:hitFlash .6s ease!important}
         .game-goal{font-size:11px;color:rgba(255,255,255,.6);text-align:center;flex:1}
         .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer;z-index:10;position:relative}
         .game-golden-msg{color:#fbbf24;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(251,191,36,.5);margin:0}
@@ -131,6 +155,124 @@
         .robot.diamond .neck{background:linear-gradient(to bottom,#67e8f9,#0891b2)!important}
         .robot.diamond .ear-l,.robot.diamond .ear-r{background:#22d3ee!important}
         .robot.diamond .foot{background:#0e7490!important}
+
+        /* Galaxy robot skin */
+        @keyframes galaxyShimmer{0%,100%{filter:brightness(1) saturate(1.1)}50%{filter:brightness(1.15) saturate(1.3)}}
+        @keyframes galaxyStar{0%,100%{box-shadow:0 0 8px rgba(139,92,246,.5),0 0 16px rgba(236,72,153,.3)}50%{box-shadow:0 0 20px rgba(139,92,246,.9),0 0 40px rgba(236,72,153,.5),0 0 60px rgba(56,189,248,.3)}}
+        .game-player.galaxy,.robot.galaxy{animation:galaxyShimmer 3s ease-in-out infinite}
+        .game-player.galaxy .gp-head{background:linear-gradient(165deg,#1e1b4b,#312e81,#4c1d95)!important}
+        .game-player.galaxy .gp-body{background:linear-gradient(165deg,#312e81,#581c87,#1e1b4b)!important}
+        .game-player.galaxy .gp-eye{background:radial-gradient(circle,#e9d5ff,#a78bfa,#7c3aed)!important;box-shadow:0 0 10px rgba(167,139,250,.9)!important}
+        .game-player.galaxy .gp-leg{background:linear-gradient(to bottom,#4c1d95,#1e1b4b)!important}
+        .robot.galaxy .head,.robot.galaxy .torso{background:linear-gradient(165deg,#1e1b4b 0%,#312e81 25%,#4c1d95 50%,#581c87 75%,#1e1b4b 100%)!important;box-shadow:0 4px 15px rgba(0,0,0,.2),inset 0 1px 0 rgba(167,139,250,.3),0 0 20px rgba(139,92,246,.15)!important}
+        .robot.galaxy .eye{background:radial-gradient(circle,#f0abfc,#c084fc,#7c3aed)!important;box-shadow:0 0 14px rgba(192,132,252,.9),0 0 28px rgba(139,92,246,.5)!important}
+        .robot.galaxy .antenna-ball{background:radial-gradient(circle,#fff,#e9d5ff,#c084fc)!important;animation:galaxyStar 2s ease-in-out infinite!important}
+        .robot.galaxy .arm-l,.robot.galaxy .arm-r{background:linear-gradient(to bottom,#4c1d95,#312e81)!important}
+        .robot.galaxy .leg{background:linear-gradient(to bottom,#4c1d95,#1e1b4b)!important}
+        .robot.galaxy .shoulder-l,.robot.galaxy .shoulder-r{background:radial-gradient(circle,#7c3aed,#4c1d95)!important}
+        .robot.galaxy .heart-icon{filter:brightness(1.3) hue-rotate(270deg)!important}
+        .robot.galaxy .chest-dot{background:#c084fc!important;box-shadow:0 0 6px rgba(192,132,252,.8)!important}
+        .robot.galaxy .mouth{background:#a78bfa!important;box-shadow:0 0 8px rgba(167,139,250,.6)!important}
+        .robot.galaxy .neck{background:linear-gradient(to bottom,#4c1d95,#312e81)!important}
+        .robot.galaxy .ear-l,.robot.galaxy .ear-r{background:#4c1d95!important}
+        .robot.galaxy .ear::after{background:#7c3aed!important}
+        .robot.galaxy .foot{background:#1e1b4b!important}
+        .robot.galaxy .face-screen{background:linear-gradient(180deg,#0c0a1a,#1e1b4b)!important;box-shadow:inset 0 2px 8px rgba(0,0,0,.6),0 0 8px rgba(139,92,246,.15)!important}
+        .robot.galaxy .chest{background:linear-gradient(145deg,#0c0a1a,#1e1b4b)!important;box-shadow:inset 0 2px 6px rgba(0,0,0,.5),0 0 8px rgba(139,92,246,.2)!important}
+        .robot.galaxy .chest::before{border-color:rgba(167,139,250,.25)!important}
+
+        /* Sakura robot skin */
+        @keyframes sakuraPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.08)}}
+        .game-player.sakura,.robot.sakura{animation:sakuraPulse 3s ease-in-out infinite}
+        .game-player.sakura .gp-head{background:linear-gradient(165deg,#fce7f3,#f9a8d4)!important}
+        .game-player.sakura .gp-body{background:linear-gradient(165deg,#fce7f3,#ec4899)!important}
+        .game-player.sakura .gp-eye{background:radial-gradient(circle,#fff,#f9a8d4)!important;box-shadow:0 0 8px rgba(236,72,153,.6)!important}
+        .game-player.sakura .gp-leg{background:linear-gradient(to bottom,#ec4899,#be185d)!important}
+        .robot.sakura .head,.robot.sakura .torso{background:linear-gradient(165deg,#fce7f3 0%,#fbcfe8 30%,#f9a8d4 60%,#ec4899 100%)!important}
+        .robot.sakura .eye{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899)!important;box-shadow:0 0 12px rgba(236,72,153,.7)!important}
+        .robot.sakura .antenna-ball{background:radial-gradient(circle,#fff,#fce7f3)!important;box-shadow:0 0 16px rgba(236,72,153,.6)!important}
+        .robot.sakura .arm-l,.robot.sakura .arm-r{background:linear-gradient(to bottom,#f9a8d4,#ec4899)!important}
+        .robot.sakura .leg{background:linear-gradient(to bottom,#f9a8d4,#be185d)!important}
+        .robot.sakura .shoulder-l,.robot.sakura .shoulder-r{background:radial-gradient(circle,#fce7f3,#f9a8d4)!important}
+        .robot.sakura .mouth{background:#ec4899!important;box-shadow:0 0 6px rgba(236,72,153,.5)!important}
+        .robot.sakura .neck{background:linear-gradient(to bottom,#f9a8d4,#ec4899)!important}
+        .robot.sakura .ear-l,.robot.sakura .ear-r{background:#f9a8d4!important}
+        .robot.sakura .foot{background:#be185d!important}
+        .robot.sakura .chest-dot{background:#f9a8d4!important}
+        .robot.sakura .face-screen{background:linear-gradient(180deg,#500724,#831843)!important}
+        .robot.sakura .chest{background:linear-gradient(145deg,#500724,#831843)!important}
+
+        /* Fire robot skin */
+        @keyframes fireFlicker{0%,100%{filter:brightness(1) saturate(1.1)}30%{filter:brightness(1.15) saturate(1.4)}70%{filter:brightness(1.05) saturate(1.2)}}
+        .game-player.fire,.robot.fire{animation:fireFlicker 1.5s ease-in-out infinite}
+        .game-player.fire .gp-head{background:linear-gradient(165deg,#dc2626,#f97316)!important}
+        .game-player.fire .gp-body{background:linear-gradient(165deg,#b91c1c,#ea580c)!important}
+        .game-player.fire .gp-eye{background:radial-gradient(circle,#fef08a,#f59e0b)!important;box-shadow:0 0 10px rgba(245,158,11,.9)!important}
+        .game-player.fire .gp-leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
+        .robot.fire .head,.robot.fire .torso{background:linear-gradient(165deg,#7f1d1d 0%,#dc2626 30%,#ea580c 60%,#f97316 100%)!important}
+        .robot.fire .eye{background:radial-gradient(circle,#fef9c3,#fbbf24,#f59e0b)!important;box-shadow:0 0 14px rgba(245,158,11,.9),0 0 28px rgba(239,68,68,.4)!important}
+        .robot.fire .antenna-ball{background:radial-gradient(circle,#fef08a,#f59e0b)!important;box-shadow:0 0 20px rgba(245,158,11,.8)!important}
+        .robot.fire .arm-l,.robot.fire .arm-r{background:linear-gradient(to bottom,#dc2626,#991b1b)!important}
+        .robot.fire .leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
+        .robot.fire .shoulder-l,.robot.fire .shoulder-r{background:radial-gradient(circle,#f97316,#dc2626)!important}
+        .robot.fire .mouth{background:#f59e0b!important;box-shadow:0 0 8px rgba(245,158,11,.6)!important}
+        .robot.fire .neck{background:linear-gradient(to bottom,#dc2626,#991b1b)!important}
+        .robot.fire .ear-l,.robot.fire .ear-r{background:#dc2626!important}
+        .robot.fire .foot{background:#7f1d1d!important}
+        .robot.fire .chest-dot{background:#fbbf24!important;box-shadow:0 0 6px rgba(251,191,36,.8)!important}
+        .robot.fire .face-screen{background:linear-gradient(180deg,#451a03,#7c2d12)!important}
+        .robot.fire .chest{background:linear-gradient(145deg,#451a03,#7c2d12)!important}
+
+        /* Stealth robot skin */
+        @keyframes stealthGlow{0%,100%{box-shadow:0 0 8px rgba(239,68,68,.3)}50%{box-shadow:0 0 16px rgba(239,68,68,.6)}}
+        .game-player.stealth .gp-head{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
+        .game-player.stealth .gp-body{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
+        .game-player.stealth .gp-eye{background:radial-gradient(circle,#fca5a5,#ef4444)!important;box-shadow:0 0 8px rgba(239,68,68,.7)!important}
+        .game-player.stealth .gp-leg{background:linear-gradient(to bottom,#334155,#1e293b)!important}
+        .robot.stealth .head,.robot.stealth .torso{background:linear-gradient(165deg,#0f172a 0%,#1e293b 40%,#334155 70%,#1e293b 100%)!important;box-shadow:0 4px 15px rgba(0,0,0,.3)!important}
+        .robot.stealth .eye{background:radial-gradient(circle,#fca5a5,#ef4444,#b91c1c)!important;box-shadow:0 0 12px rgba(239,68,68,.7),0 0 24px rgba(239,68,68,.3)!important;animation:stealthGlow 2s ease-in-out infinite}
+        .robot.stealth .antenna-ball{background:radial-gradient(circle,#fca5a5,#ef4444)!important;box-shadow:0 0 12px rgba(239,68,68,.5)!important}
+        .robot.stealth .arm-l,.robot.stealth .arm-r{background:linear-gradient(to bottom,#334155,#1e293b)!important}
+        .robot.stealth .leg{background:linear-gradient(to bottom,#334155,#1e293b)!important}
+        .robot.stealth .shoulder-l,.robot.stealth .shoulder-r{background:radial-gradient(circle,#475569,#334155)!important}
+        .robot.stealth .mouth{background:#ef4444!important;box-shadow:0 0 6px rgba(239,68,68,.4)!important}
+        .robot.stealth .neck{background:linear-gradient(to bottom,#334155,#1e293b)!important}
+        .robot.stealth .ear-l,.robot.stealth .ear-r{background:#334155!important}
+        .robot.stealth .ear::after{background:#475569!important}
+        .robot.stealth .foot{background:#0f172a!important}
+        .robot.stealth .chest-dot{background:#ef4444!important;box-shadow:0 0 4px rgba(239,68,68,.6)!important}
+        .robot.stealth .face-screen{background:linear-gradient(180deg,#020617,#0f172a)!important}
+        .robot.stealth .chest{background:linear-gradient(145deg,#020617,#0f172a)!important}
+        .robot.stealth .chest::before{border-color:rgba(239,68,68,.15)!important}
+
+        /* Chicky robot skin */
+        .game-player.chicky .gp-head{background:linear-gradient(165deg,#fffbeb,#fcd34d)!important}
+        .game-player.chicky .gp-body{background:linear-gradient(165deg,#fef3c7,#f59e0b)!important}
+        .game-player.chicky .gp-eye{background:radial-gradient(circle,#fbbf24,#d97706)!important;box-shadow:0 0 8px rgba(245,158,11,.7)!important}
+        .game-player.chicky .gp-leg{background:linear-gradient(to bottom,#f59e0b,#92400e)!important}
+        .robot.chicky .head,.robot.chicky .torso{background:linear-gradient(165deg,#fffbeb 0%,#fef3c7 40%,#fcd34d 100%)!important}
+        
+        /* CIKKCAKKOS TOJÁSHÉJ A SEGGÉN */
+        .robot.chicky .torso::after {
+            content: ''; position: absolute; bottom: -2px; left: -2px; right: -2px; height: 40px;
+            background: #fff; border-radius: 0 0 24px 24px;
+            clip-path: polygon(0% 20%, 10% 0%, 20% 20%, 30% 0%, 40% 20%, 50% 0%, 60% 20%, 70% 0%, 80% 20%, 90% 0%, 100% 20%, 100% 100%, 0% 100%);
+            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .robot.chicky .eye{background:radial-gradient(circle,#fbbf24,#f59e0b,#d97706)!important;box-shadow:0 0 14px rgba(245,158,11,.8),0 0 28px rgba(245,158,11,.4)!important}
+        .robot.chicky .antenna-ball{background:radial-gradient(circle,#f97316,#ea580c)!important;box-shadow:0 0 16px rgba(234,88,12,.6)!important}
+        .robot.chicky .arm-l,.robot.chicky .arm-r{background:linear-gradient(to bottom,#fcd34d,#f59e0b)!important}
+        .robot.chicky .leg{background:linear-gradient(to bottom,#fcd34d,#f59e0b)!important}
+        .robot.chicky .shoulder-l,.robot.chicky .shoulder-r{background:radial-gradient(circle,#fef3c7,#fcd34d)!important}
+        .robot.chicky .mouth{background:#f59e0b!important;box-shadow:0 0 6px rgba(245,158,11,.5)!important}
+        .robot.chicky .neck{background:linear-gradient(to bottom,#fcd34d,#f59e0b)!important}
+        .robot.chicky .ear-l,.robot.chicky .ear-r{background:#fcd34d!important}
+        .robot.chicky .foot{background:#92400e!important}
+        .robot.chicky .chest-dot{background:#f59e0b!important}
+        .robot.chicky .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
+        .robot.chicky .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
+
         .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
         .game-emoji.collectible{animation:collectiblePulse 1s ease-in-out infinite;z-index:2}
         .game-emoji.gold-item{filter:drop-shadow(0 0 8px rgba(251,191,36,.8))}
@@ -148,7 +290,101 @@
         .game-timer{font-size:22px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.5)}
         .game-xp-earned{font-size:22px;font-weight:700;color:#fbbf24;margin:4px 0}
 
-        /* SKIN/BOLT MENÜ */
+        /* PLAY GOMB */
+        .game-play-btn{
+            display:flex;align-items:center;justify-content:center;gap:6px;
+            margin:0 auto;padding:8px 22px;
+            background:rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.2);border-radius:100px;
+            color:#fff;font-size:13px;font-weight:600;cursor:pointer;
+            -webkit-tap-highlight-color:transparent;transition:all .2s;
+            flex-shrink:0;
+        }
+        .game-play-btn:active{transform:scale(.95);background:rgba(255,255,255,.2)}
+
+        /* SZERENCSEKERÉK */
+        .wheel-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 22px 20px;gap:14px}
+        .wheel-container{position:relative;width:240px;height:240px}
+        .wheel-spinner{width:240px;height:240px;border-radius:50%;transition:transform 4s cubic-bezier(.17,.67,.12,.99);border:3px solid rgba(255,255,255,.15)}
+        .wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:24px;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+        .wheel-spin-btn{
+            padding:12px 32px;border-radius:100px;border:none;font-size:15px;font-weight:800;
+            background:linear-gradient(135deg,#818cf8,#a855f7);color:#fff;
+            cursor:pointer;box-shadow:0 4px 20px rgba(139,92,246,.4);
+            -webkit-tap-highlight-color:transparent;transition:all .2s;
+        }
+        .wheel-spin-btn:active{transform:scale(.95)}
+        .wheel-spin-btn:disabled{opacity:.4;cursor:default}
+        .wheel-result{font-size:16px;font-weight:700;color:#fbbf24;text-align:center;min-height:24px}
+        .wheel-info{font-size:11px;color:rgba(255,255,255,.35);text-align:center}
+        .shop-greeting{
+            margin:8px 22px 0;padding:16px;border-radius:18px;
+            background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+            color:#fff;text-align:center;font-size:14px;font-weight:600;line-height:1.5;
+        }
+        .shop-greeting .greet-name{color:#a78bfa;font-weight:800}
+        .shop-sale-badge{display:inline-block;background:#ef4444;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:4px;vertical-align:middle}
+        .shop-original-price{text-decoration:line-through;opacity:.4;margin-right:4px}
+
+        /* NAPI AJÁNLAT - SZERENCSEKERÉK MÉRETŰ - FINOMÍTOTT */
+        .daily-deal-wrap{
+            margin:20px 22px 50px;padding:35px 24px;border-radius:40px;
+            background:linear-gradient(135deg,rgba(0,0,0,.8) 0%,rgba(251,191,36,.15) 100%);
+            border:2.5px solid rgba(251,191,36,.4);
+            display:flex;flex-direction:column;align-items:center;gap:20px;
+            box-shadow:0 25px 50px rgba(0,0,0,.6),inset 0 0 40px rgba(251,191,36,0.05);
+            position:relative;overflow:hidden;text-align:center;
+            min-height:420px;justify-content:center;
+        }
+        .daily-deal-wrap::before{
+            content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+            background:radial-gradient(circle,rgba(251,191,36,.1) 0%,transparent 70%);
+            animation:rotateBg 12s linear infinite;pointer-events:none;
+        }
+        
+        .daily-deal-header{width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1}
+        .daily-deal-badge{background:linear-gradient(to right,#fbbf24,#f59e0b);color:#78350f;font-size:11px;font-weight:950;padding:5px 15px;border-radius:100px;text-transform:uppercase;letter-spacing:2px;box-shadow:0 0 15px rgba(245,158,11,.3)}
+        .daily-deal-timer{font-size:13px;color:#fbbf24;font-weight:800;opacity:.8}
+        
+        .daily-deal-item{display:flex;flex-direction:column;align-items:center;gap:12px;z-index:1;width:100%}
+        .daily-deal-icon{font-size:70px;line-height:1;animation:pulseMedium 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(251,191,36,.4))}
+        @keyframes pulseMedium{0%,100%{transform:scale(1);filter:drop-shadow(0 0 20px rgba(251,191,36,.4))}50%{transform:scale(1.1);filter:drop-shadow(0 0 40px rgba(251,191,36,.8))}}
+        
+        /* ÚJ ARANY GLOW */
+        .daily-deal-icon-container{
+            position:relative;width:120px;height:120px;display:flex;align-items:center;justify-content:center;
+            background:rgba(251,191,36,.15);border-radius:50%;margin-bottom:10px;
+            border:2px solid rgba(251,191,36,.5);
+            box-shadow: 0 0 30px rgba(251,191,36,0.3), inset 0 0 20px rgba(251,191,36,0.2);
+            animation: goldenGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes goldenGlow {
+            from { box-shadow: 0 0 20px rgba(251,191,36,0.2), inset 0 0 10px rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.4); }
+            to { box-shadow: 0 0 50px rgba(251,191,36,0.6), inset 0 0 30px rgba(251,191,36,0.3); border-color: #fbbf24; }
+        }
+        
+        .daily-deal-info{text-align:center;width:100%}
+        .daily-deal-name{font-size:24px;font-weight:1000;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.5);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .daily-deal-price{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:5px}
+        .daily-deal-orig{text-decoration:line-through;opacity:.4;font-size:16px;color:#fff}
+        .daily-deal-now{font-size:38px;font-weight:1000;color:#fbbf24;text-shadow:0 0 20px rgba(251,191,36,.5)}
+        
+        .daily-deal-buy-btn{
+            width:100%;max-width:240px;padding:16px;border:none;border-radius:20px;
+            background:linear-gradient(to bottom,#fbbf24,#f59e0b);color:#78350f;font-weight:1000;font-size:16px;
+            cursor:pointer;transition:all .2s;box-shadow:0 6px 20px rgba(245,158,11,.3);
+            -webkit-tap-highlight-color:transparent;z-index:1;margin-top:15px;
+        }
+        .daily-deal-buy-btn:active{transform:scale(.96);box-shadow:0 2px 8px rgba(245,158,11,.2)}
+        .daily-deal-buy-btn:disabled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.2);box-shadow:none;cursor:default}
+
+        .wheel-reveal{
+            animation:revealPop .6s cubic-bezier(.34,1.56,.64,1);
+            font-size:24px;font-weight:900;color:#fbbf24;text-shadow:0 0 15px rgba(251,191,36,.5);
+        }
+        @keyframes revealPop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+
+        /* SKIN/BOLT MENÜ — Egész képernyős */
         .skin-toggle{
             position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:62px;z-index:50;
             background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -157,42 +393,59 @@
             font-size:20px;cursor:pointer;-webkit-tap-highlight-color:transparent;
         }
         .skin-panel{
-            position:fixed;inset:0;z-index:100;
-            background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-            display:none;align-items:center;justify-content:center;padding:20px;
+            position:fixed;inset:0;z-index:200;
+            background:linear-gradient(165deg,#0f172a 0%,#1e1b4b 40%,#312e81 100%);
+            display:none;flex-direction:column;
+            overflow-y:auto;overflow-x:hidden;
         }
         .skin-panel.open{display:flex}
-        .skin-card{
-            width:100%;max-width:400px;max-height:80vh;
-            background:rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-            border:1.5px solid rgba(255,255,255,.25);border-radius:24px;
-            padding:24px;overflow-y:auto;color:#fff;
+        .shop-header{
+            position:sticky;top:0;z-index:3;
+            display:flex;align-items:center;justify-content:space-between;
+            padding:calc(env(safe-area-inset-top,20px) + 16px) 20px 14px;
+            background:linear-gradient(180deg,rgba(15,23,42,.95) 0%,rgba(15,23,42,.7) 80%,transparent 100%);
+            backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
         }
-        .skin-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px}
-        .skin-xp-display{text-align:center;font-size:16px;font-weight:700;color:#fbbf24;margin-bottom:14px}
-        .skin-section{font-size:14px;font-weight:700;opacity:.7;margin:14px 0 8px;padding-left:4px}
-        .skin-list{display:flex;flex-direction:column;gap:10px}
-        .skin-option{
-            display:flex;align-items:center;gap:12px;padding:14px 16px;
-            border-radius:16px;border:1.5px solid rgba(255,255,255,.15);
-            background:rgba(255,255,255,.06);cursor:pointer;transition:all .2s;
+        .shop-title{font-size:22px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+        .shop-xp{font-size:15px;font-weight:700;color:#fbbf24;background:rgba(251,191,36,.12);padding:6px 14px;border-radius:100px;border:1px solid rgba(251,191,36,.25)}
+        .shop-close-btn{
+            background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;
+            width:38px;height:38px;border-radius:50%;font-size:18px;
+            cursor:pointer;display:flex;align-items:center;justify-content:center;
+            -webkit-tap-highlight-color:transparent;
         }
-        .skin-option:active{transform:scale(.97)}
-        .skin-option.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15)}
-        .skin-option.locked{opacity:.5;cursor:default}
-        .skin-option.buyable{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
-        .skin-option .skin-icon{font-size:28px;width:36px;text-align:center}
-        .skin-option .skin-info{flex:1}
-        .skin-option .skin-name{font-weight:700;font-size:15px}
-        .skin-option .skin-desc{font-size:12px;opacity:.6;margin-top:2px}
-        .skin-option .skin-lock{font-size:12px;opacity:.5}
-        .skin-option .skin-buy-btn{
-            padding:6px 14px;border-radius:12px;border:none;
-            background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1e1b4b;
-            font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;
+        .shop-close-btn:active{background:rgba(255,255,255,.2)}
+        .shop-section{padding:20px 0 8px}
+        .shop-section-title{font-size:15px;font-weight:700;color:rgba(255,255,255,.5);padding:0 22px 12px;letter-spacing:.5px}
+        .shop-scroll{
+            display:flex;gap:14px;overflow-x:auto;padding:0 22px 14px;
+            scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+            scrollbar-width:none;
         }
-        .skin-option .skin-buy-btn:active{transform:scale(.95)}
-        .skin-close{width:100%;margin-top:16px;padding:12px;border:none;border-radius:16px;background:rgba(255,255,255,.12);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+        .shop-scroll::-webkit-scrollbar{display:none}
+        .shop-item{
+            flex:0 0 135px;scroll-snap-align:start;
+            background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+            border-radius:22px;padding:18px 10px 14px;
+            text-align:center;cursor:pointer;transition:all .2s;color:#fff;
+        }
+        .shop-item:active{transform:scale(.95)}
+        .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 20px rgba(139,92,246,.15)}
+        .shop-item.locked{opacity:.4;cursor:default}
+        .shop-item.buyable{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
+        .shop-item-icon{font-size:40px;display:block;margin-bottom:10px}
+        .shop-item-name{font-size:13px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .shop-item-desc{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;line-height:1.3;height:26px;overflow:hidden}
+        .shop-item-status{font-size:11px;font-weight:700}
+        .shop-item-status.equipped{color:#a78bfa}
+        .shop-item-status.owned{color:rgba(255,255,255,.3)}
+        .shop-item-status.price{color:rgba(255,255,255,.4)}
+        .shop-item-status .buy-tag{
+            display:inline-block;padding:5px 12px;border-radius:10px;font-weight:800;font-size:11px;
+            background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1e1b4b;cursor:pointer;
+        }
+        .shop-item-status .buy-tag:active{transform:scale(.93)}
+        .shop-item-status .lock-tag{opacity:.5;font-size:11px}
 
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
@@ -287,15 +540,28 @@
 
         /* ===== ROBOT ===== */
         .robot-area{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;width:100%}
-        .robot-btn{background:none;border:none;cursor:pointer;padding:0;outline:none;-webkit-tap-highlight-color:transparent}
-        .robot-btn:active .robot{transform:scale(.95)}
+        .robot-btn{
+            background:none;border:none;cursor:pointer;padding:0;outline:none;
+            -webkit-tap-highlight-color:transparent;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0); 
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        .robot-btn:active .robot{-webkit-transform:scale(.95);transform:scale(.95)}
 
         .robot{
             width:200px;height:280px;position:relative;
+            -webkit-transition:-webkit-transform .15s ease;
             transition:transform .15s ease;
+            -webkit-animation:float 3s ease-in-out infinite;
             animation:float 3s ease-in-out infinite;
             filter:drop-shadow(0 20px 30px rgba(0,0,0,.2));
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
         }
+        @-webkit-keyframes float{0%,100%{-webkit-transform:translateY(0)}50%{-webkit-transform:translateY(-8px)}}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
         /* Antenna */
@@ -399,7 +665,8 @@
             overflow:hidden;
         }
         .chest::before{content:'';position:absolute;inset:2px;border-radius:12px;border:1px solid rgba(56,189,248,.15)}
-        .heart-icon{font-size:24px;animation:heartbeat 1.5s ease infinite;position:relative;z-index:1}
+        .heart-icon{font-size:24px;-webkit-animation:heartbeat 1.5s ease infinite;animation:heartbeat 1.5s ease infinite;position:relative;z-index:1}
+        @-webkit-keyframes heartbeat{0%,100%{-webkit-transform:scale(1)}15%{-webkit-transform:scale(1.25)}30%{-webkit-transform:scale(1)}}
         @keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}}
 
         .robot-btn.talking .heart-icon{animation:heartbeat .6s ease infinite}
@@ -444,13 +711,20 @@
         /* ===== ROBOT REAKCIÓK ===== */
 
         /* EXCITED — izgatott ugrálás, tapsolás, ragyogó szemek */
-        .robot-btn.excited .robot{animation:excitedBounce .5s cubic-bezier(.36,1.4,.5,1) infinite}
+        .robot-btn.excited .robot{
+            -webkit-animation:excitedBounce .5s cubic-bezier(.36,1.4,.5,1) infinite;
+            animation:excitedBounce .5s cubic-bezier(.36,1.4,.5,1) infinite
+        }
+        @-webkit-keyframes excitedBounce{0%,100%{-webkit-transform:translateY(0) scale(1)}30%{-webkit-transform:translateY(-20px) scale(1.05)}60%{-webkit-transform:translateY(-5px) scale(.98)}}
         @keyframes excitedBounce{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-20px) scale(1.05)}60%{transform:translateY(-5px) scale(.98)}}
+        
         .robot-btn.excited .eye{
+            -webkit-animation:excitedEye .6s ease infinite;
             animation:excitedEye .6s ease infinite;
             background:radial-gradient(circle,#fff,#67e8f9,#06b6d4);
             box-shadow:0 0 20px rgba(6,182,212,.9),0 0 40px rgba(6,182,212,.4),0 0 60px rgba(6,182,212,.2);
         }
+        @-webkit-keyframes excitedEye{0%,100%{-webkit-transform:scale(1)}50%{-webkit-transform:scale(1.2)}}
         @keyframes excitedEye{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
         .robot-btn.excited .antenna-ball{
             animation:excitedAntenna .3s ease-in-out infinite;
@@ -473,13 +747,20 @@
         @keyframes excitedLeg{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
         /* CARING — gyengéd ringás, lila fény, ölelő karok */
-        .robot-btn.caring .robot{animation:caringFloat 3s ease-in-out infinite}
+        .robot-btn.caring .robot{
+            -webkit-animation:caringFloat 3s ease-in-out infinite;
+            animation:caringFloat 3s ease-in-out infinite
+        }
+        @-webkit-keyframes caringFloat{0%,100%{-webkit-transform:translateY(0) rotate(-2deg)}25%{-webkit-transform:translateY(-6px) rotate(0deg)}50%{-webkit-transform:translateY(-3px) rotate(2deg)}75%{-webkit-transform:translateY(-8px) rotate(0deg)}}
         @keyframes caringFloat{0%,100%{transform:translateY(0) rotate(-2deg)}25%{transform:translateY(-6px) rotate(0deg)}50%{transform:translateY(-3px) rotate(2deg)}75%{transform:translateY(-8px) rotate(0deg)}}
+        
         .robot-btn.caring .eye{
+            -webkit-animation:caringEye 3s ease-in-out infinite;
             animation:caringEye 3s ease-in-out infinite;
             background:radial-gradient(circle,#e9d5ff,#c084fc,#9333ea);
             box-shadow:0 0 16px rgba(147,51,234,.7),0 0 32px rgba(147,51,234,.3);
         }
+        @-webkit-keyframes caringEye{0%,100%{-webkit-transform:scaleY(1)}40%{-webkit-transform:scaleY(1)}45%{-webkit-transform:scaleY(.3)}50%{-webkit-transform:scaleY(1)}90%{-webkit-transform:scaleY(1)}95%{-webkit-transform:scaleY(.3)}}
         @keyframes caringEye{0%,100%{transform:scaleY(1)}40%{transform:scaleY(1)}45%{transform:scaleY(.3)}50%{transform:scaleY(1)}90%{transform:scaleY(1)}95%{transform:scaleY(.3)}}
         .robot-btn.caring .mouth{
             width:20px;height:10px;background:transparent;
@@ -531,22 +812,26 @@
         @keyframes thinkAntenna{0%,100%{box-shadow:0 0 8px rgba(245,158,11,.4);transform:translateX(-50%) scale(1)}50%{box-shadow:0 0 24px rgba(245,158,11,1),0 0 48px rgba(245,158,11,.4);transform:translateX(-50%) scale(1.3)}}
 
         /* DANCING — party mód, teljes test táncol */
-        .robot-btn.dancing .robot{animation:danceBody .8s cubic-bezier(.4,0,.2,1) infinite}
+        .robot-btn.dancing .robot{
+            -webkit-animation:danceBody .8s cubic-bezier(.4,0,.2,1) infinite;
+            animation:danceBody .8s cubic-bezier(.4,0,.2,1) infinite
+        }
+        @-webkit-keyframes danceBody{0%{-webkit-transform:translateY(0) rotate(-4deg) scaleY(1)}25%{-webkit-transform:translateY(-14px) rotate(0deg) scaleY(1.03)}50%{-webkit-transform:translateY(0) rotate(4deg) scaleY(.97)}75%{-webkit-transform:translateY(-10px) rotate(0deg) scaleY(1.02)}100%{-webkit-transform:translateY(0) rotate(-4deg) scaleY(1)}}
         @keyframes danceBody{0%{transform:translateY(0) rotate(-4deg) scaleY(1)}25%{transform:translateY(-14px) rotate(0deg) scaleY(1.03)}50%{transform:translateY(0) rotate(4deg) scaleY(.97)}75%{transform:translateY(-10px) rotate(0deg) scaleY(1.02)}100%{transform:translateY(0) rotate(-4deg) scaleY(1)}}
-        .robot-btn.dancing .eye{
-            animation:discoEye .4s ease infinite;
-            box-shadow:0 0 18px rgba(236,72,153,.9),0 0 36px rgba(236,72,153,.4);
-            background:radial-gradient(circle,#fff,#f9a8d4,#ec4899);
+        
+        .robot-btn.dancing .arm-l{
+            -webkit-animation:danceArmL .4s cubic-bezier(.4,0,.2,1) infinite;
+            animation:danceArmL .4s cubic-bezier(.4,0,.2,1) infinite;
+            -webkit-transform-origin:top center;transform-origin:top center
         }
-        @keyframes discoEye{0%,100%{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899);transform:scale(1)}33%{background:radial-gradient(circle,#fff,#67e8f9,#06b6d4)}66%{background:radial-gradient(circle,#fff,#c4b5fd,#8b5cf6);transform:scale(1.1)}}
-        .robot-btn.dancing .mouth{
-            width:28px;height:14px;background:transparent;
-            border-bottom:3px solid #ec4899;border-radius:0 0 50% 50%;
-            box-shadow:0 4px 12px rgba(236,72,153,.5);animation:none;border-top:none;border-left:none;border-right:none;
+        .robot-btn.dancing .arm-r{
+            -webkit-animation:danceArmR .4s cubic-bezier(.4,0,.2,1) infinite;
+            animation:danceArmR .4s cubic-bezier(.4,0,.2,1) infinite;
+            -webkit-transform-origin:top center;transform-origin:top center
         }
-        .robot-btn.dancing .arm-l{animation:danceArmL .4s cubic-bezier(.4,0,.2,1) infinite;transform-origin:top center}
-        .robot-btn.dancing .arm-r{animation:danceArmR .4s cubic-bezier(.4,0,.2,1) infinite;transform-origin:top center}
+        @-webkit-keyframes danceArmL{0%{-webkit-transform:rotate(-45deg)}50%{-webkit-transform:rotate(20deg)}100%{-webkit-transform:rotate(-45deg)}}
         @keyframes danceArmL{0%{transform:rotate(-45deg)}50%{transform:rotate(20deg)}100%{transform:rotate(-45deg)}}
+        @-webkit-keyframes danceArmR{0%{-webkit-transform:rotate(20deg)}50%{-webkit-transform:rotate(-45deg)}100%{-webkit-transform:rotate(20deg)}}
         @keyframes danceArmR{0%{transform:rotate(20deg)}50%{transform:rotate(-45deg)}100%{transform:rotate(20deg)}}
         .robot-btn.dancing .leg:first-child{animation:danceLegL .8s ease infinite}
         .robot-btn.dancing .leg:last-child{animation:danceLegR .8s ease infinite}
@@ -562,23 +847,35 @@
         @keyframes danceHead{0%,100%{transform:translateX(-50%) rotate(-3deg)}50%{transform:translateX(-50%) rotate(3deg)}}
 
         /* HAPPY — boldog (alapértelmezett, továbbfejlesztve) */
-        .robot-btn.happy .robot{animation:happyFloat 2s ease-in-out infinite}
-        @keyframes happyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        .robot-btn.happy .mouth{
-            width:32px;height:16px;background:transparent;
-            border-bottom:3px solid #38bdf8;border-radius:0 0 50% 50%;
-            box-shadow:0 4px 10px rgba(56,189,248,.4);border-top:none;border-left:none;border-right:none;
+        .robot-btn.happy .robot{
+            -webkit-animation:happyFloat 2s ease-in-out infinite;
+            animation:happyFloat 2s ease-in-out infinite
         }
+        @-webkit-keyframes happyFloat{0%,100%{-webkit-transform:translateY(0)}50%{-webkit-transform:translateY(-10px)}}
+        @keyframes happyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
         .robot-btn.happy .eye{
+            -webkit-animation:happyEye 3s ease-in-out infinite;
             animation:happyEye 3s ease-in-out infinite;
             height:6px;border-radius:6px 6px 0 0;background:#38bdf8;
             box-shadow:0 0 14px rgba(56,189,248,.7),0 0 28px rgba(56,189,248,.3);
         }
-        .robot-btn.happy .eye::after{display:none}
+        @-webkit-keyframes happyEye{0%,80%,100%{-webkit-transform:scaleX(1)}90%{-webkit-transform:scaleX(.8)}}
         @keyframes happyEye{0%,80%,100%{transform:scaleX(1)}90%{transform:scaleX(.8)}}
-        .robot-btn.happy .arm-l{animation:happyArmL 1.5s ease-in-out infinite;transform-origin:top center}
-        .robot-btn.happy .arm-r{animation:happyArmR 1.5s ease-in-out infinite;transform-origin:top center}
+        
+        .robot-btn.happy .arm-l{
+            -webkit-animation:happyArmL 1.5s ease-in-out infinite;
+            animation:happyArmL 1.5s ease-in-out infinite;
+            -webkit-transform-origin:top center;transform-origin:top center
+        }
+        .robot-btn.happy .arm-r{
+            -webkit-animation:happyArmR 1.5s ease-in-out infinite;
+            animation:happyArmR 1.5s ease-in-out infinite;
+            -webkit-transform-origin:top center;transform-origin:top center
+        }
+        @-webkit-keyframes happyArmL{0%,100%{-webkit-transform:rotate(-25deg)}50%{-webkit-transform:rotate(-35deg)}}
         @keyframes happyArmL{0%,100%{transform:rotate(-25deg)}50%{transform:rotate(-35deg)}}
+        @-webkit-keyframes happyArmR{0%,100%{-webkit-transform:rotate(25deg)}50%{-webkit-transform:rotate(35deg)}}
         @keyframes happyArmR{0%,100%{transform:rotate(25deg)}50%{transform:rotate(35deg)}}
 
         /* ===== TAP REAKCIÓK (interaktív) ===== */
@@ -825,7 +1122,7 @@
             border-radius:14px;color:#fff;font-size:16px;font-weight:600;
             outline:none;text-align:center;
             transition:border-color .2s,box-shadow .2s;
-            -webkit-appearance:none;
+            -webkit-appearance:none;-moz-appearance:none;appearance:none;
         }
         .ob-input::placeholder{color:rgba(255,255,255,.45);font-weight:500}
         .ob-input:focus{border-color:rgba(255,255,255,.6);box-shadow:0 0 20px rgba(255,255,255,.1)}
@@ -942,6 +1239,7 @@
             </button>
         </div>
 
+        <button class="game-play-btn" id="gamePlayBtn">🎮 Játék</button>
         <div class="next-msg" id="nextMsg"></div>
         <a class="tiktok-link" href="http://www.tiktok.com/@dailybot_dailymessage" target="_blank" rel="noopener">
             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M34.1 0h-8v32.4c0 3-2.4 5.5-5.4 5.5s-5.4-2.5-5.4-5.5 2.4-5.5 5.4-5.5c.6 0 1.1.1 1.6.3v-8.2c-.5-.1-1-.1-1.6-.1C13 18.9 7 24.9 7 32.4S13 46 20.7 46c7.6 0 13.7-6 13.7-13.6V15.7c2.9 2 6.4 3.2 10.2 3.2v-8c-5.6-.1-10.5-4.5-10.5-10.9z"/></svg>
@@ -950,19 +1248,48 @@
     </div>
 
     <!-- Skin választó gomb -->
-    <div class="skin-toggle" id="skinToggle">🎨</div>
+    <div class="skin-toggle" id="skinToggle">🏪</div>
 
     <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
-        <div class="skin-card">
-            <div class="skin-title">🏪 Robot Bolt</div>
-            <div class="skin-xp-display" id="shopXpDisplay">⭐ 0 XP</div>
-            <div class="skin-section">🤖 Robot kinézet</div>
-            <div class="skin-list" id="skinList"></div>
-            <div class="skin-section">🖼️ Hátterek</div>
-            <div class="skin-list" id="bgList"></div>
-            <button class="skin-close" id="skinClose">Bezárás</button>
+        <div class="shop-header">
+            <div class="shop-title">🏪 Robot Bolt</div>
+            <div class="shop-xp" id="shopXpDisplay">⭐ 0 XP</div>
+            <button class="shop-close-btn" id="skinClose">✕</button>
         </div>
+        <div class="shop-greeting" id="shopGreeting"></div>
+
+        <div class="shop-section">
+            <div class="shop-section-title">🎰 Napi Szerencsekerék</div>
+            <div class="wheel-wrap" id="wheelWrap">
+                <div class="wheel-container">
+                    <div class="wheel-pointer">▼</div>
+                    <canvas id="wheelCanvas" width="240" height="240"></canvas>
+                </div>
+                <div class="wheel-result" id="wheelResult"></div>
+                <button class="wheel-spin-btn" id="wheelSpinBtn">🎰 Pörgetés (ingyenes)</button>
+                <div class="wheel-info" id="wheelInfo">Naponta 1 ingyenes pörgetés!</div>
+            </div>
+        </div>
+        <div class="shop-section">
+            <div class="shop-section-title">🤖 Robot kinézet <span class="shop-sale-badge">AKCIÓ</span></div>
+            <div class="shop-scroll" id="skinList"></div>
+        </div>
+        <div class="shop-section">
+            <div class="shop-section-title">🖼️ Hátterek <span class="shop-sale-badge">AKCIÓ</span></div>
+            <div class="shop-scroll" id="bgList"></div>
+        </div>
+
+        <!-- Napi Szuperajánlat ALUL -->
+        <div class="daily-deal-wrap" id="dailyDealWrap">
+            <div class="daily-deal-header">
+                <span class="daily-deal-badge">🔥 NAPI SZUPERAJÁNLAT (-50%)</span>
+                <span class="daily-deal-timer" id="dealTimer">24h 🔄</span>
+            </div>
+            <div id="dailyDealInner"></div>
+        </div>
+
+        <div style="padding:20px 22px 50px;text-align:center;color:rgba(255,255,255,.15);font-size:11px">DailyBot Shop v2.2 — by Kovrat</div>
     </div>
 
     <!-- Kedvencek gomb -->
@@ -981,6 +1308,7 @@
     <div class="game-overlay" id="gameOverlay">
         <div class="game-hud">
             <div class="game-score">🏆 <span id="gameScore">0</span></div>
+            <div class="game-lives" id="gameLives">❤️❤️❤️</div>
             <div class="game-timer" id="gameTimer">⏱️ 60</div>
             <button class="game-exit" id="gameExit">✕ Kilépés</button>
         </div>
@@ -1117,7 +1445,7 @@
             // Húsvét kiszámítása (Gauss-algoritmus)
             function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,dd=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-dd-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=(h+l-7*m+114)%31+1;return{m:mo,d:da}}
             const easterDate=easter(d.getFullYear());
-            const isEaster=(month+1===easterDate.m&&day>=easterDate.d-3&&day<=easterDate.d+1);
+            const isEaster=(month+1===easterDate.m&&day>=easterDate.d-3&&day<=easterDate.d+4);
 
             // Ünnepek — csak ilyenkor van öltözék
             const evtEl=document.getElementById('phEvent');
@@ -1153,7 +1481,7 @@
         })();
 
         // ========== IDŐJÁRÁS ==========
-        (function(){
+        setTimeout(() => {
             function showWeather(lat,lon){
                 fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
                 .then(r=>r.json()).then(data=>{
@@ -1182,7 +1510,6 @@
                     }
                 }).catch(()=>{});
             }
-            // Fallback: IP alapú helymeghatározás
             function fallbackLocation(){
                 fetch('https://get.geojs.io/v1/ip/geo.json').then(r=>r.json()).then(d=>{
                     if(d.latitude&&d.longitude) showWeather(parseFloat(d.latitude).toFixed(2),parseFloat(d.longitude).toFixed(2));
@@ -1197,7 +1524,7 @@
             } else {
                 fallbackLocation();
             }
-        })();
+        }, 500);
 
         // ========== ÜZENETEK (365 db — TopJoy stílus) ==========
         const M=[
@@ -1905,17 +2232,77 @@
             }
         }
 
-        // Tap reakció — integetés + "Hello!"
-        let tapBusy=false;
+        // Tap reakció — integetés + "Hello!" / Titkos tojás
+        let tapBusy=false, tapCount=0;
+        const robotBtn=document.getElementById('btn');
 
         function playTapReaction(){
+            if(isPastEaster) { 
+                if(tapBusy) return;
+                tapBusy=true; initAudio(); robotBtn.classList.add('tap-wave','talking');
+                setTimeout(()=>{ robotBtn.classList.remove('tap-wave','talking'); tapBusy=false; },1500);
+                return;
+            }
+            
+            tapCount++;
             if(tapBusy)return;
+            
+            // 10. TAP — TELJES KÉPERNYŐS TOJÁS ANIMÁCIÓ
+            if(tapCount >= 10 && !owns('chicky')){
+                tapBusy=true;
+                initAudio();
+                
+                // Overlay létrehozása
+                const ov = document.createElement('div');
+                ov.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:obIn 0.5s ease forwards;';
+                ov.innerHTML = `
+                    <div id="bigEgg" style="font-size:120px;transition:all 0.4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 0 30px rgba(255,255,255,0.3))">🥚</div>
+                    <div id="prizeLabel" style="color:#fff;font-size:24px;font-weight:900;margin-top:40px;opacity:0;transform:translateY(20px);transition:all 0.5s;text-align:center;">
+                        🎉 ÚJ SZKIN FELOLDVA!<br><span style="color:#fbbf24;font-size:32px">CSIBÉS ROBOT</span>
+                    </div>
+                    <div id="prizePreview" style="margin-top:30px;transform:scale(0);transition:all 0.6s cubic-bezier(.34,1.56,.64,1);width:150px;height:200px;display:flex;align-items:center;justify-content:center;"></div>
+                `;
+                document.body.appendChild(ov);
+                
+                const bigEgg = ov.querySelector('#bigEgg');
+                const label = ov.querySelector('#prizeLabel');
+                const preview = ov.querySelector('#prizePreview');
+                
+                // Animáció szekvencia
+                setTimeout(() => { bigEgg.style.transform = 'scale(1.3) rotate(15deg)'; tickSound(); }, 600);
+                setTimeout(() => { bigEgg.style.transform = 'scale(1.3) rotate(-15deg)'; tickSound(); }, 1200);
+                setTimeout(() => { bigEgg.style.transform = 'scale(1.4) rotate(10deg)'; tickSound(); }, 1800);
+                setTimeout(() => { 
+                    bigEgg.textContent = '🐣'; 
+                    bigEgg.style.transform = 'scale(1.6)'; 
+                    doneSound();
+                    
+                    // Nyeremény mutatása
+                    label.style.opacity = '1';
+                    label.style.transform = 'translateY(0)';
+                    
+                    // Mini verzió a robotról
+                    const p = document.createElement('div');
+                    p.className = 'game-player chicky'; p.style.transform = 'scale(1.2)';
+                    p.innerHTML = '<div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div>';
+                    preview.appendChild(p);
+                    preview.style.transform = 'scale(1)';
+                    
+                    buyItem('chicky');
+                    applyRobotSkin();
+                }, 2500);
+                
+                setTimeout(() => {
+                    ov.style.opacity = '0';
+                    setTimeout(() => { ov.remove(); tapCount = 0; tapBusy = false; }, 500);
+                }, 6500);
+                return;
+            }
+
             tapBusy=true;
             initAudio();
-
-            // Robot integet + szája mozog (talking)
-            btn.classList.add('tap-wave');
-            btn.classList.add('talking');
+            robotBtn.classList.add('tap-wave');
+            robotBtn.classList.add('talking');
 
             // Cuki robot hang — "bi-bu-bí-bú-bíp!"
             if(audioCtx){
@@ -2026,35 +2413,32 @@
         setInterval(updateCountdown,1000);
 
         // ========== Service Worker + Értesítések ==========
-        if('serviceWorker' in navigator){
-            navigator.serviceWorker.register('sw.js').then(reg=>{
-                // Értesítés engedély kérés első koppintáskor
-                btn.addEventListener('click',function askNotif(){
-                    if('Notification' in window && Notification.permission==='default'){
-                        Notification.requestPermission().then(p=>{
-                            if(p==='granted') startNotifications(reg);
-                        });
+        setTimeout(() => {
+            if('serviceWorker' in navigator){
+                navigator.serviceWorker.register('sw.js').then(reg=>{
+                    // Értesítés engedély kérés első koppintáskor
+                    btn.addEventListener('click',function askNotif(){
+                        if('Notification' in window && Notification.permission==='default'){
+                            Notification.requestPermission().then(p=>{
+                                if(p==='granted') startNotifications(reg);
+                            });
+                        }
+                        btn.removeEventListener('click',askNotif);
+                    },{once:true});
+
+                    // Ha már engedélyezve van
+                    if('Notification' in window && Notification.permission==='granted'){
+                        startNotifications(reg);
                     }
-                    btn.removeEventListener('click',askNotif);
-                },{once:true});
+                });
+            }
+        }, 100);
 
-                // Ha már engedélyezve van
-                if('Notification' in window && Notification.permission==='granted'){
-                    startNotifications(reg);
-                }
-            });
-        }
-
-        // ========== LONG PRESS → MINIJÁTÉK ==========
-        let longPressTimer=null;
-        btn.addEventListener('touchstart',e=>{
-            longPressTimer=setTimeout(()=>{
-                longPressTimer=null;
-                startGame();
-            },600);
-        },{passive:true});
-        btn.addEventListener('touchend',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
-        btn.addEventListener('touchmove',()=>{if(longPressTimer){clearTimeout(longPressTimer);longPressTimer=null}},{passive:true});
+        // ========== PLAY GOMB → MINIJÁTÉK ==========
+        document.getElementById('gamePlayBtn').addEventListener('click', e => {
+            e.stopPropagation();
+            startGame();
+        });
 
         // ========== XP + BOLT RENDSZER ==========
         function getXP(){return parseInt(localStorage.getItem('nu_xp')||'0')}
@@ -2070,14 +2454,18 @@
         function setActiveBg(name){localStorage.setItem('nu_active_bg',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
         const CUSTOM_BGS={
             'bg-golden':'linear-gradient(165deg,#fef3c7 0%,#fde68a 20%,#fbbf24 40%,#f59e0b 60%,#d97706 80%,#92400e 100%)',
             'bg-rainbow':'linear-gradient(165deg,#f9a8d4 0%,#a78bfa 20%,#67e8f9 40%,#34d399 60%,#fbbf24 80%,#f472b6 100%)',
-            'bg-diamond':'linear-gradient(165deg,#ecfeff 0%,#a5f3fc 20%,#67e8f9 40%,#22d3ee 60%,#06b6d4 80%,#0e7490 100%)'
+            'bg-diamond':'linear-gradient(165deg,#ecfeff 0%,#a5f3fc 20%,#67e8f9 40%,#22d3ee 60%,#06b6d4 80%,#0e7490 100%)',
+            'bg-galaxy':'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)',
+            'bg-sakura':'linear-gradient(165deg,#fff1f2 0%,#fce7f3 30%,#f9a8d4 60%,#f472b6 100%)',
+            'bg-fire':'linear-gradient(165deg,#450a0a 0%,#991b1b 30%,#dc2626 60%,#f97316 100%)',
+            'bg-stealth':'linear-gradient(165deg,#020617 0%,#1e293b 50%,#0f172a 100%)'
         };
         function applyCustomBg(){
             const bg=getActiveBg();
@@ -2102,64 +2490,301 @@
             const bgList=document.getElementById('bgList');
             const xpDisp=document.getElementById('shopXpDisplay');
             const closeBtn=document.getElementById('skinClose');
+            const greet=document.getElementById('shopGreeting');
+
             const SKINS=[
                 {id:'',name:'Alap',desc:'Az eredeti robot',icon:'🤖',cost:0},
-                {id:'golden',name:'Arany',desc:'Csillogó arany robot',icon:'✨',cost:200},
-                {id:'rainbow',name:'Rainbow',desc:'Szivárványos robot',icon:'🌈',cost:500},
-                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt robot',icon:'💎',cost:1000}
+                {id:'galaxy',name:'Galaxy',desc:'Kozmikus robot',icon:'🌌',cost:150},
+                {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:300},
+                {id:'fire',name:'Fire',desc:'Lángoló robot',icon:'🔥',cost:500},
+                {id:'stealth',name:'Stealth',desc:'Titkos ügynök',icon:'👤',cost:750},
+                {id:'golden',name:'Arany',desc:'Csillogó arany',icon:'✨',cost:1000},
+                {id:'rainbow',name:'Rainbow',desc:'Szivárványos',icon:'🌈',cost:1500,sale:999},
+                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt',icon:'💎',cost:2500,sale:1999},
+                {id:'chicky',name:'Csibés',desc:'Húsvéti titok 🐣',icon:'🐥',cost:0}
             ];
             const BGS=[
-                {id:'',name:'Napszak',desc:'Automatikus napszak háttér',icon:'🌅',cost:0},
-                {id:'bg-golden',name:'Arany háttér',desc:'Csillogó arany gradiens',icon:'✨',cost:200},
-                {id:'bg-rainbow',name:'Rainbow háttér',desc:'Szivárványos gradiens',icon:'🌈',cost:500},
-                {id:'bg-diamond',name:'Gyémánt háttér',desc:'Jégkék gyémánt gradiens',icon:'💎',cost:1000}
+                {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
+                {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:100},
+                {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:200},
+                {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:400},
+                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:600},
+                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1200},
+                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:1500},
+                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:2500}
             ];
+
             function renderShop(){
                 const xp=getXP();
                 xpDisp.textContent='⭐ '+xp+' XP';
+                const name=localStorage.getItem('nu_name')||'Barátom';
+                greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>A <span style="color:#38bdf8">DailyBot</span> üdvözöl a boltban! Kattints az akciókért! 🔥`;
+                
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
                 skinList.innerHTML='';
                 bgList.innerHTML='';
-                SKINS.forEach(s=>{
-                    const owned=owns(s.id);
-                    const isActive=s.id===activeSkin;
-                    const canBuy=!owned&&xp>=s.cost;
-                    const el=document.createElement('div');
-                    el.className='skin-option'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'));
-                    let right='';
-                    if(!owned&&s.cost>0){
-                        if(canBuy) right=`<button class="skin-buy-btn">🛒 ${s.cost} XP</button>`;
-                        else right=`<div class="skin-lock">🔒 ${s.cost} XP</div>`;
-                    }
-                    el.innerHTML=`<div class="skin-icon">${s.icon}</div><div class="skin-info"><div class="skin-name">${s.name}${isActive?' ✓':''}</div><div class="skin-desc">${s.desc}</div></div>${right}`;
-                    if(owned) el.addEventListener('click',()=>{setActiveSkin(s.id);applyRobotSkin();renderShop()});
-                    const buyBtn=el.querySelector('.skin-buy-btn');
-                    if(buyBtn) buyBtn.addEventListener('click',e=>{e.stopPropagation();setXP(xp-s.cost);buyItem(s.id);setActiveSkin(s.id);applyRobotSkin();renderShop()});
-                    skinList.appendChild(el);
-                });
-                BGS.forEach(b=>{
-                    const owned=owns(b.id);
-                    const isActive=b.id===activeBg;
-                    const canBuy=!owned&&xp>=b.cost;
-                    const el=document.createElement('div');
-                    el.className='skin-option'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'));
-                    let right='';
-                    if(!owned&&b.cost>0){
-                        if(canBuy) right=`<button class="skin-buy-btn">🛒 ${b.cost} XP</button>`;
-                        else right=`<div class="skin-lock">🔒 ${b.cost} XP</div>`;
-                    }
-                    el.innerHTML=`<div class="skin-icon">${b.icon}</div><div class="skin-info"><div class="skin-name">${b.name}${isActive?' ✓':''}</div><div class="skin-desc">${b.desc}</div></div>${right}`;
-                    if(owned) el.addEventListener('click',()=>{setActiveBg(b.id);applyCustomBg();renderShop()});
-                    const buyBtn=el.querySelector('.skin-buy-btn');
-                    if(buyBtn) buyBtn.addEventListener('click',e=>{e.stopPropagation();setXP(getXP()-b.cost);buyItem(b.id);setActiveBg(b.id);applyCustomBg();renderShop()});
-                    bgList.appendChild(el);
+
+                // NAPI AJÁNLAT MEGJELENÍTÉSE
+                const deal = getDailyDeal(SKINS, BGS);
+                const ddInner = document.getElementById('dailyDealInner');
+                const dealOwned = owns(deal.id);
+                ddInner.innerHTML = `
+                    <div class="daily-deal-item">
+                        <div class="daily-deal-icon-container">
+                            <div class="daily-deal-icon">${deal.icon}</div>
+                        </div>
+                        <div class="daily-deal-info">
+                            <div class="daily-deal-name">${deal.name} ${deal.type==='skin'?'(Robot)':'(Háttér)'}</div>
+                            <div class="daily-deal-price">
+                                <span class="daily-deal-orig">${deal.origCost}</span>
+                                <span class="daily-deal-now">${deal.nowCost} XP</span>
+                            </div>
+                        </div>
+                        <button class="daily-deal-buy-btn" id="dealBuyBtn" ${dealOwned?'disabled':''}>
+                            ${dealOwned ? 'Megvan' : 'Megveszem most'}
+                        </button>
+                    </div>
+                `;
+                if(!dealOwned){
+                    document.getElementById('dealBuyBtn').onclick = () => {
+                        if(getXP() >= deal.nowCost){
+                            setXP(getXP() - deal.nowCost);
+                            buyItem(deal.id);
+                            if(deal.type==='skin') { setActiveSkin(deal.id); applyRobotSkin(); }
+                            else { setActiveBg(deal.id); applyCustomBg(); }
+                            renderShop();
+                        }
+                    };
+                }
+
+                [ {items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
+                  {items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg}
+                ].forEach(cfg=>{
+                    cfg.items.forEach(s=>{
+                        const owned=owns(s.id);
+                        const isActive=s.id===cfg.active;
+                        // Ha ez a napi ajánlat, akkor finalCost a deal.nowCost
+                        const isThisDeal = s.id === deal.id;
+                        const finalCost=isThisDeal ? deal.nowCost : (s.sale||s.cost);
+                        const canBuy=!owned&&xp>=finalCost;
+                        
+                        const el=document.createElement('div');
+                        el.className='shop-item'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'));
+                        
+                        let status='';
+                        if(isActive) status='<div class="shop-item-status equipped">✔ Aktív</div>';
+                        else if(owned) status='<div class="shop-item-status owned">Megvan</div>';
+                        else if(canBuy){
+                            const priceHtml=(s.sale||isThisDeal)?`<span class="shop-original-price">${s.cost}</span>${finalCost}`:`${s.cost}`;
+                            status=`<div class="shop-item-status"><span class="buy-tag">🛒 ${priceHtml} XP</span></div>`;
+                        } else {
+                            const priceHtml=(s.sale||isThisDeal)?`<span class="shop-original-price">${s.cost}</span>${finalCost}`:`${s.cost}`;
+                            status=`<div class="shop-item-status price lock-tag">🔒 ${priceHtml} XP</div>`;
+                        }
+
+                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+                        
+                        if(owned&&!isActive) el.addEventListener('click',()=>{cfg.setter(s.id);cfg.applier();renderShop()});
+                        const buyTag=el.querySelector('.buy-tag');
+                        if(buyTag) buyTag.addEventListener('click',e=>{
+                            e.stopPropagation();
+                            if(getXP()>=finalCost){
+                                setXP(getXP()-finalCost);
+                                buyItem(s.id);
+                                cfg.setter(s.id);
+                                cfg.applier();
+                                renderShop();
+                            }
+                        });
+                        cfg.list.appendChild(el);
+                    });
                 });
             }
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
-            panel.addEventListener('click',e=>{if(e.target===panel)panel.classList.remove('open')});
+            renderWheel(); // Wheel setup
         })();
+
+        // ========== NAPI SZUPERAJÁNLAT LOGIKA ==========
+        function getDailyDeal(SKINS, BGS) {
+            const today = new Date();
+            const tdString = today.toDateString();
+            const storedDate = localStorage.getItem('nu_deal_date');
+            let deal = null;
+
+            // HA MÉG NINCS VAGY ÚJ NAP VAN, GENERÁLJUNK
+            if (storedDate !== tdString) {
+                const allItems = [
+                    ...SKINS.filter(s => s.cost > 0).map(s => ({...s, type:'skin'})),
+                    ...BGS.filter(b => b.cost > 0).map(b => ({...b, type:'bg'}))
+                ];
+                
+                // USER KÉRÉSRE: Erőltessük a Diamond-ot ma (45 XP akció!)
+                const dia = allItems.find(i => i.id==='diamond');
+                const baseItem = dia || allItems[Math.floor(Math.random() * allItems.length)];
+                
+                deal = {
+                    id: baseItem.id,
+                    type: baseItem.type,
+                    name: baseItem.name,
+                    icon: baseItem.icon,
+                    origCost: 1000,
+                    nowCost: 45, // Speciális akció!
+                    date: tdString
+                };
+                localStorage.setItem('nu_deal_date', tdString);
+                localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
+            } else {
+                // Ha van már mára deal, de a felhasználó reklamált, akkor felülírjuk Diamond-ra (45 XP!)
+                try {
+                    deal = JSON.parse(localStorage.getItem('nu_daily_deal'));
+                    if(deal.id !== 'diamond' || deal.nowCost !== 45) {
+                        deal = {
+                            id: 'diamond',
+                            type: 'skin',
+                            name: 'Gyémánt (Húsvéti Deal)',
+                            icon: '💎',
+                            origCost: 2500,
+                            nowCost: 45,
+                            date: tdString
+                        };
+                        localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
+                    }
+                } catch(e) {
+                    // Fallback
+                    deal = { id: 'diamond', type: 'skin', name: 'Gyémánt', icon: '💎', origCost: 1000, nowCost: 45, date: tdString };
+                    localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
+                }
+            }
+            return deal;
+        }
+
+        // ========== SZERENCSEKERÉK LOGIKA ==========
+        function renderWheel(){
+            const canvas = document.getElementById('wheelCanvas');
+            const ctx = canvas.getContext('2d');
+            const spinBtn = document.getElementById('wheelSpinBtn');
+            const resultEl = document.getElementById('wheelResult');
+            const infoEl = document.getElementById('wheelInfo');
+            
+            // Több szelet (10 db), mistery design
+            const PRIZES = [
+                { text: '20 XP', type: 'xp', val: 20, prob: 40 },
+                { text: '50 XP', type: 'xp', val: 50, prob: 30 },
+                { text: '100 XP', type: 'xp', val: 100, prob: 15 },
+                { text: '200 XP', type: 'xp', val: 200, prob: 8 },
+                { text: '500 XP', type: 'xp', val: 500, prob: 4 },
+                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 1 },
+                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.5 },
+                { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.5 },
+                { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.5 },
+                { text: 'Diamond 💎', type: 'skin', val: 'diamond', prob: 0.5 }
+            ];
+
+            let startAngle = 0;
+            const arc = Math.PI / (PRIZES.length / 2);
+            let spinTimeout = null;
+            let spinTime = 0;
+            let spinTimeTotal = 0;
+            let chosenPrize = null;
+
+            function drawWheel(isSpinning = false) {
+                ctx.clearRect(0, 0, 240, 240);
+                const centerX = 120, centerY = 120, radius = 110;
+
+                PRIZES.forEach((p, i) => {
+                    const angle = startAngle + i * arc;
+                    // Mystery színek: váltakozó sötétkék/indigo
+                    ctx.fillStyle = i % 2 === 0 ? '#1e1b4b' : '#312e81';
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY);
+                    ctx.arc(centerX, centerY, radius, angle, angle + arc, false);
+                    ctx.lineTo(centerX, centerY);
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+                    ctx.stroke();
+
+                    // Kérdőjelek pörgetés közben / elején
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                    ctx.translate(centerX + Math.cos(angle + arc / 2) * radius * 0.65, centerY + Math.sin(angle + arc / 2) * radius * 0.65);
+                    ctx.rotate(angle + arc / 2 + Math.PI / 2);
+                    ctx.font = 'bold 24px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('?', 0, 8);
+                    ctx.restore();
+                });
+            }
+
+            function rotateWheel() {
+                spinTime += 30;
+                if (spinTime >= spinTimeTotal) {
+                    stopRotateWheel();
+                    return;
+                }
+                const rotateStep = (spinTimeTotal - spinTime) / spinTimeTotal * 30; // Lassuló mozgás
+                startAngle += (rotateStep / 180 * Math.PI);
+                drawWheel(true);
+                spinTimeout = setTimeout(rotateWheel, 30);
+            }
+
+            function stopRotateWheel() {
+                clearTimeout(spinTimeout);
+                
+                // Animált felfedés
+                resultEl.classList.add('wheel-reveal');
+                resultEl.innerHTML = `🎉 Nyertél: ${chosenPrize.text}`;
+                
+                if(chosenPrize.type === 'xp') {
+                    addXP(chosenPrize.val);
+                } else if(chosenPrize.type === 'skin') {
+                    buyItem(chosenPrize.val);
+                }
+                
+                localStorage.setItem('nu_last_spin', new Date().toDateString());
+                checkSpinStatus();
+                
+                // XP frissítés
+                setTimeout(() => {
+                    document.getElementById('shopXpDisplay').textContent = '⭐ ' + getXP() + ' XP';
+                }, 100);
+            }
+
+            function pickPrize() {
+                const rand = Math.random() * 100;
+                let sum = 0;
+                for (let p of PRIZES) {
+                    sum += p.prob;
+                    if (rand <= sum) return p;
+                }
+                return PRIZES[0];
+            }
+
+            function checkSpinStatus() {
+                const last = localStorage.getItem('nu_last_spin');
+                const today = new Date().toDateString();
+                if (last === today) {
+                    spinBtn.disabled = true;
+                    spinBtn.textContent = 'Mára ennyi 😊';
+                } else {
+                    spinBtn.disabled = false;
+                    spinBtn.textContent = '🎰 Pörgetés (ingyenes)';
+                }
+            }
+
+            spinBtn.addEventListener('click', () => {
+                chosenPrize = pickPrize();
+                resultEl.classList.remove('wheel-reveal');
+                resultEl.textContent = 'Pörgés... 🤞';
+                spinTime = 0;
+                spinTimeTotal = 3000 + Math.random() * 2000;
+                rotateWheel();
+            });
+
+            drawWheel();
+            checkSpinStatus();
+        }
 
         // ========== EMOJI DODGE MINIJÁTÉK ==========
         (function(){
@@ -2175,10 +2800,20 @@
             const backBtn=document.getElementById('gameBack');
             const timerEl=document.getElementById('gameTimer');
 
-            const ENEMIES=['🪙','🌈','💎','🪙','🌈','💎','🪙','🌈','🪙','💎'];
+            const ENEMIES=['🥚','🐣','🐤','🐰','🥚','🐥','🐰','🥚'];
             let player, score, dodged, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
+            let lives=3, invincible=false;
+            const livesEl=document.getElementById('gameLives');
 
             bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
+
+            function updateLivesUI(){
+                let html='';
+                for(let i=0;i<3;i++){
+                    html+=i<lives?'❤️':'<span class="life-lost">🖤</span>';
+                }
+                livesEl.innerHTML=html;
+            }
 
             function getGameBg(){
                 const h=new Date().getHours();
@@ -2202,6 +2837,8 @@
                 overlay.classList.add('active');
                 overScreen.style.display='none';
                 score=0;dodged=0;alive=true;diff=1;
+                lives=3;invincible=false;
+                updateLivesUI();
                 scoreEl.textContent='0';
                 timerEl.textContent='⭐ 0 XP (0/10)';
                 emojis=[];
@@ -2216,8 +2853,8 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                // Emoji spawn: közepes tempó, fokozatosan gyorsul
-                spawnTimer=setInterval(spawnEnemy, 900);
+                // Húsvéti tojás spawn: elején kevés, 200 pontnál több
+                spawnTimer=setInterval(spawnEnemy, 1800);
                 gameLoop=requestAnimationFrame(update);
             };
 
@@ -2246,8 +2883,8 @@
                 em.textContent=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
                 em.style.left=Math.random()*(window.innerWidth-50)+'px';
                 em.style.top='-50px';
-                // Közepes sebesség: 1.8–3.2, lassan gyorsul
-                em._speed=(Math.random()*1.4+1.8+diff*0.15);
+                // Könnyebb: lassabb alap sebesség 1.2–2.2, lassabb gyorsulás
+                em._speed=(Math.random()*1.0+1.2+diff*0.08);
                 em._size=sz;
                 em._counted=false;
                 overlay.appendChild(em);
@@ -2257,14 +2894,19 @@
             function update(){
                 if(!alive)return;
                 score++;
-                diff=1+Math.floor(score/600);
                 const displayScore=Math.floor(score/10);
                 scoreEl.textContent=displayScore;
 
-                // Fokozatos nehezítés
-                if(score%500===0){
+                // 200 pont alatt kevés tojás, utána több
+                if(displayScore<200){
+                    diff=1;
+                } else {
+                    diff=1+Math.floor((displayScore-200)/100);
+                }
+                if(score%600===0){
                     clearInterval(spawnTimer);
-                    spawnTimer=setInterval(spawnEnemy, Math.max(400,900-diff*35));
+                    const interval=displayScore<200?1800:Math.max(500,1100-diff*40);
+                    spawnTimer=setInterval(spawnEnemy,interval);
                 }
 
                 const px=playerX, py=window.innerHeight-175, pw=100, ph=145;
@@ -2283,10 +2925,25 @@
                         em.remove();emojis.splice(i,1);continue;
                     }
 
-                    // Ütközés — halál
-                    const ex=parseFloat(em.style.left), ey=top, esz=em._size;
-                    if(ex+esz>px+10 && ex<px+pw-10 && ey+esz>py+10 && ey<py+ph-10){
-                        gameOver();return;
+                    // Ütközés — életet veszítesz (3 élet van)
+                    if(!invincible){
+                        const ex=parseFloat(em.style.left), ey=top, esz=em._size;
+                        if(ex+esz>px+15 && ex<px+pw-15 && ey+esz>py+15 && ey<py+ph-15){
+                            em.remove();emojis.splice(i,1);
+                            lives--;
+                            updateLivesUI();
+                            if(lives<=0){
+                                gameOver();return;
+                            }
+                            // Rövid sebezhetetlenség (1.2s)
+                            invincible=true;
+                            player.classList.add('hit');
+                            setTimeout(()=>{
+                                invincible=false;
+                                player.classList.remove('hit');
+                            },1200);
+                            continue;
+                        }
                     }
                 }
                 gameLoop=requestAnimationFrame(update);
@@ -2314,7 +2971,12 @@
             }
 
             function closeGame(){
-                alive=false;
+                if(alive){
+                    // Ha még élt, de kilépett, megkapja az eddigi XP-t
+                    const earnedXP=Math.floor(dodged/10)*50;
+                    if(earnedXP>0) addXP(earnedXP);
+                }
+                alive = false;
                 clearInterval(spawnTimer);
                 cancelAnimationFrame(gameLoop);
                 overlay.removeEventListener('touchstart',onTouchStart);
