@@ -266,6 +266,81 @@
         .game-player.graffiti .gp-head,.game-player.graffiti .gp-body{background:#1e293b!important;background-image:radial-gradient(circle at 20% 30%,#f472b6 0%,transparent 40%),radial-gradient(circle at 80% 60%,#22d3ee 0%,transparent 45%)!important}
         .game-player.graffiti .gp-eye{background:radial-gradient(circle,#fff,#f472b6,#db2777)!important;box-shadow:0 0 10px #f472b6!important}
 
+        .game-player.gamer .gp-head{background:linear-gradient(165deg,#0f172a,#334155)!important;border:1px solid #38bdf8!important}
+        .game-player.gamer .gp-body{background:linear-gradient(165deg,#1e293b,#0f172a)!important;box-shadow:0 0 10px rgba(56,189,248,.3)!important}
+        .game-player.gamer .gp-eye{background:radial-gradient(circle,#38bdf8,#0ea5e9)!important;box-shadow:0 0 8px #38bdf8!important}
+
+        /* AURAS */
+        @keyframes auraFloat { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.05)} }
+        @keyframes glitchAura { 0%{opacity:.8;transform:translate(-52%,-48%) skew(2deg)} 50%{opacity:1;transform:translate(-48%,-52%) skew(-2deg)} 100%{opacity:.8;transform:translate(-50%,-50%) skew(0deg)} }
+        
+        .robot[class*="aura-"] { position: relative; }
+        .robot[class*="aura-"]::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); 
+            width: 140%; height: 120%; border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%; 
+            z-index: -1; pointer-events: none; opacity: 0.6; filter: blur(25px);
+        }
+
+        .robot.aura-fire::before {
+            background: radial-gradient(circle, #f97316, #dc2626, transparent);
+            animation: auraFloat 2s ease-in-out infinite, flameFlicker 1.5s infinite;
+            filter: blur(20px);
+        }
+        .robot.aura-glitch::before {
+            background: repeating-linear-gradient(45deg, #22d3ee, #f472b6, #fbbf24 10%);
+            animation: glitchAura 0.2s infinite;
+            border-radius: 10px;
+            mix-blend-mode: color-dodge;
+        }
+        .robot.aura-halo::after {
+            content: ''; position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 25px; border: 4px solid #fef3c7; border-radius: 50%;
+            box-shadow: 0 0 20px #fde68a, inset 0 0 10px #fde68a;
+            opacity: 0.8; z-index: 5; animation: auraFloat 3s ease-in-out infinite;
+        }
+        .robot.aura-rgb::before {
+            background: conic-gradient(from 0deg, #f87171, #fb923c, #fbbf24, #34d399, #38bdf8, #818cf8, #f87171);
+            animation: rotate 4s linear infinite;
+            width: 150%; height: 130%; opacity: 0.4;
+        }
+
+        /* GAMER SKIN */
+        .robot.gamer .head, .robot.gamer .torso {
+            background: linear-gradient(165deg, #1e293b 0%, #0f172a 100%)!important;
+            border: 1px solid rgba(56,189,248,0.3)!important;
+            box-shadow: inset 0 0 15px rgba(56,189,248,0.1)!important;
+        }
+        .robot.gamer .head::after {
+            content: '🎧'; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            font-size: 50px; filter: drop-shadow(0 0 10px #38bdf8); z-index: 10;
+        }
+        .robot.gamer .arm-r::after {
+            content: ''; position: absolute; bottom: -10px; right: -15px; 
+            width: 25px; height: 35px; background: #0f172a; border-radius: 12px 12px 5px 5px;
+            border: 2px solid #38bdf8; box-shadow: 0 0 10px #38bdf8; z-index: 10;
+        }
+        .robot.gamer .chest-dot {
+            background: #38bdf8!important; box-shadow: 0 0 15px #38bdf8!important;
+            animation: pulse 1.5s infinite;
+        }
+        
+        body.bg-gamer {
+            background: #020617!important;
+            background-image: 
+                linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px)!important;
+            background-size: 50px 50px!important;
+        }
+        body.bg-gamer::before {
+            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #ec4899, #38bdf8);
+            box-shadow: 0 0 20px #38bdf8; z-index: 100; animation: rainbowShift 5s infinite;
+        }
+        body.bg-gamer::after {
+            content: 'NEON SETUP ACTIVE'; position: fixed; bottom: 20px; left: 20px;
+            font-family: monospace; color: #38bdf8; opacity: 0.3; font-size: 10px; letter-spacing: 2px;
+        }
+
         /* ALIVE FIRE */
         .robot.fire .torso, .robot.fire .head { animation: flameFlicker 1.5s ease-in-out infinite; }
         .robot.fire .torso { background: #dc2626!important; }
@@ -2611,11 +2686,19 @@
         function setActiveSkin(name){localStorage.setItem('nu_active_skin',name)}
         function getActiveBg(){return localStorage.getItem('nu_active_bg')||''}
         function setActiveBg(name){localStorage.setItem('nu_active_bg',name)}
+        function getActiveAura(){return localStorage.getItem('nu_active_aura')||''}
+        function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|school|graffiti)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|school|graffiti|gamer)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
+        }
+        function applyAura(){
+            const r=document.getElementById('robot');
+            r.classList.forEach(c => { if(c.startsWith('aura-')) r.classList.remove(c); });
+            const aura=getActiveAura();
+            if(aura&&owns(aura)) r.classList.add(aura);
         }
         const CUSTOM_BGS={
             'bg-golden':'linear-gradient(165deg,#fef3c7 0%,#fde68a 20%,#fbbf24 40%,#f59e0b 60%,#d97706 80%,#92400e 100%)',
@@ -2624,7 +2707,8 @@
             'bg-galaxy':'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)',
             'bg-sakura':'linear-gradient(165deg,#fff1f2 0%,#fce7f3 30%,#f9a8d4 60%,#f472b6 100%)',
             'bg-fire':'linear-gradient(165deg,#450a0a 0%,#991b1b 30%,#dc2626 60%,#f97316 100%)',
-            'bg-stealth':'linear-gradient(165deg,#020617 0%,#1e293b 50%,#0f172a 100%)'
+            'bg-stealth':'linear-gradient(165deg,#020617 0%,#1e293b 50%,#0f172a 100%)',
+            'bg-gamer':'linear-gradient(165deg,#020617 0%,#0f172a 30%,#1e1b4b 60%,#020617 100%)'
         };
         function applyCustomBg(){
             const bg=getActiveBg();
@@ -2650,11 +2734,13 @@
         // Migráció + owner setup
         function checkMasterUnlock() {
             if(localStorage.getItem('nu_name') === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky','graffiti'];
-                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-classroom'];
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky','graffiti','gamer'];
+                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-classroom','bg-gamer'];
+                const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
-                console.log('✅ Master Unlock aktív: Minden skin feloldva Kovrat számára.');
+                auras.forEach(a => buyItem(a));
+                console.log('✅ Master Unlock aktív: Minden skin, háttér és aura feloldva Kovrat számára.');
             }
         }
 
@@ -2665,6 +2751,7 @@
             checkMasterUnlock();
             applyRobotSkin();
             applyCustomBg();
+            applyAura();
         })();
 
         // ========== BOLT MENÜ ==========
@@ -2688,7 +2775,8 @@
                 {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500,sale:999},
                 {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500,sale:1999},
                 {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
-                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱'}
+                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱'},
+                {id:'gamer',name:'Gamer Skin',desc:'RGB világítás és Headset 🎧',icon:'🎮'}
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
@@ -2699,7 +2787,15 @@
                 {id:'bg-classroom',name:'Suli Tábla',desc:'Klasszikus kréta-stílus',icon:'📚',cost:180},
                 {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1200},
                 {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:1500},
-                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:2500}
+                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:2500},
+                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup 🖥️',icon:'🌃',cost:450}
+            ];
+            const AURAS=[
+                {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0},
+                {id:'aura-fire',name:'Tűz Aura',desc:'Lángoló energia',icon:'🔥',cost:500},
+                {id:'aura-glitch',name:'Glitch Aura',desc:'Digitális zavar',icon:'👾',cost:800},
+                {id:'aura-halo',name:'Szent Aura',desc:'Égi ragyogás',icon:'😇',cost:1000},
+                {id:'aura-rgb',name:'RGB Aura',desc:'Gamer színek',icon:'🌈',cost:1200}
             ];
 
             function renderShop(){
@@ -2720,8 +2816,22 @@
 
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
+                const activeAura=getActiveAura();
                 skinList.innerHTML='';
                 bgList.innerHTML='';
+
+                // Auralist elem
+                const auraListId = 'auraList';
+                let auraList = document.getElementById(auraListId);
+                if(!auraList){
+                   const auraSection = document.createElement('div');
+                   auraSection.className = 'shop-section';
+                   auraSection.innerHTML = `<div class="shop-section-title">🔮 Auraválaszték <span class="shop-sale-badge">ÚJ</span></div><div class="shop-scroll" id="${auraListId}"></div>`;
+                   // Insert after BG list
+                   bgList.parentElement.insertAdjacentElement('afterend', auraSection);
+                   auraList = document.getElementById(auraListId);
+                }
+                auraList.innerHTML = '';
 
                 // NAPI AJÁNLAT MEGJELENÍTÉSE
                 const deal = getDailyDeal(SKINS, BGS);
@@ -2757,7 +2867,8 @@
                 }
 
                 [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
-                  {id:'bgList',items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg}
+                  {id:'bgList',items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg},
+                  {id:'auraList',items:AURAS,list:auraList,active:activeAura,setter:setActiveAura,applier:applyAura}
                 ].forEach(cfg=>{
                     cfg.items.forEach(s=>{
                         // TITKOS ELEM: Csak akkor mutasd, ha megvan
