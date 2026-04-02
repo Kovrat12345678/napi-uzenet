@@ -304,6 +304,27 @@
             width: 150%; height: 130%; opacity: 0.4;
         }
 
+        @keyframes sakurafall { 0%{transform:translate(-50%,-100%) rotate(0deg);opacity:0} 20%{opacity:1} 100%{transform:translate(-50%,150%) rotate(360deg);opacity:0} }
+        .robot.aura-sakura::before {
+            background: radial-gradient(circle, #f9a8d4, transparent);
+            box-shadow: 0 0 30px #f9a8d4, 0 0 60px rgba(249,168,212,0.5);
+            animation: auraFloat 3s ease-in-out infinite;
+        }
+        .robot.aura-sakura::after {
+            content: '🌸'; position: absolute; top: -20px; left: 50%;
+            font-size: 14px; animation: sakurafall 4s linear infinite;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .robot.aura-diamond::before {
+            background: radial-gradient(circle, #ecfeff, #06b6d4, transparent);
+            box-shadow: 0 0 40px #67e8f9;
+            animation: auraFloat 4s ease-in-out infinite;
+            opacity: 0.5;
+        }
+        @keyframes shine { 0%{filter:brightness(1)} 50%{filter:brightness(1.8)} 100%{filter:brightness(1)} }
+        .robot.aura-diamond { animation: shine 2s ease-in-out infinite; }
+
         /* GAMER SKIN */
         .robot.gamer .head, .robot.gamer .torso {
             background: linear-gradient(165deg, #1e293b 0%, #0f172a 100%)!important;
@@ -311,30 +332,39 @@
             box-shadow: inset 0 0 15px rgba(56,189,248,0.1)!important;
         }
         .robot.gamer .head::after {
-            content: '🎧'; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-            font-size: 50px; filter: drop-shadow(0 0 10px #38bdf8); z-index: 10;
+            content: '🎧'; position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
+            font-size: 65px; filter: drop-shadow(0 0 15px #38bdf8); z-index: 10;
         }
-        .robot.gamer .arm-r::after {
-            content: ''; position: absolute; bottom: -10px; right: -15px; 
-            width: 25px; height: 35px; background: #0f172a; border-radius: 12px 12px 5px 5px;
-            border: 2px solid #38bdf8; box-shadow: 0 0 10px #38bdf8; z-index: 10;
+        .robot.gamer .head::before {
+            content: ''; position: absolute; top: 12px; left: 8px; right: 8px; height: 30px;
+            background: linear-gradient(to right, #38bdf8, #ec4899, #38bdf8);
+            border: 2px solid #fff; border-radius: 6px; box-shadow: 0 0 25px #38bdf8; z-index: 2;
+            animation: pulse 1s infinite, rainbowShift 4s infinite;
         }
         .robot.gamer .chest-dot {
-            background: #38bdf8!important; box-shadow: 0 0 15px #38bdf8!important;
-            animation: pulse 1.5s infinite;
+            background: #fff!important; box-shadow: 0 0 25px #38bdf8, 0 0 50px #ec4899!important;
+            animation: pulse 0.5s infinite!important;
+        }
+        .robot.gamer .leg {
+            background: linear-gradient(to bottom, #1e293b, #0f172a)!important;
+            border-top: 3px solid #38bdf8!important; box-shadow: 0 -5px 15px rgba(56,189,248,0.4)!important;
+            animation: rainbowShift 3s infinite!important;
         }
         
+        body.bg-gamer::before {
+            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 6px;
+            background: linear-gradient(90deg, #38bdf8, #ec4899, #a855f7, #38bdf8);
+            box-shadow: 0 0 30px #38bdf8; z-index: 100; animation: rainbowShift 3s infinite;
+        }
+        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 50px 50px; } }
         body.bg-gamer {
             background: #020617!important;
             background-image: 
-                linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px)!important;
-            background-size: 50px 50px!important;
-        }
-        body.bg-gamer::before {
-            content: ''; position: fixed; top: 0; left: 0; right: 0; height: 4px;
-            background: linear-gradient(90deg, #38bdf8, #ec4899, #38bdf8);
-            box-shadow: 0 0 20px #38bdf8; z-index: 100; animation: rainbowShift 5s infinite;
+                linear-gradient(rgba(56,189,248,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56,189,248,0.1) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(139,92,246,0.15) 0%, transparent 70%)!important;
+            background-size: 50px 50px, 50px 50px, 100% 100%!important;
+            animation: gridMove 2s linear infinite!important;
         }
         body.bg-gamer::after {
             content: 'NEON SETUP ACTIVE'; position: fixed; bottom: 20px; left: 20px;
@@ -2724,8 +2754,8 @@
                 return;
             }
 
-            if(bg === 'bg-classroom'){
-                document.body.classList.add('bg-classroom');
+            if(bg === 'bg-classroom' || bg === 'bg-gamer'){
+                document.body.classList.add(bg);
             } else if(CUSTOM_BGS[bg]){
                 document.body.style.background=CUSTOM_BGS[bg];
                 document.body.style.backgroundAttachment='fixed';
@@ -2733,14 +2763,19 @@
         }
         // Migráció + owner setup
         function checkMasterUnlock() {
-            if(localStorage.getItem('nu_name') === 'Kovrat') {
+            const userName = localStorage.getItem('nu_name');
+            if(userName === 'Kovrat') {
                 const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky','graffiti','gamer'];
                 const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-classroom','bg-gamer'];
-                const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb'];
+                const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
                 auras.forEach(a => buyItem(a));
-                console.log('✅ Master Unlock aktív: Minden skin, háttér és aura feloldva Kovrat számára.');
+                console.log('✅ Master Unlock aktív: Minden feloldva Kovrat számára.');
+            } else if(userName === 'Zerénd') {
+                buyItem('gamer');
+                buyItem('bg-gamer');
+                console.log('🎁 Zerénd ajándék: Gamer skin és háttér feloldva.');
             }
         }
 
@@ -2775,8 +2810,8 @@
                 {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500,sale:999},
                 {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500,sale:1999},
                 {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
-                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱'},
-                {id:'gamer',name:'Gamer Skin',desc:'RGB világítás és Headset 🎧',icon:'🎮'}
+                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱',cost:300},
+                {id:'gamer',name:'Gamer Skin',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:2000}
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
@@ -2795,6 +2830,8 @@
                 {id:'aura-fire',name:'Tűz Aura',desc:'Lángoló energia',icon:'🔥',cost:500},
                 {id:'aura-glitch',name:'Glitch Aura',desc:'Digitális zavar',icon:'👾',cost:800},
                 {id:'aura-halo',name:'Szent Aura',desc:'Égi ragyogás',icon:'😇',cost:1000},
+                {id:'aura-sakura',name:'Sakura Aura',desc:'Hulló szirmok',icon:'🌸',cost:600},
+                {id:'aura-diamond',name:'Gyémánt Aura',desc:'Szikrázó jégkristály',icon:'💎',cost:1500},
                 {id:'aura-rgb',name:'RGB Aura',desc:'Gamer színek',icon:'🌈',cost:1200}
             ];
 
