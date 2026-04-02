@@ -292,8 +292,15 @@
             opacity: 0.8;
         }
         .robot.graffiti .arm-r::after {
-            content: '🥫'; position: absolute; bottom: -5px; right: -10px; font-size: 18px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+            content: ''; position: absolute; bottom: -8px; right: -8px; width: 8px; height: 16px;
+            background: linear-gradient(to bottom, #94a3b8, #475569); border-radius: 2px;
+            box-shadow: inset -2px 0 2px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .robot.graffiti .arm-r::after {
+            /* Szórófej */
+            background-image: 
+                radial-gradient(circle at 50% 1px, #1e293b 2px, transparent 3px),
+                linear-gradient(to bottom, #94a3b8, #475569);
         }
         .robot.graffiti .arm-r::before {
             content: ''; position: absolute; bottom: 5px; right: -15px; width: 10px; height: 10px;
@@ -2635,7 +2642,7 @@
                 {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500,sale:999},
                 {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500,sale:1999},
                 {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
-                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🥫'}
+                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱'}
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
