@@ -74,9 +74,9 @@
         /* ===== EMOJI DODGE MINIJÁTÉK ===== */
         .game-overlay{position:fixed;inset:0;z-index:300;display:none;flex-direction:column;touch-action:none;overflow:hidden}
         .game-overlay.active{display:flex}
-        .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 16px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:16px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+        .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 10px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:14px;text-shadow:0 2px 8px rgba(0,0,0,.4);gap:5px}
         .game-score{font-size:22px}
-        .game-lives{font-size:20px;letter-spacing:2px}
+        .game-lives{font-size:18px;letter-spacing:1px;white-space:nowrap;display:flex;align-items:center;margin:0 4px}
         .game-lives .life-lost{opacity:.25}
         @keyframes hitFlash{0%{opacity:1}20%{opacity:.2}40%{opacity:1}60%{opacity:.2}80%{opacity:1}100%{opacity:1}}
         .game-player.hit{animation:hitFlash .6s ease!important}
@@ -243,6 +243,28 @@
         .robot.stealth .chest-dot{background:#ef4444!important;box-shadow:0 0 4px rgba(239,68,68,.6)!important}
         .robot.stealth .chest{background:linear-gradient(145deg,#020617,#0f172a)!important}
         .robot.stealth .chest::before{border-color:rgba(239,68,68,.15)!important}
+        
+        .game-player.fire .gp-head{background:linear-gradient(165deg,#dc2626,#f97316)!important}
+        .game-player.fire .gp-body{background:linear-gradient(165deg,#b91c1c,#ea580c)!important}
+        .game-player.fire .gp-eye{background:radial-gradient(circle,#fef08a,#f59e0b)!important;box-shadow:0 0 10px rgba(245,158,11,.9)!important}
+        .game-player.fire .gp-leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
+
+        .game-player.stealth .gp-head{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
+        .game-player.stealth .gp-body{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
+        .game-player.stealth .gp-eye{background:radial-gradient(circle,#fca5a5,#ef4444)!important;box-shadow:0 0 8px rgba(239,68,68,.7)!important}
+        .game-player.stealth .gp-leg{background:linear-gradient(to bottom,#334155,#1e293b)!important}
+
+        .game-player.rainbow { animation: rainbowShift 8s linear infinite!important; }
+        .game-player.rainbow .gp-head{background:linear-gradient(165deg,#ff80b5,#9089fc)!important}
+        .game-player.rainbow .gp-body{background:linear-gradient(165deg,#9089fc,#ff80b5)!important}
+
+        .game-player.diamond .gp-head{background:linear-gradient(165deg,#ecfeff,#a5f3fc)!important}
+        .game-player.diamond .gp-body{background:linear-gradient(165deg,#67e8f9,#0891b2)!important}
+        .game-player.diamond .gp-eye{background:radial-gradient(circle,#a5f3fc,#22d3ee)!important;box-shadow:0 0 10px rgba(34,211,238,.8)!important}
+        .game-player.diamond .gp-leg{background:linear-gradient(to bottom,#67e8f9,#0891b2)!important}
+
+        .game-player.graffiti .gp-head,.game-player.graffiti .gp-body{background:#1e293b!important;background-image:radial-gradient(circle at 20% 30%,#f472b6 0%,transparent 40%),radial-gradient(circle at 80% 60%,#22d3ee 0%,transparent 45%)!important}
+        .game-player.graffiti .gp-eye{background:radial-gradient(circle,#fff,#f472b6,#db2777)!important;box-shadow:0 0 10px #f472b6!important}
 
         /* ALIVE FIRE */
         .robot.fire .torso, .robot.fire .head { animation: flameFlicker 1.5s ease-in-out infinite; }
