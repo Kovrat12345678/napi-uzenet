@@ -2525,7 +2525,8 @@
                 {id:'school',name:'Sulis Robot',desc:'A legmenőbb középiskolás',icon:'🎒',cost:300},
                 {id:'golden',name:'Arany',desc:'Csillogó arany',icon:'✨',cost:1000},
                 {id:'rainbow',name:'Rainbow',desc:'Szivárványos',icon:'🌈',cost:1500,sale:999},
-                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt',icon:'💎',cost:2500,sale:1999}
+                {id:'diamond',name:'Gyémánt',desc:'Jégkék gyémánt',icon:'💎',cost:2500,sale:1999},
+                {id:'chicky',name:'Csibés',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true}
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
@@ -2583,10 +2584,13 @@
                     };
                 }
 
-                [ {items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
-                  {items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg}
+                [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
+                  {id:'bgList',items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg}
                 ].forEach(cfg=>{
                     cfg.items.forEach(s=>{
+                        // TITKOS ELEM: Csak akkor mutasd, ha megvan
+                        if(s.hide && !owns(s.id)) return;
+                        
                         const owned=owns(s.id);
                         const isActive=s.id===cfg.active;
                         // Ha ez a napi ajánlat, akkor finalCost a deal.nowCost
@@ -2624,6 +2628,14 @@
                         });
                         cfg.list.appendChild(el);
                     });
+                    
+                    // REJTETT TIPP A BOLTBAN
+                    if(cfg.id === 'skinList' && !owns('chicky')) {
+                        const hint = document.createElement('div');
+                        hint.style.cssText = 'flex:0 0 135px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:11px;font-weight:600;text-align:center;padding:0 10px;line-height:1.4;';
+                        hint.innerHTML = 'Valahol el van rejtve egy titkos Csibés robot... 🥚🤫';
+                        cfg.list.appendChild(hint);
+                    }
                 });
             }
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
