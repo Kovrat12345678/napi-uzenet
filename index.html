@@ -1903,7 +1903,7 @@
 
         // ========== SZÜLINAP DETEKTÁLÁS ==========
         const _bd=msgDay();
-        const isBirthday=(_bd.getMonth()===3&&_bd.getDate()>=4&&_bd.getDate()<=5); // ápr 4-5.
+        const isBirthday=(_bd.getMonth()===3&&_bd.getDate()>=4&&_bd.getDate()<=6); // ápr 4-6.
 
         // ========== NAPSZAK HÁTTÉR (AUTOMATIKUS) ==========
         function applyTimeTheme() {
@@ -2440,7 +2440,7 @@
 
         function dm(){
             const d=msgDay();
-            // Mama szülinapja (ápr 4-5.)
+            // Mama szülinapja (ápr 4-6.)
             if(isBirthday){
                 return {t:"Boldog 63. születésnapot, drága Mama! 🎂 Nagyon szeretünk! Isten éltessen sokáig, egészségben és boldogságban! 💝",e:"🥳"};
             }
