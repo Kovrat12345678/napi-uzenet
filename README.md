@@ -37,52 +37,96 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Nevnap koszrontes** — ha a neved ma unnepli a nevnapjat, a robot felkoszront
 - **Kedvencek** — szivecskere koppintva elmentheto, kesobb visszanezheto
 - **Megosztas** — szep kepes kartya generalas es megosztas (WhatsApp, Messenger, Instagram stb.)
-- **Napi 1 uzenet korlatozas** — naponta egyszer koppinthatsz, utana a robot csak integet
-- **Visszaszamlalo** — az app aljan latod mikor jon a kovetkezo uzenet (kovetkezo reggel 6-ig)
-- **Ertesitesek** — belepeskor + naponta tobbszor emlekeztet
-- **Elethu CSS robot** — lebeges, pislogas, antenna pulzalas animaciokkal
-- **Robot reakciok** — az uzenet hangulata alapjan mas arckifejezest mutat
-- **Gepelo effekt** — az uzenet betuenkent jelenik meg, mint egy chatben
+- **Visszaszamlalo** — mikor jon a kovetkezo uzenet
+- **Ertesitesek** — naponta tobbszor emlekeztet
+- **Elethu CSS robot** — lebeges, pislogas, antenna pulzalas, 7 kulonbozo reakcio
+- **Gepelo effekt** — az uzenet betuenkent jelenik meg
 - **Napszak-fuggo hatter** — reggel narancs, nappal kek-lila, este sotet, ejjel indigo
-- **Idojaras animaciok** — valos eso, ho vagy napsutes a helyzeted alapjan (GPS vagy IP-alapu)
-- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, szulinap, nemzeti unnepek es meg tobb
-- **Szulinapi mod** — kulonleges hatter, lebego lufik, szulinapi sapka a roboton
+- **Idojaras animaciok** — valos eso, ho vagy napsutes a helyzeted alapjan
+- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, szulinap es meg tobb
 - **Streak szamlalo** — koveti hany egymast koveto napon nyitottad meg
 - **Konfetti** — minden napi uzenetnel unnepel
-- **Drag interakcio** — huzd meg a robotot, meglepodik es szinesen vilagit
-- **Robot hangok** — koppintasra cuki hangeffektek
-- **Emoji Dodge minijáték** — nyomd hosszan a robotot, kerüld ki a hulló 🪙🌈💎 emojikat es gyüjts XP-t!
-- **XP rendszer** — 10 kikerult emoji = 50 XP, halmozodik jatekok kozott
-- **Robot Bolt** — 🎨 gomb: robot skinek es hatterek vasarlasa XP-ert
+- **Drag & tap interakciok** — huzd meg vagy koppints a robotra
 
 ## Emoji Dodge minijáték
 
-A robotot hosszan nyomva tartva (kb. 1 mp) elindul egy minijáték:
+A robotot hosszan nyomva tartva elindul egy minijáték:
 
-- A kepernyo aljan egy mini robot (igazi CSS robot, nem emoji) jobbra-balra mozgatható
-- Felülrol arany 🪙, rainbow 🌈 es gyemant 💎 emojik hullanak — ezeket ki kell kerulni!
-- Ha belemégy egy emojiba, vege a jateknak
-- **XP szerzés**: minden 10 sikeresen kikerült emoji utan 50 XP-t kapsz
-- Az XP jatekok kozott halmozodik — a Robot Boltban koltheted el
-- A nehezseg fokozatosan no: az emojik gyorsabban es surobben jonnek
-- A hatter az aktualis napszakhoz igazodik
+- A kepernyo aljan egy mini robot jobbra-balra mozgatható
+- Felülrol virag emojik (🌷🌻🌸🌺🌹💐) hullanak — ki kell kerulni!
+- 3 eleted van — ha elfogy, vege a jateknak
+- **XP szerzés**: minden 10 kikerült emoji = 50 XP
+- Lassu indulas, 200 pont felett gyorsul
+- Az XP a Robot Boltban koltheted el
 
 ## Robot Bolt
 
-A jobb felso sarokban a 🎨 gombra koppintva megnyilik a Robot Bolt:
+A jobb felso sarokban a 🏪 gombra koppintva megnyilik:
 
-- **Robot kinezetek** (XP-ert vasarolhatok):
-  - 🤖 **Alap** — ingyenes, az eredeti robot
-  - ✨ **Arany robot** — 200 XP, csillogo arany szin
-  - 🌈 **Rainbow robot** — 500 XP, szivarvanyos animacio
-  - 💎 **Gyemant robot** — 1000 XP, jegkek csillogo robot
-- **Hatterek** (XP-ert vasarolhatok):
-  - 🌅 **Napszak** — ingyenes, automatikus napszak hatter
-  - ✨ **Arany hatter** — 200 XP, meleg arany gradiens
-  - 🌈 **Rainbow hatter** — 500 XP, szivarvanyos gradiens
-  - 💎 **Gyemant hatter** — 1000 XP, jegkek gyemant gradiens
-- A megvett targyak orokre megmaradnak
-- Barmelyik feloldott skin/hatter kozott szabadon valtogathatsz
+### Skinek
+
+| Skin | Ar | Tier |
+|------|----|------|
+| 🤖 Alap | Ingyenes | Free |
+| 🌷 Tulipan | Ingyenes (ajandek) | Free |
+| 🌌 Galaxy | 200 XP | Alap |
+| 🌸 Sakura | 350 XP | Alap |
+| 🧱 Graffiti | 350 XP (apr 10-tol) | Alap |
+| 👤 Stealth | 550 XP | Ritka |
+| 🔥 Fire | 600 XP | Ritka |
+| ✨ Golden | 800 XP | Ritka |
+| 💎 Diamond | 800 XP | Ritka |
+| 🌈 Rainbow | 800 XP | Ritka |
+| 🎮 Gamer | 900 XP | Ritka |
+| 🪟 Glass | 2000 XP | Legendas |
+| 🐥 Chicky | Titkos | Husveti |
+| 🐴 Lo | Exkluziv | Titkos |
+
+### Hatterek
+
+| Hatter | Ar | Tier |
+|--------|----|------|
+| 🌅 Napszak | Ingyenes | Free |
+| 🌷 Tavaszi Ret | Ingyenes (ajandek) | Free |
+| 🌌 Galaxy | 200 XP | Alap |
+| 🌸 Sakura | 350 XP | Alap |
+| 🧱 Graffiti | 350 XP (apr 10-tol) | Alap |
+| 🌑 Stealth | 550 XP | Ritka |
+| 🔥 Fire | 600 XP | Ritka |
+| ✨ Luxus Arany | 800 XP | Ritka |
+| 💎 Gyemant | 800 XP | Ritka |
+| 🌈 Szivarvany | 800 XP | Ritka |
+| 🌃 Gamer Room | 900 XP | Ritka |
+| 🧪 Labor Glass | 1000 XP | Legendas |
+
+### Aurak
+
+| Aura | Ar | Tier |
+|------|----|------|
+| 🚫 Nincs | Ingyenes | Free |
+| 🌷 Tulipan | Ingyenes (ajandek) | Free |
+| 🔥 Tuz | 400 XP | Alap |
+| 🌸 Sakura | 500 XP | Alap |
+| 👾 Glitch | 750 XP | Ritka |
+| 😇 Szent | 1000 XP | Ritka |
+| 🌈 RGB | 1500 XP | Legendas |
+| 💎 Gyemant | 2000 XP | Legendas |
+
+### Napi Szuperajanlat
+
+Minden nap mas akcios ajanlat (ejfelkor valt, 14 napos ciklus). Visszaszamlalo mutatja mikor jon az uj. Csomagok (bundle) ket targyat adnak egyszerre, pl. Glass Skin + Hatter.
+
+### Szerencsekerek
+
+Naponta 1 ingyenes porges (ejfelkor resetel). Foleg XP-t ad (96.5%), de nagyon ritkan skint is nyerhetsz (3.5% — a Glass skin eselye 0.1%)!
+
+## Szinkronizalas
+
+A bolt headerben a 🔄 gombbal exportalhatod az adataidat (XP, skinek, kedvencek) es masik eszkozon importalhatod. Nincs szukseg felhasznaloi fiokra — a kodot uzeneten keresztul kuldod at magadnak.
+
+## Tavaszi Ajandek
+
+Elso belepes utan egy ajandekdoboz jelenik meg — koppints ra haromszor es megkapod a Tulipan Skin + Tavaszi Ret Hatter + Tulipan Aura tárgyakat ingyen!
 
 ## Uzenet kategoriak
 
@@ -109,23 +153,10 @@ A jobb felso sarokban a 🎨 gombra koppintva megnyilik a Robot Bolt:
 4. Szivecskere koppintva elmentheted kedvencnek
 5. Megosztas gombbal szep kepes kartyat kuldhetsz barmelyik appban
 6. Az app aljan latod a visszaszamlalot: mikor jon a kovetkezo uzenet
-7. Nyomd hosszan a robotot a minijátékhoz — gyüjts XP-t es vegyel robot skineket a boltban!
+7. Nyomd hosszan a robotot a minijátékhoz — gyüjts XP-t!
+8. A 🏪 gombbal megnyitod a boltot — vasarolj skineket, hattereket, aurakat
+9. A 🔄 gombbal szinkronizalhatod mas eszkozre az adataidat
 
 ## Tech Stack
 
-Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is.
-
-## Ertesitesek
-
-- Belepeskor: ha meg nem lattad a mai uzenetet, azonnal emlekeztet
-- Naponta 3x: reggel 6, delben 12, este 6 (amig a bongeszo el)
-- Android hatterben: periodicSync 4 oranként
-
-Engedelyezes: elso alkalommal a robotra koppintaskor keri.
-
-## Idojaras
-
-Az app automatikusan felismeri a helyzeted es megjeleníti az aktualis idojarast:
-- Eloszor GPS-t probal (ha engedelyezed)
-- Ha nem, IP-cim alapjan allapitja meg a varosodat (geojs.io, engedelykerds nelkul)
-- Esik az eso nalad? Az appban is esik. Havazik? Hopelyhek hullanak. Sut a nap? Sugarak ragyognak.
+Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v11) kezeli a cache-t es az ertesiteseket.

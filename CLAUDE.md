@@ -24,7 +24,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
   - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev)
   - `nu_favs` (kedvenc uzenetek JSON tomb)
-  - `nu_game_best` (jatek rekord), `nu_xp` (osszes XP), `nu_owned` (megvett targyak JSON tomb), `nu_active_skin` (aktualis skin), `nu_active_bg` (aktualis hatter)
+  - `nu_game_best` (jatek rekord), `nu_xp` (osszes XP), `nu_owned` (megvett targyak JSON tomb)
+  - `nu_active_skin` (aktualis skin), `nu_active_bg` (aktualis hatter), `nu_active_aura` (aktualis aura)
+  - `nu_last_spin` (utolso szerencsekerek porges datuma)
+  - `nu_deal_date`, `nu_daily_deal` (napi szuperajanlat cache)
 
 ### Reggel 6 logika
 
@@ -38,7 +41,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Elso megnyitaskor 2 lepesu regisztracio: Intro → Keresztnev
 - **Csak utonevt ker** — szokoz tiltva az input mezoben (vezeteknev nem adhato meg)
 - `nu_reg` && `nu_name` letezese alapjan donti el, hogy megjelenjen-e
-- Az app (`#appMain`) CSS-bol rejtett (`pre-reg` class) amig a regisztracio nem kesz — Android PWA-n nem villan
+- Az app (`#appMain`) CSS-bol rejtett (`pre-reg` class) amig a regisztracio nem kesz
 
 ### Robot
 
@@ -46,153 +49,196 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - **Idle**: lebeges (`float`), szem pislogas (`eyeIdle`), antenna pulzalas (`glow`), sziv dobolas (`heartbeat`)
   - **Beszed**: szaj animacio (`speak`), kar mozgas (`waveL/R`), mellkas LED-ek (`dotPulse`), szem fenyesedes
   - **Boldog**: mosolygo szaj, hunyorgo szemek, karok felfele
-  - **Excited**: ugralas, tapsolas, ragyogo szemek (energia/motivacio uzeneteknel)
-  - **Caring**: gyenged ringas, lila feny, olelo karok (erzelmes uzeneteknel)
-  - **Thinking**: lassabb pislogas, kerdojel antenna (elmelkedo uzeneteknel)
-  - **Dancing**: tancolo mozgas, gyors kar lengetes (vicces/humor uzeneteknel)
-  - **Arany**: 200 XP-ert vasarolhato arany szinu robot (fej, test, szemek, antenna, labak)
-  - **Rainbow**: 500 XP-ert vasarolhato szivarvanyos robot (hue-rotate animacio)
-  - **Gyemant**: 1000 XP-ert vasarolhato gyemant robot (cyan/jegkek szin, csillogo animacio)
-  - Robot Bolt: 🎨 gomb → bolt panel ahol XP-ert vasarolhatok skinek es hatterek
+  - **Excited**: ugralas, tapsolas, ragyogo szemek
+  - **Caring**: gyenged ringas, lila feny, olelo karok
+  - **Thinking**: lassabb pislogas, kerdojel antenna
+  - **Dancing**: tancolo mozgas, gyors kar lengetes
 - Reakcio kivalasztas: `pickReaction()` fuggveny az uzenet szovege es emojija alapjan
+
+### Robot Skinek
+
+Tier rendszer: free / common / rare / legendary / secret
+
+| Skin | Ar (XP) | Tier |
+|------|---------|------|
+| Alap | 0 | free |
+| Tulipan | 0 | free (ajandek) |
+| Galaxy | 200 | common |
+| Sakura | 350 | common |
+| Graffiti | 350 (elso nap 2000) | common (apr 10-tol) |
+| Stealth | 550 | rare |
+| Fire | 600 | rare |
+| Golden | 800 | rare |
+| Diamond | 800 | rare |
+| Rainbow | 800 | rare |
+| Gamer | 900 | rare |
+| Glass | 2000 | legendary (legritkabb) |
+| Chicky | titkos | secret (husveti) |
+| Lo | titkos | secret (Kovrat/Rella exkluziv) |
+
+### Hatterek
+
+| Hatter | Ar (XP) | Tier |
+|--------|---------|------|
+| Napszak | 0 | free |
+| Tavaszi Ret | 0 | free (ajandek, bg-tulip.png) |
+| Galaxy | 200 | common (CSS csillagok) |
+| Sakura | 350 | common |
+| Graffiti | 350 (elso nap 2000) | common (apr 10-tol, bg-graffiti.png) |
+| Stealth | 550 | rare |
+| Fire | 600 | rare |
+| Luxus Arany | 800 | rare |
+| Gyemant | 800 | rare |
+| Szivarvany | 800 | rare |
+| Gamer Room | 900 | rare |
+| Labor Glass | 1000 | legendary (bg-glass.png) |
+
+### Aurak
+
+| Aura | Ar (XP) | Tier |
+|------|---------|------|
+| Nincs | 0 | free |
+| Tulipan | 0 | free (ajandek) |
+| Tuz | 400 | common |
+| Sakura | 500 | common |
+| Glitch | 750 | rare |
+| Szent | 1000 | rare |
+| RGB | 1500 | legendary |
+| Gyemant | 2000 | legendary |
+
+### Napi Szuperajanlat
+
+14 napos ciklusban rotalnak, ejfelkor (0:00) valt. Visszaszamlalo mutatja mikor jon az uj.
+Kivetel: apr 10 = Graffiti Csomag (skin+hatter) 2000→1000 XP.
+Bundle tipusu deal: ket targyat ad egyszerre (pl. Glass skin + hatter).
+
+### Szerencsekerek
+
+- Naponta 1 ingyenes porges, ejfelkor (0:00) resetel
+- XP nyeremenyek (96.5%): 20/50/100/200/500 XP
+- Skin nyeremenyek (3.5%): Galaxy 1.2%, Sakura 0.8%, Fire 0.5%, Stealth 0.4%, Golden 0.3%, Rainbow 0.2%, Glass 0.1%
+- Gomb letiltva porges kozben (dupla-kattintas vedelem)
+
+### Szinkronizalas
+
+- 🔄 gomb a bolt headerben
+- Export: base64 kodolt JSON az osszes felhasznaloi adattal
+- Import: beillesztes + okos osszefesules (XP max, owned unio, kedvencek merge)
+- URL hash import tamogatas (#sync=CODE)
+- Nincs szerver — copy-paste vagy uzenetkuldos megosztas
+
+### Tavaszi Ajandek
+
+- Elso belepes utan interaktiv ajandekdoboz jelenik meg
+- 3x koppintas → doboz kinyilik → felhasznalo megkapja: Tulipan Skin + Tavaszi Ret Hatter + Tulipan Aura
+- Targyak csak a doboz kinyitasa utan adodnak
 
 ### Szemelyes koszrontes
 
-- A fejlecben "Szia, [Nev]! ✨" jelenik meg a regisztralt keresztnev alapjan
+- A fejlecben "Szia, [Nev]! ✨" jelenik meg
 - Nevnapon: "Boldog nevnapot, [Nev]! 🎉"
 
 ### Nevnapok
 
 - Teljes magyar nevnap lista a `NEVNAPOK` objektumban (365 nap, ~700 nev)
-- `MM-DD` kulcs formatum, ertekek nevek tombje
-- A regisztralt nev (`nu_name`) osszevetessel ellenorzi, hogy ma van-e a nevnapja
-- A `msgDay()` datumot hasznalja (6 AM logika)
+- `MM-DD` kulcs formatum, a `msgDay()` datumot hasznalja (6 AM logika)
 
 ### Kedvencek
 
-- Uzenet buborekban "🤍 Kedvenc" gomb — koppintasra elmenti/torli
-- `nu_favs` localStorage kulcsban JSON tombkent tarolva: `{t, e, d}` (szoveg, emoji, datum)
-- Jobb felso sarokban sziv gomb badge-dzsel a kedvencek szamaval
-- Panel megnyitasakor lista: emoji + szoveg + datum + torles gomb
-- `getFavs()`, `saveFavs()`, `isFaved()`, `updateFavBtn()`, `renderFavsList()` fuggvenyek
+- Uzenet buborekban "🤍 Kedvenc" gomb
+- `nu_favs` localStorage kulcsban JSON tombkent: `{t, e, d}` (szoveg, emoji, datum)
+- Jobb felso sarokban sziv gomb badge-dzsel
 
 ### Megosztas
 
-- Uzenet buborekban "📤 Megosztas" gomb a Kedvenc gomb mellett (`bubble-actions` div)
-- Canvas-szal general szep kepes kartyat: gradiens hatter, emoji, uzenet szoveg, datum, "DailyBot" felirat
-- `createShareCard()` fuggveny: 720x960 PNG kep
-- `wrapText()` segedfuggveny sortoreshez, `roundRect()` lekerekitett teglalapokhoz
-- Telefonon: `navigator.share()` nativ megosztas kepkent (WhatsApp, Messenger, Instagram stb.)
-- Gepen: `navigator.clipboard` fallback vagy PNG letoltes
+- Canvas-szal general kepes kartyat: 720x960 PNG
+- `navigator.share()` nativ megosztas vagy clipboard/letoltes fallback
 
 ### Napszak-fuggo hatter
 
-Az ora alapjan automatikusan valtozik (`getHours()`):
-- **Reggel** (5–6): narancs gradiens (napfelkelte)
-- **Nappal** (6–17): kek-lila-rozsaszin gradiens + CSS csillagok (`twinkle`)
-- **Este** (17–20): narancs-lila-sotetlila gradiens (naplemente)
+Az ora alapjan automatikusan valtozik:
+- **Reggel** (5–6): narancs gradiens
+- **Nappal** (6–17): kek-lila-rozsaszin gradiens + CSS csillagok
+- **Este** (17–20): narancs-lila gradiens
 - **Ejjel** (20–5): sotet kek-indigo gradiens
-
-A `theme-color` meta tag (`#themeColor`) dinamikusan koveti a napszakot — Android status bar egybeolvad a hatterrel.
 
 ### Unnepi oltozekek
 
-A robot naphoz kotodo emoji oltozeket visel:
-- **Mama szulinapja (apr 4–5.)** — szulinapi mod:
-  - Fix uzenet: "Boldog 63. szulinapot, draga Mama!"
-  - Arany-rozsaszin-lila gradiens hatter, lebego lufik/konfetti (birthday-balloon animacio)
-  - Robot: 🥳 sapka, 🎂 arc, 🎀 nyak
-- Husvet (dinamikus datumszamitas), Karacsony (dec 20–26), Mikulas (dec 6)
-- Szilveszter (dec 31), Ujev (jan 1), Halloween (okt 31), Valentin-nap (feb 14)
-- Aprilis bolondok (apr 1), Robot szulinapja (mar 26)
-- Nemzeti unnepek: marc 15, aug 20, okt 23
+- **Mama szulinapja (apr 4–6.)** — fix uzenet, leggombok, konfetti, szulinapi sapka
+- **Husvet** (dinamikus datumszamitas, apr 7-ig): husveti emojik a jatekban, Chicky skin vadaszat
+- Karacsony (dec 20–26), Mikulas (dec 6), Szilveszter (dec 31), Ujev (jan 1)
+- Halloween (okt 31), Valentin-nap (feb 14), Aprilis bolondok (apr 1)
+- Robot szulinapja (mar 26), Nemzeti unnepek: marc 15, aug 20, okt 23
 
-### UI elemek
+### Husvet logika (apr 7-ig)
 
-- **Szovegbuborek**: uveg-blur hatter, szivecske a sarkan, CSS transition animacio
-- **Gepelo effekt**: `typeText()` fuggveny — betuenkent irja ki a szoveget villogo kurzorral
-- **Konfetti effekt**: DOM elemek `fly` animacioval
-- **Streak szamlalo**: egymast koveto napok szama (6 AM alapu)
-- **Idojaras animaciok**: valos idojaras alapjan eso/ho/napsutes (Open-Meteo API + geolocation, fallback: geojs.io IP-alapu)
-- **Drag interakcio**: robot huzhato, CSS glow effekttel reagal (::before pseudo-element, iOS kompatibilis)
-- **Tap reakcio**: koppintasra integet es robot hangokat ad ("bi-bu-bi!")
-- **Visszaszamlalo**: az app aljan mutatja mikor erkezik a kovetkezo uzenet (kovetkezo reggel 6-ig szamol vissza)
-- **TikTok link**: az app aljan, a visszaszamlalo alatt
-- **Kedvenc gomb**: uzenet buborekban, elmentheto kedvencek listaja
-- **Megosztas gomb**: kepes kartya generalas es megosztas
+- `isPastEaster` flag: apr 7 utan automatikusan kikapcsol mindent
+- Husveti ikon (manifest + HTML) → apr 7 utan normal ikon
+- Jatek emojik: husvetig tojasok/nyulak, utana viragok
+- Chicky skin: 10x robot koppintas → titkos tojas animacio → skin feloldas
+- Bolt tipp: "Egy titkos husveti skin el van rejtve az appban!"
+
+### Graffiti (apr 10-tol)
+
+- Graffiti Skin + Graffiti Hatter egyutt jelenik meg apr 10-en
+- Elso nap (apr 10): 2000 XP aruert, szuperajanlat: csomag 1000 XP-ert
+- Masodik naptol (apr 11+): normal ar 350 XP
+- Datumkorlat: apr 10 elott nem lathato (kivetel: Kovrat nev)
+
+### Exkluziv targyak
+
+- **Kovrat** nev: minden skin/hatter/aura automatikusan feloldva (master unlock)
+- **Rella** nev: Lo Skin automatikusan feloldva
+- **Zerend** nev: Gamer Skin + Hatter feloldva
 
 ### Emoji Dodge minijáték
 
 - **Inditas**: robot hosszan nyomva tartasa (600ms long press)
-- **Jatekos**: CSS mini robot (nem emoji), az also reszben rogzitett, csak jobbra-balra mozog ujjal huzva
-- **Emojik**: arany/rainbow/gyemant temaju (🪙🌈💎), felulrol esnek, ki kell kerulni — utkozes = halal
-- **XP rendszer**: 10 sikeresen kikerult emoji = 50 XP, XP halmozodik jatekok kozott (`nu_xp` localStorage)
-- **Nehezseg**: kozepes — sebesseg 1.8–3.2, spawn 900ms, lassan gyorsul (600 frame-enkent)
+- **Jatekos**: CSS mini robot, jobbra-balra mozog ujjal huzva
+- **Emojik**: husvetig tojasok/nyulak, utana viragok (tulipan, napraforgo stb.)
+- **Sebesseg**: lassu indulas (0.8–1.4), 200 pont felett gyorsul (1.5–2.7+)
+- **Spawn**: 1400ms alap, 200 pont felett surusodik (min 500ms)
+- **XP rendszer**: 10 kikerult emoji = 50 XP, 3 elet, sebezhetetlenseg talat utan (1.2s)
 - **Hatter**: az aktualis napszak gradiens hattere
-- **Pontszam**: ido-alapu + rekord mentese (`nu_game_best` localStorage)
-- **Game Over**: utkozes eseten — vegso pontszam, rekord, szerzett XP, osszes XP
-
-### Robot Bolt
-
-- **Megnyitas**: 🎨 gomb a jobb felso sarokban (🏪 Robot Bolt)
-- **XP kijelzes**: aktualis XP egyenleg a bolt tetején
-- **Robot kinezetek** (XP-ert vasarolhatok):
-  - Alap (ingyenes), Arany (200 XP), Rainbow (500 XP), Gyemant (1000 XP)
-- **Hatterek** (XP-ert vasarolhatok):
-  - Napszak (ingyenes), Arany hatter (200 XP), Rainbow hatter (500 XP), Gyemant hatter (1000 XP)
-- Megvett targyak orokre megmaradnak (`nu_owned` JSON tomb)
-- Kivalasztott skin: `nu_active_skin`, kivalasztott hatter: `nu_active_bg`
-- Gombok: `touchend` + `click` esemenyek (mobil + gep kompatibilis)
-
-### Napi korlatozas
-
-- Naponta 1 uzenet — a robot koppintasa csak egyszer ad uj uzenetet
-- Ha mar latta a felhasznalo (`seen()` true), a koppintas csak tap-reakciot valt ki (integetes + "Hello!")
-- A `mark()` fuggveny rogziti `localStorage`-ba (`nu_d` kulcs) hogy ma mar latta
-- A `!done&&!seen()` feltetel biztositja az 1 uzenet/nap korlatot
-- A nap reggel 6-kor valt (`msgDay()` fuggveny)
-- Az app aljan (`#nextMsg` elem) visszaszamlalo jelenik meg a kovetkezo reggel 6 oraig
-
-### Ertesitesek
-
-- **Service Worker** (`sw.js`, cache v9)
-- Belepeskor: ha meg nem lattad a mai uzenetet, azonnal kuld ertesitest
-- SW utemez 3 ertesitest naponta: reggel 6, delben 12, este 18 (setTimeout, amig a SW el)
-- `periodicSync` (Android Chrome): 4 oranként hatterbeli emlekeztetо, csak ha az app nincs nyitva
-- Engedelykerest az elso robot-koppintaskor ker
-- `renotify: true` — minden ertesites megjelenik (nem deduplikalja)
-- `index.html` → network-first cache strategia (mindig friss tartalom)
 
 ### Idojaras
 
-- Geolocation API → ha elerheto, pontos GPS koordinatak
-- Fallback: geojs.io IP-alapu helymeghatározas (CORS kompatibilis, engedelykerds nelkul)
+- Geolocation API → fallback: geojs.io IP-alapu
 - Open-Meteo API → WMO kodok: 0-1 derult, 51-67 eso, 71-77 ho, 95+ vihar
-- CSS animaciok: `raindrop` (eso), `snowflake` (ho), `sunray` (napsutes)
-- `#weatherLayer` fix pozicioban, `pointer-events:none`
+- CSS animaciok: `raindrop` (eso), `snowflake` (ho), `sunray` (napsutes, iOS fix: scaleY + webkit prefix)
+- `#weatherLayer` div a DOM-ban (korábban hiányzott, javítva)
+
+### Ertesitesek
+
+- **Service Worker** (`sw.js`, cache v11)
+- SW utemez ertesiteseket: reggel 6, delben 12, este 18
+- `periodicSync` (Android Chrome): 4 oranként hatterbeli emlekeztetо
+- `index.html` → network-first cache strategia
 
 ## File Structure
 
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
-manifest.json       — PWA manifest (standalone, maskable ikonok)
-sw.js               — Service Worker (cache v9 + ertesitesek)
+manifest.json       — PWA manifest (standalone, husveti ikon apr 7-ig)
+sw.js               — Service Worker (cache v11 + ertesitesek)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasznaloi dokumentacio
+bg-tulip.png        — Tavaszi Ret hatter kep
+bg-glass.png        — Labor Glass hatter kep
+bg-graffiti.png     — Graffiti hatter kep
+easter_robot_icon_1775165541166.png — husveti PWA ikon (apr 7-ig)
 icon/
   dailybot-icon.png — PWA ikon (PNG, 512x512)
-  dailybot-icon.svg — PWA ikon (SVG forras, robot scale 1.05)
-  Gemini_Generated_Image_nkummfnkummfnkum.png — eredeti Gemini altal generalt ikon
-push-server/        — (nem hasznalatban) Vercel push szerver eloallitva, de nincs deployolva
+  dailybot-icon.svg — PWA ikon (SVG forras)
+háttér/             — forras hatter kepek (nem hasznalja az app kozvetlenul)
+push-server/        — (nem hasznalatban) Vercel push szerver
 ```
 
 ## App Icon
 
-- Fo ikon: `icon/dailybot-icon.svg` (SVG) + `icon/dailybot-icon.png` (PNG rendereles)
-- Leiras: feher robot kek szemekkel, szivecske mellkassal, szines gradiens hatteren (scale 1.05)
-- Manifest: `any maskable` purpose mindket ikonra
-- Eredeti Gemini kep: `icon/Gemini_Generated_Image_nkummfnkummfnkum.png`
-- Hasznalat: PWA ikon (manifest.json + apple-touch-icon)
+- Husvetig (apr 7): `easter_robot_icon_1775165541166.png`
+- Apr 7 utan: `icon/dailybot-icon.png` (automatikus JS valtás)
+- Manifest: `any maskable` purpose
 
 ## Social
 
