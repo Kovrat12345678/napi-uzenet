@@ -74,7 +74,7 @@ Tier rendszer: free / common / rare / legendary / secret
 | Gamer | 900 | rare |
 | Glass | 2000 | legendary (legritkabb) |
 | Chicky | titkos | secret (husveti) |
-| Lo | titkos | secret (Kovrat/Rella exkluziv) |
+| Lo | titkos | secret (csak Rella exkluziv) |
 
 ### Hatterek
 
@@ -187,8 +187,8 @@ Az ora alapjan automatikusan valtozik:
 
 ### Exkluziv targyak
 
-- **Kovrat** nev: minden skin/hatter/aura automatikusan feloldva (master unlock)
-- **Rella** nev: Lo Skin automatikusan feloldva
+- **Kovrat** nev: minden skin/hatter/aura automatikusan feloldva (master unlock) — **kiveve Lo Skin** (az Rella exkluziv)
+- **Rella** nev: Lo Skin automatikusan feloldva (egyetlen felhasznalo akinek megvan)
 - **Zerend** nev: Gamer Skin + Hatter feloldva
 
 ### Emoji Dodge minijáték
@@ -210,17 +210,30 @@ Az ora alapjan automatikusan valtozik:
 
 ### Ertesitesek
 
-- **Service Worker** (`sw.js`, cache v11)
+- **Service Worker** (`sw.js`, cache v12)
 - SW utemez ertesiteseket: reggel 6, delben 12, este 18
 - `periodicSync` (Android Chrome): 4 oranként hatterbeli emlekeztetо
 - `index.html` → network-first cache strategia
+
+### SW frissites-detektalas
+
+- Az app minden megnyitaskor `reg.update()`-ot hiv — ellenorzi van-e uj SW verzio
+- Ha van varakozo uj SW, `skipWaiting` uzenetet kuld neki → azonnali aktivalas
+- `controllerchange` esemenyre automatikus `location.reload()` — uj kod betolt
+- A SW fogadja a `skipWaiting` uzenetet a `message` listenerben
+
+### Visibility change handler
+
+- `visibilitychange` esemeny figyeli ha az app hatterbol visszater
+- Ha kozben nap valtott (`td()` valtozas), teljes `location.reload()` — frissul a deal, uzenet, streak, minden
+- Megoldja az Android PWA cache problemat: app eltavolitasa utan ujra megnyitva is friss tartalmat tolt
 
 ## File Structure
 
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
 manifest.json       — PWA manifest (standalone, husveti ikon apr 7-ig)
-sw.js               — Service Worker (cache v11 + ertesitesek)
+sw.js               — Service Worker (cache v12 + ertesitesek + skipWaiting)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasznaloi dokumentacio
 bg-tulip.png        — Tavaszi Ret hatter kep

@@ -80,7 +80,7 @@ A jobb felso sarokban a 🏪 gombra koppintva megnyilik:
 | 🎮 Gamer | 900 XP | Ritka |
 | 🪟 Glass | 2000 XP | Legendas |
 | 🐥 Chicky | Titkos | Husveti |
-| 🐴 Lo | Exkluziv | Titkos |
+| 🐴 Lo | Exkluziv (csak Rella) | Titkos |
 
 ### Hatterek
 
@@ -159,4 +159,4 @@ Elso belepes utan egy ajandekdoboz jelenik meg — koppints ra haromszor es megk
 
 ## Tech Stack
 
-Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v11) kezeli a cache-t es az ertesiteseket.
+Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v12) kezeli a cache-t es az ertesiteseket. Automatikus frissites-detektalas: ha uj verzio erheto el, az app ujratolt. Hatterbol visszaterve is frissul minden (napi deal, uzenet, streak).
