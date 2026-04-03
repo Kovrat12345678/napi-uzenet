@@ -621,6 +621,15 @@
             background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,transparent 30%,transparent 70%,rgba(0,0,0,.15) 100%);
         }
 
+        /* Glass háttér — labor/üveg */
+        body.bg-glass {
+            background:url('bg-glass.png') center/cover no-repeat fixed!important;
+        }
+        body.bg-glass::before {
+            content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+            background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,transparent 40%,transparent 60%,rgba(0,0,0,.1) 100%);
+        }
+
         /* ALIVE SKINS ANIMATIONS */
         @keyframes flameFlicker {
             0%, 100% { box-shadow: 0 0 20px rgba(249,115,22,0.4), inset 0 0 10px rgba(220,38,38,0.2); filter: blur(0px); }
@@ -3014,14 +3023,14 @@
             // RESET: Töröljünk minden korábbi stílust és osztályt
             document.body.style.background = '';
             document.body.style.backgroundAttachment = '';
-            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip');
+            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass');
 
             if(!bg || bg === 'napszak' || !owns(bg)){
                 applyTimeTheme();
                 return;
             }
 
-            if(bg === 'bg-gamer' || bg === 'bg-galaxy' || bg === 'bg-tulip'){
+            if(bg === 'bg-gamer' || bg === 'bg-galaxy' || bg === 'bg-tulip' || bg === 'bg-glass'){
                 document.body.classList.add(bg);
             } else if(CUSTOM_BGS[bg]){
                 document.body.style.background=CUSTOM_BGS[bg];
@@ -3036,7 +3045,7 @@
 
             if(userName === 'Kovrat') {
                 const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','horse','glass'];
-                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip'];
+                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip','bg-glass'];
                 const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
@@ -3132,6 +3141,7 @@
                 {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:700,tier:'rare'},
                 {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:900,tier:'rare'},
                 // 👑 Legendás
+                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:1500,tier:'legendary'},
                 {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1500,tier:'legendary'},
                 {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:2000,tier:'legendary'},
                 {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:3000,tier:'legendary'}
@@ -3194,14 +3204,15 @@
                 // NAPI AJÁNLAT MEGJELENÍTÉSE
                 const deal = getDailyDeal(SKINS, BGS, AURAS);
                 const ddInner = document.getElementById('dailyDealInner');
-                const dealOwned = owns(deal.id);
+                const dealOwned = deal.type==='bundle'?(owns(deal.id)&&owns(deal.id2)):owns(deal.id);
+                const typeLabel = {skin:'Skin',bg:'Háttér',aura:'Aura',bundle:'Skin + Háttér'}[deal.type]||'';
                 ddInner.innerHTML = `
                     <div class="daily-deal-item">
                         <div class="daily-deal-icon-container">
                             <div class="daily-deal-icon">${deal.icon}</div>
                         </div>
                         <div class="daily-deal-info">
-                            <div class="daily-deal-name">${deal.name} ${deal.type==='skin'?'(Skin)':deal.type==='aura'?'(Aura)':'(Háttér)'}</div>
+                            <div class="daily-deal-name">${deal.name} (${typeLabel})</div>
                             <div class="daily-deal-price">
                                 <span class="daily-deal-orig">${deal.origCost}</span>
                                 <span class="daily-deal-now">${deal.nowCost} XP</span>
@@ -3217,7 +3228,8 @@
                         if(getXP() >= deal.nowCost){
                             setXP(getXP() - deal.nowCost);
                             buyItem(deal.id);
-                            if(deal.type==='skin') { setActiveSkin(deal.id); applyRobotSkin(); }
+                            if(deal.type==='bundle') { buyItem(deal.id2); setActiveSkin(deal.id); setActiveBg(deal.id2); applyRobotSkin(); applyCustomBg(); }
+                            else if(deal.type==='skin') { setActiveSkin(deal.id); applyRobotSkin(); }
                             else if(deal.type==='bg') { setActiveBg(deal.id); applyCustomBg(); }
                             else if(deal.type==='aura') { setActiveAura(deal.id); applyAura(); }
                             renderShop();
@@ -3415,16 +3427,42 @@
 
         // ========== NAPI SZUPERAJÁNLAT LOGIKA ==========
         function getDailyDeal(SKINS, BGS, AURAS) {
-            // Fix ajánlat: Sakura Skin 350 → 200 XP
-            return {
-                id: 'sakura',
-                type: 'skin',
-                name: 'Sakura',
-                icon: '🌸',
-                origCost: 350,
-                nowCost: 200,
-                date: new Date().toDateString()
-            };
+            const now = new Date();
+            const tdString = now.toDateString();
+            const storedDate = localStorage.getItem('nu_deal_date');
+
+            if (storedDate === tdString) {
+                try {
+                    const stored = JSON.parse(localStorage.getItem('nu_daily_deal'));
+                    if(stored && stored.id) return stored;
+                } catch(e) {}
+            }
+
+            // Fix napi ajánlatok listája — sorban rotálnak
+            const DEALS = [
+                {id:'sakura',type:'skin',name:'Sakura Skin',icon:'🌸',origCost:350,nowCost:200},
+                {id:'bg-fire',type:'bg',name:'Fire Háttér',icon:'🔥',origCost:600,nowCost:350},
+                {id:'aura-sakura',type:'aura',name:'Sakura Aura',icon:'🌸',origCost:500,nowCost:300},
+                {id:'fire',type:'skin',name:'Fire Skin',icon:'🔥',origCost:600,nowCost:350},
+                {id:'aura-glitch',type:'aura',name:'Glitch Aura',icon:'👾',origCost:750,nowCost:450},
+                {id:'bg-stealth',type:'bg',name:'Stealth Háttér',icon:'🌑',origCost:900,nowCost:550},
+                {id:'golden',type:'skin',name:'Golden Skin',icon:'✨',origCost:1000,nowCost:600},
+                {id:'aura-halo',type:'aura',name:'Szent Aura',icon:'😇',origCost:1000,nowCost:600},
+                {id:'glass',id2:'bg-glass',type:'bundle',name:'Glass Csomag',icon:'🪟',origCost:3000,nowCost:2000},
+                {id:'bg-gamer',type:'bg',name:'Gamer Room',icon:'🌃',origCost:700,nowCost:400},
+                {id:'stealth',type:'skin',name:'Stealth Skin',icon:'👤',origCost:800,nowCost:500},
+                {id:'rainbow',type:'skin',name:'Rainbow Skin',icon:'🌈',origCost:2000,nowCost:1200},
+                {id:'aura-rgb',type:'aura',name:'RGB Aura',icon:'🌈',origCost:1500,nowCost:900},
+                {id:'bg-golden',type:'bg',name:'Luxus Arany',icon:'✨',origCost:1500,nowCost:900},
+            ];
+
+            const dayNum = Math.floor(now.getTime() / 86400000);
+            const idx = dayNum % DEALS.length;
+            const deal = {...DEALS[idx], date: tdString};
+
+            localStorage.setItem('nu_deal_date', tdString);
+            localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
+            return deal;
         }
 
 
