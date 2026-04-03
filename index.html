@@ -1419,28 +1419,6 @@
         .ob-dot.active{background:#fff;transform:scale(1.2)}
         .ob-skip{margin-top:14px;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;background:none;border:none;cursor:pointer;text-decoration:underline}
 
-        /* VALÓS IDEJŰ IDŐJÁRÁS EFFEKTEK */
-        .weather-layer { position: fixed; inset: 0; pointer-events: none; z-index: 5; transition: 1s; }
-        .rain-box, .snow-box { position: absolute; inset: 0; }
-        .rain-drop { position: absolute; width: 1.5px; height: 18px; background: rgba(255,255,255,0.4); animation: weatherFall linear infinite; }
-        .snow-flake { position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; opacity: 0.8; animation: weatherFall linear infinite; }
-        @keyframes weatherFall { to { transform: translateY(100vh); } }
-
-        #lightningFlash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 100; transition: 0.1s; }
-        @keyframes thunderStrike { 0%{opacity:0} 10%{opacity:0.7} 15%{opacity:0.2} 20%{opacity:0.9} 100%{opacity:0} }
-
-        .weather-sunny .weather-layer { background: radial-gradient(circle at 10% 10%, rgba(253,224,71,0.2), transparent 50%); }
-        .weather-storm .weather-layer { background: rgba(30,41,59,0.3); }
-
-        /* ROBOT IDŐJÁRÁS KIEGÉSZÍTŐK */
-        .acc-u { position: absolute; top: -115px; right: -45px; width: 140px; height: 140px; background: url('https://img.icons8.com/emoji/96/umbrella-with-rain-drops.png') no-repeat center; background-size: contain; display: none; z-index: 25; transform-origin: bottom center; animation: swaying 4s ease-in-out infinite; }
-        .acc-s { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 75px; height: 35px; background: #ef4444; border-radius: 0 0 15px 15px; z-index: 7; display: none; border-top: 6px solid #b91c1c; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .acc-sun { position: absolute; top: 22px; left: 12px; right: 12px; height: 16px; background: #000; border-radius: 6px; z-index: 15; display: none; border-bottom: 2px solid #333; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
-        .acc-sun::before, .acc-sun::after { content: ''; position: absolute; top: 0; width: 38%; height: 100%; background: #000; border-radius: 5px; }
-        .acc-sun::before { left: 0; border-right: 1px solid #222; } .acc-sun::after { right: 0; border-left: 1px solid #222; }
-
-        @keyframes swaying { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-
         /* GAMER SKIN JAVÍTÁS */
         .robot.gamer .head::after { top: -45px!important; font-size: 68px!important; }
         .robot.gamer .head::before {
@@ -1455,29 +1433,6 @@
         }
         .robot.gamer .chest-dot { box-shadow: 0 0 25px #38bdf8, 0 0 50px #ec4899!important; animation: pulse 0.5s infinite!important; }
 
-        /* VALÓS IDEJŰ IDŐJÁRÁS EFFEKTEK */
-        .weather-layer { position: fixed; inset: 0; pointer-events: none; z-index: 5; transition: 1s; }
-        .rain-box, .snow-box { position: absolute; inset: 0; }
-        
-        .rain-drop { position: absolute; width: 1.5px; height: 18px; background: rgba(255,255,255,0.4); animation: weatherFall linear infinite; }
-        .snow-flake { position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; opacity: 0.8; animation: weatherFall linear infinite; }
-        @keyframes weatherFall { to { transform: translateY(100vh); } }
-
-        #lightningFlash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 100; transition: 0.1s; }
-        @keyframes thunderStrike { 0%{opacity:0} 10%{opacity:0.7} 15%{opacity:0.2} 20%{opacity:0.9} 100%{opacity:0} }
-
-        /* IDŐJÁRÁS TÉMÁK */
-        .weather-sunny .weather-layer { background: radial-gradient(circle at 10% 10%, rgba(253,224,71,0.2), transparent 50%); }
-        .weather-storm .weather-layer { background: rgba(30,41,59,0.3); }
-
-        /* ROBOT IDŐJÁRÁS KIEGÉSZÍTŐK */
-        .acc-u { position: absolute; top: -115px; right: -45px; width: 140px; height: 140px; background: url('https://img.icons8.com/emoji/96/umbrella-with-rain-drops.png') no-repeat center; background-size: contain; display: none; z-index: 25; transform-origin: bottom center; animation: swaying 4s ease-in-out infinite; }
-        .acc-s { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); width: 75px; height: 35px; background: #ef4444; border-radius: 0 0 15px 15px; z-index: 7; display: none; border-top: 6px solid #b91c1c; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .acc-sun { position: absolute; top: 22px; left: 12px; right: 12px; height: 16px; background: #000; border-radius: 6px; z-index: 15; display: none; border-bottom: 2px solid #333; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
-        .acc-sun::before, .acc-sun::after { content: ''; position: absolute; top: 0; width: 38%; height: 100%; background: #000; border-radius: 5px; }
-        .acc-sun::before { left: 0; border-right: 1px solid #222; } .acc-sun::after { right: 0; border-left: 1px solid #222; }
-
-        @keyframes swaying { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
     </style>
 </head>
 <body>
@@ -1493,11 +1448,7 @@
     </div>
 
     <div class="stars" id="stars"></div>
-    <div class="weather-layer" id="weatherLayer">
-        <div class="rain-box" id="rainBox"></div>
-        <div class="snow-box" id="snowBox"></div>
-    </div>
-    <div id="lightningFlash"></div>
+
 
     <div class="app pre-reg" id="appMain">
         <div class="top">
@@ -1526,11 +1477,8 @@
         <div class="robot-area">
             <button class="robot-btn" id="btn" aria-label="Napi üzenet">
                 <div class="robot" id="robot">
-                    <!-- IDŐJÁRÁS KIEGÉSZÍTŐK -->
-                    <div class="acc-u" id="accU"></div>
-                    <div class="acc-s" id="accS"></div>
-                    <div class="acc-sun" id="accSun"></div>
                     <!-- Öltözék -->
+
                     <span class="outfit outfit-hat" id="outfitHat"></span>
                     <span class="outfit outfit-face" id="outfitFace"></span>
                     <span class="outfit outfit-neck" id="outfitNeck"></span>
@@ -2299,6 +2247,34 @@
 
         document.getElementById('date').textContent=msgDay().toLocaleDateString('hu-HU',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
 
+        // ========== ÉJFÉLI SZINKRON (0:00) ==========
+        function syncAppToMidnight() {
+            const now = new Date();
+            const lastSync = localStorage.getItem('nu_last_sync_day');
+            const currentDay = now.toDateString();
+
+            if (lastSync !== currentDay) {
+                console.log("🕛 Éjféli frissítés végrehajtása...");
+                localStorage.setItem('nu_last_sync_day', currentDay);
+                
+                // 1. Dátum frissítése a főképernyőn
+                document.getElementById('date').textContent = msgDay().toLocaleDateString('hu-HU', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+                
+                // 2. Bolt renderelés (Napi ajánlat frissítése)
+                if (typeof renderShop === 'function') renderShop();
+                
+                // 3. Szerencsekerék állapot frissítése
+                if (window.checkSpinStatus) window.checkSpinStatus();
+                
+                // 4. Időjárás és téma (opcionális, ha marad napszak)
+                applyTimeTheme();
+                applyCustomBg();
+            }
+        }
+        setInterval(syncAppToMidnight, 10000); // 10 másodpercenként ellenőrzi
+        syncAppToMidnight();
+
+
         // ========== NÉVNAPOK ==========
         const NEVNAPOK={
             '01-01':['Fruzsina'],'01-02':['Ábel'],'01-03':['Genovéva','Benjámin'],'01-04':['Titusz','Leona'],'01-05':['Simon'],'01-06':['Boldizsár'],'01-07':['Attila','Ramóna'],'01-08':['Gyöngyvér'],'01-09':['Marcell'],'01-10':['Melánia'],'01-11':['Ágota'],'01-12':['Ernő'],'01-13':['Veronika'],'01-14':['Bódog'],'01-15':['Loránd','Lóránt'],'01-16':['Gusztáv'],'01-17':['Antal','Antónia'],'01-18':['Piroska'],'01-19':['Sára','Márió'],'01-20':['Fábián','Sebestyén'],'01-21':['Ágnes'],'01-22':['Vince','Artúr'],'01-23':['Zelma','Rajmund'],'01-24':['Timót'],'01-25':['Pál'],'01-26':['Vanda','Paula'],'01-27':['Angelika'],'01-28':['Károly','Karola'],'01-29':['Adél'],'01-30':['Gerda','Martina'],'01-31':['Marcella'],
@@ -2857,6 +2833,9 @@
         // Migráció + owner setup
         function checkMasterUnlock() {
             const userName = localStorage.getItem('nu_name');
+            const d = new Date();
+            const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
+
             if(userName === 'Kovrat') {
                 const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','school','chicky','graffiti','gamer'];
                 const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-classroom','bg-gamer'];
@@ -2872,86 +2851,6 @@
             }
         }
 
-        // VALÓS IDEJŰ IDŐJÁRÁS LOGIKA
-        const WEATHER_API = "https://api.open-meteo.com/v1/forecast";
-        async function updateWeather() {
-            let lat = 47.4979, lon = 19.0402; // Alapértelmezett: Budapest
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    fetchWeatherData(pos.coords.latitude, pos.coords.longitude);
-                }, () => { fetchWeatherData(lat, lon); });
-            } else { fetchWeatherData(lat, lon); }
-        }
-
-        async function fetchWeatherData(lat, lon) {
-            try {
-                const res = await fetch(`${WEATHER_API}?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                const data = await res.json();
-                if(data && data.current_weather) renderWeather(data.current_weather.weathercode);
-            } catch (e) { console.error("Weather error", e); }
-        }
-
-        function renderWeather(code) {
-            const body = document.body;
-            body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rain', 'weather-snow', 'weather-storm');
-            
-            const accU = document.getElementById('accU'), accS = document.getElementById('accS'), accSun = document.getElementById('accSun');
-            const rainBox = document.getElementById('rainBox'), snowBox = document.getElementById('snowBox'), lightning = document.getElementById('lightningFlash');
-            
-            if(accU) accU.style.display = 'none';
-            if(accS) accS.style.display = 'none';
-            if(accSun) accSun.style.display = 'none';
-            if(rainBox) rainBox.innerHTML = '';
-            if(snowBox) snowBox.innerHTML = '';
-            if(window._weatherInterval) clearInterval(window._weatherInterval);
-
-            // WMO Kódok (0-1: Derült, 2-3: Felhős, 51-82: Eső, 71-86: Hó, 95-99: Vihar)
-            if([0, 1].includes(code)) {
-                body.classList.add('weather-sunny');
-                if(accSun) accSun.style.display = 'block';
-            } else if([2, 3].includes(code)) {
-                body.classList.add('weather-cloudy');
-            } else if([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
-                body.classList.add('weather-rain');
-                if(accU) accU.style.display = 'block';
-                spawnWeatherParticles('rain-drop', 40, rainBox);
-            } else if([71, 73, 75, 85, 86].includes(code)) {
-                body.classList.add('weather-snow');
-                if(accS) accS.style.display = 'block';
-                spawnWeatherParticles('snow-flake', 25, snowBox);
-            } else if([95, 96, 99].includes(code)) {
-                body.classList.add('weather-storm');
-                if(accU) accU.style.display = 'block';
-                spawnWeatherParticles('rain-drop', 60, rainBox);
-                initLightningEffect(lightning);
-            }
-        }
-
-        function spawnWeatherParticles(cls, count, container) {
-            if(!container) return;
-            for(let i=0; i<count; i++) {
-                const p = document.createElement('div');
-                p.className = cls;
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 0.8 + 0.6) + 's';
-                p.style.animationDelay = Math.random() * 2 + 's';
-                if(cls === 'snow-flake') {
-                    const s = (Math.random() * 4 + 2) + 'px';
-                    p.style.width = p.style.height = s;
-                }
-                container.appendChild(p);
-            }
-        }
-
-        function initLightningEffect(el) {
-            if(!el) return;
-            window._weatherInterval = setInterval(() => {
-                if(Math.random() > 0.85) {
-                    el.style.animation = 'thunderStrike 0.4s ease-out';
-                    setTimeout(() => el.style.animation = '', 400);
-                }
-            }, 4000);
-        }
 
         (function(){
             const old=localStorage.getItem('nu_skins');
@@ -2961,9 +2860,8 @@
             applyRobotSkin();
             applyCustomBg();
             applyAura();
-            updateWeather();
-            setInterval(updateWeather, 900000); // 15 percenként
         })();
+
 
         // ========== BOLT MENÜ ==========
         (function(){
@@ -3017,14 +2915,19 @@
                 const name=localStorage.getItem('nu_name')||'Barátom';
                 greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>A <span style="color:#38bdf8">DailyBot</span> üdvözöl a boltban! Kattints az akciókért! 🔥`;
                 
+                const d = new Date();
+                const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
+                const isKovrat = localStorage.getItem('nu_name') === 'Kovrat';
+
                 // TITKOS TIPP ÉS BEJELENTÉSEK
                 let announcement = '';
                 if(!owns('chicky')) {
                     announcement += `<div style="margin-top:10px;padding:10px;background:rgba(251,191,36,0.1);border:1px dashed #fbbf24;border-radius:12px;font-size:12px;color:#fbbf24;font-weight:800;">🤫 FIGYELEM: Egy titkos húsvéti Csibés skin el van rejtve az appban! 🥚</div>`;
                 }
-                if(localStorage.getItem('nu_name') !== 'Kovrat' && !owns('graffiti')) {
+                if(!isApril10 && !isKovrat && !owns('graffiti')) {
                     announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ SKIN ÉRKEZIK: Április 10-én jön a "Graffiti Skin"!</div>`;
                 }
+
                 greet.innerHTML += announcement;
 
                 const activeSkin=getActiveSkin();
@@ -3073,11 +2976,13 @@
                             setXP(getXP() - deal.nowCost);
                             buyItem(deal.id);
                             if(deal.type==='skin') { setActiveSkin(deal.id); applyRobotSkin(); }
-                            else { setActiveBg(deal.id); applyCustomBg(); }
+                            else if(deal.type==='bg') { setActiveBg(deal.id); applyCustomBg(); }
+                            else if(deal.type==='aura') { setActiveAura(deal.id); applyAura(); }
                             renderShop();
                         }
                     };
                 }
+
 
                 [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
                   {id:'bgList',items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg},
@@ -3087,7 +2992,14 @@
                         // TITKOS ELEM: Csak akkor mutasd, ha megvan
                         if(s.hide && !owns(s.id)) return;
                         
+                        // Graffiti skin dátum korlát
+                        const d = new Date();
+                        const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
+                        const isKovrat = localStorage.getItem('nu_name') === 'Kovrat';
+                        if(s.id === 'graffiti' && !isApril10 && !isKovrat && !owns('graffiti')) return;
+
                         const owned=owns(s.id);
+
                         const isActive=s.id===cfg.active;
                         // Ha ez a napi ajánlat, akkor finalCost a deal.nowCost
                         const isThisDeal = s.id === deal.id;
@@ -3132,7 +3044,7 @@
         })();
 
         // ========== NAPI SZUPERAJÁNLAT LOGIKA ==========
-        function getDailyDeal(SKINS, BGS) {
+        function getDailyDeal(SKINS, BGS, AURAS) {
             const today = new Date();
             const tdString = today.toDateString();
             const storedDate = localStorage.getItem('nu_deal_date');
@@ -3140,50 +3052,42 @@
 
             // HA MÉG NINCS VAGY ÚJ NAP VAN, GENERÁLJUNK
             if (storedDate !== tdString) {
-                const allItems = [
-                    ...SKINS.filter(s => s.cost > 0).map(s => ({...s, type:'skin'})),
-                    ...BGS.filter(b => b.cost > 0).map(b => ({...b, type:'bg'}))
-                ];
-                
-                // USER KÉRÉSRE: Erőltessük a Diamond-ot ma (45 XP akció!)
-                const dia = allItems.find(i => i.id==='diamond');
-                const baseItem = dia || allItems[Math.floor(Math.random() * allItems.length)];
-                
+                // USER KÉRÉSRE: Erőltessük a SZENT AURÁT ma (650 XP akció!)
                 deal = {
-                    id: baseItem.id,
-                    type: baseItem.type,
-                    name: baseItem.name,
-                    icon: baseItem.icon,
+                    id: 'aura-halo',
+                    type: 'aura',
+                    name: 'Szent Aura (Akció!)',
+                    icon: '😇',
                     origCost: 1000,
-                    nowCost: 45, // Speciális akció!
+                    nowCost: 650,
                     date: tdString
                 };
                 localStorage.setItem('nu_deal_date', tdString);
                 localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
             } else {
-                // Ha van már mára deal, de a felhasználó reklamált, akkor felülírjuk Diamond-ra (45 XP!)
                 try {
                     deal = JSON.parse(localStorage.getItem('nu_daily_deal'));
-                    if(deal.id !== 'diamond' || deal.nowCost !== 45) {
+                    // Ha nem a Szent Aura van mára, felülírjuk
+                    if(deal.id !== 'aura-halo' || deal.nowCost !== 650) {
                         deal = {
-                            id: 'diamond',
-                            type: 'skin',
-                            name: 'Gyémánt (Húsvéti Deal)',
-                            icon: '💎',
-                            origCost: 2500,
-                            nowCost: 45,
+                            id: 'aura-halo',
+                            type: 'aura',
+                            name: 'Szent Aura (Napi Deal)',
+                            icon: '😇',
+                            origCost: 1000,
+                            nowCost: 650,
                             date: tdString
                         };
                         localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
                     }
                 } catch(e) {
-                    // Fallback
-                    deal = { id: 'diamond', type: 'skin', name: 'Gyémánt', icon: '💎', origCost: 1000, nowCost: 45, date: tdString };
+                    deal = { id: 'aura-halo', type: 'aura', name: 'Szent Aura', icon: '😇', origCost: 1000, nowCost: 650, date: tdString };
                     localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
                 }
             }
             return deal;
         }
+
 
         // ========== SZERENCSEKERÉK LOGIKA ==========
         function renderWheel(){
@@ -3195,17 +3099,18 @@
             
             // Több szelet (10 db), mistery design
             const PRIZES = [
-                { text: '20 XP', type: 'xp', val: 20, prob: 40 },
-                { text: '50 XP', type: 'xp', val: 50, prob: 30 },
-                { text: '100 XP', type: 'xp', val: 100, prob: 15 },
-                { text: '200 XP', type: 'xp', val: 200, prob: 8 },
-                { text: '500 XP', type: 'xp', val: 500, prob: 4 },
-                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 1 },
-                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.5 },
-                { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.5 },
-                { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.5 },
-                { text: 'Diamond 💎', type: 'skin', val: 'diamond', prob: 0.5 }
+                { text: '20 XP', type: 'xp', val: 20, prob: 45 },
+                { text: '50 XP', type: 'xp', val: 50, prob: 35 },
+                { text: '100 XP', type: 'xp', val: 100, prob: 12 },
+                { text: '200 XP', type: 'xp', val: 200, prob: 5 },
+                { text: '500 XP', type: 'xp', val: 500, prob: 1 },
+                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 0.2 },
+                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.2 },
+                { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.2 },
+                { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.2 },
+                { text: 'Diamond 💎', type: 'skin', val: 'diamond', prob: 0.2 }
             ];
+
 
             let startAngle = 0;
             const arc = Math.PI / (PRIZES.length / 2);
@@ -3378,10 +3283,41 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                // Húsvéti tojás spawn: elején kevés, 200 pontnál több
-                spawnTimer=setInterval(spawnEnemy, 1800);
+                // Sebesség és sűrűség növelése
+                function spawnEnemy(){
+                    if(!alive) return;
+                    const rand=Math.random();
+                    const emoji=document.createElement('div');
+                    emoji.className='game-emoji';
+                    
+                    // Alap sebesség emelése (1.2 -> 1.8)
+                    const speed = (1.8 + (score/100) * 0.4) * (window.innerWidth < 600 ? 1 : 1.2);
+                    
+                    if(rand>0.92){ 
+                        const gold=Math.random()>0.7;
+                        emoji.textContent=gold?'⭐':'🥚';
+                        emoji.classList.add('collectible');
+                        if(gold) emoji.classList.add('gold-item');
+                        emoji.dataset.type='xp';
+                    } else {
+                        emoji.textContent=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
+                        emoji.dataset.type='enemy';
+                    }
+                    
+                    emoji.style.left=Math.random()*(window.innerWidth-40)+'px';
+                    emoji.style.top='-50px';
+                    emoji.style.fontSize='32px';
+                    overlay.appendChild(emoji);
+                    emojis.push({el:emoji,y:-50,s:speed});
+
+                    // Nehezedés: 100 pont után sűrűbb spawn
+                    const nextSpawn = score > 100 ? 800 : 1100;
+                    setTimeout(spawnEnemy, nextSpawn);
+                }
+                spawnEnemy();
                 gameLoop=requestAnimationFrame(update);
             };
+
 
             function onTouchStart(e){
                 if(e.target.closest('.game-exit,.game-retry,.game-back,.game-over-screen'))return;
