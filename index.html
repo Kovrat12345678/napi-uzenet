@@ -769,6 +769,66 @@
         .share-btn.copied{background:rgba(34,197,94,.25);border-color:rgba(34,197,94,.4)}
 
         /* Kedvencek lista */
+        /* SYNC GOMB */
+        .sync-toggle{
+            position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:108px;z-index:50;
+            background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.2);border-radius:50%;
+            width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+            font-size:20px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+        }
+        .sync-panel{
+            position:fixed;inset:0;z-index:200;
+            background:linear-gradient(165deg,#0f172a 0%,#1e1b4b 40%,#312e81 100%);
+            display:none;flex-direction:column;align-items:center;
+            overflow-y:auto;padding:0 20px 40px;
+        }
+        .sync-panel.open{display:flex}
+        .sync-header{
+            position:sticky;top:0;z-index:3;width:100%;
+            display:flex;align-items:center;justify-content:space-between;
+            padding:calc(env(safe-area-inset-top,20px) + 16px) 0 14px;
+            background:linear-gradient(180deg,rgba(15,23,42,.95) 0%,rgba(15,23,42,.7) 80%,transparent 100%);
+        }
+        .sync-title{font-size:22px;font-weight:800;color:#fff}
+        .sync-card{
+            width:100%;max-width:360px;margin-top:24px;padding:28px 24px;
+            border-radius:28px;background:rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.1);text-align:center;
+        }
+        .sync-card h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:8px}
+        .sync-card p{color:rgba(255,255,255,.6);font-size:13px;margin-bottom:18px;line-height:1.5}
+        .sync-btn{
+            width:100%;padding:14px;border:none;border-radius:16px;
+            font-weight:800;font-size:15px;cursor:pointer;
+            -webkit-tap-highlight-color:transparent;transition:all .2s;
+        }
+        .sync-btn:active{transform:scale(.96)}
+        .sync-btn-export{background:linear-gradient(to bottom,#38bdf8,#0284c7);color:#fff}
+        .sync-btn-import{background:linear-gradient(to bottom,#a78bfa,#7c3aed);color:#fff}
+        .sync-code-box{
+            width:100%;margin-top:14px;padding:12px;border-radius:12px;
+            background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);
+            color:#38bdf8;font-size:11px;font-family:monospace;word-break:break-all;
+            max-height:80px;overflow-y:auto;text-align:left;
+        }
+        .sync-input{
+            width:100%;margin-top:12px;padding:12px;border-radius:12px;
+            background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.2);
+            color:#fff;font-size:13px;font-family:monospace;
+            outline:none;resize:none;
+        }
+        .sync-input:focus{border-color:#a78bfa}
+        .sync-result{margin-top:12px;font-size:13px;font-weight:700;min-height:20px}
+        .sync-result.ok{color:#34d399}
+        .sync-result.err{color:#f87171}
+        .sync-info{
+            width:100%;max-width:360px;margin-top:16px;padding:16px;
+            border-radius:16px;background:rgba(251,191,36,.08);
+            border:1px solid rgba(251,191,36,.2);
+        }
+        .sync-info p{color:rgba(255,255,255,.5);font-size:11px;line-height:1.6;margin:0}
+
         .favs-toggle{
             position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:16px;z-index:50;
             background:rgba(255,255,255,.15);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -1543,6 +1603,37 @@
             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M34.1 0h-8v32.4c0 3-2.4 5.5-5.4 5.5s-5.4-2.5-5.4-5.5 2.4-5.5 5.4-5.5c.6 0 1.1.1 1.6.3v-8.2c-.5-.1-1-.1-1.6-.1C13 18.9 7 24.9 7 32.4S13 46 20.7 46c7.6 0 13.7-6 13.7-13.6V15.7c2.9 2 6.4 3.2 10.2 3.2v-8c-5.6-.1-10.5-4.5-10.5-10.9z"/></svg>
             TikTok
         </a>
+    </div>
+
+    <!-- Sync gomb -->
+    <div class="sync-toggle" id="syncToggle">🔄</div>
+
+    <!-- Sync panel -->
+    <div class="sync-panel" id="syncPanel">
+        <div class="sync-header">
+            <div class="sync-title">🔄 Szinkronizálás</div>
+            <button class="shop-close-btn" id="syncClose">✕</button>
+        </div>
+
+        <div class="sync-card">
+            <h3>📤 Adatok exportálása</h3>
+            <p>Generálj egy kódot ami tartalmazza az összes adatodat (XP, skinek, kedvencek). Másold ki és küldd el a másik eszközödre!</p>
+            <button class="sync-btn sync-btn-export" id="syncExportBtn">Kód generálása</button>
+            <div class="sync-code-box" id="syncCodeBox" style="display:none"></div>
+            <div class="sync-result" id="syncExportResult"></div>
+        </div>
+
+        <div class="sync-card">
+            <h3>📥 Adatok importálása</h3>
+            <p>Illeszd be a másik eszközön generált kódot és az összes adatod betöltődik!</p>
+            <textarea class="sync-input" id="syncInput" rows="3" placeholder="Illeszd be a kódot ide..."></textarea>
+            <button class="sync-btn sync-btn-import" id="syncImportBtn" style="margin-top:12px">Betöltés</button>
+            <div class="sync-result" id="syncImportResult"></div>
+        </div>
+
+        <div class="sync-info">
+            <p>💡 Tipp: Az exportált kódot küldd el magadnak WhatsApp-on, Messengeren vagy bárhol — majd a másik eszközön illeszd be ide!</p>
+        </div>
     </div>
 
     <!-- Skin választó gomb -->
@@ -3057,6 +3148,116 @@
             }
             updateDealTimer();
             setInterval(updateDealTimer,1000);
+        })();
+
+        // ========== SZINKRONIZÁLÁS ==========
+        (function(){
+            const syncToggle=document.getElementById('syncToggle');
+            const syncPanel=document.getElementById('syncPanel');
+            const syncClose=document.getElementById('syncClose');
+            const exportBtn=document.getElementById('syncExportBtn');
+            const importBtn=document.getElementById('syncImportBtn');
+            const codeBox=document.getElementById('syncCodeBox');
+            const syncInput=document.getElementById('syncInput');
+            const exportResult=document.getElementById('syncExportResult');
+            const importResult=document.getElementById('syncImportResult');
+
+            syncToggle.addEventListener('click',()=>syncPanel.classList.add('open'));
+            syncClose.addEventListener('click',()=>syncPanel.classList.remove('open'));
+
+            // Exportálandó kulcsok
+            const SYNC_KEYS=['nu_xp','nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_game_best','nu_name','nu_uid'];
+
+            exportBtn.addEventListener('click',()=>{
+                const data={};
+                SYNC_KEYS.forEach(k=>{
+                    const v=localStorage.getItem(k);
+                    if(v!==null) data[k]=v;
+                });
+                const json=JSON.stringify(data);
+                const code=btoa(unescape(encodeURIComponent(json)));
+                codeBox.textContent=code;
+                codeBox.style.display='block';
+                // Vágólapra másolás
+                if(navigator.clipboard){
+                    navigator.clipboard.writeText(code).then(()=>{
+                        exportResult.className='sync-result ok';
+                        exportResult.textContent='✅ Kód kimásolva a vágólapra!';
+                    }).catch(()=>{
+                        exportResult.className='sync-result ok';
+                        exportResult.textContent='✅ Kód generálva! Másold ki kézzel.';
+                    });
+                } else {
+                    exportResult.className='sync-result ok';
+                    exportResult.textContent='✅ Kód generálva! Másold ki kézzel.';
+                }
+                // Share API mobilon
+                if(navigator.share){
+                    setTimeout(()=>{
+                        navigator.share({title:'DailyBot Sync',text:code}).catch(()=>{});
+                    },500);
+                }
+            });
+
+            importBtn.addEventListener('click',()=>{
+                const code=syncInput.value.trim();
+                if(!code){
+                    importResult.className='sync-result err';
+                    importResult.textContent='❌ Illeszd be a kódot!';
+                    return;
+                }
+                try{
+                    const json=decodeURIComponent(escape(atob(code)));
+                    const data=JSON.parse(json);
+                    if(!data.nu_name){throw new Error('Nincs név');}
+
+                    // Összefésülés: XP → max, owned → unió, többi → felülírás
+                    const currentXP=parseInt(localStorage.getItem('nu_xp')||'0');
+                    const importXP=parseInt(data.nu_xp||'0');
+                    const currentOwned=JSON.parse(localStorage.getItem('nu_owned')||'[]');
+                    const importOwned=JSON.parse(data.nu_owned||'[]');
+                    const mergedOwned=[...new Set([...currentOwned,...importOwned])];
+                    const currentFavs=JSON.parse(localStorage.getItem('nu_favs')||'[]');
+                    const importFavs=JSON.parse(data.nu_favs||'[]');
+                    // Kedvencek összefésülés szöveg alapján
+                    const favTexts=new Set(currentFavs.map(f=>f.t));
+                    importFavs.forEach(f=>{if(!favTexts.has(f.t))currentFavs.push(f);});
+                    const currentBest=parseInt(localStorage.getItem('nu_game_best')||'0');
+                    const importBest=parseInt(data.nu_game_best||'0');
+
+                    // Mentés
+                    localStorage.setItem('nu_xp',Math.max(currentXP,importXP).toString());
+                    localStorage.setItem('nu_owned',JSON.stringify(mergedOwned));
+                    localStorage.setItem('nu_favs',JSON.stringify(currentFavs));
+                    localStorage.setItem('nu_game_best',Math.max(currentBest,importBest).toString());
+                    if(data.nu_name) localStorage.setItem('nu_name',data.nu_name);
+                    if(data.nu_active_skin) localStorage.setItem('nu_active_skin',data.nu_active_skin);
+                    if(data.nu_active_bg) localStorage.setItem('nu_active_bg',data.nu_active_bg);
+                    if(data.nu_active_aura) localStorage.setItem('nu_active_aura',data.nu_active_aura);
+                    if(data.nu_s) localStorage.setItem('nu_s',data.nu_s);
+                    if(data.nu_l) localStorage.setItem('nu_l',data.nu_l);
+                    if(data.nu_uid) localStorage.setItem('nu_uid',data.nu_uid);
+                    localStorage.setItem('nu_reg','1');
+
+                    importResult.className='sync-result ok';
+                    importResult.textContent='✅ Adatok betöltve! Frissítés...';
+                    setTimeout(()=>location.reload(),1500);
+                }catch(e){
+                    importResult.className='sync-result err';
+                    importResult.textContent='❌ Hibás kód! Ellenőrizd és próbáld újra.';
+                }
+            });
+
+            // URL hash-ből automatikus import
+            if(location.hash.startsWith('#sync=')){
+                const code=location.hash.slice(6);
+                syncInput.value=code;
+                history.replaceState(null,'',location.pathname);
+                setTimeout(()=>{
+                    syncPanel.classList.add('open');
+                    importBtn.click();
+                },1000);
+            }
         })();
 
         // ========== NAPI SZUPERAJÁNLAT LOGIKA ==========
