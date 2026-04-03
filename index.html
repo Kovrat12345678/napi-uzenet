@@ -3041,7 +3041,7 @@
             // Új nap → új deal generálás
             // Összegyűjtjük az összes vásárolható tételt (cost > 0)
             const pool = [];
-            SKINS.forEach(s => { if(s.cost > 0) pool.push({id:s.id, type:'skin', name:s.name, icon:s.icon, origCost:s.cost}); });
+            SKINS.forEach(s => { if(s.cost > 0 && s.id !== 'graffiti') pool.push({id:s.id, type:'skin', name:s.name, icon:s.icon, origCost:s.cost}); });
             BGS.forEach(b => { if(b.cost > 0) pool.push({id:b.id, type:'bg', name:b.name, icon:b.icon, origCost:b.cost}); });
             if(AURAS) AURAS.forEach(a => { if(a.cost > 0) pool.push({id:a.id, type:'aura', name:a.name, icon:a.icon, origCost:a.cost}); });
 
