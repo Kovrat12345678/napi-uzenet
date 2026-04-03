@@ -325,6 +325,19 @@
         @keyframes shine { 0%{filter:brightness(1)} 50%{filter:brightness(1.8)} 100%{filter:brightness(1)} }
         .robot.aura-diamond { animation: shine 2s ease-in-out infinite; }
 
+        /* Tulipán aura */
+        .robot.aura-tulip::before {
+            background: radial-gradient(circle, #f9a8d4, #4ade80, transparent);
+            box-shadow: 0 0 35px rgba(74,222,128,.5);
+            animation: auraFloat 4s ease-in-out infinite;
+            opacity: 0.45;
+        }
+        .robot.aura-tulip::after {
+            content:'🌷'; position:absolute; top:-30px; left:50%; transform:translateX(-50%);
+            font-size:20px; animation:tulipFloat 3s ease-in-out infinite; pointer-events:none; z-index:10;
+        }
+        @keyframes tulipFloat{0%,100%{transform:translateX(-50%) translateY(0) rotate(-5deg);opacity:.7}50%{transform:translateX(-50%) translateY(-12px) rotate(5deg);opacity:1}}
+
         /* GAMER SKIN */
         .robot.gamer .head, .robot.gamer .torso {
             background: linear-gradient(165deg, #1e293b 0%, #0f172a 100%)!important;
@@ -523,6 +536,50 @@
         .robot.chicky .chest-dot{background:#f59e0b!important}
         .robot.chicky .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
         .robot.chicky .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
+
+        /* Tulipán (tavaszi) robot skin */
+        @keyframes tulipSway{0%,100%{filter:brightness(1) hue-rotate(0deg)}50%{filter:brightness(1.08) hue-rotate(5deg)}}
+        .game-player.tulip,.robot.tulip{animation:tulipSway 4s ease-in-out infinite}
+        .game-player.tulip .gp-head{background:linear-gradient(165deg,#dcfce7,#4ade80)!important}
+        .game-player.tulip .gp-body{background:linear-gradient(165deg,#bbf7d0,#16a34a)!important}
+        .game-player.tulip .gp-eye{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899)!important;box-shadow:0 0 8px rgba(236,72,153,.6)!important}
+        .game-player.tulip .gp-leg{background:linear-gradient(to bottom,#16a34a,#166534)!important}
+        .robot.tulip .head,.robot.tulip .torso{background:linear-gradient(165deg,#dcfce7 0%,#86efac 30%,#4ade80 60%,#16a34a 100%)!important}
+        .robot.tulip .eye{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899)!important;box-shadow:0 0 12px rgba(236,72,153,.7)!important}
+        .robot.tulip .antenna-ball{background:radial-gradient(circle,#fda4af,#e11d48)!important;box-shadow:0 0 16px rgba(225,29,72,.6)!important}
+        .robot.tulip .arm-l,.robot.tulip .arm-r{background:linear-gradient(to bottom,#86efac,#16a34a)!important}
+        .robot.tulip .leg{background:linear-gradient(to bottom,#4ade80,#166534)!important}
+        .robot.tulip .shoulder-l,.robot.tulip .shoulder-r{background:radial-gradient(circle,#dcfce7,#86efac)!important}
+        .robot.tulip .mouth{background:#e11d48!important;box-shadow:0 0 6px rgba(225,29,72,.5)!important}
+        .robot.tulip .neck{background:linear-gradient(to bottom,#86efac,#16a34a)!important}
+        .robot.tulip .ear-l,.robot.tulip .ear-r{background:#86efac!important}
+        .robot.tulip .foot{background:#166534!important}
+        .robot.tulip .chest-dot{background:#f472b6!important}
+        .robot.tulip .face-screen{background:linear-gradient(180deg,#14532d,#166534)!important}
+        .robot.tulip .chest{background:linear-gradient(145deg,#14532d,#166534)!important}
+        .robot.tulip .torso::before{content:'🌷';position:absolute;top:8px;right:-18px;font-size:22px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.3))}
+
+        /* Tulipán háttér */
+        body.bg-tulip {
+            background:linear-gradient(165deg,#ecfdf5 0%,#d1fae5 15%,#a7f3d0 30%,#6ee7b7 50%,#34d399 70%,#059669 100%)!important;
+            background-attachment:fixed!important;
+        }
+        body.bg-tulip::before {
+            content:'🌷 🌻 🌷 🌸 🌷';position:fixed;bottom:30px;left:0;right:0;
+            font-size:28px;text-align:center;opacity:.2;pointer-events:none;letter-spacing:20px;
+        }
+        body.bg-tulip::after {
+            content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+            background-image:
+                radial-gradient(3px 3px at 15% 20%,rgba(236,72,153,.3),transparent),
+                radial-gradient(3px 3px at 35% 60%,rgba(225,29,72,.25),transparent),
+                radial-gradient(2px 2px at 55% 15%,rgba(244,114,182,.3),transparent),
+                radial-gradient(3px 3px at 75% 45%,rgba(236,72,153,.2),transparent),
+                radial-gradient(2px 2px at 90% 70%,rgba(225,29,72,.25),transparent),
+                radial-gradient(3px 3px at 10% 85%,rgba(244,114,182,.2),transparent),
+                radial-gradient(2px 2px at 50% 90%,rgba(236,72,153,.3),transparent);
+            animation:galaxyTwinkle 3s ease-in-out infinite alternate;
+        }
 
         /* ALIVE SKINS ANIMATIONS */
         @keyframes flameFlicker {
@@ -2885,7 +2942,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer|tulip)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -2911,14 +2968,14 @@
             // RESET: Töröljünk minden korábbi stílust és osztályt
             document.body.style.background = '';
             document.body.style.backgroundAttachment = '';
-            document.body.classList.remove('bg-galaxy','bg-gamer');
+            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip');
 
             if(!bg || bg === 'napszak' || !owns(bg)){
                 applyTimeTheme();
                 return;
             }
 
-            if(bg === 'bg-gamer' || bg === 'bg-galaxy'){
+            if(bg === 'bg-gamer' || bg === 'bg-galaxy' || bg === 'bg-tulip'){
                 document.body.classList.add(bg);
             } else if(CUSTOM_BGS[bg]){
                 document.body.style.background=CUSTOM_BGS[bg];
@@ -2932,9 +2989,9 @@
             const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
 
             if(userName === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer'];
-                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer'];
-                const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond'];
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip'];
+                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip'];
+                const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
                 auras.forEach(a => buyItem(a));
@@ -2979,6 +3036,7 @@
                 {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500,sale:1999},
                 {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
                 {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱',cost:300},
+                {id:'tulip',name:'Tulipán Skin',desc:'Tavaszi virágos robot 🌷',icon:'🌷',cost:450},
                 {id:'gamer',name:'Gamer Skin',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:2000}
             ];
             const BGS=[
@@ -2990,6 +3048,7 @@
                 {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1200},
                 {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:1500},
                 {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:2500},
+                {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tulipános virágmező 🌷',icon:'🌷',cost:450},
                 {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup 🖥️',icon:'🌃',cost:450}
             ];
             const AURAS=[
@@ -2999,6 +3058,7 @@
                 {id:'aura-halo',name:'Szent Aura',desc:'Égi ragyogás',icon:'😇',cost:1000},
                 {id:'aura-sakura',name:'Sakura Aura',desc:'Hulló szirmok',icon:'🌸',cost:600},
                 {id:'aura-diamond',name:'Gyémánt Aura',desc:'Szikrázó jégkristály',icon:'💎',cost:1500},
+                {id:'aura-tulip',name:'Tulipán Aura',desc:'Virágszirmok örvénye',icon:'🌷',cost:450},
                 {id:'aura-rgb',name:'RGB Aura',desc:'Gamer színek',icon:'🌈',cost:1200}
             ];
 
@@ -3430,7 +3490,7 @@
             const backBtn=document.getElementById('gameBack');
             const timerEl=document.getElementById('gameTimer');
 
-            const ENEMIES=isPastEaster?['🪙','🌈','💎','⚡','🔮','☄️','🪙','💎']:['🥚','🐣','🐤','🐰','🥚','🐥','🐰','🥚'];
+            const ENEMIES=isPastEaster?['🌷','🌻','🌸','🌺','🌹','💐','🌼','🌷']:['🥚','🐣','🐤','🐰','🥚','🐥','🐰','🥚'];
             let player, score, dodged, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
             let lives=3, invincible=false;
             const livesEl=document.getElementById('gameLives');
@@ -3483,7 +3543,7 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                spawnTimer=setInterval(spawnEnemy,1100);
+                spawnTimer=setInterval(spawnEnemy,1400);
                 gameLoop=requestAnimationFrame(update);
             };
 
@@ -3513,8 +3573,10 @@
                 em.textContent=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
                 em.style.left=Math.random()*(window.innerWidth-50)+'px';
                 em.style.top='-50px';
-                // Könnyebb: lassabb alap sebesség 1.2–2.2, lassabb gyorsulás
-                em._speed=(Math.random()*1.0+1.2+diff*0.08);
+                // Lassan esnek, 200 pont (score/10=200 → score=2000) felett gyorsulnak
+                const ds=Math.floor(score/10);
+                const baseSpeed=ds<200?(Math.random()*0.6+0.8):(Math.random()*1.2+1.5+diff*0.12);
+                em._speed=baseSpeed;
                 em._size=sz;
                 em._counted=false;
                 overlay.appendChild(em);
@@ -3535,7 +3597,7 @@
                 }
                 if(score%600===0){
                     clearInterval(spawnTimer);
-                    const interval=displayScore<200?1800:Math.max(500,1100-diff*40);
+                    const interval=displayScore<200?1400:Math.max(500,900-diff*40);
                     spawnTimer=setInterval(spawnEnemy,interval);
                 }
 
