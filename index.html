@@ -537,6 +537,28 @@
         .robot.chicky .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
         .robot.chicky .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
 
+        /* Ló (horse) robot skin — exkluzív */
+        @keyframes horseGallop{0%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}75%{transform:translateY(2px)}}
+        .game-player.horse,.robot.horse{animation:horseGallop 2s ease-in-out infinite}
+        .game-player.horse .gp-head{background:linear-gradient(165deg,#a16207,#854d0e)!important}
+        .game-player.horse .gp-body{background:linear-gradient(165deg,#92400e,#78350f)!important}
+        .game-player.horse .gp-eye{background:radial-gradient(circle,#fef3c7,#a16207)!important;box-shadow:0 0 8px rgba(161,98,7,.6)!important}
+        .game-player.horse .gp-leg{background:linear-gradient(to bottom,#78350f,#451a03)!important}
+        .robot.horse .head,.robot.horse .torso{background:linear-gradient(165deg,#d97706 0%,#a16207 30%,#92400e 60%,#78350f 100%)!important}
+        .robot.horse .eye{background:radial-gradient(circle,#fef3c7,#d97706,#a16207)!important;box-shadow:0 0 12px rgba(217,119,6,.7)!important}
+        .robot.horse .antenna-ball{background:radial-gradient(circle,#fbbf24,#a16207)!important;box-shadow:0 0 16px rgba(161,98,7,.6)!important}
+        .robot.horse .arm-l,.robot.horse .arm-r{background:linear-gradient(to bottom,#a16207,#78350f)!important}
+        .robot.horse .leg{background:linear-gradient(to bottom,#92400e,#451a03)!important}
+        .robot.horse .shoulder-l,.robot.horse .shoulder-r{background:radial-gradient(circle,#d97706,#a16207)!important}
+        .robot.horse .mouth{background:#78350f!important;box-shadow:0 0 6px rgba(120,53,15,.5)!important}
+        .robot.horse .neck{background:linear-gradient(to bottom,#a16207,#78350f)!important}
+        .robot.horse .ear-l,.robot.horse .ear-r{background:#a16207!important}
+        .robot.horse .foot{background:#451a03!important}
+        .robot.horse .chest-dot{background:#d97706!important}
+        .robot.horse .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
+        .robot.horse .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
+        .robot.horse .torso::before{content:'🐴';position:absolute;top:8px;right:-18px;font-size:22px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.3))}
+
         /* Tulipán (tavaszi) robot skin */
         @keyframes tulipSway{0%,100%{filter:brightness(1) hue-rotate(0deg)}50%{filter:brightness(1.08) hue-rotate(5deg)}}
         .game-player.tulip,.robot.tulip{animation:tulipSway 4s ease-in-out infinite}
@@ -1719,11 +1741,11 @@
             </div>
         </div>
         <div class="shop-section">
-            <div class="shop-section-title">🤖 Skin választék <span class="shop-sale-badge">AKCIÓ</span></div>
+            <div class="shop-section-title">🤖 Skin választék</div>
             <div class="shop-scroll" id="skinList"></div>
         </div>
         <div class="shop-section">
-            <div class="shop-section-title">🖼️ Hátterek <span class="shop-sale-badge">AKCIÓ</span></div>
+            <div class="shop-section-title">🖼️ Hátterek</div>
             <div class="shop-scroll" id="bgList"></div>
         </div>
 
@@ -2942,7 +2964,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer|tulip)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer|tulip|horse)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -2989,13 +3011,16 @@
             const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
 
             if(userName === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip'];
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','horse'];
                 const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip'];
                 const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
                 auras.forEach(a => buyItem(a));
                 console.log('✅ Master Unlock aktív: Minden feloldva Kovrat számára.');
+            } else if(userName === 'Rella') {
+                buyItem('horse');
+                console.log('🐴 Rella ajándék: Ló skin feloldva.');
             } else if(userName === 'Zerénd') {
                 buyItem('gamer');
                 buyItem('bg-gamer');
@@ -3032,9 +3057,10 @@
                 {id:'fire',name:'Fire Skin',desc:'Lángoló vörös izzás',icon:'🔥',cost:500},
                 {id:'stealth',name:'Stealth Skin',desc:'High-tech titkos ügynök',icon:'👤',cost:750},
                 {id:'golden',name:'Golden Skin',desc:'Tiszta arany csillogás',icon:'✨',cost:1000},
-                {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500,sale:999},
-                {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500,sale:1999},
+                {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500},
+                {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500},
                 {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
+                {id:'horse',name:'Ló Skin',desc:'Exkluzív lovas robot 🐴',icon:'🐴',cost:0,hide:true},
                 {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱',cost:300},
                 {id:'tulip',name:'Tulipán Skin',desc:'Tavaszi virágos robot 🌷',icon:'🌷',cost:450},
                 {id:'gamer',name:'Gamer Skin',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:2000}
