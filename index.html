@@ -3031,36 +3031,16 @@
             const tdString = now.toDateString();
             const storedDate = localStorage.getItem('nu_deal_date');
 
-            if (storedDate === tdString) {
-                try {
-                    const stored = JSON.parse(localStorage.getItem('nu_daily_deal'));
-                    if(stored && stored.id) return stored;
-                } catch(e) {}
-            }
-
-            // Új nap → új deal generálás
-            // Összegyűjtjük az összes vásárolható tételt (cost > 0)
-            const pool = [];
-            SKINS.forEach(s => { if(s.cost > 0 && s.id !== 'graffiti') pool.push({id:s.id, type:'skin', name:s.name, icon:s.icon, origCost:s.cost}); });
-            BGS.forEach(b => { if(b.cost > 0) pool.push({id:b.id, type:'bg', name:b.name, icon:b.icon, origCost:b.cost}); });
-            if(AURAS) AURAS.forEach(a => { if(a.cost > 0) pool.push({id:a.id, type:'aura', name:a.name, icon:a.icon, origCost:a.cost}); });
-
-            // Dátum-alapú hash → minden nap más tétel
-            const dayNum = Math.floor(now.getTime() / 86400000);
-            const idx = ((dayNum * 2654435761) >>> 0) % pool.length;
-            const picked = pool[idx];
-
+            // Fix ajánlat: Sakura Skin 300 → 250 XP
             const deal = {
-                id: picked.id,
-                type: picked.type,
-                name: picked.name,
-                icon: picked.icon,
-                origCost: picked.origCost,
-                nowCost: Math.round(picked.origCost * 0.5),
+                id: 'sakura',
+                type: 'skin',
+                name: 'Sakura Skin',
+                icon: '🌸',
+                origCost: 300,
+                nowCost: 250,
                 date: tdString
             };
-            localStorage.setItem('nu_deal_date', tdString);
-            localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
             return deal;
         }
 
@@ -3267,38 +3247,7 @@
                 overlay.addEventListener('touchstart',onTouchStart,{passive:false});
                 overlay.addEventListener('touchmove',onTouchMove,{passive:false});
 
-                // Sebesség és sűrűség növelése
-                function spawnEnemy(){
-                    if(!alive) return;
-                    const rand=Math.random();
-                    const emoji=document.createElement('div');
-                    emoji.className='game-emoji';
-                    
-                    // Alap sebesség emelése (1.2 -> 1.8)
-                    const speed = (1.8 + (score/100) * 0.4) * (window.innerWidth < 600 ? 1 : 1.2);
-                    
-                    if(rand>0.92){ 
-                        const gold=Math.random()>0.7;
-                        emoji.textContent=gold?'⭐':'🥚';
-                        emoji.classList.add('collectible');
-                        if(gold) emoji.classList.add('gold-item');
-                        emoji.dataset.type='xp';
-                    } else {
-                        emoji.textContent=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
-                        emoji.dataset.type='enemy';
-                    }
-                    
-                    emoji.style.left=Math.random()*(window.innerWidth-40)+'px';
-                    emoji.style.top='-50px';
-                    emoji.style.fontSize='32px';
-                    overlay.appendChild(emoji);
-                    emojis.push({el:emoji,y:-50,s:speed});
-
-                    // Nehezedés: 100 pont után sűrűbb spawn
-                    const nextSpawn = score > 100 ? 800 : 1100;
-                    setTimeout(spawnEnemy, nextSpawn);
-                }
-                spawnEnemy();
+                spawnTimer=setInterval(spawnEnemy,1100);
                 gameLoop=requestAnimationFrame(update);
             };
 
