@@ -12,19 +12,19 @@
     "categories": ["lifestyle", "entertainment"],
     "icons": [
         {
-            "src": "icon/dailybot-icon.png",
+            "src": "easter_robot_icon_1775165541166.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "icon/dailybot-icon.png",
+            "src": "easter_robot_icon_1775165541166.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "icon/dailybot-icon.png",
+            "src": "easter_robot_icon_1775165541166.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
