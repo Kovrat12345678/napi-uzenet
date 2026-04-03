@@ -537,6 +537,32 @@
         .robot.chicky .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
         .robot.chicky .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
 
+        /* Glass (üveg) robot skin — ultra ritka */
+        @keyframes glassShine{0%{background-position:200% center}100%{background-position:-200% center}}
+        @keyframes glassGlow{0%,100%{box-shadow:0 0 15px rgba(255,255,255,.15),inset 0 0 10px rgba(255,255,255,.05)}50%{box-shadow:0 0 30px rgba(255,255,255,.3),inset 0 0 20px rgba(255,255,255,.1)}}
+        .robot.glass .head,.robot.glass .torso{
+            background:linear-gradient(165deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.06) 40%,rgba(255,255,255,.15) 100%)!important;
+            border:1px solid rgba(255,255,255,.25)!important;
+            backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;
+            animation:glassGlow 3s ease-in-out infinite!important;
+        }
+        .robot.glass .eye{background:radial-gradient(circle,rgba(255,255,255,.9),rgba(255,255,255,.4),rgba(255,255,255,.1))!important;box-shadow:0 0 16px rgba(255,255,255,.6)!important}
+        .robot.glass .antenna-ball{background:radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,.2))!important;box-shadow:0 0 20px rgba(255,255,255,.5)!important}
+        .robot.glass .arm-l,.robot.glass .arm-r{background:linear-gradient(to bottom,rgba(255,255,255,.15),rgba(255,255,255,.05))!important;border:1px solid rgba(255,255,255,.2)!important}
+        .robot.glass .leg{background:linear-gradient(to bottom,rgba(255,255,255,.1),rgba(255,255,255,.05))!important;border:1px solid rgba(255,255,255,.15)!important}
+        .robot.glass .shoulder-l,.robot.glass .shoulder-r{background:radial-gradient(circle,rgba(255,255,255,.2),rgba(255,255,255,.05))!important}
+        .robot.glass .mouth{background:rgba(255,255,255,.3)!important;box-shadow:0 0 8px rgba(255,255,255,.3)!important}
+        .robot.glass .neck{background:linear-gradient(to bottom,rgba(255,255,255,.1),rgba(255,255,255,.05))!important}
+        .robot.glass .ear-l,.robot.glass .ear-r{background:rgba(255,255,255,.15)!important}
+        .robot.glass .foot{background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.15)!important}
+        .robot.glass .chest-dot{background:rgba(255,255,255,.4)!important;box-shadow:0 0 6px rgba(255,255,255,.3)!important}
+        .robot.glass .face-screen{background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.1))!important;border:1px solid rgba(255,255,255,.1)!important}
+        .robot.glass .chest{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03))!important;border:1px solid rgba(255,255,255,.1)!important}
+        .game-player.glass .gp-head{background:linear-gradient(165deg,rgba(255,255,255,.15),rgba(255,255,255,.05))!important;border:1px solid rgba(255,255,255,.2)!important}
+        .game-player.glass .gp-body{background:linear-gradient(165deg,rgba(255,255,255,.1),rgba(255,255,255,.03))!important;border:1px solid rgba(255,255,255,.15)!important}
+        .game-player.glass .gp-eye{background:radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,.3))!important;box-shadow:0 0 10px rgba(255,255,255,.5)!important}
+        .game-player.glass .gp-leg{background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.12)!important}
+
         /* Ló (horse) robot skin — exkluzív */
         @keyframes horseGallop{0%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}75%{transform:translateY(2px)}}
         .game-player.horse,.robot.horse{animation:horseGallop 2s ease-in-out infinite}
@@ -792,6 +818,12 @@
         .shop-item-desc{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;line-height:1.3;height:26px;overflow:hidden}
         .shop-item-status{font-size:11px;font-weight:700}
         .shop-item-status.equipped{color:#a78bfa}
+        .tier-badge{position:absolute;top:6px;right:6px;font-size:8px;font-weight:900;padding:2px 5px;border-radius:4px;letter-spacing:.5px}
+        .tier-common .tier-badge{background:rgba(74,222,128,.2);color:#4ade80}
+        .tier-rare .tier-badge{background:rgba(96,165,250,.2);color:#60a5fa}
+        .tier-legendary .tier-badge{background:rgba(251,191,36,.2);color:#fbbf24}
+        .tier-legendary{border-color:rgba(251,191,36,.3)!important}
+        .tier-rare{border-color:rgba(96,165,250,.2)!important}
         .shop-item-status.owned{color:rgba(255,255,255,.3)}
         .shop-item-status.price{color:rgba(255,255,255,.4)}
         .shop-item-status .buy-tag{
@@ -2955,7 +2987,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer|tulip|horse)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer|tulip|horse|glass)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -3002,7 +3034,7 @@
             const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
 
             if(userName === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','horse'];
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','horse','glass'];
                 const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip'];
                 const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
                 skins.forEach(s => buyItem(s));
@@ -3025,6 +3057,30 @@
             if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
             
             checkMasterUnlock();
+
+            // 🌷 Tavaszi ajándék — mindenki megkapja
+            if(!owns('tulip') || !owns('bg-tulip') || !owns('aura-tulip')){
+                buyItem('tulip'); buyItem('bg-tulip'); buyItem('aura-tulip');
+                // Ajándék popup
+                setTimeout(()=>{
+                    if(!localStorage.getItem('nu_reg')) return;
+                    const giftOv=document.createElement('div');
+                    giftOv.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:obIn .5s ease forwards;padding:20px;text-align:center;';
+                    giftOv.innerHTML=`
+                        <div style="font-size:80px;animation:pulseMedium 2s ease-in-out infinite">🎁</div>
+                        <div style="color:#fff;font-size:26px;font-weight:900;margin-top:20px">Tavaszi Ajándék!</div>
+                        <div style="color:rgba(255,255,255,.7);font-size:14px;margin-top:10px;line-height:1.6">
+                            Három új tárgyat kaptál ajándékba:<br>
+                            <span style="color:#4ade80;font-weight:700">🌷 Tulipán Skin</span><br>
+                            <span style="color:#4ade80;font-weight:700">🌷 Tavaszi Rét Háttér</span><br>
+                            <span style="color:#4ade80;font-weight:700">🌷 Tulipán Aura</span>
+                        </div>
+                        <button onclick="this.parentElement.style.opacity='0';setTimeout(()=>this.parentElement.remove(),400)" style="margin-top:30px;padding:14px 40px;border:none;border-radius:16px;background:linear-gradient(to bottom,#4ade80,#16a34a);color:#fff;font-weight:800;font-size:16px;cursor:pointer">Köszönöm! 🌷</button>
+                    `;
+                    document.body.appendChild(giftOv);
+                },800);
+            }
+
             applyRobotSkin();
             applyCustomBg();
             applyAura();
@@ -3041,49 +3097,64 @@
             const closeBtn=document.getElementById('skinClose');
             const greet=document.getElementById('shopGreeting');
 
+            // tier: 'free'|'common'|'rare'|'epic'|'legendary' — rendezéshez és címkékhez
             const SKINS=[
-                {id:'',name:'Alap Skin',desc:'Az eredeti klasszikus',icon:'🤖',cost:0},
-                {id:'galaxy',name:'Galaxy Skin',desc:'Kozmikus ragyogás',icon:'🌌',cost:150},
-                {id:'sakura',name:'Sakura Skin',desc:'Cseresznyevirág',icon:'🌸',cost:300},
-                {id:'fire',name:'Fire Skin',desc:'Lángoló vörös izzás',icon:'🔥',cost:500},
-                {id:'stealth',name:'Stealth Skin',desc:'High-tech titkos ügynök',icon:'👤',cost:750},
-                {id:'golden',name:'Golden Skin',desc:'Tiszta arany csillogás',icon:'✨',cost:1000},
-                {id:'rainbow',name:'Rainbow Skin',desc:'Szivárványos színváltó',icon:'🌈',cost:1500},
-                {id:'diamond',name:'Diamond Skin',desc:'Jégkék drágakő test',icon:'💎',cost:2500},
-                {id:'chicky',name:'Chicky Skin',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true},
-                {id:'horse',name:'Ló Skin',desc:'Exkluzív lovas robot 🐴',icon:'🐴',cost:0,hide:true},
-                {id:'graffiti',name:'Graffiti Skin',desc:'Utcai művész spray-vel 🎨',icon:'🧱',cost:300},
-                {id:'tulip',name:'Tulipán Skin',desc:'Tavaszi virágos robot 🌷',icon:'🌷',cost:450},
-                {id:'gamer',name:'Gamer Skin',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:2000}
+                // 🆓 Ingyenes
+                {id:'',name:'Alap',desc:'Az eredeti klasszikus',icon:'🤖',cost:0,tier:'free'},
+                {id:'tulip',name:'Tulipán',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
+                // ⭐ Alap (100–400)
+                {id:'galaxy',name:'Galaxy',desc:'Kozmikus ragyogás',icon:'🌌',cost:200,tier:'common'},
+                {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:350,tier:'common'},
+                {id:'graffiti',name:'Graffiti',desc:'Utcai művész 🎨',icon:'🧱',cost:400,tier:'common'},
+                // 💎 Ritka (500–1000)
+                {id:'fire',name:'Fire',desc:'Lángoló vörös izzás',icon:'🔥',cost:600,tier:'rare'},
+                {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:800,tier:'rare'},
+                {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:1000,tier:'rare'},
+                // 👑 Legendás (1500+)
+                {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:1500,tier:'legendary'},
+                {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:2000,tier:'legendary'},
+                {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:2500,tier:'legendary'},
+                {id:'diamond',name:'Diamond',desc:'Jégkék drágakő test',icon:'💎',cost:3500,tier:'legendary'},
+                // 🔒 Titkos
+                {id:'chicky',name:'Chicky',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true,tier:'secret'},
+                {id:'horse',name:'Ló',desc:'Exkluzív lovas 🐴',icon:'🐴',cost:0,hide:true,tier:'secret'}
             ];
             const BGS=[
-                {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0},
-                {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:100},
-                {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:200},
-                {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:400},
-                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:600},
-                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1200},
-                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:1500},
-                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:2500},
-                {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tulipános virágmező 🌷',icon:'🌷',cost:450},
-                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup 🖥️',icon:'🌃',cost:450}
+                // 🆓 Ingyenes
+                {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0,tier:'free'},
+                {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
+                // ⭐ Alap
+                {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:200,tier:'common'},
+                {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:350,tier:'common'},
+                // 💎 Ritka
+                {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:600,tier:'rare'},
+                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:700,tier:'rare'},
+                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:900,tier:'rare'},
+                // 👑 Legendás
+                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1500,tier:'legendary'},
+                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:2000,tier:'legendary'},
+                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:3000,tier:'legendary'}
             ];
             const AURAS=[
-                {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0},
-                {id:'aura-fire',name:'Tűz Aura',desc:'Lángoló energia',icon:'🔥',cost:500},
-                {id:'aura-glitch',name:'Glitch Aura',desc:'Digitális zavar',icon:'👾',cost:800},
-                {id:'aura-halo',name:'Szent Aura',desc:'Égi ragyogás',icon:'😇',cost:1000},
-                {id:'aura-sakura',name:'Sakura Aura',desc:'Hulló szirmok',icon:'🌸',cost:600},
-                {id:'aura-diamond',name:'Gyémánt Aura',desc:'Szikrázó jégkristály',icon:'💎',cost:1500},
-                {id:'aura-tulip',name:'Tulipán Aura',desc:'Virágszirmok örvénye',icon:'🌷',cost:450},
-                {id:'aura-rgb',name:'RGB Aura',desc:'Gamer színek',icon:'🌈',cost:1200}
+                // 🆓 Ingyenes
+                {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0,tier:'free'},
+                {id:'aura-tulip',name:'Tulipán',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
+                // ⭐ Alap
+                {id:'aura-fire',name:'Tűz',desc:'Lángoló energia',icon:'🔥',cost:400,tier:'common'},
+                {id:'aura-sakura',name:'Sakura',desc:'Hulló szirmok',icon:'🌸',cost:500,tier:'common'},
+                // 💎 Ritka
+                {id:'aura-glitch',name:'Glitch',desc:'Digitális zavar',icon:'👾',cost:750,tier:'rare'},
+                {id:'aura-halo',name:'Szent',desc:'Égi ragyogás',icon:'😇',cost:1000,tier:'rare'},
+                // 👑 Legendás
+                {id:'aura-rgb',name:'RGB',desc:'Gamer színek',icon:'🌈',cost:1500,tier:'legendary'},
+                {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:2000,tier:'legendary'}
             ];
 
             function renderShop(){
                 const xp=getXP();
                 xpDisp.textContent='⭐ '+xp+' XP';
                 const name=localStorage.getItem('nu_name')||'Barátom';
-                greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>A <span style="color:#38bdf8">DailyBot</span> üdvözöl a boltban! Kattints az akciókért! 🔥`;
+                greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
                 
                 const d = new Date();
                 const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
@@ -3112,7 +3183,7 @@
                 if(!auraList){
                    const auraSection = document.createElement('div');
                    auraSection.className = 'shop-section';
-                   auraSection.innerHTML = `<div class="shop-section-title">🔮 Auraválaszték <span class="shop-sale-badge">ÚJ</span></div><div class="shop-scroll" id="${auraListId}"></div>`;
+                   auraSection.innerHTML = `<div class="shop-section-title">🔮 Aurák</div><div class="shop-scroll" id="${auraListId}"></div>`;
                    // Insert after BG list
                    bgList.parentElement.insertAdjacentElement('afterend', auraSection);
                    auraList = document.getElementById(auraListId);
@@ -3173,24 +3244,26 @@
                         const isActive=s.id===cfg.active;
                         // Ha ez a napi ajánlat, akkor finalCost a deal.nowCost
                         const isThisDeal = s.id === deal.id;
-                        const finalCost=isThisDeal ? deal.nowCost : (s.sale||s.cost);
+                        const finalCost=isThisDeal ? deal.nowCost : s.cost;
                         const canBuy=!owned&&xp>=finalCost;
-                        
+
+                        const tierClass=s.tier&&s.tier!=='free'&&s.tier!=='secret'?' tier-'+s.tier:'';
+                        const tierLabels={common:'ALAP',rare:'RITKA',legendary:'LEGENDÁS'};
+                        const tierBadge=tierLabels[s.tier]?`<span class="tier-badge">${tierLabels[s.tier]}</span>`:'';
+
                         const el=document.createElement('div');
-                        el.className='shop-item'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'));
-                        
+                        el.className='shop-item'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'))+tierClass;
+
                         let status='';
                         if(isActive) status='<div class="shop-item-status equipped">✔ Aktív</div>';
                         else if(owned) status='<div class="shop-item-status owned">Megvan</div>';
                         else if(canBuy){
-                            const priceHtml=(s.sale||isThisDeal)?`<span class="shop-original-price">${s.cost}</span>${finalCost}`:`${s.cost}`;
-                            status=`<div class="shop-item-status"><span class="buy-tag">🛒 ${priceHtml} XP</span></div>`;
+                            status=`<div class="shop-item-status"><span class="buy-tag">🛒 ${finalCost} XP</span></div>`;
                         } else {
-                            const priceHtml=(s.sale||isThisDeal)?`<span class="shop-original-price">${s.cost}</span>${finalCost}`:`${s.cost}`;
-                            status=`<div class="shop-item-status price lock-tag">🔒 ${priceHtml} XP</div>`;
+                            status=`<div class="shop-item-status price lock-tag">🔒 ${finalCost} XP</div>`;
                         }
 
-                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+                        el.innerHTML=`${tierBadge}<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
                         
                         if(owned&&!isActive) el.addEventListener('click',()=>{cfg.setter(s.id);cfg.applier();renderShop()});
                         const buyTag=el.querySelector('.buy-tag');
@@ -3341,14 +3414,14 @@
 
         // ========== NAPI SZUPERAJÁNLAT LOGIKA ==========
         function getDailyDeal(SKINS, BGS, AURAS) {
-            // Fix ajánlat: Sakura Skin 300 → 250 XP
+            // Fix ajánlat: Sakura Skin 350 → 200 XP
             return {
                 id: 'sakura',
                 type: 'skin',
-                name: 'Sakura Skin',
+                name: 'Sakura',
                 icon: '🌸',
-                origCost: 300,
-                nowCost: 250,
+                origCost: 350,
+                nowCost: 200,
                 date: new Date().toDateString()
             };
         }
@@ -3364,16 +3437,17 @@
             
             // Több szelet (10 db), mistery design
             const PRIZES = [
-                { text: '20 XP', type: 'xp', val: 20, prob: 45 },
-                { text: '50 XP', type: 'xp', val: 50, prob: 35 },
-                { text: '100 XP', type: 'xp', val: 100, prob: 12 },
-                { text: '200 XP', type: 'xp', val: 200, prob: 5 },
-                { text: '500 XP', type: 'xp', val: 500, prob: 1 },
-                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 0.2 },
-                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.2 },
-                { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.2 },
-                { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.2 },
-                { text: 'Diamond 💎', type: 'skin', val: 'diamond', prob: 0.2 }
+                { text: '20 XP', type: 'xp', val: 20, prob: 40 },
+                { text: '50 XP', type: 'xp', val: 50, prob: 30 },
+                { text: '100 XP', type: 'xp', val: 100, prob: 15 },
+                { text: '200 XP', type: 'xp', val: 200, prob: 8 },
+                { text: '500 XP', type: 'xp', val: 500, prob: 3 },
+                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 1 },
+                { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.8 },
+                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.6 },
+                { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.4 },
+                { text: 'Golden ✨', type: 'skin', val: 'golden', prob: 0.15 },
+                { text: 'Glass 🪟', type: 'skin', val: 'glass', prob: 0.05 }
             ];
 
 
