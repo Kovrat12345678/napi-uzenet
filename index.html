@@ -3071,27 +3071,52 @@
             
             checkMasterUnlock();
 
-            // 🌷 Tavaszi ajándék — mindenki megkapja
-            if(!owns('tulip') || !owns('bg-tulip') || !owns('aura-tulip')){
-                buyItem('tulip'); buyItem('bg-tulip'); buyItem('aura-tulip');
-                // Ajándék popup
+            // 🌷 Tavaszi ajándék — interaktív ajándékdoboz
+            if(localStorage.getItem('nu_reg') && (!owns('tulip') || !owns('bg-tulip') || !owns('aura-tulip'))){
                 setTimeout(()=>{
-                    if(!localStorage.getItem('nu_reg')) return;
                     const giftOv=document.createElement('div');
-                    giftOv.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:obIn .5s ease forwards;padding:20px;text-align:center;';
+                    giftOv.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:20px;text-align:center;';
                     giftOv.innerHTML=`
-                        <div style="font-size:80px;animation:pulseMedium 2s ease-in-out infinite">🎁</div>
-                        <div style="color:#fff;font-size:26px;font-weight:900;margin-top:20px">Tavaszi Ajándék!</div>
-                        <div style="color:rgba(255,255,255,.7);font-size:14px;margin-top:10px;line-height:1.6">
-                            Három új tárgyat kaptál ajándékba:<br>
-                            <span style="color:#4ade80;font-weight:700">🌷 Tulipán Skin</span><br>
-                            <span style="color:#4ade80;font-weight:700">🌷 Tavaszi Rét Háttér</span><br>
-                            <span style="color:#4ade80;font-weight:700">🌷 Tulipán Aura</span>
-                        </div>
-                        <button onclick="this.parentElement.style.opacity='0';setTimeout(()=>this.parentElement.remove(),400)" style="margin-top:30px;padding:14px 40px;border:none;border-radius:16px;background:linear-gradient(to bottom,#4ade80,#16a34a);color:#fff;font-weight:800;font-size:16px;cursor:pointer">Köszönöm! 🌷</button>
+                        <div style="color:rgba(255,255,255,.6);font-size:14px;font-weight:600;margin-bottom:20px">Egy ajándék vár rád!</div>
+                        <div id="giftBox" style="font-size:100px;cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 0 30px rgba(251,191,36,.4));animation:pulseMedium 2s ease-in-out infinite">🎁</div>
+                        <div style="color:rgba(255,255,255,.5);font-size:13px;margin-top:16px;font-weight:600">Koppints a dobozra!</div>
+                        <div id="giftReveal" style="display:none;text-align:center"></div>
                     `;
                     document.body.appendChild(giftOv);
-                },800);
+                    let taps=0;
+                    const box=giftOv.querySelector('#giftBox');
+                    const reveal=giftOv.querySelector('#giftReveal');
+                    box.addEventListener('click',()=>{
+                        taps++;
+                        if(taps===1){
+                            box.style.transform='rotate(-10deg) scale(1.1)';
+                            box.textContent='🎁';
+                        } else if(taps===2){
+                            box.style.transform='rotate(10deg) scale(1.2)';
+                        } else if(taps>=3){
+                            // Kinyitás!
+                            box.style.transform='scale(1.5)';
+                            box.style.opacity='0';
+                            setTimeout(()=>{
+                                box.style.display='none';
+                                // Tárgyak feloldása egyenként
+                                buyItem('tulip'); buyItem('bg-tulip'); buyItem('aura-tulip');
+                                reveal.style.display='block';
+                                reveal.innerHTML=`
+                                    <div style="font-size:50px;margin-bottom:15px">🎉</div>
+                                    <div style="color:#fff;font-size:24px;font-weight:900">Tavaszi Ajándék!</div>
+                                    <div style="color:rgba(255,255,255,.7);font-size:14px;margin-top:12px;line-height:1.8">
+                                        Három tárgyat kaptál:<br>
+                                        <span style="color:#4ade80;font-weight:800;font-size:16px">🌷 Tulipán Skin</span><br>
+                                        <span style="color:#4ade80;font-weight:800;font-size:16px">🌷 Tavaszi Rét Háttér</span><br>
+                                        <span style="color:#4ade80;font-weight:800;font-size:16px">🌷 Tulipán Aura</span>
+                                    </div>
+                                    <button onclick="this.closest('div[style]').parentElement.style.opacity='0';setTimeout(()=>{this.closest('div[style]').parentElement.remove();applyRobotSkin();applyCustomBg();applyAura()},400)" style="margin-top:25px;padding:14px 40px;border:none;border-radius:16px;background:linear-gradient(to bottom,#4ade80,#16a34a);color:#fff;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 4px 15px rgba(74,222,128,.4)">Köszönöm! 🌷</button>
+                                `;
+                            },400);
+                        }
+                    });
+                },1000);
             }
 
             applyRobotSkin();
