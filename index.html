@@ -622,6 +622,12 @@
         }
 
         /* Glass háttér — labor/üveg */
+        /* Graffiti háttér */
+        body.bg-graffiti {
+            background:#1a1a2e url('bg-graffiti.png') center/cover no-repeat!important;
+            background-attachment:fixed!important;
+        }
+
         body.bg-glass {
             background:#4a6a7a url('bg-glass.png') center/cover no-repeat!important;
             background-attachment:fixed!important;
@@ -3020,14 +3026,14 @@
             // RESET: Töröljünk minden korábbi stílust és osztályt
             document.body.style.background = '';
             document.body.style.backgroundAttachment = '';
-            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass');
+            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass','bg-graffiti');
 
             if(!bg || bg === 'napszak' || !owns(bg)){
                 applyTimeTheme();
                 return;
             }
 
-            if(bg === 'bg-gamer' || bg === 'bg-galaxy' || bg === 'bg-tulip' || bg === 'bg-glass'){
+            if(bg === 'bg-gamer' || bg === 'bg-galaxy' || bg === 'bg-tulip' || bg === 'bg-glass' || bg === 'bg-graffiti'){
                 document.body.classList.add(bg);
             } else if(CUSTOM_BGS[bg]){
                 document.body.style.background=CUSTOM_BGS[bg];
@@ -3042,7 +3048,7 @@
 
             if(userName === 'Kovrat') {
                 const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','horse','glass'];
-                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip','bg-glass'];
+                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip','bg-glass','bg-graffiti'];
                 const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
                 skins.forEach(s => buyItem(s));
                 bgs.forEach(b => buyItem(b));
@@ -3104,24 +3110,24 @@
             const closeBtn=document.getElementById('skinClose');
             const greet=document.getElementById('shopGreeting');
 
-            // tier: 'free'|'common'|'rare'|'epic'|'legendary' — rendezéshez és címkékhez
+            // tier: 'free'|'common'|'rare'|'legendary' — rendezéshez és címkékhez
             const SKINS=[
                 // 🆓 Ingyenes
                 {id:'',name:'Alap',desc:'Az eredeti klasszikus',icon:'🤖',cost:0,tier:'free'},
                 {id:'tulip',name:'Tulipán',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
-                // ⭐ Alap (100–400)
+                // ⭐ Alap
                 {id:'galaxy',name:'Galaxy',desc:'Kozmikus ragyogás',icon:'🌌',cost:200,tier:'common'},
                 {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:350,tier:'common'},
-                {id:'graffiti',name:'Graffiti',desc:'Utcai művész 🎨',icon:'🧱',cost:400,tier:'common'},
-                // 💎 Ritka (500–1000)
+                {id:'graffiti',name:'Graffiti',desc:'Utcai művész 🎨',icon:'🧱',cost:350,tier:'common'},
+                // 💎 Ritka
+                {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:550,tier:'rare'},
                 {id:'fire',name:'Fire',desc:'Lángoló vörös izzás',icon:'🔥',cost:600,tier:'rare'},
-                {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:800,tier:'rare'},
-                {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:1000,tier:'rare'},
-                // 👑 Legendás (1500+)
-                {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:1500,tier:'legendary'},
-                {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:2000,tier:'legendary'},
-                {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:2500,tier:'legendary'},
-                {id:'diamond',name:'Diamond',desc:'Jégkék drágakő test',icon:'💎',cost:3500,tier:'legendary'},
+                {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:800,tier:'rare'},
+                {id:'diamond',name:'Diamond',desc:'Jégkék drágakő test',icon:'💎',cost:800,tier:'rare'},
+                {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:800,tier:'rare'},
+                {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:900,tier:'rare'},
+                // 👑 Legendás
+                {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:2000,tier:'legendary'},
                 // 🔒 Titkos
                 {id:'chicky',name:'Chicky',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true,tier:'secret'},
                 {id:'horse',name:'Ló',desc:'Exkluzív lovas 🐴',icon:'🐴',cost:0,hide:true,tier:'secret'}
@@ -3133,15 +3139,16 @@
                 // ⭐ Alap
                 {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:200,tier:'common'},
                 {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:350,tier:'common'},
+                {id:'bg-graffiti',name:'Graffiti',desc:'Utcai falfestés 🎨',icon:'🧱',cost:350,tier:'common'},
                 // 💎 Ritka
+                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:550,tier:'rare'},
                 {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:600,tier:'rare'},
-                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:700,tier:'rare'},
-                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:900,tier:'rare'},
+                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:800,tier:'rare'},
+                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:800,tier:'rare'},
+                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:800,tier:'rare'},
+                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:900,tier:'rare'},
                 // 👑 Legendás
-                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:1500,tier:'legendary'},
-                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:1500,tier:'legendary'},
-                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:2000,tier:'legendary'},
-                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:3000,tier:'legendary'}
+                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:1000,tier:'legendary'}
             ];
             const AURAS=[
                 // 🆓 Ingyenes
@@ -3174,7 +3181,7 @@
                     announcement += `<div style="margin-top:10px;padding:10px;background:rgba(251,191,36,0.1);border:1px dashed #fbbf24;border-radius:12px;font-size:12px;color:#fbbf24;font-weight:800;">🤫 FIGYELEM: Egy titkos húsvéti Csibés skin el van rejtve az appban! 🥚</div>`;
                 }
                 if(!isApril10 && !isKovrat && !owns('graffiti')) {
-                    announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ SKIN ÉRKEZIK: Április 10-én jön a "Graffiti Skin"!</div>`;
+                    announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ: Április 10-én jön a Graffiti Skin + Háttér!</div>`;
                 }
 
                 greet.innerHTML += announcement;
@@ -3247,14 +3254,16 @@
                         const d = new Date();
                         const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
                         const isKovrat = localStorage.getItem('nu_name') === 'Kovrat';
-                        if(s.id === 'graffiti' && !isApril10 && !isKovrat && !owns('graffiti')) return;
+                        if((s.id === 'graffiti' || s.id === 'bg-graffiti') && !isApril10 && !isKovrat && !owns(s.id)) return;
 
                         const owned=owns(s.id);
 
                         const isActive=s.id===cfg.active;
                         // Ha ez a napi ajánlat, akkor finalCost a deal.nowCost
-                        const isThisDeal = s.id === deal.id;
-                        const finalCost=isThisDeal ? deal.nowCost : s.cost;
+                        const isThisDeal = s.id === deal.id || (deal.id2 && s.id === deal.id2);
+                        // Graffiti: ápr 10-én 2000 XP, utána normál ár
+                        const isGraffitiLaunch = (s.id==='graffiti'||s.id==='bg-graffiti') && d.getMonth()===3 && d.getDate()===10;
+                        const finalCost=isThisDeal ? deal.nowCost : (isGraffitiLaunch ? 2000 : s.cost);
                         const canBuy=!owned&&xp>=finalCost;
 
                         const tierClass=s.tier&&s.tier!=='free'&&s.tier!=='secret'?' tier-'+s.tier:'';
@@ -3441,17 +3450,26 @@
                 {id:'bg-fire',type:'bg',name:'Fire Háttér',icon:'🔥',origCost:600,nowCost:350},
                 {id:'aura-sakura',type:'aura',name:'Sakura Aura',icon:'🌸',origCost:500,nowCost:300},
                 {id:'fire',type:'skin',name:'Fire Skin',icon:'🔥',origCost:600,nowCost:350},
-                {id:'aura-glitch',type:'aura',name:'Glitch Aura',icon:'👾',origCost:750,nowCost:450},
-                {id:'bg-stealth',type:'bg',name:'Stealth Háttér',icon:'🌑',origCost:900,nowCost:550},
-                {id:'golden',type:'skin',name:'Golden Skin',icon:'✨',origCost:1000,nowCost:600},
+                {id:'aura-glitch',type:'aura',name:'Glitch Aura',icon:'👾',origCost:750,nowCost:400},
+                {id:'bg-stealth',type:'bg',name:'Stealth Háttér',icon:'🌑',origCost:550,nowCost:300},
+                {id:'golden',type:'skin',name:'Golden Skin',icon:'✨',origCost:800,nowCost:500},
                 {id:'aura-halo',type:'aura',name:'Szent Aura',icon:'😇',origCost:1000,nowCost:600},
                 {id:'glass',id2:'bg-glass',type:'bundle',name:'Glass Csomag',icon:'🪟',origCost:3000,nowCost:2000},
-                {id:'bg-gamer',type:'bg',name:'Gamer Room',icon:'🌃',origCost:700,nowCost:400},
-                {id:'stealth',type:'skin',name:'Stealth Skin',icon:'👤',origCost:800,nowCost:500},
-                {id:'rainbow',type:'skin',name:'Rainbow Skin',icon:'🌈',origCost:2000,nowCost:1200},
+                {id:'bg-gamer',type:'bg',name:'Gamer Room',icon:'🌃',origCost:900,nowCost:500},
+                {id:'stealth',type:'skin',name:'Stealth Skin',icon:'👤',origCost:550,nowCost:300},
+                {id:'rainbow',type:'skin',name:'Rainbow Skin',icon:'🌈',origCost:800,nowCost:500},
                 {id:'aura-rgb',type:'aura',name:'RGB Aura',icon:'🌈',origCost:1500,nowCost:900},
-                {id:'bg-golden',type:'bg',name:'Luxus Arany',icon:'✨',origCost:1500,nowCost:900},
+                {id:'bg-golden',type:'bg',name:'Luxus Arany',icon:'✨',origCost:800,nowCost:500},
             ];
+
+            // Ápr 10: Graffiti csomag szuperajánlat felülírás
+            const isApr10 = now.getMonth()===3 && now.getDate()===10;
+            if(isApr10){
+                const grafDeal = {id:'graffiti',id2:'bg-graffiti',type:'bundle',name:'Graffiti Csomag',icon:'🧱',origCost:2000,nowCost:1000,date:tdString};
+                localStorage.setItem('nu_deal_date', tdString);
+                localStorage.setItem('nu_daily_deal', JSON.stringify(grafDeal));
+                return grafDeal;
+            }
 
             const dayNum = Math.floor(now.getTime() / 86400000);
             const idx = dayNum % DEALS.length;
@@ -3473,17 +3491,18 @@
             
             // Több szelet (10 db), mistery design
             const PRIZES = [
-                { text: '20 XP', type: 'xp', val: 20, prob: 40 },
+                { text: '20 XP', type: 'xp', val: 20, prob: 42 },
                 { text: '50 XP', type: 'xp', val: 50, prob: 30 },
                 { text: '100 XP', type: 'xp', val: 100, prob: 15 },
-                { text: '200 XP', type: 'xp', val: 200, prob: 8 },
-                { text: '500 XP', type: 'xp', val: 500, prob: 3 },
-                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 1 },
+                { text: '200 XP', type: 'xp', val: 200, prob: 7 },
+                { text: '500 XP', type: 'xp', val: 500, prob: 2.5 },
+                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 1.2 },
                 { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.8 },
-                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.6 },
+                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.5 },
                 { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.4 },
-                { text: 'Golden ✨', type: 'skin', val: 'golden', prob: 0.15 },
-                { text: 'Glass 🪟', type: 'skin', val: 'glass', prob: 0.05 }
+                { text: 'Golden ✨', type: 'skin', val: 'golden', prob: 0.3 },
+                { text: 'Rainbow 🌈', type: 'skin', val: 'rainbow', prob: 0.2 },
+                { text: 'Glass 🪟', type: 'skin', val: 'glass', prob: 0.1 }
             ];
 
 
