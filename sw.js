@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v11';
+const CACHE_NAME = 'dailybot-v12';
 const ASSETS = [
     './',
     './index.html',
@@ -93,10 +93,14 @@ function scheduleMorningNotification() {
     }, delay);
 }
 
-// Üzenet a főoldalról — ütemezés indítása
+// Üzenet a főoldalról
 self.addEventListener('message', e => {
     if (e.data && e.data.type === 'schedule') {
         scheduleMorningNotification();
+    }
+    // Azonnali aktiválás ha az app kéri (frissítés után)
+    if (e.data && e.data.type === 'skipWaiting') {
+        self.skipWaiting();
     }
 });
 

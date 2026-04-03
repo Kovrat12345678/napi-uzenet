@@ -2959,7 +2959,33 @@
         // ========== Service Worker + Értesítések ==========
         setTimeout(() => {
             if('serviceWorker' in navigator){
+                // Ha új SW átvette az irányítást, reload (frissítés után)
+                let refreshing=false;
+                navigator.serviceWorker.addEventListener('controllerchange',()=>{
+                    if(refreshing) return;
+                    refreshing=true;
+                    location.reload();
+                });
+
                 navigator.serviceWorker.register('sw.js').then(reg=>{
+                    // SW frissítés keresése minden megnyitáskor
+                    reg.update().catch(()=>{});
+
+                    // Ha van várakozó új SW, aktiváljuk
+                    function promptUpdate(worker){
+                        worker.postMessage({type:'skipWaiting'});
+                    }
+                    if(reg.waiting) promptUpdate(reg.waiting);
+                    reg.addEventListener('updatefound',()=>{
+                        const newSW=reg.installing;
+                        if(!newSW) return;
+                        newSW.addEventListener('statechange',()=>{
+                            if(newSW.state==='installed' && navigator.serviceWorker.controller){
+                                promptUpdate(newSW);
+                            }
+                        });
+                    });
+
                     // Értesítés engedély kérés első koppintáskor
                     btn.addEventListener('click',function askNotif(){
                         if('Notification' in window && Notification.permission==='default'){
@@ -2977,6 +3003,20 @@
                 });
             }
         }, 100);
+
+        // ========== App frissítés háttérből visszatéréskor ==========
+        (function(){
+            let lastDate = td();
+            document.addEventListener('visibilitychange',()=>{
+                if(document.visibilityState!=='visible') return;
+                const now = td();
+                if(now !== lastDate){
+                    lastDate = now;
+                    // Új nap — frissítjük a teljes oldalt
+                    location.reload();
+                }
+            });
+        })();
 
         // ========== PLAY GOMB → MINIJÁTÉK ==========
         document.getElementById('gamePlayBtn').addEventListener('click', e => {
@@ -3047,7 +3087,7 @@
             const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
 
             if(userName === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','horse','glass'];
+                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','glass'];
                 const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip','bg-glass','bg-graffiti'];
                 const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
                 skins.forEach(s => buyItem(s));
