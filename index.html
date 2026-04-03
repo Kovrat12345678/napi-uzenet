@@ -559,48 +559,39 @@
         .robot.horse .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
         .robot.horse .torso::before{content:'🐴';position:absolute;top:8px;right:-18px;font-size:22px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.3))}
 
-        /* Tulipán (tavaszi) robot skin */
-        @keyframes tulipSway{0%,100%{filter:brightness(1) hue-rotate(0deg)}50%{filter:brightness(1.08) hue-rotate(5deg)}}
+        /* Tulipán (tavaszi) robot skin — pirosas-zöldes-rózsaszín */
+        @keyframes tulipSway{0%,100%{filter:brightness(1) hue-rotate(0deg)}50%{filter:brightness(1.1) hue-rotate(8deg)}}
         .game-player.tulip,.robot.tulip{animation:tulipSway 4s ease-in-out infinite}
-        .game-player.tulip .gp-head{background:linear-gradient(165deg,#dcfce7,#4ade80)!important}
-        .game-player.tulip .gp-body{background:linear-gradient(165deg,#bbf7d0,#16a34a)!important}
-        .game-player.tulip .gp-eye{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899)!important;box-shadow:0 0 8px rgba(236,72,153,.6)!important}
+        .game-player.tulip .gp-head{background:linear-gradient(165deg,#fce7f3,#f9a8d4)!important}
+        .game-player.tulip .gp-body{background:linear-gradient(165deg,#bbf7d0,#ec4899)!important}
+        .game-player.tulip .gp-eye{background:radial-gradient(circle,#fff,#fda4af,#e11d48)!important;box-shadow:0 0 8px rgba(225,29,72,.6)!important}
         .game-player.tulip .gp-leg{background:linear-gradient(to bottom,#16a34a,#166534)!important}
-        .robot.tulip .head,.robot.tulip .torso{background:linear-gradient(165deg,#dcfce7 0%,#86efac 30%,#4ade80 60%,#16a34a 100%)!important}
-        .robot.tulip .eye{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899)!important;box-shadow:0 0 12px rgba(236,72,153,.7)!important}
+        .robot.tulip .head{background:linear-gradient(165deg,#fce7f3 0%,#f9a8d4 40%,#ec4899 100%)!important}
+        .robot.tulip .torso{background:linear-gradient(165deg,#dcfce7 0%,#86efac 30%,#4ade80 60%,#16a34a 100%)!important}
+        .robot.tulip .eye{background:radial-gradient(circle,#fff,#fda4af,#e11d48)!important;box-shadow:0 0 14px rgba(225,29,72,.8),0 0 28px rgba(236,72,153,.3)!important}
         .robot.tulip .antenna-ball{background:radial-gradient(circle,#fda4af,#e11d48)!important;box-shadow:0 0 16px rgba(225,29,72,.6)!important}
-        .robot.tulip .arm-l,.robot.tulip .arm-r{background:linear-gradient(to bottom,#86efac,#16a34a)!important}
+        .robot.tulip .arm-l{background:linear-gradient(to bottom,#f9a8d4,#ec4899)!important}
+        .robot.tulip .arm-r{background:linear-gradient(to bottom,#86efac,#16a34a)!important}
         .robot.tulip .leg{background:linear-gradient(to bottom,#4ade80,#166534)!important}
-        .robot.tulip .shoulder-l,.robot.tulip .shoulder-r{background:radial-gradient(circle,#dcfce7,#86efac)!important}
+        .robot.tulip .shoulder-l{background:radial-gradient(circle,#fce7f3,#f9a8d4)!important}
+        .robot.tulip .shoulder-r{background:radial-gradient(circle,#dcfce7,#86efac)!important}
         .robot.tulip .mouth{background:#e11d48!important;box-shadow:0 0 6px rgba(225,29,72,.5)!important}
-        .robot.tulip .neck{background:linear-gradient(to bottom,#86efac,#16a34a)!important}
-        .robot.tulip .ear-l,.robot.tulip .ear-r{background:#86efac!important}
+        .robot.tulip .neck{background:linear-gradient(to bottom,#f9a8d4,#4ade80)!important}
+        .robot.tulip .ear-l{background:#f9a8d4!important}
+        .robot.tulip .ear-r{background:#86efac!important}
         .robot.tulip .foot{background:#166534!important}
         .robot.tulip .chest-dot{background:#f472b6!important}
-        .robot.tulip .face-screen{background:linear-gradient(180deg,#14532d,#166534)!important}
+        .robot.tulip .face-screen{background:linear-gradient(180deg,#881337,#9f1239)!important}
         .robot.tulip .chest{background:linear-gradient(145deg,#14532d,#166534)!important}
         .robot.tulip .torso::before{content:'🌷';position:absolute;top:8px;right:-18px;font-size:22px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.3))}
 
-        /* Tulipán háttér */
+        /* Tulipán háttér — valódi kép */
         body.bg-tulip {
-            background:linear-gradient(165deg,#ecfdf5 0%,#d1fae5 15%,#a7f3d0 30%,#6ee7b7 50%,#34d399 70%,#059669 100%)!important;
-            background-attachment:fixed!important;
+            background:url('háttér/66119af2-4f16-4286-8ba1-7bd32ac7f9cb.png') center/cover no-repeat fixed!important;
         }
         body.bg-tulip::before {
-            content:'🌷 🌻 🌷 🌸 🌷';position:fixed;bottom:30px;left:0;right:0;
-            font-size:28px;text-align:center;opacity:.2;pointer-events:none;letter-spacing:20px;
-        }
-        body.bg-tulip::after {
             content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-            background-image:
-                radial-gradient(3px 3px at 15% 20%,rgba(236,72,153,.3),transparent),
-                radial-gradient(3px 3px at 35% 60%,rgba(225,29,72,.25),transparent),
-                radial-gradient(2px 2px at 55% 15%,rgba(244,114,182,.3),transparent),
-                radial-gradient(3px 3px at 75% 45%,rgba(236,72,153,.2),transparent),
-                radial-gradient(2px 2px at 90% 70%,rgba(225,29,72,.25),transparent),
-                radial-gradient(3px 3px at 10% 85%,rgba(244,114,182,.2),transparent),
-                radial-gradient(2px 2px at 50% 90%,rgba(236,72,153,.3),transparent);
-            animation:galaxyTwinkle 3s ease-in-out infinite alternate;
+            background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,transparent 30%,transparent 70%,rgba(0,0,0,.15) 100%);
         }
 
         /* ALIVE SKINS ANIMATIONS */
