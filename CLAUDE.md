@@ -164,7 +164,6 @@ Az ora alapjan automatikusan valtozik:
 
 ### Unnepi oltozekek
 
-- **Mama szulinapja (apr 4–6.)** — fix uzenet, leggombok, konfetti, szulinapi sapka
 - **Husvet** (dinamikus datumszamitas, apr 7-ig): husveti emojik a jatekban, Chicky skin vadaszat
 - Karacsony (dec 20–26), Mikulas (dec 6), Szilveszter (dec 31), Ujev (jan 1)
 - Halloween (okt 31), Valentin-nap (feb 14), Aprilis bolondok (apr 1)

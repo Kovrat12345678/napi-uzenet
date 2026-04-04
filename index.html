@@ -1481,19 +1481,6 @@
         }
         @keyframes bunnyTail{0%,100%{transform:translateX(0) scale(1)}50%{transform:translateX(5px) scale(1.1)}}
 
-        /* ===== SZÜLINAP MÓD ===== */
-        .birthday-balloon{
-            position:fixed;font-size:var(--sz);
-            animation:floatBalloon var(--d) linear infinite;
-            bottom:-40px;left:var(--x);opacity:0;
-            pointer-events:none;z-index:0;
-        }
-        @keyframes floatBalloon{
-            0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0}
-            8%{opacity:.8}
-            50%{transform:translateY(-50vh) translateX(var(--sx)) rotate(15deg);opacity:.6}
-            100%{transform:translateY(-110vh) translateX(calc(var(--sx)*-1)) rotate(-15deg);opacity:0}
-        }
 
         /* ===== DRAG (húzás) ===== */
         .robot-btn.dragging .robot{animation:none!important;transition:none}
@@ -1901,10 +1888,6 @@
         // Csillagok
         (function(){const c=document.getElementById('stars');for(let i=0;i<20;i++){const s=document.createElement('span');s.className='star';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--s:${Math.random()*12+8}px;--d:${(Math.random()*3+2).toFixed(1)}s`;c.appendChild(s)}})();
 
-        // ========== SZÜLINAP DETEKTÁLÁS ==========
-        const _bd=msgDay();
-        const isBirthday=(_bd.getMonth()===3&&_bd.getDate()>=4&&_bd.getDate()<=6); // ápr 4-6.
-
         // ========== NAPSZAK HÁTTÉR (AUTOMATIKUS) ==========
         function applyTimeTheme() {
             const activeBg = localStorage.getItem('nu_active_bg') || '';
@@ -1914,25 +1897,6 @@
             }
 
             const tc = document.getElementById('themeColor');
-            if(isBirthday){
-                const bg='linear-gradient(165deg,#fef08a 0%,#fbbf24 20%,#f59e0b 40%,#ec4899 60%,#a855f7 80%,#6366f1 100%)';
-                document.documentElement.style.backgroundColor='#6366f1';
-                document.body.style.background=bg;
-                document.body.style.backgroundAttachment='fixed';
-                tc.content='#fbbf24';
-                // Lebegő lufik és konfetti (csak ha még nincsenek)
-                if(!document.querySelector('.birthday-balloon')) {
-                    const balloons=['🎈','🎉','🎂','🎁','🥳','✨','🎊','💝','🎀','⭐'];
-                    const wl=document.getElementById('weatherLayer');
-                    for(let i=0;i<25;i++){
-                        const b=document.createElement('div');b.className='birthday-balloon';
-                        b.textContent=balloons[Math.floor(Math.random()*balloons.length)];
-                        b.style.cssText=`--x:${Math.random()*100}%;--sz:${(Math.random()*18+16).toFixed(0)}px;--d:${(Math.random()*6+5).toFixed(1)}s;--sx:${(Math.random()*60-30).toFixed(0)}px;animation-delay:${(Math.random()*-10).toFixed(1)}s`;
-                        wl.appendChild(b);
-                    }
-                }
-                return;
-            }
             const h = new Date().getHours();
             let bg, theme, bottomColor;
             if(h>=5 && h<6) { bg='linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme='#f97316'; bottomColor='#c2410c'; }
@@ -1967,11 +1931,7 @@
             const evtEl=document.getElementById('phEvent');
             let evt='';
 
-            if(isBirthday) {
-                hat='🥳'; face='🎂'; neck='🎀';
-                evt='🎂 Boldog születésnapot, Mama! 🎉 63 éves! 💝';
-            }
-            else if(isEaster) {
+            if(isEaster) {
                 document.getElementById('robot').classList.add('bunny');
                 evt='🐰 Boldog Húsvétot! 🥚';
             }
@@ -2018,10 +1978,13 @@
                             wl.appendChild(flake);
                         }
                     } else if(code<=1){
-                        for(let i=0;i<8;i++){
-                            const ray=document.createElement('div');ray.className='sunray';
-                            ray.style.cssText=`left:calc(50% - 1.5px);top:-10px;--rot:rotate(${i*45}deg);-webkit-animation-delay:${(i*0.5).toFixed(1)}s;animation-delay:${(i*0.5).toFixed(1)}s`;
-                            wl.appendChild(ray);
+                        const hr=new Date().getHours();
+                        if(hr>=6&&hr<20){
+                            for(let i=0;i<8;i++){
+                                const ray=document.createElement('div');ray.className='sunray';
+                                ray.style.cssText=`left:calc(50% - 1.5px);top:-10px;--rot:rotate(${i*45}deg);-webkit-animation-delay:${(i*0.5).toFixed(1)}s;animation-delay:${(i*0.5).toFixed(1)}s`;
+                                wl.appendChild(ray);
+                            }
                         }
                     }
                 }).catch(()=>{});
@@ -2440,10 +2403,6 @@
 
         function dm(){
             const d=msgDay();
-            // Mama szülinapja (ápr 4-6.)
-            if(isBirthday){
-                return {t:"Boldog 63. születésnapot, drága Mama! 🎂 Nagyon szeretünk! Isten éltessen sokáig, egészségben és boldogságban! 💝",e:"🥳"};
-            }
             // Április 1. speciális üzenet
             if(d.getMonth()===3 && d.getDate()===1){
                 return {t:"Az admin azt üzeni hogy legyen szép napod!",e:"😄"};
@@ -3536,7 +3495,7 @@
                 return grafDeal;
             }
 
-            const dayNum = Math.floor(now.getTime() / 86400000);
+            const dayNum = now.getFullYear() * 10000 + (now.getMonth()+1) * 100 + now.getDate();
             const idx = dayNum % DEALS.length;
             const deal = {...DEALS[idx], date: tdString};
 
