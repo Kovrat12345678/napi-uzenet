@@ -42,8 +42,8 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Elethu CSS robot** — lebeges, pislogas, antenna pulzalas, 7 kulonbozo reakcio
 - **Gepelo effekt** — az uzenet betuenkent jelenik meg
 - **Napszak-fuggo hatter** — reggel narancs, nappal kek-lila, este sotet, ejjel indigo
-- **Idojaras animaciok** — valos eso, ho vagy napsutes a helyzeted alapjan
-- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, szulinap es meg tobb
+- **Idojaras animaciok** — valos eso, ho vagy napsutes a helyzeted alapjan (napsugarak csak nappal)
+- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, Valentin-nap es meg tobb
 - **Streak szamlalo** — koveti hany egymast koveto napon nyitottad meg
 - **Konfetti** — minden napi uzenetnel unnepel
 - **Drag & tap interakciok** — huzd meg vagy koppints a robotra

@@ -108,7 +108,8 @@ Tier rendszer: free / common / rare / legendary / secret
 
 ### Napi Szuperajanlat
 
-14 napos ciklusban rotalnak, ejfelkor (0:00) valt. Visszaszamlalo mutatja mikor jon az uj.
+14 napos ciklusban rotalnak, ejfelkor (0:00) valt. Lokalis datum-alapu index szamitas (nem UTC).
+Visszaszamlalo mutatja mikor jon az uj.
 Kivetel: apr 10 = Graffiti Csomag (skin+hatter) 2000→1000 XP.
 Bundle tipusu deal: ket targyat ad egyszerre (pl. Glass skin + hatter).
 
@@ -204,8 +205,8 @@ Az ora alapjan automatikusan valtozik:
 
 - Geolocation API → fallback: geojs.io IP-alapu
 - Open-Meteo API → WMO kodok: 0-1 derult, 51-67 eso, 71-77 ho, 95+ vihar
-- CSS animaciok: `raindrop` (eso), `snowflake` (ho), `sunray` (napsutes, iOS fix: scaleY + webkit prefix)
-- `#weatherLayer` div a DOM-ban (korábban hiányzott, javítva)
+- CSS animaciok: `raindrop` (eso), `snowflake` (ho), `sunray` (napsutes, csak 6–20h kozott, iOS fix: scaleY + webkit prefix)
+- `#weatherLayer` div a DOM-ban
 
 ### Ertesitesek
 
