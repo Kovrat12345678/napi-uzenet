@@ -7,27 +7,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="DailyBot">
     <meta name="theme-color" content="#38bdf8" id="themeColor">
-    <link rel="apple-touch-icon" id="appleIcon" href="easter_robot_icon_1775165541166.png?v=4">
-    <link rel="icon" id="favicon" type="image/png" href="easter_robot_icon_1775165541166.png?v=4">
+    <link rel="apple-touch-icon" id="appleIcon" href="icon/dailybot-icon.png">
+    <link rel="icon" id="favicon" type="image/png" href="icon/dailybot-icon.png">
     <link rel="manifest" id="manifestLink" href="manifest.json?v=4">
     <script>
-        // Ellenőrzés: Húsvét után vagyunk-e (Ápr 7.)
-        const isPastEaster = (function(){
-            const d = new Date();
-            return d.getFullYear() > 2026 || (d.getFullYear() === 2026 && (d.getMonth() > 3 || (d.getMonth() === 3 && d.getDate() > 7)));
-        })();
-
-        // Automatikus ikon-visszaállítás
-        (function(){
-            if(isPastEaster){
-                document.addEventListener('DOMContentLoaded', () => {
-                    const appleIcon = document.getElementById('appleIcon');
-                    const favicon = document.getElementById('favicon');
-                    if(appleIcon) appleIcon.href = "icon/dailybot-icon.png";
-                    if(favicon) favicon.href = "icon/dailybot-icon.png";
-                });
-            }
-        })();
     </script>
     <title>DailyBot 🤖</title>
     <style>
@@ -71,36 +54,6 @@
         .tiktok-link:hover,.tiktok-link:active{color:#fff}
         .tiktok-link svg{width:14px;height:14px;fill:currentColor}
 
-        /* ===== EMOJI DODGE MINIJÁTÉK ===== */
-        .game-overlay{position:fixed;inset:0;z-index:300;display:none;flex-direction:column;touch-action:none;overflow:hidden}
-        .game-overlay.active{display:flex}
-        .game-hud{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,20px) + 12px) 10px 8px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font-weight:700;font-size:14px;text-shadow:0 2px 8px rgba(0,0,0,.4);gap:5px}
-        .game-score{font-size:22px}
-        .game-lives{font-size:18px;letter-spacing:1px;white-space:nowrap;display:flex;align-items:center;margin:0 4px}
-        .game-lives .life-lost{opacity:.25}
-        @keyframes hitFlash{0%{opacity:1}20%{opacity:.2}40%{opacity:1}60%{opacity:.2}80%{opacity:1}100%{opacity:1}}
-        .game-player.hit{animation:hitFlash .6s ease!important}
-        .game-goal{font-size:11px;color:rgba(255,255,255,.6);text-align:center;flex:1}
-        .game-exit{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:14px;padding:8px 16px;border-radius:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600;cursor:pointer;z-index:10;position:relative}
-        .game-golden-msg{color:#fbbf24;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(251,191,36,.5);margin:0}
-        .game-rainbow-msg{color:#f472b6;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(244,114,182,.5);margin:0}
-        .game-diamond-msg{color:#67e8f9;font-size:16px;font-weight:700;text-shadow:0 0 12px rgba(103,232,249,.5);margin:0}
-        .game-player{position:absolute;bottom:30px;z-index:1;pointer-events:none;width:100px;height:145px}
-        .game-player .gp-antenna{width:3px;height:18px;background:#94a3b8;margin:0 auto;position:relative}
-        .game-player .gp-antenna::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:radial-gradient(circle,#fde68a,#f59e0b);border-radius:50%;box-shadow:0 0 12px rgba(251,191,36,.6);animation:glow 2s ease-in-out infinite}
-        .game-player .gp-head{width:70px;height:58px;background:linear-gradient(165deg,#f1f5f9,#cbd5e1);border-radius:20px 20px 16px 16px;margin:0 auto;position:relative;box-shadow:0 3px 10px rgba(0,0,0,.15)}
-        .game-player .gp-screen{position:absolute;top:10px;left:8px;right:8px;bottom:10px;background:#0f172a;border-radius:12px}
-        .game-player .gp-eyes{display:flex;justify-content:center;gap:14px;padding-top:10px}
-        .game-player .gp-eye{width:14px;height:14px;background:radial-gradient(circle,#7dd3fc,#0284c7);border-radius:50%;box-shadow:0 0 8px rgba(56,189,248,.8);animation:eyeIdle 4s ease-in-out infinite}
-        .game-player .gp-mouth{width:16px;height:8px;background:#38bdf8;border-radius:0 0 8px 8px;margin:4px auto 0;box-shadow:0 0 6px rgba(56,189,248,.5)}
-        .game-player .gp-body{width:60px;height:46px;background:linear-gradient(165deg,#e2e8f0,#94a3b8);border-radius:8px 8px 12px 12px;margin:3px auto 0;position:relative;box-shadow:0 3px 10px rgba(0,0,0,.1)}
-        .game-player .gp-heart{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:16px}
-        .game-player .gp-legs{display:flex;justify-content:center;gap:10px;margin-top:2px}
-        .game-player .gp-leg{width:16px;height:20px;background:linear-gradient(to bottom,#94a3b8,#64748b);border-radius:0 0 6px 6px}
-        .game-player.golden .gp-head{background:linear-gradient(165deg,#fef3c7,#fbbf24)!important}
-        .game-player.golden .gp-body{background:linear-gradient(165deg,#fef3c7,#f59e0b)!important}
-        .game-player.golden .gp-eye{background:radial-gradient(circle,#fde68a,#f59e0b)!important;box-shadow:0 0 6px rgba(251,191,36,.8)!important}
-        .game-player.golden .gp-leg{background:linear-gradient(to bottom,#fbbf24,#d97706)!important}
 
         /* Arany robot jutalom */
         .robot.golden .head,.robot.golden .torso{background:linear-gradient(165deg,#fef3c7 0%,#fbbf24 40%,#f59e0b 100%)!important}
@@ -118,11 +71,7 @@
 
         /* Rainbow robot jutalom */
         @keyframes rainbowShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
-        .game-player.rainbow,.robot.rainbow{animation:rainbowShift 3s linear infinite}
-        .game-player.rainbow .gp-head{background:linear-gradient(165deg,#f9a8d4,#a78bfa,#67e8f9)!important}
-        .game-player.rainbow .gp-body{background:linear-gradient(165deg,#fbbf24,#34d399,#818cf8)!important}
-        .game-player.rainbow .gp-eye{background:radial-gradient(circle,#f9a8d4,#a78bfa)!important;box-shadow:0 0 8px rgba(167,139,250,.8)!important}
-        .game-player.rainbow .gp-leg{background:linear-gradient(to bottom,#34d399,#818cf8)!important}
+        .robot.rainbow{animation:rainbowShift 3s linear infinite}
         .robot.rainbow .head,.robot.rainbow .torso{background:linear-gradient(165deg,#f9a8d4 0%,#a78bfa 40%,#67e8f9 100%)!important}
         .robot.rainbow .eye{background:radial-gradient(circle,#f9a8d4,#a78bfa,#818cf8)!important;box-shadow:0 0 14px rgba(167,139,250,.8),0 0 28px rgba(167,139,250,.4)!important}
         .robot.rainbow .antenna-ball{background:radial-gradient(circle,#fff,#f9a8d4)!important;box-shadow:0 0 20px rgba(244,114,182,1),0 0 40px rgba(167,139,250,.5)!important}
@@ -138,11 +87,7 @@
 
         /* Gyémánt robot jutalom */
         @keyframes diamondSparkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
-        .game-player.diamond,.robot.diamond{animation:diamondSparkle 2s ease-in-out infinite}
-        .game-player.diamond .gp-head{background:linear-gradient(165deg,#ecfeff,#67e8f9,#06b6d4)!important}
-        .game-player.diamond .gp-body{background:linear-gradient(165deg,#ecfeff,#a5f3fc,#22d3ee)!important}
-        .game-player.diamond .gp-eye{background:radial-gradient(circle,#fff,#67e8f9)!important;box-shadow:0 0 10px rgba(103,232,249,.9)!important}
-        .game-player.diamond .gp-leg{background:linear-gradient(to bottom,#22d3ee,#0891b2)!important}
+        .robot.diamond{animation:diamondSparkle 2s ease-in-out infinite}
         .robot.diamond .head,.robot.diamond .torso{background:linear-gradient(165deg,#ecfeff 0%,#67e8f9 40%,#06b6d4 100%)!important}
         .robot.diamond .eye{background:radial-gradient(circle,#fff,#67e8f9,#06b6d4)!important;box-shadow:0 0 14px rgba(103,232,249,.9),0 0 28px rgba(6,182,212,.4)!important}
         .robot.diamond .antenna-ball{background:radial-gradient(circle,#fff,#a5f3fc)!important;box-shadow:0 0 20px rgba(103,232,249,1),0 0 40px rgba(6,182,212,.5)!important}
@@ -159,11 +104,7 @@
         /* Galaxy robot skin */
         @keyframes galaxyShimmer{0%,100%{filter:brightness(1) saturate(1.1)}50%{filter:brightness(1.15) saturate(1.3)}}
         @keyframes galaxyStar{0%,100%{box-shadow:0 0 8px rgba(139,92,246,.5),0 0 16px rgba(236,72,153,.3)}50%{box-shadow:0 0 20px rgba(139,92,246,.9),0 0 40px rgba(236,72,153,.5),0 0 60px rgba(56,189,248,.3)}}
-        .game-player.galaxy,.robot.galaxy{animation:galaxyShimmer 3s ease-in-out infinite}
-        .game-player.galaxy .gp-head{background:linear-gradient(165deg,#1e1b4b,#312e81,#4c1d95)!important}
-        .game-player.galaxy .gp-body{background:linear-gradient(165deg,#312e81,#581c87,#1e1b4b)!important}
-        .game-player.galaxy .gp-eye{background:radial-gradient(circle,#e9d5ff,#a78bfa,#7c3aed)!important;box-shadow:0 0 10px rgba(167,139,250,.9)!important}
-        .game-player.galaxy .gp-leg{background:linear-gradient(to bottom,#4c1d95,#1e1b4b)!important}
+        .robot.galaxy{animation:galaxyShimmer 3s ease-in-out infinite}
         .robot.galaxy .head,.robot.galaxy .torso{background:linear-gradient(165deg,#1e1b4b 0%,#312e81 25%,#4c1d95 50%,#581c87 75%,#1e1b4b 100%)!important;box-shadow:0 4px 15px rgba(0,0,0,.2),inset 0 1px 0 rgba(167,139,250,.3),0 0 20px rgba(139,92,246,.15)!important}
         .robot.galaxy .eye{background:radial-gradient(circle,#f0abfc,#c084fc,#7c3aed)!important;box-shadow:0 0 14px rgba(192,132,252,.9),0 0 28px rgba(139,92,246,.5)!important}
         .robot.galaxy .antenna-ball{background:radial-gradient(circle,#fff,#e9d5ff,#c084fc)!important;animation:galaxyStar 2s ease-in-out infinite!important}
@@ -183,11 +124,7 @@
 
         /* Sakura robot skin */
         @keyframes sakuraPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.08)}}
-        .game-player.sakura,.robot.sakura{animation:sakuraPulse 3s ease-in-out infinite}
-        .game-player.sakura .gp-head{background:linear-gradient(165deg,#fce7f3,#f9a8d4)!important}
-        .game-player.sakura .gp-body{background:linear-gradient(165deg,#fce7f3,#ec4899)!important}
-        .game-player.sakura .gp-eye{background:radial-gradient(circle,#fff,#f9a8d4)!important;box-shadow:0 0 8px rgba(236,72,153,.6)!important}
-        .game-player.sakura .gp-leg{background:linear-gradient(to bottom,#ec4899,#be185d)!important}
+        .robot.sakura{animation:sakuraPulse 3s ease-in-out infinite}
         .robot.sakura .head,.robot.sakura .torso{background:linear-gradient(165deg,#fce7f3 0%,#fbcfe8 30%,#f9a8d4 60%,#ec4899 100%)!important}
         .robot.sakura .eye{background:radial-gradient(circle,#fff,#f9a8d4,#ec4899)!important;box-shadow:0 0 12px rgba(236,72,153,.7)!important}
         .robot.sakura .antenna-ball{background:radial-gradient(circle,#fff,#fce7f3)!important;box-shadow:0 0 16px rgba(236,72,153,.6)!important}
@@ -204,11 +141,7 @@
 
         /* Fire robot skin */
         @keyframes fireFlicker{0%,100%{filter:brightness(1) saturate(1.1)}30%{filter:brightness(1.15) saturate(1.4)}70%{filter:brightness(1.05) saturate(1.2)}}
-        .game-player.fire,.robot.fire{animation:fireFlicker 1.5s ease-in-out infinite}
-        .game-player.fire .gp-head{background:linear-gradient(165deg,#dc2626,#f97316)!important}
-        .game-player.fire .gp-body{background:linear-gradient(165deg,#b91c1c,#ea580c)!important}
-        .game-player.fire .gp-eye{background:radial-gradient(circle,#fef08a,#f59e0b)!important;box-shadow:0 0 10px rgba(245,158,11,.9)!important}
-        .game-player.fire .gp-leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
+        .robot.fire{animation:fireFlicker 1.5s ease-in-out infinite}
         .robot.fire .head,.robot.fire .torso{background:linear-gradient(165deg,#7f1d1d 0%,#dc2626 30%,#ea580c 60%,#f97316 100%)!important}
         .robot.fire .eye{background:radial-gradient(circle,#fef9c3,#fbbf24,#f59e0b)!important;box-shadow:0 0 14px rgba(245,158,11,.9),0 0 28px rgba(239,68,68,.4)!important}
         .robot.fire .antenna-ball{background:radial-gradient(circle,#fef08a,#f59e0b)!important;box-shadow:0 0 20px rgba(245,158,11,.8)!important}
@@ -225,10 +158,6 @@
 
         /* Stealth robot skin */
         @keyframes stealthGlow{0%,100%{box-shadow:0 0 8px rgba(239,68,68,.3)}50%{box-shadow:0 0 16px rgba(239,68,68,.6)}}
-        .game-player.stealth .gp-head{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
-        .game-player.stealth .gp-body{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
-        .game-player.stealth .gp-eye{background:radial-gradient(circle,#fca5a5,#ef4444)!important;box-shadow:0 0 8px rgba(239,68,68,.7)!important}
-        .game-player.stealth .gp-leg{background:linear-gradient(to bottom,#334155,#1e293b)!important}
         .robot.stealth .head,.robot.stealth .torso{background:linear-gradient(165deg,#0f172a 0%,#1e293b 40%,#334155 70%,#1e293b 100%)!important;box-shadow:0 4px 15px rgba(0,0,0,.3)!important}
         .robot.stealth .eye{background:radial-gradient(circle,#fca5a5,#ef4444,#b91c1c)!important;box-shadow:0 0 12px rgba(239,68,68,.7),0 0 24px rgba(239,68,68,.3)!important;animation:stealthGlow 2s ease-in-out infinite}
         .robot.stealth .antenna-ball{background:radial-gradient(circle,#fca5a5,#ef4444)!important;box-shadow:0 0 12px rgba(239,68,68,.5)!important}
@@ -244,31 +173,7 @@
         .robot.stealth .chest{background:linear-gradient(145deg,#020617,#0f172a)!important}
         .robot.stealth .chest::before{border-color:rgba(239,68,68,.15)!important}
         
-        .game-player.fire .gp-head{background:linear-gradient(165deg,#dc2626,#f97316)!important}
-        .game-player.fire .gp-body{background:linear-gradient(165deg,#b91c1c,#ea580c)!important}
-        .game-player.fire .gp-eye{background:radial-gradient(circle,#fef08a,#f59e0b)!important;box-shadow:0 0 10px rgba(245,158,11,.9)!important}
-        .game-player.fire .gp-leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
 
-        .game-player.stealth .gp-head{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
-        .game-player.stealth .gp-body{background:linear-gradient(165deg,#1e293b,#0f172a)!important}
-        .game-player.stealth .gp-eye{background:radial-gradient(circle,#fca5a5,#ef4444)!important;box-shadow:0 0 8px rgba(239,68,68,.7)!important}
-        .game-player.stealth .gp-leg{background:linear-gradient(to bottom,#334155,#1e293b)!important}
-
-        .game-player.rainbow { animation: rainbowShift 8s linear infinite!important; }
-        .game-player.rainbow .gp-head{background:linear-gradient(165deg,#ff80b5,#9089fc)!important}
-        .game-player.rainbow .gp-body{background:linear-gradient(165deg,#9089fc,#ff80b5)!important}
-
-        .game-player.diamond .gp-head{background:linear-gradient(165deg,#ecfeff,#a5f3fc)!important}
-        .game-player.diamond .gp-body{background:linear-gradient(165deg,#67e8f9,#0891b2)!important}
-        .game-player.diamond .gp-eye{background:radial-gradient(circle,#a5f3fc,#22d3ee)!important;box-shadow:0 0 10px rgba(34,211,238,.8)!important}
-        .game-player.diamond .gp-leg{background:linear-gradient(to bottom,#67e8f9,#0891b2)!important}
-
-        .game-player.graffiti .gp-head,.game-player.graffiti .gp-body{background:#1e293b!important;background-image:radial-gradient(circle at 20% 30%,#f472b6 0%,transparent 40%),radial-gradient(circle at 80% 60%,#22d3ee 0%,transparent 45%)!important}
-        .game-player.graffiti .gp-eye{background:radial-gradient(circle,#fff,#f472b6,#db2777)!important;box-shadow:0 0 10px #f472b6!important}
-
-        .game-player.gamer .gp-head{background:linear-gradient(165deg,#0f172a,#334155)!important;border:1px solid #38bdf8!important}
-        .game-player.gamer .gp-body{background:linear-gradient(165deg,#1e293b,#0f172a)!important;box-shadow:0 0 10px rgba(56,189,248,.3)!important}
-        .game-player.gamer .gp-eye{background:radial-gradient(circle,#38bdf8,#0ea5e9)!important;box-shadow:0 0 8px #38bdf8!important}
 
         /* AURAS */
         @keyframes auraFloat { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.05)} }
@@ -509,34 +414,6 @@
         }
         .robot.graffiti .eye { background: radial-gradient(circle, #fff, #f472b6, #db2777)!important; box-shadow: 0 0 10px #f472b6!important; }
 
-        /* Chicky robot skin */
-        .game-player.chicky .gp-head{background:linear-gradient(165deg,#fffbeb,#fcd34d)!important}
-        .game-player.chicky .gp-body{background:linear-gradient(165deg,#fef3c7,#f59e0b)!important}
-        .game-player.chicky .gp-eye{background:radial-gradient(circle,#fbbf24,#d97706)!important;box-shadow:0 0 8px rgba(245,158,11,.7)!important}
-        .game-player.chicky .gp-leg{background:linear-gradient(to bottom,#f59e0b,#92400e)!important}
-        .robot.chicky .head,.robot.chicky .torso{background:linear-gradient(165deg,#fffbeb 0%,#fef3c7 40%,#fcd34d 100%)!important}
-        
-        /* CIKKCAKKOS TOJÁSHÉJ A SEGGÉN */
-        .robot.chicky .torso::after {
-            content: ''; position: absolute; bottom: -2px; left: -2px; right: -2px; height: 40px;
-            background: linear-gradient(to bottom, #fff, #f3f4f6); border-radius: 0 0 24px 24px;
-            clip-path: polygon(0% 20%, 10% 0%, 20% 20%, 30% 0%, 40% 20%, 50% 0%, 60% 20%, 70% 0%, 80% 20%, 90% 0%, 100% 20%, 100% 100%, 0% 100%);
-            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .robot.chicky .eye{background:radial-gradient(circle,#fbbf24,#f59e0b,#d97706)!important;box-shadow:0 0 14px rgba(245,158,11,.8),0 0 28px rgba(245,158,11,.4)!important}
-        .robot.chicky .antenna-ball{background:radial-gradient(circle,#f97316,#ea580c)!important;box-shadow:0 0 16px rgba(234,88,12,.6)!important}
-        .robot.chicky .arm-l,.robot.chicky .arm-r{background:linear-gradient(to bottom,#fcd34d,#f59e0b)!important}
-        .robot.chicky .leg{background:linear-gradient(to bottom,#fcd34d,#f59e0b)!important}
-        .robot.chicky .shoulder-l,.robot.chicky .shoulder-r{background:radial-gradient(circle,#fef3c7,#fcd34d)!important}
-        .robot.chicky .mouth{background:#f59e0b!important;box-shadow:0 0 6px rgba(245,158,11,.5)!important}
-        .robot.chicky .neck{background:linear-gradient(to bottom,#fcd34d,#f59e0b)!important}
-        .robot.chicky .ear-l,.robot.chicky .ear-r{background:#fcd34d!important}
-        .robot.chicky .foot{background:#92400e!important}
-        .robot.chicky .chest-dot{background:#f59e0b!important}
-        .robot.chicky .face-screen{background:linear-gradient(180deg,#451a03,#78350f)!important}
-        .robot.chicky .chest{background:linear-gradient(145deg,#451a03,#78350f)!important}
-
         /* Glass (üveg) robot skin — ultra ritka */
         @keyframes glassShine{0%{background-position:200% center}100%{background-position:-200% center}}
         @keyframes glassGlow{0%,100%{box-shadow:0 0 15px rgba(255,255,255,.15),inset 0 0 10px rgba(255,255,255,.05)}50%{box-shadow:0 0 30px rgba(255,255,255,.3),inset 0 0 20px rgba(255,255,255,.1)}}
@@ -559,18 +436,10 @@
         .robot.glass .face-screen{background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.1))!important;border:1px solid rgba(255,255,255,.1)!important}
         .robot.glass .chest{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03))!important;border:1px solid rgba(255,255,255,.1)!important}
         .robot.glass .heart-icon{opacity:.25;filter:grayscale(1) brightness(2)!important}
-        .game-player.glass .gp-head{background:linear-gradient(165deg,rgba(255,255,255,.15),rgba(255,255,255,.05))!important;border:1px solid rgba(255,255,255,.2)!important}
-        .game-player.glass .gp-body{background:linear-gradient(165deg,rgba(255,255,255,.1),rgba(255,255,255,.03))!important;border:1px solid rgba(255,255,255,.15)!important}
-        .game-player.glass .gp-eye{background:radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,.3))!important;box-shadow:0 0 10px rgba(255,255,255,.5)!important}
-        .game-player.glass .gp-leg{background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.12)!important}
 
         /* Ló (horse) robot skin — exkluzív */
         @keyframes horseGallop{0%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}75%{transform:translateY(2px)}}
-        .game-player.horse,.robot.horse{animation:horseGallop 2s ease-in-out infinite}
-        .game-player.horse .gp-head{background:linear-gradient(165deg,#a16207,#854d0e)!important}
-        .game-player.horse .gp-body{background:linear-gradient(165deg,#92400e,#78350f)!important}
-        .game-player.horse .gp-eye{background:radial-gradient(circle,#fef3c7,#a16207)!important;box-shadow:0 0 8px rgba(161,98,7,.6)!important}
-        .game-player.horse .gp-leg{background:linear-gradient(to bottom,#78350f,#451a03)!important}
+        .robot.horse{animation:horseGallop 2s ease-in-out infinite}
         .robot.horse .head,.robot.horse .torso{background:linear-gradient(165deg,#d97706 0%,#a16207 30%,#92400e 60%,#78350f 100%)!important}
         .robot.horse .eye{background:radial-gradient(circle,#fef3c7,#d97706,#a16207)!important;box-shadow:0 0 12px rgba(217,119,6,.7)!important}
         .robot.horse .antenna-ball{background:radial-gradient(circle,#fbbf24,#a16207)!important;box-shadow:0 0 16px rgba(161,98,7,.6)!important}
@@ -588,11 +457,7 @@
 
         /* Tulipán (tavaszi) robot skin — pirosas-zöldes-rózsaszín */
         @keyframes tulipSway{0%,100%{filter:brightness(1) hue-rotate(0deg)}50%{filter:brightness(1.1) hue-rotate(8deg)}}
-        .game-player.tulip,.robot.tulip{animation:tulipSway 4s ease-in-out infinite}
-        .game-player.tulip .gp-head{background:linear-gradient(165deg,#fce7f3,#f9a8d4)!important}
-        .game-player.tulip .gp-body{background:linear-gradient(165deg,#bbf7d0,#ec4899)!important}
-        .game-player.tulip .gp-eye{background:radial-gradient(circle,#fff,#fda4af,#e11d48)!important;box-shadow:0 0 8px rgba(225,29,72,.6)!important}
-        .game-player.tulip .gp-leg{background:linear-gradient(to bottom,#16a34a,#166534)!important}
+        .robot.tulip{animation:tulipSway 4s ease-in-out infinite}
         .robot.tulip .head{background:linear-gradient(165deg,#fce7f3 0%,#f9a8d4 40%,#ec4899 100%)!important}
         .robot.tulip .torso{background:linear-gradient(165deg,#dcfce7 0%,#86efac 30%,#4ade80 60%,#16a34a 100%)!important}
         .robot.tulip .eye{background:radial-gradient(circle,#fff,#fda4af,#e11d48)!important;box-shadow:0 0 14px rgba(225,29,72,.8),0 0 28px rgba(236,72,153,.3)!important}
@@ -663,35 +528,6 @@
             50% { transform: scale(1.2) translateY(-5px); opacity: 0.6; }
             100% { transform: scale(1.5) translateY(-10px); opacity: 0; }
         }
-
-        .game-emoji{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
-        .game-emoji.collectible{animation:collectiblePulse 1s ease-in-out infinite;z-index:2}
-        .game-emoji.gold-item{filter:drop-shadow(0 0 8px rgba(251,191,36,.8))}
-        .game-emoji.rainbow-item{filter:drop-shadow(0 0 8px rgba(167,139,250,.8))}
-        .game-emoji.diamond-item{filter:drop-shadow(0 0 10px rgba(103,232,249,.9))}
-        @keyframes collectiblePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
-        .game-collect-fx{position:absolute;z-index:4;pointer-events:none;font-size:20px;font-weight:700;color:#fbbf24;text-shadow:0 0 10px rgba(251,191,36,.6);animation:collectFx .8s ease-out forwards}
-        @keyframes collectFx{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(1.5)}}
-        .game-over-screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;text-align:center;gap:12px}
-        .game-over-screen h2{font-size:32px;margin:0}
-        .game-over-screen p{font-size:18px;opacity:.8;margin:0}
-        .game-over-screen .game-best{font-size:14px;opacity:.6;margin:0}
-        .game-retry{background:linear-gradient(135deg,#818cf8,#a855f7);border:none;color:#fff;font-size:18px;padding:14px 36px;border-radius:30px;font-weight:700;cursor:pointer;margin-top:8px;box-shadow:0 4px 20px rgba(139,92,246,.4)}
-        .game-back{background:rgba(255,255,255,.15);border:none;color:#fff;font-size:14px;padding:10px 28px;border-radius:20px;font-weight:600;cursor:pointer}
-        .game-timer{font-size:22px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.5)}
-        .game-xp-earned{font-size:22px;font-weight:700;color:#fbbf24;margin:4px 0}
-
-        /* PLAY GOMB */
-        .game-play-btn{
-            display:flex;align-items:center;justify-content:center;gap:6px;
-            margin:0 auto;padding:8px 22px;
-            background:rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-            border:1px solid rgba(255,255,255,.2);border-radius:100px;
-            color:#fff;font-size:13px;font-weight:600;cursor:pointer;
-            -webkit-tap-highlight-color:transparent;transition:all .2s;
-            flex-shrink:0;
-        }
-        .game-play-btn:active{transform:scale(.95);background:rgba(255,255,255,.2)}
 
         /* SZERENCSEKERÉK */
         .wheel-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 22px 20px;gap:14px}
@@ -1373,114 +1209,6 @@
         .robot-btn.tap-love .eye{animation:tapLoveEye .6s ease forwards}
         @keyframes tapLoveEye{0%,100%{background:radial-gradient(circle,#7dd3fc,#38bdf8,#0284c7)}50%{background:radial-gradient(circle,#fda4af,#fb7185,#e11d48);box-shadow:0 0 16px rgba(225,29,72,.7)}}
 
-        /* ===== FEHÉR NYUSZI MÓD (húsvét) ===== */
-
-        /* Hosszú fehér fülek */
-        .robot.bunny .antenna-stick{
-            width:16px;height:60px;top:-34px;left:calc(50% - 24px);
-            background:linear-gradient(to bottom,#fff,#f8fafc);
-            border-radius:24px 24px 8px 8px;transform:rotate(-10deg);
-            box-shadow:0 2px 8px rgba(0,0,0,.08);
-        }
-        .robot.bunny .antenna-stick::after{
-            content:'';position:absolute;top:10px;left:3px;width:10px;height:38px;
-            background:linear-gradient(to bottom,#fecdd3,#fda4af);border-radius:18px;
-        }
-        .robot.bunny .antenna-ball{
-            width:16px;height:60px;top:-34px;left:calc(50% + 8px);
-            background:linear-gradient(to bottom,#fff,#f8fafc);
-            border-radius:24px 24px 8px 8px;transform:none;
-            box-shadow:0 2px 8px rgba(0,0,0,.08);
-            animation:bunnyEarR 2.5s ease-in-out infinite;
-        }
-        .robot.bunny .antenna-ball::after{
-            content:'';position:absolute;top:10px;left:3px;width:10px;height:38px;
-            background:linear-gradient(to bottom,#fecdd3,#fda4af);border-radius:18px;
-        }
-        @keyframes bunnyEarR{0%,100%{transform:rotate(0deg)}30%{transform:rotate(10deg)}60%{transform:rotate(-3deg)}}
-
-        /* Hófehér fej */
-        .robot.bunny .head{
-            background:linear-gradient(165deg,#ffffff 0%,#f8fafc 40%,#f1f5f9 100%);
-            border-radius:46px 46px 36px 36px;
-            box-shadow:0 4px 15px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,1);
-        }
-
-        /* Fehér arc kijelző helyett nyuszi arc */
-        .robot.bunny .face-screen{
-            background:linear-gradient(180deg,#f8fafc,#f1f5f9);
-            box-shadow:inset 0 1px 4px rgba(0,0,0,.05);
-        }
-
-        /* Piros nyuszi szemek */
-        .robot.bunny .eye{
-            background:radial-gradient(circle,#fff,#fca5a5,#ef4444)!important;
-            box-shadow:0 0 10px rgba(239,68,68,.4),0 0 20px rgba(239,68,68,.15)!important;
-        }
-        .robot.bunny .eye::after{background:rgba(255,255,255,.8)}
-
-        /* Rózsaszín orr */
-        .robot.bunny .mouth{
-            width:12px!important;height:10px!important;
-            background:radial-gradient(circle,#fecdd3,#fb7185)!important;
-            border:none!important;border-radius:50%!important;
-            box-shadow:0 2px 6px rgba(251,113,133,.3)!important;
-            animation:bunnyNose 2s ease-in-out infinite!important;
-            margin-top:12px!important;
-        }
-        @keyframes bunnyNose{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
-
-        /* Bajusz */
-        .robot.bunny .face-screen::after{
-            content:'';position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
-            width:70px;height:16px;
-            background:
-                linear-gradient(170deg,transparent 0%,rgba(0,0,0,.08) 10%,transparent 22%) 0 0/100% 1.5px no-repeat,
-                linear-gradient(175deg,transparent 0%,rgba(0,0,0,.08) 10%,transparent 22%) 0 6px/100% 1.5px no-repeat,
-                linear-gradient(190deg,transparent 78%,rgba(0,0,0,.08) 90%,transparent 100%) 0 0/100% 1.5px no-repeat,
-                linear-gradient(185deg,transparent 78%,rgba(0,0,0,.08) 90%,transparent 100%) 0 6px/100% 1.5px no-repeat;
-        }
-
-        /* Hófehér test */
-        .robot.bunny .torso{background:linear-gradient(165deg,#ffffff 0%,#f8fafc 50%,#f1f5f9 100%);box-shadow:0 6px 20px rgba(0,0,0,.06)}
-        .robot.bunny .neck{background:linear-gradient(to bottom,#f1f5f9,#e2e8f0)}
-
-        /* Fehér karok */
-        .robot.bunny .arm{background:linear-gradient(to bottom,#ffffff,#f1f5f9)}
-        .robot.bunny .arm::after{background:linear-gradient(to bottom,#f1f5f9,#e2e8f0)}
-        .robot.bunny .shoulder{background:#f1f5f9}
-
-        /* Fehér fülek (oldalsó) */
-        .robot.bunny .ear{background:linear-gradient(to bottom,#ffffff,#f8fafc)}
-        .robot.bunny .ear::after{background:#fecdd3}
-
-        /* Fehér lábak, kerek tappancs */
-        .robot.bunny .leg{background:linear-gradient(to bottom,#f8fafc,#f1f5f9)}
-        .robot.bunny .foot{
-            background:linear-gradient(to bottom,#fecdd3,#fda4af)!important;
-            border-radius:50%!important;width:28px!important;height:14px!important;
-        }
-
-        /* Mellkas — fehér, rózsaszín szív */
-        .robot.bunny .chest{
-            background:linear-gradient(145deg,#f8fafc,#f1f5f9);
-            box-shadow:inset 0 2px 4px rgba(0,0,0,.05);
-        }
-        .robot.bunny .chest::before{border-color:rgba(251,113,133,.15)}
-        .robot.bunny .chest-dot{background:#fda4af}
-        .robot.bunny .heart-icon{font-size:22px}
-
-        /* Pompom farok */
-        .robot.bunny .legs::after{
-            content:'';position:absolute;top:-12px;right:-22px;
-            width:22px;height:22px;
-            background:radial-gradient(circle at 40% 40%,#ffffff,#f1f5f9);
-            border-radius:50%;
-            box-shadow:0 2px 8px rgba(0,0,0,.08),inset 0 -2px 4px rgba(0,0,0,.03);
-            animation:bunnyTail 1.5s ease-in-out infinite;
-        }
-        @keyframes bunnyTail{0%,100%{transform:translateX(0) scale(1)}50%{transform:translateX(5px) scale(1.1)}}
-
 
         /* ===== DRAG (húzás) ===== */
         .robot-btn.dragging .robot{animation:none!important;transition:none}
@@ -1702,7 +1430,6 @@
             </button>
         </div>
 
-        <button class="game-play-btn" id="gamePlayBtn">🎮 Játék</button>
         <div class="next-msg" id="nextMsg"></div>
         <a class="tiktok-link" href="http://www.tiktok.com/@dailybot_dailymessage" target="_blank" rel="noopener">
             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M34.1 0h-8v32.4c0 3-2.4 5.5-5.4 5.5s-5.4-2.5-5.4-5.5 2.4-5.5 5.4-5.5c.6 0 1.1.1 1.6.3v-8.2c-.5-.1-1-.1-1.6-.1C13 18.9 7 24.9 7 32.4S13 46 20.7 46c7.6 0 13.7-6 13.7-13.6V15.7c2.9 2 6.4 3.2 10.2 3.2v-8c-5.6-.1-10.5-4.5-10.5-10.9z"/></svg>
@@ -1773,14 +1500,6 @@
         </div>
 
         <!-- Napi Szuperajánlat ALUL -->
-        <div class="daily-deal-wrap" id="dailyDealWrap">
-            <div class="daily-deal-header">
-                <span class="daily-deal-badge">🔥 NAPI SZUPERAJÁNLAT (-50%)</span>
-                <span class="daily-deal-timer" id="dealTimer">24h 🔄</span>
-            </div>
-            <div id="dailyDealInner"></div>
-        </div>
-
         <div style="padding:20px 22px 50px;text-align:center;color:rgba(255,255,255,.15);font-size:11px">DailyBot Shop v2.2 — by Kovrat</div>
     </div>
 
@@ -1796,24 +1515,6 @@
         </div>
     </div>
 
-    <!-- Emoji Dodge minijáték -->
-    <div class="game-overlay" id="gameOverlay">
-        <div class="game-hud">
-            <div class="game-score">🏆 <span id="gameScore">0</span></div>
-            <div class="game-lives" id="gameLives">❤️❤️❤️</div>
-            <div class="game-timer" id="gameTimer">⏱️ 60</div>
-            <button class="game-exit" id="gameExit">✕ Kilépés</button>
-        </div>
-        <div class="game-over-screen" id="gameOverScreen" style="display:none">
-            <h2>💥 Vége!</h2>
-            <p>Pontszám: <span id="gameFinalScore">0</span></p>
-            <p class="game-best">Rekord: <span id="gameBestScore">0</span></p>
-            <p class="game-xp-earned" id="gameXpEarned">+0 XP</p>
-            <p style="font-size:13px;opacity:.6">Összesen: <span id="gameTotalXp">0</span> XP</p>
-            <button class="game-retry" id="gameRetry">🔄 Újra</button>
-            <button class="game-back" id="gameBack">← Vissza</button>
-        </div>
-    </div>
 
     <div class="cfx" id="cfx"></div>
 
@@ -1922,20 +1623,11 @@
             // Szezonális + napi öltözékek
             let hat='',face='',neck='';
 
-            // Húsvét kiszámítása (Gauss-algoritmus)
-            function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,dd=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-dd-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=(h+l-7*m+114)%31+1;return{m:mo,d:da}}
-            const easterDate=easter(d.getFullYear());
-            const isEaster=(month+1===easterDate.m&&day>=easterDate.d-3&&day<=easterDate.d+4);
-
             // Ünnepek — csak ilyenkor van öltözék
             const evtEl=document.getElementById('phEvent');
             let evt='';
 
-            if(isEaster) {
-                document.getElementById('robot').classList.add('bunny');
-                evt='🐰 Boldog Húsvétot! 🥚';
-            }
-            else if(month===2&&day===26) { hat='🎂'; face='🥳'; neck='🎉'; evt='🎂 Ma van a szülinapom! 🥳'; }
+            if(month===2&&day===26) { hat='🎂'; face='🥳'; neck='🎉'; evt='🎂 Ma van a szülinapom! 🥳'; }
             else if(month===11&&day===24) { hat='🎅'; neck='🎄'; evt='🎄 Boldog Karácsonyt! 🎅'; }
             else if(month===11&&day>=20&&day<=23) { hat='🎅'; neck='🎄'; evt='🎄 Hamarosan Karácsony! 🎅'; }
             else if(month===11&&day>=25&&day<=26) { hat='🎅'; neck='🎄'; evt='🎄 Kellemes Karácsonyt! 🎅'; }
@@ -2735,73 +2427,12 @@
             }
         }
 
-        // Tap reakció — integetés + "Hello!" / Titkos tojás
-        let tapBusy=false, tapCount=0;
+        // Tap reakció — integetés + "Hello!"
+        let tapBusy=false;
         const robotBtn=document.getElementById('btn');
 
         function playTapReaction(){
-            if(isPastEaster) { 
-                if(tapBusy) return;
-                tapBusy=true; initAudio(); robotBtn.classList.add('tap-wave','talking');
-                setTimeout(()=>{ robotBtn.classList.remove('tap-wave','talking'); tapBusy=false; },1500);
-                return;
-            }
-            
-            tapCount++;
-            if(tapBusy)return;
-            
-            // 10. TAP — TELJES KÉPERNYŐS TOJÁS ANIMÁCIÓ
-            if(tapCount >= 10 && !owns('chicky')){
-                tapBusy=true;
-                initAudio();
-                
-                // Overlay létrehozása
-                const ov = document.createElement('div');
-                ov.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:obIn 0.5s ease forwards;';
-                ov.innerHTML = `
-                    <div id="bigEgg" style="font-size:120px;transition:all 0.4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 0 30px rgba(255,255,255,0.3))">🥚</div>
-                    <div id="prizeLabel" style="color:#fff;font-size:24px;font-weight:900;margin-top:40px;opacity:0;transform:translateY(20px);transition:all 0.5s;text-align:center;">
-                        🎉 ÚJ SZKIN FELOLDVA!<br><span style="color:#fbbf24;font-size:32px">CSIBÉS ROBOT</span>
-                    </div>
-                    <div id="prizePreview" style="margin-top:30px;transform:scale(0);transition:all 0.6s cubic-bezier(.34,1.56,.64,1);width:150px;height:200px;display:flex;align-items:center;justify-content:center;"></div>
-                `;
-                document.body.appendChild(ov);
-                
-                const bigEgg = ov.querySelector('#bigEgg');
-                const label = ov.querySelector('#prizeLabel');
-                const preview = ov.querySelector('#prizePreview');
-                
-                // Animáció szekvencia
-                setTimeout(() => { bigEgg.style.transform = 'scale(1.3) rotate(15deg)'; tickSound(); }, 600);
-                setTimeout(() => { bigEgg.style.transform = 'scale(1.3) rotate(-15deg)'; tickSound(); }, 1200);
-                setTimeout(() => { bigEgg.style.transform = 'scale(1.4) rotate(10deg)'; tickSound(); }, 1800);
-                setTimeout(() => { 
-                    bigEgg.textContent = '🐣'; 
-                    bigEgg.style.transform = 'scale(1.6)'; 
-                    doneSound();
-                    
-                    // Nyeremény mutatása
-                    label.style.opacity = '1';
-                    label.style.transform = 'translateY(0)';
-                    
-                    // Mini verzió a robotról
-                    const p = document.createElement('div');
-                    p.className = 'game-player chicky'; p.style.transform = 'scale(1.2)';
-                    p.innerHTML = '<div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div>';
-                    preview.appendChild(p);
-                    preview.style.transform = 'scale(1)';
-                    
-                    buyItem('chicky');
-                    applyRobotSkin();
-                }, 2500);
-                
-                setTimeout(() => {
-                    ov.style.opacity = '0';
-                    setTimeout(() => { ov.remove(); tapCount = 0; tapBusy = false; }, 500);
-                }, 6500);
-                return;
-            }
-
+            if(tapBusy) return;
             tapBusy=true;
             initAudio();
             robotBtn.classList.add('tap-wave');
@@ -2977,12 +2608,6 @@
             });
         })();
 
-        // ========== PLAY GOMB → MINIJÁTÉK ==========
-        document.getElementById('gamePlayBtn').addEventListener('click', e => {
-            e.stopPropagation();
-            startGame();
-        });
-
         // ========== XP + BOLT RENDSZER ==========
         function getXP(){return parseInt(localStorage.getItem('nu_xp')||'0')}
         function setXP(v){localStorage.setItem('nu_xp',v.toString())}
@@ -2999,7 +2624,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|chicky|graffiti|gamer|tulip|horse|glass)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -3039,29 +2664,8 @@
                 document.body.style.backgroundAttachment='fixed';
             }
         }
-        // Migráció + owner setup
-        function checkMasterUnlock() {
-            const userName = localStorage.getItem('nu_name');
-            const d = new Date();
-            const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
-
-            if(userName === 'Kovrat') {
-                const skins = ['galaxy','sakura','fire','stealth','golden','rainbow','diamond','chicky','graffiti','gamer','tulip','glass'];
-                const bgs = ['bg-galaxy','bg-sakura','bg-fire','bg-stealth','bg-golden','bg-rainbow','bg-diamond','bg-gamer','bg-tulip','bg-glass','bg-graffiti'];
-                const auras = ['aura-fire','aura-glitch','aura-halo','aura-rgb','aura-sakura','aura-diamond','aura-tulip'];
-                skins.forEach(s => buyItem(s));
-                bgs.forEach(b => buyItem(b));
-                auras.forEach(a => buyItem(a));
-                console.log('✅ Master Unlock aktív: Minden feloldva Kovrat számára.');
-            } else if(userName === 'Rella') {
-                buyItem('horse');
-                console.log('🐴 Rella ajándék: Ló skin feloldva.');
-            } else if(userName === 'Zerénd') {
-                buyItem('gamer');
-                buyItem('bg-gamer');
-                console.log('🎁 Zerénd ajándék: Gamer skin és háttér feloldva.');
-            }
-        }
+        // Minden ingyenes — nincs exkluzív logika
+        function checkMasterUnlock() {}
 
 
         (function(){
@@ -3069,54 +2673,6 @@
             if(old){try{JSON.parse(old).forEach(s=>buyItem(s))}catch(e){} localStorage.removeItem('nu_skins')}
             
             checkMasterUnlock();
-
-            // 🌷 Tavaszi ajándék — interaktív ajándékdoboz
-            if(localStorage.getItem('nu_reg') && (!owns('tulip') || !owns('bg-tulip') || !owns('aura-tulip'))){
-                setTimeout(()=>{
-                    const giftOv=document.createElement('div');
-                    giftOv.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:20px;text-align:center;';
-                    giftOv.innerHTML=`
-                        <div style="color:rgba(255,255,255,.6);font-size:14px;font-weight:600;margin-bottom:20px">Egy ajándék vár rád!</div>
-                        <div id="giftBox" style="font-size:100px;cursor:pointer;transition:all .4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 0 30px rgba(251,191,36,.4));animation:pulseMedium 2s ease-in-out infinite">🎁</div>
-                        <div style="color:rgba(255,255,255,.5);font-size:13px;margin-top:16px;font-weight:600">Koppints a dobozra!</div>
-                        <div id="giftReveal" style="display:none;text-align:center"></div>
-                    `;
-                    document.body.appendChild(giftOv);
-                    let taps=0;
-                    const box=giftOv.querySelector('#giftBox');
-                    const reveal=giftOv.querySelector('#giftReveal');
-                    box.addEventListener('click',()=>{
-                        taps++;
-                        if(taps===1){
-                            box.style.transform='rotate(-10deg) scale(1.1)';
-                            box.textContent='🎁';
-                        } else if(taps===2){
-                            box.style.transform='rotate(10deg) scale(1.2)';
-                        } else if(taps>=3){
-                            // Kinyitás!
-                            box.style.transform='scale(1.5)';
-                            box.style.opacity='0';
-                            setTimeout(()=>{
-                                box.style.display='none';
-                                // Tárgyak feloldása egyenként
-                                buyItem('tulip'); buyItem('bg-tulip'); buyItem('aura-tulip');
-                                reveal.style.display='block';
-                                reveal.innerHTML=`
-                                    <div style="font-size:50px;margin-bottom:15px">🎉</div>
-                                    <div style="color:#fff;font-size:24px;font-weight:900">Tavaszi Ajándék!</div>
-                                    <div style="color:rgba(255,255,255,.7);font-size:14px;margin-top:12px;line-height:1.8">
-                                        Három tárgyat kaptál:<br>
-                                        <span style="color:#4ade80;font-weight:800;font-size:16px">🌷 Tulipán Skin</span><br>
-                                        <span style="color:#4ade80;font-weight:800;font-size:16px">🌷 Tavaszi Rét Háttér</span><br>
-                                        <span style="color:#4ade80;font-weight:800;font-size:16px">🌷 Tulipán Aura</span>
-                                    </div>
-                                    <button onclick="this.closest('div[style]').parentElement.style.opacity='0';setTimeout(()=>{this.closest('div[style]').parentElement.remove();applyRobotSkin();applyCustomBg();applyAura()},400)" style="margin-top:25px;padding:14px 40px;border:none;border-radius:16px;background:linear-gradient(to bottom,#4ade80,#16a34a);color:#fff;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 4px 15px rgba(74,222,128,.4)">Köszönöm! 🌷</button>
-                                `;
-                            },400);
-                        }
-                    });
-                },1000);
-            }
 
             applyRobotSkin();
             applyCustomBg();
@@ -3136,57 +2692,43 @@
 
             // tier: 'free'|'common'|'rare'|'legendary' — rendezéshez és címkékhez
             const SKINS=[
-                // 🆓 Ingyenes
                 {id:'',name:'Alap',desc:'Az eredeti klasszikus',icon:'🤖',cost:0,tier:'free'},
-                {id:'tulip',name:'Tulipán',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
-                // ⭐ Alap
-                {id:'galaxy',name:'Galaxy',desc:'Kozmikus ragyogás',icon:'🌌',cost:200,tier:'common'},
-                {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:350,tier:'common'},
-                {id:'graffiti',name:'Graffiti',desc:'Utcai művész 🎨',icon:'🧱',cost:350,tier:'common'},
-                // 💎 Ritka
-                {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:550,tier:'rare'},
-                {id:'fire',name:'Fire',desc:'Lángoló vörös izzás',icon:'🔥',cost:600,tier:'rare'},
-                {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:800,tier:'rare'},
-                {id:'diamond',name:'Diamond',desc:'Jégkék drágakő test',icon:'💎',cost:800,tier:'rare'},
-                {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:800,tier:'rare'},
-                {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső 🎧',icon:'🎮',cost:900,tier:'rare'},
-                // 👑 Legendás
-                {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:2000,tier:'legendary'},
-                // 🔒 Titkos
-                {id:'chicky',name:'Chicky',desc:'Húsvéti titok 🐣',icon:'🐥',hide:true,tier:'secret'},
-                {id:'horse',name:'Ló',desc:'Exkluzív lovas 🐴',icon:'🐴',cost:0,hide:true,tier:'secret'}
+                {id:'tulip',name:'Tulipán',desc:'Tavaszi virágos',icon:'🌷',cost:0,tier:'free'},
+                {id:'galaxy',name:'Galaxy',desc:'Kozmikus ragyogás',icon:'🌌',cost:0,tier:'free'},
+                {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:0,tier:'free'},
+                {id:'graffiti',name:'Graffiti',desc:'Utcai művész',icon:'🧱',cost:0,tier:'free'},
+                {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:0,tier:'free'},
+                {id:'fire',name:'Fire',desc:'Lángoló vörös izzás',icon:'🔥',cost:0,tier:'free'},
+                {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:0,tier:'free'},
+                {id:'diamond',name:'Diamond',desc:'Jégkék drágakő test',icon:'💎',cost:0,tier:'free'},
+                {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:0,tier:'free'},
+                {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső',icon:'🎮',cost:0,tier:'free'},
+                {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:0,tier:'free'},
+                {id:'horse',name:'Ló',desc:'Lovas robot',icon:'🐴',cost:0,tier:'free'}
             ];
             const BGS=[
-                // 🆓 Ingyenes
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0,tier:'free'},
-                {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
-                // ⭐ Alap
-                {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:200,tier:'common'},
-                {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:350,tier:'common'},
-                {id:'bg-graffiti',name:'Graffiti',desc:'Utcai falfestés 🎨',icon:'🧱',cost:350,tier:'common'},
-                // 💎 Ritka
-                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:550,tier:'rare'},
-                {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:600,tier:'rare'},
-                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:800,tier:'rare'},
-                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:800,tier:'rare'},
-                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:800,tier:'rare'},
-                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:900,tier:'rare'},
-                // 👑 Legendás
-                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:1000,tier:'legendary'}
+                {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tavaszi virágmező',icon:'🌷',cost:0,tier:'free'},
+                {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:0,tier:'free'},
+                {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:0,tier:'free'},
+                {id:'bg-graffiti',name:'Graffiti',desc:'Utcai falfestés',icon:'🧱',cost:0,tier:'free'},
+                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:0,tier:'free'},
+                {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:0,tier:'free'},
+                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:0,tier:'free'},
+                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:0,tier:'free'},
+                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:0,tier:'free'},
+                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:0,tier:'free'},
+                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:0,tier:'free'}
             ];
             const AURAS=[
-                // 🆓 Ingyenes
                 {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0,tier:'free'},
-                {id:'aura-tulip',name:'Tulipán',desc:'Tavaszi ajándék 🌷',icon:'🌷',cost:0,tier:'free'},
-                // ⭐ Alap
-                {id:'aura-fire',name:'Tűz',desc:'Lángoló energia',icon:'🔥',cost:400,tier:'common'},
-                {id:'aura-sakura',name:'Sakura',desc:'Hulló szirmok',icon:'🌸',cost:500,tier:'common'},
-                // 💎 Ritka
-                {id:'aura-glitch',name:'Glitch',desc:'Digitális zavar',icon:'👾',cost:750,tier:'rare'},
-                {id:'aura-halo',name:'Szent',desc:'Égi ragyogás',icon:'😇',cost:1000,tier:'rare'},
-                // 👑 Legendás
-                {id:'aura-rgb',name:'RGB',desc:'Gamer színek',icon:'🌈',cost:1500,tier:'legendary'},
-                {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:2000,tier:'legendary'}
+                {id:'aura-tulip',name:'Tulipán',desc:'Tavaszi virágaura',icon:'🌷',cost:0,tier:'free'},
+                {id:'aura-fire',name:'Tűz',desc:'Lángoló energia',icon:'🔥',cost:0,tier:'free'},
+                {id:'aura-sakura',name:'Sakura',desc:'Hulló szirmok',icon:'🌸',cost:0,tier:'free'},
+                {id:'aura-glitch',name:'Glitch',desc:'Digitális zavar',icon:'👾',cost:0,tier:'free'},
+                {id:'aura-halo',name:'Szent',desc:'Égi ragyogás',icon:'😇',cost:0,tier:'free'},
+                {id:'aura-rgb',name:'RGB',desc:'Gamer színek',icon:'🌈',cost:0,tier:'free'},
+                {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:0,tier:'free'}
             ];
 
             function renderShop(){
@@ -3194,22 +2736,6 @@
                 xpDisp.textContent='⭐ '+xp+' XP';
                 const name=localStorage.getItem('nu_name')||'Barátom';
                 greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
-                
-                const d = new Date();
-                const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
-                const isKovrat = localStorage.getItem('nu_name') === 'Kovrat';
-
-                // TITKOS TIPP ÉS BEJELENTÉSEK
-                let announcement = '';
-                if(!owns('chicky') && !isPastEaster) {
-                    announcement += `<div style="margin-top:10px;padding:10px;background:rgba(251,191,36,0.1);border:1px dashed #fbbf24;border-radius:12px;font-size:12px;color:#fbbf24;font-weight:800;">🤫 FIGYELEM: Egy titkos húsvéti Csibés skin el van rejtve az appban! 🥚</div>`;
-                }
-                if(!isApril10 && !isKovrat && !owns('graffiti')) {
-                    announcement += `<div style="margin-top:8px;padding:8px;background:rgba(56,189,248,0.1);border:1px solid #38bdf8;border-radius:12px;font-size:11px;color:#38bdf8;font-weight:700;">🎨 ÚJ: Április 10-én jön a Graffiti Skin + Háttér!</div>`;
-                }
-
-                greet.innerHTML += announcement;
-
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
                 const activeAura=getActiveAura();
@@ -3229,41 +2755,6 @@
                 }
                 auraList.innerHTML = '';
 
-                // NAPI AJÁNLAT MEGJELENÍTÉSE
-                const deal = getDailyDeal(SKINS, BGS, AURAS);
-                const ddInner = document.getElementById('dailyDealInner');
-                const dealOwned = deal.type==='bundle'?(owns(deal.id)&&owns(deal.id2)):owns(deal.id);
-                const typeLabel = {skin:'Skin',bg:'Háttér',aura:'Aura',bundle:'Skin + Háttér'}[deal.type]||'';
-                ddInner.innerHTML = `
-                    <div class="daily-deal-item">
-                        <div class="daily-deal-icon-container">
-                            <div class="daily-deal-icon">${deal.icon}</div>
-                        </div>
-                        <div class="daily-deal-info">
-                            <div class="daily-deal-name">${deal.name} (${typeLabel})</div>
-                            <div class="daily-deal-price">
-                                <span class="daily-deal-orig">${deal.origCost}</span>
-                                <span class="daily-deal-now">${deal.nowCost} XP</span>
-                            </div>
-                        </div>
-                        <button class="daily-deal-buy-btn" id="dealBuyBtn" ${dealOwned?'disabled':''}>
-                            ${dealOwned ? 'Megvan' : 'Megveszem most'}
-                        </button>
-                    </div>
-                `;
-                if(!dealOwned){
-                    document.getElementById('dealBuyBtn').onclick = () => {
-                        if(getXP() >= deal.nowCost){
-                            setXP(getXP() - deal.nowCost);
-                            buyItem(deal.id);
-                            if(deal.type==='bundle') { buyItem(deal.id2); setActiveSkin(deal.id); setActiveBg(deal.id2); applyRobotSkin(); applyCustomBg(); }
-                            else if(deal.type==='skin') { setActiveSkin(deal.id); applyRobotSkin(); }
-                            else if(deal.type==='bg') { setActiveBg(deal.id); applyCustomBg(); }
-                            else if(deal.type==='aura') { setActiveAura(deal.id); applyAura(); }
-                            renderShop();
-                        }
-                    };
-                }
 
 
                 [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
@@ -3271,55 +2762,20 @@
                   {id:'auraList',items:AURAS,list:auraList,active:activeAura,setter:setActiveAura,applier:applyAura}
                 ].forEach(cfg=>{
                     cfg.items.forEach(s=>{
-                        // TITKOS ELEM: Csak akkor mutasd, ha megvan
-                        if(s.hide && !owns(s.id)) return;
-                        
-                        // Graffiti skin dátum korlát
-                        const d = new Date();
-                        const isApril10 = (d.getMonth() === 3 && d.getDate() >= 10);
-                        const isKovrat = localStorage.getItem('nu_name') === 'Kovrat';
-                        if((s.id === 'graffiti' || s.id === 'bg-graffiti') && !isApril10 && !isKovrat && !owns(s.id)) return;
-
-                        const owned=owns(s.id);
-
+                        // Minden ingyenes — automatikusan megvan
+                        if(s.id) buyItem(s.id);
                         const isActive=s.id===cfg.active;
-                        // Ha ez a napi ajánlat, akkor finalCost a deal.nowCost
-                        const isThisDeal = s.id === deal.id || (deal.id2 && s.id === deal.id2);
-                        // Graffiti: ápr 10-én 2000 XP, utána normál ár
-                        const isGraffitiLaunch = (s.id==='graffiti'||s.id==='bg-graffiti') && d.getMonth()===3 && d.getDate()===10;
-                        const finalCost=isThisDeal ? deal.nowCost : (isGraffitiLaunch ? 2000 : s.cost);
-                        const canBuy=!owned&&xp>=finalCost;
-
-                        const tierClass=s.tier&&s.tier!=='free'&&s.tier!=='secret'?' tier-'+s.tier:'';
-                        const tierLabels={common:'ALAP',rare:'RITKA',legendary:'LEGENDÁS'};
-                        const tierBadge=tierLabels[s.tier]?`<span class="tier-badge">${tierLabels[s.tier]}</span>`:'';
 
                         const el=document.createElement('div');
-                        el.className='shop-item'+(isActive?' active':'')+(owned?'':(canBuy?' buyable':' locked'))+tierClass;
+                        el.className='shop-item'+(isActive?' active':'');
 
                         let status='';
                         if(isActive) status='<div class="shop-item-status equipped">✔ Aktív</div>';
-                        else if(owned) status='<div class="shop-item-status owned">Megvan</div>';
-                        else if(canBuy){
-                            status=`<div class="shop-item-status"><span class="buy-tag">🛒 ${finalCost} XP</span></div>`;
-                        } else {
-                            status=`<div class="shop-item-status price lock-tag">🔒 ${finalCost} XP</div>`;
-                        }
+                        else status='<div class="shop-item-status owned">Választható</div>';
 
-                        el.innerHTML=`${tierBadge}<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
-                        
-                        if(owned&&!isActive) el.addEventListener('click',()=>{cfg.setter(s.id);cfg.applier();renderShop()});
-                        const buyTag=el.querySelector('.buy-tag');
-                        if(buyTag) buyTag.addEventListener('click',e=>{
-                            e.stopPropagation();
-                            if(getXP()>=finalCost){
-                                setXP(getXP()-finalCost);
-                                buyItem(s.id);
-                                cfg.setter(s.id);
-                                cfg.applier();
-                                renderShop();
-                            }
-                        });
+                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+
+                        if(!isActive) el.addEventListener('click',()=>{cfg.setter(s.id);cfg.applier();renderShop()});
                         cfg.list.appendChild(el);
                     });
                 });
@@ -3329,20 +2785,6 @@
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
             renderWheel(); // Wheel setup
 
-            // Deal timer visszaszámláló (éjfélig)
-            function updateDealTimer(){
-                const now=new Date();
-                const midnight=new Date(now);
-                midnight.setHours(24,0,0,0);
-                const diff=midnight-now;
-                const h=Math.floor(diff/3600000);
-                const m=Math.floor((diff%3600000)/60000);
-                const s=Math.floor((diff%60000)/1000);
-                const el=document.getElementById('dealTimer');
-                if(el) el.textContent=h+'ó '+m+'p '+s+'mp 🔄';
-            }
-            updateDealTimer();
-            setInterval(updateDealTimer,1000);
         })();
 
         // ========== SZINKRONIZÁLÁS ==========
@@ -3361,7 +2803,7 @@
             syncClose.addEventListener('click',()=>syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS=['nu_xp','nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_game_best','nu_name','nu_uid'];
+            const SYNC_KEYS=['nu_xp','nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid'];
 
             exportBtn.addEventListener('click',()=>{
                 const data={};
@@ -3417,14 +2859,11 @@
                     // Kedvencek összefésülés szöveg alapján
                     const favTexts=new Set(currentFavs.map(f=>f.t));
                     importFavs.forEach(f=>{if(!favTexts.has(f.t))currentFavs.push(f);});
-                    const currentBest=parseInt(localStorage.getItem('nu_game_best')||'0');
-                    const importBest=parseInt(data.nu_game_best||'0');
 
                     // Mentés
                     localStorage.setItem('nu_xp',Math.max(currentXP,importXP).toString());
                     localStorage.setItem('nu_owned',JSON.stringify(mergedOwned));
                     localStorage.setItem('nu_favs',JSON.stringify(currentFavs));
-                    localStorage.setItem('nu_game_best',Math.max(currentBest,importBest).toString());
                     if(data.nu_name) localStorage.setItem('nu_name',data.nu_name);
                     if(data.nu_active_skin) localStorage.setItem('nu_active_skin',data.nu_active_skin);
                     if(data.nu_active_bg) localStorage.setItem('nu_active_bg',data.nu_active_bg);
@@ -3455,56 +2894,6 @@
             }
         })();
 
-        // ========== NAPI SZUPERAJÁNLAT LOGIKA ==========
-        function getDailyDeal(SKINS, BGS, AURAS) {
-            const now = new Date();
-            const tdString = now.toDateString();
-            const storedDate = localStorage.getItem('nu_deal_date');
-
-            if (storedDate === tdString) {
-                try {
-                    const stored = JSON.parse(localStorage.getItem('nu_daily_deal'));
-                    if(stored && stored.id) return stored;
-                } catch(e) {}
-            }
-
-            // Fix napi ajánlatok listája — sorban rotálnak
-            const DEALS = [
-                {id:'sakura',type:'skin',name:'Sakura Skin',icon:'🌸',origCost:350,nowCost:200},
-                {id:'bg-fire',type:'bg',name:'Fire Háttér',icon:'🔥',origCost:600,nowCost:350},
-                {id:'aura-sakura',type:'aura',name:'Sakura Aura',icon:'🌸',origCost:500,nowCost:300},
-                {id:'fire',type:'skin',name:'Fire Skin',icon:'🔥',origCost:600,nowCost:350},
-                {id:'aura-glitch',type:'aura',name:'Glitch Aura',icon:'👾',origCost:750,nowCost:400},
-                {id:'bg-stealth',type:'bg',name:'Stealth Háttér',icon:'🌑',origCost:550,nowCost:300},
-                {id:'golden',type:'skin',name:'Golden Skin',icon:'✨',origCost:800,nowCost:500},
-                {id:'aura-halo',type:'aura',name:'Szent Aura',icon:'😇',origCost:1000,nowCost:600},
-                {id:'glass',id2:'bg-glass',type:'bundle',name:'Glass Csomag',icon:'🪟',origCost:3000,nowCost:2000},
-                {id:'bg-gamer',type:'bg',name:'Gamer Room',icon:'🌃',origCost:900,nowCost:500},
-                {id:'stealth',type:'skin',name:'Stealth Skin',icon:'👤',origCost:550,nowCost:300},
-                {id:'rainbow',type:'skin',name:'Rainbow Skin',icon:'🌈',origCost:800,nowCost:500},
-                {id:'aura-rgb',type:'aura',name:'RGB Aura',icon:'🌈',origCost:1500,nowCost:900},
-                {id:'bg-golden',type:'bg',name:'Luxus Arany',icon:'✨',origCost:800,nowCost:500},
-            ];
-
-            // Ápr 10: Graffiti csomag szuperajánlat felülírás
-            const isApr10 = now.getMonth()===3 && now.getDate()===10;
-            if(isApr10){
-                const grafDeal = {id:'graffiti',id2:'bg-graffiti',type:'bundle',name:'Graffiti Csomag',icon:'🧱',origCost:2000,nowCost:1000,date:tdString};
-                localStorage.setItem('nu_deal_date', tdString);
-                localStorage.setItem('nu_daily_deal', JSON.stringify(grafDeal));
-                return grafDeal;
-            }
-
-            const dayNum = now.getFullYear() * 10000 + (now.getMonth()+1) * 100 + now.getDate();
-            const idx = dayNum % DEALS.length;
-            const deal = {...DEALS[idx], date: tdString};
-
-            localStorage.setItem('nu_deal_date', tdString);
-            localStorage.setItem('nu_daily_deal', JSON.stringify(deal));
-            return deal;
-        }
-
-
         // ========== SZERENCSEKERÉK LOGIKA ==========
         function renderWheel(){
             const canvas = document.getElementById('wheelCanvas');
@@ -3513,20 +2902,14 @@
             const resultEl = document.getElementById('wheelResult');
             const infoEl = document.getElementById('wheelInfo');
             
-            // Több szelet (10 db), mistery design
+            // Szerencsekerék nyeremények (csak XP)
             const PRIZES = [
-                { text: '20 XP', type: 'xp', val: 20, prob: 42 },
-                { text: '50 XP', type: 'xp', val: 50, prob: 30 },
-                { text: '100 XP', type: 'xp', val: 100, prob: 15 },
-                { text: '200 XP', type: 'xp', val: 200, prob: 7 },
-                { text: '500 XP', type: 'xp', val: 500, prob: 2.5 },
-                { text: 'Galaxy 🌌', type: 'skin', val: 'galaxy', prob: 1.2 },
-                { text: 'Sakura 🌸', type: 'skin', val: 'sakura', prob: 0.8 },
-                { text: 'Fire 🔥', type: 'skin', val: 'fire', prob: 0.5 },
-                { text: 'Stealth 👤', type: 'skin', val: 'stealth', prob: 0.4 },
-                { text: 'Golden ✨', type: 'skin', val: 'golden', prob: 0.3 },
-                { text: 'Rainbow 🌈', type: 'skin', val: 'rainbow', prob: 0.2 },
-                { text: 'Glass 🪟', type: 'skin', val: 'glass', prob: 0.1 }
+                { text: '20 XP', type: 'xp', val: 20, prob: 30 },
+                { text: '50 XP', type: 'xp', val: 50, prob: 25 },
+                { text: '100 XP', type: 'xp', val: 100, prob: 20 },
+                { text: '200 XP', type: 'xp', val: 200, prob: 12 },
+                { text: '500 XP', type: 'xp', val: 500, prob: 8 },
+                { text: '1000 XP', type: 'xp', val: 1000, prob: 5 }
             ];
 
 
@@ -3645,217 +3028,6 @@
             checkSpinStatus();
             window.checkSpinStatus=checkSpinStatus;
         }
-
-        // ========== EMOJI DODGE MINIJÁTÉK ==========
-        (function(){
-            const overlay=document.getElementById('gameOverlay');
-            const scoreEl=document.getElementById('gameScore');
-            const exitBtn=document.getElementById('gameExit');
-            const overScreen=document.getElementById('gameOverScreen');
-            const finalScoreEl=document.getElementById('gameFinalScore');
-            const bestScoreEl=document.getElementById('gameBestScore');
-            const xpEarnedEl=document.getElementById('gameXpEarned');
-            const totalXpEl=document.getElementById('gameTotalXp');
-            const retryBtn=document.getElementById('gameRetry');
-            const backBtn=document.getElementById('gameBack');
-            const timerEl=document.getElementById('gameTimer');
-
-            const ENEMIES=isPastEaster?['🌷','🌻','🌸','🌺','🌹','💐','🌼','🌷']:['🥚','🐣','🐤','🐰','🥚','🐥','🐰','🥚'];
-            let player, score, dodged, bestScore, gameLoop, spawnTimer, emojis, playerX, alive, touchStartX, playerStartX, diff;
-            let lives=3, invincible=false;
-            const livesEl=document.getElementById('gameLives');
-
-            bestScore=parseInt(localStorage.getItem('nu_game_best')||'0');
-
-            function updateLivesUI(){
-                let html='';
-                for(let i=0;i<3;i++){
-                    html+=i<lives?'❤️':'<span class="life-lost">🖤</span>';
-                }
-                livesEl.innerHTML=html;
-            }
-
-            function getGameBg(){
-                const h=new Date().getHours();
-                if(h>=5&&h<6) return 'linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)';
-                if(h>=6&&h<17) return 'linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)';
-                if(h>=17&&h<20) return 'linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)';
-                return 'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
-            }
-
-            function createMiniRobot(){
-                const p=document.createElement('div');
-                p.className='game-player';
-                const skin=getActiveSkin();
-                if(skin&&owns(skin)) p.classList.add(skin);
-                p.innerHTML='<div class="gp-antenna"></div><div class="gp-head"><div class="gp-screen"><div class="gp-eyes"><div class="gp-eye"></div><div class="gp-eye"></div></div><div class="gp-mouth"></div></div></div><div class="gp-body"><span class="gp-heart">❤️</span></div><div class="gp-legs"><div class="gp-leg"></div><div class="gp-leg"></div></div>';
-                return p;
-            }
-
-            window.startGame=function(){
-                overlay.style.background=getGameBg();
-                overlay.classList.add('active');
-                overScreen.style.display='none';
-                score=0;dodged=0;alive=true;diff=1;
-                lives=3;invincible=false;
-                updateLivesUI();
-                scoreEl.textContent='0';
-                timerEl.textContent='⭐ 0 XP (0/10)';
-                emojis=[];
-
-                overlay.querySelectorAll('.game-emoji,.game-player,.game-collect-fx').forEach(e=>e.remove());
-
-                player=createMiniRobot();
-                playerX=window.innerWidth/2-50;
-                player.style.left=playerX+'px';
-                overlay.appendChild(player);
-
-                overlay.addEventListener('touchstart',onTouchStart,{passive:false});
-                overlay.addEventListener('touchmove',onTouchMove,{passive:false});
-
-                spawnTimer=setInterval(spawnEnemy,1400);
-                gameLoop=requestAnimationFrame(update);
-            };
-
-
-            function onTouchStart(e){
-                if(e.target.closest('.game-exit,.game-retry,.game-back,.game-over-screen'))return;
-                e.preventDefault();
-                const t=e.touches[0];
-                touchStartX=t.clientX;
-                playerStartX=playerX;
-            }
-            function onTouchMove(e){
-                if(!alive)return;
-                e.preventDefault();
-                const t=e.touches[0];
-                const dx=t.clientX-touchStartX;
-                playerX=Math.max(0,Math.min(window.innerWidth-100,playerStartX+dx));
-                player.style.left=playerX+'px';
-            }
-
-            function spawnEnemy(){
-                if(!alive)return;
-                const em=document.createElement('div');
-                em.className='game-emoji';
-                const sz=Math.random()*20+34;
-                em.style.fontSize=sz+'px';
-                em.textContent=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
-                em.style.left=Math.random()*(window.innerWidth-50)+'px';
-                em.style.top='-50px';
-                // Lassan esnek, 200 pont (score/10=200 → score=2000) felett gyorsulnak
-                const ds=Math.floor(score/10);
-                const baseSpeed=ds<200?(Math.random()*0.6+0.8):(Math.random()*1.2+1.5+diff*0.12);
-                em._speed=baseSpeed;
-                em._size=sz;
-                em._counted=false;
-                overlay.appendChild(em);
-                emojis.push(em);
-            }
-
-            function update(){
-                if(!alive)return;
-                score++;
-                const displayScore=Math.floor(score/10);
-                scoreEl.textContent=displayScore;
-
-                // 200 pont alatt kevés tojás, utána több
-                if(displayScore<200){
-                    diff=1;
-                } else {
-                    diff=1+Math.floor((displayScore-200)/100);
-                }
-                if(score%600===0){
-                    clearInterval(spawnTimer);
-                    const interval=displayScore<200?1400:Math.max(500,900-diff*40);
-                    spawnTimer=setInterval(spawnEnemy,interval);
-                }
-
-                const px=playerX, py=window.innerHeight-175, pw=100, ph=145;
-                for(let i=emojis.length-1;i>=0;i--){
-                    const em=emojis[i];
-                    let top=parseFloat(em.style.top)+em._speed;
-                    em.style.top=top+'px';
-
-                    // Sikeresen kikerülte — 10 kikerülésenként 50 XP
-                    if(top>window.innerHeight+60){
-                        if(!em._counted){
-                            em._counted=true;
-                            dodged++;
-                            const xpNow=Math.floor(dodged/10)*50;
-                            timerEl.textContent='⭐ '+xpNow+' XP ('+dodged+'/'+((Math.floor(dodged/10)+1)*10)+')';
-                        }
-                        em.remove();emojis.splice(i,1);continue;
-                    }
-
-                    // Ütközés — életet veszítesz (3 élet van)
-                    if(!invincible){
-                        const ex=parseFloat(em.style.left), ey=top, esz=em._size;
-                        if(ex+esz>px+15 && ex<px+pw-15 && ey+esz>py+15 && ey<py+ph-15){
-                            em.remove();emojis.splice(i,1);
-                            lives--;
-                            updateLivesUI();
-                            if(lives<=0){
-                                gameOver();return;
-                            }
-                            // Rövid sebezhetetlenség (1.2s)
-                            invincible=true;
-                            player.classList.add('hit');
-                            setTimeout(()=>{
-                                invincible=false;
-                                player.classList.remove('hit');
-                            },1200);
-                            continue;
-                        }
-                    }
-                }
-                gameLoop=requestAnimationFrame(update);
-            }
-
-            function gameOver(){
-                alive=false;
-                clearInterval(spawnTimer);
-                cancelAnimationFrame(gameLoop);
-                overlay.removeEventListener('touchstart',onTouchStart);
-                overlay.removeEventListener('touchmove',onTouchMove);
-
-                const finalScore=Math.floor(score/10);
-                if(finalScore>bestScore){bestScore=finalScore;localStorage.setItem('nu_game_best',bestScore.toString())}
-                finalScoreEl.textContent=finalScore;
-                bestScoreEl.textContent=bestScore;
-
-                // XP hozzáadás — 10 kikerülésenként 50 XP
-                const earnedXP=Math.floor(dodged/10)*50;
-                const totalXP=addXP(earnedXP);
-                xpEarnedEl.textContent='+'+earnedXP+' XP';
-                totalXpEl.textContent=totalXP;
-
-                overScreen.style.display='flex';
-            }
-
-            function closeGame(){
-                if(alive){
-                    // Ha még élt, de kilépett, megkapja az eddigi XP-t
-                    const earnedXP=Math.floor(dodged/10)*50;
-                    if(earnedXP>0) addXP(earnedXP);
-                }
-                alive = false;
-                clearInterval(spawnTimer);
-                cancelAnimationFrame(gameLoop);
-                overlay.removeEventListener('touchstart',onTouchStart);
-                overlay.removeEventListener('touchmove',onTouchMove);
-                overlay.classList.remove('active');
-                overlay.querySelectorAll('.game-emoji,.game-player,.game-collect-fx').forEach(e=>e.remove());
-                emojis=[];
-            }
-
-            exitBtn.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();closeGame()});
-            backBtn.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();closeGame()});
-            retryBtn.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();overScreen.style.display='none';startGame()});
-            exitBtn.addEventListener('click',e=>{e.stopPropagation();closeGame()});
-            backBtn.addEventListener('click',e=>{e.stopPropagation();closeGame()});
-            retryBtn.addEventListener('click',e=>{e.stopPropagation();overScreen.style.display='none';startGame()});
-        })();
 
         function startNotifications(reg){
             // Értesítés belépéskor
