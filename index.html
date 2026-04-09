@@ -529,21 +529,6 @@
             100% { transform: scale(1.5) translateY(-10px); opacity: 0; }
         }
 
-        /* SZERENCSEKERÉK */
-        .wheel-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 22px 20px;gap:14px}
-        .wheel-container{position:relative;width:240px;height:240px}
-        .wheel-spinner{width:240px;height:240px;border-radius:50%;transition:transform 4s cubic-bezier(.17,.67,.12,.99);border:3px solid rgba(255,255,255,.15)}
-        .wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:24px;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
-        .wheel-spin-btn{
-            padding:12px 32px;border-radius:100px;border:none;font-size:15px;font-weight:800;
-            background:linear-gradient(135deg,#818cf8,#a855f7);color:#fff;
-            cursor:pointer;box-shadow:0 4px 20px rgba(139,92,246,.4);
-            -webkit-tap-highlight-color:transparent;transition:all .2s;
-        }
-        .wheel-spin-btn:active{transform:scale(.95)}
-        .wheel-spin-btn:disabled{opacity:.4;cursor:default}
-        .wheel-result{font-size:16px;font-weight:700;color:#fbbf24;text-align:center;min-height:24px}
-        .wheel-info{font-size:11px;color:rgba(255,255,255,.35);text-align:center}
         .shop-greeting{
             margin:8px 22px 0;padding:16px;border-radius:18px;
             background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
@@ -552,66 +537,6 @@
         .shop-greeting .greet-name{color:#a78bfa;font-weight:800}
         .shop-sale-badge{display:inline-block;background:#ef4444;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:4px;vertical-align:middle}
         .shop-original-price{text-decoration:line-through;opacity:.4;margin-right:4px}
-
-        /* NAPI AJÁNLAT - SZERENCSEKERÉK MÉRETŰ - FINOMÍTOTT */
-        .daily-deal-wrap{
-            margin:20px 22px 50px;padding:35px 24px;border-radius:40px;
-            background:linear-gradient(135deg,rgba(0,0,0,.8) 0%,rgba(251,191,36,.15) 100%);
-            border:2.5px solid rgba(251,191,36,.4);
-            display:flex;flex-direction:column;align-items:center;gap:20px;
-            box-shadow:0 25px 50px rgba(0,0,0,.6),inset 0 0 40px rgba(251,191,36,0.05);
-            position:relative;overflow:hidden;text-align:center;
-            min-height:420px;justify-content:center;
-        }
-        .daily-deal-wrap::before{
-            content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-            background:radial-gradient(circle,rgba(251,191,36,.1) 0%,transparent 70%);
-            animation:rotateBg 12s linear infinite;pointer-events:none;
-        }
-        
-        .daily-deal-header{width:100%;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1}
-        .daily-deal-badge{background:linear-gradient(to right,#fbbf24,#f59e0b);color:#78350f;font-size:11px;font-weight:950;padding:5px 15px;border-radius:100px;text-transform:uppercase;letter-spacing:2px;box-shadow:0 0 15px rgba(245,158,11,.3)}
-        .daily-deal-timer{font-size:13px;color:#fbbf24;font-weight:800;opacity:.8}
-        
-        .daily-deal-item{display:flex;flex-direction:column;align-items:center;gap:12px;z-index:1;width:100%}
-        .daily-deal-icon{font-size:70px;line-height:1;animation:pulseMedium 3s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(251,191,36,.4))}
-        @keyframes pulseMedium{0%,100%{transform:scale(1);filter:drop-shadow(0 0 20px rgba(251,191,36,.4))}50%{transform:scale(1.1);filter:drop-shadow(0 0 40px rgba(251,191,36,.8))}}
-        
-        /* ÚJ ARANY GLOW */
-        .daily-deal-icon-container{
-            position:relative;width:120px;height:120px;display:flex;align-items:center;justify-content:center;
-            background:rgba(251,191,36,.15);border-radius:50%;margin-bottom:10px;
-            border:2px solid rgba(251,191,36,.5);
-            box-shadow: 0 0 30px rgba(251,191,36,0.3), inset 0 0 20px rgba(251,191,36,0.2);
-            animation: goldenGlow 2s ease-in-out infinite alternate;
-        }
-        @keyframes goldenGlow {
-            from { box-shadow: 0 0 20px rgba(251,191,36,0.2), inset 0 0 10px rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.4); }
-            to { box-shadow: 0 0 50px rgba(251,191,36,0.6), inset 0 0 30px rgba(251,191,36,0.3); border-color: #fbbf24; }
-        }
-        @keyframes rotateBg{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-        
-        .daily-deal-info{text-align:center;width:100%}
-        .daily-deal-name{font-size:22px;font-weight:1000;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.5);margin-bottom:4px;text-align:center;word-wrap:break-word;line-height:1.3}
-        .daily-deal-price{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:5px}
-        .daily-deal-orig{text-decoration:line-through;opacity:.4;font-size:16px;color:#fff}
-        .daily-deal-now{font-size:38px;font-weight:1000;color:#fbbf24;text-shadow:0 0 20px rgba(251,191,36,.5)}
-        
-        .daily-deal-buy-btn{
-            width:100%;max-width:240px;padding:16px;border:none;border-radius:20px;
-            background:linear-gradient(to bottom,#fbbf24,#f59e0b);color:#78350f;font-weight:1000;font-size:16px;
-            cursor:pointer;transition:all .2s;box-shadow:0 6px 20px rgba(245,158,11,.3);
-            -webkit-tap-highlight-color:transparent;z-index:1;margin-top:15px;
-        }
-        .daily-deal-buy-btn:active{transform:scale(.96);box-shadow:0 2px 8px rgba(245,158,11,.2)}
-        .daily-deal-buy-btn:disabled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.2);box-shadow:none;cursor:default}
-
-        .wheel-reveal{
-            animation:revealPop .6s cubic-bezier(.34,1.56,.64,1);
-            font-size:24px;font-weight:900;color:#fbbf24;text-shadow:0 0 15px rgba(251,191,36,.5);
-        }
-        @keyframes revealPop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
 
         /* SKIN/BOLT MENÜ — Egész képernyős */
         .skin-toggle{
@@ -636,7 +561,6 @@
             backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
         }
         .shop-title{font-size:22px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.3)}
-        .shop-xp{font-size:15px;font-weight:700;color:#fbbf24;background:rgba(251,191,36,.12);padding:6px 14px;border-radius:100px;border:1px solid rgba(251,191,36,.25)}
         .shop-close-btn{
             background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;
             width:38px;height:38px;border-radius:50%;font-size:18px;
@@ -1472,7 +1396,6 @@
     <div class="skin-panel" id="skinPanel">
         <div class="shop-header">
             <div class="shop-title">🏪 Skin Bolt</div>
-            <div class="shop-xp" id="shopXpDisplay">⭐ 0 XP</div>
             <div class="sync-toggle" id="syncToggle">🔄</div>
             <button class="shop-close-btn" id="skinClose">✕</button>
         </div>
@@ -1480,15 +1403,6 @@
 
         <div class="shop-section">
             <div class="shop-section-title">🎰 Napi Szerencsekerék</div>
-            <div class="wheel-wrap" id="wheelWrap">
-                <div class="wheel-container">
-                    <div class="wheel-pointer">▼</div>
-                    <canvas id="wheelCanvas" width="240" height="240"></canvas>
-                </div>
-                <div class="wheel-result" id="wheelResult"></div>
-                <button class="wheel-spin-btn" id="wheelSpinBtn">🎰 Pörgetés (ingyenes)</button>
-                <div class="wheel-info" id="wheelInfo">Naponta 1 ingyenes pörgetés!</div>
-            </div>
         </div>
         <div class="shop-section">
             <div class="shop-section-title">🤖 Skin választék</div>
@@ -2125,10 +2039,7 @@
                 // 2. Bolt renderelés (Napi ajánlat frissítése)
                 if (typeof renderShop === 'function') renderShop();
                 
-                // 3. Szerencsekerék állapot frissítése
-                if (window.checkSpinStatus) window.checkSpinStatus();
-                
-                // 4. Időjárás és téma (opcionális, ha marad napszak)
+                // 3. Időjárás és téma (opcionális, ha marad napszak)
                 applyTimeTheme();
                 applyCustomBg();
             }
@@ -2609,9 +2520,6 @@
         })();
 
         // ========== XP + BOLT RENDSZER ==========
-        function getXP(){return parseInt(localStorage.getItem('nu_xp')||'0')}
-        function setXP(v){localStorage.setItem('nu_xp',v.toString())}
-        function addXP(v){const n=getXP()+v;setXP(n);return n}
         function getOwned(){try{return JSON.parse(localStorage.getItem('nu_owned')||'[]')}catch(e){return[]}}
         function saveOwned(arr){localStorage.setItem('nu_owned',JSON.stringify(arr))}
         function owns(id){return id===''||getOwned().includes(id)}
@@ -2686,7 +2594,6 @@
             const panel=document.getElementById('skinPanel');
             const skinList=document.getElementById('skinList');
             const bgList=document.getElementById('bgList');
-            const xpDisp=document.getElementById('shopXpDisplay');
             const closeBtn=document.getElementById('skinClose');
             const greet=document.getElementById('shopGreeting');
 
@@ -2732,8 +2639,6 @@
             ];
 
             function renderShop(){
-                const xp=getXP();
-                xpDisp.textContent='⭐ '+xp+' XP';
                 const name=localStorage.getItem('nu_name')||'Barátom';
                 greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
                 const activeSkin=getActiveSkin();
@@ -2783,7 +2688,6 @@
             window.renderShop=renderShop;
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
-            renderWheel(); // Wheel setup
 
         })();
 
@@ -2803,7 +2707,7 @@
             syncClose.addEventListener('click',()=>syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS=['nu_xp','nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid'];
+            const SYNC_KEYS=['nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid'];
 
             exportBtn.addEventListener('click',()=>{
                 const data={};
@@ -2848,9 +2752,7 @@
                     const data=JSON.parse(json);
                     if(!data.nu_name){throw new Error('Nincs név');}
 
-                    // Összefésülés: XP → max, owned → unió, többi → felülírás
-                    const currentXP=parseInt(localStorage.getItem('nu_xp')||'0');
-                    const importXP=parseInt(data.nu_xp||'0');
+                    // Összefésülés: owned → unió, többi → felülírás
                     const currentOwned=JSON.parse(localStorage.getItem('nu_owned')||'[]');
                     const importOwned=JSON.parse(data.nu_owned||'[]');
                     const mergedOwned=[...new Set([...currentOwned,...importOwned])];
@@ -2861,7 +2763,6 @@
                     importFavs.forEach(f=>{if(!favTexts.has(f.t))currentFavs.push(f);});
 
                     // Mentés
-                    localStorage.setItem('nu_xp',Math.max(currentXP,importXP).toString());
                     localStorage.setItem('nu_owned',JSON.stringify(mergedOwned));
                     localStorage.setItem('nu_favs',JSON.stringify(currentFavs));
                     if(data.nu_name) localStorage.setItem('nu_name',data.nu_name);
@@ -2893,141 +2794,6 @@
                 },1000);
             }
         })();
-
-        // ========== SZERENCSEKERÉK LOGIKA ==========
-        function renderWheel(){
-            const canvas = document.getElementById('wheelCanvas');
-            const ctx = canvas.getContext('2d');
-            const spinBtn = document.getElementById('wheelSpinBtn');
-            const resultEl = document.getElementById('wheelResult');
-            const infoEl = document.getElementById('wheelInfo');
-            
-            // Szerencsekerék nyeremények (csak XP)
-            const PRIZES = [
-                { text: '20 XP', type: 'xp', val: 20, prob: 30 },
-                { text: '50 XP', type: 'xp', val: 50, prob: 25 },
-                { text: '100 XP', type: 'xp', val: 100, prob: 20 },
-                { text: '200 XP', type: 'xp', val: 200, prob: 12 },
-                { text: '500 XP', type: 'xp', val: 500, prob: 8 },
-                { text: '1000 XP', type: 'xp', val: 1000, prob: 5 }
-            ];
-
-
-            let startAngle = 0;
-            const arc = Math.PI / (PRIZES.length / 2);
-            let spinTimeout = null;
-            let spinTime = 0;
-            let spinTimeTotal = 0;
-            let chosenPrize = null;
-
-            function drawWheel(isSpinning = false) {
-                ctx.clearRect(0, 0, 240, 240);
-                const centerX = 120, centerY = 120, radius = 110;
-
-                PRIZES.forEach((p, i) => {
-                    const angle = startAngle + i * arc;
-                    // Mystery színek: váltakozó sötétkék/indigo
-                    ctx.fillStyle = i % 2 === 0 ? '#1e1b4b' : '#312e81';
-                    ctx.beginPath();
-                    ctx.moveTo(centerX, centerY);
-                    ctx.arc(centerX, centerY, radius, angle, angle + arc, false);
-                    ctx.lineTo(centerX, centerY);
-                    ctx.fill();
-                    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-                    ctx.stroke();
-
-                    // Kérdőjelek pörgetés közben / elején
-                    ctx.save();
-                    ctx.fillStyle = 'rgba(255,255,255,0.4)';
-                    ctx.translate(centerX + Math.cos(angle + arc / 2) * radius * 0.65, centerY + Math.sin(angle + arc / 2) * radius * 0.65);
-                    ctx.rotate(angle + arc / 2 + Math.PI / 2);
-                    ctx.font = 'bold 24px sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('?', 0, 8);
-                    ctx.restore();
-                });
-            }
-
-            function rotateWheel() {
-                spinTime += 30;
-                if (spinTime >= spinTimeTotal) {
-                    stopRotateWheel();
-                    return;
-                }
-                const rotateStep = (spinTimeTotal - spinTime) / spinTimeTotal * 30; // Lassuló mozgás
-                startAngle += (rotateStep / 180 * Math.PI);
-                drawWheel(true);
-                spinTimeout = setTimeout(rotateWheel, 30);
-            }
-
-            function stopRotateWheel() {
-                clearTimeout(spinTimeout);
-                
-                // Animált felfedés
-                resultEl.classList.add('wheel-reveal');
-                resultEl.innerHTML = `🎉 Nyertél: ${chosenPrize.text}`;
-                
-                if(chosenPrize.type === 'xp') {
-                    addXP(chosenPrize.val);
-                } else if(chosenPrize.type === 'skin') {
-                    buyItem(chosenPrize.val);
-                }
-                
-                localStorage.setItem('nu_last_spin', new Date().toDateString());
-                checkSpinStatus();
-                
-                // XP frissítés
-                setTimeout(() => {
-                    document.getElementById('shopXpDisplay').textContent = '⭐ ' + getXP() + ' XP';
-                }, 100);
-            }
-
-            function pickPrize() {
-                const rand = Math.random() * 100;
-                let sum = 0;
-                for (let p of PRIZES) {
-                    sum += p.prob;
-                    if (rand <= sum) return p;
-                }
-                return PRIZES[0];
-            }
-
-            function checkSpinStatus() {
-                const last = localStorage.getItem('nu_last_spin');
-                const today = new Date().toDateString();
-                if (last === today) {
-                    spinBtn.disabled = true;
-                    spinBtn.textContent = 'Mára ennyi 😊';
-                    // Visszaszámláló éjfélig
-                    const now=new Date();
-                    const mn=new Date(now);mn.setHours(24,0,0,0);
-                    const diff=mn-now;
-                    const h=Math.floor(diff/3600000);
-                    const m=Math.floor((diff%3600000)/60000);
-                    infoEl.textContent='Újra pörgethetsz: '+h+'ó '+m+'p múlva';
-                } else {
-                    spinBtn.disabled = false;
-                    spinBtn.textContent = '🎰 Pörgetés (ingyenes)';
-                    infoEl.textContent='Naponta 1 ingyenes pörgetés!';
-                }
-            }
-
-            spinBtn.addEventListener('click', () => {
-                if(spinBtn.disabled) return;
-                spinBtn.disabled=true;
-                spinBtn.textContent='Pörög... 🎰';
-                chosenPrize = pickPrize();
-                resultEl.classList.remove('wheel-reveal');
-                resultEl.textContent = 'Pörgés... 🤞';
-                spinTime = 0;
-                spinTimeTotal = 3000 + Math.random() * 2000;
-                rotateWheel();
-            });
-
-            drawWheel();
-            checkSpinStatus();
-            window.checkSpinStatus=checkSpinStatus;
-        }
 
         function startNotifications(reg){
             // Értesítés belépéskor
