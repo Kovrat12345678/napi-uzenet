@@ -43,90 +43,71 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Gepelo effekt** — az uzenet betuenkent jelenik meg
 - **Napszak-fuggo hatter** — reggel narancs, nappal kek-lila, este sotet, ejjel indigo
 - **Idojaras animaciok** — valos eso, ho vagy napsutes a helyzeted alapjan (napsugarak csak nappal)
-- **Unnepi oltozekek** — Karacsony, Husvet, Halloween, Valentin-nap es meg tobb
+- **Unnepi oltozekek** — Karacsony, Halloween, Valentin-nap es meg tobb
 - **Streak szamlalo** — koveti hany egymast koveto napon nyitottad meg
 - **Konfetti** — minden napi uzenetnel unnepel
 - **Drag & tap interakciok** — huzd meg vagy koppints a robotra
-
-## Emoji Dodge minijáték
-
-A robotot hosszan nyomva tartva elindul egy minijáték:
-
-- A kepernyo aljan egy mini robot jobbra-balra mozgatható
-- Felülrol virag emojik (🌷🌻🌸🌺🌹💐) hullanak — ki kell kerulni!
-- 3 eleted van — ha elfogy, vege a jateknak
-- **XP szerzés**: minden 10 kikerült emoji = 50 XP
-- Lassu indulas, 200 pont felett gyorsul
-- Az XP a Robot Boltban koltheted el
 
 ## Robot Bolt
 
 A jobb felso sarokban a 🏪 gombra koppintva megnyilik:
 
-### Skinek
+### Skinek (mind ingyenes)
 
-| Skin | Ar | Tier |
-|------|----|------|
-| 🤖 Alap | Ingyenes | Free |
-| 🌷 Tulipan | Ingyenes (ajandek) | Free |
-| 🌌 Galaxy | 200 XP | Alap |
-| 🌸 Sakura | 350 XP | Alap |
-| 🧱 Graffiti | 350 XP (apr 10-tol) | Alap |
-| 👤 Stealth | 550 XP | Ritka |
-| 🔥 Fire | 600 XP | Ritka |
-| ✨ Golden | 800 XP | Ritka |
-| 💎 Diamond | 800 XP | Ritka |
-| 🌈 Rainbow | 800 XP | Ritka |
-| 🎮 Gamer | 900 XP | Ritka |
-| 🪟 Glass | 2000 XP | Legendas |
-| 🐥 Chicky | Titkos | Husveti |
-| 🐴 Lo | Exkluziv (csak Rella) | Titkos |
+| Skin | Leiras |
+|------|--------|
+| 🤖 Alap | Az eredeti klasszikus |
+| 🌷 Tulipan | Tavaszi viraagos |
+| 🌌 Galaxy | Kozmikus ragyogas |
+| 🌸 Sakura | Cseresznyevirag |
+| 🧱 Graffiti | Utcai muvesz |
+| 👤 Stealth | High-tech ugynok |
+| 🔥 Fire | Langolo voros izzas |
+| ✨ Golden | Tiszta arany csillogas |
+| 💎 Diamond | Jegkek dragako test |
+| 🌈 Rainbow | Szivarvanyos szinvalto |
+| 🎮 Gamer | Full RGB, pro kulso |
+| 🪟 Glass | Atlatszo uveg robot |
+| 🐴 Lo | Lovas robot |
+| 🐉 Sarkany | Titkos — rejtveny jutalom! |
 
-### Hatterek
+### Hatterek (mind ingyenes)
 
-| Hatter | Ar | Tier |
-|--------|----|------|
-| 🌅 Napszak | Ingyenes | Free |
-| 🌷 Tavaszi Ret | Ingyenes (ajandek) | Free |
-| 🌌 Galaxy | 200 XP | Alap |
-| 🌸 Sakura | 350 XP | Alap |
-| 🧱 Graffiti | 350 XP (apr 10-tol) | Alap |
-| 🌑 Stealth | 550 XP | Ritka |
-| 🔥 Fire | 600 XP | Ritka |
-| ✨ Luxus Arany | 800 XP | Ritka |
-| 💎 Gyemant | 800 XP | Ritka |
-| 🌈 Szivarvany | 800 XP | Ritka |
-| 🌃 Gamer Room | 900 XP | Ritka |
-| 🧪 Labor Glass | 1000 XP | Legendas |
+| Hatter | Leiras |
+|--------|--------|
+| 🌅 Napszak | Automatikus hatter |
+| 🌷 Tavaszi Ret | Tavaszi viragmezo |
+| 🌌 Galaxy | Csillagos egbolt |
+| 🌸 Sakura | Tavaszi szirmok |
+| 🧱 Graffiti | Utcai falfestes |
+| 🌑 Stealth | Ejszakai sotet |
+| 🔥 Fire | Pokoli langok |
+| ✨ Luxus Arany | Arany fenyar |
+| 💎 Gyemant | Kristaly tiszta |
+| 🌈 Szivarvany | Szinkavalkad |
+| 🌃 Gamer Room | Neon RGB setup |
+| 🧪 Labor Glass | Uveg labor vilag |
 
-### Aurak
+### Aurak (mind ingyenes)
 
-| Aura | Ar | Tier |
-|------|----|------|
-| 🚫 Nincs | Ingyenes | Free |
-| 🌷 Tulipan | Ingyenes (ajandek) | Free |
-| 🔥 Tuz | 400 XP | Alap |
-| 🌸 Sakura | 500 XP | Alap |
-| 👾 Glitch | 750 XP | Ritka |
-| 😇 Szent | 1000 XP | Ritka |
-| 🌈 RGB | 1500 XP | Legendas |
-| 💎 Gyemant | 2000 XP | Legendas |
+| Aura | Leiras |
+|------|--------|
+| 🚫 Nincs | Vissza az alapokhoz |
+| 🌷 Tulipan | Tavaszi viragaura |
+| 🔥 Tuz | Langolo energia |
+| 🌸 Sakura | Hullo szirmok |
+| 👾 Glitch | Digitalis zavar |
+| 😇 Szent | Egi ragyogas |
+| 🌈 RGB | Gamer szinek |
+| 💎 Gyemant | Szikrazo jegkristaly |
 
-### Napi Szuperajanlat
+### Titkos Rejtveny
 
-Minden nap mas akcios ajanlat (ejfelkor valt, 14 napos ciklus). Visszaszamlalo mutatja mikor jon az uj. Csomagok (bundle) ket targyat adnak egyszerre, pl. Glass Skin + Hatter.
-
-### Szerencsekerek
-
-Naponta 1 ingyenes porges (ejfelkor resetel). Foleg XP-t ad (96.5%), de nagyon ritkan skint is nyerhetsz (3.5% — a Glass skin eselye 0.1%)!
+A boltban van egy rejtveny — ha megoldod, kapsz egy titkos skint! 3 fokozatos tipp segit, de ne szamits konnyure...
 
 ## Szinkronizalas
 
-A bolt headerben a 🔄 gombbal exportalhatod az adataidat (XP, skinek, kedvencek) es masik eszkozon importalhatod. Nincs szukseg felhasznaloi fiokra — a kodot uzeneten keresztul kuldod at magadnak.
-
-## Tavaszi Ajandek
-
-Elso belepes utan egy ajandekdoboz jelenik meg — koppints ra haromszor es megkapod a Tulipan Skin + Tavaszi Ret Hatter + Tulipan Aura tárgyakat ingyen!
+A bolt headerben a 🔄 gombbal exportalhatod az adataidat (skinek, kedvencek) es masik eszkozon importalhatod. Nincs szukseg felhasznaloi fiokra — a kodot uzeneten keresztul kuldod at magadnak.
 
 ## Uzenet kategoriak
 
@@ -153,10 +134,9 @@ Elso belepes utan egy ajandekdoboz jelenik meg — koppints ra haromszor es megk
 4. Szivecskere koppintva elmentheted kedvencnek
 5. Megosztas gombbal szep kepes kartyat kuldhetsz barmelyik appban
 6. Az app aljan latod a visszaszamlalot: mikor jon a kovetkezo uzenet
-7. Nyomd hosszan a robotot a minijátékhoz — gyüjts XP-t!
-8. A 🏪 gombbal megnyitod a boltot — vasarolj skineket, hattereket, aurakat
-9. A 🔄 gombbal szinkronizalhatod mas eszkozre az adataidat
+7. A 🏪 gombbal megnyitod a boltot — valassz skineket, hattereket, aurakat (mind ingyenes!)
+8. A 🔄 gombbal szinkronizalhatod mas eszkozre az adataidat
 
 ## Tech Stack
 
-Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v12) kezeli a cache-t es az ertesiteseket. Automatikus frissites-detektalas: ha uj verzio erheto el, az app ujratolt. Hatterbol visszaterve is frissul minden (napi deal, uzenet, streak).
+Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v12) kezeli a cache-t es az ertesiteseket. Automatikus frissites-detektalas: ha uj verzio erheto el, az app ujratolt. Hatterbol visszaterve is frissul minden (uzenet, streak).

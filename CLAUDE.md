@@ -24,10 +24,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `nu_s` (streak szam), `nu_l` (utolso latogatas datuma), `nu_d` (ma mar latta-e), `nu_uid` (felhasznalo azonosito)
   - `nu_reg` (regisztracio kesz), `nu_name` (keresztnev)
   - `nu_favs` (kedvenc uzenetek JSON tomb)
-  - `nu_game_best` (jatek rekord), `nu_xp` (osszes XP), `nu_owned` (megvett targyak JSON tomb)
+  - `nu_owned` (feloldott targyak JSON tomb)
   - `nu_active_skin` (aktualis skin), `nu_active_bg` (aktualis hatter), `nu_active_aura` (aktualis aura)
-  - `nu_last_spin` (utolso szerencsekerek porges datuma)
-  - `nu_deal_date`, `nu_daily_deal` (napi szuperajanlat cache)
 
 ### Reggel 6 logika
 
@@ -57,86 +55,77 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Robot Skinek
 
-Tier rendszer: free / common / rare / legendary / secret
+Minden skin ingyenes, szabadon valaszthato a boltban.
 
-| Skin | Ar (XP) | Tier |
-|------|---------|------|
-| Alap | 0 | free |
-| Tulipan | 0 | free (ajandek) |
-| Galaxy | 200 | common |
-| Sakura | 350 | common |
-| Graffiti | 350 (elso nap 2000) | common (apr 10-tol) |
-| Stealth | 550 | rare |
-| Fire | 600 | rare |
-| Golden | 800 | rare |
-| Diamond | 800 | rare |
-| Rainbow | 800 | rare |
-| Gamer | 900 | rare |
-| Glass | 2000 | legendary (legritkabb) |
-| Chicky | titkos | secret (husveti) |
-| Lo | titkos | secret (csak Rella exkluziv) |
+| Skin | Leiras |
+|------|--------|
+| Alap | Az eredeti klasszikus |
+| Tulipan | Tavaszi viraagos |
+| Galaxy | Kozmikus ragyogas |
+| Sakura | Cseresznyevirag |
+| Graffiti | Utcai muvesz |
+| Stealth | High-tech ugynok |
+| Fire | Langolo voros izzas |
+| Golden | Tiszta arany csillogas |
+| Diamond | Jegkek dragako test |
+| Rainbow | Szivarvanyos szinvalto |
+| Gamer | Full RGB, pro kulso |
+| Glass | Atlatszo uveg robot |
+| Lo | Lovas robot |
+| Sarkany | Titkos — rejtveny megoldasaval nyerheto (tuzokado, szarnyak, farok, sarkanyfej) |
+
+### Sarkany Skin
+
+- Rejtveny jatek a boltban — 3 fokozatos tipp, megoldas: "sarkany"
+- Megoldas utan a rejtveny eltünik, skin feloldodik
+- Egyedi dragon CSS: sarkanyfej (szarvak, tarej, pofa, res-szemu zold szemek, hegyes fulek), szarnyak, farok
+- Koppintasra tuzokadas: tuz emojik robbannak a fejtol, szemek narancssargara valtanak, "Rrraawwr!!" buborek, tuz hang
 
 ### Hatterek
 
-| Hatter | Ar (XP) | Tier |
-|--------|---------|------|
-| Napszak | 0 | free |
-| Tavaszi Ret | 0 | free (ajandek, bg-tulip.png) |
-| Galaxy | 200 | common (CSS csillagok) |
-| Sakura | 350 | common |
-| Graffiti | 350 (elso nap 2000) | common (apr 10-tol, bg-graffiti.png) |
-| Stealth | 550 | rare |
-| Fire | 600 | rare |
-| Luxus Arany | 800 | rare |
-| Gyemant | 800 | rare |
-| Szivarvany | 800 | rare |
-| Gamer Room | 900 | rare |
-| Labor Glass | 1000 | legendary (bg-glass.png) |
+Minden hatter ingyenes, szabadon valaszthato.
+
+| Hatter | Leiras |
+|--------|--------|
+| Napszak | Automatikus hatter |
+| Tavaszi Ret | Tavaszi viragmezo (bg-tulip.png) |
+| Galaxy | Csillagos egbolt (CSS csillagok) |
+| Sakura | Tavaszi szirmok |
+| Graffiti | Utcai falfestes (bg-graffiti.png) |
+| Stealth | Ejszakai sotet |
+| Fire | Pokoli langok |
+| Luxus Arany | Arany fenyar |
+| Gyemant | Kristaly tiszta |
+| Szivarvany | Szinkavalkad |
+| Gamer Room | Neon RGB setup |
+| Labor Glass | Uveg labor vilag (bg-glass.png) |
 
 ### Aurak
 
-| Aura | Ar (XP) | Tier |
-|------|---------|------|
-| Nincs | 0 | free |
-| Tulipan | 0 | free (ajandek) |
-| Tuz | 400 | common |
-| Sakura | 500 | common |
-| Glitch | 750 | rare |
-| Szent | 1000 | rare |
-| RGB | 1500 | legendary |
-| Gyemant | 2000 | legendary |
+Minden aura ingyenes, szabadon valaszthato.
 
-### Napi Szuperajanlat
-
-14 napos ciklusban rotalnak, ejfelkor (0:00) valt. Lokalis datum-alapu index szamitas (nem UTC).
-Visszaszamlalo mutatja mikor jon az uj.
-Kivetel: apr 10 = Graffiti Csomag (skin+hatter) 2000→1000 XP.
-Bundle tipusu deal: ket targyat ad egyszerre (pl. Glass skin + hatter).
-
-### Szerencsekerek
-
-- Naponta 1 ingyenes porges, ejfelkor (0:00) resetel
-- XP nyeremenyek (96.5%): 20/50/100/200/500 XP
-- Skin nyeremenyek (3.5%): Galaxy 1.2%, Sakura 0.8%, Fire 0.5%, Stealth 0.4%, Golden 0.3%, Rainbow 0.2%, Glass 0.1%
-- Gomb letiltva porges kozben (dupla-kattintas vedelem)
+| Aura | Leiras |
+|------|--------|
+| Nincs | Vissza az alapokhoz |
+| Tulipan | Tavaszi viragaura |
+| Tuz | Langolo energia |
+| Sakura | Hullo szirmok |
+| Glitch | Digitalis zavar |
+| Szent | Egi ragyogas |
+| RGB | Gamer szinek |
+| Gyemant | Szikrazo jegkristaly |
 
 ### Szinkronizalas
 
-- 🔄 gomb a bolt headerben
+- 🔄 gomb a bolt headerben (az X melletti gomb)
 - Export: base64 kodolt JSON az osszes felhasznaloi adattal
-- Import: beillesztes + okos osszefesules (XP max, owned unio, kedvencek merge)
+- Import: beillesztes + okos osszefesules (owned unio, kedvencek merge)
 - URL hash import tamogatas (#sync=CODE)
 - Nincs szerver — copy-paste vagy uzenetkuldos megosztas
 
-### Tavaszi Ajandek
-
-- Elso belepes utan interaktiv ajandekdoboz jelenik meg
-- 3x koppintas → doboz kinyilik → felhasznalo megkapja: Tulipan Skin + Tavaszi Ret Hatter + Tulipan Aura
-- Targyak csak a doboz kinyitasa utan adodnak
-
 ### Szemelyes koszrontes
 
-- A fejlecben "Szia, [Nev]! ✨" jelenik meg
+- A fejlecben "Szia, [Nev]!" jelenik meg
 - Nevnapon: "Boldog nevnapot, [Nev]! 🎉"
 
 ### Nevnapok
@@ -165,41 +154,9 @@ Az ora alapjan automatikusan valtozik:
 
 ### Unnepi oltozekek
 
-- **Husvet** (dinamikus datumszamitas, apr 7-ig): husveti emojik a jatekban, Chicky skin vadaszat
 - Karacsony (dec 20–26), Mikulas (dec 6), Szilveszter (dec 31), Ujev (jan 1)
 - Halloween (okt 31), Valentin-nap (feb 14), Aprilis bolondok (apr 1)
 - Robot szulinapja (mar 26), Nemzeti unnepek: marc 15, aug 20, okt 23
-
-### Husvet logika (apr 7-ig)
-
-- `isPastEaster` flag: apr 7 utan automatikusan kikapcsol mindent
-- Husveti ikon (manifest + HTML) → apr 7 utan normal ikon
-- Jatek emojik: husvetig tojasok/nyulak, utana viragok
-- Chicky skin: 10x robot koppintas → titkos tojas animacio → skin feloldas
-- Bolt tipp: "Egy titkos husveti skin el van rejtve az appban!"
-
-### Graffiti (apr 10-tol)
-
-- Graffiti Skin + Graffiti Hatter egyutt jelenik meg apr 10-en
-- Elso nap (apr 10): 2000 XP aruert, szuperajanlat: csomag 1000 XP-ert
-- Masodik naptol (apr 11+): normal ar 350 XP
-- Datumkorlat: apr 10 elott nem lathato (kivetel: Kovrat nev)
-
-### Exkluziv targyak
-
-- **Kovrat** nev: minden skin/hatter/aura automatikusan feloldva (master unlock) — **kiveve Lo Skin** (az Rella exkluziv)
-- **Rella** nev: Lo Skin automatikusan feloldva (egyetlen felhasznalo akinek megvan)
-- **Zerend** nev: Gamer Skin + Hatter feloldva
-
-### Emoji Dodge minijáték
-
-- **Inditas**: robot hosszan nyomva tartasa (600ms long press)
-- **Jatekos**: CSS mini robot, jobbra-balra mozog ujjal huzva
-- **Emojik**: husvetig tojasok/nyulak, utana viragok (tulipan, napraforgo stb.)
-- **Sebesseg**: lassu indulas (0.8–1.4), 200 pont felett gyorsul (1.5–2.7+)
-- **Spawn**: 1400ms alap, 200 pont felett surusodik (min 500ms)
-- **XP rendszer**: 10 kikerult emoji = 50 XP, 3 elet, sebezhetetlenseg talat utan (1.2s)
-- **Hatter**: az aktualis napszak gradiens hattere
 
 ### Idojaras
 
@@ -225,32 +182,29 @@ Az ora alapjan automatikusan valtozik:
 ### Visibility change handler
 
 - `visibilitychange` esemeny figyeli ha az app hatterbol visszater
-- Ha kozben nap valtott (`td()` valtozas), teljes `location.reload()` — frissul a deal, uzenet, streak, minden
+- Ha kozben nap valtott (`td()` valtozas), teljes `location.reload()` — frissul az uzenet, streak, minden
 - Megoldja az Android PWA cache problemat: app eltavolitasa utan ujra megnyitva is friss tartalmat tolt
 
 ## File Structure
 
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
-manifest.json       — PWA manifest (standalone, husveti ikon apr 7-ig)
+manifest.json       — PWA manifest (standalone)
 sw.js               — Service Worker (cache v12 + ertesitesek + skipWaiting)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasznaloi dokumentacio
 bg-tulip.png        — Tavaszi Ret hatter kep
 bg-glass.png        — Labor Glass hatter kep
 bg-graffiti.png     — Graffiti hatter kep
-easter_robot_icon_1775165541166.png — husveti PWA ikon (apr 7-ig)
 icon/
   dailybot-icon.png — PWA ikon (PNG, 512x512)
   dailybot-icon.svg — PWA ikon (SVG forras)
 háttér/             — forras hatter kepek (nem hasznalja az app kozvetlenul)
-push-server/        — (nem hasznalatban) Vercel push szerver
 ```
 
 ## App Icon
 
-- Husvetig (apr 7): `easter_robot_icon_1775165541166.png`
-- Apr 7 utan: `icon/dailybot-icon.png` (automatikus JS valtás)
+- `icon/dailybot-icon.png`
 - Manifest: `any maskable` purpose
 
 ## Social
