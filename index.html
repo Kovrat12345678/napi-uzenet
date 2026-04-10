@@ -553,6 +553,30 @@
             filter:drop-shadow(0 0 10px rgba(56,189,248,.4));
         }
 
+        /* === TŰZOKÁDÁS === */
+        @keyframes fireParticle{
+            0%{opacity:1;transform:translateY(0) scale(1)}
+            100%{opacity:0;transform:translateY(-80px) scale(.3)}
+        }
+        @keyframes fireBurst{
+            0%{opacity:1;transform:translate(0,0) scale(.8)}
+            50%{opacity:.9;transform:translate(var(--fx),var(--fy)) scale(1.2)}
+            100%{opacity:0;transform:translate(calc(var(--fx)*1.5),calc(var(--fy)*2)) scale(.2)}
+        }
+        .dragon-fire{
+            position:absolute;pointer-events:none;z-index:50;
+            font-size:18px;animation:fireBurst .7s ease-out forwards;
+        }
+        .robot.dragon.breathing .eye{
+            background:linear-gradient(180deg,#fef08a,#f59e0b,#dc2626)!important;
+            box-shadow:0 0 20px rgba(245,158,11,.9),0 0 40px rgba(220,38,38,.5)!important;
+            transition:all .2s;
+        }
+        .robot.dragon.breathing .mouth{
+            border-color:#f59e0b!important;
+            box-shadow:0 0 12px rgba(245,158,11,.8)!important;
+        }
+
         /* === FAROK === */
         .robot.dragon .legs::after{
             content:'';position:absolute;bottom:5px;right:-38px;width:44px;height:10px;
@@ -2492,10 +2516,71 @@
         let tapBusy=false;
         const robotBtn=document.getElementById('btn');
 
+        function dragonFireBreath(){
+            const r=document.getElementById('robot');
+            r.classList.add('breathing');
+            const rect=r.getBoundingClientRect();
+            const cx=rect.left+rect.width/2;
+            const cy=rect.top+rect.height*0.35;
+            const flames=['🔥','🔥','🔥','💥','🧡','🔥','❤️‍🔥','🔥'];
+            for(let i=0;i<14;i++){
+                setTimeout(()=>{
+                    const f=document.createElement('div');
+                    f.className='dragon-fire';
+                    f.textContent=flames[Math.floor(Math.random()*flames.length)];
+                    f.style.left=(cx-10+Math.random()*20)+'px';
+                    f.style.top=(cy-10+Math.random()*10)+'px';
+                    f.style.setProperty('--fx',(Math.random()-.5)*60+'px');
+                    f.style.setProperty('--fy',(-30-Math.random()*60)+'px');
+                    f.style.fontSize=(14+Math.random()*16)+'px';
+                    document.body.appendChild(f);
+                    setTimeout(()=>f.remove(),700);
+                },i*80);
+            }
+            // Tűz hang
+            if(audioCtx){
+                const noise=audioCtx.createBufferSource();
+                const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.6,audioCtx.sampleRate);
+                const data=buf.getChannelData(0);
+                for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.max(0,1-i/data.length);
+                noise.buffer=buf;
+                const bp=audioCtx.createBiquadFilter();
+                bp.type='bandpass';bp.frequency.value=800;bp.Q.value=0.5;
+                const g=audioCtx.createGain();
+                g.gain.value=0.08;
+                g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.6);
+                noise.connect(bp);bp.connect(g);g.connect(audioCtx.destination);
+                noise.start();noise.stop(audioCtx.currentTime+0.6);
+            }
+            setTimeout(()=>r.classList.remove('breathing'),1200);
+        }
+
         function playTapReaction(){
             if(tapBusy) return;
             tapBusy=true;
             initAudio();
+
+            // Sárkány skin → tűzokádás
+            if(getActiveSkin()==='dragon'){
+                robotBtn.classList.add('tap-wave','talking');
+                dragonFireBreath();
+                const bE=document.getElementById('bE');
+                const bT=document.getElementById('bT');
+                const oldE=bE.textContent, oldT=bT.textContent;
+                bE.textContent='🔥';
+                bT.textContent='';
+                bubble.classList.add('show');
+                typeText(bT,'Rrraawwr!!',()=>{
+                    btn.classList.remove('talking');
+                    setTimeout(()=>{
+                        bE.textContent=oldE;bT.textContent=oldT;
+                        btn.classList.remove('tap-wave');
+                        tapBusy=false;
+                    },1500);
+                });
+                return;
+            }
+
             robotBtn.classList.add('tap-wave');
             robotBtn.classList.add('talking');
 
