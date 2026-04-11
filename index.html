@@ -14,6 +14,8 @@
     </script>
     <title>DailyBot 🤖</title>
     <style>
+        @property --dw-h{syntax:'<number>';inherits:true;initial-value:190}
+        @property --dw-s{syntax:'<percentage>';inherits:true;initial-value:80%}
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
         html{background-color:#f97316;min-height:100%;min-height:100dvh;min-height:-webkit-fill-available}
         body{width:100%;height:100%;min-height:100dvh;min-height:-webkit-fill-available;overflow:hidden;touch-action:manipulation;
@@ -582,6 +584,41 @@
             transition:width .3s ease;
         }
         .loading-pct{color:rgba(255,255,255,.5);font-size:12px;font-family:system-ui,sans-serif;font-weight:600}
+
+        /* ========== DRAGON SPIN ========== */
+        .dragon-spin-section{padding:20px 0 8px}
+        .dragon-spin-wrap{
+            display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 22px;
+        }
+        .dragon-spin-wheel{
+            position:relative;width:220px;height:220px;
+        }
+        .dragon-spin-canvas{
+            width:220px;height:220px;border-radius:50%;
+            border:3px solid rgba(56,189,248,.5);
+            box-shadow:0 0 30px rgba(14,165,233,.3),inset 0 0 20px rgba(0,0,0,.3);
+            transition:transform 4s cubic-bezier(.17,.67,.12,.99);
+        }
+        .dragon-spin-pointer{
+            position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+            width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;
+            border-top:20px solid #f59e0b;
+            filter:drop-shadow(0 2px 6px rgba(245,158,11,.6));z-index:2;
+        }
+        .dragon-spin-btn{
+            background:linear-gradient(135deg,#064e3b,#0c4a6e);
+            color:#7dd3fc;border:1.5px solid rgba(56,189,248,.4);
+            border-radius:14px;padding:10px 28px;font-size:15px;font-weight:700;
+            cursor:pointer;letter-spacing:.5px;
+            box-shadow:0 4px 15px rgba(14,165,233,.2);
+            transition:all .2s;
+        }
+        .dragon-spin-btn:active{transform:scale(.95)}
+        .dragon-spin-btn:disabled{opacity:.5;cursor:default}
+        .dragon-spin-result{
+            text-align:center;font-size:16px;font-weight:700;color:#fff;
+            min-height:24px;text-shadow:0 0 10px rgba(56,189,248,.5);
+        }
 
         /* Dragon (sárkány) robot skin — rejtvény jutalom */
         @keyframes dragonBreath{0%,100%{filter:brightness(1) drop-shadow(0 0 10px rgba(56,189,248,.4))}50%{filter:brightness(1.12) drop-shadow(0 0 24px rgba(56,189,248,.7))}}
@@ -1754,6 +1791,19 @@
                 <button class="riddle-submit" id="riddleSubmit">Küldés</button>
             </div>
             <div class="riddle-result" id="riddleResult"></div>
+        </div>
+
+        <!-- Dragon Spin — csak Sárkány Hét alatt látszik -->
+        <div class="dragon-spin-section" id="dragonSpinSection" style="display:none">
+            <div class="shop-section-title">🐉 Dragon Spin</div>
+            <div class="dragon-spin-wrap">
+                <div class="dragon-spin-wheel">
+                    <div class="dragon-spin-pointer"></div>
+                    <canvas class="dragon-spin-canvas" id="dragonSpinCanvas" width="440" height="440"></canvas>
+                </div>
+                <button class="dragon-spin-btn" id="dragonSpinBtn">🐉 Pörgesd meg!</button>
+                <div class="dragon-spin-result" id="dragonSpinResult"></div>
+            </div>
         </div>
 
         <div class="shop-section">
@@ -3005,9 +3055,13 @@
             const isDragonWeek=(y===2026&&m===3&&d>=11&&d<=17);
             if(!isDragonWeek) return;
 
-            // --- Cím ---
+            // --- Cím + Ikon ---
             document.title='🐉 DailyBot — Sárkány Hét';
             const tc=document.getElementById('themeColor');if(tc)tc.content='#042f2e';
+            // Sárkány favicon — SVG data URI
+            const dragonFav='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%230ea5e9"/><stop offset="100%" stop-color="%23065f46"/></linearGradient></defs><rect rx="14" width="64" height="64" fill="url(%23g)"/><text x="32" y="46" text-anchor="middle" font-size="38">🐉</text></svg>');
+            const fav=document.getElementById('favicon');if(fav){fav.type='image/svg+xml';fav.href=dragonFav;}
+            const aIcon=document.getElementById('appleIcon');if(aIcon)aIcon.href=dragonFav;
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
@@ -3029,7 +3083,7 @@
             const evtEl=document.getElementById('phEvent');
             if(evtEl) evtEl.textContent='🐉 Sárkány Hét! Április 11–17. 🔥';
 
-            // --- CSS parázs részecskék (nem emoji) ---
+            // --- CSS parázs részecskék ---
             function spawnParticle(){
                 const p=document.createElement('div');
                 p.className='dw-particle';
@@ -3047,159 +3101,141 @@
             // --- Tap = tűzokádás ---
             window._dragonWeekActive=true;
 
-            // --- Sárkány zene (Web Audio API) ---
-            // Misztikus ambient: mély dudaszínű drón, kínai/japán pentatonikus fuvola,
-            // távoli dobok, szél susogás, sárkány lélegzet effekt
+            // --- SÁRKÁNY ZENE — epikus, folyamatos háttérzene ---
+            // Mély sárkány morgás + epikus harci dobok + sötét vonósok + tűz csattanás
             function startDragonMusic(){
                 const ctx=new(window.AudioContext||window.webkitAudioContext)();
                 if(ctx.state==='suspended') ctx.resume();
                 const master=ctx.createGain();
-                master.gain.value=0.07;
+                master.gain.value=0.09;
                 master.connect(ctx.destination);
 
-                // Reverb — konvolúciós szimulálás egyszerű delay-jel
-                const reverb=ctx.createConvolver();
-                const revLen=ctx.sampleRate*3;
-                const revBuf=ctx.createBuffer(2,revLen,ctx.sampleRate);
-                for(let ch=0;ch<2;ch++){
-                    const d=revBuf.getChannelData(ch);
-                    for(let i=0;i<revLen;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/revLen,2.5);
-                }
-                reverb.buffer=revBuf;
-                const revGain=ctx.createGain();revGain.gain.value=0.3;
-                reverb.connect(revGain);revGain.connect(master);
+                // 1. Sárkány morgás — mély sawtooth, szűrve, lassan pulzál
+                const growl=ctx.createOscillator();growl.type='sawtooth';growl.frequency.value=40;
+                const growl2=ctx.createOscillator();growl2.type='sawtooth';growl2.frequency.value=41.5;
+                const gFilt=ctx.createBiquadFilter();gFilt.type='lowpass';gFilt.frequency.value=120;gFilt.Q.value=8;
+                const gGain=ctx.createGain();gGain.gain.value=0.3;
+                // LFO a szűrő frekvenciára — morgó hatás
+                const gLfo=ctx.createOscillator();gLfo.type='sine';gLfo.frequency.value=0.3;
+                const gLfoG=ctx.createGain();gLfoG.gain.value=60;
+                gLfo.connect(gLfoG);gLfoG.connect(gFilt.frequency);gLfo.start();
+                // Hangerő pulzálás
+                const gVolLfo=ctx.createOscillator();gVolLfo.type='sine';gVolLfo.frequency.value=0.08;
+                const gVolLfoG=ctx.createGain();gVolLfoG.gain.value=0.12;
+                gVolLfo.connect(gVolLfoG);gVolLfoG.connect(gGain.gain);gVolLfo.start();
+                growl.connect(gFilt);growl2.connect(gFilt);gFilt.connect(gGain);gGain.connect(master);
+                growl.start();growl2.start();
 
-                const dry=ctx.createGain();dry.gain.value=1;
-                dry.connect(master);dry.connect(reverb);
-
-                // Mély dudadrón — kvint + alaphang
-                function drone(freq,vol,type){
-                    const o=ctx.createOscillator();o.type=type||'sine';o.frequency.value=freq;
+                // 2. Sötét power chord drón — kvint D1+A1
+                function powerDrone(freq,vol){
+                    const o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=freq;
+                    const f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=300;f.Q.value=1;
                     const g=ctx.createGain();g.gain.value=0;
-                    g.gain.linearRampToValueAtTime(vol,ctx.currentTime+4);
-                    const lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.06+Math.random()*0.08;
-                    const lg=ctx.createGain();lg.gain.value=freq*0.008;
-                    lfo.connect(lg);lg.connect(o.frequency);lfo.start();
-                    o.connect(g);g.connect(dry);o.start();
+                    g.gain.linearRampToValueAtTime(vol,ctx.currentTime+3);
+                    o.connect(f);f.connect(g);g.connect(master);o.start();
                 }
-                drone(55,0.35,'sine');      // A1
-                drone(82.41,0.2,'sine');     // E2 — kvint
-                drone(110,0.12,'triangle');  // A2 felhang
-                drone(73.42,0.08,'sine');    // D2 — subdominant szín
+                powerDrone(36.71,0.15); // D1
+                powerDrone(55,0.1);     // A1
+                powerDrone(73.42,0.06); // D2
 
-                // Pentatonikus fuvola dallam — lassú, meditatív
-                const scale=[293.66,329.63,392,440,523.25,587.33,659.25,783.99]; // D pentatonikus + oktáv
-                let lastNote=0;
-                function fluteNote(){
-                    let idx=Math.floor(Math.random()*scale.length);
-                    // Lépj maximum 2-t a skálán — dallamosabb
-                    if(lastNote){
-                        const lastIdx=scale.indexOf(lastNote);
-                        if(lastIdx>=0){
-                            const step=Math.floor(Math.random()*5)-2; // -2..+2
-                            idx=Math.max(0,Math.min(scale.length-1,lastIdx+step));
-                        }
-                    }
-                    const freq=scale[idx];lastNote=freq;
-                    const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq;
-                    // Vibrato
-                    const vib=ctx.createOscillator();vib.type='sine';vib.frequency.value=5;
-                    const vibG=ctx.createGain();vibG.gain.value=freq*0.006;
-                    vib.connect(vibG);vibG.connect(o.frequency);vib.start();
-                    const g=ctx.createGain();
-                    const dur=1.5+Math.random()*3;
+                // 3. Epikus harci dobok — folyamatos, lassú tempó
+                const drumPatterns=[
+                    [1,0,0,0,0.6,0,0.3,0], // kick pattern
+                    [0,0,1,0,0,0,1,0.4]     // snare pattern
+                ];
+                let beatIdx=0;
+                const BPM=50;
+                const beatMs=60000/BPM/2;
+                function epicDrum(){
+                    const kickVol=drumPatterns[0][beatIdx%8];
+                    const snareVol=drumPatterns[1][beatIdx%8];
                     const t=ctx.currentTime;
-                    g.gain.setValueAtTime(0,t);
-                    g.gain.linearRampToValueAtTime(0.12+Math.random()*0.06,t+0.3);
-                    g.gain.setValueAtTime(0.12,t+dur*0.6);
-                    g.gain.linearRampToValueAtTime(0,t+dur);
-                    // Szűrő — fuvolás karakter
-                    const filt=ctx.createBiquadFilter();filt.type='lowpass';filt.frequency.value=1500+Math.random()*800;filt.Q.value=1;
-                    o.connect(filt);filt.connect(g);g.connect(dry);
-                    o.start();o.stop(t+dur);vib.stop(t+dur);
-                    // Szünet a hangjegyek között — természetes ritmus
-                    const pause=Math.random()>0.3?(1500+Math.random()*3500):(4000+Math.random()*4000);
-                    setTimeout(fluteNote,pause);
+                    if(kickVol>0){
+                        // Taiko kick
+                        const o=ctx.createOscillator();o.type='sine';
+                        o.frequency.setValueAtTime(90,t);
+                        o.frequency.exponentialRampToValueAtTime(35,t+0.4);
+                        const g=ctx.createGain();
+                        g.gain.setValueAtTime(0.2*kickVol,t);
+                        g.gain.exponentialRampToValueAtTime(0.001,t+0.6);
+                        o.connect(g);g.connect(master);o.start(t);o.stop(t+0.6);
+                    }
+                    if(snareVol>0){
+                        // Harci dob
+                        const nb=ctx.createBuffer(1,ctx.sampleRate*0.2,ctx.sampleRate);
+                        const nd=nb.getChannelData(0);
+                        for(let i=0;i<nd.length;i++) nd[i]=(Math.random()*2-1)*Math.pow(1-i/nd.length,2);
+                        const ns=ctx.createBufferSource();ns.buffer=nb;
+                        const nf=ctx.createBiquadFilter();nf.type='bandpass';nf.frequency.value=300;nf.Q.value=1;
+                        const ng=ctx.createGain();ng.gain.setValueAtTime(0.08*snareVol,t);
+                        ng.gain.exponentialRampToValueAtTime(0.001,t+0.3);
+                        ns.connect(nf);nf.connect(ng);ng.connect(master);ns.start(t);
+                    }
+                    beatIdx++;
+                    setTimeout(epicDrum,beatMs);
                 }
-                setTimeout(fluteNote,2000);
+                setTimeout(epicDrum,1000);
 
-                // Távoli rituális dobok — nagyon halk, lassú
-                function ritualDrum(){
-                    const o=ctx.createOscillator();o.type='sine';
-                    o.frequency.setValueAtTime(80+Math.random()*30,ctx.currentTime);
-                    o.frequency.exponentialRampToValueAtTime(40,ctx.currentTime+0.5);
-                    const g=ctx.createGain();
-                    g.gain.setValueAtTime(0.08+Math.random()*0.04,ctx.currentTime);
-                    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.8);
-                    // Noise layer
-                    const nBuf=ctx.createBuffer(1,ctx.sampleRate*0.15,ctx.sampleRate);
-                    const nd=nBuf.getChannelData(0);
-                    for(let i=0;i<nd.length;i++) nd[i]=(Math.random()*2-1)*Math.pow(1-i/nd.length,3);
-                    const ns=ctx.createBufferSource();ns.buffer=nBuf;
-                    const ng=ctx.createGain();ng.gain.value=0.03;
-                    const nbp=ctx.createBiquadFilter();nbp.type='lowpass';nbp.frequency.value=200;
-                    ns.connect(nbp);nbp.connect(ng);ng.connect(dry);ns.start();
-                    o.connect(g);g.connect(dry);o.start();o.stop(ctx.currentTime+0.8);
-                    // Következő ütés — lassú, szabálytalan
-                    const next=2000+Math.random()*6000;
-                    setTimeout(ritualDrum,next);
+                // 4. Sárkány tűz lélegzet effekt — időnként
+                function fireBreathSound(){
+                    const t=ctx.currentTime;
+                    const nb=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);
+                    const nd=nb.getChannelData(0);
+                    for(let i=0;i<nd.length;i++){
+                        const env=i<nd.length*0.1?i/(nd.length*0.1):Math.pow(1-(i-nd.length*0.1)/(nd.length*0.9),1.5);
+                        nd[i]=(Math.random()*2-1)*env;
+                    }
+                    const ns=ctx.createBufferSource();ns.buffer=nb;
+                    const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=600;bp.Q.value=0.5;
+                    // Sweep a szűrőn
+                    bp.frequency.setValueAtTime(200,t);
+                    bp.frequency.linearRampToValueAtTime(1200,t+0.5);
+                    bp.frequency.linearRampToValueAtTime(400,t+2);
+                    const fg=ctx.createGain();fg.gain.value=0.06;
+                    ns.connect(bp);bp.connect(fg);fg.connect(master);ns.start(t);
+                    setTimeout(fireBreathSound,10000+Math.random()*15000);
                 }
-                setTimeout(ritualDrum,5000);
+                setTimeout(fireBreathSound,4000);
 
-                // Szél / sárkány lélegzet — szűrt fehérzaj, lassan pulzáló
-                const windLen=ctx.sampleRate*6;
-                const wBuf=ctx.createBuffer(1,windLen,ctx.sampleRate);
-                const wd=wBuf.getChannelData(0);
-                for(let i=0;i<windLen;i++) wd[i]=(Math.random()*2-1);
-                const ws=ctx.createBufferSource();ws.buffer=wBuf;ws.loop=true;
-                const wbp=ctx.createBiquadFilter();wbp.type='bandpass';wbp.frequency.value=250;wbp.Q.value=0.3;
-                const wg=ctx.createGain();wg.gain.value=0;
-                wg.gain.linearRampToValueAtTime(0.06,ctx.currentTime+5);
-                const wlfo=ctx.createOscillator();wlfo.type='sine';wlfo.frequency.value=0.05;
-                const wlg=ctx.createGain();wlg.gain.value=0.03;
-                wlfo.connect(wlg);wlg.connect(wg.gain);wlfo.start();
-                ws.connect(wbp);wbp.connect(wg);wg.connect(dry);ws.start();
-
-                // Távoli harang — időnként
-                function bell(){
-                    const freqs=[523.25,659.25,783.99];
-                    const f=freqs[Math.floor(Math.random()*freqs.length)];
-                    const o=ctx.createOscillator();o.type='sine';o.frequency.value=f;
-                    const o2=ctx.createOscillator();o2.type='sine';o2.frequency.value=f*2.01;
-                    const g=ctx.createGain();
-                    g.gain.setValueAtTime(0.04,ctx.currentTime);
-                    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+4);
-                    const g2=ctx.createGain();
-                    g2.gain.setValueAtTime(0.015,ctx.currentTime);
-                    g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3);
-                    o.connect(g);g.connect(dry);o2.connect(g2);g2.connect(dry);
-                    o.start();o2.start();o.stop(ctx.currentTime+4);o2.stop(ctx.currentTime+3);
-                    setTimeout(bell,8000+Math.random()*15000);
+                // 5. Sötét vonós pad — moll akkord, lassú swell
+                function darkPad(){
+                    const t=ctx.currentTime;
+                    const notes=[146.83,174.61,220]; // D3, F3, A3 — D moll
+                    notes.forEach(freq=>{
+                        const o=ctx.createOscillator();o.type='triangle';o.frequency.value=freq;
+                        const o2=ctx.createOscillator();o2.type='sawtooth';o2.frequency.value=freq*1.002;
+                        const f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=600;f.Q.value=0.5;
+                        const g=ctx.createGain();
+                        const dur=8+Math.random()*6;
+                        g.gain.setValueAtTime(0,t);
+                        g.gain.linearRampToValueAtTime(0.04,t+dur*0.4);
+                        g.gain.linearRampToValueAtTime(0,t+dur);
+                        const g2=ctx.createGain();g2.gain.value=0.3;
+                        o.connect(f);o2.connect(g2);g2.connect(f);f.connect(g);g.connect(master);
+                        o.start(t);o2.start(t);o.stop(t+dur);o2.stop(t+dur);
+                    });
+                    setTimeout(darkPad,12000+Math.random()*8000);
                 }
-                setTimeout(bell,6000);
+                setTimeout(darkPad,3000);
             }
 
-            // Zene indítás — azonnal próbáljuk, de ha a böngésző blokkolja,
-            // a legapróbb interakciónál indul (scroll, mousemove, stb.)
+            // Zene — folyamatosan megy, NEM a robot megnyomásától függ
             let musicOn=false;
             function tryMusic(){
                 if(musicOn) return;
-                musicOn=true;
-                try{startDragonMusic();}catch(e){musicOn=false;}
+                try{
+                    startDragonMusic();
+                    musicOn=true;
+                }catch(e){/* böngésző blokkolta, várunk */}
             }
-            // Azonnal
+            // Azonnal próbáljuk
             tryMusic();
-            // Minden lehetséges eseményre
-            ['click','touchstart','touchend','mousedown','keydown','scroll','mousemove','pointerdown'].forEach(evt=>{
-                document.addEventListener(evt,function h(){
-                    tryMusic();
-                    document.removeEventListener(evt,h);
-                },{once:true,passive:true});
+            // Minden lehetséges interakcióra
+            ['click','touchstart','touchend','mousedown','keydown','scroll','mousemove','pointerdown','focus'].forEach(evt=>{
+                document.addEventListener(evt,()=>tryMusic(),{once:true,passive:true});
             });
-            // Visibility change — ha hátterbe tettük és visszajön
-            document.addEventListener('visibilitychange',()=>{
-                if(!document.hidden) tryMusic();
-            });
+            window.addEventListener('focus',()=>tryMusic(),{once:true});
+            document.addEventListener('visibilitychange',()=>{if(!document.hidden)tryMusic();});
         })();
 
 
@@ -3375,6 +3411,130 @@
 
                 submitBtn.addEventListener('click',tryAnswer);
                 input.addEventListener('keydown',e=>{if(e.key==='Enter')tryAnswer()});
+            })();
+
+            // ========== DRAGON SPIN (Sárkány Hét) ==========
+            (function(){
+                const now=new Date();
+                const isDW=(now.getFullYear()===2026&&now.getMonth()===3&&now.getDate()>=11&&now.getDate()<=17);
+                if(!isDW) return;
+
+                const section=document.getElementById('dragonSpinSection');
+                if(!section) return;
+                section.style.display='block';
+
+                const canvas=document.getElementById('dragonSpinCanvas');
+                const ctx2d=canvas.getContext('2d');
+                const spinBtn=document.getElementById('dragonSpinBtn');
+                const resultEl=document.getElementById('dragonSpinResult');
+
+                const prizes=[
+                    {text:'Tűzokádás!',emoji:'🔥',action:'fire'},
+                    {text:'+1 Sárkány erő',emoji:'💪',action:'msg'},
+                    {text:'Jéglélegzet!',emoji:'❄️',action:'ice'},
+                    {text:'Sárkánytojás',emoji:'🥚',action:'msg'},
+                    {text:'Arany kincs!',emoji:'💰',action:'gold'},
+                    {text:'Sárkányszárny',emoji:'🦇',action:'msg'},
+                    {text:'Tűzvihar!',emoji:'🌪️',action:'storm'},
+                    {text:'Kristály pikkelyek',emoji:'💎',action:'msg'},
+                ];
+                const colors=['#064e3b','#0c4a6e','#065f46','#0369a1','#042f2e','#075985','#064e3b','#0c4a6e'];
+                const segAngle=Math.PI*2/prizes.length;
+
+                function drawWheel(rotation){
+                    ctx2d.clearRect(0,0,440,440);
+                    ctx2d.save();
+                    ctx2d.translate(220,220);
+                    ctx2d.rotate(rotation);
+                    prizes.forEach((p,i)=>{
+                        const start=i*segAngle-Math.PI/2;
+                        const end=start+segAngle;
+                        ctx2d.beginPath();
+                        ctx2d.moveTo(0,0);
+                        ctx2d.arc(0,0,210,start,end);
+                        ctx2d.closePath();
+                        ctx2d.fillStyle=colors[i];
+                        ctx2d.fill();
+                        ctx2d.strokeStyle='rgba(56,189,248,.3)';
+                        ctx2d.lineWidth=2;
+                        ctx2d.stroke();
+                        // Szöveg
+                        ctx2d.save();
+                        ctx2d.rotate(start+segAngle/2);
+                        ctx2d.textAlign='center';
+                        ctx2d.fillStyle='#fff';
+                        ctx2d.font='bold 26px system-ui';
+                        ctx2d.fillText(p.emoji,130,4);
+                        ctx2d.font='bold 13px system-ui';
+                        ctx2d.fillStyle='rgba(255,255,255,.85)';
+                        ctx2d.fillText(p.text,130,22);
+                        ctx2d.restore();
+                    });
+                    ctx2d.restore();
+                    // Közép kör
+                    ctx2d.beginPath();
+                    ctx2d.arc(220,220,28,0,Math.PI*2);
+                    ctx2d.fillStyle='#042f2e';ctx2d.fill();
+                    ctx2d.strokeStyle='rgba(56,189,248,.5)';ctx2d.lineWidth=3;ctx2d.stroke();
+                    ctx2d.fillStyle='#7dd3fc';ctx2d.font='bold 22px system-ui';
+                    ctx2d.textAlign='center';ctx2d.textBaseline='middle';
+                    ctx2d.fillText('🐉',220,220);
+                }
+                drawWheel(0);
+
+                let spinning=false;
+                let currentRotation=0;
+
+                spinBtn.addEventListener('click',()=>{
+                    if(spinning) return;
+                    spinning=true;
+                    spinBtn.disabled=true;
+                    resultEl.textContent='';
+
+                    const winIdx=Math.floor(Math.random()*prizes.length);
+                    // Forgás: teljes körök + nyerő pozíció
+                    const fullSpins=5+Math.floor(Math.random()*3);
+                    const targetAngle=fullSpins*Math.PI*2 + (prizes.length-winIdx)*segAngle - segAngle/2;
+                    currentRotation+=targetAngle;
+
+                    // Animáció
+                    canvas.style.transition='none';
+                    canvas.offsetHeight;
+                    canvas.style.transition='transform 4s cubic-bezier(.17,.67,.12,.99)';
+                    canvas.style.transform='rotate('+currentRotation+'rad)';
+
+                    setTimeout(()=>{
+                        const prize=prizes[winIdx];
+                        resultEl.textContent=prize.emoji+' '+prize.text+' '+prize.emoji;
+
+                        // Speciális effektek
+                        if(prize.action==='fire'&&typeof dragonFireBreath==='function'){
+                            dragonFireBreath();
+                        }
+                        if(prize.action==='storm'||prize.action==='ice'||prize.action==='gold'){
+                            // Konfetti-szerű effekt
+                            const cEl=document.getElementById('cfx');
+                            if(cEl){
+                                for(let j=0;j<20;j++){
+                                    const sp=document.createElement('div');
+                                    sp.className='confetti-particle';
+                                    const cx=window.innerWidth/2-10+Math.random()*20;
+                                    const cy=window.innerHeight/2;
+                                    const x=(Math.random()-.5)*200;
+                                    const y=(Math.random()-.5)*200-100;
+                                    const sz=4+Math.random()*6;
+                                    const hue=prize.action==='ice'?190+Math.random()*40:prize.action==='gold'?40+Math.random()*20:Math.random()*360;
+                                    sp.style.cssText='width:'+sz+'px;height:'+sz+'px;background:hsl('+hue+',80%,60%);left:'+cx+'px;top:'+cy+'px;--x:'+x+'px;--y:'+y+'px;--r:'+(Math.random()*720-360)+'deg;border-radius:'+(Math.random()>.5?'50%':'2px');
+                                    cEl.appendChild(sp);
+                                    setTimeout(()=>sp.remove(),1200);
+                                }
+                            }
+                        }
+
+                        spinning=false;
+                        spinBtn.disabled=false;
+                    },4200);
+                });
             })();
 
         })();
