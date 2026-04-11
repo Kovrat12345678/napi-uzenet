@@ -1606,12 +1606,19 @@
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <img class="loading-icon" src="icon/dailybot-icon.png" alt="DailyBot">
+        <img class="loading-icon" id="loadingIcon" alt="DailyBot">
         <div class="loading-bar-wrap"><div class="loading-bar" id="loadingBar"></div></div>
         <div class="loading-pct" id="loadingPct">0%</div>
     </div>
     <script>
     (function(){
+        // Sárkány Hét ikon a loading screen-en
+        const now=new Date();
+        const isDW=(now.getFullYear()===2026&&now.getMonth()===3&&now.getDate()>=11&&now.getDate()<=17);
+        const li=document.getElementById('loadingIcon');
+        li.src=isDW?'icon/dragon-icon.svg':'icon/dailybot-icon.png';
+        // Loading screen háttér is sárkányos
+        if(isDW) document.getElementById('loadingScreen').style.background='linear-gradient(165deg,#042f2e 0%,#064e3b 30%,#0c4a6e 60%,#0f172a 100%)';
         const bar=document.getElementById('loadingBar');
         const pct=document.getElementById('loadingPct');
         const screen=document.getElementById('loadingScreen');
@@ -3055,28 +3062,35 @@
             const isDragonWeek=(y===2026&&m===3&&d>=11&&d<=17);
             if(!isDragonWeek) return;
 
-            // --- Cím + Ikon ---
+            // --- Cím + Ikon (SVG → PNG konverzió canvas-szal) ---
             document.title='🐉 DailyBot — Sárkány Hét';
             const tc=document.getElementById('themeColor');if(tc)tc.content='#042f2e';
-            // Sárkány ikon — SVG fájl
-            const dragonIconUrl='icon/dragon-icon.svg';
-            const fav=document.getElementById('favicon');if(fav){fav.type='image/svg+xml';fav.href=dragonIconUrl;}
-            const aIcon=document.getElementById('appleIcon');if(aIcon)aIcon.href=dragonIconUrl;
-            // Manifest is sárkányos — dinamikus blob manifest
-            const dManifest={
-                name:'🐉 DailyBot — Sárkány Hét',short_name:'🐉 DailyBot',
-                description:'Sárkány Hét — április 11-17.',
-                start_url:'.',scope:'.',display:'standalone',
-                background_color:'#042f2e',theme_color:'#042f2e',
-                orientation:'portrait',lang:'hu',
-                icons:[
-                    {src:dragonIconUrl,sizes:'512x512',type:'image/svg+xml',purpose:'any'},
-                    {src:dragonIconUrl,sizes:'192x192',type:'image/svg+xml',purpose:'any'}
-                ]
+            // SVG → PNG konvertálás, hogy minden böngészőben/iOS-en is működjön
+            const iconImg=new Image();
+            iconImg.onload=function(){
+                const cv=document.createElement('canvas');cv.width=512;cv.height=512;
+                const cx=cv.getContext('2d');cx.drawImage(iconImg,0,0,512,512);
+                const pngUrl=cv.toDataURL('image/png');
+                // Favicon
+                const fav=document.getElementById('favicon');
+                if(fav){fav.type='image/png';fav.href=pngUrl;}
+                // Apple touch icon
+                const aIcon=document.getElementById('appleIcon');
+                if(aIcon)aIcon.href=pngUrl;
+                // Manifest
+                const dManifest={
+                    name:'🐉 DailyBot — Sárkány Hét',short_name:'🐉 DailyBot',
+                    description:'Sárkány Hét — április 11-17.',
+                    start_url:'.',scope:'.',display:'standalone',
+                    background_color:'#042f2e',theme_color:'#042f2e',
+                    orientation:'portrait',lang:'hu',
+                    icons:[{src:pngUrl,sizes:'512x512',type:'image/png',purpose:'any'}]
+                };
+                const mBlob=new Blob([JSON.stringify(dManifest)],{type:'application/json'});
+                const mLink=document.getElementById('manifestLink');
+                if(mLink) mLink.href=URL.createObjectURL(mBlob);
             };
-            const mBlob=new Blob([JSON.stringify(dManifest)],{type:'application/json'});
-            const mLink=document.getElementById('manifestLink');
-            if(mLink) mLink.href=URL.createObjectURL(mBlob);
+            iconImg.src='icon/dragon-icon.svg';
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
@@ -3116,122 +3130,101 @@
             // --- Tap = tűzokádás ---
             window._dragonWeekActive=true;
 
-            // --- SÁRKÁNY ZENE — epikus, folyamatos háttérzene ---
-            // Mély sárkány morgás + epikus harci dobok + sötét vonósok + tűz csattanás
+            // --- ŐSI SÁRKÁNY ZENE — csendes, misztikus, meditatív ---
             function startDragonMusic(){
                 const ctx=new(window.AudioContext||window.webkitAudioContext)();
                 if(ctx.state==='suspended') ctx.resume();
                 const master=ctx.createGain();
-                master.gain.value=0.09;
+                master.gain.value=0.05; // nagyon halk
+
+                // Reverb
+                const rev=ctx.createConvolver();
+                const rLen=ctx.sampleRate*4;
+                const rBuf=ctx.createBuffer(2,rLen,ctx.sampleRate);
+                for(let ch=0;ch<2;ch++){const d=rBuf.getChannelData(ch);for(let i=0;i<rLen;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/rLen,3);}
+                rev.buffer=rBuf;
+                const rG=ctx.createGain();rG.gain.value=0.4;
+                rev.connect(rG);rG.connect(master);
+                const dry=ctx.createGain();dry.gain.value=1;
+                dry.connect(master);dry.connect(rev);
                 master.connect(ctx.destination);
 
-                // 1. Sárkány morgás — mély sawtooth, szűrve, lassan pulzál
-                const growl=ctx.createOscillator();growl.type='sawtooth';growl.frequency.value=40;
-                const growl2=ctx.createOscillator();growl2.type='sawtooth';growl2.frequency.value=41.5;
-                const gFilt=ctx.createBiquadFilter();gFilt.type='lowpass';gFilt.frequency.value=120;gFilt.Q.value=8;
-                const gGain=ctx.createGain();gGain.gain.value=0.3;
-                // LFO a szűrő frekvenciára — morgó hatás
-                const gLfo=ctx.createOscillator();gLfo.type='sine';gLfo.frequency.value=0.3;
-                const gLfoG=ctx.createGain();gLfoG.gain.value=60;
-                gLfo.connect(gLfoG);gLfoG.connect(gFilt.frequency);gLfo.start();
-                // Hangerő pulzálás
-                const gVolLfo=ctx.createOscillator();gVolLfo.type='sine';gVolLfo.frequency.value=0.08;
-                const gVolLfoG=ctx.createGain();gVolLfoG.gain.value=0.12;
-                gVolLfo.connect(gVolLfoG);gVolLfoG.connect(gGain.gain);gVolLfo.start();
-                growl.connect(gFilt);growl2.connect(gFilt);gFilt.connect(gGain);gGain.connect(master);
-                growl.start();growl2.start();
+                // 1. Mély om drón — egyetlen mély szinusz, alig hallható, lassan lélegzik
+                const om=ctx.createOscillator();om.type='sine';om.frequency.value=55; // A1
+                const omG=ctx.createGain();omG.gain.value=0;
+                omG.gain.linearRampToValueAtTime(0.25,ctx.currentTime+6);
+                const omLfo=ctx.createOscillator();omLfo.type='sine';omLfo.frequency.value=0.04;
+                const omLG=ctx.createGain();omLG.gain.value=0.08;
+                omLfo.connect(omLG);omLG.connect(omG.gain);omLfo.start();
+                om.connect(omG);omG.connect(dry);om.start();
 
-                // 2. Sötét power chord drón — kvint D1+A1
-                function powerDrone(freq,vol){
-                    const o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=freq;
-                    const f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=300;f.Q.value=1;
-                    const g=ctx.createGain();g.gain.value=0;
-                    g.gain.linearRampToValueAtTime(vol,ctx.currentTime+3);
-                    o.connect(f);f.connect(g);g.connect(master);o.start();
-                }
-                powerDrone(36.71,0.15); // D1
-                powerDrone(55,0.1);     // A1
-                powerDrone(73.42,0.06); // D2
+                // 2. Kvint felhang — alig hallható, éteri
+                const fifth=ctx.createOscillator();fifth.type='sine';fifth.frequency.value=82.41; // E2
+                const fG=ctx.createGain();fG.gain.value=0;
+                fG.gain.linearRampToValueAtTime(0.08,ctx.currentTime+8);
+                fifth.connect(fG);fG.connect(dry);fifth.start();
 
-                // 3. Epikus harci dobok — folyamatos, lassú tempó
-                const drumPatterns=[
-                    [1,0,0,0,0.6,0,0.3,0], // kick pattern
-                    [0,0,1,0,0,0,1,0.4]     // snare pattern
-                ];
-                let beatIdx=0;
-                const BPM=50;
-                const beatMs=60000/BPM/2;
-                function epicDrum(){
-                    const kickVol=drumPatterns[0][beatIdx%8];
-                    const snareVol=drumPatterns[1][beatIdx%8];
+                // 3. Szél susogás — nagyon halk, lassan hullámzó
+                const wLen=ctx.sampleRate*8;
+                const wBuf=ctx.createBuffer(1,wLen,ctx.sampleRate);
+                const wd=wBuf.getChannelData(0);
+                for(let i=0;i<wLen;i++) wd[i]=(Math.random()*2-1);
+                const ws=ctx.createBufferSource();ws.buffer=wBuf;ws.loop=true;
+                const wF=ctx.createBiquadFilter();wF.type='bandpass';wF.frequency.value=200;wF.Q.value=0.2;
+                const wG=ctx.createGain();wG.gain.value=0;
+                wG.gain.linearRampToValueAtTime(0.04,ctx.currentTime+10);
+                const wLfo=ctx.createOscillator();wLfo.type='sine';wLfo.frequency.value=0.03;
+                const wLG=ctx.createGain();wLG.gain.value=0.02;
+                wLfo.connect(wLG);wLG.connect(wG.gain);wLfo.start();
+                ws.connect(wF);wF.connect(wG);wG.connect(dry);ws.start();
+
+                // 4. Ősi fuvola — lassú, pentatonikus, nagy szünetekkel
+                const scale=[220,261.63,293.66,392,440]; // A moll pentatonikus
+                let lastN=-1;
+                function ancientFlute(){
+                    let idx;
+                    do{idx=Math.floor(Math.random()*scale.length);}while(idx===lastN&&scale.length>1);
+                    lastN=idx;
+                    const freq=scale[idx]*(Math.random()>0.7?2:1); // néha oktávval feljebb
                     const t=ctx.currentTime;
-                    if(kickVol>0){
-                        // Taiko kick
-                        const o=ctx.createOscillator();o.type='sine';
-                        o.frequency.setValueAtTime(90,t);
-                        o.frequency.exponentialRampToValueAtTime(35,t+0.4);
-                        const g=ctx.createGain();
-                        g.gain.setValueAtTime(0.2*kickVol,t);
-                        g.gain.exponentialRampToValueAtTime(0.001,t+0.6);
-                        o.connect(g);g.connect(master);o.start(t);o.stop(t+0.6);
-                    }
-                    if(snareVol>0){
-                        // Harci dob
-                        const nb=ctx.createBuffer(1,ctx.sampleRate*0.2,ctx.sampleRate);
-                        const nd=nb.getChannelData(0);
-                        for(let i=0;i<nd.length;i++) nd[i]=(Math.random()*2-1)*Math.pow(1-i/nd.length,2);
-                        const ns=ctx.createBufferSource();ns.buffer=nb;
-                        const nf=ctx.createBiquadFilter();nf.type='bandpass';nf.frequency.value=300;nf.Q.value=1;
-                        const ng=ctx.createGain();ng.gain.setValueAtTime(0.08*snareVol,t);
-                        ng.gain.exponentialRampToValueAtTime(0.001,t+0.3);
-                        ns.connect(nf);nf.connect(ng);ng.connect(master);ns.start(t);
-                    }
-                    beatIdx++;
-                    setTimeout(epicDrum,beatMs);
+                    const dur=3+Math.random()*5;
+                    const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq;
+                    // Gyenge vibrato
+                    const vib=ctx.createOscillator();vib.type='sine';vib.frequency.value=4;
+                    const vibG=ctx.createGain();vibG.gain.value=freq*0.004;
+                    vib.connect(vibG);vibG.connect(o.frequency);vib.start();
+                    const g=ctx.createGain();
+                    // Nagyon lágy attack és release
+                    g.gain.setValueAtTime(0,t);
+                    g.gain.linearRampToValueAtTime(0.06+Math.random()*0.03,t+1.2);
+                    g.gain.setValueAtTime(0.05,t+dur*0.5);
+                    g.gain.linearRampToValueAtTime(0,t+dur);
+                    const filt=ctx.createBiquadFilter();filt.type='lowpass';
+                    filt.frequency.value=800+Math.random()*400;filt.Q.value=0.5;
+                    o.connect(filt);filt.connect(g);g.connect(dry);
+                    o.start(t);o.stop(t+dur);vib.stop(t+dur);
+                    // Nagy szünetek — csend a hangok között
+                    setTimeout(ancientFlute,4000+Math.random()*8000);
                 }
-                setTimeout(epicDrum,1000);
+                setTimeout(ancientFlute,5000);
 
-                // 4. Sárkány tűz lélegzet effekt — időnként
-                function fireBreathSound(){
+                // 5. Távoli tibeti harang — ritkán, nagyon halkan
+                function tibetanBell(){
                     const t=ctx.currentTime;
-                    const nb=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);
-                    const nd=nb.getChannelData(0);
-                    for(let i=0;i<nd.length;i++){
-                        const env=i<nd.length*0.1?i/(nd.length*0.1):Math.pow(1-(i-nd.length*0.1)/(nd.length*0.9),1.5);
-                        nd[i]=(Math.random()*2-1)*env;
-                    }
-                    const ns=ctx.createBufferSource();ns.buffer=nb;
-                    const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=600;bp.Q.value=0.5;
-                    // Sweep a szűrőn
-                    bp.frequency.setValueAtTime(200,t);
-                    bp.frequency.linearRampToValueAtTime(1200,t+0.5);
-                    bp.frequency.linearRampToValueAtTime(400,t+2);
-                    const fg=ctx.createGain();fg.gain.value=0.06;
-                    ns.connect(bp);bp.connect(fg);fg.connect(master);ns.start(t);
-                    setTimeout(fireBreathSound,10000+Math.random()*15000);
+                    const freq=392*(1+Math.floor(Math.random()*3)*0.5); // G4, C5, vagy E5
+                    const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq;
+                    const o2=ctx.createOscillator();o2.type='sine';o2.frequency.value=freq*2.003;
+                    const g=ctx.createGain();
+                    g.gain.setValueAtTime(0.03,t);
+                    g.gain.exponentialRampToValueAtTime(0.001,t+6);
+                    const g2=ctx.createGain();
+                    g2.gain.setValueAtTime(0.01,t);
+                    g2.gain.exponentialRampToValueAtTime(0.001,t+4);
+                    o.connect(g);g.connect(dry);o2.connect(g2);g2.connect(dry);
+                    o.start(t);o2.start(t);o.stop(t+6);o2.stop(t+4);
+                    setTimeout(tibetanBell,15000+Math.random()*25000);
                 }
-                setTimeout(fireBreathSound,4000);
-
-                // 5. Sötét vonós pad — moll akkord, lassú swell
-                function darkPad(){
-                    const t=ctx.currentTime;
-                    const notes=[146.83,174.61,220]; // D3, F3, A3 — D moll
-                    notes.forEach(freq=>{
-                        const o=ctx.createOscillator();o.type='triangle';o.frequency.value=freq;
-                        const o2=ctx.createOscillator();o2.type='sawtooth';o2.frequency.value=freq*1.002;
-                        const f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=600;f.Q.value=0.5;
-                        const g=ctx.createGain();
-                        const dur=8+Math.random()*6;
-                        g.gain.setValueAtTime(0,t);
-                        g.gain.linearRampToValueAtTime(0.04,t+dur*0.4);
-                        g.gain.linearRampToValueAtTime(0,t+dur);
-                        const g2=ctx.createGain();g2.gain.value=0.3;
-                        o.connect(f);o2.connect(g2);g2.connect(f);f.connect(g);g.connect(master);
-                        o.start(t);o2.start(t);o.stop(t+dur);o2.stop(t+dur);
-                    });
-                    setTimeout(darkPad,12000+Math.random()*8000);
-                }
-                setTimeout(darkPad,3000);
+                setTimeout(tibetanBell,8000);
             }
 
             // Zene — folyamatosan megy, NEM a robot megnyomásától függ
