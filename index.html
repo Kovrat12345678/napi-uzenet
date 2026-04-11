@@ -437,6 +437,114 @@
         .robot.glass .chest{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03))!important;border:1px solid rgba(255,255,255,.1)!important}
         .robot.glass .heart-icon{opacity:.25;filter:grayscale(1) brightness(2)!important}
 
+        /* ========== SÁRKÁNY HÉT — esemény skin (színváltós, átlátszó) ========== */
+        @keyframes dragonWeekHue{0%{filter:hue-rotate(0deg) brightness(1.1) drop-shadow(0 0 18px rgba(56,189,248,.5))}25%{filter:hue-rotate(90deg) brightness(1.15) drop-shadow(0 0 24px rgba(74,222,128,.5))}50%{filter:hue-rotate(180deg) brightness(1.1) drop-shadow(0 0 18px rgba(244,114,182,.5))}75%{filter:hue-rotate(270deg) brightness(1.15) drop-shadow(0 0 24px rgba(251,191,36,.5))}100%{filter:hue-rotate(360deg) brightness(1.1) drop-shadow(0 0 18px rgba(56,189,248,.5))}}
+        @keyframes dragonWeekWingL{0%,100%{transform:rotate(-18deg) scaleX(1)}50%{transform:rotate(-30deg) scaleX(1.08)}}
+        @keyframes dragonWeekWingR{0%,100%{transform:rotate(18deg) scaleX(-1)}50%{transform:rotate(30deg) scaleX(-1.08)}}
+        @keyframes dragonWeekTail{0%,100%{transform:rotate(-8deg)}30%{transform:rotate(12deg)}70%{transform:rotate(-12deg)}}
+        .robot.dragon-week{animation:dragonWeekHue 5s linear infinite}
+        .robot.dragon-week .head{
+            background:linear-gradient(165deg,rgba(12,74,110,.7) 0%,rgba(3,105,161,.7) 40%,rgba(2,132,199,.7) 100%)!important;
+            border:1px solid rgba(56,189,248,.6)!important;border-radius:36px 36px 28px 28px!important;
+            box-shadow:0 4px 20px rgba(14,165,233,.4),inset 0 1px 0 rgba(125,211,252,.4)!important;overflow:visible!important;
+        }
+        .robot.dragon-week .antenna-stick{
+            width:8px!important;height:28px!important;top:-6px!important;left:calc(50% - 22px)!important;
+            background:linear-gradient(to top,rgba(7,89,133,.8),rgba(14,165,233,.8),rgba(125,211,252,.8))!important;
+            border-radius:4px 4px 2px 2px!important;transform:rotate(-30deg)!important;
+            box-shadow:0 0 12px rgba(56,189,248,.6)!important;clip-path:polygon(20% 100%,50% 0%,80% 100%)!important;
+        }
+        .robot.dragon-week .antenna-ball{
+            width:8px!important;height:28px!important;top:-6px!important;left:calc(50% + 14px)!important;
+            background:linear-gradient(to top,rgba(7,89,133,.8),rgba(14,165,233,.8),rgba(125,211,252,.8))!important;
+            border-radius:4px 4px 2px 2px!important;transform:rotate(30deg)!important;
+            box-shadow:0 0 12px rgba(56,189,248,.6)!important;clip-path:polygon(20% 100%,50% 0%,80% 100%)!important;animation:none!important;
+        }
+        .robot.dragon-week .head::before{
+            content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:5;
+            width:36px;height:14px;background:linear-gradient(to top,rgba(3,105,161,.8),rgba(14,165,233,.8));
+            clip-path:polygon(0% 100%,10% 20%,22% 100%,35% 10%,50% 100%,65% 10%,78% 100%,90% 20%,100% 100%);
+            filter:drop-shadow(0 -2px 8px rgba(56,189,248,.6));
+        }
+        .robot.dragon-week .head::after{
+            content:'';position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);z-index:6;
+            width:50px;height:18px;background:linear-gradient(to bottom,rgba(3,105,161,.7),rgba(7,89,133,.7));
+            border-radius:8px 8px 16px 16px;border:1px solid rgba(56,189,248,.4);box-shadow:0 4px 12px rgba(0,0,0,.3);
+        }
+        .robot.dragon-week .eye{
+            width:28px!important;height:16px!important;
+            background:linear-gradient(180deg,#bef264,#84cc16,#65a30d)!important;
+            box-shadow:0 0 18px rgba(132,204,22,.9),0 0 36px rgba(101,163,13,.5)!important;
+            border-radius:50% 50% 50% 50% / 70% 70% 30% 30%!important;
+        }
+        .robot.dragon-week .eye::after{width:4px!important;height:12px!important;top:2px!important;left:12px!important;background:#1a2e05!important;border-radius:2px!important}
+        .robot.dragon-week .ear-l,.robot.dragon-week .ear-r{
+            background:linear-gradient(to top,rgba(7,89,133,.8),rgba(14,165,233,.8))!important;
+            clip-path:polygon(50% 0%,100% 100%,0% 100%)!important;width:16px!important;height:22px!important;top:40px!important;border-radius:0!important;
+        }
+        .robot.dragon-week .ear-l::after,.robot.dragon-week .ear-r::after{display:none!important}
+        .robot.dragon-week .face-screen{background:linear-gradient(180deg,rgba(4,47,46,.8),rgba(12,74,110,.8))!important;border:1px solid rgba(56,189,248,.3)!important;border-radius:18px!important}
+        .robot.dragon-week .face-screen::before{background:none!important}
+        .robot.dragon-week .mouth{
+            background:none!important;box-shadow:none!important;width:22px!important;height:6px!important;border-radius:0 0 10px 10px!important;
+            border-bottom:2px solid #0ea5e9!important;border-left:1px solid #0ea5e9!important;border-right:1px solid #0ea5e9!important;margin-top:8px!important;
+        }
+        .robot.dragon-week .torso{
+            background:linear-gradient(165deg,rgba(12,74,110,.65) 0%,rgba(7,89,133,.65) 40%,rgba(3,105,161,.65) 100%)!important;
+            border:1px solid rgba(56,189,248,.5)!important;overflow:visible!important;
+        }
+        .robot.dragon-week .arm-l,.robot.dragon-week .arm-r{background:linear-gradient(to bottom,rgba(3,105,161,.6),rgba(7,89,133,.6))!important;border:1px solid rgba(56,189,248,.4)!important}
+        .robot.dragon-week .leg{background:linear-gradient(to bottom,rgba(7,89,133,.6),rgba(12,74,110,.6))!important;border:1px solid rgba(56,189,248,.4)!important}
+        .robot.dragon-week .shoulder-l,.robot.dragon-week .shoulder-r{background:radial-gradient(circle,rgba(14,165,233,.7),rgba(3,105,161,.7))!important}
+        .robot.dragon-week .neck{background:linear-gradient(to bottom,rgba(3,105,161,.6),rgba(7,89,133,.6))!important}
+        .robot.dragon-week .foot{background:rgba(12,74,110,.7)!important;border:1px solid rgba(56,189,248,.4)!important}
+        .robot.dragon-week .chest-dot{background:rgba(125,211,252,.8)!important;box-shadow:0 0 10px rgba(125,211,252,.9)!important}
+        .robot.dragon-week .chest{background:linear-gradient(145deg,rgba(4,47,46,.7),rgba(12,74,110,.7))!important;border:1px solid rgba(56,189,248,.3)!important}
+        .robot.dragon-week .heart-icon{filter:hue-rotate(160deg) brightness(1.8)!important}
+        .robot.dragon-week .torso::before{
+            content:'';position:absolute;top:-14px;left:-50px;width:52px;height:75px;
+            background:linear-gradient(135deg,rgba(14,165,233,.6) 0%,rgba(2,132,199,.5) 40%,rgba(14,165,233,.15) 100%);
+            clip-path:polygon(100% 15%,40% 0%,0% 40%,10% 80%,30% 100%,100% 85%);
+            border:1px solid rgba(56,189,248,.5);transform-origin:right center;animation:dragonWeekWingL 2s ease-in-out infinite;
+            filter:drop-shadow(0 0 14px rgba(56,189,248,.5));
+        }
+        .robot.dragon-week .torso::after{
+            content:'';position:absolute;top:-14px;right:-50px;width:52px;height:75px;
+            background:linear-gradient(225deg,rgba(14,165,233,.6) 0%,rgba(2,132,199,.5) 40%,rgba(14,165,233,.15) 100%);
+            clip-path:polygon(0% 15%,60% 0%,100% 40%,90% 80%,70% 100%,0% 85%);
+            border:1px solid rgba(56,189,248,.5);transform-origin:left center;animation:dragonWeekWingR 2s ease-in-out infinite;
+            filter:drop-shadow(0 0 14px rgba(56,189,248,.5));
+        }
+        .robot.dragon-week .legs::after{
+            content:'';position:absolute;bottom:5px;right:-42px;width:48px;height:12px;
+            background:linear-gradient(to right,rgba(7,89,133,.7),rgba(14,165,233,.7),rgba(56,189,248,.7));
+            clip-path:polygon(0% 20%,0% 80%,85% 50%,100% 30%,95% 70%,100% 50%);
+            transform-origin:left center;animation:dragonWeekTail 1.8s ease-in-out infinite;
+            filter:drop-shadow(0 0 10px rgba(56,189,248,.4));
+        }
+        /* Sárkány Hét tűzokádás is működjön */
+        .robot.dragon-week.breathing .eye{
+            background:linear-gradient(180deg,#fef08a,#f59e0b,#dc2626)!important;
+            box-shadow:0 0 24px rgba(245,158,11,.9),0 0 44px rgba(220,38,38,.6)!important;transition:all .2s;
+        }
+        .robot.dragon-week.breathing .mouth{border-color:#f59e0b!important;box-shadow:0 0 14px rgba(245,158,11,.9)!important}
+
+        /* Sárkány Hét háttér */
+        body.bg-dragon-week{
+            background:linear-gradient(165deg,#042f2e 0%,#064e3b 15%,#065f46 30%,#0c4a6e 50%,#1e3a5f 70%,#0f172a 100%)!important;
+            background-attachment:fixed!important;
+        }
+        @keyframes dragonBgEmber{0%{opacity:.3;transform:translateY(0) scale(.8)}50%{opacity:1}100%{opacity:0;transform:translateY(-100vh) scale(.2)}}
+        .dragon-ember{position:fixed;pointer-events:none;z-index:0;font-size:14px;animation:dragonBgEmber 4s ease-out forwards}
+        /* Sárkány Hét banner */
+        .dragon-week-banner{
+            position:fixed;top:0;left:0;right:0;z-index:100;
+            background:linear-gradient(90deg,rgba(4,47,46,.95),rgba(6,78,59,.9),rgba(12,74,110,.95));
+            color:#7dd3fc;text-align:center;padding:6px 16px;font-size:13px;font-weight:700;
+            letter-spacing:1px;border-bottom:1px solid rgba(56,189,248,.3);
+            text-shadow:0 0 10px rgba(56,189,248,.5);
+        }
+
         /* Dragon (sárkány) robot skin — rejtvény jutalom */
         @keyframes dragonBreath{0%,100%{filter:brightness(1) drop-shadow(0 0 10px rgba(56,189,248,.4))}50%{filter:brightness(1.12) drop-shadow(0 0 24px rgba(56,189,248,.7))}}
         @keyframes dragonWingL{0%,100%{transform:rotate(-15deg) scaleX(1)}50%{transform:rotate(-25deg) scaleX(1.05)}}
@@ -2560,8 +2668,8 @@
             tapBusy=true;
             initAudio();
 
-            // Sárkány skin → tűzokádás
-            if(getActiveSkin()==='dragon'){
+            // Sárkány skin vagy Sárkány Hét → tűzokádás
+            if(getActiveSkin()==='dragon'||window._dragonWeekActive){
                 robotBtn.classList.add('tap-wave','talking');
                 dragonFireBreath();
                 const bE=document.getElementById('bE');
@@ -2767,7 +2875,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -2820,6 +2928,133 @@
             applyRobotSkin();
             applyCustomBg();
             applyAura();
+        })();
+
+        // ========== SÁRKÁNY HÉT (2026. ápr. 11–17) ==========
+        (function(){
+            const now=new Date();
+            const y=now.getFullYear(),m=now.getMonth(),d=now.getDate();
+            // Sárkány Hét: 2026. április 11 — április 17
+            const isDragonWeek=(y===2026&&m===3&&d>=11&&d<=17);
+            if(!isDragonWeek) return;
+
+            // --- Cím + ikon ---
+            document.title='🐉 DailyBot — Sárkány Hét';
+            const tc=document.getElementById('themeColor');if(tc)tc.content='#042f2e';
+            const greeting=document.getElementById('greeting');
+            if(greeting){
+                const name=localStorage.getItem('nu_name');
+                greeting.textContent=name?'🐉 Szia, '+name+'!':'🐉 Sárkány Hét 🐉';
+            }
+
+            // --- Banner ---
+            const banner=document.createElement('div');
+            banner.className='dragon-week-banner';
+            banner.textContent='🐉 SÁRKÁNY HÉT 🐉';
+            document.body.prepend(banner);
+
+            // --- Robot skin felülírás ---
+            const r=document.getElementById('robot');
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week)\b/g,'').trim();
+            r.classList.add('dragon-week');
+
+            // --- Háttér felülírás ---
+            document.body.style.background='';
+            document.body.style.backgroundAttachment='';
+            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass','bg-graffiti');
+            document.body.classList.add('bg-dragon-week');
+
+            // --- Esemény szöveg ---
+            const evtEl=document.getElementById('phEvent');
+            if(evtEl) evtEl.textContent='🐉 Sárkány Hét! Április 11–17. 🔥';
+
+            // --- Parázs / tűzpehely effekt ---
+            const embers=['🔥','✨','💫','🐉'];
+            function spawnEmber(){
+                const e=document.createElement('div');
+                e.className='dragon-ember';
+                e.textContent=embers[Math.floor(Math.random()*embers.length)];
+                e.style.left=Math.random()*100+'vw';
+                e.style.bottom='-20px';
+                e.style.animationDuration=(3+Math.random()*3)+'s';
+                e.style.fontSize=(10+Math.random()*14)+'px';
+                document.body.appendChild(e);
+                setTimeout(()=>e.remove(),7000);
+            }
+            setInterval(spawnEmber,800);
+            for(let i=0;i<5;i++) setTimeout(spawnEmber,i*200);
+
+            // --- Sárkány Hét — tap is tűzokádás ---
+            window._dragonWeekActive=true;
+
+            // --- Ősi sárkány zene (Web Audio API) ---
+            function startDragonMusic(){
+                const ctx=new(window.AudioContext||window.webkitAudioContext)();
+                const masterGain=ctx.createGain();
+                masterGain.gain.value=0.06;
+                masterGain.connect(ctx.destination);
+
+                // Mély drón — ősi, misztikus alap
+                function createDrone(freq,vol){
+                    const osc=ctx.createOscillator();
+                    osc.type='sine';osc.frequency.value=freq;
+                    const g=ctx.createGain();g.gain.value=vol;
+                    const lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.1+Math.random()*0.15;
+                    const lfoG=ctx.createGain();lfoG.gain.value=freq*0.01;
+                    lfo.connect(lfoG);lfoG.connect(osc.frequency);lfo.start();
+                    osc.connect(g);g.connect(masterGain);osc.start();
+                    return {osc,gain:g};
+                }
+                createDrone(55,0.5);   // mély A
+                createDrone(82.5,0.3); // E
+                createDrone(110,0.2);  // A oktáv
+                createDrone(65,0.15);  // enyhe disszonancia
+
+                // Pentatonikus dallam — véletlenszerű, lassú
+                const pentatonic=[220,247,293,330,392,440,494,587];
+                function playNote(){
+                    const freq=pentatonic[Math.floor(Math.random()*pentatonic.length)];
+                    const osc=ctx.createOscillator();
+                    osc.type=Math.random()>0.5?'triangle':'sine';
+                    osc.frequency.value=freq;
+                    const g=ctx.createGain();
+                    const dur=2+Math.random()*4;
+                    g.gain.setValueAtTime(0,ctx.currentTime);
+                    g.gain.linearRampToValueAtTime(0.15+Math.random()*0.1,ctx.currentTime+0.8);
+                    g.gain.linearRampToValueAtTime(0,ctx.currentTime+dur);
+                    osc.connect(g);g.connect(masterGain);
+                    osc.start();osc.stop(ctx.currentTime+dur);
+                    setTimeout(playNote,(2000+Math.random()*5000));
+                }
+                setTimeout(playNote,1000);
+
+                // Szél effekt — fehérzaj szűrve
+                const windBuf=ctx.createBuffer(1,ctx.sampleRate*4,ctx.sampleRate);
+                const wd=windBuf.getChannelData(0);
+                for(let i=0;i<wd.length;i++) wd[i]=(Math.random()*2-1);
+                function windLoop(){
+                    const src=ctx.createBufferSource();src.buffer=windBuf;src.loop=true;
+                    const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=300;bp.Q.value=0.4;
+                    const wg=ctx.createGain();wg.gain.value=0.08;
+                    const lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.07;
+                    const lfoG=ctx.createGain();lfoG.gain.value=0.04;
+                    lfo.connect(lfoG);lfoG.connect(wg.gain);lfo.start();
+                    src.connect(bp);bp.connect(wg);wg.connect(masterGain);src.start();
+                }
+                windLoop();
+            }
+
+            // Automatikus zene indítás — első interakciónál (böngésző autoplay policy)
+            let musicStarted=false;
+            function tryStartMusic(){
+                if(musicStarted)return;
+                musicStarted=true;
+                startDragonMusic();
+            }
+            document.addEventListener('click',tryStartMusic,{once:true});
+            document.addEventListener('touchstart',tryStartMusic,{once:true});
+            // Próbáljuk azonnal is
+            try{startDragonMusic();musicStarted=true;}catch(e){}
         })();
 
 
