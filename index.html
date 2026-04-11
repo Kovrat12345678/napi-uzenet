@@ -862,9 +862,9 @@
         }
 
         .shop-greeting{
-            margin:8px 22px 0;padding:16px;border-radius:18px;
+            margin:4px 18px 0;padding:10px 16px;border-radius:14px;
             background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-            color:#fff;text-align:center;font-size:14px;font-weight:600;line-height:1.5;
+            color:#fff;text-align:center;font-size:13px;font-weight:600;line-height:1.4;flex-shrink:0;
         }
         .shop-greeting .greet-name{color:#a78bfa;font-weight:800}
         .shop-sale-badge{display:inline-block;background:#ef4444;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:4px;vertical-align:middle}
@@ -898,7 +898,7 @@
             position:fixed;inset:0;z-index:200;
             background:linear-gradient(165deg,#0f172a 0%,#1e1b4b 40%,#312e81 100%);
             display:none;flex-direction:column;
-            overflow-y:auto;overflow-x:hidden;
+            overflow:hidden;
         }
         .skin-panel.open{display:flex}
         .shop-header{
@@ -919,51 +919,53 @@
         .shop-section{padding:0}
         .shop-section-title{display:none}
         /* Két oszlopos layout: bal oldalt 3 nagy kártya, jobbra kinyílik */
-        .shop-layout{display:flex;gap:0;min-height:0;flex:1}
+        .shop-layout{display:flex;gap:0;flex:1;min-height:0;overflow:hidden}
         .shop-sidebar{
-            display:flex;flex-direction:column;gap:6px;padding:10px 8px;
-            width:82px;flex-shrink:0;
+            display:flex;flex-direction:column;gap:8px;padding:12px 10px;
+            width:100px;flex-shrink:0;
         }
         .shop-tab{
             display:flex;flex-direction:column;align-items:center;justify-content:center;
-            gap:4px;padding:14px 4px;border-radius:16px;cursor:pointer;
-            background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.08);
-            color:rgba(255,255,255,.5);transition:all .2s;flex:1;min-height:80px;
+            gap:6px;padding:16px 6px;border-radius:18px;cursor:pointer;
+            background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.08);
+            color:rgba(255,255,255,.45);transition:all .2s;flex:1;min-height:0;
+            -webkit-tap-highlight-color:transparent;
         }
-        .shop-tab:active{transform:scale(.95)}
+        .shop-tab:active{transform:scale(.93)}
         .shop-tab.active{
-            background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.4);
-            color:#fff;box-shadow:0 0 20px rgba(139,92,246,.1);
+            background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.5);
+            color:#fff;box-shadow:0 0 24px rgba(139,92,246,.15);
         }
-        .shop-tab-icon{font-size:26px}
-        .shop-tab-name{font-size:10px;font-weight:700;letter-spacing:.3px;text-align:center}
+        .shop-tab-icon{font-size:34px}
+        .shop-tab-name{font-size:12px;font-weight:800;letter-spacing:.3px;text-align:center}
         /* Jobb oldali tartalom */
         .shop-content{
-            flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 6px 10px 2px;
-            scrollbar-width:none;
+            flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 10px 12px 4px;
+            scrollbar-width:none;min-height:0;
         }
         .shop-content::-webkit-scrollbar{display:none}
         /* Alkategóriák a jobb oldalon */
         .shop-subcat{
-            padding:6px 10px;margin-bottom:4px;font-size:11px;font-weight:700;
-            color:rgba(255,255,255,.3);letter-spacing:.3px;
+            padding:8px 8px 4px;font-size:12px;font-weight:700;
+            color:rgba(255,255,255,.35);letter-spacing:.3px;
         }
         .shop-grid{
-            display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 6px 10px;
+            display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 4px 14px;
         }
         .shop-item{
             background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
-            border-radius:16px;padding:12px 6px 10px;
+            border-radius:18px;padding:16px 8px 12px;
             text-align:center;cursor:pointer;transition:all .2s;color:#fff;
+            -webkit-tap-highlight-color:transparent;
         }
-        .shop-item:active{transform:scale(.95)}
-        .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 16px rgba(139,92,246,.15)}
-        .shop-item-icon{font-size:28px;display:block;margin-bottom:6px}
-        .shop-item-name{font-size:11px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .shop-item:active{transform:scale(.93)}
+        .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 20px rgba(139,92,246,.15)}
+        .shop-item-icon{font-size:36px;display:block;margin-bottom:8px}
+        .shop-item-name{font-size:13px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .shop-item-desc{display:none}
-        .shop-item-status{font-size:9px;font-weight:700}
+        .shop-item-status{font-size:11px;font-weight:700}
         .shop-item-status.equipped{color:#a78bfa}
-        .shop-item-status.owned{color:rgba(255,255,255,.2)}
+        .shop-item-status.owned{color:rgba(255,255,255,.25)}
 
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
@@ -1799,38 +1801,39 @@
         </div>
         <div class="shop-greeting" id="shopGreeting"></div>
 
-        <!-- Rejtvény játék -->
-        <div class="riddle-wrap" id="riddleWrap">
-            <div class="riddle-title" id="riddleTitle">🔮 Titkos Rejtvény</div>
-            <div class="riddle-clue" id="riddleClue">Oldd meg a rejtvényt és kapj egy exkluzív titkos skint!</div>
-            <button class="riddle-hint-btn" id="riddleHintBtn">💡 Első tipp</button>
-            <div class="riddle-input-row" id="riddleInputRow">
-                <input class="riddle-input" id="riddleInput" placeholder="Írd be a megfejtést..." maxlength="30" autocomplete="off">
-                <button class="riddle-submit" id="riddleSubmit">Küldés</button>
-            </div>
-            <div class="riddle-result" id="riddleResult"></div>
-        </div>
-
-        <!-- Dragon Spin — csak Sárkány Hét alatt látszik -->
-        <div class="dragon-spin-section" id="dragonSpinSection" style="display:none">
-            <div class="shop-section-title">🐉 Dragon Spin</div>
-            <div class="dragon-spin-wrap">
-                <div class="dragon-spin-wheel">
-                    <div class="dragon-spin-pointer"></div>
-                    <canvas class="dragon-spin-canvas" id="dragonSpinCanvas" width="440" height="440"></canvas>
-                </div>
-                <button class="dragon-spin-btn" id="dragonSpinBtn">🐉 Pörgesd meg!</button>
-                <div class="dragon-spin-result" id="dragonSpinResult"></div>
-            </div>
-        </div>
-
         <div class="shop-layout">
             <div class="shop-sidebar" id="shopSidebar">
                 <div class="shop-tab active" data-tab="skin"><div class="shop-tab-icon">🤖</div><div class="shop-tab-name">Skinek</div></div>
                 <div class="shop-tab" data-tab="bg"><div class="shop-tab-icon">🖼️</div><div class="shop-tab-name">Hátterek</div></div>
                 <div class="shop-tab" data-tab="aura"><div class="shop-tab-icon">🔮</div><div class="shop-tab-name">Aurák</div></div>
             </div>
-            <div class="shop-content" id="shopContent"></div>
+            <div class="shop-content" id="shopContent">
+                <!-- Rejtvény játék — a content-ben, skin tab tetején -->
+                <div class="riddle-wrap" id="riddleWrap">
+                    <div class="riddle-title" id="riddleTitle">🔮 Titkos Rejtvény</div>
+                    <div class="riddle-clue" id="riddleClue">Oldd meg a rejtvényt és kapj egy exkluzív titkos skint!</div>
+                    <button class="riddle-hint-btn" id="riddleHintBtn">💡 Első tipp</button>
+                    <div class="riddle-input-row" id="riddleInputRow">
+                        <input class="riddle-input" id="riddleInput" placeholder="Írd be a megfejtést..." maxlength="30" autocomplete="off">
+                        <button class="riddle-submit" id="riddleSubmit">Küldés</button>
+                    </div>
+                    <div class="riddle-result" id="riddleResult"></div>
+                </div>
+                <!-- Dragon Spin -->
+                <div class="dragon-spin-section" id="dragonSpinSection" style="display:none">
+                    <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.35);padding:8px 8px 4px">🐉 Dragon Spin</div>
+                    <div class="dragon-spin-wrap">
+                        <div class="dragon-spin-wheel">
+                            <div class="dragon-spin-pointer"></div>
+                            <canvas class="dragon-spin-canvas" id="dragonSpinCanvas" width="440" height="440"></canvas>
+                        </div>
+                        <button class="dragon-spin-btn" id="dragonSpinBtn">🐉 Pörgesd meg!</button>
+                        <div class="dragon-spin-result" id="dragonSpinResult"></div>
+                    </div>
+                </div>
+                <!-- Dinamikus tartalom ide renderelődik -->
+                <div id="shopItems"></div>
+            </div>
         </div>
 
     </div>
@@ -3342,8 +3345,10 @@
                 ]},
             ];
 
+            const shopItems=document.getElementById('shopItems');
+
             function renderContent(groups,active,setter,applier){
-                shopContent.innerHTML='';
+                shopItems.innerHTML='';
                 groups.forEach(grp=>{
                     const visible=grp.items.filter(s=>!s.hide||owns(s.id));
                     if(!visible.length) return;
@@ -3351,7 +3356,7 @@
                         const lbl=document.createElement('div');
                         lbl.className='shop-subcat';
                         lbl.textContent=grp.label;
-                        shopContent.appendChild(lbl);
+                        shopItems.appendChild(lbl);
                     }
                     const grid=document.createElement('div');
                     grid.className='shop-grid';
@@ -3364,7 +3369,7 @@
                         if(!isActive) el.addEventListener('click',()=>{setter(s.id);applier();renderShop()});
                         grid.appendChild(el);
                     });
-                    shopContent.appendChild(grid);
+                    shopItems.appendChild(grid);
                 });
             }
 
@@ -3377,10 +3382,19 @@
                     t.classList.toggle('active',t.dataset.tab===activeTab);
                 });
 
-                // Tartalom a kiválasztott tab alapján
+                // Riddle és Dragon Spin csak a skin tab-nál
+                const rw=document.getElementById('riddleWrap');
+                const ds=document.getElementById('dragonSpinSection');
+                if(rw) rw.style.display=activeTab==='skin'?'':'none';
+                if(ds&&ds.style.display!=='none') ds.style.display=activeTab==='skin'?'block':'none';
+
+                // Tartalom
                 if(activeTab==='skin') renderContent(SKIN_GROUPS,getActiveSkin(),setActiveSkin,applyRobotSkin);
                 else if(activeTab==='bg') renderContent(BG_GROUPS,getActiveBg(),setActiveBg,applyCustomBg);
                 else if(activeTab==='aura') renderContent(AURA_GROUPS,getActiveAura(),setActiveAura,applyAura);
+
+                // Scroll top
+                shopContent.scrollTop=0;
             }
 
             // Sidebar tab kattintás
