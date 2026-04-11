@@ -916,46 +916,54 @@
             -webkit-tap-highlight-color:transparent;
         }
         .shop-close-btn:active{background:rgba(255,255,255,.2)}
-        .shop-section{padding:12px 0 4px}
-        .shop-section-title{font-size:15px;font-weight:700;color:rgba(255,255,255,.5);padding:0 22px 10px;letter-spacing:.5px}
-        /* Kategória kártyák — egymás alatt, koppintásra nyílik */
-        .shop-cats{display:flex;flex-direction:column;gap:8px;padding:0 18px}
-        .shop-cat{
-            display:flex;align-items:center;gap:14px;
-            background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
-            border-radius:16px;padding:14px 16px;cursor:pointer;transition:all .2s;color:#fff;
+        .shop-section{padding:0}
+        .shop-section-title{display:none}
+        /* Két oszlopos layout: bal oldalt 3 nagy kártya, jobbra kinyílik */
+        .shop-layout{display:flex;gap:0;min-height:0;flex:1}
+        .shop-sidebar{
+            display:flex;flex-direction:column;gap:6px;padding:10px 8px;
+            width:82px;flex-shrink:0;
         }
-        .shop-cat:active{transform:scale(.98)}
-        .shop-cat.open{border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.08)}
-        .shop-cat-icon{font-size:28px;flex-shrink:0}
-        .shop-cat-info{flex:1;min-width:0}
-        .shop-cat-name{font-size:14px;font-weight:700}
-        .shop-cat-count{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px}
-        .shop-cat-arrow{font-size:14px;color:rgba(255,255,255,.3);transition:transform .2s;flex-shrink:0}
-        .shop-cat.open .shop-cat-arrow{transform:rotate(90deg)}
-        .shop-cat-active{font-size:10px;color:#a78bfa;font-weight:700;margin-top:2px}
-        /* Kinyílt kategória elemei */
-        .shop-scroll{
-            display:flex;gap:12px;overflow-x:auto;padding:10px 18px 14px;
-            scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+        .shop-tab{
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:4px;padding:14px 4px;border-radius:16px;cursor:pointer;
+            background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.08);
+            color:rgba(255,255,255,.5);transition:all .2s;flex:1;min-height:80px;
+        }
+        .shop-tab:active{transform:scale(.95)}
+        .shop-tab.active{
+            background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.4);
+            color:#fff;box-shadow:0 0 20px rgba(139,92,246,.1);
+        }
+        .shop-tab-icon{font-size:26px}
+        .shop-tab-name{font-size:10px;font-weight:700;letter-spacing:.3px;text-align:center}
+        /* Jobb oldali tartalom */
+        .shop-content{
+            flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 6px 10px 2px;
             scrollbar-width:none;
         }
-        .shop-scroll::-webkit-scrollbar{display:none}
-        .shop-scroll.closed{display:none}
+        .shop-content::-webkit-scrollbar{display:none}
+        /* Alkategóriák a jobb oldalon */
+        .shop-subcat{
+            padding:6px 10px;margin-bottom:4px;font-size:11px;font-weight:700;
+            color:rgba(255,255,255,.3);letter-spacing:.3px;
+        }
+        .shop-grid{
+            display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 6px 10px;
+        }
         .shop-item{
-            flex:0 0 120px;scroll-snap-align:start;
             background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
-            border-radius:18px;padding:14px 8px 12px;
+            border-radius:16px;padding:12px 6px 10px;
             text-align:center;cursor:pointer;transition:all .2s;color:#fff;
         }
         .shop-item:active{transform:scale(.95)}
         .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 16px rgba(139,92,246,.15)}
-        .shop-item-icon{font-size:32px;display:block;margin-bottom:8px}
-        .shop-item-name{font-size:12px;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .shop-item-desc{font-size:9px;color:rgba(255,255,255,.35);margin-bottom:6px;line-height:1.3;height:24px;overflow:hidden}
-        .shop-item-status{font-size:10px;font-weight:700}
+        .shop-item-icon{font-size:28px;display:block;margin-bottom:6px}
+        .shop-item-name{font-size:11px;font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .shop-item-desc{display:none}
+        .shop-item-status{font-size:9px;font-weight:700}
         .shop-item-status.equipped{color:#a78bfa}
-        .shop-item-status.owned{color:rgba(255,255,255,.25)}
+        .shop-item-status.owned{color:rgba(255,255,255,.2)}
 
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
@@ -1816,13 +1824,13 @@
             </div>
         </div>
 
-        <div class="shop-section">
-            <div class="shop-section-title">🤖 Skin választék</div>
-            <div id="skinList"></div>
-        </div>
-        <div class="shop-section">
-            <div class="shop-section-title">🖼️ Hátterek</div>
-            <div id="bgList"></div>
+        <div class="shop-layout">
+            <div class="shop-sidebar" id="shopSidebar">
+                <div class="shop-tab active" data-tab="skin"><div class="shop-tab-icon">🤖</div><div class="shop-tab-name">Skinek</div></div>
+                <div class="shop-tab" data-tab="bg"><div class="shop-tab-icon">🖼️</div><div class="shop-tab-name">Hátterek</div></div>
+                <div class="shop-tab" data-tab="aura"><div class="shop-tab-icon">🔮</div><div class="shop-tab-name">Aurák</div></div>
+            </div>
+            <div class="shop-content" id="shopContent"></div>
         </div>
 
     </div>
@@ -3254,10 +3262,11 @@
         (function(){
             const toggle=document.getElementById('skinToggle');
             const panel=document.getElementById('skinPanel');
-            const skinList=document.getElementById('skinList');
-            const bgList=document.getElementById('bgList');
             const closeBtn=document.getElementById('skinClose');
             const greet=document.getElementById('shopGreeting');
+            const shopContent=document.getElementById('shopContent');
+            const sidebar=document.getElementById('shopSidebar');
+            let activeTab='skin';
 
             // Skinek kategóriákba rendezve
             const SKIN_GROUPS=[
@@ -3333,69 +3342,54 @@
                 ]},
             ];
 
-            // Melyik kategória van nyitva (type:index)
-            const openCats={};
-
-            function renderCats(container,groups,active,setter,applier,type){
-                container.innerHTML='';
-                const cats=document.createElement('div');
-                cats.className='shop-cats';
-                groups.forEach((grp,gi)=>{
+            function renderContent(groups,active,setter,applier){
+                shopContent.innerHTML='';
+                groups.forEach(grp=>{
                     const visible=grp.items.filter(s=>!s.hide||owns(s.id));
                     if(!visible.length) return;
-                    const isOpen=openCats[type]===gi;
-                    // Aktív elem ebben a kategóriában?
-                    const activeName=visible.find(s=>s.id===active);
-                    // Kategória kártya
-                    const cat=document.createElement('div');
-                    cat.className='shop-cat'+(isOpen?' open':'');
-                    const icon=grp.items[0]?grp.items[0].icon:'';
-                    cat.innerHTML=`<div class="shop-cat-icon">${icon}</div><div class="shop-cat-info"><div class="shop-cat-name">${grp.label||'Alapértelmezett'}</div><div class="shop-cat-count">${visible.length} elem</div>${activeName?'<div class="shop-cat-active">✔ '+activeName.name+'</div>':''}</div><div class="shop-cat-arrow">▶</div>`;
-                    cat.addEventListener('click',()=>{
-                        openCats[type]=isOpen?null:gi;
-                        renderShop();
-                    });
-                    cats.appendChild(cat);
-                    // Kinyílt elemek
-                    if(isOpen){
-                        const row=document.createElement('div');
-                        row.className='shop-scroll';
-                        visible.forEach(s=>{
-                            if(s.id) buyItem(s.id);
-                            const isActive=s.id===active;
-                            const el=document.createElement('div');
-                            el.className='shop-item'+(isActive?' active':'');
-                            el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
-                            if(!isActive) el.addEventListener('click',()=>{setter(s.id);applier();renderShop()});
-                            row.appendChild(el);
-                        });
-                        cats.appendChild(row);
+                    if(grp.label){
+                        const lbl=document.createElement('div');
+                        lbl.className='shop-subcat';
+                        lbl.textContent=grp.label;
+                        shopContent.appendChild(lbl);
                     }
+                    const grid=document.createElement('div');
+                    grid.className='shop-grid';
+                    visible.forEach(s=>{
+                        if(s.id) buyItem(s.id);
+                        const isActive=s.id===active;
+                        const el=document.createElement('div');
+                        el.className='shop-item'+(isActive?' active':'');
+                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
+                        if(!isActive) el.addEventListener('click',()=>{setter(s.id);applier();renderShop()});
+                        grid.appendChild(el);
+                    });
+                    shopContent.appendChild(grid);
                 });
-                container.appendChild(cats);
             }
 
             function renderShop(){
                 const name=localStorage.getItem('nu_name')||'Barátom';
                 greet.innerHTML=`Szia <span class="greet-name">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
-                const activeSkin=getActiveSkin();
-                const activeBg=getActiveBg();
-                const activeAura=getActiveAura();
 
-                renderCats(skinList,SKIN_GROUPS,activeSkin,setActiveSkin,applyRobotSkin,'skin');
-                renderCats(bgList,BG_GROUPS,activeBg,setActiveBg,applyCustomBg,'bg');
+                // Sidebar tabok
+                sidebar.querySelectorAll('.shop-tab').forEach(t=>{
+                    t.classList.toggle('active',t.dataset.tab===activeTab);
+                });
 
-                const auraListId='auraList';
-                let auraList=document.getElementById(auraListId);
-                if(!auraList){
-                   const auraSection=document.createElement('div');
-                   auraSection.className='shop-section';
-                   auraSection.innerHTML=`<div class="shop-section-title">🔮 Aurák</div><div id="${auraListId}"></div>`;
-                   bgList.parentElement.insertAdjacentElement('afterend',auraSection);
-                   auraList=document.getElementById(auraListId);
-                }
-                renderCats(auraList,AURA_GROUPS,activeAura,setActiveAura,applyAura,'aura');
+                // Tartalom a kiválasztott tab alapján
+                if(activeTab==='skin') renderContent(SKIN_GROUPS,getActiveSkin(),setActiveSkin,applyRobotSkin);
+                else if(activeTab==='bg') renderContent(BG_GROUPS,getActiveBg(),setActiveBg,applyCustomBg);
+                else if(activeTab==='aura') renderContent(AURA_GROUPS,getActiveAura(),setActiveAura,applyAura);
             }
+
+            // Sidebar tab kattintás
+            sidebar.addEventListener('click',e=>{
+                const tab=e.target.closest('.shop-tab');
+                if(!tab) return;
+                activeTab=tab.dataset.tab;
+                renderShop();
+            });
             window.renderShop=renderShop;
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
