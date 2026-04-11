@@ -26,12 +26,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `nu_favs` (kedvenc uzenetek JSON tomb)
   - `nu_owned` (feloldott targyak JSON tomb)
   - `nu_active_skin` (aktualis skin), `nu_active_bg` (aktualis hatter), `nu_active_aura` (aktualis aura)
+  - `nu_dspin` (Dragon Spin mai porgetese), `nu_dspin_last` (utolso nyeremeny)
 
 ### Reggel 6 logika
 
 - `msgDay()` fuggveny: ha `getHours() < 6`, az elozo nap szamit uzenet-napnak
 - `td()` = `msgDay().toDateString()` — minden localStorage muvelet ezt hasznalja
-- Erintett rendszerek: uzenet kivalasztas (`dm()`), streak, seen/mark, visszaszamlalo, nevnap, unnepi oltozekek, datum kijelzes
+- Erintett rendszerek: uzenet kivalasztas (`dm()`), streak, seen/mark, visszaszamlalo, nevnap, unnepi oltozekek, datum kijelzes, Dragon Spin napi limit
 - Visszaszamlalo: ha 6 elott → ma 6-ig szamol, ha 6 utan → holnap 6-ig
 
 ### Onboarding (regisztracio)
@@ -40,6 +41,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Csak utonevt ker** — szokoz tiltva az input mezoben (vezeteknev nem adhato meg)
 - `nu_reg` && `nu_name` letezese alapjan donti el, hogy megjelenjen-e
 - Az app (`#appMain`) CSS-bol rejtett (`pre-reg` class) amig a regisztracio nem kesz
+
+### Loading Screen
+
+- Az app megnyitasakor megjelenik egy loading screen: lekerekitett app ikon + progress bar + szazalek
+- ~2 masodperc alatt tolt be, majd elfade-el
+- Sarkany Het alatt sarkany ikont es sotet hatteret mutat
 
 ### Robot
 
@@ -77,9 +84,30 @@ Minden skin ingyenes, szabadon valaszthato a boltban.
 ### Sarkany Skin
 
 - Rejtveny jatek a boltban — 3 fokozatos tipp, megoldas: "sarkany"
-- Megoldas utan a rejtveny eltünik, skin feloldodik
+- Megoldas utan a rejtveny eltunik, skin feloldodik
 - Egyedi dragon CSS: sarkanyfej (szarvak, tarej, pofa, res-szemu zold szemek, hegyes fulek), szarnyak, farok
 - Koppintasra tuzokadas: tuz emojik robbannak a fejtol, szemek narancssargara valtanak, "Rrraawwr!!" buborek, tuz hang
+
+### Sarkany Het (2026. aprilis 11–17)
+
+Idoszakos esemeny — automatikusan aktiválódik datumalapon.
+
+- **Idotartam**: 2026. aprilis 11 — aprilis 17
+- **Robot skin**: `dragon-week` class — az alap sarkany skin szinvaltos, atlatszo valtozata. CSS `@property --dw-h` es `--dw-s` deklaraciokkal animalt hue shifting, minden testreszben `hsla()` szinek atlatszoasaggal. Szarnyak, farok, szarvak, tarej, res-szemu szemek — mind szinvaltos.
+- **Hatter**: `bg-dragon-week` — sotet smaragd-ocean gradiens. Misztikus kod reteg (`dw-fog`) es CSS parazs reszecskek (`dw-particle`) emelkednek felfele.
+- **Ikon**: SVG → PNG konverzio canvas-szal. A `dragon-icon.svg` betoltodik Image-be, canvas-ra rajzolodik, PNG data URL-kent beallitodik a favicon-ra, apple-touch-icon-ra, es a manifest-re (dinamikus blob URL).
+- **Loading screen**: Sarkany ikont es sotet hatteret mutat.
+- **Zene**: Osi, misztikus ambient Web Audio API-val. Mely om dron (55 Hz szinusz), kvint felhang (E2), szel susogast (szurt feherszaj), osi fuvola (A-moll pentatonikus, nagy szunetekkel), tibeti harang (ritkan, hosszu lecsengessel). Konvolucio reverb. Master gain 0.05 (nagyon halk). Nem kikapcsolhato. Automatikusan indul barmelyik interakciora.
+- **Dragon Spin**: Porgethetö kerék a boltban. 8 szegmens, canvas-ra rajzolva. Napi 1 porgetesi limit (`nu_dspin` localStorage). Nyeremények:
+  - Tuzokadas: fire breath effekt
+  - Jeglelgezet: jegkristalylok + robot kekre valt + jeghang
+  - Arany eso: aranyermek hullanak lefele
+  - Tuzvihar: kepernyo villanas + kaosz reszecskek
+  - Bonusz uzenet (2x): egyedi sarkanyos bolcsesseg (8 exkluziv) gepeleo effekttel
+  - Dupla streak: streak szam megduplazodik (localStorage-ban is)
+  - Sarkany aura: tuz aura aktiválódik
+- **Tap reakcio**: Sarkany Het alatt a robot koppintasra tuzokad (ugyanugy mint a sarkany skinnel)
+- **Esemeny szoveg**: "Sarkany Het! Aprilis 11–17." a phEvent elemben
 
 ### Hatterek
 
@@ -167,7 +195,7 @@ Az ora alapjan automatikusan valtozik:
 
 ### Ertesitesek
 
-- **Service Worker** (`sw.js`, cache v12)
+- **Service Worker** (`sw.js`, cache v18)
 - SW utemez ertesiteseket: reggel 6, delben 12, este 18
 - `periodicSync` (Android Chrome): 4 oranként hatterbeli emlekeztetо
 - `index.html` → network-first cache strategia
@@ -190,7 +218,7 @@ Az ora alapjan automatikusan valtozik:
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
 manifest.json       — PWA manifest (standalone)
-sw.js               — Service Worker (cache v12 + ertesitesek + skipWaiting)
+sw.js               — Service Worker (cache v18 + ertesitesek + skipWaiting)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasznaloi dokumentacio
 bg-tulip.png        — Tavaszi Ret hatter kep
@@ -199,12 +227,14 @@ bg-graffiti.png     — Graffiti hatter kep
 icon/
   dailybot-icon.png — PWA ikon (PNG, 512x512)
   dailybot-icon.svg — PWA ikon (SVG forras)
+  dragon-icon.svg   — Sarkany Het ikon (SVG, szarnyak+szarvak+tarej)
 háttér/             — forras hatter kepek (nem hasznalja az app kozvetlenul)
 ```
 
 ## App Icon
 
-- `icon/dailybot-icon.png`
+- `icon/dailybot-icon.png` — alap ikon
+- `icon/dragon-icon.svg` — Sarkany Het ikon (dinamikusan PNG-re konvertalva canvas-szal)
 - Manifest: `any maskable` purpose
 
 ## Social

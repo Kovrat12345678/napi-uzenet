@@ -47,6 +47,7 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Streak szamlalo** — koveti hany egymast koveto napon nyitottad meg
 - **Konfetti** — minden napi uzenetnel unnepel
 - **Drag & tap interakciok** — huzd meg vagy koppints a robotra
+- **Loading screen** — lekerekitett ikon + progress bar az app megnyitasakor
 
 ## Robot Bolt
 
@@ -105,6 +106,24 @@ A jobb felso sarokban a 🏪 gombra koppintva megnyilik:
 
 A boltban van egy rejtveny — ha megoldod, kapsz egy titkos skint! 3 fokozatos tipp segit, de ne szamits konnyure...
 
+## Sarkany Het (aprilis 11–17)
+
+Idoszakos esemeny! Ebben az idoszakban az egesz app sarkanyos temat kap:
+
+- **Szinvaltos sarkany robot** — atlatszo, szinvaltos sarkany skin szarnyakkal, farokkal, szarvakkal
+- **Sotet sarkanyos hatter** — smaragd-ocean gradiens, misztikus kod es izzó parazs reszecskek
+- **Sarkany ikon** — az app ikonja sarkanyra valt (favicon, loading screen, manifest)
+- **Osi sarkany zene** — halk, meditatív ambient: mely om dron, osi fuvola, tibeti harang, szel susogás
+- **Dragon Spin** — a boltban porgethetö szerencserekerek! Naponta 1 porgetés. Nyeremények:
+  - 🔥 Tuzokadas — a robot tuzet okad
+  - ❄️ Jeglellegzet — jegkristalylok robbannak szet
+  - 💰 Arany eso — aranyermek hullanak
+  - 🌪️ Tuzvihar — kepernyo villanas + kaosz
+  - 📜 Bonusz uzenet — egyedi sarkanyos bolcsesseg
+  - 🔥 Dupla streak — streak szamod megduplazodik!
+  - 🐉 Sarkany aura — tuz aura aktiválódik
+- **Tuzokadas koppintasra** — koppints a robotra es tuzet okad
+
 ## Szinkronizalas
 
 A bolt headerben a 🔄 gombbal exportalhatod az adataidat (skinek, kedvencek) es masik eszkozon importalhatod. Nincs szukseg felhasznaloi fiokra — a kodot uzeneten keresztul kuldod at magadnak.
@@ -136,7 +155,8 @@ A bolt headerben a 🔄 gombbal exportalhatod az adataidat (skinek, kedvencek) e
 6. Az app aljan latod a visszaszamlalot: mikor jon a kovetkezo uzenet
 7. A 🏪 gombbal megnyitod a boltot — valassz skineket, hattereket, aurakat (mind ingyenes!)
 8. A 🔄 gombbal szinkronizalhatod mas eszkozre az adataidat
+9. Sarkany Het alatt (aprilis 11–17) porgess a Dragon Spin-en a boltban!
 
 ## Tech Stack
 
-Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v12) kezeli a cache-t es az ertesiteseket. Automatikus frissites-detektalas: ha uj verzio erheto el, az app ujratolt. Hatterbol visszaterve is frissul minden (uzenet, streak).
+Egyetlen `index.html` fajl, beagyazott CSS-sel es vanilla JavaScript-tel. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (v18) kezeli a cache-t es az ertesiteseket. Automatikus frissites-detektalas: ha uj verzio erheto el, az app ujratolt. Hatterbol visszaterve is frissul minden (uzenet, streak).
