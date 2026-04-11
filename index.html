@@ -3058,10 +3058,25 @@
             // --- Cím + Ikon ---
             document.title='🐉 DailyBot — Sárkány Hét';
             const tc=document.getElementById('themeColor');if(tc)tc.content='#042f2e';
-            // Sárkány favicon — SVG data URI
-            const dragonFav='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%230ea5e9"/><stop offset="100%" stop-color="%23065f46"/></linearGradient></defs><rect rx="14" width="64" height="64" fill="url(%23g)"/><text x="32" y="46" text-anchor="middle" font-size="38">🐉</text></svg>');
-            const fav=document.getElementById('favicon');if(fav){fav.type='image/svg+xml';fav.href=dragonFav;}
-            const aIcon=document.getElementById('appleIcon');if(aIcon)aIcon.href=dragonFav;
+            // Sárkány ikon — SVG fájl
+            const dragonIconUrl='icon/dragon-icon.svg';
+            const fav=document.getElementById('favicon');if(fav){fav.type='image/svg+xml';fav.href=dragonIconUrl;}
+            const aIcon=document.getElementById('appleIcon');if(aIcon)aIcon.href=dragonIconUrl;
+            // Manifest is sárkányos — dinamikus blob manifest
+            const dManifest={
+                name:'🐉 DailyBot — Sárkány Hét',short_name:'🐉 DailyBot',
+                description:'Sárkány Hét — április 11-17.',
+                start_url:'.',scope:'.',display:'standalone',
+                background_color:'#042f2e',theme_color:'#042f2e',
+                orientation:'portrait',lang:'hu',
+                icons:[
+                    {src:dragonIconUrl,sizes:'512x512',type:'image/svg+xml',purpose:'any'},
+                    {src:dragonIconUrl,sizes:'192x192',type:'image/svg+xml',purpose:'any'}
+                ]
+            };
+            const mBlob=new Blob([JSON.stringify(dManifest)],{type:'application/json'});
+            const mLink=document.getElementById('manifestLink');
+            if(mLink) mLink.href=URL.createObjectURL(mBlob);
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
@@ -3428,15 +3443,27 @@
                 const spinBtn=document.getElementById('dragonSpinBtn');
                 const resultEl=document.getElementById('dragonSpinResult');
 
+                // Sárkány bónusz üzenetek
+                const dragonMsgs=[
+                    {t:"A sárkány nem fél a vihartól. Ő maga a vihar.",e:"🐉"},
+                    {t:"Minden pikkelyed egy leckét rejt. Viseld büszkén.",e:"🔥"},
+                    {t:"A tűz, amit hordozol, fényt ad másoknak is.",e:"✨"},
+                    {t:"Aki sárkánnyal álmodik, az félelem nélkül ébred.",e:"🌙"},
+                    {t:"A legerősebb páncél belülről épül.",e:"💎"},
+                    {t:"Szárnyaid vannak — csak el kell hinned.",e:"🦋"},
+                    {t:"A sárkány tüze nem rombol. Újjáépít.",e:"🌅"},
+                    {t:"Jég és tűz — mindkettő benned él.",e:"❄️"},
+                ];
+
                 const prizes=[
                     {text:'Tűzokádás!',emoji:'🔥',action:'fire'},
-                    {text:'+1 Sárkány erő',emoji:'💪',action:'msg'},
+                    {text:'Bónusz üzenet!',emoji:'📜',action:'bonus'},
                     {text:'Jéglélegzet!',emoji:'❄️',action:'ice'},
-                    {text:'Sárkánytojás',emoji:'🥚',action:'msg'},
-                    {text:'Arany kincs!',emoji:'💰',action:'gold'},
-                    {text:'Sárkányszárny',emoji:'🦇',action:'msg'},
+                    {text:'Dupla streak!',emoji:'🔥',action:'streak'},
+                    {text:'Arany eső!',emoji:'💰',action:'gold'},
+                    {text:'Sárkány aura!',emoji:'🐉',action:'aura'},
                     {text:'Tűzvihar!',emoji:'🌪️',action:'storm'},
-                    {text:'Kristály pikkelyek',emoji:'💎',action:'msg'},
+                    {text:'Bónusz üzenet!',emoji:'📜',action:'bonus2'},
                 ];
                 const colors=['#064e3b','#0c4a6e','#065f46','#0369a1','#042f2e','#075985','#064e3b','#0c4a6e'];
                 const segAngle=Math.PI*2/prizes.length;
@@ -3604,15 +3631,50 @@
                         localStorage.setItem('nu_dspin_last',prize.emoji+' '+prize.text);
                         spinBtn.textContent='Holnap újra pörgethetsz!';
 
-                        // Egyedi effektek minden nyereményhez
-                        if(prize.action==='fire'&&typeof dragonFireBreath==='function'){
-                            dragonFireBreath();
+                        // Egyedi effektek + igazi jutalmak
+                        if(prize.action==='fire'){
+                            if(typeof dragonFireBreath==='function') dragonFireBreath();
                         } else if(prize.action==='ice'){
                             iceBreathEffect();
                         } else if(prize.action==='gold'){
                             goldRainEffect();
                         } else if(prize.action==='storm'){
                             stormEffect();
+                        } else if(prize.action==='bonus'||prize.action==='bonus2'){
+                            // Bónusz sárkány üzenet — megjelenik a buborékban
+                            const bm=dragonMsgs[Math.floor(Math.random()*dragonMsgs.length)];
+                            const bE=document.getElementById('bE');
+                            const bT=document.getElementById('bT');
+                            const bubble=document.getElementById('bubble');
+                            if(bE&&bT&&bubble){
+                                bE.textContent=bm.e;
+                                bT.textContent='';
+                                bubble.classList.add('show');
+                                document.getElementById('ph').classList.add('hide');
+                                // Gépelő effekt
+                                let ci=0;
+                                const tI=setInterval(()=>{
+                                    if(ci<bm.t.length){bT.textContent+=bm.t[ci];ci++;}
+                                    else clearInterval(tI);
+                                },35);
+                            }
+                        } else if(prize.action==='streak'){
+                            // Dupla streak — a streak szám duplázódik (vizuálisan)
+                            const sEl=document.getElementById('sn');
+                            const stEl=document.getElementById('streak');
+                            if(sEl&&stEl){
+                                const cur=parseInt(sEl.textContent||'1');
+                                sEl.textContent=cur*2;
+                                stEl.classList.add('on');
+                                resultEl.textContent+=' ('+cur+' → '+cur*2+')';
+                                // A valódi streak-et is mentjük
+                                localStorage.setItem('nu_s',(cur*2).toString());
+                            }
+                        } else if(prize.action==='aura'){
+                            // Sárkány tűz aura — bekapcsol a tűz aura
+                            buyItem('aura-fire');
+                            setActiveAura('aura-fire');
+                            applyAura();
                         }
 
                         spinning=false;
