@@ -916,43 +916,46 @@
             -webkit-tap-highlight-color:transparent;
         }
         .shop-close-btn:active{background:rgba(255,255,255,.2)}
-        .shop-section{padding:20px 0 8px}
-        .shop-section-title{font-size:15px;font-weight:700;color:rgba(255,255,255,.5);padding:0 22px 12px;letter-spacing:.5px}
+        .shop-section{padding:12px 0 4px}
+        .shop-section-title{font-size:15px;font-weight:700;color:rgba(255,255,255,.5);padding:0 22px 10px;letter-spacing:.5px}
+        /* Kategória kártyák — egymás alatt, koppintásra nyílik */
+        .shop-cats{display:flex;flex-direction:column;gap:8px;padding:0 18px}
+        .shop-cat{
+            display:flex;align-items:center;gap:14px;
+            background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+            border-radius:16px;padding:14px 16px;cursor:pointer;transition:all .2s;color:#fff;
+        }
+        .shop-cat:active{transform:scale(.98)}
+        .shop-cat.open{border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.08)}
+        .shop-cat-icon{font-size:28px;flex-shrink:0}
+        .shop-cat-info{flex:1;min-width:0}
+        .shop-cat-name{font-size:14px;font-weight:700}
+        .shop-cat-count{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px}
+        .shop-cat-arrow{font-size:14px;color:rgba(255,255,255,.3);transition:transform .2s;flex-shrink:0}
+        .shop-cat.open .shop-cat-arrow{transform:rotate(90deg)}
+        .shop-cat-active{font-size:10px;color:#a78bfa;font-weight:700;margin-top:2px}
+        /* Kinyílt kategória elemei */
         .shop-scroll{
-            display:flex;gap:14px;overflow-x:auto;padding:0 22px 14px;
+            display:flex;gap:12px;overflow-x:auto;padding:10px 18px 14px;
             scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
             scrollbar-width:none;
         }
         .shop-scroll::-webkit-scrollbar{display:none}
+        .shop-scroll.closed{display:none}
         .shop-item{
-            flex:0 0 135px;scroll-snap-align:start;
+            flex:0 0 120px;scroll-snap-align:start;
             background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
-            border-radius:22px;padding:18px 10px 14px;
+            border-radius:18px;padding:14px 8px 12px;
             text-align:center;cursor:pointer;transition:all .2s;color:#fff;
         }
         .shop-item:active{transform:scale(.95)}
-        .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 20px rgba(139,92,246,.15)}
-        .shop-item.locked{opacity:.4;cursor:default}
-        .shop-item.buyable{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
-        .shop-item-icon{font-size:40px;display:block;margin-bottom:10px}
-        .shop-item-name{font-size:13px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .shop-item-desc{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;line-height:1.3;height:26px;overflow:hidden}
-        .shop-item-status{font-size:11px;font-weight:700}
+        .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 16px rgba(139,92,246,.15)}
+        .shop-item-icon{font-size:32px;display:block;margin-bottom:8px}
+        .shop-item-name{font-size:12px;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .shop-item-desc{font-size:9px;color:rgba(255,255,255,.35);margin-bottom:6px;line-height:1.3;height:24px;overflow:hidden}
+        .shop-item-status{font-size:10px;font-weight:700}
         .shop-item-status.equipped{color:#a78bfa}
-        .tier-badge{position:absolute;top:6px;right:6px;font-size:8px;font-weight:900;padding:2px 5px;border-radius:4px;letter-spacing:.5px}
-        .tier-common .tier-badge{background:rgba(74,222,128,.2);color:#4ade80}
-        .tier-rare .tier-badge{background:rgba(96,165,250,.2);color:#60a5fa}
-        .tier-legendary .tier-badge{background:rgba(251,191,36,.2);color:#fbbf24}
-        .tier-legendary{border-color:rgba(251,191,36,.3)!important}
-        .tier-rare{border-color:rgba(96,165,250,.2)!important}
-        .shop-item-status.owned{color:rgba(255,255,255,.3)}
-        .shop-item-status.price{color:rgba(255,255,255,.4)}
-        .shop-item-status .buy-tag{
-            display:inline-block;padding:5px 12px;border-radius:10px;font-weight:800;font-size:11px;
-            background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1e1b4b;cursor:pointer;
-        }
-        .shop-item-status .buy-tag:active{transform:scale(.93)}
-        .shop-item-status .lock-tag{opacity:.5;font-size:11px}
+        .shop-item-status.owned{color:rgba(255,255,255,.25)}
 
         /* BUBORÉK */
         .bubble-wrap{width:100%;min-height:80px;display:flex;align-items:flex-end;justify-content:center;flex-shrink:0;padding-bottom:10px}
@@ -3330,35 +3333,46 @@
                 ]},
             ];
 
-            // Egy csoportosított szekciót renderel
-            function renderGrouped(container,groups,active,setter,applier){
+            // Melyik kategória van nyitva (type:index)
+            const openCats={};
+
+            function renderCats(container,groups,active,setter,applier,type){
                 container.innerHTML='';
-                groups.forEach(grp=>{
-                    // Rejtett csoportok: ha minden elem hide és nincs feloldva, kihagyjuk
+                const cats=document.createElement('div');
+                cats.className='shop-cats';
+                groups.forEach((grp,gi)=>{
                     const visible=grp.items.filter(s=>!s.hide||owns(s.id));
                     if(!visible.length) return;
-                    // Alkategória címke (ha van)
-                    if(grp.label){
-                        const lbl=document.createElement('div');
-                        lbl.style.cssText='font-size:11px;font-weight:700;color:rgba(255,255,255,.35);padding:8px 22px 4px;letter-spacing:.5px';
-                        lbl.textContent=grp.label;
-                        container.appendChild(lbl);
-                    }
-                    // Scroll sor
-                    const row=document.createElement('div');
-                    row.className='shop-scroll';
-                    visible.forEach(s=>{
-                        if(s.id) buyItem(s.id);
-                        const isActive=s.id===active;
-                        const el=document.createElement('div');
-                        el.className='shop-item'+(isActive?' active':'');
-                        let status=isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>';
-                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
-                        if(!isActive) el.addEventListener('click',()=>{setter(s.id);applier();renderShop()});
-                        row.appendChild(el);
+                    const isOpen=openCats[type]===gi;
+                    // Aktív elem ebben a kategóriában?
+                    const activeName=visible.find(s=>s.id===active);
+                    // Kategória kártya
+                    const cat=document.createElement('div');
+                    cat.className='shop-cat'+(isOpen?' open':'');
+                    const icon=grp.items[0]?grp.items[0].icon:'';
+                    cat.innerHTML=`<div class="shop-cat-icon">${icon}</div><div class="shop-cat-info"><div class="shop-cat-name">${grp.label||'Alapértelmezett'}</div><div class="shop-cat-count">${visible.length} elem</div>${activeName?'<div class="shop-cat-active">✔ '+activeName.name+'</div>':''}</div><div class="shop-cat-arrow">▶</div>`;
+                    cat.addEventListener('click',()=>{
+                        openCats[type]=isOpen?null:gi;
+                        renderShop();
                     });
-                    container.appendChild(row);
+                    cats.appendChild(cat);
+                    // Kinyílt elemek
+                    if(isOpen){
+                        const row=document.createElement('div');
+                        row.className='shop-scroll';
+                        visible.forEach(s=>{
+                            if(s.id) buyItem(s.id);
+                            const isActive=s.id===active;
+                            const el=document.createElement('div');
+                            el.className='shop-item'+(isActive?' active':'');
+                            el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
+                            if(!isActive) el.addEventListener('click',()=>{setter(s.id);applier();renderShop()});
+                            row.appendChild(el);
+                        });
+                        cats.appendChild(row);
+                    }
                 });
+                container.appendChild(cats);
             }
 
             function renderShop(){
@@ -3368,10 +3382,9 @@
                 const activeBg=getActiveBg();
                 const activeAura=getActiveAura();
 
-                renderGrouped(skinList,SKIN_GROUPS,activeSkin,setActiveSkin,applyRobotSkin);
-                renderGrouped(bgList,BG_GROUPS,activeBg,setActiveBg,applyCustomBg);
+                renderCats(skinList,SKIN_GROUPS,activeSkin,setActiveSkin,applyRobotSkin,'skin');
+                renderCats(bgList,BG_GROUPS,activeBg,setActiveBg,applyCustomBg,'bg');
 
-                // Auralist elem
                 const auraListId='auraList';
                 let auraList=document.getElementById(auraListId);
                 if(!auraList){
@@ -3381,7 +3394,7 @@
                    bgList.parentElement.insertAdjacentElement('afterend',auraSection);
                    auraList=document.getElementById(auraListId);
                 }
-                renderGrouped(auraList,AURA_GROUPS,activeAura,setActiveAura,applyAura);
+                renderCats(auraList,AURA_GROUPS,activeAura,setActiveAura,applyAura,'aura');
             }
             window.renderShop=renderShop;
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
