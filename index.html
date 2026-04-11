@@ -1815,11 +1815,11 @@
 
         <div class="shop-section">
             <div class="shop-section-title">🤖 Skin választék</div>
-            <div class="shop-scroll" id="skinList"></div>
+            <div id="skinList"></div>
         </div>
         <div class="shop-section">
             <div class="shop-section-title">🖼️ Hátterek</div>
-            <div class="shop-scroll" id="bgList"></div>
+            <div id="bgList"></div>
         </div>
 
     </div>
@@ -3256,47 +3256,110 @@
             const closeBtn=document.getElementById('skinClose');
             const greet=document.getElementById('shopGreeting');
 
-            // tier: 'free'|'common'|'rare'|'legendary' — rendezéshez és címkékhez
-            const SKINS=[
-                {id:'',name:'Alap',desc:'Az eredeti klasszikus',icon:'🤖',cost:0,tier:'free'},
-                {id:'tulip',name:'Tulipán',desc:'Tavaszi virágos',icon:'🌷',cost:0,tier:'free'},
-                {id:'galaxy',name:'Galaxy',desc:'Kozmikus ragyogás',icon:'🌌',cost:0,tier:'free'},
-                {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:0,tier:'free'},
-                {id:'graffiti',name:'Graffiti',desc:'Utcai művész',icon:'🧱',cost:0,tier:'free'},
-                {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:0,tier:'free'},
-                {id:'fire',name:'Fire',desc:'Lángoló vörös izzás',icon:'🔥',cost:0,tier:'free'},
-                {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:0,tier:'free'},
-                {id:'diamond',name:'Diamond',desc:'Jégkék drágakő test',icon:'💎',cost:0,tier:'free'},
-                {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:0,tier:'free'},
-                {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső',icon:'🎮',cost:0,tier:'free'},
-                {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:0,tier:'free'},
-                {id:'horse',name:'Ló',desc:'Lovas robot',icon:'🐴',cost:0,tier:'free'},
-                {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true}
+            // Skinek kategóriákba rendezve
+            const SKIN_GROUPS=[
+                {label:'Alap',items:[
+                    {id:'',name:'Alap',desc:'Az eredeti klasszikus',icon:'🤖',cost:0,tier:'free'},
+                ]},
+                {label:'🌿 Természet',items:[
+                    {id:'tulip',name:'Tulipán',desc:'Tavaszi virágos',icon:'🌷',cost:0,tier:'free'},
+                    {id:'sakura',name:'Sakura',desc:'Cseresznyevirág',icon:'🌸',cost:0,tier:'free'},
+                    {id:'horse',name:'Ló',desc:'Lovas robot',icon:'🐴',cost:0,tier:'free'},
+                ]},
+                {label:'🌑 Sötét & Misztikus',items:[
+                    {id:'stealth',name:'Stealth',desc:'High-tech ügynök',icon:'👤',cost:0,tier:'free'},
+                    {id:'galaxy',name:'Galaxy',desc:'Kozmikus ragyogás',icon:'🌌',cost:0,tier:'free'},
+                    {id:'graffiti',name:'Graffiti',desc:'Utcai művész',icon:'🧱',cost:0,tier:'free'},
+                ]},
+                {label:'✨ Fényes & Értékes',items:[
+                    {id:'golden',name:'Golden',desc:'Tiszta arany csillogás',icon:'✨',cost:0,tier:'free'},
+                    {id:'diamond',name:'Diamond',desc:'Jégkék drágakő',icon:'💎',cost:0,tier:'free'},
+                    {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:0,tier:'free'},
+                ]},
+                {label:'🔥 Intenzív',items:[
+                    {id:'fire',name:'Fire',desc:'Lángoló vörös izzás',icon:'🔥',cost:0,tier:'free'},
+                    {id:'rainbow',name:'Rainbow',desc:'Szivárványos színváltó',icon:'🌈',cost:0,tier:'free'},
+                    {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső',icon:'🎮',cost:0,tier:'free'},
+                ]},
+                {label:'🐉 Titkos',items:[
+                    {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true},
+                ]},
             ];
-            const BGS=[
-                {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0,tier:'free'},
-                {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tavaszi virágmező',icon:'🌷',cost:0,tier:'free'},
-                {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:0,tier:'free'},
-                {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:0,tier:'free'},
-                {id:'bg-graffiti',name:'Graffiti',desc:'Utcai falfestés',icon:'🧱',cost:0,tier:'free'},
-                {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:0,tier:'free'},
-                {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:0,tier:'free'},
-                {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:0,tier:'free'},
-                {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:0,tier:'free'},
-                {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:0,tier:'free'},
-                {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:0,tier:'free'},
-                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:0,tier:'free'}
+            // Hátterek kategóriákba
+            const BG_GROUPS=[
+                {label:'Alap',items:[
+                    {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0,tier:'free'},
+                ]},
+                {label:'🌿 Természet',items:[
+                    {id:'bg-tulip',name:'Tavaszi Rét',desc:'Tavaszi virágmező',icon:'🌷',cost:0,tier:'free'},
+                    {id:'bg-sakura',name:'Sakura',desc:'Tavaszi szirmok',icon:'🌸',cost:0,tier:'free'},
+                ]},
+                {label:'🌑 Sötét',items:[
+                    {id:'bg-stealth',name:'Stealth',desc:'Éjszakai sötét',icon:'🌑',cost:0,tier:'free'},
+                    {id:'bg-galaxy',name:'Galaxy',desc:'Csillagos égbolt',icon:'🌌',cost:0,tier:'free'},
+                    {id:'bg-graffiti',name:'Graffiti',desc:'Utcai falfestés',icon:'🧱',cost:0,tier:'free'},
+                ]},
+                {label:'✨ Fényes',items:[
+                    {id:'bg-golden',name:'Luxus Arany',desc:'Arany fényár',icon:'✨',cost:0,tier:'free'},
+                    {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:0,tier:'free'},
+                    {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:0,tier:'free'},
+                ]},
+                {label:'🔥 Intenzív',items:[
+                    {id:'bg-fire',name:'Fire',desc:'Pokoli lángok',icon:'🔥',cost:0,tier:'free'},
+                    {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:0,tier:'free'},
+                    {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:0,tier:'free'},
+                ]},
             ];
-            const AURAS=[
-                {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0,tier:'free'},
-                {id:'aura-tulip',name:'Tulipán',desc:'Tavaszi virágaura',icon:'🌷',cost:0,tier:'free'},
-                {id:'aura-fire',name:'Tűz',desc:'Lángoló energia',icon:'🔥',cost:0,tier:'free'},
-                {id:'aura-sakura',name:'Sakura',desc:'Hulló szirmok',icon:'🌸',cost:0,tier:'free'},
-                {id:'aura-glitch',name:'Glitch',desc:'Digitális zavar',icon:'👾',cost:0,tier:'free'},
-                {id:'aura-halo',name:'Szent',desc:'Égi ragyogás',icon:'😇',cost:0,tier:'free'},
-                {id:'aura-rgb',name:'RGB',desc:'Gamer színek',icon:'🌈',cost:0,tier:'free'},
-                {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:0,tier:'free'}
+            // Aurák kategóriákba
+            const AURA_GROUPS=[
+                {label:'',items:[
+                    {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0,tier:'free'},
+                ]},
+                {label:'🌿 Természet',items:[
+                    {id:'aura-tulip',name:'Tulipán',desc:'Tavaszi virágaura',icon:'🌷',cost:0,tier:'free'},
+                    {id:'aura-sakura',name:'Sakura',desc:'Hulló szirmok',icon:'🌸',cost:0,tier:'free'},
+                ]},
+                {label:'🔥 Effektek',items:[
+                    {id:'aura-fire',name:'Tűz',desc:'Lángoló energia',icon:'🔥',cost:0,tier:'free'},
+                    {id:'aura-glitch',name:'Glitch',desc:'Digitális zavar',icon:'👾',cost:0,tier:'free'},
+                    {id:'aura-rgb',name:'RGB',desc:'Gamer színek',icon:'🌈',cost:0,tier:'free'},
+                ]},
+                {label:'✨ Fényes',items:[
+                    {id:'aura-halo',name:'Szent',desc:'Égi ragyogás',icon:'😇',cost:0,tier:'free'},
+                    {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:0,tier:'free'},
+                ]},
             ];
+
+            // Egy csoportosított szekciót renderel
+            function renderGrouped(container,groups,active,setter,applier){
+                container.innerHTML='';
+                groups.forEach(grp=>{
+                    // Rejtett csoportok: ha minden elem hide és nincs feloldva, kihagyjuk
+                    const visible=grp.items.filter(s=>!s.hide||owns(s.id));
+                    if(!visible.length) return;
+                    // Alkategória címke (ha van)
+                    if(grp.label){
+                        const lbl=document.createElement('div');
+                        lbl.style.cssText='font-size:11px;font-weight:700;color:rgba(255,255,255,.35);padding:8px 22px 4px;letter-spacing:.5px';
+                        lbl.textContent=grp.label;
+                        container.appendChild(lbl);
+                    }
+                    // Scroll sor
+                    const row=document.createElement('div');
+                    row.className='shop-scroll';
+                    visible.forEach(s=>{
+                        if(s.id) buyItem(s.id);
+                        const isActive=s.id===active;
+                        const el=document.createElement('div');
+                        el.className='shop-item'+(isActive?' active':'');
+                        let status=isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>';
+                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+                        if(!isActive) el.addEventListener('click',()=>{setter(s.id);applier();renderShop()});
+                        row.appendChild(el);
+                    });
+                    container.appendChild(row);
+                });
+            }
 
             function renderShop(){
                 const name=localStorage.getItem('nu_name')||'Barátom';
@@ -3304,48 +3367,21 @@
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
                 const activeAura=getActiveAura();
-                skinList.innerHTML='';
-                bgList.innerHTML='';
+
+                renderGrouped(skinList,SKIN_GROUPS,activeSkin,setActiveSkin,applyRobotSkin);
+                renderGrouped(bgList,BG_GROUPS,activeBg,setActiveBg,applyCustomBg);
 
                 // Auralist elem
-                const auraListId = 'auraList';
-                let auraList = document.getElementById(auraListId);
+                const auraListId='auraList';
+                let auraList=document.getElementById(auraListId);
                 if(!auraList){
-                   const auraSection = document.createElement('div');
-                   auraSection.className = 'shop-section';
-                   auraSection.innerHTML = `<div class="shop-section-title">🔮 Aurák</div><div class="shop-scroll" id="${auraListId}"></div>`;
-                   // Insert after BG list
-                   bgList.parentElement.insertAdjacentElement('afterend', auraSection);
-                   auraList = document.getElementById(auraListId);
+                   const auraSection=document.createElement('div');
+                   auraSection.className='shop-section';
+                   auraSection.innerHTML=`<div class="shop-section-title">🔮 Aurák</div><div id="${auraListId}"></div>`;
+                   bgList.parentElement.insertAdjacentElement('afterend',auraSection);
+                   auraList=document.getElementById(auraListId);
                 }
-                auraList.innerHTML = '';
-
-
-
-                [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
-                  {id:'bgList',items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg},
-                  {id:'auraList',items:AURAS,list:auraList,active:activeAura,setter:setActiveAura,applier:applyAura}
-                ].forEach(cfg=>{
-                    cfg.items.forEach(s=>{
-                        // Rejtett skin: csak ha már feloldotta
-                        if(s.hide && !owns(s.id)) return;
-                        // Minden ingyenes — automatikusan megvan
-                        if(s.id) buyItem(s.id);
-                        const isActive=s.id===cfg.active;
-
-                        const el=document.createElement('div');
-                        el.className='shop-item'+(isActive?' active':'');
-
-                        let status='';
-                        if(isActive) status='<div class="shop-item-status equipped">✔ Aktív</div>';
-                        else status='<div class="shop-item-status owned">Választható</div>';
-
-                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
-
-                        if(!isActive) el.addEventListener('click',()=>{cfg.setter(s.id);cfg.applier();renderShop()});
-                        cfg.list.appendChild(el);
-                    });
-                });
+                renderGrouped(auraList,AURA_GROUPS,activeAura,setActiveAura,applyAura);
             }
             window.renderShop=renderShop;
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
