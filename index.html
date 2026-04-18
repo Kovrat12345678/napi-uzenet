@@ -1790,15 +1790,67 @@
         .rarity-label-mythic{background:linear-gradient(90deg,#ec4899,#a855f7,#3b82f6,#ec4899);background-size:200% 100%;color:#fff;border:1px solid rgba(236,72,153,.9);box-shadow:0 2px 14px rgba(236,72,153,.6);animation:rarityMythicFlow 3s linear infinite}
         @keyframes rarityMythicFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
-        /* Accessory SVG méretezés */
-        .acc-vis{display:inline-flex;align-items:center;justify-content:center;width:56px;height:46px}
+        /* Accessory SVG méretezés (shop) */
+        .acc-vis{display:inline-flex;align-items:center;justify-content:center;width:60px;height:50px}
         .acc-vis svg{width:100%;height:100%;display:block}
-        /* SVG a robot fejen */
-        .outfit.outfit-acc-rendered{font-size:0}
-        .outfit-acc-rendered svg{width:56px;height:46px}
-        .outfit-hat.outfit-acc-rendered svg{width:64px;height:50px;transform:translateY(-5px)}
-        .outfit-face.outfit-acc-rendered svg{width:58px;height:36px}
-        .outfit-neck.outfit-acc-rendered svg{width:56px;height:32px}
+
+        /* SVG a robot fejen — NAGYOK, lefedik a fejet */
+        .outfit.outfit-acc-rendered{font-size:0;z-index:15}
+        /* Fej-fedők: cover mode (tök, korona) — teljes fejet fedi */
+        .outfit-hat.outfit-acc-rendered{top:-30px!important;left:50%!important;transform:translateX(-50%)!important;width:140px!important;height:140px!important;display:flex;align-items:center;justify-content:center;pointer-events:none}
+        .outfit-hat.outfit-acc-rendered svg{width:140px;height:140px}
+        /* Arc-fedők (napszemüveg, álarc, goggle) — széles, fej közepére */
+        .outfit-face.outfit-acc-rendered{top:35px!important;left:50%!important;transform:translateX(-50%)!important;width:110px!important;height:45px!important;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:16}
+        .outfit-face.outfit-acc-rendered svg{width:110px;height:45px}
+        /* Nyak kiegészítők */
+        .outfit-neck.outfit-acc-rendered{top:150px!important;left:50%!important;transform:translateX(-50%)!important;width:100px!important;height:40px!important;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:14}
+        .outfit-neck.outfit-acc-rendered svg{width:100px;height:40px}
+
+        /* Bot Pass banner hint szöveg */
+        .bp-banner-hint{margin-top:4px;font-size:10px;color:rgba(251,191,36,.7);font-style:italic;line-height:1.3}
+
+        /* =========== ROBOT TÁNC ANIMÁCIÓK =========== */
+        @keyframes dSpin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+        @keyframes dBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+        @keyframes dShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-14px) rotate(-4deg)}75%{transform:translateX(14px) rotate(4deg)}}
+        @keyframes dTwist{0%,100%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}}
+        @keyframes dJump{0%,100%{transform:translateY(0)}25%{transform:translateY(-35px) rotate(-6deg)}50%{transform:translateY(0)}75%{transform:translateY(-15px) rotate(6deg)}}
+        @keyframes dWobble{0%,100%{transform:skewX(0) translateY(0)}25%{transform:skewX(-6deg) translateY(-8px)}75%{transform:skewX(6deg) translateY(-8px)}}
+        .robot.dance-spin{animation:dSpin 1.8s linear infinite!important}
+        .robot.dance-bob{animation:dBob .7s ease-in-out infinite!important}
+        .robot.dance-shake{animation:dShake .35s ease-in-out infinite!important}
+        .robot.dance-twist{animation:dTwist 1.2s ease-in-out infinite!important}
+        .robot.dance-jump{animation:dJump 1.3s ease-in-out infinite!important}
+        .robot.dance-wobble{animation:dWobble 1s ease-in-out infinite!important}
+
+        /* Gem flash animáció Daily Gem claim után */
+        .gem-flash{position:fixed;left:50%;top:30%;transform:translate(-50%,-50%);font-size:42px;font-weight:900;color:#fbbf24;text-shadow:0 0 30px rgba(251,191,36,.9),0 4px 12px rgba(0,0,0,.5);z-index:9999;pointer-events:none;animation:gemFlashUp 1.5s cubic-bezier(.4,1.4,.5,1) forwards}
+        @keyframes gemFlashUp{0%{opacity:0;transform:translate(-50%,10%) scale(.5)}30%{opacity:1;transform:translate(-50%,-30%) scale(1.2)}70%{opacity:1;transform:translate(-50%,-40%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-60%) scale(1)}}
+        .gem-visual{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+        .gem-visual svg{width:80px;height:80px;animation:gemFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 6px 16px rgba(251,191,36,.5))}
+        @keyframes gemFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}
+        .loot-card.gem-card{border-color:rgba(251,191,36,.4)!important;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(180,83,9,.08))!important}
+
+        /* ÁRAMLÓ GRADIENS — modern animáció (használható bárhol) */
+        @keyframes flowColor{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+        .flow-gradient{background-size:300% 100%!important;animation:flowColor 8s linear infinite}
+
+        /* Shop title áramló gradient */
+        .shop-title{background:linear-gradient(90deg,#a78bfa,#ec4899,#fbbf24,#a78bfa);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 6s linear infinite}
+
+        /* Bot Pass belépő banner áramló áttetsző gradient */
+        .bp-banner{background:linear-gradient(135deg,#1e1b4b 0%,#4c1d95 25%,#831843 50%,#4c1d95 75%,#1e1b4b 100%)!important;background-size:300% 300%!important;animation:bpBannerFlow 10s ease-in-out infinite}
+        @keyframes bpBannerFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+        /* Bot Pass panel háttér áramló */
+        .bp-panel{background:linear-gradient(135deg,#1e1b4b 0%,#3b0764 25%,#581c87 50%,#831843 75%,#1e1b4b 100%)!important;background-size:400% 400%!important;animation:bpPanelFlow 15s ease infinite}
+        @keyframes bpPanelFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+        /* Shop kártyák mythic + legendary áramló */
+        .shop-item:has(.rarity-label-mythic){background:linear-gradient(135deg,rgba(236,72,153,.2),rgba(168,85,247,.18),rgba(59,130,246,.18),rgba(236,72,153,.2))!important;background-size:300% 300%!important;animation:shopItemIn .4s ease-out backwards,flowColor 8s linear infinite!important}
+
+        /* Streak badge áramló */
+        .streak.on{background:linear-gradient(90deg,rgba(251,146,60,.3),rgba(239,68,68,.3),rgba(251,146,60,.3))!important;background-size:200% 100%!important;animation:flowColor 4s linear infinite}
 
         /* Bot Pass banner hint szöveg */
         .bp-banner-hint{margin-top:4px;font-size:10px;color:rgba(251,191,36,.7);font-style:italic;line-height:1.3}
@@ -2030,16 +2082,34 @@
             <div class="riddle-result" id="riddleResult"></div>
         </div>
 
-        <!-- Napi Spin — mindig látszik -->
-        <div class="dragon-spin-section" id="dragonSpinSection">
-            <div class="shop-section-title">🎰 Napi Spin</div>
-            <div class="dragon-spin-wrap">
-                <div class="dragon-spin-wheel">
-                    <div class="dragon-spin-pointer"></div>
-                    <canvas class="dragon-spin-canvas" id="dragonSpinCanvas" width="440" height="440"></canvas>
+        <!-- Daily Gem — mindig látszik (a szerencsekerék helyett) -->
+        <div class="shop-section">
+            <div class="shop-section-title">💎 Daily Gem</div>
+            <div class="loot-card-wrap">
+                <div class="loot-card gem-card" id="shopGemCard">
+                    <div class="loot-card-visual">
+                        <div class="gem-visual">
+                            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gemGradBig" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0" stop-color="#fef3c7"/>
+                                        <stop offset=".5" stop-color="#fbbf24"/>
+                                        <stop offset="1" stop-color="#b45309"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M40,6 L72,28 L60,72 L20,72 L8,28 Z" fill="url(#gemGradBig)" stroke="#92400e" stroke-width="1.5"/>
+                                <path d="M40,6 L72,28 L40,36 Z" fill="rgba(255,255,255,.4)"/>
+                                <path d="M8,28 L40,36 L40,6 Z" fill="rgba(255,255,255,.25)"/>
+                                <path d="M20,72 L40,36 L60,72 Z" fill="rgba(0,0,0,.15)"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="loot-card-info">
+                        <div class="loot-card-title">Daily Gem</div>
+                        <div class="loot-card-count"><span id="shopGemCount">1/1</span> ma</div>
+                        <button class="loot-card-btn" id="shopGemBtn">Megnyit</button>
+                    </div>
                 </div>
-                <button class="dragon-spin-btn" id="dragonSpinBtn">🎰 Pörgesd meg!</button>
-                <div class="dragon-spin-result" id="dragonSpinResult"></div>
             </div>
         </div>
 
@@ -2114,7 +2184,7 @@
                         <div class="bp-banner-bar-wrap">
                             <div class="bp-banner-bar" id="bpBannerBar"></div>
                         </div>
-                        <div class="bp-banner-hint">+40 XP napi belépéstől · +20 box · +15 pouch/spin</div>
+                        <div class="bp-banner-hint">+40 XP napi belépéstől · +20 box · +15 pouch/gem</div>
                         <div class="bp-banner-cta">Megnyitás →</div>
                     </div>
                     <div class="bp-banner-badge" id="bpBannerBadge" style="display:none">!</div>
@@ -2292,8 +2362,11 @@
             faceEl.textContent=face;
             neckEl.textContent=neck;
 
-            // Kiegészítők alkalmazása — deferred, mert az ACCESSORIES lejjebb definiálódik
-            setTimeout(()=>{if(typeof applyAcc==='function') applyAcc();},0);
+            // Kiegészítők + tánc alkalmazása — deferred, mert az ACCESSORIES/DANCES lejjebb definiálódik
+            setTimeout(()=>{
+                if(typeof applyAcc==='function') applyAcc();
+                if(typeof applyDance==='function') applyDance();
+            },0);
         })();
 
         // ========== IDŐJÁRÁS ==========
@@ -3381,6 +3454,26 @@
         function getActiveAcc(){return localStorage.getItem('nu_active_acc')||''}
         function setActiveAcc(id){localStorage.setItem('nu_active_acc',id)}
 
+        // ========== ROBOT TÁNCOK ==========
+        const DANCES=[
+            {id:'dance-bob',    name:'Bólogatás',   icon:'🎵', cls:'dance-bob',    rarity:'common'},
+            {id:'dance-shake',  name:'Rázás',       icon:'💃', cls:'dance-shake',  rarity:'common'},
+            {id:'dance-twist',  name:'Csavar',      icon:'🌀', cls:'dance-twist',  rarity:'rare'},
+            {id:'dance-wobble', name:'Hullám',      icon:'🌊', cls:'dance-wobble', rarity:'rare'},
+            {id:'dance-jump',   name:'Ugrás',       icon:'🤸', cls:'dance-jump',   rarity:'epic'},
+            {id:'dance-spin',   name:'Pörgés',      icon:'🕺', cls:'dance-spin',   rarity:'legendary'}
+        ];
+        function getActiveDance(){return localStorage.getItem('nu_active_dance')||''}
+        function setActiveDance(id){localStorage.setItem('nu_active_dance',id)}
+        function applyDance(){
+            const robot=document.getElementById('robot');
+            if(!robot) return;
+            DANCES.forEach(d=>robot.classList.remove(d.cls));
+            const id=getActiveDance();
+            const dance=DANCES.find(d=>d.id===id);
+            if(dance) robot.classList.add(dance.cls);
+        }
+
         // SVG vizuálok — valódi rajzok, nem emoji
         const ACCESSORY_SVG={
             'acc-crown':'<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="goldG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><path d="M5,42 L10,12 L22,28 L30,4 L38,28 L50,12 L55,42 Z" fill="url(#goldG)" stroke="#92400e" stroke-width="1.2"/><rect x="5" y="40" width="50" height="6" fill="#b45309" rx="1"/><circle cx="30" cy="34" r="3.2" fill="#ef4444"/><circle cx="17" cy="36" r="2.4" fill="#3b82f6"/><circle cx="43" cy="36" r="2.4" fill="#10b981"/></svg>',
@@ -3476,6 +3569,11 @@
             if(spc)spc.textContent=(pouchFreeAvailable()?1:0)+'/1';
             const spBtnF=document.getElementById('shopPouchFreeBtn');
             if(spBtnF){const avail=pouchFreeAvailable();spBtnF.disabled=!avail;spBtnF.textContent=avail?'Ingyen':'Felhasználva'}
+            // Daily Gem
+            const sgc=document.getElementById('shopGemCount');
+            if(sgc)sgc.textContent=(spunToday_gem()?0:1)+'/1';
+            const sgBtn=document.getElementById('shopGemBtn');
+            if(sgBtn){const canClaim=!spunToday_gem();sgBtn.disabled=!canClaim;sgBtn.textContent=canClaim?'Megnyit':'Holnap 6-kor'}
 
             // Shop ikon NEW badge — akkor mutat, ha bármelyik napi loot elérhető
             const newBadge=document.getElementById('shopNewBadge');
@@ -3514,17 +3612,30 @@
         function renderDailyDeal(){
             const sec=document.getElementById('dailyDealSection');
             if(!sec) return;
-            const d=getDailyDeal();
+            let d=getDailyDeal();
+            // Ha már birtokolt, pick másikat
+            if(getOwned().includes(d.id)){
+                const all=Object.keys(ITEM_PRICES);
+                const notOwned=all.filter(id=>!getOwned().includes(id));
+                if(notOwned.length){
+                    const newId=notOwned[Math.floor(Math.random()*notOwned.length)];
+                    localStorage.setItem('nu_daily_deal_item',newId);
+                    d=getDailyDeal();
+                }
+            }
             const meta=findItemMeta(d.id);
             if(!meta){sec.style.display='none';return}
-            if(getOwned().includes(d.id)){sec.style.display='none';return}
             sec.style.display='block';
+            const alreadyOwned=getOwned().includes(d.id);
             document.getElementById('dealIcon').textContent=meta.icon||'✨';
             document.getElementById('dealName').textContent=meta.name+' — '+meta.desc;
             document.getElementById('dealOld').textContent=d.full;
             document.getElementById('dealNew').textContent=d.deal;
             const btn=document.getElementById('dealBuyBtn');
+            btn.disabled=alreadyOwned;
+            btn.textContent=alreadyOwned?'Már megvan':'Megveszem';
             btn.onclick=()=>{
+                if(alreadyOwned)return;
                 if(!confirm('Megveszed "'+meta.name+'"-t '+d.deal+' gemért? (eredeti: '+d.full+')'))return;
                 if(!spendGems(d.deal)){alert('Nincs elég gem!');return}
                 buyItem(d.id);
@@ -3602,20 +3713,23 @@
         }
         // Szint jutalmak generálása (mintázat)
         function botpassReward(lvl){
-            // lvl 1-60
-            // Milestone szintek: 10,20,30,40,50,60 — nagyobb jutalmak
             if(lvl===60) return {type:'item_ultra',icon:'🌈',name:'Rainbow Skin',itemId:'rainbow'};
+            if(lvl===55) return {type:'dance',icon:'🕺',name:'Pörgés tánc',itemId:'dance-spin'};
             if(lvl===50) return {type:'item_epic',icon:'💎',name:'Gyémánt Aura',itemId:'aura-diamond'};
+            if(lvl===45) return {type:'dance',icon:'🤸',name:'Ugrás tánc',itemId:'dance-jump'};
             if(lvl===40) return {type:'item_epic',icon:'✨',name:'Golden Skin',itemId:'golden'};
+            if(lvl===35) return {type:'dance',icon:'🌊',name:'Hullám tánc',itemId:'dance-wobble'};
             if(lvl===30) return {type:'gems',amount:200,icon:'💎',name:'200 gem'};
+            if(lvl===25) return {type:'dance',icon:'🌀',name:'Csavar tánc',itemId:'dance-twist'};
             if(lvl===20) return {type:'item_rare',icon:'🔥',name:'Fire Skin',itemId:'fire'};
+            if(lvl===15) return {type:'dance',icon:'💃',name:'Rázás tánc',itemId:'dance-shake'};
             if(lvl===10) return {type:'gems',amount:100,icon:'💎',name:'100 gem'};
+            if(lvl===5)  return {type:'dance',icon:'🎵',name:'Bólogatás tánc',itemId:'dance-bob'};
             const m=lvl%5;
             if(m===1) return {type:'gems',amount:10+Math.floor(lvl/5)*2,icon:'💎',name:(10+Math.floor(lvl/5)*2)+' gem'};
             if(m===2) return {type:'box',icon:'🎁',name:'1× DailyBox'};
             if(m===3) return {type:'gems',amount:15+Math.floor(lvl/5)*2,icon:'💎',name:(15+Math.floor(lvl/5)*2)+' gem'};
             if(m===4) return {type:'pouch',icon:'👝',name:'1× Pouch'};
-            // m===0 (5,15,25,35,45,55)
             return {type:'gems',amount:25+Math.floor(lvl/5)*3,icon:'💰',name:(25+Math.floor(lvl/5)*3)+' gem'};
         }
         function applyBotpassReward(lvl){
@@ -3624,13 +3738,17 @@
             const mult=plus?2:1;
             if(r.type==='gems'){addGems(r.amount*mult);return r.name+(plus?' (×2)':'')}
             if(r.type==='box'){
-                const cur=boxesRemaining();localStorage.setItem('nu_box_count',String(cur+(plus?2:1)));
-                return plus?'2 extra DailyBox':'1 extra DailyBox';
+                // Azonnali free megnyitás
+                setTimeout(()=>{if(typeof window.openDailyBox==='function')window.openDailyBox(true)},250);
+                return 'DailyBox nyitás...';
             }
             if(r.type==='pouch'){
-                // Ingyen pouch lehetőség — állítsuk vissza ha elhasznált, különben egy "bonus" pouch nyitás
-                localStorage.setItem('nu_pouch_free','true');
-                return plus?'2 extra Pouch':'1 Pouch';
+                setTimeout(()=>{if(typeof window.openPouch==='function')window.openPouch()},250);
+                return 'Pouch nyitás...';
+            }
+            if(r.type==='dance'){
+                if(r.itemId)buyItem(r.itemId);
+                return r.name+' feloldva!';
             }
             if(r.type==='item_rare'||r.type==='item_epic'||r.type==='item_ultra'){
                 if(r.itemId){buyItem(r.itemId)}
@@ -3667,7 +3785,23 @@
             trackBar.style.setProperty('--bp-pct',(lvl/60*100)+'%');
             trackText.textContent=lvl+' / 60';
             const hint=document.getElementById('bpXpHint');
-            if(hint) hint.innerHTML='XP: napi app megnyitás +40 · DailyBox +20 · Pouch +15 · Spin +15 · 100 XP = 1 szint';
+            const today=_today();
+            const usedOpen=localStorage.getItem('nu_botpass_last')===today;
+            const usedBox=boxesRemaining()===0;
+            const usedPouch=!pouchFreeAvailable();
+            const usedGem=spunToday_gem();
+            if(hint){
+                hint.innerHTML=`
+                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(251,191,36,.25);border-radius:12px;padding:10px 14px;text-align:left">
+                    <div style="font-weight:800;color:#fbbf24;font-size:12px;margin-bottom:6px">💡 MAI KÜLDETÉSEK — 100 XP = 1 szint</div>
+                    <div style="display:flex;flex-direction:column;gap:3px;font-size:11px">
+                        <div style="opacity:${usedOpen?0.5:1}">${usedOpen?'✅':'⬜'} Napi app megnyitás &nbsp;<span style="color:#fbbf24;font-weight:700">+40 XP</span></div>
+                        <div style="opacity:${usedBox?0.5:1}">${usedBox?'✅':'⬜'} DailyBox nyitás &nbsp;<span style="color:#fbbf24;font-weight:700">+20 XP</span></div>
+                        <div style="opacity:${usedPouch?0.5:1}">${usedPouch?'✅':'⬜'} Daily Pouch nyitás &nbsp;<span style="color:#fbbf24;font-weight:700">+15 XP</span></div>
+                        <div style="opacity:${usedGem?0.5:1}">${usedGem?'✅':'⬜'} Daily Gem megszerzés &nbsp;<span style="color:#fbbf24;font-weight:700">+15 XP</span></div>
+                    </div>
+                </div>`;
+            }
 
             if(plus){plusBtn.classList.add('active');plusBtn.textContent='⭐ Plus aktív';plusBtn.disabled=true}
             else{plusBtn.classList.remove('active');plusBtn.textContent='⭐ Bot Pass Plus (999 💎) — dupla jutalom';plusBtn.disabled=false}
@@ -4121,6 +4255,41 @@
                     accList.appendChild(el);
                 });
 
+                // Táncok szekció — ACCESSORY után
+                const danceListId='danceList';
+                let danceList=document.getElementById(danceListId);
+                if(!danceList){
+                    const ds=document.createElement('div');
+                    ds.className='shop-section';
+                    ds.innerHTML=`<div class="shop-section-title">💃 Bot Táncok <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból · Bot Pass</span></div><div class="shop-scroll" id="${danceListId}"></div>`;
+                    accList.parentElement.insertAdjacentElement('afterend',ds);
+                    danceList=document.getElementById(danceListId);
+                }
+                danceList.innerHTML='';
+                const activeDance=getActiveDance();
+                // "Nincs" tánc
+                (function(){
+                    const el=document.createElement('div');
+                    const isA=activeDance==='';
+                    el.className='shop-item'+(isA?' active':'');
+                    el.innerHTML=`<div class="shop-item-icon"><span style="font-size:42px">🚫</span></div><div class="shop-item-rarity-label rarity-label-none">NINCS</div><div class="shop-item-name">Nincs</div><div class="shop-item-desc">Alap robot mozgás</div>${isA?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
+                    if(!isA) el.addEventListener('click',()=>{setActiveDance('');applyDance();renderShop()});
+                    danceList.appendChild(el);
+                })();
+                DANCES.slice().sort((a,b)=>(RARITY_ORDER[a.rarity]||0)-(RARITY_ORDER[b.rarity]||0)).forEach(d=>{
+                    const ownedD=owns(d.id);
+                    const isA=activeDance===d.id;
+                    const el=document.createElement('div');
+                    el.className='shop-item'+(isA?' active':'')+(!ownedD?' locked':'');
+                    const status=isA?'<div class="shop-item-status equipped">✔ Aktív</div>':ownedD?'<div class="shop-item-status owned">Választható</div>':'<div class="shop-item-status lock-tag">👝 Pouch</div>';
+                    const rarityLabel=`<div class="shop-item-rarity-label rarity-label-${d.rarity}">${d.rarity}</div>`;
+                    el.innerHTML=`<div class="shop-item-icon"><span style="font-size:44px">${d.icon}</span></div>${rarityLabel}<div class="shop-item-name">${d.name}</div><div class="shop-item-desc">Robot tánc animáció</div>${status}`;
+                    if(ownedD&&!isA){
+                        el.addEventListener('click',()=>{setActiveDance(d.id);applyDance();renderShop()});
+                    }
+                    danceList.appendChild(el);
+                });
+
 
 
                 [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
@@ -4133,7 +4302,6 @@
                         const rb=RARITY_ORDER[getRarity(b.id)]||0;
                         return ra-rb;
                     });
-                    let lastRarity=null;
                     sorted.forEach(s=>{
                         if(s.hide && !owns(s.id)) return;
 
@@ -4142,15 +4310,6 @@
                         const isActive=s.id===cfg.active;
                         const isDragonLocked=s.id==='dragon'&&!ownedItem;
                         const rarity=getRarity(s.id);
-
-                        // Rarity csoport fejléc beszúrása a listába (csak ha változott és nem free)
-                        if(rarity!==lastRarity && rarity!=='free'){
-                            const hdr=document.createElement('div');
-                            hdr.className='rarity-group-label';
-                            hdr.textContent=RARITY_LABEL[rarity]||rarity;
-                            cfg.list.appendChild(hdr);
-                        }
-                        lastRarity=rarity;
 
                         const el=document.createElement('div');
                         el.className='shop-item'+(isActive?' active':'')+(!ownedItem&&price>0?' buyable':'')+(isDragonLocked?' locked':'');
@@ -4268,118 +4427,28 @@
                 input.addEventListener('keydown',e=>{if(e.key==='Enter')tryAnswer()});
             })();
 
-            // ========== NAPI GÉM SPIN ==========
+            // ========== DAILY GEM (régi szerencsekerék helyett) ==========
             (function(){
-                const section=document.getElementById('dragonSpinSection');
-                if(!section) return;
-                section.style.display='block';
-
-                const canvas=document.getElementById('dragonSpinCanvas');
-                const ctx2d=canvas.getContext('2d');
-                const spinBtn=document.getElementById('dragonSpinBtn');
-                const resultEl=document.getElementById('dragonSpinResult');
-
-                // 8 szegmens — gém értékek
-                const SPIN_SEGMENTS=[
-                    {gems:5, label:'5'},
-                    {gems:10,label:'10'},
-                    {gems:10,label:'10'},
-                    {gems:15,label:'15'},
-                    {gems:20,label:'20'},
-                    {gems:25,label:'25'},
-                    {gems:5, label:'5'},
-                    {gems:150,label:'150 ✨'},
-                ];
-                const colors=['#b45309','#92400e','#d97706','#78350f','#b45309','#92400e','#d97706','#f59e0b'];
-                const segAngle=Math.PI*2/SPIN_SEGMENTS.length;
-
-                function drawWheel(rotation){
-                    ctx2d.clearRect(0,0,440,440);
-                    ctx2d.save();
-                    ctx2d.translate(220,220);
-                    ctx2d.rotate(rotation);
-                    SPIN_SEGMENTS.forEach((p,i)=>{
-                        const start=i*segAngle-Math.PI/2;
-                        const end=start+segAngle;
-                        ctx2d.beginPath();
-                        ctx2d.moveTo(0,0);
-                        ctx2d.arc(0,0,210,start,end);
-                        ctx2d.closePath();
-                        ctx2d.fillStyle=colors[i];
-                        ctx2d.fill();
-                        ctx2d.strokeStyle='rgba(251,191,36,.4)';
-                        ctx2d.lineWidth=2;
-                        ctx2d.stroke();
-                        ctx2d.save();
-                        ctx2d.rotate(start+segAngle/2);
-                        ctx2d.textAlign='center';
-                        ctx2d.fillStyle='#fff';
-                        ctx2d.font='bold 26px system-ui';
-                        ctx2d.fillText('💎',130,4);
-                        ctx2d.font='bold 15px system-ui';
-                        ctx2d.fillStyle='rgba(255,255,255,.95)';
-                        ctx2d.fillText(p.label,130,26);
-                        ctx2d.restore();
-                    });
-                    ctx2d.restore();
-                    ctx2d.beginPath();
-                    ctx2d.arc(220,220,28,0,Math.PI*2);
-                    ctx2d.fillStyle='#451a03';ctx2d.fill();
-                    ctx2d.strokeStyle='rgba(251,191,36,.6)';ctx2d.lineWidth=3;ctx2d.stroke();
-                    ctx2d.fillStyle='#fbbf24';ctx2d.font='bold 22px system-ui';
-                    ctx2d.textAlign='center';ctx2d.textBaseline='middle';
-                    ctx2d.fillText('🎰',220,220);
-                }
-                drawWheel(0);
-
-                // Régi nu_dspin tisztítás (egyszeri migráció)
-                if(localStorage.getItem('nu_dspin')&&!localStorage.getItem('nu_spin_day')){
-                    localStorage.removeItem('nu_dspin');
-                    localStorage.removeItem('nu_dspin_last');
-                }
-
-                let spinning=false;
-                let currentRotation=0;
-
-                function updateButtonState(){
-                    if(spunToday_gem()){
-                        spinBtn.disabled=true;
-                        spinBtn.textContent='🎰 Gyere vissza holnap 6-kor!';
-                    } else {
-                        spinBtn.disabled=false;
-                        spinBtn.textContent='🎰 Pörgesd meg!';
-                    }
-                }
-                updateButtonState();
-
-                spinBtn.addEventListener('click',()=>{
-                    if(spinning||spunToday_gem()) return;
-                    spinning=true;
-                    spinBtn.disabled=true;
-                    resultEl.textContent='';
-
-                    const winIdx=Math.floor(Math.random()*SPIN_SEGMENTS.length);
-                    const fullSpins=5+Math.floor(Math.random()*3);
-                    const targetAngle=fullSpins*Math.PI*2 + (SPIN_SEGMENTS.length-winIdx)*segAngle - segAngle/2;
-                    currentRotation+=targetAngle;
-
-                    canvas.style.transition='none';
-                    canvas.offsetHeight;
-                    canvas.style.transition='transform 4s cubic-bezier(.17,.67,.12,.99)';
-                    canvas.style.transform='rotate('+currentRotation+'rad)';
-
-                    setTimeout(()=>{
-                        const prize=SPIN_SEGMENTS[winIdx];
-                        addGems(prize.gems);
-                        markSpunGem();
-                        resultEl.textContent='Nyertél: 💎 '+prize.gems+' gem!';
-                        spinBtn.textContent='🎰 Gyere vissza holnap 6-kor!';
-                        if(typeof addBotpassXp==='function')addBotpassXp(15,'spin');
-                        updateLootBadges();
-                        spinning=false;
-                    },4200);
+                const btn=document.getElementById('shopGemBtn');
+                if(!btn) return;
+                btn.addEventListener('click',()=>{
+                    if(spunToday_gem()){return}
+                    const amount=pickRandom([10,15,20,25,30,40,50,80,150]);
+                    addGems(amount);
+                    markSpunGem();
+                    if(typeof addBotpassXp==='function')addBotpassXp(15,'daily-gem');
+                    // Vizuális visszajelzés: gem flying to balance
+                    showGemFlash(amount);
+                    updateLootBadges();
                 });
             })();
+            function showGemFlash(amt){
+                const fl=document.createElement('div');
+                fl.className='gem-flash';
+                fl.innerHTML='+💎 '+amt;
+                document.body.appendChild(fl);
+                setTimeout(()=>fl.remove(),1500);
+            }
 
         })();
 
@@ -4563,11 +4632,14 @@
                 if(p.type==='gems') addGems(p.gems);
                 else if(p.type==='item') buyItem(p.id);
                 else if(p.type==='accessory') buyItem(p.id);
+                else if(p.type==='dance') buyItem(p.id);
             }
 
-            window.openDailyBox=function(){
-                if(!consumeBox()){alert('Ma már nincs több dobozod. Gyere vissza holnap 6-kor!');return}
-                if(typeof addBotpassXp==='function')addBotpassXp(20,'daily-box');
+            window.openDailyBox=function(bypass){
+                if(!bypass){
+                    if(!consumeBox()){alert('Ma már nincs több dobozod. Gyere vissza holnap 6-kor!');return}
+                    if(typeof addBotpassXp==='function')addBotpassXp(20,'daily-box');
+                }
                 const overlay=document.getElementById('dailyBoxOverlay');
                 const box=document.getElementById('dbBox');
                 const numEl=document.getElementById('dbNumber');
@@ -4622,22 +4694,32 @@
             };
 
             function rollPouchItem(){
-                // Pouch most robot kiegészítőket ad. Súlyozás a rarity szerint.
+                // Pouch: 65% kiegészítő + 35% tánc (ha van még nem birtokolt)
                 const owned=getOwned();
                 const notOwnedAcc=ACCESSORIES.filter(a=>!owned.includes(a.id));
-                if(!notOwnedAcc.length){
-                    return {type:'gems',gems:100,icon:'💎',name:'100 gem (minden kiegészítő megvan)'};
+                const notOwnedDance=DANCES.filter(d=>!owned.includes(d.id));
+
+                const roll=Math.random();
+                let chooseDance=(roll<0.35 && notOwnedDance.length) || !notOwnedAcc.length;
+                if(chooseDance && !notOwnedDance.length) chooseDance=false;
+
+                const pool= chooseDance ? notOwnedDance : notOwnedAcc;
+                if(!pool.length){
+                    return {type:'gems',gems:100,icon:'💎',name:'100 gem (minden megvan)'};
                 }
-                // Súlyozott rarity: common 60%, rare 30%, epic 8%, legendary 2%
+                // Rarity súlyozás
                 const r=Math.random();
                 let tier;
                 if(r<0.60) tier='common';
                 else if(r<0.90) tier='rare';
                 else if(r<0.98) tier='epic';
                 else tier='legendary';
-                let pool=notOwnedAcc.filter(a=>a.rarity===tier);
-                if(!pool.length) pool=notOwnedAcc;
-                const i=pickRandom(pool);
+                let tierPool=pool.filter(a=>a.rarity===tier);
+                if(!tierPool.length) tierPool=pool;
+                const i=pickRandom(tierPool);
+                if(chooseDance){
+                    return {type:'dance',id:i.id,icon:i.icon,name:i.name+' (tánc)'};
+                }
                 return {type:'accessory',id:i.id,icon:i.icon,name:i.name};
             }
 
