@@ -1601,6 +1601,53 @@
         }
         .robot.gamer .chest-dot { box-shadow: 0 0 25px #38bdf8, 0 0 50px #ec4899!important; animation: pulse 0.5s infinite!important; }
 
+        /* ========== GÉM-GAZDASÁG UI ========== */
+        .shop-gems{display:inline-flex;align-items:center;gap:4px;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.4);color:#fbbf24;font-weight:800;font-size:14px;padding:6px 12px;border-radius:12px}
+
+        .loot-row{display:flex;gap:8px;justify-content:center;padding:10px 4px;flex-wrap:wrap;margin-top:6px}
+        .loot-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-weight:700;font-size:13px;padding:8px 12px;border-radius:14px;cursor:pointer;transition:transform .15s,background .2s;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+        .loot-btn:active{transform:scale(.92)}
+        .loot-btn:hover{background:rgba(255,255,255,.15)}
+        .loot-btn.empty{opacity:.4}
+        .loot-btn.gem{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.35);color:#fbbf24}
+
+        .pouch-buy-btn{width:100%;padding:14px;background:linear-gradient(135deg,rgba(251,191,36,.25),rgba(251,191,36,.15));border:1px solid rgba(251,191,36,.5);color:#fbbf24;font-weight:800;font-size:14px;border-radius:14px;cursor:pointer}
+        .pouch-buy-btn:active{transform:scale(.97)}
+
+        /* Daily Box overlay */
+        .db-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(30,20,60,.95),rgba(0,0,0,.98));animation:dbFadeIn .3s ease}
+        @keyframes dbFadeIn{from{opacity:0}to{opacity:1}}
+        .db-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(251,191,36,.12),transparent 40%),radial-gradient(circle at 80% 70%,rgba(167,139,250,.12),transparent 40%);animation:dbPulse 4s ease-in-out infinite}
+        @keyframes dbPulse{0%,100%{opacity:.6}50%{opacity:1}}
+        .db-content{position:relative;display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px;max-width:90vw}
+        .db-prompt{font-size:20px;font-weight:700;color:#fff;text-shadow:0 2px 12px rgba(251,191,36,.4);text-align:center}
+        .db-box{font-size:140px;cursor:pointer;animation:dbFloat 2s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(251,191,36,.5));transition:transform .3s;line-height:1}
+        .db-box:active{transform:scale(.92)}
+        .db-box.opening{animation:dbOpen .6s ease-out forwards}
+        @keyframes dbFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+        @keyframes dbOpen{0%{transform:scale(1) rotate(0)}30%{transform:scale(1.3) rotate(-15deg)}60%{transform:scale(1.2) rotate(15deg)}100%{transform:scale(0);opacity:0}}
+        .db-number{font-size:72px;font-weight:900;color:#fbbf24;text-shadow:0 0 30px rgba(251,191,36,.8);transition:transform .4s,color .4s;line-height:1}
+        .db-number.switching{animation:dbSwitch .6s ease forwards}
+        @keyframes dbSwitch{0%{transform:scale(1)}50%{transform:scale(1.4) rotate(360deg);color:#f472b6}100%{transform:scale(1);color:#fbbf24}}
+        .db-prize{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:2px solid rgba(251,191,36,.4);border-radius:20px;padding:24px 36px;display:flex;flex-direction:column;align-items:center;gap:8px;animation:dbPrizeIn .5s ease-out;min-width:220px}
+        @keyframes dbPrizeIn{from{transform:translateY(20px) scale(.8);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+        .db-prize-icon{font-size:72px;line-height:1}
+        .db-prize-name{font-size:18px;font-weight:800;color:#fff;text-align:center}
+        .db-close-btn{padding:14px 32px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:800;font-size:16px;border:none;border-radius:14px;cursor:pointer;box-shadow:0 8px 24px rgba(251,191,36,.4)}
+        .db-close-btn:active{transform:scale(.95)}
+
+        /* Daily Pouch overlay */
+        .dp-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;animation:dbFadeIn .3s ease}
+        .dp-content{background:linear-gradient(135deg,rgba(60,40,100,.95),rgba(30,20,60,.95));border:1px solid rgba(251,191,36,.3);border-radius:24px;padding:40px;display:flex;flex-direction:column;align-items:center;gap:20px;box-shadow:0 20px 60px rgba(251,191,36,.2);min-width:280px;max-width:90vw}
+        .dp-pouch{font-size:110px;cursor:pointer;animation:dpShake 1.2s ease infinite;transition:transform .2s;line-height:1}
+        .dp-pouch:active{transform:scale(.9)}
+        .dp-pouch.opening{animation:dpBurst .6s ease-out forwards}
+        @keyframes dpShake{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+        @keyframes dpBurst{0%{transform:scale(1)}50%{transform:scale(1.4) rotate(20deg)}100%{transform:scale(0) rotate(-30deg);opacity:0}}
+        .dp-reward{font-size:48px;font-weight:900;color:#fbbf24;text-shadow:0 0 24px rgba(251,191,36,.7);animation:dbPrizeIn .5s ease}
+        .dp-close{padding:12px 24px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:800;border:none;border-radius:12px;cursor:pointer}
+        .dp-close:active{transform:scale(.95)}
+
     </style>
 </head>
 <body>
@@ -1656,6 +1703,12 @@
             <h1 id="greeting">✨ DailyBot ✨</h1>
             <div class="date" id="date"></div>
             <div class="streak" id="streak">🔥 <span id="sn"></span> napos sorozat</div>
+            <div class="loot-row">
+                <button class="loot-btn gem" id="lootGems" title="Gémek">💎 <span data-gem-display>0</span></button>
+                <button class="loot-btn" id="lootBox" title="Daily Box">🎁 <span id="lootBoxBadge">2/2</span></button>
+                <button class="loot-btn" id="lootPouch" title="Daily Pouch">👝 <span id="lootPouchBadge">1/1</span></button>
+                <button class="loot-btn" id="lootSpin" title="Napi Spin">🎰 <span id="lootSpinBadge">✓</span></button>
+            </div>
         </div>
 
         <div class="bubble-wrap">
@@ -1777,6 +1830,7 @@
         <div class="shop-header">
             <div class="shop-title">🏪 Skin Bolt</div>
             <div style="display:flex;gap:8px;align-items:center">
+                <div class="shop-gems">💎 <span data-gem-display>0</span></div>
                 <div class="sync-toggle" id="syncToggle">🔄</div>
                 <button class="shop-close-btn" id="skinClose">✕</button>
             </div>
@@ -1795,16 +1849,24 @@
             <div class="riddle-result" id="riddleResult"></div>
         </div>
 
-        <!-- Dragon Spin — csak Sárkány Hét alatt látszik -->
-        <div class="dragon-spin-section" id="dragonSpinSection" style="display:none">
-            <div class="shop-section-title">🐉 Dragon Spin</div>
+        <!-- Napi Spin — mindig látszik -->
+        <div class="dragon-spin-section" id="dragonSpinSection">
+            <div class="shop-section-title">🎰 Napi Spin</div>
             <div class="dragon-spin-wrap">
                 <div class="dragon-spin-wheel">
                     <div class="dragon-spin-pointer"></div>
                     <canvas class="dragon-spin-canvas" id="dragonSpinCanvas" width="440" height="440"></canvas>
                 </div>
-                <button class="dragon-spin-btn" id="dragonSpinBtn">🐉 Pörgesd meg!</button>
+                <button class="dragon-spin-btn" id="dragonSpinBtn">🎰 Pörgesd meg!</button>
                 <div class="dragon-spin-result" id="dragonSpinResult"></div>
+            </div>
+        </div>
+
+        <!-- Daily Pouch vásárlás -->
+        <div class="shop-section">
+            <div class="shop-section-title">👝 Daily Pouch</div>
+            <div style="padding:0 22px">
+                <button id="pouchBuyBtn" class="pouch-buy-btn">Vásárolj Pouch-ot — 💎 30</button>
             </div>
         </div>
 
@@ -2987,6 +3049,83 @@
         function saveOwned(arr){localStorage.setItem('nu_owned',JSON.stringify(arr))}
         function owns(id){return id===''||getOwned().includes(id)}
         function buyItem(id){const o=getOwned();if(!o.includes(id)){o.push(id);saveOwned(o)}}
+
+        // ========== GÉM PÉNZNEM ==========
+        function getGems(){const v=parseInt(localStorage.getItem('nu_gems'),10);return isNaN(v)?0:v}
+        function setGems(n){localStorage.setItem('nu_gems',String(Math.max(0,Math.floor(n))));updateGemUI()}
+        function addGems(n){setGems(getGems()+n)}
+        function spendGems(n){const c=getGems();if(c<n)return false;setGems(c-n);return true}
+        function initGems(){if(localStorage.getItem('nu_gems')===null)localStorage.setItem('nu_gems','50')}
+        function updateGemUI(){document.querySelectorAll('[data-gem-display]').forEach(el=>{el.textContent=getGems()})}
+        initGems();
+
+        // ========== TÁRGY ÁRAK ==========
+        const ITEM_PRICES={
+            // Skinek
+            'tulip':100,'sakura':100,'graffiti':100,
+            'stealth':200,'galaxy':200,'fire':200,'gamer':200,
+            'golden':400,'diamond':400,'glass':400,'horse':400,
+            'rainbow':600,
+            // Hátterek
+            'bg-tulip':80,'bg-sakura':80,'bg-graffiti':80,
+            'bg-galaxy':150,'bg-stealth':150,'bg-fire':150,
+            'bg-golden':300,'bg-diamond':300,'bg-glass':300,
+            'bg-rainbow':500,'bg-gamer':500,
+            // Aurák
+            'aura-tulip':50,'aura-sakura':50,
+            'aura-fire':120,'aura-glitch':120,
+            'aura-halo':250,'aura-rgb':250,
+            'aura-diamond':400
+        };
+        function getPrice(id){return ITEM_PRICES[id]||0}
+
+        // ========== NAPI LOOT ÁLLAPOT HELPEREK ==========
+        function _today(){return (typeof td==='function')?td():new Date().toDateString()}
+        function boxesRemaining(){
+            const today=_today();
+            const day=localStorage.getItem('nu_box_day');
+            if(day!==today){localStorage.setItem('nu_box_day',today);localStorage.setItem('nu_box_count','2');return 2}
+            return parseInt(localStorage.getItem('nu_box_count')||'0',10);
+        }
+        function consumeBox(){
+            const n=boxesRemaining();
+            if(n<=0)return false;
+            localStorage.setItem('nu_box_count',String(n-1));
+            return true;
+        }
+        function pouchFreeAvailable(){
+            const today=_today();
+            const day=localStorage.getItem('nu_pouch_day');
+            if(day!==today){localStorage.setItem('nu_pouch_day',today);localStorage.setItem('nu_pouch_free','true');return true}
+            return localStorage.getItem('nu_pouch_free')==='true';
+        }
+        function consumeFreePouch(){
+            pouchFreeAvailable();
+            if(localStorage.getItem('nu_pouch_free')!=='true')return false;
+            localStorage.setItem('nu_pouch_free','false');
+            return true;
+        }
+        function spunToday_gem(){
+            return localStorage.getItem('nu_spin_day')===_today();
+        }
+        function markSpunGem(){
+            localStorage.setItem('nu_spin_day',_today());
+        }
+        function updateLootBadges(){
+            const boxEl=document.getElementById('lootBoxBadge');
+            if(boxEl)boxEl.textContent=boxesRemaining()+'/2';
+            document.getElementById('lootBox')?.classList.toggle('empty',boxesRemaining()===0);
+            const pEl=document.getElementById('lootPouchBadge');
+            const pAvail=pouchFreeAvailable();
+            if(pEl)pEl.textContent=pAvail?'1/1':'0/1';
+            document.getElementById('lootPouch')?.classList.toggle('empty',!pAvail);
+            const sEl=document.getElementById('lootSpinBadge');
+            const canSpin=!spunToday_gem();
+            if(sEl)sEl.textContent=canSpin?'✓':'⏳';
+            document.getElementById('lootSpin')?.classList.toggle('empty',!canSpin);
+        }
+
+        function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)]}
         function getActiveSkin(){return localStorage.getItem('nu_active_skin')||''}
         function setActiveSkin(name){localStorage.setItem('nu_active_skin',name)}
         function getActiveBg(){return localStorage.getItem('nu_active_bg')||''}
@@ -3237,20 +3376,31 @@
                     cfg.items.forEach(s=>{
                         // Rejtett skin: csak ha már feloldotta
                         if(s.hide && !owns(s.id)) return;
-                        // Minden ingyenes — automatikusan megvan
-                        if(s.id) buyItem(s.id);
+
+                        const price=getPrice(s.id);
+                        const ownedItem=owns(s.id);
                         const isActive=s.id===cfg.active;
+                        const isDragonLocked=s.id==='dragon'&&!ownedItem;
 
                         const el=document.createElement('div');
-                        el.className='shop-item'+(isActive?' active':'');
+                        el.className='shop-item'+(isActive?' active':'')+(!ownedItem&&price>0?' buyable':'')+(isDragonLocked?' locked':'');
 
                         let status='';
-                        if(isActive) status='<div class="shop-item-status equipped">✔ Aktív</div>';
-                        else status='<div class="shop-item-status owned">Választható</div>';
+                        if(isActive){
+                            status='<div class="shop-item-status equipped">✔ Aktív</div>';
+                        } else if(ownedItem){
+                            status='<div class="shop-item-status owned">Választható</div>';
+                        } else if(isDragonLocked){
+                            status='<div class="shop-item-status lock-tag">🔒 Rejtvény</div>';
+                        } else if(price>0){
+                            status='<div class="shop-item-status price"><button class="buy-tag" data-buy="'+s.id+'" data-price="'+price+'">💎 '+price+'</button></div>';
+                        } else {
+                            status='<div class="shop-item-status">Ingyenes</div>';
+                        }
 
                         el.innerHTML=`<div class="shop-item-icon">${s.icon}</div><div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
 
-                        if(!isActive) el.addEventListener('click',()=>{cfg.setter(s.id);cfg.applier();renderShop()});
+                        if(ownedItem && !isActive) el.addEventListener('click',(e)=>{if(e.target.closest('.buy-tag'))return;cfg.setter(s.id);cfg.applier();renderShop()});
                         cfg.list.appendChild(el);
                     });
                 });
@@ -3258,6 +3408,19 @@
             window.renderShop=renderShop;
             toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
+
+            // ========== VÁSÁRLÁSI HANDLER ==========
+            document.body.addEventListener('click',(e)=>{
+                const btn=e.target.closest('.buy-tag');
+                if(!btn||!btn.dataset.buy)return;
+                e.stopPropagation();
+                const id=btn.dataset.buy;
+                const price=parseInt(btn.dataset.price,10);
+                if(!confirm('Megveszed ezt '+price+' gémért? Jelenlegi egyenleged: '+getGems()+' gém.'))return;
+                if(!spendGems(price)){alert('Nincs elég gém!');return}
+                buyItem(id);
+                renderShop();
+            });
 
             // ========== REJTVÉNY JÁTÉK ==========
             (function(){
@@ -3329,12 +3492,8 @@
                 input.addEventListener('keydown',e=>{if(e.key==='Enter')tryAnswer()});
             })();
 
-            // ========== DRAGON SPIN (Sárkány Hét) ==========
+            // ========== NAPI GÉM SPIN ==========
             (function(){
-                const now=new Date();
-                const isDW=(now.getFullYear()===2026&&now.getMonth()===3&&now.getDate()>=11&&now.getDate()<=17);
-                if(!isDW) return;
-
                 const section=document.getElementById('dragonSpinSection');
                 if(!section) return;
                 section.style.display='block';
@@ -3344,37 +3503,26 @@
                 const spinBtn=document.getElementById('dragonSpinBtn');
                 const resultEl=document.getElementById('dragonSpinResult');
 
-                // Sárkány bónusz üzenetek
-                const dragonMsgs=[
-                    {t:"A sárkány nem fél a vihartól. Ő maga a vihar.",e:"🐉"},
-                    {t:"Minden pikkelyed egy leckét rejt. Viseld büszkén.",e:"🔥"},
-                    {t:"A tűz, amit hordozol, fényt ad másoknak is.",e:"✨"},
-                    {t:"Aki sárkánnyal álmodik, az félelem nélkül ébred.",e:"🌙"},
-                    {t:"A legerősebb páncél belülről épül.",e:"💎"},
-                    {t:"Szárnyaid vannak — csak el kell hinned.",e:"🦋"},
-                    {t:"A sárkány tüze nem rombol. Újjáépít.",e:"🌅"},
-                    {t:"Jég és tűz — mindkettő benned él.",e:"❄️"},
+                // 8 szegmens — gém értékek
+                const SPIN_SEGMENTS=[
+                    {gems:5, label:'5'},
+                    {gems:10,label:'10'},
+                    {gems:10,label:'10'},
+                    {gems:15,label:'15'},
+                    {gems:20,label:'20'},
+                    {gems:25,label:'25'},
+                    {gems:5, label:'5'},
+                    {gems:150,label:'150 ✨'},
                 ];
-
-                const prizes=[
-                    {text:'Tűzokádás!',emoji:'🔥',action:'fire'},
-                    {text:'Bónusz üzenet!',emoji:'📜',action:'bonus'},
-                    {text:'Jéglélegzet!',emoji:'❄️',action:'ice'},
-                    {text:'Dupla streak!',emoji:'🔥',action:'streak'},
-                    {text:'Arany eső!',emoji:'💰',action:'gold'},
-                    {text:'Sárkány aura!',emoji:'🐉',action:'aura'},
-                    {text:'Tűzvihar!',emoji:'🌪️',action:'storm'},
-                    {text:'Bónusz üzenet!',emoji:'📜',action:'bonus2'},
-                ];
-                const colors=['#064e3b','#0c4a6e','#065f46','#0369a1','#042f2e','#075985','#064e3b','#0c4a6e'];
-                const segAngle=Math.PI*2/prizes.length;
+                const colors=['#b45309','#92400e','#d97706','#78350f','#b45309','#92400e','#d97706','#f59e0b'];
+                const segAngle=Math.PI*2/SPIN_SEGMENTS.length;
 
                 function drawWheel(rotation){
                     ctx2d.clearRect(0,0,440,440);
                     ctx2d.save();
                     ctx2d.translate(220,220);
                     ctx2d.rotate(rotation);
-                    prizes.forEach((p,i)=>{
+                    SPIN_SEGMENTS.forEach((p,i)=>{
                         const start=i*segAngle-Math.PI/2;
                         const end=start+segAngle;
                         ctx2d.beginPath();
@@ -3383,139 +3531,60 @@
                         ctx2d.closePath();
                         ctx2d.fillStyle=colors[i];
                         ctx2d.fill();
-                        ctx2d.strokeStyle='rgba(56,189,248,.3)';
+                        ctx2d.strokeStyle='rgba(251,191,36,.4)';
                         ctx2d.lineWidth=2;
                         ctx2d.stroke();
-                        // Szöveg
                         ctx2d.save();
                         ctx2d.rotate(start+segAngle/2);
                         ctx2d.textAlign='center';
                         ctx2d.fillStyle='#fff';
                         ctx2d.font='bold 26px system-ui';
-                        ctx2d.fillText(p.emoji,130,4);
-                        ctx2d.font='bold 13px system-ui';
-                        ctx2d.fillStyle='rgba(255,255,255,.85)';
-                        ctx2d.fillText(p.text,130,22);
+                        ctx2d.fillText('💎',130,4);
+                        ctx2d.font='bold 15px system-ui';
+                        ctx2d.fillStyle='rgba(255,255,255,.95)';
+                        ctx2d.fillText(p.label,130,26);
                         ctx2d.restore();
                     });
                     ctx2d.restore();
-                    // Közép kör
                     ctx2d.beginPath();
                     ctx2d.arc(220,220,28,0,Math.PI*2);
-                    ctx2d.fillStyle='#042f2e';ctx2d.fill();
-                    ctx2d.strokeStyle='rgba(56,189,248,.5)';ctx2d.lineWidth=3;ctx2d.stroke();
-                    ctx2d.fillStyle='#7dd3fc';ctx2d.font='bold 22px system-ui';
+                    ctx2d.fillStyle='#451a03';ctx2d.fill();
+                    ctx2d.strokeStyle='rgba(251,191,36,.6)';ctx2d.lineWidth=3;ctx2d.stroke();
+                    ctx2d.fillStyle='#fbbf24';ctx2d.font='bold 22px system-ui';
                     ctx2d.textAlign='center';ctx2d.textBaseline='middle';
-                    ctx2d.fillText('🐉',220,220);
+                    ctx2d.fillText('🎰',220,220);
                 }
                 drawWheel(0);
+
+                // Régi nu_dspin tisztítás (egyszeri migráció)
+                if(localStorage.getItem('nu_dspin')&&!localStorage.getItem('nu_spin_day')){
+                    localStorage.removeItem('nu_dspin');
+                    localStorage.removeItem('nu_dspin_last');
+                }
 
                 let spinning=false;
                 let currentRotation=0;
 
-                // Napi 1 pörgetés — msgDay() alapú (reggel 6 logika)
-                const spinKey='nu_dspin';
-                function spunToday(){return localStorage.getItem(spinKey)===td()}
-                function markSpun(){localStorage.setItem(spinKey,td())}
-
-                if(spunToday()){
-                    spinBtn.disabled=true;
-                    spinBtn.textContent='Holnap újra pörgethetsz!';
-                    const lastPrize=localStorage.getItem('nu_dspin_last');
-                    if(lastPrize) resultEl.textContent='Mai nyeremény: '+lastPrize;
-                }
-
-                // --- Jéglélegzet effekt ---
-                function iceBreathEffect(){
-                    const r=document.getElementById('robot');
-                    const rect=r.getBoundingClientRect();
-                    const cx=rect.left+rect.width/2;
-                    const cy=rect.top+rect.height*0.35;
-                    const ices=['❄️','🧊','💠','✨','❄️','🧊','💎','❄️'];
-                    // Robot szemek jégkékre
-                    r.style.filter='hue-rotate(40deg) brightness(1.3)';
-                    for(let i=0;i<16;i++){
-                        setTimeout(()=>{
-                            const f=document.createElement('div');
-                            f.className='dragon-fire';
-                            f.textContent=ices[Math.floor(Math.random()*ices.length)];
-                            f.style.left=(cx-15+Math.random()*30)+'px';
-                            f.style.top=(cy-10+Math.random()*10)+'px';
-                            f.style.setProperty('--fx',(Math.random()-.5)*80+'px');
-                            f.style.setProperty('--fy',(-40-Math.random()*70)+'px');
-                            f.style.fontSize=(12+Math.random()*18)+'px';
-                            document.body.appendChild(f);
-                            setTimeout(()=>f.remove(),700);
-                        },i*70);
-                    }
-                    // Jég hang
-                    try{
-                        const ac=new(window.AudioContext||window.webkitAudioContext)();
-                        const nb=ac.createBuffer(1,ac.sampleRate*0.8,ac.sampleRate);
-                        const nd=nb.getChannelData(0);
-                        for(let i=0;i<nd.length;i++) nd[i]=(Math.random()*2-1)*Math.pow(1-i/nd.length,1.5);
-                        const ns=ac.createBufferSource();ns.buffer=nb;
-                        const hp=ac.createBiquadFilter();hp.type='highpass';hp.frequency.value=3000;hp.Q.value=2;
-                        const g=ac.createGain();g.gain.value=0.06;
-                        g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.8);
-                        ns.connect(hp);hp.connect(g);g.connect(ac.destination);ns.start();
-                    }catch(e){}
-                    setTimeout(()=>{r.style.filter='';},1500);
-                }
-
-                // --- Arany eső effekt ---
-                function goldRainEffect(){
-                    const golds=['💰','🪙','✨','💛','⭐','💰','🪙','✨'];
-                    for(let i=0;i<20;i++){
-                        setTimeout(()=>{
-                            const g=document.createElement('div');
-                            g.className='dragon-fire';
-                            g.textContent=golds[Math.floor(Math.random()*golds.length)];
-                            g.style.left=(Math.random()*window.innerWidth)+'px';
-                            g.style.top='-20px';
-                            g.style.setProperty('--fx',(Math.random()-.5)*40+'px');
-                            g.style.setProperty('--fy',(window.innerHeight*0.6+Math.random()*200)+'px');
-                            g.style.fontSize=(14+Math.random()*14)+'px';
-                            document.body.appendChild(g);
-                            setTimeout(()=>g.remove(),900);
-                        },i*60);
+                function updateButtonState(){
+                    if(spunToday_gem()){
+                        spinBtn.disabled=true;
+                        spinBtn.textContent='🎰 Gyere vissza holnap 6-kor!';
+                    } else {
+                        spinBtn.disabled=false;
+                        spinBtn.textContent='🎰 Pörgesd meg!';
                     }
                 }
-
-                // --- Tűzvihar effekt ---
-                function stormEffect(){
-                    const storms=['🌪️','🔥','⚡','💥','🌪️','🔥','⚡','💥'];
-                    // Képernyő villanás
-                    const flash=document.createElement('div');
-                    flash.style.cssText='position:fixed;inset:0;background:rgba(245,158,11,.15);z-index:999;pointer-events:none;transition:opacity .5s';
-                    document.body.appendChild(flash);
-                    setTimeout(()=>{flash.style.opacity='0';},200);
-                    setTimeout(()=>flash.remove(),700);
-                    for(let i=0;i<25;i++){
-                        setTimeout(()=>{
-                            const s=document.createElement('div');
-                            s.className='dragon-fire';
-                            s.textContent=storms[Math.floor(Math.random()*storms.length)];
-                            s.style.left=(Math.random()*window.innerWidth)+'px';
-                            s.style.top=(Math.random()*window.innerHeight*0.5)+'px';
-                            s.style.setProperty('--fx',(Math.random()-.5)*120+'px');
-                            s.style.setProperty('--fy',(Math.random()-.5)*120+'px');
-                            s.style.fontSize=(16+Math.random()*20)+'px';
-                            document.body.appendChild(s);
-                            setTimeout(()=>s.remove(),700);
-                        },i*50);
-                    }
-                }
+                updateButtonState();
 
                 spinBtn.addEventListener('click',()=>{
-                    if(spinning||spunToday()) return;
+                    if(spinning||spunToday_gem()) return;
                     spinning=true;
                     spinBtn.disabled=true;
                     resultEl.textContent='';
 
-                    const winIdx=Math.floor(Math.random()*prizes.length);
+                    const winIdx=Math.floor(Math.random()*SPIN_SEGMENTS.length);
                     const fullSpins=5+Math.floor(Math.random()*3);
-                    const targetAngle=fullSpins*Math.PI*2 + (prizes.length-winIdx)*segAngle - segAngle/2;
+                    const targetAngle=fullSpins*Math.PI*2 + (SPIN_SEGMENTS.length-winIdx)*segAngle - segAngle/2;
                     currentRotation+=targetAngle;
 
                     canvas.style.transition='none';
@@ -3524,60 +3593,12 @@
                     canvas.style.transform='rotate('+currentRotation+'rad)';
 
                     setTimeout(()=>{
-                        const prize=prizes[winIdx];
-                        resultEl.textContent=prize.emoji+' '+prize.text+' '+prize.emoji;
-
-                        // Napi limit
-                        markSpun();
-                        localStorage.setItem('nu_dspin_last',prize.emoji+' '+prize.text);
-                        spinBtn.textContent='Holnap újra pörgethetsz!';
-
-                        // Egyedi effektek + igazi jutalmak
-                        if(prize.action==='fire'){
-                            if(typeof dragonFireBreath==='function') dragonFireBreath();
-                        } else if(prize.action==='ice'){
-                            iceBreathEffect();
-                        } else if(prize.action==='gold'){
-                            goldRainEffect();
-                        } else if(prize.action==='storm'){
-                            stormEffect();
-                        } else if(prize.action==='bonus'||prize.action==='bonus2'){
-                            // Bónusz sárkány üzenet — megjelenik a buborékban
-                            const bm=dragonMsgs[Math.floor(Math.random()*dragonMsgs.length)];
-                            const bE=document.getElementById('bE');
-                            const bT=document.getElementById('bT');
-                            const bubble=document.getElementById('bubble');
-                            if(bE&&bT&&bubble){
-                                bE.textContent=bm.e;
-                                bT.textContent='';
-                                bubble.classList.add('show');
-                                document.getElementById('ph').classList.add('hide');
-                                // Gépelő effekt
-                                let ci=0;
-                                const tI=setInterval(()=>{
-                                    if(ci<bm.t.length){bT.textContent+=bm.t[ci];ci++;}
-                                    else clearInterval(tI);
-                                },35);
-                            }
-                        } else if(prize.action==='streak'){
-                            // Dupla streak — a streak szám duplázódik (vizuálisan)
-                            const sEl=document.getElementById('sn');
-                            const stEl=document.getElementById('streak');
-                            if(sEl&&stEl){
-                                const cur=parseInt(sEl.textContent||'1');
-                                sEl.textContent=cur*2;
-                                stEl.classList.add('on');
-                                resultEl.textContent+=' ('+cur+' → '+cur*2+')';
-                                // A valódi streak-et is mentjük
-                                localStorage.setItem('nu_s',(cur*2).toString());
-                            }
-                        } else if(prize.action==='aura'){
-                            // Sárkány tűz aura — bekapcsol a tűz aura
-                            buyItem('aura-fire');
-                            setActiveAura('aura-fire');
-                            applyAura();
-                        }
-
+                        const prize=SPIN_SEGMENTS[winIdx];
+                        addGems(prize.gems);
+                        markSpunGem();
+                        resultEl.textContent='Nyertél: 💎 '+prize.gems+' gém!';
+                        spinBtn.textContent='🎰 Gyere vissza holnap 6-kor!';
+                        updateLootBadges();
                         spinning=false;
                     },4200);
                 });
@@ -3601,7 +3622,7 @@
             syncClose.addEventListener('click',()=>syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS=['nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid'];
+            const SYNC_KEYS=['nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid','nu_gems','nu_box_day','nu_box_count','nu_pouch_day','nu_pouch_free','nu_spin_day'];
 
             exportBtn.addEventListener('click',()=>{
                 const data={};
@@ -3666,6 +3687,26 @@
                     if(data.nu_s) localStorage.setItem('nu_s',data.nu_s);
                     if(data.nu_l) localStorage.setItem('nu_l',data.nu_l);
                     if(data.nu_uid) localStorage.setItem('nu_uid',data.nu_uid);
+
+                    // Gém egyenleg: MAX(local, imported)
+                    const impG=parseInt(data.nu_gems||'0',10);
+                    const locG=parseInt(localStorage.getItem('nu_gems')||'0',10);
+                    localStorage.setItem('nu_gems',String(Math.max(locG,impG)));
+
+                    // Napi jogosultságok: local wins (nem adunk vissza elköltött napi loot-ot)
+                    const today=(typeof td==='function')?td():new Date().toDateString();
+                    if(data.nu_box_day===today && localStorage.getItem('nu_box_day')!==today){
+                        localStorage.setItem('nu_box_day',data.nu_box_day);
+                        localStorage.setItem('nu_box_count',data.nu_box_count||'2');
+                    }
+                    if(data.nu_pouch_day===today && localStorage.getItem('nu_pouch_day')!==today){
+                        localStorage.setItem('nu_pouch_day',data.nu_pouch_day);
+                        localStorage.setItem('nu_pouch_free',data.nu_pouch_free||'true');
+                    }
+                    if(data.nu_spin_day===today){
+                        localStorage.setItem('nu_spin_day',today);
+                    }
+
                     localStorage.setItem('nu_reg','1');
 
                     importResult.className='sync-result ok';
@@ -3707,6 +3748,193 @@
                 reg.periodicSync.register('daily-notification',{minInterval:4*60*60*1000}).catch(()=>{});
             }
         }
+
+        // ========== DAILY BOX LOGIKA ==========
+        (function(){
+            function allBuyableItems(){
+                const all=[];
+                if(typeof SKINS!=='undefined') SKINS.forEach(s=>{if(s.id&&ITEM_PRICES[s.id])all.push(Object.assign({_kind:'skin'},s))});
+                if(typeof BGS!=='undefined') BGS.forEach(s=>{if(s.id&&ITEM_PRICES[s.id])all.push(Object.assign({_kind:'bg'},s))});
+                if(typeof AURAS!=='undefined') AURAS.forEach(s=>{if(s.id&&ITEM_PRICES[s.id])all.push(Object.assign({_kind:'aura'},s))});
+                return all;
+            }
+            function notOwnedByTier(minP,maxP){
+                const owned=getOwned();
+                return allBuyableItems().filter(s=>!owned.includes(s.id)&&ITEM_PRICES[s.id]>=minP&&ITEM_PRICES[s.id]<=maxP);
+            }
+            function rollNormalPrize(){
+                const r=Math.random();
+                if(r<0.70){const g=pickRandom([10,20,30]);return {type:'gems',gems:g,icon:'💎',name:g+' gém'}}
+                if(r<0.95){
+                    const pool=notOwnedByTier(1,100);
+                    if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name}}
+                    return {type:'gems',gems:30,icon:'💎',name:'30 gém'};
+                }
+                const pool=notOwnedByTier(101,250);
+                if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}
+                return {type:'gems',gems:50,icon:'💎',name:'50 gém'};
+            }
+            function rollSuperPrize(){
+                if(Math.random()<0.60){
+                    const pool=notOwnedByTier(300,9999);
+                    if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}
+                }
+                const g=pickRandom([150,200,300]);
+                return {type:'gems',gems:g,icon:'💎',name:g+' gém'};
+            }
+            function applyPrize(p){
+                if(p.type==='gems') addGems(p.gems);
+                else if(p.type==='item') buyItem(p.id);
+            }
+
+            window.openDailyBox=function(){
+                if(!consumeBox()){alert('Ma már nincs több dobozod. Gyere vissza holnap 6-kor!');return}
+                const overlay=document.getElementById('dailyBoxOverlay');
+                const box=document.getElementById('dbBox');
+                const numEl=document.getElementById('dbNumber');
+                const prizeEl=document.getElementById('dbPrize');
+                const closeBtn=document.getElementById('dbCloseBtn');
+                const promptEl=document.getElementById('dbPrompt');
+
+                const isLucky=Math.random()<0.25;
+                let remaining=isLucky?2:1;
+
+                box.className='db-box';box.textContent='🎁';box.style.display='block';
+                numEl.textContent=String(remaining);numEl.className='db-number';
+                prizeEl.style.display='none';closeBtn.style.display='none';
+                promptEl.textContent='Koppints a dobozra!';
+                overlay.style.display='flex';
+
+                const onTap=()=>{
+                    box.removeEventListener('click',onTap);
+                    box.classList.add('opening');
+                    setTimeout(()=>{
+                        box.style.display='none';
+                        const isSuper=(isLucky&&remaining===1);
+                        const prize=isSuper?rollSuperPrize():rollNormalPrize();
+                        applyPrize(prize);
+                        document.getElementById('dbPrizeIcon').textContent=prize.icon;
+                        document.getElementById('dbPrizeName').textContent=prize.name;
+                        prizeEl.style.display='flex';
+                        remaining--;
+                        if(remaining<=0){
+                            promptEl.textContent=isSuper?'Hatalmas nyeremény! 🌟':'Szuper! 🎉';
+                            closeBtn.style.display='inline-block';
+                        } else {
+                            setTimeout(()=>{
+                                numEl.classList.add('switching');
+                                numEl.textContent='1';
+                                setTimeout(()=>numEl.classList.remove('switching'),600);
+                                prizeEl.style.display='none';
+                                box.style.display='block';box.className='db-box';box.textContent='🎁';
+                                promptEl.textContent='Még egy vár rád! Koppints!';
+                                box.addEventListener('click',onTap);
+                            },1800);
+                        }
+                    },600);
+                };
+                box.addEventListener('click',onTap);
+
+                closeBtn.onclick=()=>{
+                    overlay.style.display='none';
+                    updateLootBadges();
+                    if(typeof renderShop==='function')renderShop();
+                };
+            };
+
+            window.openPouch=function(){
+                const overlay=document.getElementById('dailyPouchOverlay');
+                const pouch=document.getElementById('dpPouch');
+                const reward=document.getElementById('dpReward');
+                const gemsEl=document.getElementById('dpGems');
+                const closeBtn=document.getElementById('dpClose');
+                pouch.className='dp-pouch';pouch.style.display='block';
+                reward.style.display='none';closeBtn.style.display='none';
+                overlay.style.display='flex';
+                const amount=pickRandom([5,10,15,20,25]);
+                pouch.onclick=()=>{
+                    pouch.classList.add('opening');
+                    setTimeout(()=>{
+                        pouch.style.display='none';
+                        gemsEl.textContent=amount;
+                        reward.style.display='block';
+                        closeBtn.style.display='inline-block';
+                        addGems(amount);
+                    },600);
+                };
+                closeBtn.onclick=()=>{overlay.style.display='none';updateLootBadges();};
+            };
+            window.tryOpenFreePouch=function(){
+                if(!consumeFreePouch()){
+                    if(confirm('Ma már felhasználtad az ingyenes pouchodat. Veszel egyet 30 gémért?'))window.buyPouch();
+                    return;
+                }
+                openPouch();
+            };
+            window.buyPouch=function(){
+                if(!spendGems(30)){alert('Nincs elég gém (30 gém kell)!');return}
+                openPouch();
+            };
+
+            // Pouch vásárló gomb a shopban
+            document.addEventListener('DOMContentLoaded',()=>{
+                const pb=document.getElementById('pouchBuyBtn');
+                if(pb) pb.addEventListener('click',()=>{
+                    if(confirm('Vásárolsz egy Pouch-ot 30 gémért?')) window.buyPouch();
+                });
+            });
+            // Fallback: ha DOMContentLoaded már lement
+            setTimeout(()=>{
+                const pb=document.getElementById('pouchBuyBtn');
+                if(pb&&!pb._bound){pb._bound=true;pb.addEventListener('click',()=>{if(confirm('Vásárolsz egy Pouch-ot 30 gémért?'))window.buyPouch()});}
+            },500);
+        })();
+
+        // ========== FŐKÉPERNYŐ LOOT ROW + BADGE INIT ==========
+        (function(){
+            function attachLootListeners(){
+                const g=document.getElementById('lootGems');
+                if(g) g.onclick=()=>document.getElementById('skinPanel')?.classList.add('open');
+                const b=document.getElementById('lootBox');
+                if(b) b.onclick=()=>window.openDailyBox();
+                const p=document.getElementById('lootPouch');
+                if(p) p.onclick=()=>window.tryOpenFreePouch();
+                const s=document.getElementById('lootSpin');
+                if(s) s.onclick=()=>{
+                    document.getElementById('skinPanel')?.classList.add('open');
+                    setTimeout(()=>document.getElementById('dragonSpinSection')?.scrollIntoView({behavior:'smooth'}),200);
+                };
+            }
+            // Többszöri próba (különböző boot sorrendek miatt)
+            attachLootListeners();
+            setTimeout(attachLootListeners,500);
+            setTimeout(()=>{updateGemUI();updateLootBadges();},100);
+            setTimeout(()=>{updateGemUI();updateLootBadges();},1000);
+        })();
     </script>
+
+    <!-- Daily Box overlay -->
+    <div id="dailyBoxOverlay" class="db-overlay" style="display:none">
+        <div class="db-bg"></div>
+        <div class="db-content">
+            <div class="db-prompt" id="dbPrompt">Koppints a dobozra!</div>
+            <div class="db-box" id="dbBox">🎁</div>
+            <div class="db-number" id="dbNumber">1</div>
+            <div class="db-prize" id="dbPrize" style="display:none">
+                <div class="db-prize-icon" id="dbPrizeIcon"></div>
+                <div class="db-prize-name" id="dbPrizeName"></div>
+            </div>
+            <button class="db-close-btn" id="dbCloseBtn" style="display:none">Szuper!</button>
+        </div>
+    </div>
+
+    <!-- Daily Pouch overlay -->
+    <div id="dailyPouchOverlay" class="dp-overlay" style="display:none">
+        <div class="dp-content">
+            <div class="dp-pouch" id="dpPouch">👝</div>
+            <div class="dp-reward" id="dpReward" style="display:none">💎 <span id="dpGems">0</span></div>
+            <button class="dp-close" id="dpClose" style="display:none">Köszönöm!</button>
+        </div>
+    </div>
 </body>
 </html>
