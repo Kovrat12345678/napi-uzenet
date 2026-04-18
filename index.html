@@ -933,16 +933,31 @@
         }
         .shop-scroll::-webkit-scrollbar{display:none}
         .shop-item{
-            flex:0 0 135px;scroll-snap-align:start;
-            background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
-            border-radius:22px;padding:18px 10px 14px;
-            text-align:center;cursor:pointer;transition:all .2s;color:#fff;
+            position:relative;flex:0 0 148px;scroll-snap-align:start;
+            background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+            border:1.5px solid rgba(255,255,255,.12);
+            border-radius:22px;padding:20px 10px 14px;
+            text-align:center;cursor:pointer;transition:transform .25s cubic-bezier(.4,1.6,.5,1),box-shadow .25s,border-color .2s;color:#fff;
+            overflow:hidden;animation:shopItemIn .4s ease-out backwards;
+            backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
         }
+        @keyframes shopItemIn{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+        .shop-item::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.14),transparent 60%);pointer-events:none;opacity:.6}
         .shop-item:active{transform:scale(.95)}
-        .shop-item.active{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.15);box-shadow:0 0 20px rgba(139,92,246,.15)}
-        .shop-item.locked{opacity:.4;cursor:default}
-        .shop-item.buyable{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
-        .shop-item-icon{font-size:40px;display:block;margin-bottom:10px}
+        .shop-item:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.25)}
+        .shop-item.active{border-color:rgba(139,92,246,.7);background:linear-gradient(160deg,rgba(139,92,246,.25),rgba(167,139,250,.1));box-shadow:0 0 24px rgba(139,92,246,.3),inset 0 0 20px rgba(139,92,246,.15)}
+        .shop-item.active::after{content:'✓';position:absolute;top:8px;right:8px;width:22px;height:22px;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;box-shadow:0 2px 8px rgba(124,58,237,.45)}
+        .shop-item.locked{opacity:.55;cursor:default}
+        .shop-item.locked .shop-item-icon{filter:grayscale(.7) brightness(.8)}
+        .shop-item.buyable{border-color:rgba(251,191,36,.4);background:linear-gradient(160deg,rgba(251,191,36,.14),rgba(180,83,9,.04))}
+        .shop-item-icon{font-size:48px;display:block;margin-bottom:8px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25));animation:shopIconFloat 3s ease-in-out infinite}
+        @keyframes shopIconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+        /* Rarity-specifikus háttér glow */
+        .shop-item:has(.rarity-rare){border-color:rgba(59,130,246,.3)}
+        .shop-item:has(.rarity-epic){border-color:rgba(168,85,247,.35);box-shadow:0 4px 18px rgba(168,85,247,.15)}
+        .shop-item:has(.rarity-legendary){border-color:rgba(251,191,36,.45);box-shadow:0 4px 22px rgba(251,191,36,.2);background:linear-gradient(160deg,rgba(251,191,36,.14),rgba(180,83,9,.06))}
+        .shop-item:has(.rarity-mythic){border-color:rgba(236,72,153,.5);background:linear-gradient(160deg,rgba(236,72,153,.16),rgba(139,92,246,.12),rgba(59,130,246,.1));box-shadow:0 6px 28px rgba(236,72,153,.3);animation:shopItemIn .4s ease-out backwards,mythicShimmer 4s ease-in-out infinite}
+        @keyframes mythicShimmer{0%,100%{box-shadow:0 6px 28px rgba(236,72,153,.3)}33%{box-shadow:0 6px 28px rgba(139,92,246,.4)}66%{box-shadow:0 6px 28px rgba(59,130,246,.35)}}
         .shop-item-name{font-size:13px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .shop-item-desc{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;line-height:1.3;height:26px;overflow:hidden}
         .shop-item-status{font-size:11px;font-weight:700}
@@ -1729,7 +1744,15 @@
         .bp-plus-btn.active{background:linear-gradient(135deg,#10b981,#059669);color:#fff;cursor:default}
         .bp-levels{padding:12px 16px 40px;display:flex;flex-direction:row;gap:14px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
         .bp-levels::-webkit-scrollbar{display:none}
-        .bp-lvl{flex-shrink:0;width:150px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;position:relative;text-align:center}
+        .bp-lvl{flex-shrink:0;width:150px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 12px;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:18px;position:relative;text-align:center;animation:bpTileIn .5s cubic-bezier(.4,1.6,.5,1) backwards;overflow:hidden}
+        .bp-lvl::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.14),transparent 55%);pointer-events:none;opacity:.8}
+        @keyframes bpTileIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+        .bp-lvl:nth-child(2){animation-delay:.04s}
+        .bp-lvl:nth-child(3){animation-delay:.08s}
+        .bp-lvl:nth-child(4){animation-delay:.12s}
+        .bp-lvl:nth-child(5){animation-delay:.16s}
+        .bp-lvl:nth-child(6){animation-delay:.2s}
+        .bp-lvl:nth-child(n+7){animation-delay:.24s}
         .bp-lvl.claimable{border-color:rgba(251,191,36,.6);background:linear-gradient(160deg,rgba(251,191,36,.18),rgba(167,139,250,.1));animation:bpClaimable 2s ease-in-out infinite;box-shadow:0 6px 20px rgba(251,191,36,.2)}
         @keyframes bpClaimable{0%,100%{box-shadow:0 4px 14px rgba(251,191,36,.25)}50%{box-shadow:0 6px 26px rgba(251,191,36,.55)}}
         .bp-lvl.claimed{opacity:.55}
@@ -2244,6 +2267,9 @@
             hatEl.textContent=hat;
             faceEl.textContent=face;
             neckEl.textContent=neck;
+
+            // Kiegészítők alkalmazása — deferred, mert az ACCESSORIES lejjebb definiálódik
+            setTimeout(()=>{if(typeof applyAcc==='function') applyAcc();},0);
         })();
 
         // ========== IDŐJÁRÁS ==========
@@ -3312,6 +3338,34 @@
         const RARITY_ORDER={free:0,common:1,rare:2,epic:3,legendary:4,mythic:5};
         const RARITY_LABEL={common:'⚪ Common',rare:'🔵 Rare',epic:'🟣 Epic',legendary:'🟡 Legendary',mythic:'🌈 Mythic'};
 
+        // ========== ROBOT KIEGÉSZÍTŐK ==========
+        // Pouch-ból nyerhetőek. Slot: hat/face/neck. Ünnepi öltözék mindig felülírja.
+        const ACCESSORIES=[
+            {id:'acc-crown',    name:'Korona',      icon:'👑', slot:'hat',  rarity:'epic'},
+            {id:'acc-tophat',   name:'Cilinder',    icon:'🎩', slot:'hat',  rarity:'rare'},
+            {id:'acc-cap',      name:'Baseball',    icon:'🧢', slot:'hat',  rarity:'common'},
+            {id:'acc-graduate', name:'Diplomás',    icon:'🎓', slot:'hat',  rarity:'rare'},
+            {id:'acc-flower',   name:'Virág',       icon:'🌺', slot:'hat',  rarity:'common'},
+            {id:'acc-pumpkin',  name:'Tök',         icon:'🎃', slot:'hat',  rarity:'epic'},
+            {id:'acc-shades',   name:'Napszemüveg', icon:'😎', slot:'face', rarity:'rare'},
+            {id:'acc-goggle',   name:'Goggle',      icon:'🥽', slot:'face', rarity:'common'},
+            {id:'acc-mask',     name:'Álarc',       icon:'🎭', slot:'face', rarity:'epic'},
+            {id:'acc-ribbon',   name:'Masni',       icon:'🎀', slot:'neck', rarity:'common'},
+            {id:'acc-beads',    name:'Lánc',        icon:'📿', slot:'neck', rarity:'rare'},
+            {id:'acc-gem',      name:'Gyémánt Nyaklánc', icon:'💎', slot:'neck', rarity:'legendary'}
+        ];
+        function getActiveAcc(){return localStorage.getItem('nu_active_acc')||''}
+        function setActiveAcc(id){localStorage.setItem('nu_active_acc',id)}
+        function applyAcc(){
+            const id=getActiveAcc();
+            const acc=ACCESSORIES.find(a=>a.id===id);
+            if(!acc) return;
+            // Csak akkor jelenítjük meg, ha az ünnepi outfit üres az adott slot-ban
+            const map={hat:'outfitHat',face:'outfitFace',neck:'outfitNeck'};
+            const el=document.getElementById(map[acc.slot]);
+            if(el && !el.textContent.trim()) el.textContent=acc.icon;
+        }
+
         // ========== NAPI LOOT ÁLLAPOT HELPEREK ==========
         function _today(){return (typeof td==='function')?td():new Date().toDateString()}
         function boxesRemaining(){
@@ -3950,11 +4004,55 @@
                    const auraSection = document.createElement('div');
                    auraSection.className = 'shop-section';
                    auraSection.innerHTML = `<div class="shop-section-title">🔮 Aurák</div><div class="shop-scroll" id="${auraListId}"></div>`;
-                   // Insert after BG list
                    bgList.parentElement.insertAdjacentElement('afterend', auraSection);
                    auraList = document.getElementById(auraListId);
                 }
                 auraList.innerHTML = '';
+
+                // Accessory lista (kiegészítők)
+                const accListId='accList';
+                let accList=document.getElementById(accListId);
+                if(!accList){
+                    const accSection=document.createElement('div');
+                    accSection.className='shop-section';
+                    accSection.innerHTML=`<div class="shop-section-title">🎀 Kiegészítők <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból</span></div><div class="shop-scroll" id="${accListId}"></div>`;
+                    auraList.parentElement.insertAdjacentElement('afterend',accSection);
+                    accList=document.getElementById(accListId);
+                }
+                accList.innerHTML='';
+                // Renderelés: kiegészítők — birtokolt equippable, nem birtokolt lock
+                const activeAcc=getActiveAcc();
+                // "Nincs" kiegészítő opció
+                (function(){
+                    const el=document.createElement('div');
+                    const isActive=activeAcc==='';
+                    el.className='shop-item'+(isActive?' active':'');
+                    el.innerHTML=`<div class="shop-item-icon">🚫</div><div class="shop-item-name">Nincs</div><div class="shop-item-desc">Vissza az alap robotra</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
+                    if(!isActive) el.addEventListener('click',()=>{setActiveAcc('');document.getElementById('outfitHat').textContent='';document.getElementById('outfitFace').textContent='';document.getElementById('outfitNeck').textContent='';renderShop()});
+                    accList.appendChild(el);
+                })();
+                ACCESSORIES.slice().sort((a,b)=>(RARITY_ORDER[a.rarity]||0)-(RARITY_ORDER[b.rarity]||0)).forEach(a=>{
+                    const ownedAcc=owns(a.id);
+                    const isActive=activeAcc===a.id;
+                    const el=document.createElement('div');
+                    el.className='shop-item'+(isActive?' active':'')+(!ownedAcc?' locked':'');
+                    const status=isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':ownedAcc?'<div class="shop-item-status owned">Választható</div>':'<div class="shop-item-status lock-tag">👝 Pouch</div>';
+                    const rarityTag=`<span class="rarity-tag rarity-${a.rarity}">${a.rarity}</span>`;
+                    el.innerHTML=`<div class="shop-item-icon">${a.icon}</div>${rarityTag}<div class="shop-item-name">${a.name}</div><div class="shop-item-desc">${a.slot==='hat'?'Fejfedő':a.slot==='face'?'Arc kiegészítő':'Nyak kiegészítő'}</div>${status}`;
+                    if(ownedAcc&&!isActive){
+                        el.addEventListener('click',()=>{
+                            setActiveAcc(a.id);
+                            // Azonnal alkalmazzuk: csak akkor ha ünnepi outfit üres az adott slot-ban
+                            const map={hat:'outfitHat',face:'outfitFace',neck:'outfitNeck'};
+                            const slotEl=document.getElementById(map[a.slot]);
+                            if(slotEl && !slotEl.textContent.trim()) slotEl.textContent=a.icon;
+                            // A többi slot-ot töröljük (csak 1 acc aktív)
+                            Object.values(map).forEach(sid=>{if(sid!==map[a.slot]){const e=document.getElementById(sid);/* csak ha acc volt */}});
+                            renderShop();
+                        });
+                    }
+                    accList.appendChild(el);
+                });
 
 
 
@@ -4397,6 +4495,7 @@
             function applyPrize(p){
                 if(p.type==='gems') addGems(p.gems);
                 else if(p.type==='item') buyItem(p.id);
+                else if(p.type==='accessory') buyItem(p.id);
             }
 
             window.openDailyBox=function(){
@@ -4456,22 +4555,23 @@
             };
 
             function rollPouchItem(){
-                // Pouch csak itemet ad, nem gemet. Súlyozás: 70% common, 25% rare, 5% epic
+                // Pouch most robot kiegészítőket ad. Súlyozás a rarity szerint.
+                const owned=getOwned();
+                const notOwnedAcc=ACCESSORIES.filter(a=>!owned.includes(a.id));
+                if(!notOwnedAcc.length){
+                    return {type:'gems',gems:100,icon:'💎',name:'100 gem (minden kiegészítő megvan)'};
+                }
+                // Súlyozott rarity: common 60%, rare 30%, epic 8%, legendary 2%
                 const r=Math.random();
-                let pool;
-                if(r<0.70) pool=notOwnedByTier(1,100);
-                else if(r<0.95) pool=notOwnedByTier(101,250);
-                else pool=notOwnedByTier(251,9999);
-                if(!pool.length){
-                    // Fallback: bármi nem birtokolt
-                    pool=allBuyableItems().filter(s=>!getOwned().includes(s.id));
-                }
-                if(!pool.length){
-                    // Mindent birtokol — kivételesen gem
-                    return {type:'gems',gems:50,icon:'💎',name:'50 gem (minden tárgy megvan)'};
-                }
+                let tier;
+                if(r<0.60) tier='common';
+                else if(r<0.90) tier='rare';
+                else if(r<0.98) tier='epic';
+                else tier='legendary';
+                let pool=notOwnedAcc.filter(a=>a.rarity===tier);
+                if(!pool.length) pool=notOwnedAcc;
                 const i=pickRandom(pool);
-                return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name};
+                return {type:'accessory',id:i.id,icon:i.icon,name:i.name};
             }
 
             window.openPouch=function(){
@@ -4534,10 +4634,30 @@
                 const bpP=document.getElementById('bpPlusBtn');
                 if(bpP&&!bpP._bound){bpP._bound=true;bpP.addEventListener('click',()=>{
                     if(isBotpassPlus())return;
-                    if(!confirm('Bot Pass Plus 999 gemért ('+getGems()+' gemed van). Minden jutalom dupla + extra. Megveszed?'))return;
+                    if(!confirm('Bot Pass Plus 999 gemért ('+getGems()+' gemed van).\n\n✨ Minden jutalom dupla + extra\n⚡ Azonnal MINDEN szintet megkapsz (1-60)\n\nMegveszed?'))return;
                     if(!spendGems(999)){alert('Nincs elég gem!');return}
                     setBotpassPlus();
+                    // Auto-claim: szint 60-ra + minden szint claimed + rewardok alkalmazása
+                    const claimed=getBotpassClaimed();
+                    let gained={gems:0,items:0,accessories:0,boxes:0,pouches:0};
+                    for(let i=1;i<=60;i++){
+                        if(claimed.includes(i)) continue;
+                        const r=botpassReward(i);
+                        const mult=2; // plus aktív
+                        if(r.type==='gems'){addGems(r.amount*mult);gained.gems+=r.amount*mult}
+                        else if(r.type==='box'){const cur=boxesRemaining();localStorage.setItem('nu_box_count',String(cur+2));gained.boxes+=2}
+                        else if(r.type==='pouch'){localStorage.setItem('nu_pouch_free','true');gained.pouches+=1}
+                        else if(r.type==='item_rare'||r.type==='item_epic'||r.type==='item_ultra'){if(r.itemId)buyItem(r.itemId);addGems(100);gained.items+=1;gained.gems+=100}
+                        claimed.push(i);
+                    }
+                    saveBotpassClaimed(claimed);
+                    localStorage.setItem('nu_botpass_level','60');
+                    localStorage.setItem('nu_botpass_xp',String(XP_PER_LEVEL));
+                    alert('🎉 Bot Pass Plus aktiválva!\n\n💎 '+gained.gems+' gem\n🎁 '+gained.boxes+' DailyBox\n👝 '+gained.pouches+' Pouch\n⭐ '+gained.items+' prémium tárgy');
+                    updateGemUI();
+                    updateLootBadges();
                     openBotpassPanel();
+                    if(typeof renderShop==='function')renderShop();
                 })}
             }
             bindShopLootCards();
