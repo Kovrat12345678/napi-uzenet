@@ -1614,6 +1614,48 @@
         .pouch-buy-btn{width:100%;padding:14px;background:linear-gradient(135deg,rgba(251,191,36,.25),rgba(251,191,36,.15));border:1px solid rgba(251,191,36,.5);color:#fbbf24;font-weight:800;font-size:14px;border-radius:14px;cursor:pointer}
         .pouch-buy-btn:active{transform:scale(.97)}
 
+        /* Shop loot kártyák */
+        .loot-card-wrap{padding:0 20px}
+        .loot-card{display:flex;align-items:center;gap:14px;padding:14px;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+        .loot-card.box-card{border-color:rgba(236,72,153,.3);background:linear-gradient(135deg,rgba(236,72,153,.12),rgba(167,139,250,.08))}
+        .loot-card.pouch-card{border-color:rgba(251,191,36,.3);background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(180,83,9,.08))}
+        .loot-card-visual{flex-shrink:0;width:90px;height:90px;display:flex;align-items:center;justify-content:center}
+        .loot-card-info{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+        .loot-card-title{font-size:16px;font-weight:800;color:#fff}
+        .loot-card-sub{font-size:11px;color:rgba(255,255,255,.55);line-height:1.3}
+        .loot-card-count{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px;font-weight:600}
+        .loot-card-btn{margin-top:8px;padding:9px 16px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:800;font-size:13px;border:none;border-radius:10px;cursor:pointer;align-self:flex-start;box-shadow:0 4px 12px rgba(251,191,36,.3)}
+        .loot-card-btn:active{transform:scale(.94)}
+        .loot-card-btn:disabled{opacity:.4;cursor:default}
+        .loot-card-btn.free{background:linear-gradient(135deg,#34d399,#10b981);color:#fff;box-shadow:0 4px 12px rgba(16,185,129,.3)}
+        .loot-card-btn.buy{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,.3)}
+
+        /* CSS 3D ajándék doboz */
+        .gift-box{position:relative;width:90px;height:85px;animation:giftBob 2.5s ease-in-out infinite;filter:drop-shadow(0 8px 20px rgba(236,72,153,.4))}
+        @keyframes giftBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+        .gift-body{position:absolute;left:8px;right:8px;top:22px;bottom:0;background:linear-gradient(135deg,#ec4899 0%,#be185d 50%,#9f1239 100%);border-radius:6px;box-shadow:inset 0 2px 4px rgba(255,255,255,.3),inset 0 -4px 8px rgba(0,0,0,.25)}
+        .gift-lid{position:absolute;left:0;right:0;top:16px;height:18px;background:linear-gradient(135deg,#f472b6 0%,#db2777 50%,#be185d 100%);border-radius:4px;box-shadow:0 3px 6px rgba(0,0,0,.2),inset 0 2px 3px rgba(255,255,255,.35),inset 0 -2px 4px rgba(0,0,0,.15)}
+        .gift-ribbon-v{position:absolute;left:50%;top:22px;bottom:0;width:10px;margin-left:-5px;background:linear-gradient(to bottom,#fbbf24,#f59e0b,#fbbf24);box-shadow:inset -1px 0 2px rgba(0,0,0,.2),inset 1px 0 2px rgba(255,255,255,.3)}
+        .gift-ribbon-h{position:absolute;left:0;right:0;top:16px;height:18px;background:linear-gradient(to bottom,#fde68a,#fbbf24,#f59e0b);box-shadow:inset 0 -1px 2px rgba(0,0,0,.2),inset 0 1px 2px rgba(255,255,255,.4);left:50%;width:10px;margin-left:-5px}
+        .gift-bow{position:absolute;left:50%;top:2px;width:42px;height:20px;margin-left:-21px}
+        .gift-bow .bow-l,.gift-bow .bow-r{position:absolute;top:0;width:18px;height:20px;background:radial-gradient(ellipse at center,#fbbf24 0%,#f59e0b 60%,#b45309 100%);border-radius:60% 40% 40% 60%;box-shadow:inset -2px -2px 4px rgba(0,0,0,.2),inset 2px 2px 3px rgba(255,255,255,.35)}
+        .gift-bow .bow-l{left:0;transform:rotate(-18deg)}
+        .gift-bow .bow-r{right:0;transform:rotate(18deg);border-radius:40% 60% 60% 40%}
+        .gift-bow .bow-c{position:absolute;left:50%;top:4px;width:10px;height:12px;margin-left:-5px;background:linear-gradient(135deg,#f59e0b,#b45309);border-radius:3px;box-shadow:inset 0 1px 2px rgba(255,255,255,.3)}
+        .gift-shine{position:absolute;left:14px;top:28px;width:16px;height:22px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));border-radius:3px;filter:blur(2px);pointer-events:none;animation:giftShimmer 3s ease-in-out infinite}
+        @keyframes giftShimmer{0%,100%{opacity:.6}50%{opacity:.95}}
+
+        /* CSS erszény (pouch) */
+        .coin-pouch{position:relative;width:85px;height:85px;animation:pouchSway 2.2s ease-in-out infinite;filter:drop-shadow(0 8px 20px rgba(180,83,9,.5))}
+        @keyframes pouchSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+        .pouch-body{position:absolute;left:8px;right:8px;top:22px;bottom:4px;background:radial-gradient(ellipse at 35% 25%,#fde68a 0%,#d97706 35%,#92400e 70%,#451a03 100%);border-radius:50% 50% 42% 42% / 30% 30% 70% 70%;box-shadow:inset 0 3px 8px rgba(255,255,255,.35),inset 0 -6px 14px rgba(0,0,0,.35),0 4px 10px rgba(0,0,0,.25)}
+        .pouch-body::before{content:'';position:absolute;left:15%;top:25%;width:22%;height:12%;background:rgba(255,255,255,.25);border-radius:50%;filter:blur(3px)}
+        .pouch-neck{position:absolute;left:22px;right:22px;top:14px;height:14px;background:linear-gradient(to bottom,#78350f,#451a03);border-radius:8px 8px 3px 3px;box-shadow:inset 0 -2px 4px rgba(0,0,0,.4),inset 0 1px 2px rgba(255,255,255,.15)}
+        .pouch-string{position:absolute;left:20px;right:20px;top:10px;height:6px;border-top:2px solid #fbbf24;border-radius:50% 50% 0 0;box-shadow:0 0 6px rgba(251,191,36,.6)}
+        .pouch-gem{position:absolute;left:50%;top:38px;width:26px;height:26px;margin-left:-13px;font-size:22px;line-height:26px;text-align:center;animation:pouchGem 1.8s ease-in-out infinite;text-shadow:0 0 10px rgba(251,191,36,.8)}
+        @keyframes pouchGem{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-2px) scale(1.05)}}
+        .pouch-shine{position:absolute;left:16px;top:28px;width:14px;height:18px;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0));border-radius:50%;filter:blur(2px);pointer-events:none}
+
         /* Daily Box overlay */
         .db-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(30,20,60,.95),rgba(0,0,0,.98));animation:dbFadeIn .3s ease}
         @keyframes dbFadeIn{from{opacity:0}to{opacity:1}}
@@ -1621,7 +1663,22 @@
         @keyframes dbPulse{0%,100%{opacity:.6}50%{opacity:1}}
         .db-content{position:relative;display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px;max-width:90vw}
         .db-prompt{font-size:20px;font-weight:700;color:#fff;text-shadow:0 2px 12px rgba(251,191,36,.4);text-align:center}
-        .db-box{font-size:140px;cursor:pointer;animation:dbFloat 2s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(251,191,36,.5));transition:transform .3s;line-height:1}
+        .db-box{font-size:140px;cursor:pointer;animation:dbFloat 2s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(236,72,153,.45));transition:transform .3s;line-height:1;display:flex;align-items:center;justify-content:center}
+        .gift-box.big{width:200px;height:190px;animation:giftBob 2.5s ease-in-out infinite}
+        .gift-box.big .gift-body{left:18px;right:18px;top:50px;border-radius:10px}
+        .gift-box.big .gift-lid{top:36px;height:40px;border-radius:8px}
+        .gift-box.big .gift-ribbon-v{top:50px;width:22px;margin-left:-11px}
+        .gift-box.big .gift-ribbon-h{top:36px;height:40px;width:22px;margin-left:-11px}
+        .gift-box.big .gift-bow{top:4px;width:96px;height:44px;margin-left:-48px}
+        .gift-box.big .gift-bow .bow-l,.gift-box.big .gift-bow .bow-r{width:40px;height:42px}
+        .gift-box.big .gift-bow .bow-c{width:22px;height:26px;margin-left:-11px;top:10px}
+        .gift-box.big .gift-shine{left:34px;top:58px;width:34px;height:44px}
+        .coin-pouch.big{width:190px;height:190px;animation:pouchSway 2.2s ease-in-out infinite}
+        .coin-pouch.big .pouch-body{left:20px;right:20px;top:50px;bottom:10px}
+        .coin-pouch.big .pouch-neck{left:50px;right:50px;top:32px;height:30px;border-radius:16px 16px 6px 6px}
+        .coin-pouch.big .pouch-string{left:42px;right:42px;top:24px;height:14px;border-top-width:3px}
+        .coin-pouch.big .pouch-gem{top:88px;width:60px;height:60px;margin-left:-30px;font-size:52px;line-height:60px}
+        .coin-pouch.big .pouch-shine{left:36px;top:66px;width:32px;height:42px}
         .db-box:active{transform:scale(.92)}
         .db-box.opening{animation:dbOpen .6s ease-out forwards}
         @keyframes dbFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
@@ -1705,8 +1762,6 @@
             <div class="streak" id="streak">🔥 <span id="sn"></span> napos sorozat</div>
             <div class="loot-row">
                 <button class="loot-btn gem" id="lootGems" title="Gémek">💎 <span data-gem-display>0</span></button>
-                <button class="loot-btn" id="lootBox" title="Daily Box">🎁 <span id="lootBoxBadge">2/2</span></button>
-                <button class="loot-btn" id="lootPouch" title="Daily Pouch">👝 <span id="lootPouchBadge">1/1</span></button>
                 <button class="loot-btn" id="lootSpin" title="Napi Spin">🎰 <span id="lootSpinBadge">✓</span></button>
             </div>
         </div>
@@ -1862,11 +1917,59 @@
             </div>
         </div>
 
-        <!-- Daily Pouch vásárlás -->
+        <!-- Daily Box szekció -->
+        <div class="shop-section">
+            <div class="shop-section-title">🎁 Daily Box</div>
+            <div class="loot-card-wrap">
+                <div class="loot-card box-card" id="shopBoxCard">
+                    <div class="loot-card-visual">
+                        <div class="gift-box">
+                            <div class="gift-shine"></div>
+                            <div class="gift-body"></div>
+                            <div class="gift-lid"></div>
+                            <div class="gift-ribbon-v"></div>
+                            <div class="gift-ribbon-h"></div>
+                            <div class="gift-bow">
+                                <span class="bow-l"></span>
+                                <span class="bow-r"></span>
+                                <span class="bow-c"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loot-card-info">
+                        <div class="loot-card-title">Napi Doboz</div>
+                        <div class="loot-card-sub">Gémek, skinek, hátterek, aurák</div>
+                        <div class="loot-card-count"><span id="shopBoxCount">2/2</span> ma</div>
+                        <button class="loot-card-btn" id="shopBoxBtn">Megnyit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Pouch szekció -->
         <div class="shop-section">
             <div class="shop-section-title">👝 Daily Pouch</div>
-            <div style="padding:0 22px">
-                <button id="pouchBuyBtn" class="pouch-buy-btn">Vásárolj Pouch-ot — 💎 30</button>
+            <div class="loot-card-wrap">
+                <div class="loot-card pouch-card" id="shopPouchCard">
+                    <div class="loot-card-visual">
+                        <div class="coin-pouch">
+                            <div class="pouch-shine"></div>
+                            <div class="pouch-body"></div>
+                            <div class="pouch-neck"></div>
+                            <div class="pouch-string"></div>
+                            <div class="pouch-gem">💎</div>
+                        </div>
+                    </div>
+                    <div class="loot-card-info">
+                        <div class="loot-card-title">Erszény</div>
+                        <div class="loot-card-sub">5–25 gém minden nap</div>
+                        <div class="loot-card-count"><span id="shopPouchCount">1/1</span> ma (+30💎/db)</div>
+                        <div style="display:flex;gap:8px;margin-top:8px">
+                            <button class="loot-card-btn free" id="shopPouchFreeBtn">Ingyen</button>
+                            <button class="loot-card-btn buy" id="shopPouchBuyBtn">💎 30</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -3112,17 +3215,19 @@
             localStorage.setItem('nu_spin_day',_today());
         }
         function updateLootBadges(){
-            const boxEl=document.getElementById('lootBoxBadge');
-            if(boxEl)boxEl.textContent=boxesRemaining()+'/2';
-            document.getElementById('lootBox')?.classList.toggle('empty',boxesRemaining()===0);
-            const pEl=document.getElementById('lootPouchBadge');
-            const pAvail=pouchFreeAvailable();
-            if(pEl)pEl.textContent=pAvail?'1/1':'0/1';
-            document.getElementById('lootPouch')?.classList.toggle('empty',!pAvail);
             const sEl=document.getElementById('lootSpinBadge');
             const canSpin=!spunToday_gem();
             if(sEl)sEl.textContent=canSpin?'✓':'⏳';
             document.getElementById('lootSpin')?.classList.toggle('empty',!canSpin);
+            // Shop kártyák
+            const sbc=document.getElementById('shopBoxCount');
+            if(sbc)sbc.textContent=boxesRemaining()+'/2';
+            const sbBtn=document.getElementById('shopBoxBtn');
+            if(sbBtn){const left=boxesRemaining();sbBtn.disabled=left===0;sbBtn.textContent=left>0?'Megnyit':'Holnap 6-kor'}
+            const spc=document.getElementById('shopPouchCount');
+            if(spc)spc.textContent=(pouchFreeAvailable()?1:0)+'/1';
+            const spBtnF=document.getElementById('shopPouchFreeBtn');
+            if(spBtnF){const avail=pouchFreeAvailable();spBtnF.disabled=!avail;spBtnF.textContent=avail?'Ingyen':'Felhasználva'}
         }
 
         function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)]}
@@ -3235,7 +3340,7 @@
             window._dragonWeekActive=true;
         })();
 
-        // ========== APP AMBIENT ZENE — halk pad + pentatonikus ==========
+        // ========== APP AMBIENT ZENE — meleg lo-fi harangok ==========
         (function(){
             let appAudioCtx=null;
             function initAppAmbient(){
@@ -3243,52 +3348,76 @@
                 try{ appAudioCtx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; }
                 const ctx=appAudioCtx;
                 if(ctx.state==='suspended') ctx.resume();
+
                 const master=ctx.createGain();
-                master.gain.value=0.04;
+                master.gain.value=0.055;
                 master.connect(ctx.destination);
 
-                // Halk pad — A2
-                const pad=ctx.createOscillator();
-                pad.type='sine'; pad.frequency.value=110;
-                const padGain=ctx.createGain(); padGain.gain.value=0;
-                padGain.gain.linearRampToValueAtTime(0.35, ctx.currentTime+4);
-                pad.connect(padGain).connect(master); pad.start();
+                // Delay (visszhang) útvonal a harangokhoz
+                const delay=ctx.createDelay(2.0);
+                delay.delayTime.value=0.42;
+                const feedback=ctx.createGain(); feedback.gain.value=0.45;
+                const delayGain=ctx.createGain(); delayGain.gain.value=0.4;
+                delay.connect(feedback); feedback.connect(delay);
+                delay.connect(delayGain); delayGain.connect(master);
 
-                // Kvint — E3
-                const pad2=ctx.createOscillator();
-                pad2.type='sine'; pad2.frequency.value=164.81;
-                const pad2Gain=ctx.createGain(); pad2Gain.gain.value=0;
-                pad2Gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime+6);
-                pad2.connect(pad2Gain).connect(master); pad2.start();
+                const dry=ctx.createGain(); dry.gain.value=1.0;
+                dry.connect(master);
 
-                // Szűrt fehér zaj — légköri szövet
-                const bufSize=ctx.sampleRate*2;
-                const noiseBuf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
-                const nd=noiseBuf.getChannelData(0);
-                for(let i=0;i<bufSize;i++) nd[i]=(Math.random()*2-1)*0.5;
-                const noise=ctx.createBufferSource();
-                noise.buffer=noiseBuf; noise.loop=true;
-                const nF=ctx.createBiquadFilter();
-                nF.type='lowpass'; nF.frequency.value=300;
-                const nG=ctx.createGain(); nG.gain.value=0;
-                nG.gain.linearRampToValueAtTime(0.15, ctx.currentTime+5);
-                noise.connect(nF).connect(nG).connect(master); noise.start();
-
-                // Ritka pentatonikus dallamfoszlány (A-moll)
-                const pentatonic=[220, 261.63, 293.66, 329.63, 392];
-                function playNote(){
-                    if(!appAudioCtx) return;
+                // Meleg pad — C dúr trió (C3, E3, G3) szinusz
+                const padFreqs=[130.81, 164.81, 196.00];
+                padFreqs.forEach((f,i)=>{
                     const o=ctx.createOscillator();
-                    o.type='triangle';
-                    o.frequency.value=pentatonic[Math.floor(Math.random()*pentatonic.length)];
+                    o.type='sine'; o.frequency.value=f;
                     const g=ctx.createGain(); g.gain.value=0;
-                    g.gain.linearRampToValueAtTime(0.15, ctx.currentTime+0.8);
-                    g.gain.linearRampToValueAtTime(0, ctx.currentTime+4);
-                    o.connect(g).connect(master);
-                    o.start(); o.stop(ctx.currentTime+4.5);
-                    setTimeout(playNote, 8000+Math.random()*12000);
+                    g.gain.linearRampToValueAtTime(i===0?0.22:0.14, ctx.currentTime+6+i);
+                    // Apró vibráció a lélegzéshez
+                    const lfo=ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.05+i*0.01;
+                    const lfoG=ctx.createGain(); lfoG.gain.value=0.04;
+                    lfo.connect(lfoG); lfoG.connect(g.gain); lfo.start();
+                    o.connect(g).connect(dry); o.start();
+                });
+
+                // Glockenspiel / harang dallam — C dúr pentatonikus (C D E G A, oktávokkal)
+                const bells=[523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66];
+                function ringBell(){
+                    if(!appAudioCtx) return;
+                    const t=ctx.currentTime;
+                    const freq=bells[Math.floor(Math.random()*bells.length)];
+                    // Alap szinusz + apró felharmónikus (csillogás)
+                    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=freq;
+                    const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=freq*2.001;
+                    const g=ctx.createGain(); g.gain.value=0;
+                    const g2=ctx.createGain(); g2.gain.value=0;
+                    // Éles attack, lassú lecsengés (harang jelleg)
+                    g.gain.linearRampToValueAtTime(0.18, t+0.02);
+                    g.gain.exponentialRampToValueAtTime(0.001, t+3.2);
+                    g2.gain.linearRampToValueAtTime(0.06, t+0.03);
+                    g2.gain.exponentialRampToValueAtTime(0.001, t+2.0);
+                    o.connect(g); o2.connect(g2);
+                    g.connect(delay); g.connect(dry);
+                    g2.connect(delay); g2.connect(dry);
+                    o.start(t); o.stop(t+3.5);
+                    o2.start(t); o2.stop(t+2.2);
+                    // Következő harang: 6-14 másodperc
+                    setTimeout(ringBell, 6000+Math.random()*8000);
                 }
-                setTimeout(playNote, 5000);
+                setTimeout(ringBell, 3000);
+
+                // Ritka mély tónus (kandallószerű melegség)
+                function warmPulse(){
+                    if(!appAudioCtx) return;
+                    const t=ctx.currentTime;
+                    const o=ctx.createOscillator(); o.type='triangle'; o.frequency.value=65.41; // C2
+                    const g=ctx.createGain(); g.gain.value=0;
+                    g.gain.linearRampToValueAtTime(0.12, t+1.5);
+                    g.gain.linearRampToValueAtTime(0, t+5);
+                    const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=400;
+                    o.connect(lp); lp.connect(g); g.connect(dry);
+                    o.start(t); o.stop(t+5.2);
+                    setTimeout(warmPulse, 20000+Math.random()*15000);
+                }
+                setTimeout(warmPulse, 8000);
             }
             document.addEventListener('click', initAppAmbient, {once:true, passive:true});
             document.addEventListener('touchstart', initAppAmbient, {once:true, passive:true});
@@ -3406,7 +3535,7 @@
                 });
             }
             window.renderShop=renderShop;
-            toggle.addEventListener('click',()=>{renderShop();panel.classList.add('open')});
+            toggle.addEventListener('click',()=>{renderShop();if(typeof updateLootBadges==='function')updateLootBadges();panel.classList.add('open')});
             closeBtn.addEventListener('click',()=>panel.classList.remove('open'));
 
             // ========== VÁSÁRLÁSI HANDLER ==========
@@ -3876,36 +4005,32 @@
                 openPouch();
             };
 
-            // Pouch vásárló gomb a shopban
-            document.addEventListener('DOMContentLoaded',()=>{
-                const pb=document.getElementById('pouchBuyBtn');
-                if(pb) pb.addEventListener('click',()=>{
-                    if(confirm('Vásárolsz egy Pouch-ot 30 gémért?')) window.buyPouch();
-                });
-            });
-            // Fallback: ha DOMContentLoaded már lement
-            setTimeout(()=>{
-                const pb=document.getElementById('pouchBuyBtn');
-                if(pb&&!pb._bound){pb._bound=true;pb.addEventListener('click',()=>{if(confirm('Vásárolsz egy Pouch-ot 30 gémért?'))window.buyPouch()});}
-            },500);
+            // Shop kártya gombok bekötése
+            function bindShopLootCards(){
+                const box=document.getElementById('shopBoxBtn');
+                if(box&&!box._bound){box._bound=true;box.addEventListener('click',()=>window.openDailyBox())}
+                const pf=document.getElementById('shopPouchFreeBtn');
+                if(pf&&!pf._bound){pf._bound=true;pf.addEventListener('click',()=>window.tryOpenFreePouch())}
+                const pb=document.getElementById('shopPouchBuyBtn');
+                if(pb&&!pb._bound){pb._bound=true;pb.addEventListener('click',()=>{if(confirm('Vásárolsz egy Pouch-ot 30 gémért?'))window.buyPouch()})}
+            }
+            bindShopLootCards();
+            setTimeout(bindShopLootCards,500);
+            setTimeout(bindShopLootCards,1500);
         })();
 
         // ========== FŐKÉPERNYŐ LOOT ROW + BADGE INIT ==========
         (function(){
             function attachLootListeners(){
                 const g=document.getElementById('lootGems');
-                if(g) g.onclick=()=>document.getElementById('skinPanel')?.classList.add('open');
-                const b=document.getElementById('lootBox');
-                if(b) b.onclick=()=>window.openDailyBox();
-                const p=document.getElementById('lootPouch');
-                if(p) p.onclick=()=>window.tryOpenFreePouch();
+                if(g) g.onclick=()=>{document.getElementById('skinPanel')?.classList.add('open');if(typeof renderShop==='function')renderShop()};
                 const s=document.getElementById('lootSpin');
                 if(s) s.onclick=()=>{
                     document.getElementById('skinPanel')?.classList.add('open');
+                    if(typeof renderShop==='function')renderShop();
                     setTimeout(()=>document.getElementById('dragonSpinSection')?.scrollIntoView({behavior:'smooth'}),200);
                 };
             }
-            // Többszöri próba (különböző boot sorrendek miatt)
             attachLootListeners();
             setTimeout(attachLootListeners,500);
             setTimeout(()=>{updateGemUI();updateLootBadges();},100);
@@ -3918,7 +4043,20 @@
         <div class="db-bg"></div>
         <div class="db-content">
             <div class="db-prompt" id="dbPrompt">Koppints a dobozra!</div>
-            <div class="db-box" id="dbBox">🎁</div>
+            <div class="db-box" id="dbBox">
+                <div class="gift-box big">
+                    <div class="gift-shine"></div>
+                    <div class="gift-body"></div>
+                    <div class="gift-lid"></div>
+                    <div class="gift-ribbon-v"></div>
+                    <div class="gift-ribbon-h"></div>
+                    <div class="gift-bow">
+                        <span class="bow-l"></span>
+                        <span class="bow-r"></span>
+                        <span class="bow-c"></span>
+                    </div>
+                </div>
+            </div>
             <div class="db-number" id="dbNumber">1</div>
             <div class="db-prize" id="dbPrize" style="display:none">
                 <div class="db-prize-icon" id="dbPrizeIcon"></div>
@@ -3931,7 +4069,15 @@
     <!-- Daily Pouch overlay -->
     <div id="dailyPouchOverlay" class="dp-overlay" style="display:none">
         <div class="dp-content">
-            <div class="dp-pouch" id="dpPouch">👝</div>
+            <div class="dp-pouch" id="dpPouch">
+                <div class="coin-pouch big">
+                    <div class="pouch-shine"></div>
+                    <div class="pouch-body"></div>
+                    <div class="pouch-neck"></div>
+                    <div class="pouch-string"></div>
+                    <div class="pouch-gem">💎</div>
+                </div>
+            </div>
             <div class="dp-reward" id="dpReward" style="display:none">💎 <span id="dpGems">0</span></div>
             <button class="dp-close" id="dpClose" style="display:none">Köszönöm!</button>
         </div>
