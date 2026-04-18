@@ -1771,7 +1771,7 @@
         .bp-lvl-btn.claimed{background:rgba(16,185,129,.25);color:#34d399}
         .bp-swipe-hint{text-align:center;color:rgba(255,255,255,.4);font-size:11px;font-style:italic;margin-top:-4px;margin-bottom:2px;padding:0 22px}
 
-        /* Rarity címkék a shop tárgyakon */
+        /* Rarity címkék (régi chip) — visszatart kompatibilitásra */
         .rarity-tag{display:inline-block;font-size:9px;font-weight:900;padding:2px 6px;border-radius:5px;letter-spacing:.4px;text-transform:uppercase;margin-top:2px;margin-bottom:4px}
         .rarity-common{background:rgba(156,163,175,.2);color:#d1d5db;border:1px solid rgba(156,163,175,.4)}
         .rarity-rare{background:rgba(59,130,246,.2);color:#60a5fa;border:1px solid rgba(59,130,246,.5)}
@@ -1779,6 +1779,29 @@
         .rarity-legendary{background:rgba(251,191,36,.2);color:#fbbf24;border:1px solid rgba(251,191,36,.6);box-shadow:0 0 8px rgba(251,191,36,.25)}
         .rarity-mythic{background:linear-gradient(90deg,rgba(236,72,153,.25),rgba(139,92,246,.25),rgba(59,130,246,.25));color:#fff;border:1px solid rgba(236,72,153,.6);box-shadow:0 0 10px rgba(236,72,153,.35);animation:mythicPulse 2.5s ease-in-out infinite}
         @keyframes mythicPulse{0%,100%{box-shadow:0 0 10px rgba(236,72,153,.35)}50%{box-shadow:0 0 14px rgba(167,139,250,.55)}}
+
+        /* Prominens rarity label az ikon ALATT */
+        .shop-item-rarity-label{display:block;width:fit-content;margin:4px auto 8px;font-size:9.5px;font-weight:900;letter-spacing:1.2px;padding:3px 9px;border-radius:6px;text-transform:uppercase}
+        .rarity-label-free,.rarity-label-none{background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12)}
+        .rarity-label-common{background:linear-gradient(135deg,rgba(107,114,128,.8),rgba(75,85,99,.9));color:#f3f4f6;border:1px solid rgba(107,114,128,.8)}
+        .rarity-label-rare{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:1px solid rgba(59,130,246,.8);box-shadow:0 2px 8px rgba(59,130,246,.3)}
+        .rarity-label-epic{background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;border:1px solid rgba(168,85,247,.8);box-shadow:0 2px 10px rgba(168,85,247,.4)}
+        .rarity-label-legendary{background:linear-gradient(135deg,#fbbf24,#d97706);color:#1a1a2e;border:1px solid rgba(251,191,36,.8);box-shadow:0 2px 12px rgba(251,191,36,.5),inset 0 1px 2px rgba(255,255,255,.3)}
+        .rarity-label-mythic{background:linear-gradient(90deg,#ec4899,#a855f7,#3b82f6,#ec4899);background-size:200% 100%;color:#fff;border:1px solid rgba(236,72,153,.9);box-shadow:0 2px 14px rgba(236,72,153,.6);animation:rarityMythicFlow 3s linear infinite}
+        @keyframes rarityMythicFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+        /* Accessory SVG méretezés */
+        .acc-vis{display:inline-flex;align-items:center;justify-content:center;width:56px;height:46px}
+        .acc-vis svg{width:100%;height:100%;display:block}
+        /* SVG a robot fejen */
+        .outfit.outfit-acc-rendered{font-size:0}
+        .outfit-acc-rendered svg{width:56px;height:46px}
+        .outfit-hat.outfit-acc-rendered svg{width:64px;height:50px;transform:translateY(-5px)}
+        .outfit-face.outfit-acc-rendered svg{width:58px;height:36px}
+        .outfit-neck.outfit-acc-rendered svg{width:56px;height:32px}
+
+        /* Bot Pass banner hint szöveg */
+        .bp-banner-hint{margin-top:4px;font-size:10px;color:rgba(251,191,36,.7);font-style:italic;line-height:1.3}
 
         /* Rarity csoport fejléc a shop listán belül */
         .rarity-group-label{font-size:11px;font-weight:800;color:rgba(255,255,255,.65);letter-spacing:1px;padding:6px 8px;margin-right:8px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);white-space:nowrap;flex-shrink:0;align-self:stretch;display:flex;align-items:center}
@@ -2041,7 +2064,7 @@
                     </div>
                     <div class="loot-card-info">
                         <div class="loot-card-title">DailyBox</div>
-                        <div class="loot-card-count"><span id="shopBoxCount">2/2</span> ma</div>
+                        <div class="loot-card-count"><span id="shopBoxCount">1/1</span> ma</div>
                         <button class="loot-card-btn" id="shopBoxBtn">Megnyit</button>
                     </div>
                 </div>
@@ -2074,31 +2097,7 @@
             </div>
         </div>
 
-        <div class="shop-section">
-            <div class="shop-section-title">🤖 Skin választék</div>
-            <div class="shop-scroll" id="skinList"></div>
-        </div>
-        <div class="shop-section">
-            <div class="shop-section-title">🖼️ Hátterek</div>
-            <div class="shop-scroll" id="bgList"></div>
-        </div>
-
-        <!-- Daily Deal -->
-        <div class="shop-section" id="dailyDealSection" style="display:none">
-            <div class="shop-section-title">🔥 Mai akció</div>
-            <div class="loot-card-wrap">
-                <div class="loot-card deal-card" id="dailyDealCard">
-                    <div class="loot-card-visual"><div class="deal-icon" id="dealIcon">✨</div></div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title" id="dealName">–</div>
-                        <div class="loot-card-count"><span class="deal-old" id="dealOld">0</span> <span class="deal-new" id="dealNew">0</span> 💎</div>
-                        <button class="loot-card-btn" id="dealBuyBtn">Megveszem</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bot Pass belépő -->
+        <!-- Bot Pass belépő — a Pouch után, a skin szekciók előtt -->
         <div class="shop-section">
             <div class="shop-section-title">🎖️ Bot Pass</div>
             <div class="loot-card-wrap">
@@ -2115,9 +2114,34 @@
                         <div class="bp-banner-bar-wrap">
                             <div class="bp-banner-bar" id="bpBannerBar"></div>
                         </div>
+                        <div class="bp-banner-hint">+40 XP napi belépéstől · +20 box · +15 pouch/spin</div>
                         <div class="bp-banner-cta">Megnyitás →</div>
                     </div>
                     <div class="bp-banner-badge" id="bpBannerBadge" style="display:none">!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-section">
+            <div class="shop-section-title">🤖 Skin választék</div>
+            <div class="shop-scroll" id="skinList"></div>
+        </div>
+        <div class="shop-section">
+            <div class="shop-section-title">🖼️ Hátterek</div>
+            <div class="shop-scroll" id="bgList"></div>
+        </div>
+
+        <!-- Daily Deal — LEGALUL -->
+        <div class="shop-section" id="dailyDealSection" style="display:none">
+            <div class="shop-section-title">🔥 Mai akció</div>
+            <div class="loot-card-wrap">
+                <div class="loot-card deal-card" id="dailyDealCard">
+                    <div class="loot-card-visual"><div class="deal-icon" id="dealIcon">✨</div></div>
+                    <div class="loot-card-info">
+                        <div class="loot-card-title" id="dealName">–</div>
+                        <div class="loot-card-count"><span class="deal-old" id="dealOld">0</span> <span class="deal-new" id="dealNew">0</span> 💎</div>
+                        <button class="loot-card-btn" id="dealBuyBtn">Megveszem</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3356,14 +3380,58 @@
         ];
         function getActiveAcc(){return localStorage.getItem('nu_active_acc')||''}
         function setActiveAcc(id){localStorage.setItem('nu_active_acc',id)}
+
+        // SVG vizuálok — valódi rajzok, nem emoji
+        const ACCESSORY_SVG={
+            'acc-crown':'<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="goldG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#b45309"/></linearGradient></defs><path d="M5,42 L10,12 L22,28 L30,4 L38,28 L50,12 L55,42 Z" fill="url(#goldG)" stroke="#92400e" stroke-width="1.2"/><rect x="5" y="40" width="50" height="6" fill="#b45309" rx="1"/><circle cx="30" cy="34" r="3.2" fill="#ef4444"/><circle cx="17" cy="36" r="2.4" fill="#3b82f6"/><circle cx="43" cy="36" r="2.4" fill="#10b981"/></svg>',
+            'acc-tophat':'<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="4" width="24" height="32" fill="#111" rx="2"/><rect x="18" y="14" width="24" height="4" fill="#7f1d1d"/><ellipse cx="30" cy="36" rx="22" ry="4" fill="#111"/><rect x="20" y="7" width="5" height="12" fill="#262626" opacity=".6"/></svg>',
+            'acc-cap':'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M10,26 Q10,4 30,4 Q50,4 50,26 Z" fill="#dc2626"/><path d="M10,26 Q10,20 30,20 Q50,20 50,26 Z" fill="#991b1b"/><path d="M8,26 Q32,32 56,26 L52,32 L10,32 Z" fill="#991b1b"/><circle cx="30" cy="10" r="4" fill="#fff"/><circle cx="30" cy="10" r="2" fill="#dc2626"/></svg>',
+            'acc-graduate':'<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><polygon points="3,25 30,10 57,25 30,40" fill="#111" stroke="#000" stroke-width="1"/><polygon points="10,27 30,17 50,27 30,36" fill="#1f2937"/><rect x="28" y="9" width="4" height="4" fill="#fbbf24" rx="1"/><path d="M48,14 Q52,22 52,34" stroke="#fbbf24" stroke-width="2" fill="none"/><circle cx="52" cy="36" r="3.5" fill="#fbbf24"/><circle cx="50" cy="39" r="2" fill="#f59e0b"/></svg>',
+            'acc-flower':'<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="13" r="9" fill="#ec4899"/><circle cx="14" cy="22" r="9" fill="#f472b6"/><circle cx="46" cy="22" r="9" fill="#f472b6"/><circle cx="20" cy="37" r="9" fill="#db2777"/><circle cx="40" cy="37" r="9" fill="#db2777"/><circle cx="30" cy="28" r="7" fill="#fbbf24"/><circle cx="28" cy="25" r="2" fill="#fde68a"/></svg>',
+            'acc-pumpkin':'<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="28" rx="22" ry="19" fill="#f97316"/><ellipse cx="30" cy="28" rx="5" ry="19" fill="#ea580c"/><ellipse cx="18" cy="28" rx="4" ry="18" fill="#ea580c" opacity=".55"/><ellipse cx="42" cy="28" rx="4" ry="18" fill="#ea580c" opacity=".55"/><path d="M26,4 Q30,0 32,6 Q34,0 30,8 Z" fill="#166534"/><rect x="27" y="5" width="6" height="8" fill="#15803d"/><polygon points="21,22 26,18 28,24" fill="#1a1a1a"/><polygon points="39,22 34,18 32,24" fill="#1a1a1a"/><path d="M20,33 L24,30 L28,33 L32,30 L36,33 L40,30" stroke="#1a1a1a" stroke-width="1.8" fill="none"/></svg>',
+            'acc-shades':'<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><ellipse cx="18" cy="15" rx="12" ry="9.5" fill="#0a0a0a" stroke="#1a1a1a" stroke-width="1.5"/><ellipse cx="42" cy="15" rx="12" ry="9.5" fill="#0a0a0a" stroke="#1a1a1a" stroke-width="1.5"/><line x1="29" y1="13" x2="31" y2="13" stroke="#1a1a1a" stroke-width="2.5"/><ellipse cx="14" cy="10" rx="4" ry="2.2" fill="rgba(255,255,255,.45)"/><ellipse cx="38" cy="10" rx="4" ry="2.2" fill="rgba(255,255,255,.45)"/></svg>',
+            'acc-goggle':'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="18" width="54" height="4" fill="#78350f"/><circle cx="18" cy="20" r="12" fill="#475569" stroke="#1e293b" stroke-width="2.5"/><circle cx="42" cy="20" r="12" fill="#475569" stroke="#1e293b" stroke-width="2.5"/><circle cx="18" cy="20" r="7.5" fill="#0ea5e9"/><circle cx="42" cy="20" r="7.5" fill="#0ea5e9"/><circle cx="15" cy="17" r="2" fill="rgba(255,255,255,.55)"/><circle cx="39" cy="17" r="2" fill="rgba(255,255,255,.55)"/></svg>',
+            'acc-mask':'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="maskG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#b91c1c"/></linearGradient></defs><path d="M5,8 Q30,0 55,8 Q55,28 48,32 Q30,36 12,32 Q5,28 5,8 Z" fill="url(#maskG)" stroke="#7f1d1d" stroke-width="1"/><ellipse cx="20" cy="17" rx="5" ry="4" fill="#000"/><ellipse cx="40" cy="17" rx="5" ry="4" fill="#000"/><circle cx="30" cy="5" r="2.5" fill="#ef4444"/></svg>',
+            'acc-ribbon':'<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><polygon points="4,4 26,15 4,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><polygon points="56,4 34,15 56,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><rect x="24" y="9" width="12" height="12" fill="#991b1b" rx="2"/><ellipse cx="14" cy="15" rx="3" ry="5" fill="rgba(255,255,255,.25)"/></svg>',
+            'acc-beads':'<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,32 52,5" stroke="#78350f" stroke-width="1" fill="none"/><circle cx="8" cy="5" r="2.8" fill="#d97706"/><circle cx="15" cy="13" r="2.8" fill="#f59e0b"/><circle cx="22" cy="19" r="2.8" fill="#d97706"/><circle cx="30" cy="23" r="3.5" fill="#fbbf24" stroke="#92400e" stroke-width=".8"/><circle cx="38" cy="19" r="2.8" fill="#d97706"/><circle cx="45" cy="13" r="2.8" fill="#f59e0b"/><circle cx="52" cy="5" r="2.8" fill="#d97706"/></svg>',
+            'acc-gem':'<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,28 52,5" stroke="#fbbf24" stroke-width="2" fill="none"/><path d="M22,18 L30,35 L38,18 L30,14 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/><path d="M22,18 L30,14 L30,35 Z" fill="#60a5fa"/><path d="M24,17 L30,15 L30,20 Z" fill="rgba(255,255,255,.6)"/></svg>'
+        };
+        function getAccessorySvg(acc){return ACCESSORY_SVG[acc.id]||''}
+        function accessoryVisualHtml(acc){
+            const svg=getAccessorySvg(acc);
+            if(svg) return '<span class="acc-vis">'+svg+'</span>';
+            return acc.icon;
+        }
+
         function applyAcc(){
             const id=getActiveAcc();
+            if(!id) return;
             const acc=ACCESSORIES.find(a=>a.id===id);
             if(!acc) return;
-            // Csak akkor jelenítjük meg, ha az ünnepi outfit üres az adott slot-ban
             const map={hat:'outfitHat',face:'outfitFace',neck:'outfitNeck'};
             const el=document.getElementById(map[acc.slot]);
-            if(el && !el.textContent.trim()) el.textContent=acc.icon;
+            if(!el) return;
+            // Csak akkor, ha az adott slot üres (nincs ünnepi outfit)
+            if(!el.textContent.trim() && !el.dataset.accActive){
+                const svg=getAccessorySvg(acc);
+                if(svg){
+                    el.innerHTML=svg;
+                    el.classList.add('outfit-acc-rendered');
+                    el.dataset.accActive='1';
+                } else {
+                    el.textContent=acc.icon;
+                }
+            }
+        }
+        function clearAcc(){
+            ['outfitHat','outfitFace','outfitNeck'].forEach(id=>{
+                const el=document.getElementById(id);
+                if(el && el.dataset.accActive){
+                    el.innerHTML='';
+                    el.classList.remove('outfit-acc-rendered');
+                    delete el.dataset.accActive;
+                }
+            });
         }
 
         // ========== NAPI LOOT ÁLLAPOT HELPEREK ==========
@@ -3371,7 +3439,7 @@
         function boxesRemaining(){
             const today=_today();
             const day=localStorage.getItem('nu_box_day');
-            if(day!==today){localStorage.setItem('nu_box_day',today);localStorage.setItem('nu_box_count','2');return 2}
+            if(day!==today){localStorage.setItem('nu_box_day',today);localStorage.setItem('nu_box_count','1');return 1}
             return parseInt(localStorage.getItem('nu_box_count')||'0',10);
         }
         function consumeBox(){
@@ -3401,7 +3469,7 @@
         function updateLootBadges(){
             // Shop kártyák
             const sbc=document.getElementById('shopBoxCount');
-            if(sbc)sbc.textContent=boxesRemaining()+'/2';
+            if(sbc)sbc.textContent=boxesRemaining()+'/1';
             const sbBtn=document.getElementById('shopBoxBtn');
             if(sbBtn){const left=boxesRemaining();sbBtn.disabled=left===0;sbBtn.textContent=left>0?'Megnyit':'Holnap 6-kor'}
             const spc=document.getElementById('shopPouchCount');
@@ -4020,15 +4088,18 @@
                     accList=document.getElementById(accListId);
                 }
                 accList.innerHTML='';
-                // Renderelés: kiegészítők — birtokolt equippable, nem birtokolt lock
                 const activeAcc=getActiveAcc();
                 // "Nincs" kiegészítő opció
                 (function(){
                     const el=document.createElement('div');
                     const isActive=activeAcc==='';
                     el.className='shop-item'+(isActive?' active':'');
-                    el.innerHTML=`<div class="shop-item-icon">🚫</div><div class="shop-item-name">Nincs</div><div class="shop-item-desc">Vissza az alap robotra</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
-                    if(!isActive) el.addEventListener('click',()=>{setActiveAcc('');document.getElementById('outfitHat').textContent='';document.getElementById('outfitFace').textContent='';document.getElementById('outfitNeck').textContent='';renderShop()});
+                    el.innerHTML=`<div class="shop-item-icon"><span style="font-size:42px">🚫</span></div><div class="shop-item-rarity-label rarity-label-none">NINCS</div><div class="shop-item-name">Nincs</div><div class="shop-item-desc">Vissza az alap robotra</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
+                    if(!isActive) el.addEventListener('click',()=>{
+                        setActiveAcc('');
+                        clearAcc();
+                        renderShop();
+                    });
                     accList.appendChild(el);
                 })();
                 ACCESSORIES.slice().sort((a,b)=>(RARITY_ORDER[a.rarity]||0)-(RARITY_ORDER[b.rarity]||0)).forEach(a=>{
@@ -4037,17 +4108,13 @@
                     const el=document.createElement('div');
                     el.className='shop-item'+(isActive?' active':'')+(!ownedAcc?' locked':'');
                     const status=isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':ownedAcc?'<div class="shop-item-status owned">Választható</div>':'<div class="shop-item-status lock-tag">👝 Pouch</div>';
-                    const rarityTag=`<span class="rarity-tag rarity-${a.rarity}">${a.rarity}</span>`;
-                    el.innerHTML=`<div class="shop-item-icon">${a.icon}</div>${rarityTag}<div class="shop-item-name">${a.name}</div><div class="shop-item-desc">${a.slot==='hat'?'Fejfedő':a.slot==='face'?'Arc kiegészítő':'Nyak kiegészítő'}</div>${status}`;
+                    const rarityLabel=`<div class="shop-item-rarity-label rarity-label-${a.rarity}">${a.rarity}</div>`;
+                    el.innerHTML=`<div class="shop-item-icon">${accessoryVisualHtml(a)}</div>${rarityLabel}<div class="shop-item-name">${a.name}</div><div class="shop-item-desc">${a.slot==='hat'?'Fejfedő':a.slot==='face'?'Arc kiegészítő':'Nyak kiegészítő'}</div>${status}`;
                     if(ownedAcc&&!isActive){
                         el.addEventListener('click',()=>{
+                            clearAcc();
                             setActiveAcc(a.id);
-                            // Azonnal alkalmazzuk: csak akkor ha ünnepi outfit üres az adott slot-ban
-                            const map={hat:'outfitHat',face:'outfitFace',neck:'outfitNeck'};
-                            const slotEl=document.getElementById(map[a.slot]);
-                            if(slotEl && !slotEl.textContent.trim()) slotEl.textContent=a.icon;
-                            // A többi slot-ot töröljük (csak 1 acc aktív)
-                            Object.values(map).forEach(sid=>{if(sid!==map[a.slot]){const e=document.getElementById(sid);/* csak ha acc volt */}});
+                            applyAcc();
                             renderShop();
                         });
                     }
@@ -4101,8 +4168,8 @@
                             status='<div class="shop-item-status">Ingyenes</div>';
                         }
 
-                        const rarityTag=(rarity!=='free')?`<span class="rarity-tag rarity-${rarity}">${rarity}</span>`:'';
-                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div>${rarityTag}<div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+                        const rarityLabel=(rarity!=='free')?`<div class="shop-item-rarity-label rarity-label-${rarity}">${rarity}</div>`:'<div class="shop-item-rarity-label rarity-label-free">free</div>';
+                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div>${rarityLabel}<div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
 
                         if(ownedItem && !isActive) el.addEventListener('click',(e)=>{if(e.target.closest('.buy-tag'))return;cfg.setter(s.id);cfg.applier();renderShop()});
                         cfg.list.appendChild(el);
