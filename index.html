@@ -1852,6 +1852,108 @@
         /* Streak badge áramló */
         .streak.on{background:linear-gradient(90deg,rgba(251,146,60,.3),rgba(239,68,68,.3),rgba(251,146,60,.3))!important;background-size:200% 100%!important;animation:flowColor 4s linear infinite}
 
+        /* ============= ÚJ MYTHIC SKINEK ============= */
+        /* PRISM — kristály fénytörés */
+        .robot.prism{animation:float 3.2s ease-in-out infinite,prismHue 4s linear infinite;filter:saturate(1.6) brightness(1.15)}
+        @keyframes prismHue{0%{filter:saturate(1.6) brightness(1.15) hue-rotate(0deg) drop-shadow(0 0 20px rgba(96,165,250,.55))}25%{filter:saturate(1.6) brightness(1.15) hue-rotate(90deg) drop-shadow(0 0 20px rgba(52,211,153,.55))}50%{filter:saturate(1.6) brightness(1.15) hue-rotate(180deg) drop-shadow(0 0 20px rgba(236,72,153,.55))}75%{filter:saturate(1.6) brightness(1.15) hue-rotate(270deg) drop-shadow(0 0 20px rgba(251,191,36,.55))}100%{filter:saturate(1.6) brightness(1.15) hue-rotate(360deg) drop-shadow(0 0 20px rgba(96,165,250,.55))}}
+
+        /* PHOENIX — tüzes szellem */
+        .robot.phoenix .head,.robot.phoenix .torso{background:radial-gradient(circle at 50% 30%,#fde68a 0%,#f59e0b 25%,#dc2626 60%,#7f1d1d 100%)!important;border:1.5px solid #fbbf24!important;box-shadow:0 0 30px rgba(251,191,36,.6),inset 0 0 15px rgba(255,255,255,.3)!important;animation:phoenixPulse 2.5s ease-in-out infinite}
+        @keyframes phoenixPulse{0%,100%{box-shadow:0 0 30px rgba(251,191,36,.6),inset 0 0 15px rgba(255,255,255,.3)}50%{box-shadow:0 0 50px rgba(239,68,68,.8),0 0 80px rgba(251,146,60,.4),inset 0 0 20px rgba(255,255,255,.5)}}
+        .robot.phoenix{animation:float 3s ease-in-out infinite,phoenixFlame 3s ease-in-out infinite}
+        @keyframes phoenixFlame{0%,100%{filter:drop-shadow(0 0 20px #ef4444) saturate(1.5)}50%{filter:drop-shadow(0 0 35px #fbbf24) saturate(2)}}
+
+        /* AURORA — sarki fény */
+        .robot.aurora{animation:float 3.5s ease-in-out infinite,auroraFlow 6s ease-in-out infinite}
+        @keyframes auroraFlow{0%,100%{filter:hue-rotate(0deg) saturate(1.8) brightness(1.1) drop-shadow(0 0 25px rgba(52,211,153,.6))}33%{filter:hue-rotate(80deg) saturate(2) brightness(1.2) drop-shadow(0 0 30px rgba(167,139,250,.7))}66%{filter:hue-rotate(180deg) saturate(2) brightness(1.15) drop-shadow(0 0 30px rgba(59,130,246,.7))}}
+        .robot.aurora .head,.robot.aurora .torso{background:linear-gradient(135deg,rgba(52,211,153,.6) 0%,rgba(96,165,250,.6) 50%,rgba(236,72,153,.6) 100%)!important;border:1.5px solid rgba(255,255,255,.4)!important}
+
+        /* ============= ÚJ MYTHIC HÁTTEREK ============= */
+        body.bg-nebula{background:radial-gradient(ellipse at 20% 30%,rgba(139,92,246,.55) 0%,transparent 45%),radial-gradient(ellipse at 75% 70%,rgba(236,72,153,.45) 0%,transparent 40%),radial-gradient(ellipse at 50% 50%,rgba(59,130,246,.3) 0%,transparent 60%),linear-gradient(135deg,#0c0a1f 0%,#1e1b4b 50%,#3b0764 100%)!important;background-size:150% 150%,150% 150%,100% 100%,100% 100%!important;animation:nebulaFlow 25s ease-in-out infinite}
+        @keyframes nebulaFlow{0%,100%{background-position:0% 0%,100% 100%,0% 0%,0% 0%}50%{background-position:30% 40%,70% 50%,10% 10%,0% 0%}}
+        body.bg-aurora{background:linear-gradient(180deg,#0c0a1f 0%,#1e293b 30%,#064e3b 60%,#1e3a8a 100%)!important;position:relative}
+        body.bg-aurora::before{content:'';position:fixed;inset:0;background:linear-gradient(135deg,transparent 20%,rgba(52,211,153,.25) 30%,rgba(96,165,250,.25) 45%,rgba(167,139,250,.25) 60%,transparent 70%);background-size:200% 200%;animation:auroraLights 8s ease-in-out infinite;pointer-events:none;z-index:0}
+        @keyframes auroraLights{0%,100%{background-position:0% 50%;opacity:.7}50%{background-position:100% 50%;opacity:1}}
+        body.bg-infinity{background:conic-gradient(from 0deg at 50% 50%,#1e1b4b,#831843,#4c1d95,#1e3a8a,#064e3b,#713f12,#831843,#1e1b4b)!important;background-size:200% 200%!important;animation:infinitySpin 18s linear infinite}
+        @keyframes infinitySpin{0%{background-position:0% 0%;filter:brightness(.9)}50%{background-position:100% 100%;filter:brightness(1.1)}100%{background-position:0% 0%;filter:brightness(.9)}}
+
+        /* ============= ÚJ MYTHIC AURÁK ============= */
+        .robot.aura-celestial::before{content:'';position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.4) 0%,rgba(251,191,36,.3) 30%,transparent 65%);animation:celestialPulse 3s ease-in-out infinite;z-index:-1;pointer-events:none}
+        .robot.aura-celestial::after{content:'✦ ✦ ✦';position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:14px;color:#fde68a;letter-spacing:8px;text-shadow:0 0 12px rgba(251,191,36,.9);animation:celestialHalo 4s linear infinite;pointer-events:none}
+        @keyframes celestialPulse{0%,100%{opacity:.6;transform:scale(.95)}50%{opacity:1;transform:scale(1.1)}}
+        @keyframes celestialHalo{0%{transform:translateX(-50%) rotate(0deg);opacity:.8}50%{opacity:1}100%{transform:translateX(-50%) rotate(360deg);opacity:.8}}
+
+        .robot.aura-cosmic::before{content:'';position:absolute;inset:-35px;border-radius:50%;background:conic-gradient(from 0deg,rgba(236,72,153,.45),rgba(167,139,250,.45),rgba(59,130,246,.45),rgba(52,211,153,.45),rgba(251,191,36,.45),rgba(236,72,153,.45));animation:cosmicRotate 6s linear infinite;z-index:-1;pointer-events:none;filter:blur(6px)}
+        @keyframes cosmicRotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+        .robot.aura-prism::before{content:'';position:absolute;inset:-28px;border-radius:50%;background:linear-gradient(45deg,rgba(239,68,68,.3),rgba(251,146,60,.3),rgba(251,191,36,.3),rgba(74,222,128,.3),rgba(96,165,250,.3),rgba(167,139,250,.3),rgba(236,72,153,.3),rgba(239,68,68,.3));background-size:300% 300%;animation:prismSweep 5s linear infinite;z-index:-1;pointer-events:none;filter:blur(4px)}
+        @keyframes prismSweep{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+
+        /* ============= BOT PASS PREMIUM REDESIGN ============= */
+        .bp-panel{padding:0!important}
+        .bp-header{background:linear-gradient(90deg,rgba(30,27,75,.7),rgba(76,29,149,.7),rgba(131,24,67,.7));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(251,191,36,.3);padding:18px 22px!important;position:sticky;top:0;z-index:10}
+        .bp-title{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-size:24px!important;font-weight:900!important;letter-spacing:.5px}
+
+        /* Premium info section */
+        .bp-info{padding:20px 22px 14px!important}
+        .bp-month{font-size:13px;font-weight:800;color:#fbbf24;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;text-align:center}
+
+        /* Modern XP track */
+        .bp-track-wrap{position:relative;margin-bottom:20px!important}
+        .bp-track-bar{height:22px!important;background:rgba(0,0,0,.45)!important;border:2px solid rgba(251,191,36,.35)!important;border-radius:14px!important;overflow:hidden;box-shadow:inset 0 2px 8px rgba(0,0,0,.4),0 0 20px rgba(251,191,36,.15)}
+        .bp-track-bar::before{content:'';display:block;height:100%;width:var(--bp-pct,0%);background:linear-gradient(90deg,#fbbf24 0%,#f59e0b 25%,#ec4899 50%,#a78bfa 75%,#fbbf24 100%);background-size:200% 100%;animation:bpXpFlow 3s linear infinite;transition:width 1s cubic-bezier(.4,1.4,.6,1);box-shadow:0 0 15px rgba(251,191,36,.6);border-radius:12px;position:relative}
+        @keyframes bpXpFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+        .bp-track-text{position:absolute!important;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px!important;font-weight:900;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8);letter-spacing:.5px}
+
+        /* Plus upgrade PREMIUM */
+        .bp-plus-btn{position:relative;overflow:hidden;padding:16px 18px!important;font-size:15px!important;background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 30%,#ef4444 60%,#a78bfa 100%)!important;background-size:200% 200%!important;animation:bpPlusShine 4s ease-in-out infinite;border-radius:14px!important;box-shadow:0 8px 30px rgba(251,191,36,.4),0 0 40px rgba(236,72,153,.2)!important;text-transform:uppercase;letter-spacing:.8px}
+        @keyframes bpPlusShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .bp-plus-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
+        @keyframes bpShine{0%,30%{left:-100%}50%{left:100%}70%,100%{left:100%}}
+        .bp-plus-btn.active{background:linear-gradient(135deg,#10b981,#059669)!important;animation:none;color:#fff!important}
+
+        /* Level tiles premium */
+        .bp-swipe-hint{color:rgba(251,191,36,.7)!important;font-weight:700;font-style:normal!important;letter-spacing:1px;text-transform:uppercase;font-size:10px!important;margin-bottom:8px!important}
+        .bp-levels{padding:14px 16px 50px!important;gap:18px!important}
+        .bp-lvl{width:170px!important;padding:22px 12px 14px!important;background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.02))!important;border:1.5px solid rgba(255,255,255,.14)!important;border-radius:22px!important;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+        .bp-lvl::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);opacity:.6}
+        .bp-lvl.claimable{border-color:#fbbf24!important;background:linear-gradient(160deg,rgba(251,191,36,.2),rgba(236,72,153,.15),rgba(167,139,250,.15))!important;background-size:200% 200%!important;animation:bpTileIn .5s cubic-bezier(.4,1.6,.5,1) backwards,bpClaimableBg 3s ease-in-out infinite,bpClaimableGlow 2s ease-in-out infinite!important}
+        @keyframes bpClaimableBg{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        @keyframes bpClaimableGlow{0%,100%{box-shadow:0 8px 28px rgba(251,191,36,.4),0 0 0 rgba(251,191,36,.4)}50%{box-shadow:0 10px 36px rgba(251,191,36,.7),0 0 24px rgba(251,191,36,.5)}}
+        .bp-lvl.milestone{border-color:rgba(236,72,153,.55)!important;background:linear-gradient(160deg,rgba(236,72,153,.2),rgba(167,139,250,.18),rgba(251,191,36,.15))!important;background-size:200% 200%!important;animation:bpTileIn .5s cubic-bezier(.4,1.6,.5,1) backwards,bpMilestoneFlow 5s ease-in-out infinite!important;transform:scale(1.03)}
+        .bp-lvl.milestone::before{content:'👑';position:absolute;top:-14px;right:-6px;font-size:24px;filter:drop-shadow(0 4px 10px rgba(251,191,36,.7));z-index:3}
+        @keyframes bpMilestoneFlow{0%,100%{background-position:0% 50%;box-shadow:0 10px 30px rgba(236,72,153,.4)}50%{background-position:100% 50%;box-shadow:0 12px 40px rgba(167,139,250,.5)}}
+        .bp-lvl.claimed::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(16,185,129,.12) 50%,transparent 60%);pointer-events:none}
+
+        .bp-lvl-num{font-family:'SF Pro Display',system-ui,-apple-system,sans-serif;font-size:15px!important;width:42px!important;height:42px!important;top:-14px!important;border:3px solid rgba(255,255,255,.25)!important}
+        .bp-lvl.milestone .bp-lvl-num{border-color:#fbbf24!important;box-shadow:0 4px 16px rgba(251,191,36,.5),inset 0 1px 2px rgba(255,255,255,.3)!important;font-size:16px!important}
+        .bp-lvl.claimable .bp-lvl-num{border-color:#fff!important;box-shadow:0 4px 12px rgba(251,191,36,.4)}
+
+        .bp-lvl-reward{margin-top:22px!important;min-height:100px!important}
+        .bp-lvl-icon{font-size:56px!important;animation:bpIconFloat 2.5s ease-in-out infinite}
+        @keyframes bpIconFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+        .bp-lvl-name{font-size:13px!important;font-weight:800!important;letter-spacing:.3px}
+
+        /* Claim button shine effect */
+        .bp-lvl-btn{position:relative;overflow:hidden;padding:10px 8px!important;font-size:12.5px!important;letter-spacing:.5px;text-transform:uppercase;font-weight:900!important;border-radius:11px!important}
+        .bp-lvl.claimable .bp-lvl-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:bpShine 2.5s linear infinite;pointer-events:none}
+
+        /* Extra body-wide modern animations */
+        @keyframes sparkleFloat{0%,100%{opacity:0;transform:translateY(0) scale(.5)}50%{opacity:1;transform:translateY(-30px) scale(1)}}
+        .bg-sparkles{position:fixed;pointer-events:none;font-size:16px;color:#fbbf24;z-index:3;animation:sparkleFloat 3s ease-in-out infinite}
+
+        /* Bot Pass claim celebration */
+        .bp-celebrate{position:fixed;z-index:10000;pointer-events:none;animation:bpCelebrate var(--dur,1.4s) cubic-bezier(.2,.7,.3,1) forwards;filter:drop-shadow(0 0 8px rgba(251,191,36,.7))}
+        @keyframes bpCelebrate{0%{transform:translate(-50%,-50%) scale(.5) rotate(0deg);opacity:1}60%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.2) rotate(360deg);opacity:0}}
+
+        /* Shop panel háttér gradient modern áramlás */
+        .skin-panel{background:linear-gradient(135deg,#1e1b4b 0%,#3b0764 25%,#581c87 50%,#831843 75%,#1e1b4b 100%)!important;background-size:400% 400%!important;animation:bpPanelFlow 20s ease infinite}
+        /* Loot card hover effektek */
+        .loot-card{transition:transform .3s cubic-bezier(.4,1.6,.5,1),box-shadow .3s}
+        .loot-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+        .loot-card-btn{position:relative;overflow:hidden}
+        .loot-card-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:bpShine 3.5s linear infinite;pointer-events:none}
+
         /* Bot Pass banner hint szöveg */
         .bp-banner-hint{margin-top:4px;font-size:10px;color:rgba(251,191,36,.7);font-style:italic;line-height:1.3}
 
@@ -3409,16 +3511,22 @@
             'stealth':200,'galaxy':200,'fire':200,'gamer':200,
             'golden':400,'diamond':400,'glass':400,'horse':400,
             'rainbow':600,
+            // MYTHIC skinek
+            'prism':800,'phoenix':900,'aurora':1000,
             // Hátterek
             'bg-tulip':80,'bg-sakura':80,'bg-graffiti':80,
             'bg-galaxy':150,'bg-stealth':150,'bg-fire':150,
             'bg-golden':300,'bg-diamond':300,'bg-glass':300,
             'bg-rainbow':500,'bg-gamer':500,
+            // MYTHIC hátterek
+            'bg-nebula':700,'bg-aurora':800,'bg-infinity':1200,
             // Aurák
             'aura-tulip':50,'aura-sakura':50,
             'aura-fire':120,'aura-glitch':120,
             'aura-halo':250,'aura-rgb':250,
-            'aura-diamond':400
+            'aura-diamond':400,
+            // MYTHIC aurák
+            'aura-celestial':600,'aura-cosmic':800,'aura-prism':1000
         };
         function getPrice(id){return ITEM_PRICES[id]||0}
 
@@ -3848,12 +3956,34 @@
             if(cl.includes(i))return;
             if(i>getBotpassLevel())return;
             cl.push(i); saveBotpassClaimed(cl);
+            // Konfetti-szerű ünneplés
+            bpClaimCelebrate(btn);
             const msg=applyBotpassReward(i);
-            alert('🎖️ '+i+'. szint megszerezve!\n'+msg);
-            openBotpassPanel();
-            updateLootBadges();
-            if(typeof renderShop==='function')renderShop();
+            setTimeout(()=>{alert('🎖️ '+i+'. szint megszerezve!\n'+msg);
+                openBotpassPanel();
+                updateLootBadges();
+                if(typeof renderShop==='function')renderShop();
+            },400);
         });
+        function bpClaimCelebrate(el){
+            const rect=el.getBoundingClientRect();
+            const cx=rect.left+rect.width/2;
+            const cy=rect.top+rect.height/2;
+            const particles=['✨','⭐','💫','🎉','💎','⚡'];
+            for(let i=0;i<18;i++){
+                const p=document.createElement('div');
+                p.className='bp-celebrate';
+                p.textContent=particles[Math.floor(Math.random()*particles.length)];
+                p.style.left=cx+'px';
+                p.style.top=cy+'px';
+                p.style.setProperty('--dx',(Math.random()-.5)*300+'px');
+                p.style.setProperty('--dy',(Math.random()*-200-60)+'px');
+                p.style.setProperty('--dur',(1+Math.random()*.6)+'s');
+                p.style.fontSize=(14+Math.random()*16)+'px';
+                document.body.appendChild(p);
+                setTimeout(()=>p.remove(),1800);
+            }
+        }
         // Bot pass napi progress — app megnyitáskor
         dailyBotpassProgress();
 
@@ -3929,18 +4059,18 @@
         };
         function applyCustomBg(){
             const bg=getActiveBg();
-            
-            // RESET: Töröljünk minden korábbi stílust és osztályt
+
             document.body.style.background = '';
             document.body.style.backgroundAttachment = '';
-            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass','bg-graffiti');
+            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass','bg-graffiti','bg-nebula','bg-aurora','bg-infinity');
 
             if(!bg || bg === 'napszak' || !owns(bg)){
                 applyTimeTheme();
                 return;
             }
 
-            if(bg === 'bg-gamer' || bg === 'bg-galaxy' || bg === 'bg-tulip' || bg === 'bg-glass' || bg === 'bg-graffiti'){
+            const CLASS_BGS=['bg-gamer','bg-galaxy','bg-tulip','bg-glass','bg-graffiti','bg-nebula','bg-aurora','bg-infinity'];
+            if(CLASS_BGS.includes(bg)){
                 document.body.classList.add(bg);
             } else if(CUSTOM_BGS[bg]){
                 document.body.style.background=CUSTOM_BGS[bg];
@@ -4163,6 +4293,9 @@
                 {id:'gamer',name:'Gamer',desc:'Full RGB, pro külső',icon:'🎮',cost:0,tier:'free'},
                 {id:'glass',name:'Glass',desc:'Átlátszó üveg robot',icon:'🪟',cost:0,tier:'free'},
                 {id:'horse',name:'Ló',desc:'Lovas robot',icon:'🐴',cost:0,tier:'free'},
+                {id:'prism',name:'Prism',desc:'Kristály fénytörés',icon:'🔷',cost:0,tier:'free'},
+                {id:'phoenix',name:'Phoenix',desc:'Tüzes főnix szellem',icon:'🔥',cost:0,tier:'free'},
+                {id:'aurora',name:'Aurora',desc:'Sarki fény robot',icon:'🌠',cost:0,tier:'free'},
                 {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true}
             ];
             const BGS=[
@@ -4177,7 +4310,10 @@
                 {id:'bg-diamond',name:'Gyémánt',desc:'Kristály tiszta',icon:'💎',cost:0,tier:'free'},
                 {id:'bg-rainbow',name:'Szivárvány',desc:'Színkavalkád',icon:'🌈',cost:0,tier:'free'},
                 {id:'bg-gamer',name:'Gamer Room',desc:'Neon RGB setup',icon:'🌃',cost:0,tier:'free'},
-                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:0,tier:'free'}
+                {id:'bg-glass',name:'Labor Glass',desc:'Üveg labor világ',icon:'🧪',cost:0,tier:'free'},
+                {id:'bg-nebula',name:'Nebula',desc:'Kozmikus köd',icon:'🪐',cost:0,tier:'free'},
+                {id:'bg-aurora',name:'Aurora',desc:'Északi fények tánca',icon:'🌌',cost:0,tier:'free'},
+                {id:'bg-infinity',name:'Infinity',desc:'Végtelen fraktál',icon:'♾️',cost:0,tier:'free'}
             ];
             const AURAS=[
                 {id:'',name:'Nincs Aura',desc:'Vissza az alapokhoz',icon:'🚫',cost:0,tier:'free'},
@@ -4187,7 +4323,10 @@
                 {id:'aura-glitch',name:'Glitch',desc:'Digitális zavar',icon:'👾',cost:0,tier:'free'},
                 {id:'aura-halo',name:'Szent',desc:'Égi ragyogás',icon:'😇',cost:0,tier:'free'},
                 {id:'aura-rgb',name:'RGB',desc:'Gamer színek',icon:'🌈',cost:0,tier:'free'},
-                {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:0,tier:'free'}
+                {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:0,tier:'free'},
+                {id:'aura-celestial',name:'Celestial',desc:'Égi szent ragyogás',icon:'⭐',cost:0,tier:'free'},
+                {id:'aura-cosmic',name:'Cosmic',desc:'Űri energia örvény',icon:'🌀',cost:0,tier:'free'},
+                {id:'aura-prism',name:'Prism',desc:'Prizma szivárvány',icon:'🔮',cost:0,tier:'free'}
             ];
 
             function renderShop(){
