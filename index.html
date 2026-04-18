@@ -1946,6 +1946,55 @@
         .bp-celebrate{position:fixed;z-index:10000;pointer-events:none;animation:bpCelebrate var(--dur,1.4s) cubic-bezier(.2,.7,.3,1) forwards;filter:drop-shadow(0 0 8px rgba(251,191,36,.7))}
         @keyframes bpCelebrate{0%{transform:translate(-50%,-50%) scale(.5) rotate(0deg);opacity:1}60%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.2) rotate(360deg);opacity:0}}
 
+        /* =========== BOT PASS — TELJES MODERN REDESIGN =========== */
+        .bp-panel{overflow-y:auto;overflow-x:hidden;position:fixed!important}
+        .bp-sparkle-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+        .bp-sparkle{position:absolute;font-size:14px;color:rgba(251,191,36,.6);animation:bpSparkleFloat var(--dur,8s) linear infinite;top:110%;opacity:0}
+        @keyframes bpSparkleFloat{0%{top:110%;opacity:0;transform:translateX(0) rotate(0deg)}10%{opacity:1}50%{opacity:.8}90%{opacity:.4}100%{top:-10%;opacity:0;transform:translateX(var(--drift,0)) rotate(360deg)}}
+
+        /* HERO section — mega badge */
+        .bp-hero{padding:24px 22px 18px;text-align:center;position:relative;z-index:1}
+        .bp-hero-month{font-size:12px;font-weight:900;color:#fbbf24;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+        .bp-mega-badge{position:relative;width:180px;height:180px;margin:0 auto 14px;animation:bpBadgeFloat 4s ease-in-out infinite}
+        @keyframes bpBadgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .bp-ring{width:100%;height:100%;position:absolute;inset:0;filter:drop-shadow(0 0 24px rgba(251,191,36,.5))}
+        .bp-ring-progress{transition:stroke-dashoffset 1.2s cubic-bezier(.4,1.4,.5,1);animation:bpRingGlow 3s ease-in-out infinite}
+        @keyframes bpRingGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(251,191,36,.6))}50%{filter:drop-shadow(0 0 12px rgba(236,72,153,.7))}}
+        .bp-mega-inner{position:absolute;inset:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:radial-gradient(circle,rgba(30,27,75,.8),rgba(76,29,149,.9));border-radius:50%;border:1px solid rgba(255,255,255,.12)}
+        .bp-mega-label{font-size:10px;font-weight:900;color:rgba(251,191,36,.85);letter-spacing:3px;text-transform:uppercase}
+        .bp-mega-num{font-size:58px;font-weight:900;line-height:1;background:linear-gradient(135deg,#fbbf24,#f59e0b,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;text-shadow:0 0 30px rgba(251,191,36,.3)}
+        .bp-mega-sub{font-size:11px;font-weight:800;color:rgba(255,255,255,.6);letter-spacing:1px;margin-top:2px}
+        .bp-hero-bp{display:inline-block;padding:8px 18px;background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(236,72,153,.18));border:1.5px solid rgba(251,191,36,.35);border-radius:999px;font-size:13px;font-weight:900;color:#fbbf24;letter-spacing:.5px;box-shadow:0 4px 14px rgba(251,191,36,.15)}
+
+        /* Missions card */
+        .bp-missions-card{margin:0 18px 16px;padding:16px 18px;background:linear-gradient(160deg,rgba(59,130,246,.14),rgba(167,139,250,.1));border:1.5px solid rgba(167,139,250,.3);border-radius:18px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);position:relative;z-index:1}
+        .bp-missions-title{font-size:13px;font-weight:900;color:#a78bfa;letter-spacing:1.5px;margin-bottom:4px}
+        .bp-missions-sub{font-size:10.5px;color:rgba(255,255,255,.55);margin-bottom:12px}
+        .bp-missions-list{display:flex;flex-direction:column;gap:8px}
+        .bp-mission{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:12px;transition:transform .25s,background .25s}
+        .bp-mission.done{background:linear-gradient(90deg,rgba(16,185,129,.2),rgba(16,185,129,.08));border-color:rgba(16,185,129,.4)}
+        .bp-mission-check{flex-shrink:0;width:24px;height:24px;border:2px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:transparent;transition:all .3s}
+        .bp-mission.done .bp-mission-check{background:linear-gradient(135deg,#10b981,#059669);border-color:#10b981;color:#fff;animation:bpCheckPop .4s cubic-bezier(.4,1.6,.5,1)}
+        @keyframes bpCheckPop{0%{transform:scale(.5)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+        .bp-mission-text{flex:1;font-size:13px;font-weight:700;color:#fff;min-width:0}
+        .bp-mission.done .bp-mission-text{color:rgba(255,255,255,.65);text-decoration:line-through;text-decoration-color:rgba(16,185,129,.5)}
+        .bp-mission-reward{flex-shrink:0;font-size:11px;font-weight:900;color:#fbbf24;padding:4px 10px;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.35);border-radius:8px;letter-spacing:.5px}
+        .bp-mission.done .bp-mission-reward{background:rgba(16,185,129,.15);color:#34d399;border-color:rgba(16,185,129,.4)}
+
+        /* Actions row */
+        .bp-actions{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+        .bp-skip-btn{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(167,139,250,.2),rgba(59,130,246,.2));background-size:200% 200%;border:1.5px solid rgba(236,72,153,.45);border-radius:14px;color:#fff;cursor:pointer;text-align:left;animation:bpSkipFlow 6s ease-in-out infinite;box-shadow:0 6px 20px rgba(236,72,153,.25)}
+        @keyframes bpSkipFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .bp-skip-btn:active{transform:scale(.98)}
+        .bp-skip-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:bpShine 3.5s linear infinite;pointer-events:none}
+        .bp-skip-icon{font-size:24px;filter:drop-shadow(0 0 8px rgba(251,191,36,.7))}
+        .bp-skip-content{flex:1;display:flex;flex-direction:column;gap:2px}
+        .bp-skip-title{font-size:14px;font-weight:900;letter-spacing:.3px}
+        .bp-skip-sub{font-size:10.5px;color:rgba(255,255,255,.6)}
+        .bp-skip-price{flex-shrink:0;font-size:14px;font-weight:900;color:#fbbf24;background:rgba(0,0,0,.35);padding:6px 12px;border-radius:10px;border:1px solid rgba(251,191,36,.4)}
+
+        .bp-rewards-title{padding:14px 22px 8px;font-size:12px;font-weight:900;color:rgba(255,255,255,.75);letter-spacing:2px;position:relative;z-index:1}
+
         /* Shop panel háttér gradient modern áramlás */
         .skin-panel{background:linear-gradient(135deg,#1e1b4b 0%,#3b0764 25%,#581c87 50%,#831843 75%,#1e1b4b 100%)!important;background-size:400% 400%!important;animation:bpPanelFlow 20s ease infinite}
         /* Loot card hover effektek */
@@ -2286,7 +2335,7 @@
                         <div class="bp-banner-bar-wrap">
                             <div class="bp-banner-bar" id="bpBannerBar"></div>
                         </div>
-                        <div class="bp-banner-hint">+40 XP napi belépéstől · +20 box · +15 pouch/gem</div>
+                        <div class="bp-banner-hint">4 napi küldetés · 60 💎 = szint skip</div>
                         <div class="bp-banner-cta">Megnyitás →</div>
                     </div>
                     <div class="bp-banner-badge" id="bpBannerBadge" style="display:none">!</div>
@@ -3801,6 +3850,8 @@
             if(localStorage.getItem('nu_botpass_last')===today) return;
             localStorage.setItem('nu_botpass_last',today);
             addBotpassXp(40,'daily-open');
+            // Bonus check (reggelről a 3 másik még nincs kész)
+            if(typeof tryAwardMissionBonus==='function') tryAwardMissionBonus();
         }
         function updateBotpassBanner(){
             const lvl=getBotpassLevel();
@@ -3873,46 +3924,129 @@
             for(let i=1;i<=lvl;i++){if(!claimed.includes(i))return true}
             return false;
         }
+        // ========== NAPI KÜLDETÉSEK — új rendszer ==========
+        // Minden küldetés +20 BP. Mind a 4 teljesítve = +40 BP bonus.
+        function getMissionStatus(){
+            const today=_today();
+            const open=localStorage.getItem('nu_botpass_last')===today;
+            const box=localStorage.getItem('nu_mission_box_day')===today;
+            const pouch=localStorage.getItem('nu_mission_pouch_day')===today;
+            const gem=localStorage.getItem('nu_mission_gem_day')===today;
+            return {open,box,pouch,gem};
+        }
+        function allMissionsDone(){
+            const s=getMissionStatus();
+            return s.open && s.box && s.pouch && s.gem;
+        }
+        function tryAwardMissionBonus(){
+            const today=_today();
+            if(localStorage.getItem('nu_mission_bonus_day')===today) return false;
+            if(!allMissionsDone()) return false;
+            localStorage.setItem('nu_mission_bonus_day',today);
+            addBotpassXp(40,'all-missions-bonus');
+            return true;
+        }
+        function markMission(key,amount){
+            const today=_today();
+            if(localStorage.getItem('nu_mission_'+key+'_day')===today) return; // már jár ma
+            localStorage.setItem('nu_mission_'+key+'_day',today);
+            addBotpassXp(amount,'mission-'+key);
+            // Bonus ha mind a 4 teljesült
+            if(allMissionsDone()) tryAwardMissionBonus();
+        }
+
+        // ========== GEM SZINT SKIP (60 gem = +1 szint) ==========
+        function gemSkipLevel(){
+            const cur=getBotpassLevel();
+            if(cur>=60){alert('Már max szinten vagy!');return}
+            if(!confirm('Megveszed a +1 szintet 60 gemért? (Jelenleg: '+getGems()+' gem)')) return;
+            if(!spendGems(60)){alert('Nincs elég gem (60 kell)!');return}
+            localStorage.setItem('nu_botpass_level',String(cur+1));
+            localStorage.setItem('nu_botpass_xp','0');
+            updateBotpassBanner();
+            updateLootBadges();
+            // Azonnali ünneplés
+            const btn=document.getElementById('bpSkipBtn');
+            if(btn) bpClaimCelebrate(btn);
+            setTimeout(()=>openBotpassPanel(),250);
+        }
+
         function openBotpassPanel(){
             ensureBotpassMonth();
             const panel=document.getElementById('botpassPanel');
             const monthEl=document.getElementById('bpMonth');
-            const trackBar=document.getElementById('bpTrackBar');
-            const trackText=document.getElementById('bpTrackText');
             const levels=document.getElementById('bpLevels');
             const plusBtn=document.getElementById('bpPlusBtn');
 
             const lvl=getBotpassLevel();
             const claimed=getBotpassClaimed();
             const plus=isBotpassPlus();
+            const xp=getBotpassXp();
 
             const months=['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
             const d=new Date();
-            const xp=getBotpassXp();
-            monthEl.textContent=months[d.getMonth()]+' — '+lvl+'/60 szint, '+xp+'/100 XP (havonta újraindul)';
-            trackBar.style.setProperty('--bp-pct',(lvl/60*100)+'%');
-            trackText.textContent=lvl+' / 60';
-            const hint=document.getElementById('bpXpHint');
-            const today=_today();
-            const usedOpen=localStorage.getItem('nu_botpass_last')===today;
-            const usedBox=boxesRemaining()===0;
-            const usedPouch=!pouchFreeAvailable();
-            const usedGem=spunToday_gem();
-            if(hint){
-                hint.innerHTML=`
-                <div style="background:rgba(0,0,0,.2);border:1px solid rgba(251,191,36,.25);border-radius:12px;padding:10px 14px;text-align:left">
-                    <div style="font-weight:800;color:#fbbf24;font-size:12px;margin-bottom:6px">💡 MAI KÜLDETÉSEK — 100 XP = 1 szint</div>
-                    <div style="display:flex;flex-direction:column;gap:3px;font-size:11px">
-                        <div style="opacity:${usedOpen?0.5:1}">${usedOpen?'✅':'⬜'} Napi app megnyitás &nbsp;<span style="color:#fbbf24;font-weight:700">+40 XP</span></div>
-                        <div style="opacity:${usedBox?0.5:1}">${usedBox?'✅':'⬜'} DailyBox nyitás &nbsp;<span style="color:#fbbf24;font-weight:700">+20 XP</span></div>
-                        <div style="opacity:${usedPouch?0.5:1}">${usedPouch?'✅':'⬜'} Daily Pouch nyitás &nbsp;<span style="color:#fbbf24;font-weight:700">+15 XP</span></div>
-                        <div style="opacity:${usedGem?0.5:1}">${usedGem?'✅':'⬜'} Daily Gem megszerzés &nbsp;<span style="color:#fbbf24;font-weight:700">+15 XP</span></div>
+            monthEl.textContent=months[d.getMonth()]+'i szezon — '+lvl+' / 60';
+
+            // Mega badge
+            const megaNum=document.getElementById('bpMegaNum');
+            const megaSub=document.getElementById('bpMegaSub');
+            const ring=document.getElementById('bpRingProgress');
+            const heroBp=document.getElementById('bpHeroBp');
+            if(megaNum) megaNum.textContent=lvl;
+            if(megaSub) megaSub.textContent=lvl+' / 60';
+            if(ring){
+                const circumference=389.56; // 2πr where r=62
+                const fillPct=xp/XP_PER_LEVEL;
+                ring.style.strokeDashoffset=String(circumference*(1-fillPct));
+            }
+            if(heroBp) heroBp.textContent=xp+' / 100 BP';
+
+            // Napi küldetések
+            const ms=getMissionStatus();
+            const missionsList=document.getElementById('bpMissionsList');
+            const missionsSub=document.getElementById('bpMissionsSub');
+            if(missionsSub){
+                const doneCount=[ms.open,ms.box,ms.pouch,ms.gem].filter(Boolean).length;
+                const bonusDone=localStorage.getItem('nu_mission_bonus_day')===_today();
+                missionsSub.innerHTML=doneCount===4
+                    ?(bonusDone?'✨ Mind kész! +40 BP bónusz járt':'✨ Mind kész! +40 BP bónusz gyűjtve')
+                    :`${doneCount}/4 teljesítve · Mind = +40 BP bónusz`;
+            }
+            if(missionsList){
+                const missions=[
+                    {key:'open',   label:'Nyisd meg a DailyBot-ot', done:ms.open,  reward:40},
+                    {key:'box',    label:'Nyiss egy DailyBox-ot',   done:ms.box,   reward:20},
+                    {key:'pouch',  label:'Nyiss egy Daily Pouch-ot',done:ms.pouch, reward:20},
+                    {key:'gem',    label:'Szerezd meg a Daily Gem-et',done:ms.gem, reward:20}
+                ];
+                missionsList.innerHTML=missions.map(m=>`
+                    <div class="bp-mission${m.done?' done':''}">
+                        <div class="bp-mission-check">${m.done?'✓':''}</div>
+                        <div class="bp-mission-text">${m.label}</div>
+                        <div class="bp-mission-reward">+${m.reward} BP</div>
                     </div>
-                </div>`;
+                `).join('');
             }
 
             if(plus){plusBtn.classList.add('active');plusBtn.textContent='⭐ Plus aktív';plusBtn.disabled=true}
             else{plusBtn.classList.remove('active');plusBtn.textContent='⭐ Bot Pass Plus (999 💎) — dupla jutalom';plusBtn.disabled=false}
+
+            // Csillámok háttérben
+            const sparkleLayer=document.getElementById('bpSparkleLayer');
+            if(sparkleLayer && !sparkleLayer.dataset.filled){
+                sparkleLayer.dataset.filled='1';
+                const emojis=['✨','⭐','💫','·','✦'];
+                for(let i=0;i<20;i++){
+                    const s=document.createElement('div');
+                    s.className='bp-sparkle';
+                    s.textContent=emojis[i%emojis.length];
+                    s.style.left=Math.random()*100+'%';
+                    s.style.animationDelay=(Math.random()*8)+'s';
+                    s.style.setProperty('--dur',(6+Math.random()*6)+'s');
+                    s.style.setProperty('--drift',((Math.random()-.5)*120)+'px');
+                    sparkleLayer.appendChild(s);
+                }
+            }
 
             // Szintek renderelése
             levels.innerHTML='';
@@ -4575,7 +4709,7 @@
                     const amount=pickRandom([10,15,20,25,30,40,50,80,150]);
                     addGems(amount);
                     markSpunGem();
-                    if(typeof addBotpassXp==='function')addBotpassXp(15,'daily-gem');
+                    if(typeof markMission==='function') markMission('gem',20);
                     // Vizuális visszajelzés: gem flying to balance
                     showGemFlash(amount);
                     updateLootBadges();
@@ -4777,7 +4911,7 @@
             window.openDailyBox=function(bypass){
                 if(!bypass){
                     if(!consumeBox()){alert('Ma már nincs több dobozod. Gyere vissza holnap 6-kor!');return}
-                    if(typeof addBotpassXp==='function')addBotpassXp(20,'daily-box');
+                    if(typeof markMission==='function') markMission('box',20);
                 }
                 const overlay=document.getElementById('dailyBoxOverlay');
                 const box=document.getElementById('dbBox');
@@ -4863,7 +4997,7 @@
             }
 
             window.openPouch=function(){
-                if(typeof addBotpassXp==='function')addBotpassXp(15,'pouch');
+                if(typeof markMission==='function') markMission('pouch',20);
                 const overlay=document.getElementById('dailyPouchOverlay');
                 const pouch=document.getElementById('dpPouch');
                 const reward=document.getElementById('dpReward');
@@ -4919,6 +5053,8 @@
                 })}
                 const bpC=document.getElementById('bpClose');
                 if(bpC&&!bpC._bound){bpC._bound=true;bpC.addEventListener('click',()=>{document.getElementById('botpassPanel').style.display='none';updateLootBadges();})}
+                const bpSkip=document.getElementById('bpSkipBtn');
+                if(bpSkip&&!bpSkip._bound){bpSkip._bound=true;bpSkip.addEventListener('click',()=>gemSkipLevel())}
                 const bpP=document.getElementById('bpPlusBtn');
                 if(bpP&&!bpP._bound){bpP._bound=true;bpP.addEventListener('click',()=>{
                     if(isBotpassPlus())return;
@@ -5016,21 +5152,60 @@
         </div>
     </div>
 
-    <!-- Bot Pass panel -->
+    <!-- Bot Pass panel — premium redesign -->
     <div id="botpassPanel" class="bp-panel" style="display:none">
+        <div class="bp-sparkle-layer" id="bpSparkleLayer"></div>
         <div class="bp-header">
             <div class="bp-title">🎖️ Bot Pass</div>
             <button class="shop-close-btn" id="bpClose">✕</button>
         </div>
-        <div class="bp-info">
-            <div class="bp-month" id="bpMonth">–</div>
-            <div class="bp-track-wrap">
-                <div class="bp-track-bar" id="bpTrackBar"></div>
-                <div class="bp-track-text" id="bpTrackText">0 / 60</div>
+
+        <!-- HERO: mega badge + progress ring -->
+        <div class="bp-hero">
+            <div class="bp-hero-month" id="bpMonth">Áprilisi szezon</div>
+            <div class="bp-mega-badge">
+                <svg class="bp-ring" viewBox="0 0 140 140">
+                    <defs>
+                        <linearGradient id="bpRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fbbf24"/>
+                            <stop offset="50%" stop-color="#ec4899"/>
+                            <stop offset="100%" stop-color="#a78bfa"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="70" cy="70" r="62" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
+                    <circle class="bp-ring-progress" id="bpRingProgress" cx="70" cy="70" r="62" fill="none" stroke="url(#bpRingGrad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="389.56" stroke-dashoffset="389.56" transform="rotate(-90 70 70)"/>
+                </svg>
+                <div class="bp-mega-inner">
+                    <div class="bp-mega-label">SZINT</div>
+                    <div class="bp-mega-num" id="bpMegaNum">0</div>
+                    <div class="bp-mega-sub" id="bpMegaSub">0 / 60</div>
+                </div>
             </div>
-            <div class="bp-xp-hint" id="bpXpHint" style="font-size:12px;color:rgba(255,255,255,.6);text-align:center;margin-bottom:10px"></div>
-            <button class="bp-plus-btn" id="bpPlusBtn">⭐ Plus (999 💎)</button>
+            <div class="bp-hero-bp" id="bpHeroBp">0 / 100 BP</div>
         </div>
+
+        <!-- Daily Missions -->
+        <div class="bp-missions-card">
+            <div class="bp-missions-title">⚡ MAI KÜLDETÉSEK</div>
+            <div class="bp-missions-sub" id="bpMissionsSub">Teljesíts mindet +40 BP bónuszért</div>
+            <div class="bp-missions-list" id="bpMissionsList"></div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="bp-actions">
+            <button class="bp-skip-btn" id="bpSkipBtn">
+                <span class="bp-skip-icon">⚡</span>
+                <span class="bp-skip-content">
+                    <span class="bp-skip-title">Szint skip</span>
+                    <span class="bp-skip-sub">+1 szint, azonnal</span>
+                </span>
+                <span class="bp-skip-price">60 💎</span>
+            </button>
+            <button class="bp-plus-btn" id="bpPlusBtn">⭐ Bot Pass Plus (999 💎)</button>
+        </div>
+
+        <!-- Rewards track -->
+        <div class="bp-rewards-title">🎁 SZINT JUTALMAK</div>
         <div class="bp-swipe-hint">← húzd oldalra a szintekhez →</div>
         <div class="bp-levels" id="bpLevels"></div>
     </div>
