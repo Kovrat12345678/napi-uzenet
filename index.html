@@ -2927,7 +2927,7 @@
         .loot-info-list li strong{color:#fbbf24;font-weight:900}
 
         /* ============== ROBOT HARC JÁTÉK ============== */
-        .game-toggle{position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);left:16px;z-index:50;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:0;font-size:20px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.45),inset 0 1px 0 rgba(255,255,255,.25)!important;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s}
+        .game-toggle{position:fixed;bottom:calc(env(safe-area-inset-bottom,20px) + 20px);right:20px;z-index:50;height:48px;padding:0 18px;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.5),inset 0 1px 0 rgba(255,255,255,.25)!important;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s;letter-spacing:.5px}
         @keyframes gameToggleFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .game-toggle:active{transform:scale(.92)}
         .game-toggle:hover{transform:scale(1.06)}
@@ -3142,6 +3142,7 @@
         .db-overlay.tier-mythic .db-prompt{background:linear-gradient(90deg,#ec4899,#a78bfa,#22d3ee,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;font-weight:900}
 
     </style>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -3622,7 +3623,7 @@
 
     </div>
 
-    <!-- Játék gomb — bal alsó sarok -->
+    <!-- Játék gomb — jobb alsó sarok -->
     <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️ Harc</div>
 
     <!-- Kedvencek gomb -->
@@ -5520,23 +5521,10 @@
         };
         let _gamePlayerLeft=null;
         const GAME_PLAYER_STEP=40;
-        // Multiplayer szerver URL — Vercel deployment-re mutat (push-server)
-        // Konfigurálható: localStorage 'nu_game_api_url' kulccsal felülírhatod
-        const GAME_API_URL=localStorage.getItem('nu_game_api_url')||'';
         let _gameState=null;
-        let _gameMP=null; // multiplayer state {role:'host'/'guest', code, pollTimer}
-        async function gameApi(action,params){
-            if(!GAME_API_URL){throw new Error('no api url')}
-            const body={action,...params};
-            const res=await fetch(GAME_API_URL+'/api/game',{
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(body)
-            });
-            const j=await res.json();
-            if(!res.ok) throw new Error(j.error||'API hiba');
-            return j;
-        }
+        let _gameMP=null;   // {role:'host'/'guest', code}
+        let _gamePeer=null; // PeerJS Peer instance
+        let _mpConn=null;   // PeerJS DataConnection
         function getOwnedSkinIds(){
             try{
                 const skins=(window.SKINS && Array.isArray(window.SKINS))?window.SKINS:
@@ -5646,12 +5634,9 @@
                 if(_gameState.aiTimer){clearTimeout(_gameState.aiTimer);_gameState.aiTimer=null}
                 _gameState=null;
             }
-            // Multiplayer leave
-            if(_gameMP){
-                if(_gameMP.pollTimer){clearTimeout(_gameMP.pollTimer);_gameMP.pollTimer=null}
-                try{gameApi('leave',{code:_gameMP.code,role:_gameMP.role}).catch(()=>{})}catch(_){}
-                _gameMP=null;
-            }
+            if(_mpConn){try{_mpConn.close()}catch(_){}; _mpConn=null}
+            if(_gamePeer){try{_gamePeer.destroy()}catch(_){}; _gamePeer=null}
+            _gameMP=null;
             const proj=document.getElementById('gameProjectiles');
             if(proj) proj.innerHTML='';
         }
@@ -5820,6 +5805,8 @@
             if(!_gameState) return;
             _gameState.gameOver=true;
             if(_gameState.aiTimer){clearTimeout(_gameState.aiTimer);_gameState.aiTimer=null}
+            // MP: győzelem esetén jelezzük az ellenfélnek
+            if(playerWon && _gameState.multiplayer) sendMpEvent('_win');
             const overEl=document.getElementById('gameOver');
             const emojiEl=document.getElementById('gameOverEmoji');
             const titleEl=document.getElementById('gameOverTitle');
@@ -5848,171 +5835,169 @@
             if(overEl) overEl.style.display='flex';
         }
 
-        // ========== MULTIPLAYER (kód-alapú, Vercel KV backend) ==========
-        async function createMpRoom(){
-            if(!GAME_API_URL){
-                const url=prompt('Multiplayer szerver URL beállítása (Vercel push-server URL, pl. https://napi-uzenet-push.vercel.app):','');
-                if(url && url.startsWith('http')){
-                    localStorage.setItem('nu_game_api_url',url);
-                    alert('Beállítva. Töltsd újra az appot.');
-                    return;
-                }
-                alert('A multiplayer-hez Vercel backend kell. Deploy-old a /push-server mappát Vercel-re és állítsd be az URL-t.');
-                return;
-            }
-            try{
-                const activeTile=document.querySelector('.game-skin-tile.active');
-                const skin=activeTile?activeTile.dataset.skinId||'':'';
-                const j=await gameApi('create',{
-                    uid:localStorage.getItem('nu_uid')||'p'+Math.random().toString(36).slice(2,8),
-                    name:localStorage.getItem('nu_name')||'Te',
-                    skin
-                });
-                _gameMP={role:'host',code:j.code,skin};
-                document.getElementById('gameMyCode').textContent=j.code;
-                document.getElementById('gameRoomStatus').textContent='várjuk a 2. játékost...';
-                document.getElementById('gameMyCodeRow').style.display='block';
-                startMpPoll();
-            }catch(e){alert('Hiba: '+e.message)}
+        // ========== MULTIPLAYER (PeerJS WebRTC — backend nélkül) ==========
+        function _mpGetMyInfo(){
+            const activeTile=document.querySelector('.game-skin-tile.active');
+            return {
+                name:localStorage.getItem('nu_name')||'Te',
+                skin:activeTile?activeTile.dataset.skinId||'':''
+            };
         }
-        async function joinMpRoom(){
-            if(!GAME_API_URL){alert('Először állítsd be a szerver URL-t (kattints a "Új szoba létrehozása" gombra)');return}
+        function _mpDestroyPeer(){
+            if(_mpConn){try{_mpConn.close()}catch(_){}; _mpConn=null}
+            if(_gamePeer){try{_gamePeer.destroy()}catch(_){}; _gamePeer=null}
+        }
+        function createMpRoom(){
+            _mpDestroyPeer();
+            const code=genGameCode();
+            const peer=new Peer(code,{debug:0});
+            _gamePeer=peer;
+            const statusEl=document.getElementById('gameRoomStatus');
+            const codeEl=document.getElementById('gameMyCode');
+            const codeRow=document.getElementById('gameMyCodeRow');
+            if(codeEl) codeEl.textContent='...';
+            if(statusEl) statusEl.textContent='csatlakozás...';
+            if(codeRow) codeRow.style.display='block';
+            peer.on('open',(id)=>{
+                _gameMP={role:'host',code:id};
+                if(codeEl) codeEl.textContent=id;
+                if(statusEl) statusEl.textContent='várjuk a 2. játékost...';
+            });
+            peer.on('connection',(conn)=>{
+                _mpConn=conn;
+                conn.on('open',()=>{
+                    if(statusEl) statusEl.textContent='ellenfél csatlakozott!';
+                    // Kérdezzük a guest adatait
+                    const me=_mpGetMyInfo();
+                    conn.send({type:'_hostInfo',name:me.name,skin:me.skin});
+                });
+                conn.on('data',(d)=>handleMpData(d));
+                conn.on('close',()=>{if(_gameState&&!_gameState.gameOver) endGame(false)});
+                conn.on('error',()=>{if(_gameState&&!_gameState.gameOver) endGame(false)});
+            });
+            peer.on('error',(err)=>{
+                if(err.type==='unavailable-id'){
+                    // Kód foglalt — próbáljunk másik kódot
+                    _mpDestroyPeer();
+                    createMpRoom();
+                } else {
+                    alert('Hiba: '+err.message);
+                    if(codeRow) codeRow.style.display='none';
+                }
+            });
+        }
+        function joinMpRoom(){
             const codeInput=document.getElementById('gameCodeInput');
             const code=(codeInput?.value||'').trim();
             if(!/^\d{4,6}$/.test(code)){alert('Adj meg egy érvényes kódot (4-6 számjegy)');return}
-            try{
-                const activeTile=document.querySelector('.game-skin-tile.active');
-                const skin=activeTile?activeTile.dataset.skinId||'':'';
-                const j=await gameApi('join',{
-                    code,
-                    uid:localStorage.getItem('nu_uid')||'p'+Math.random().toString(36).slice(2,8),
-                    name:localStorage.getItem('nu_name')||'Vendég',
-                    skin
-                });
-                _gameMP={role:'guest',code:j.code,skin};
-                startMpGame(j.room);
-            }catch(e){alert('Hiba: '+e.message)}
+            _mpDestroyPeer();
+            const peer=new Peer({debug:0});
+            _gamePeer=peer;
+            peer.on('open',()=>{
+                const conn=peer.connect(code,{reliable:true});
+                _mpConn=conn;
+                _gameMP={role:'guest',code};
+                conn.on('data',(d)=>handleMpData(d));
+                conn.on('close',()=>{if(_gameState&&!_gameState.gameOver) endGame(false)});
+                conn.on('error',()=>{alert('Kapcsolat megszakadt');});
+            });
+            peer.on('error',(err)=>{alert('Nem sikerült csatlakozni: '+err.message);_mpDestroyPeer();_gameMP=null});
         }
-        function startMpPoll(){
-            if(!_gameMP) return;
-            const tick=async ()=>{
-                if(!_gameMP) return;
-                try{
-                    const j=await gameApi('poll',{code:_gameMP.code,role:_gameMP.role});
-                    if(j.room && j.room.status==='playing' && j.room.guest){
-                        // Game starts!
-                        startMpGame(j.room);
-                        return;
-                    }
-                }catch(e){}
-                _gameMP.pollTimer=setTimeout(tick,1500);
-            };
-            tick();
-        }
-        function startMpGame(room){
-            if(_gameMP && _gameMP.pollTimer){clearTimeout(_gameMP.pollTimer);_gameMP.pollTimer=null}
-            // A pure local game vs AI helyett indítsuk el a multiplayer arénát
-            // Először switch view-ot
+        function startMpGame(me,opp){
             document.getElementById('gameLobby').style.display='none';
             document.getElementById('gameArena').style.display='flex';
             document.getElementById('gameOver').style.display='none';
-            // Robotok init
-            const myRole=_gameMP.role;
-            const me=myRole==='host'?room.host:room.guest;
-            const opp=myRole==='host'?room.guest:room.host;
             const robot1=document.getElementById('gameRobotP1');
             const robot2=document.getElementById('gameRobotP2');
-            if(robot1) robot1.innerHTML=buildMiniRobotHtml(me?.skin||'',false);
-            if(robot2) robot2.innerHTML=buildMiniRobotHtml(opp?.skin||'',false);
-            document.getElementById('gamePlayerName').textContent=me?.name||'Te';
-            document.getElementById('gameAiName').textContent=opp?.name||'Ellenfél';
-            // Helyi state — csak HP nyomon követés
+            if(robot1) robot1.innerHTML=buildMiniRobotHtml(me.skin||'',false);
+            if(robot2) robot2.innerHTML=buildMiniRobotHtml(opp.skin||'',false);
+            document.getElementById('gamePlayerName').textContent=me.name||'Te';
+            document.getElementById('gameAiName').textContent=opp.name||'Ellenfél';
             _gameState={
-                player:{hp:3,skin:me?.skin||'',abilityCd:0,invincible:false},
-                ai:{hp:3,skin:opp?.skin||'',abilityCd:0,invincible:false},
+                player:{hp:3,skin:me.skin||'',abilityCd:0,invincible:false},
+                ai:{hp:3,skin:opp.skin||'',abilityCd:0,invincible:false},
                 gameOver:false,
                 multiplayer:true
             };
             _gamePlayerLeft=null;
             updateGameHpUi();
             const abBtn=document.getElementById('gameAbilityBtn');
-            const ab=GAME_ABILITIES[me?.skin||'']||GAME_ABILITIES[''];
+            const ab=GAME_ABILITIES[me.skin||'']||GAME_ABILITIES[''];
             if(abBtn) abBtn.innerHTML='⚡ '+ab.name;
-            // MP poll loop az események szinkronizálásához
-            startMpEventPoll();
         }
-        let _mpLastEventTs=0;
-        function startMpEventPoll(){
-            if(!_gameMP) return;
-            const tick=async ()=>{
-                if(!_gameMP||!_gameState||_gameState.gameOver) return;
-                try{
-                    const j=await gameApi('poll',{code:_gameMP.code,role:_gameMP.role});
-                    if(j.room){
-                        // Process new events
-                        const newEvts=j.room.events.filter(e=>e.ts>_mpLastEventTs && e.from!==_gameMP.role);
-                        newEvts.forEach(handleMpEvent);
-                        if(j.room.events.length){_mpLastEventTs=Math.max(_mpLastEventTs,...j.room.events.map(e=>e.ts))}
-                        // Frissítsük HP-t
-                        const myRole=_gameMP.role;
-                        const opp=myRole==='host'?j.room.guest:j.room.host;
-                        if(opp && opp.hp!==undefined){
-                            _gameState.ai.hp=opp.hp;
-                            updateGameHpUi();
-                            if(opp.hp<=0) endGame(true);
-                        }
-                    }
-                }catch(e){}
-                _gameMP.pollTimer=setTimeout(tick,800);
-            };
-            tick();
-        }
-        function handleMpEvent(ev){
-            if(ev.type==='fire'){
-                // Ellenfél tüzelt — projektil felülről lefele (vagy fordítva)
-                // Lokálisan render-eljük
+        function handleMpData(d){
+            if(!d||!d.type) return;
+            // Host kapta a guest infóját → indítja a játékot mindkét oldalon
+            if(d.type==='_guestInfo'){
+                const me=_mpGetMyInfo();
+                const opp={name:d.name,skin:d.skin};
+                _mpConn.send({type:'_start',hostName:me.name,hostSkin:me.skin});
+                startMpGame(me,opp);
+                return;
+            }
+            // Guest kapta a host infóját → küldi saját adatát
+            if(d.type==='_hostInfo'){
+                const me=_mpGetMyInfo();
+                _mpConn.send({type:'_guestInfo',name:me.name,skin:me.skin});
+                return;
+            }
+            // Guest kapta a start jelet
+            if(d.type==='_start'){
+                const me=_mpGetMyInfo();
+                const opp={name:d.hostName,skin:d.hostSkin};
+                startMpGame(me,opp);
+                return;
+            }
+            // Lövés esemény
+            if(d.type==='fire'){
                 const proj=document.getElementById('gameProjectiles');
                 if(!proj) return;
                 const p=document.createElement('span');
                 p.className='game-projectile from-p2';
                 const arena=document.getElementById('gameArenaZone');
-                if(arena){
-                    p.style.left=((parseFloat(ev.x)||50)/100*arena.clientWidth)+'px';
-                }
+                if(arena) p.style.left=((parseFloat(d.x)||50)/100*arena.clientWidth)+'px';
                 proj.appendChild(p);
                 setTimeout(()=>{
                     p.remove();
                     if(!_gameState||_gameState.gameOver) return;
                     if(_gameState.player.invincible) return;
-                    // Hit detection: ha a játékos x ≈ projektil x
                     const px=_gamePlayerLeft||(arena?arena.clientWidth/2-70:0);
                     const projX=parseFloat(p.style.left)||0;
                     if(Math.abs((px+70)-projX)<80){
-                        // Találat — küldjünk hit event-et
-                        sendMpEvent('hit',{target:_gameMP.role==='host'?'host':'guest'});
                         _gameState.player.hp-=1;
                         const re=document.getElementById('gameRobotP1');
                         if(re){re.classList.remove('hit');void re.offsetWidth;re.classList.add('hit');setTimeout(()=>re.classList.remove('hit'),500)}
                         try{playSfx('error')}catch(_){}
                         updateGameHpUi();
+                        // Visszajelzés a lövőnek (ő számolja az ellenfél HP-ját)
+                        sendMpEvent('_hit');
                         if(_gameState.player.hp<=0) endGame(false);
                     }
                 },1000);
             }
-            if(ev.type==='move'){
-                // Ellenfél mozgása
+            // Ellenfél mozgása
+            if(d.type==='move'){
                 const ai=document.getElementById('gameRobotP2');
                 const arena=document.getElementById('gameArenaZone');
-                if(ai && arena) ai.style.left=((parseFloat(ev.x)||50)/100*arena.clientWidth-70)+'px';
+                if(ai&&arena) ai.style.left=((parseFloat(d.x)||50)/100*arena.clientWidth-70)+'px';
             }
+            // Kaptunk visszajelzést: mi eltaláltuk az ellenfelet
+            if(d.type==='_hit'){
+                if(!_gameState||_gameState.gameOver) return;
+                _gameState.ai.hp=Math.max(0,(_gameState.ai.hp||3)-1);
+                const re=document.getElementById('gameRobotP2');
+                if(re){re.classList.remove('hit');void re.offsetWidth;re.classList.add('hit');setTimeout(()=>re.classList.remove('hit'),500)}
+                updateGameHpUi();
+                if(_gameState.ai.hp<=0) endGame(true);
+            }
+            // Ellenfél győzött (elveszítettük a játékot)
+            if(d.type==='_win') endGame(false);
         }
-        async function sendMpEvent(evt,extra){
-            if(!_gameMP) return;
-            try{
-                const arena=document.getElementById('gameArenaZone');
-                const xPct=(_gamePlayerLeft!==null && arena)?((_gamePlayerLeft+70)/arena.clientWidth*100):50;
-                await gameApi('event',{code:_gameMP.code,evt,from:_gameMP.role,x:xPct,...(extra||{})});
-            }catch(e){}
+        function sendMpEvent(evt,extra){
+            if(!_mpConn||!_mpConn.open) return;
+            const arena=document.getElementById('gameArenaZone');
+            const xPct=(_gamePlayerLeft!==null&&arena)?((_gamePlayerLeft+70)/arena.clientWidth*100):50;
+            try{_mpConn.send({type:evt,x:xPct,...(extra||{})})}catch(_){}
         }
 
         // ========== UPDATE MODAL — verzió változás ==========
