@@ -2152,8 +2152,8 @@
         @keyframes dcPackHover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
         .dc-pack-back.flipping{animation:dcPackFlip 1s cubic-bezier(.7,.0,.3,1) forwards}
         @keyframes dcPackFlip{0%{transform:rotateY(0deg) scale(1)}50%{transform:rotateY(90deg) scale(1.2)}100%{transform:rotateY(180deg) scale(0);opacity:0}}
-        .dc-pack-reveal{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center}
-        .dc-pack-reveal.show{animation:dcPackReveal 1s cubic-bezier(.34,1.56,.64,1) forwards}
+        .dc-pack-reveal{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+        .dc-pack-reveal.show{animation:dcPackReveal 1s cubic-bezier(.34,1.56,.64,1) forwards;pointer-events:auto}
         @keyframes dcPackReveal{0%{opacity:0;transform:scale(.4) rotateY(180deg)}100%{opacity:1;transform:scale(1) rotateY(360deg)}}
         .dc-pack-reveal .dc-card{width:100%;height:100%;cursor:default}
         .dc-pack-rarity-banner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:42px;font-weight:900;letter-spacing:6px;text-transform:uppercase;-webkit-text-stroke:2px rgba(0,0,0,.3);text-shadow:0 0 20px currentColor;pointer-events:none;z-index:10;white-space:nowrap}
@@ -2443,18 +2443,6 @@
         </div>
         <div class="shop-greeting" id="shopGreeting"></div>
 
-        <!-- Rejtvény játék -->
-        <div class="riddle-wrap" id="riddleWrap">
-            <div class="riddle-title" id="riddleTitle">🔮 Titkos Rejtvény</div>
-            <div class="riddle-clue" id="riddleClue">Oldd meg a rejtvényt és kapj egy exkluzív titkos skint!</div>
-            <button class="riddle-hint-btn" id="riddleHintBtn">💡 Első tipp</button>
-            <div class="riddle-input-row" id="riddleInputRow">
-                <input class="riddle-input" id="riddleInput" placeholder="Írd be a megfejtést..." maxlength="30" autocomplete="off">
-                <button class="riddle-submit" id="riddleSubmit">Küldés</button>
-            </div>
-            <div class="riddle-result" id="riddleResult"></div>
-        </div>
-
         <!-- Daily Gem — mindig látszik (a szerencsekerék helyett) -->
         <div class="shop-section">
             <div class="shop-section-title">💎 Daily Gem</div>
@@ -2478,7 +2466,6 @@
                         </div>
                     </div>
                     <div class="loot-card-info">
-                        <div class="loot-card-title">Daily Gem</div>
                         <div class="loot-card-count"><span id="shopGemCount">1/1</span> ma</div>
                         <button class="loot-card-btn" id="shopGemBtn">Megnyit</button>
                     </div>
@@ -2506,7 +2493,6 @@
                         </div>
                     </div>
                     <div class="loot-card-info">
-                        <div class="loot-card-title">DailyBox</div>
                         <div class="loot-card-count"><span id="shopBoxCount">1/1</span> ma</div>
                         <button class="loot-card-btn" id="shopBoxBtn">Megnyit</button>
                     </div>
@@ -2529,7 +2515,6 @@
                         </div>
                     </div>
                     <div class="loot-card-info">
-                        <div class="loot-card-title">Daily Pouch</div>
                         <div class="loot-card-count"><span id="shopPouchCount">1/1</span> ma</div>
                         <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
                             <button class="loot-card-btn free" id="shopPouchFreeBtn">Ingyen</button>
@@ -2634,13 +2619,6 @@
             </div>
         </div>
 
-    </div>
-
-    <!-- DailyCard gyors hozzáférés gomb (a hosszú nyomás mellett) -->
-    <div class="robot-card-hint" id="robotCardHint" title="DailyCard gyűjtemény">
-        <span class="robot-card-hint-icon">🎴</span>
-        <span>DailyCard</span>
-        <span class="dc-new-bubble" id="dcNewBubble">!</span>
     </div>
 
     <!-- Kedvencek gomb -->
@@ -5260,76 +5238,6 @@
                 renderShop();
             });
 
-            // ========== REJTVÉNY JÁTÉK ==========
-            (function(){
-                const wrap=document.getElementById('riddleWrap');
-                const titleEl=document.getElementById('riddleTitle');
-                const clueEl=document.getElementById('riddleClue');
-                const hintBtn=document.getElementById('riddleHintBtn');
-                const inputRow=document.getElementById('riddleInputRow');
-                const input=document.getElementById('riddleInput');
-                const submitBtn=document.getElementById('riddleSubmit');
-                const resultEl=document.getElementById('riddleResult');
-
-                const HINTS=[
-                    'Szárnya van, de nem madár. Pikkelyes, de nem hal.',
-                    'Tüzet fúj a mesékben, de ez a fajta jéghideg és kék.',
-                    'Ami a robotod is lehet, ha beírod a nevét...'
-                ];
-                const ANSWER='sárkány';
-                let hintLevel=0;
-
-                function checkSolved(){
-                    if(owns('dragon')){
-                        wrap.style.display='none';
-                    }
-                }
-
-                checkSolved();
-
-                hintBtn.addEventListener('click',()=>{
-                    if(hintLevel<HINTS.length){
-                        clueEl.textContent=HINTS[hintLevel];
-                        hintLevel++;
-                        if(hintLevel<HINTS.length){
-                            hintBtn.textContent='💡 Következő tipp ('+(hintLevel+1)+'/3)';
-                        } else {
-                            hintBtn.disabled=true;
-                            hintBtn.textContent='Nincs több tipp';
-                        }
-                    }
-                });
-
-                function tryAnswer(){
-                    const val=input.value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-                    const ans=ANSWER.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-                    if(!val){resultEl.style.color='#f87171';resultEl.textContent='Írj be valamit!';return}
-                    if(val===ans || val==='sarkany' || val==='dragon'){
-                        buyItem('dragon');
-                        setActiveSkin('dragon');
-                        applyRobotSkin();
-                        renderShop();
-                        // Gratuláció megjelenik, majd eltűnik
-                        hintBtn.style.display='none';
-                        inputRow.style.display='none';
-                        wrap.classList.add('solved');
-                        titleEl.textContent='✅ Megoldva!';
-                        clueEl.innerHTML='<span style="color:#4ade80;font-size:18px;font-weight:900">Titkos skin feloldva! 🎉</span>';
-                        resultEl.textContent='';
-                        setTimeout(()=>{wrap.style.opacity='0';wrap.style.transition='opacity .5s'},2000);
-                        setTimeout(()=>{wrap.style.display='none'},2500);
-                    } else {
-                        resultEl.style.color='#f87171';
-                        resultEl.textContent='❌ Nem talált, próbáld újra!';
-                        input.value='';
-                        input.focus();
-                    }
-                }
-
-                submitBtn.addEventListener('click',tryAnswer);
-                input.addEventListener('keydown',e=>{if(e.key==='Enter')tryAnswer()});
-            })();
-
             // ========== DAILY GEM (régi szerencsekerék helyett) ==========
             (function(){
                 const btn=document.getElementById('shopGemBtn');
@@ -5804,12 +5712,10 @@
             });
         })();
 
-        // ========== DAILYCARD: HOSSZÚ NYOMÁS A ROBOTRA + GOMB BEKÖTÉSE ==========
+        // ========== DAILYCARD: HOSSZÚ NYOMÁS A ROBOTRA + DELEGATED ZÁRÓ GOMBOK ==========
         (function(){
             const robot=document.getElementById('robot');
             const btn=document.getElementById('btn');
-            const hint=document.getElementById('robotCardHint');
-            const closeBtn=document.getElementById('dcClose');
             let pressTimer=null;
             let longPressTriggered=false;
             let startX=0,startY=0;
@@ -5855,18 +5761,22 @@
                     }
                 },true);
             }
-            // Hint gomb is megnyitja a panelt
-            if(hint && !hint._bound){
-                hint._bound=true;
-                hint.addEventListener('click',()=>{
-                    try{playSfx('skin-equip')}catch(_){}
-                    openDcPanel();
-                });
-            }
-            if(closeBtn && !closeBtn._bound){
-                closeBtn._bound=true;
-                closeBtn.addEventListener('click',closeDcPanel);
-            }
+            // Document-level delegation a dcClose és dcPackClose gombokhoz —
+            // mert ezek a HTML a script TAG UTÁN vannak (különben null lenne)
+            document.addEventListener('click',(e)=>{
+                const closeId=e.target&&e.target.id;
+                if(closeId==='dcClose'){ closeDcPanel(); return; }
+                if(closeId==='dcPackClose'){
+                    const ov=document.getElementById('dcPackOverlay');
+                    if(ov) ov.classList.remove('open');
+                    if(typeof renderDcPanel==='function' && document.getElementById('dcPanel').classList.contains('open')) renderDcPanel();
+                    return;
+                }
+                // Háttér tap is bezárja a panelt (ha a header üres helyén kattintanak)
+                if(e.target&&e.target.classList&&e.target.classList.contains('dc-panel-overlay-bg')){
+                    closeDcPanel();
+                }
+            });
             // Új kártya buborék frissítés
             setTimeout(updateDcNewBubble,300);
             setTimeout(updateDcNewBubble,1500);
