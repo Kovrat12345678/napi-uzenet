@@ -71,29 +71,43 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* SUPER BOT — köpenyes szuperhős */
-        .robot.super .head,.robot.super .torso{background:linear-gradient(165deg,#dbeafe 0%,#3b82f6 40%,#1e3a8a 100%)!important;box-shadow:0 0 20px rgba(59,130,246,.4),inset 0 -4px 8px rgba(0,0,0,.25)!important}
-        .robot.super .eye{background:radial-gradient(circle,#fef9c3,#fbbf24,#f59e0b)!important;box-shadow:0 0 16px rgba(251,191,36,.9),0 0 32px rgba(251,191,36,.5)!important}
-        .robot.super .antenna-ball{background:radial-gradient(circle,#fef9c3,#fbbf24,#dc2626)!important;box-shadow:0 0 22px rgba(220,38,38,1),0 0 44px rgba(251,191,36,.6)!important;animation:superAntenna 2s ease-in-out infinite!important}
-        @keyframes superAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.25)}}
-        .robot.super .arm-l,.robot.super .arm-r{background:linear-gradient(to bottom,#3b82f6,#1e3a8a)!important}
-        .robot.super .leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
-        .robot.super .shoulder-l,.robot.super .shoulder-r{background:radial-gradient(circle,#dbeafe,#3b82f6)!important;box-shadow:0 0 8px rgba(251,191,36,.4)!important}
-        .robot.super .chest{background:linear-gradient(135deg,#dc2626,#991b1b)!important;border:2px solid #fbbf24!important;border-radius:12px!important;position:relative;display:flex!important;align-items:center;justify-content:center}
+        /* SUPER BOT — high-tech harci robot, neon visor, arc reactor, energia köpeny */
+        .robot.super .head{background:linear-gradient(165deg,#e2e8f0 0%,#cbd5e1 30%,#475569 70%,#1e293b 100%)!important;box-shadow:0 0 24px rgba(220,38,38,.45),inset 0 -6px 10px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.3)!important;border:1.5px solid rgba(220,38,38,.5)!important}
+        .robot.super .torso{background:linear-gradient(165deg,#475569 0%,#1e293b 50%,#0f172a 100%)!important;box-shadow:0 0 20px rgba(220,38,38,.4),inset 0 -4px 8px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.15)!important;border:1.5px solid rgba(220,38,38,.4)!important}
+        /* Visor — egy sáv a két szem helyett */
+        .robot.super .face-screen{background:#0a0a14!important;border-radius:8px!important}
+        .robot.super .eyes{position:relative}
+        .robot.super .eye{display:none!important}
+        .robot.super .eyes::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:8px;background:linear-gradient(90deg,transparent,#ef4444 20%,#fef2f2 40%,#fbbf24 60%,#ef4444 80%,transparent);border-radius:6px;box-shadow:0 0 10px #ef4444,0 0 22px rgba(239,68,68,.6),0 0 36px rgba(220,38,38,.4);animation:superVisor 2.5s ease-in-out infinite}
+        @keyframes superVisor{0%,100%{filter:brightness(1) hue-rotate(0deg)}50%{filter:brightness(1.4) hue-rotate(20deg)}}
+        .robot.super .mouth{background:#1e293b!important;width:18px!important;height:3px!important;box-shadow:0 0 6px rgba(239,68,68,.5)!important}
+        /* Antenna ragyog */
+        .robot.super .antenna-stick{background:linear-gradient(to bottom,#ef4444,#7f1d1d)!important}
+        .robot.super .antenna-ball{background:radial-gradient(circle,#fef2f2,#ef4444 60%,#7f1d1d)!important;box-shadow:0 0 22px #ef4444,0 0 44px rgba(239,68,68,.7),0 0 60px rgba(220,38,38,.4)!important;animation:superAntenna 1.5s ease-in-out infinite!important}
+        @keyframes superAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.35)}}
+        /* Karok és lábak — ezüst pauldron stílus */
+        .robot.super .arm-l,.robot.super .arm-r{background:linear-gradient(to bottom,#cbd5e1,#475569,#1e293b)!important;box-shadow:inset 0 -2px 4px rgba(0,0,0,.5),inset 1px 0 0 rgba(255,255,255,.2)!important}
+        .robot.super .leg{background:linear-gradient(to bottom,#475569 0%,#1e293b 70%,#0f172a 100%)!important;box-shadow:inset 0 -3px 6px rgba(0,0,0,.5)!important}
+        .robot.super .shoulder-l,.robot.super .shoulder-r{background:radial-gradient(circle at 30% 30%,#e2e8f0,#475569 70%,#1e293b)!important;box-shadow:0 0 10px rgba(239,68,68,.5),inset -2px -2px 4px rgba(0,0,0,.4)!important;border:1px solid rgba(239,68,68,.4)}
+        .robot.super .ear-l,.robot.super .ear-r{background:linear-gradient(to right,#475569,#1e293b)!important;box-shadow:0 0 8px rgba(239,68,68,.5)!important}
+        .robot.super .neck{background:linear-gradient(to bottom,#475569,#1e293b)!important}
+        /* Boots — sárga energia lépés */
+        .robot.super .foot{background:linear-gradient(135deg,#fbbf24 0%,#dc2626 60%,#7f1d1d 100%)!important;box-shadow:0 4px 12px rgba(251,191,36,.6),0 0 20px rgba(239,68,68,.4)!important;border-top:2px solid rgba(255,255,255,.2)!important}
+        /* Arc Reactor a mellkason */
+        .robot.super .chest{background:radial-gradient(circle at 50% 50%,#1e293b 0%,#0f172a 100%)!important;border:2.5px solid #ef4444!important;border-radius:50%!important;width:42px!important;height:42px!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;position:absolute!important;display:flex!important;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(239,68,68,.7),inset 0 0 8px rgba(0,0,0,.6)!important}
         .robot.super .heart-icon{display:none!important}
-        .robot.super .chest::after{content:'⚡';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:34px;text-shadow:0 0 10px #fbbf24,0 0 20px rgba(251,191,36,.6);filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));z-index:2;animation:superLogo 1.6s ease-in-out infinite}
-        @keyframes superLogo{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.15)}}
+        .robot.super .chest::before{content:'';position:absolute;inset:5px;border-radius:50%;background:radial-gradient(circle,#fef2f2 0%,#fbbf24 30%,#ef4444 60%,#7f1d1d 100%);box-shadow:0 0 14px #fbbf24,0 0 28px rgba(251,191,36,.6),inset 0 0 6px rgba(255,255,255,.4);animation:superArcReactor 1.8s ease-in-out infinite}
+        @keyframes superArcReactor{0%,100%{transform:scale(1);box-shadow:0 0 14px #fbbf24,0 0 28px rgba(251,191,36,.6),inset 0 0 6px rgba(255,255,255,.4)}50%{transform:scale(1.1);box-shadow:0 0 22px #fbbf24,0 0 40px rgba(251,191,36,.8),0 0 60px rgba(239,68,68,.5),inset 0 0 8px rgba(255,255,255,.5)}}
+        .robot.super .chest::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(239,68,68,.6);animation:superArcRing 6s linear infinite}
+        @keyframes superArcRing{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         .robot.super .chest-dots{display:none!important}
-        .robot.super .mouth{background:#fbbf24!important;box-shadow:0 0 8px rgba(251,191,36,.8)!important}
-        .robot.super .neck{background:#dc2626!important}
-        .robot.super .ear-l,.robot.super .ear-r{background:#dc2626!important;box-shadow:0 0 8px rgba(220,38,38,.6)!important}
-        .robot.super .foot{background:#fbbf24!important;box-shadow:0 0 6px rgba(251,191,36,.5)!important}
-        /* Köpeny — pseudo-element a robot mögött */
-        .robot.super::before{content:'';position:absolute;top:38px;left:50%;transform:translateX(-50%);width:160px;height:200px;background:linear-gradient(180deg,#dc2626 0%,#991b1b 60%,#7f1d1d 100%);border-radius:50% 50% 30% 30% / 30% 30% 70% 70%;box-shadow:inset 0 -10px 20px rgba(0,0,0,.4),0 6px 18px rgba(220,38,38,.4);z-index:-1;clip-path:polygon(20% 0%,80% 0%,100% 80%,75% 100%,50% 90%,25% 100%,0% 80%);animation:superCape 3s ease-in-out infinite}
-        @keyframes superCape{0%,100%{transform:translateX(-50%) rotate(-2deg) scaleY(1)}50%{transform:translateX(-50%) rotate(2deg) scaleY(1.03)}}
-        /* Energiapulzus glow a robot körül */
-        .robot.super::after{content:'';position:absolute;inset:-20px;border-radius:50%;background:radial-gradient(circle at center,rgba(251,191,36,.25),transparent 60%);z-index:-2;animation:superAura 2.4s ease-in-out infinite;pointer-events:none}
-        @keyframes superAura{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.1)}}
+        /* Energia köpeny — folyékony plazma */
+        .robot.super::before{content:'';position:absolute;top:40px;left:50%;transform:translateX(-50%);width:170px;height:210px;background:linear-gradient(180deg,#ef4444 0%,#dc2626 30%,#7f1d1d 65%,#3b0764 100%);background-size:200% 200%;border-radius:50% 50% 35% 35% / 30% 30% 70% 70%;box-shadow:inset 0 -16px 24px rgba(0,0,0,.5),0 8px 22px rgba(239,68,68,.55),0 0 30px rgba(239,68,68,.3);z-index:-1;clip-path:polygon(15% 0%,85% 0%,100% 75%,80% 92%,60% 100%,50% 92%,40% 100%,20% 92%,0% 75%);animation:superCape 3.2s ease-in-out infinite,superCapeShimmer 4s linear infinite}
+        @keyframes superCape{0%,100%{transform:translateX(-50%) rotate(-3deg) scaleY(1)}50%{transform:translateX(-50%) rotate(3deg) scaleY(1.04)}}
+        @keyframes superCapeShimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+        /* Energia aura — pulzál a robot körül + elektromos ívek */
+        .robot.super::after{content:'';position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle at center,rgba(251,191,36,.3) 0%,rgba(239,68,68,.15) 35%,transparent 70%);z-index:-2;animation:superAura 2s ease-in-out infinite;pointer-events:none;filter:blur(6px)}
+        @keyframes superAura{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.15)}}
 
         /* Rainbow robot jutalom */
         @keyframes rainbowShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
@@ -2338,16 +2352,28 @@
         .dc-shop-banner:active{transform:scale(.98)}
         .dc-shop-banner:hover{box-shadow:0 14px 40px rgba(167,139,250,.45)}
         .dc-shop-banner-glow{position:absolute;inset:0;background:radial-gradient(circle at 25% 30%,rgba(251,191,36,.25),transparent 50%),radial-gradient(circle at 80% 70%,rgba(236,72,153,.25),transparent 50%);pointer-events:none;animation:bpShine 5s ease-in-out infinite}
-        .dc-shop-banner-stack{position:absolute;top:14px;right:14px;width:80px;height:90px;pointer-events:none}
-        .dc-shop-mini{position:absolute;width:46px;height:64px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;border:1.5px solid rgba(255,255,255,.3);box-shadow:0 6px 16px rgba(0,0,0,.5);background:linear-gradient(160deg,#1e1b4b,#3b0764)}
-        .dc-shop-mini-1{transform:rotate(-12deg);left:0;top:6px;background:linear-gradient(160deg,#1e3a8a,#1e1b4b);z-index:1}
-        .dc-shop-mini-2{transform:rotate(0deg);left:14px;top:0;background:linear-gradient(160deg,#7f1d1d,#451a03);z-index:2;border-color:rgba(251,191,36,.6)}
-        .dc-shop-mini-3{transform:rotate(12deg);left:30px;top:6px;background:linear-gradient(160deg,#fbbf24,#b45309);z-index:3;border-color:rgba(251,191,36,.8);box-shadow:0 6px 18px rgba(251,191,36,.4)}
-        .dc-shop-banner:hover .dc-shop-mini-1{transform:rotate(-22deg) translateY(-3px)}
-        .dc-shop-banner:hover .dc-shop-mini-2{transform:rotate(0deg) translateY(-6px)}
-        .dc-shop-banner:hover .dc-shop-mini-3{transform:rotate(22deg) translateY(-3px)}
-        .dc-shop-mini{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-        .dc-shop-banner-content{position:relative;z-index:2;padding-right:96px}
+        .dc-shop-banner-content{position:relative;z-index:2}
+        /* Marquee carousel — folyamatosan futó kártyák */
+        .dc-shop-marquee{position:relative;margin:14px 0 12px;height:78px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);z-index:2}
+        .dc-shop-marquee-track{display:flex;gap:8px;animation:dcShopMarquee 32s linear infinite;width:max-content;will-change:transform}
+        @keyframes dcShopMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        .dc-shop-banner:hover .dc-shop-marquee-track{animation-play-state:paused}
+        .dc-shop-mini-card{position:relative;flex-shrink:0;width:54px;height:76px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden;border:1.5px solid rgba(255,255,255,.18);box-shadow:0 4px 12px rgba(0,0,0,.45);background:linear-gradient(160deg,#1e1b4b,#0f0a1f);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+        .dc-shop-mini-card:hover{transform:translateY(-4px) scale(1.08)}
+        .dc-shop-mini-card.locked{opacity:.5;filter:grayscale(.7)}
+        .dc-shop-mini-card::before{content:'';position:absolute;inset:0;border-radius:8px;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 3.5s linear infinite}
+        .dc-shop-mini-card.rarity-common{background:linear-gradient(160deg,#475569,#1e293b);border-color:rgba(148,163,184,.5)}
+        .dc-shop-mini-card.rarity-rare{background:linear-gradient(160deg,#1e3a8a,#0f172a);border-color:rgba(96,165,250,.6);box-shadow:0 4px 14px rgba(37,99,235,.35)}
+        .dc-shop-mini-card.rarity-epic{background:linear-gradient(160deg,#581c87,#1e1b4b);border-color:rgba(168,85,247,.6);box-shadow:0 4px 14px rgba(124,58,237,.4)}
+        .dc-shop-mini-card.rarity-legendary{background:linear-gradient(160deg,#b45309,#451a03);border-color:rgba(251,191,36,.7);box-shadow:0 4px 14px rgba(251,191,36,.45)}
+        .dc-shop-mini-card.rarity-mythic{border-color:transparent;background:linear-gradient(160deg,#0f0a1f,#1a0f2e)}
+        .dc-shop-mini-card.rarity-mythic::after{content:'';position:absolute;inset:-1.5px;border-radius:10px;background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);animation:dcMythicSpin 5s linear infinite;z-index:-1;filter:blur(2px)}
+        .dc-shop-mini-card .dc-mini-rarity-dot{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 4px currentColor}
+        .dc-shop-mini-card.rarity-common .dc-mini-rarity-dot{color:#cbd5e1}
+        .dc-shop-mini-card.rarity-rare .dc-mini-rarity-dot{color:#60a5fa}
+        .dc-shop-mini-card.rarity-epic .dc-mini-rarity-dot{color:#a855f7}
+        .dc-shop-mini-card.rarity-legendary .dc-mini-rarity-dot{color:#fbbf24}
+        .dc-shop-mini-card.rarity-mythic .dc-mini-rarity-dot{color:#ec4899}
         .dc-shop-banner-title{font-size:20px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;letter-spacing:.3px}
         .dc-shop-banner-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;margin-bottom:10px}
         .dc-shop-banner-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:10px}
@@ -2448,6 +2474,10 @@
         #streak.on::after{content:'';position:absolute;inset:-3px;border-radius:inherit;background:radial-gradient(ellipse at center,rgba(251,146,60,.4),transparent 70%);z-index:-1;animation:bpShine 3s ease-in-out infinite;pointer-events:none}
 
         /* ============== BOT PASS — ÚJ ELEMEK ============== */
+        /* Bot Pass title — bigger, more dramatic */
+        .bp-title{font-size:26px!important;letter-spacing:1px!important}
+        .bp-title::before{content:'';position:absolute;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.4),transparent 70%);left:-6px;top:50%;transform:translateY(-50%);animation:dcLegendaryPulse 2s ease-in-out infinite;filter:blur(8px);z-index:-1}
+        .bp-header{position:relative;z-index:5}
         /* Háttér blob-ok */
         .bp-bg-blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
         .bp-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;animation:bpBlobFloat 18s ease-in-out infinite}
@@ -2482,6 +2512,25 @@
         @keyframes bpMissionDone{0%{transform:scale(1)}50%{transform:scale(1.3) rotate(-8deg)}100%{transform:scale(1) rotate(0deg)}}
         .bp-missions-bonus{margin-top:10px;text-align:center;font-size:11px;font-weight:800;color:rgba(167,139,250,.85);background:rgba(167,139,250,.1);border:1px dashed rgba(167,139,250,.35);padding:6px 12px;border-radius:10px;letter-spacing:.4px}
         .bp-missions-bonus.done{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(167,139,250,.12));border-style:solid;border-color:rgba(251,191,36,.5);color:#fbbf24}
+
+        /* Következő jutalom preview kártya */
+        .bp-next-reward{position:relative;margin:10px 18px 0;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(236,72,153,.12),rgba(167,139,250,.12));background-size:200% 200%;border:1.5px solid rgba(251,191,36,.45);box-shadow:0 6px 20px rgba(251,191,36,.18);animation:bpClaimableBg 4s ease-in-out infinite;display:flex;align-items:center;gap:12px;overflow:hidden;z-index:2}
+        .bp-next-reward::before{content:'';position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
+        .bp-next-reward-icon{font-size:38px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4));animation:bpIconFloat 2.5s ease-in-out infinite;z-index:1}
+        .bp-next-reward-info{flex:1;z-index:1}
+        .bp-next-reward-label{font-size:9px;font-weight:900;color:rgba(255,255,255,.6);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
+        .bp-next-reward-name{font-size:14px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+        .bp-next-reward-meta{font-size:10px;font-weight:700;color:#fbbf24;margin-top:3px;letter-spacing:.3px}
+        .bp-next-reward-arrow{font-size:18px;color:#fbbf24;text-shadow:0 0 8px rgba(251,191,36,.6);animation:bpArrowBob 1.5s ease-in-out infinite;z-index:1}
+        @keyframes bpArrowBob{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+
+        /* Confetti emitter — szezon teljesítve */
+        .bp-confetti-piece{position:fixed;z-index:10001;pointer-events:none;width:8px;height:14px;animation:bpConfetti var(--dur,3s) ease-out forwards}
+        @keyframes bpConfetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translate(var(--dx,0px),100vh) rotate(720deg);opacity:0}}
+
+        /* Mission row interaction — hover emelkedés */
+        .bp-mission{cursor:default;transition:transform .2s}
+        .bp-mission:hover{transform:translateY(-2px)}
 
         /* ============== BOX TIER RENDSZER ============== */
         .box-tier-row{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;padding:6px 20px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory}
@@ -2989,29 +3038,28 @@
             </div>
         </div>
 
-        <!-- DailyCard belépő banner -->
+        <!-- DailyCard belépő banner — marquee carousel-lel -->
         <div class="shop-section">
             <div class="loot-card-wrap">
                 <div class="dc-shop-banner" id="dcShopBanner">
                     <div class="dc-shop-banner-glow"></div>
-                    <div class="dc-shop-banner-stack">
-                        <span class="dc-shop-mini dc-shop-mini-1">🌌</span>
-                        <span class="dc-shop-mini dc-shop-mini-2">🔥</span>
-                        <span class="dc-shop-mini dc-shop-mini-3">✨</span>
-                    </div>
                     <div class="dc-shop-banner-content">
-                        <div class="dc-shop-banner-title">DailyCard gyűjtemény</div>
-                        <div class="dc-shop-banner-sub">Skin alapú robot kártyák</div>
+                        <div class="dc-shop-banner-title">🎴 DailyCard gyűjtemény</div>
+                        <div class="dc-shop-banner-sub">Skin alapú robot kártyák — gyűjtsd be mind!</div>
                         <div class="dc-shop-banner-row">
-                            <div class="dc-shop-banner-stat">Birtokolt <strong id="dcBannerOwn">0</strong> / <span id="dcBannerTotal">16</span></div>
+                            <div class="dc-shop-banner-stat">Birtokolt <strong id="dcBannerOwn">0</strong> / <span id="dcBannerTotal">17</span></div>
                             <div class="dc-shop-banner-stat">PWR <strong id="dcBannerPwr">0</strong></div>
                         </div>
                         <div class="dc-shop-banner-bar-wrap">
                             <div class="dc-shop-banner-bar" id="dcBannerBar"></div>
                         </div>
-                        <div class="dc-shop-banner-hint">Hosszan nyomd a robotot, vagy koppints a 🎴 gombra</div>
-                        <div class="dc-shop-banner-cta">Megnyitás →</div>
                     </div>
+                    <!-- Marquee carousel -->
+                    <div class="dc-shop-marquee">
+                        <div class="dc-shop-marquee-track" id="dcShopMarqueeTrack"></div>
+                    </div>
+                    <div class="dc-shop-banner-hint">Hosszan nyomd a robotot · vagy koppints ide</div>
+                    <div class="dc-shop-banner-cta">Gyűjtemény megnyitása →</div>
                     <div class="dc-shop-banner-badge" id="dcShopBadge" style="display:none">!</div>
                 </div>
             </div>
@@ -4946,7 +4994,25 @@
                 if(p) p.textContent=pwr;
                 if(b) b.style.width=Math.round((own.length/DAILY_CARDS.length)*100)+'%';
                 if(badge) badge.style.display=getNewCardCount()>0?'flex':'none';
+                renderDcShopMarquee();
             }catch(_){}
+        }
+        function renderDcShopMarquee(){
+            const track=document.getElementById('dcShopMarqueeTrack');
+            if(!track) return;
+            const owned=getOwnedCards();
+            // Sorrend: ritkaság szerint csökkenő, hogy a feltűnő kártyák kerüljenek elöre
+            const sorted=DAILY_CARDS.slice().sort((a,b)=>(RARITY_ORDER[b.rarity]||0)-(RARITY_ORDER[a.rarity]||0));
+            // Renderelni 2x a track-et seamless loop-hoz
+            let html='';
+            for(let dup=0;dup<2;dup++){
+                sorted.forEach(c=>{
+                    const has=owned.includes(c.id);
+                    const icon=has?(c.icon||'🤖'):'❓';
+                    html+=`<div class="dc-shop-mini-card rarity-${c.rarity}${has?'':' locked'}" data-card-id="${c.id}" title="${c.name}">${icon}<span class="dc-mini-rarity-dot"></span></div>`;
+                });
+            }
+            track.innerHTML=html;
         }
         // Bot Pass szint jutalmak — vegyes (gem, box, pouch, card, bg, aura, dance, skin)
         const BP_LEVEL_REWARDS={
@@ -5165,6 +5231,23 @@
                 if(mBonusEl){
                     if(allDone && bonusClaimed){mBonusEl.classList.add('done');mBonusEl.textContent='✅ Mind a 4 kész — +40 BP bónusz megkapva'}
                     else{mBonusEl.classList.remove('done');mBonusEl.textContent='⚡ Mind a 4 = +40 BP bónusz'}
+                }
+            }catch(_){}
+            // Következő jutalom preview
+            try{
+                const nextLvl=lvl+1;
+                const wrap=document.getElementById('bpNextReward');
+                if(wrap){
+                    if(nextLvl>60){wrap.style.display='none'}
+                    else{
+                        const r=botpassReward(nextLvl);
+                        const remain=Math.max(0,XP_PER_LEVEL-xp);
+                        document.getElementById('bpNextRewardLvl').textContent=nextLvl;
+                        document.getElementById('bpNextRewardIcon').textContent=r.icon||'🎁';
+                        document.getElementById('bpNextRewardName').textContent=r.name||'';
+                        document.getElementById('bpNextRewardMeta').textContent=remain>0?(remain+' BP-re vagy'):'Most kérheted!';
+                        wrap.style.display='flex';
+                    }
                 }
             }catch(_){}
 
@@ -6395,7 +6478,7 @@
                         if(typeof window.buyBox==='function') window.buyBox(tier);
                     });
                 });
-                // Gem package vásárlás — azonnal jóváírja, log megy az admin panelbe
+                // Gem package vásárlás — pending log, gem CSAK admin-jóváhagyás után
                 document.querySelectorAll('[data-gem-pack]').forEach(card=>{
                     if(card._bound) return; card._bound=true;
                     card.addEventListener('click',(e)=>{
@@ -6408,9 +6491,8 @@
                             mega:{gems:8000,price:'29,99 €',label:'Mega'}
                         };
                         const p=PACKS[t]; if(!p) return;
-                        if(!confirm('💎 '+p.label+' csomag\n\n'+p.gems+' gem · '+p.price+'\n\n✅ A gem azonnal hozzáadódik a fiókodhoz.\n💳 A fizetést kérjük, utalással rendezd.\n\nMegrendeled?')) return;
-                        addGems(p.gems);
-                        // Log a vásárlást
+                        if(!confirm('💎 '+p.label+' csomag\n\n'+p.gems+' gem · '+p.price+'\n\n💳 Utald el az összeget — a gem akkor érkezik meg, ha a megrendelést jóváhagyjuk.\n\nElküldöd a megrendelést?')) return;
+                        // Csak loggolás — gem JÓVÁHAGYÁS UTÁN!
                         try{
                             const log=JSON.parse(localStorage.getItem('nu_gem_purchases')||'[]');
                             log.push({
@@ -6421,15 +6503,13 @@
                                 price:p.price,
                                 user:localStorage.getItem('nu_name')||'?',
                                 uid:localStorage.getItem('nu_uid')||'?',
-                                paid:false
+                                paid:false,
+                                credited:false
                             });
                             localStorage.setItem('nu_gem_purchases',JSON.stringify(log));
                         }catch(_){}
                         try{playSfx('gem-claim')}catch(_){}
-                        if(typeof showGemFlash==='function') showGemFlash(p.gems);
-                        if(typeof updateGemUI==='function') updateGemUI();
-                        if(typeof updateLootBadges==='function') updateLootBadges();
-                        alert('🎉 '+p.gems+' gem hozzáadva!\n\n💳 Fizetendő: '+p.price+'\nKöszönjük a támogatást! 💜');
+                        alert('📨 Megrendelés elküldve!\n\n💎 '+p.gems+' gem · 💳 '+p.price+'\n\n⏳ A gem akkor érkezik a fiókodba, amikor a megrendelést jóváhagyjuk a fizetés beérkezése után.\n\nKöszönjük! 💜');
                     });
                 });
                 // Admin panel — gem display 💎 hosszú nyomásra nyílik
@@ -6614,7 +6694,23 @@
                 if(tgl){
                     const i=parseInt(tgl.getAttribute('data-admin-toggle'),10);
                     const log=getPurchaseLog();
-                    if(log[i]){log[i].paid=!log[i].paid;savePurchaseLog(log);renderAdminPanel()}
+                    if(log[i]){
+                        const wasPaid=log[i].paid;
+                        log[i].paid=!wasPaid;
+                        // Ha most lett fizetve és még nem írtuk jóvá → hozzáadjuk a gemet
+                        if(!wasPaid && !log[i].credited){
+                            if(typeof addGems==='function') addGems(log[i].gems||0);
+                            log[i].credited=true;
+                            log[i].creditedAt=Date.now();
+                            try{playSfx('gem-claim')}catch(_){}
+                            if(typeof showGemFlash==='function') showGemFlash(log[i].gems||0);
+                            if(typeof updateGemUI==='function') updateGemUI();
+                            if(typeof updateLootBadges==='function') updateLootBadges();
+                            alert('✅ Jóváhagyva — '+log[i].gems+' gem hozzáadva ('+log[i].user+').');
+                        }
+                        savePurchaseLog(log);
+                        renderAdminPanel();
+                    }
                     return;
                 }
                 const del=e.target.closest&&e.target.closest('[data-admin-del]');
@@ -6768,6 +6864,17 @@
                 </div>
             </div>
             <div class="bp-missions-bonus" id="bpMissionsBonus">⚡ Mind a 4 = +40 BP bónusz</div>
+        </div>
+
+        <!-- Következő jutalom preview -->
+        <div class="bp-next-reward" id="bpNextReward" style="display:none">
+            <span class="bp-next-reward-icon" id="bpNextRewardIcon">🎁</span>
+            <div class="bp-next-reward-info">
+                <div class="bp-next-reward-label">Következő jutalom · Szint <span id="bpNextRewardLvl">2</span></div>
+                <div class="bp-next-reward-name" id="bpNextRewardName">DailyBox</div>
+                <div class="bp-next-reward-meta" id="bpNextRewardMeta">100 BP-re vagy</div>
+            </div>
+            <span class="bp-next-reward-arrow">→</span>
         </div>
 
         <!-- Quick actions -->
