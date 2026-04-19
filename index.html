@@ -2092,7 +2092,17 @@
         .dc-card-rarity{font-size:9px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.95);background:rgba(0,0,0,.4);padding:4px 8px;border-radius:8px;align-self:flex-start;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,.5)}
         .dc-card-power{position:absolute;top:10px;right:10px;font-size:18px;font-weight:900;color:#fff;background:rgba(0,0,0,.4);padding:4px 9px;border-radius:10px;text-shadow:0 1px 3px rgba(0,0,0,.6);z-index:4}
         .dc-card-power-label{font-size:8px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;display:block;line-height:1}
-        .dc-card-image{flex:1;display:flex;align-items:center;justify-content:center;font-size:70px;text-align:center;text-shadow:0 4px 12px rgba(0,0,0,.5);filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));margin:6px 0}
+        .dc-card-image{flex:1;display:flex;align-items:center;justify-content:center;font-size:70px;text-align:center;text-shadow:0 4px 12px rgba(0,0,0,.5);filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));margin:6px 0;position:relative;min-height:120px}
+        /* Mini robot a kártyán */
+        .dc-mini-robot-frame{width:100%;height:130px;position:relative;overflow:visible;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4))}
+        .dc-mini-robot{position:absolute;top:50%;left:50%;width:200px;height:280px;transform:translate(-50%,-50%) scale(.4);transform-origin:center;animation:dcMiniFloat 3.5s ease-in-out infinite!important;pointer-events:none}
+        @keyframes dcMiniFloat{0%,100%{transform:translate(-50%,-50%) scale(.4)}50%{transform:translate(-50%,-54%) scale(.4)}}
+        /* A nagy verzió a részletek modalban */
+        .dc-mini-robot.large{transform:translate(-50%,-50%) scale(.65);animation:dcMiniFloatL 3.5s ease-in-out infinite!important}
+        @keyframes dcMiniFloatL{0%,100%{transform:translate(-50%,-50%) scale(.65)}50%{transform:translate(-50%,-53%) scale(.65)}}
+        .dc-mini-robot-frame.large{height:240px}
+        /* Locked ikon — nagyobb, opacity */
+        .dc-card-image-locked{font-size:64px;opacity:.55}
         .dc-card-name{font-size:14px;font-weight:900;color:#fff;text-align:center;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:4px}
         .dc-card-bar{height:6px;background:rgba(0,0,0,.45);border-radius:3px;overflow:hidden;margin-bottom:6px}
         .dc-card-bar-fill{height:100%;width:var(--pwr,50%);background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);border-radius:3px;box-shadow:0 0 6px rgba(251,191,36,.5)}
@@ -2172,6 +2182,35 @@
         .dc-pack-close:active{transform:scale(.96)}
         .dc-pack-dupe-info{font-size:11px;color:rgba(251,191,36,.85);font-weight:700;display:none;text-align:center}
         .dc-pack-dupe-info.show{display:block}
+
+        /* Card részletek modal */
+        .dc-detail-overlay{position:fixed;inset:0;z-index:9998;background:radial-gradient(circle at center,rgba(15,10,31,.92),rgba(0,0,0,.97) 80%);display:none;align-items:center;justify-content:center;animation:dbFadeIn .3s ease;padding:20px;flex-direction:column;gap:18px;overflow-y:auto}
+        .dc-detail-overlay.open{display:flex}
+        .dc-detail-card-wrap{width:280px;max-width:88vw;animation:dcDetailIn .55s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes dcDetailIn{0%{opacity:0;transform:scale(.6) rotateY(-30deg)}100%{opacity:1;transform:scale(1) rotateY(0deg)}}
+        .dc-detail-card-wrap .dc-card{width:100%;cursor:default}
+        .dc-detail-info-card{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.18);border-radius:18px;padding:16px 18px;width:280px;max-width:88vw;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:center;animation:dcDetailIn .55s cubic-bezier(.34,1.56,.64,1) .1s backwards}
+        .dc-detail-info-name{font-size:20px;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:.5px}
+        .dc-detail-info-rarity{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;display:inline-block;padding:4px 10px;border-radius:10px}
+        .dc-detail-info-rarity.rarity-common{background:linear-gradient(135deg,#94a3b8,#64748b);color:#fff}
+        .dc-detail-info-rarity.rarity-rare{background:linear-gradient(135deg,#60a5fa,#2563eb);color:#fff}
+        .dc-detail-info-rarity.rarity-epic{background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff}
+        .dc-detail-info-rarity.rarity-legendary{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e}
+        .dc-detail-info-rarity.rarity-mythic{background:linear-gradient(135deg,#ec4899,#a78bfa,#22d3ee);background-size:200% 100%;animation:flowColor 3s linear infinite;color:#fff}
+        .dc-detail-power-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+        .dc-detail-power-label{font-size:10px;font-weight:900;color:rgba(255,255,255,.65);letter-spacing:1px;text-transform:uppercase}
+        .dc-detail-power-bar{flex:1;height:10px;background:rgba(0,0,0,.45);border-radius:5px;overflow:hidden}
+        .dc-detail-power-fill{height:100%;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;animation:bpXpFlow 3s linear infinite;border-radius:5px;box-shadow:0 0 8px rgba(251,191,36,.5);transition:width .8s ease}
+        .dc-detail-power-num{font-size:18px;font-weight:900;color:#fbbf24}
+        .dc-detail-desc{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;font-style:italic;margin-top:8px}
+        .dc-detail-skin-label{margin-top:10px;font-size:10px;color:rgba(255,255,255,.55);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+        .dc-detail-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+        .dc-detail-btn{padding:10px 18px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:900;font-size:12px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 4px 14px rgba(251,191,36,.3)}
+        .dc-detail-btn.secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);box-shadow:none}
+        .dc-detail-btn:active{transform:scale(.96)}
+        .dc-detail-close{padding:12px 28px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:14px;font-weight:800;font-size:13px;cursor:pointer;letter-spacing:.5px}
+        .dc-detail-close:active{transform:scale(.96)}
+        .dc-detail-locked-info{font-size:13px;color:rgba(255,255,255,.7);text-align:center;line-height:1.5;padding:6px 0}
 
         /* Robot long-press hint badge */
         .robot-card-hint{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px;background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(236,72,153,.16));border:1.5px solid rgba(251,191,36,.4);border-radius:14px;padding:8px 14px 8px 10px;color:#fff;font-size:11px;font-weight:800;letter-spacing:.4px;cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 6px 22px rgba(0,0,0,.3);z-index:50;display:flex;align-items:center;gap:6px;transition:transform .25s,box-shadow .25s}
@@ -3910,6 +3949,30 @@
             if(!pool.length) return DAILY_CARDS[0];
             return pool[Math.floor(Math.random()*pool.length)];
         }
+        // Mini robot HTML — ugyanaz mint a fő robot, csak skin class és scale
+        function buildMiniRobotHtml(skinId,large){
+            const skinClass=skinId||'';
+            const sizeClass=large?' large':'';
+            return `<div class="dc-mini-robot-frame${sizeClass}">
+                <div class="robot dc-mini-robot${sizeClass} ${skinClass}">
+                    <span class="outfit outfit-hat"></span>
+                    <span class="outfit outfit-face"></span>
+                    <span class="outfit outfit-neck"></span>
+                    <div class="antenna-stick"></div>
+                    <div class="antenna-ball"></div>
+                    <div class="ear ear-l"></div>
+                    <div class="ear ear-r"></div>
+                    <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
+                    <div class="neck"></div>
+                    <div class="shoulder shoulder-l"></div>
+                    <div class="shoulder shoulder-r"></div>
+                    <div class="arm arm-l"></div>
+                    <div class="arm arm-r"></div>
+                    <div class="torso"><div class="chest"><span class="heart-icon">❤️</span><div class="chest-dots"><span class="chest-dot"></span><span class="chest-dot"></span><span class="chest-dot"></span></div></div></div>
+                    <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
+                </div>
+            </div>`;
+        }
         // Kártya HTML render — kollekció és pack reveal egyaránt használja
         function renderCardHtml(card,opts){
             opts=opts||{};
@@ -3917,21 +3980,66 @@
             const cls='dc-card rarity-'+card.rarity+(owned?'':' locked');
             const rl=(RARITY_LABEL[card.rarity]||card.rarity).replace(/^[^\s]+\s/,'');
             const pwr=Math.min(100,Math.max(0,card.power));
-            const icon=owned?card.icon:'❓';
             const name=owned?card.name:'??? Bot';
             const desc=owned?card.desc:'Még nem fedezted fel.';
+            const visual=owned
+                ? buildMiniRobotHtml(card.skinId,!!opts.large)
+                : `<span class="dc-card-image-locked">❓</span>`;
             return `<div class="${cls}" data-card-id="${card.id}">
                 <div class="dc-card-glow"></div>
                 <div class="dc-card-shine"></div>
                 <div class="dc-card-power"><span class="dc-card-power-label">PWR</span>${pwr}</div>
                 <div class="dc-card-inner">
                     <div class="dc-card-rarity">${rl}</div>
-                    <div class="dc-card-image">${icon}</div>
+                    <div class="dc-card-image">${visual}</div>
                     <div class="dc-card-name">${name}</div>
                     <div class="dc-card-bar"><div class="dc-card-bar-fill" style="--pwr:${pwr}%"></div></div>
                     <div class="dc-card-desc">${desc}</div>
                 </div>
             </div>`;
+        }
+        // Részletek modal megjelenítés
+        function openCardDetail(cardId){
+            const card=getCardById(cardId);
+            if(!card) return;
+            const owned=hasCard(cardId);
+            const overlay=document.getElementById('dcDetailOverlay');
+            const cardWrap=document.getElementById('dcDetailCardWrap');
+            const info=document.getElementById('dcDetailInfo');
+            if(!overlay||!cardWrap||!info) return;
+            // Kártya nagyban
+            cardWrap.innerHTML=renderCardHtml(card,{owned:owned,large:true});
+            const rl=(RARITY_LABEL[card.rarity]||card.rarity).replace(/^[^\s]+\s/,'');
+            const pwr=Math.min(100,Math.max(0,card.power));
+            const skinName=(typeof SKINS!=='undefined' && card.skinId) ? (SKINS.find(s=>s.id===card.skinId)||{}).name : 'Alap';
+            const skinHas=card.skinId ? (typeof owns==='function' && owns(card.skinId)) : true;
+            if(owned){
+                info.innerHTML=`
+                    <div class="dc-detail-info-name">${card.name}</div>
+                    <span class="dc-detail-info-rarity rarity-${card.rarity}">${rl}</span>
+                    <div class="dc-detail-power-row">
+                        <span class="dc-detail-power-label">Power</span>
+                        <div class="dc-detail-power-bar"><div class="dc-detail-power-fill" style="width:${pwr}%"></div></div>
+                        <span class="dc-detail-power-num">${pwr}</span>
+                    </div>
+                    <div class="dc-detail-desc">"${card.desc}"</div>
+                    <div class="dc-detail-skin-label">Skin: ${skinName||'Alap'}</div>
+                    <div class="dc-detail-actions">
+                        ${card.skinId?`<button class="dc-detail-btn" data-equip-skin="${card.skinId}" ${skinHas?'':'disabled'}>${skinHas?'🤖 Robot felöltöztetése':'🔒 Skin nincs még'}</button>`:`<button class="dc-detail-btn" data-equip-skin="">🤖 Alap robot</button>`}
+                    </div>
+                `;
+            } else {
+                info.innerHTML=`
+                    <div class="dc-detail-info-name">??? Bot</div>
+                    <span class="dc-detail-info-rarity rarity-${card.rarity}">${rl}</span>
+                    <div class="dc-detail-locked-info">🔒 Még nincs meg ez a kártya.<br>Nyiss egy DailyCard pakkot, hogy felfedd!</div>
+                `;
+            }
+            overlay.classList.add('open');
+        }
+        function closeCardDetail(){
+            const ov=document.getElementById('dcDetailOverlay');
+            if(ov) ov.classList.remove('open');
         }
         // Pack megnyitás overlay-vel
         function openCardPackForCard(card){
@@ -3989,7 +4097,7 @@
                 }
                 setTimeout(()=>{
                     back.style.display='none';
-                    reveal.innerHTML=renderCardHtml(card,{owned:true});
+                    reveal.innerHTML=renderCardHtml(card,{owned:true,large:true});
                     reveal.classList.add('show');
                     try{playSfx(card.rarity==='mythic'||card.rarity==='legendary'?'zynox':'gem-claim')}catch(e){}
                     // Award
@@ -5759,8 +5867,7 @@
                     }
                 },true);
             }
-            // Document-level delegation a dcClose és dcPackClose gombokhoz —
-            // mert ezek a HTML a script TAG UTÁN vannak (különben null lenne)
+            // Document-level delegation: záró gombok + kollekció kártya tap + skin equip
             document.addEventListener('click',(e)=>{
                 const closeId=e.target&&e.target.id;
                 if(closeId==='dcClose'){ closeDcPanel(); return; }
@@ -5770,10 +5877,30 @@
                     if(typeof renderDcPanel==='function' && document.getElementById('dcPanel').classList.contains('open')) renderDcPanel();
                     return;
                 }
-                // Háttér tap is bezárja a panelt (ha a header üres helyén kattintanak)
-                if(e.target&&e.target.classList&&e.target.classList.contains('dc-panel-overlay-bg')){
-                    closeDcPanel();
+                if(closeId==='dcDetailClose'){ closeCardDetail(); return; }
+                // Skin equip a részletek modalból
+                const equipBtn=e.target.closest&&e.target.closest('[data-equip-skin]');
+                if(equipBtn){
+                    const skin=equipBtn.getAttribute('data-equip-skin');
+                    if(typeof setActiveSkin==='function'){
+                        setActiveSkin(skin||'');
+                        if(typeof applyRobotSkin==='function') applyRobotSkin();
+                        if(typeof triggerSkinEquipEffect==='function') triggerSkinEquipEffect();
+                        if(typeof renderShop==='function') renderShop();
+                        try{playSfx('skin-equip')}catch(_){}
+                        closeCardDetail();
+                        closeDcPanel();
+                    }
+                    return;
                 }
+                // Kollekció gridben kártyára tap → részletek
+                const inGrid=e.target.closest&&e.target.closest('#dcGrid .dc-card');
+                if(inGrid && inGrid.dataset.cardId){
+                    openCardDetail(inGrid.dataset.cardId);
+                    return;
+                }
+                // Detail overlay háttér tap (a kártyán/info kártyán kívül) bezárja
+                if(e.target&&e.target.id==='dcDetailOverlay'){ closeCardDetail(); }
             });
             // Új kártya buborék frissítés
             setTimeout(updateDcNewBubble,300);
@@ -5914,6 +6041,13 @@
             </div>
         </div>
         <div class="dc-grid" id="dcGrid"></div>
+    </div>
+
+    <!-- DailyCard részletek overlay -->
+    <div id="dcDetailOverlay" class="dc-detail-overlay">
+        <div class="dc-detail-card-wrap" id="dcDetailCardWrap"></div>
+        <div class="dc-detail-info-card" id="dcDetailInfo"></div>
+        <button class="dc-detail-close" id="dcDetailClose">Bezárás</button>
     </div>
 
     <!-- DailyCard pack megnyitás overlay -->
