@@ -1,6 +1,6 @@
 # DailyBot — Napi Uzenet
 
-Napi gondolat alkalmazas — egy aranyos CSS robot minden nap mas, elmelkedo uzenetet kuld neked. TopJoy stilusu, rovid, koltoei gondolatok. Plusz: gem-gazdasag, loot box-ok, havi Bot Pass, rejtett bonusz kod.
+Napi gondolat alkalmazas — egy aranyos CSS robot minden nap mas, elmelkedo uzenetet kuld neked. TopJoy stilusu, rovid, koltoei gondolatok. Plusz: gem-gazdasag, loot box-ok, havi Bot Pass, jatek mod, es meg sok mas.
 
 **Link**: https://kovrat12345678.github.io/napi-uzenet/
 
@@ -33,7 +33,7 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 - **Mindenki mas uzenetet kap** — hash-alapu kivalasztas, felhasznalonkent egyedi sorrend
 - **Reggel 6-kor valt** — az uj uzenet reggel 6 orakor erkezik, nem ejfelkor
 - **Egyszerü regisztracio** — csak a keresztneved kell megadni
-- **Szemelyes koszrontes** — "Szia, [Nev]!" a fejlecben
+- **Szemelyes koszrontes** — aktív sticker szövege + "[Nev]!" a fejlecben
 - **Nevnap koszrontes** — ha a neved ma unnepli a nevnapjat, a robot felkoszront
 - **Kedvencek** — szivecskere koppintva elmentheto, kesobb visszanezheto
 - **Megosztas** — szep kepes kartya generalas es megosztas (WhatsApp, Messenger, Instagram)
@@ -48,57 +48,67 @@ Az alkalmazas ezutan teljes kepernyon nyilik meg, bongeszosav nelkul, mint egy n
 
 ## Gem gazdasag
 
-Az appban **gem** a pnznem. 50 gemet kapsz az indulaskor.
+Az appban **gem** a penznem. 50 gemet kapsz az indulaskor.
 
 ### Napi forrasok
 
 | Forras | Limit | Mit ad |
 |--------|-------|--------|
-| 💎 **Daily Gem** | 1/nap | 10-150 gem (ritkán 150) |
-| 🎁 **DailyBox** | 1/nap | Random: gem vagy prémium tárgy (skin/háttér/aura) |
-| 👝 **Daily Pouch** | 1 ingyen/nap + 60 gemert több | Random kiegészítő vagy tánc (nem skin/bg/aura) |
+| 💎 **Daily Gem** | 1/nap | 10-150 gem (ritkan 150) |
+| 🎁 **DailyBox** | 1/nap | Random: gem vagy premium targy (skin/hatter/aura/card/sticker) |
+| 👝 **Daily Pouch** | 1 ingyen/nap + 60 gemert tobb | Random kiegeszito, tanc, sticker, kártya |
 
-**DailyBox "lucky" mechanika**: 25% eséllyel a doboz aljan **2**-es szám jelenik meg → 1 normál + 1 SUPER nyeremény (dragabb item vagy nagyobb gem).
+**DailyBox "lucky" mechanika**: 25% esellyel a doboz aljan **2**-es szam jelenik meg → 1 normal + 1 SUPER nyeremeny (dragabb item vagy nagyobb gem).
 
 ### Shop vasarlas
 
-Minden skin, hatter, aura **gemert** vehetö meg. A rarity ar alapjan tortenik:
+Minden skin, hatter, aura **gemert** veheto meg. A rarity ar alapjan tortenik:
 
-| Rarity | Szin | Szint |
-|--------|------|-------|
-| ⚪ Common | Szurke | 50-100 gem |
-| 🔵 Rare | Kek | 101-200 gem |
-| 🟣 Epic | Lila | 201-300 gem |
-| 🟡 Legendary | Arany | 301-500 gem |
-| 🌈 Mythic | Szivarvany (animált) | 501+ gem |
+| Rarity | Szin | Ar |
+|--------|------|-----|
+| Kozos | Szurke | 50-100 gem |
+| Ritka | Kek | 101-200 gem |
+| Epic | Lila | 201-300 gem |
+| Legendas | Arany | 301-500 gem |
+| Mitikus | Szivarvany (animalt) | 501+ gem |
 
 ### Mai akcio (legalul)
 
-A shop aljan minden nap egy veletlen tárgy 25% kedvezménnyel. Ha már megvan, automatikusan más kerul a helyere.
+A shop aljan minden nap egy veletlen targy 25% kedvezmennyel. Ha mar megvan, automatikusan mas kerul a helyere.
 
 ## Robot testreszabas
 
-### Skinek (14 + 3 mythic)
+### Skinek (19)
 
-| Skin | Rarity |
-|------|--------|
-| 🤖 Alap | ingyen |
-| 🌷 Tulipan, 🌸 Sakura, 🧱 Graffiti | common |
-| 🌌 Galaxy, 👤 Stealth, 🔥 Fire, 🎮 Gamer | rare |
-| ✨ Golden, 💎 Diamond, 🪟 Glass, 🐴 Lo | legendary |
-| 🌈 Rainbow | mythic |
-| 🔷 Prism, 🔥 Phoenix, 🌠 Aurora | **mythic (új!)** |
-| 🐉 Sarkany | titkos rejtveny |
+| Skin | Ar | Megjegyzes |
+|------|----|------------|
+| Alap | ingyenes | Klasszikus |
+| Tulipan, Sakura, Graffiti | 100 gem | Kozos |
+| Galaxy, Stealth, Fire | 200 gem | Ritka |
+| Golden, Diamond, Horse, Prism | 400 gem | Legendas |
+| Aurora | 500 gem | Legendas |
+| Rainbow | 600 gem | Mitikus |
+| Phoenix | 900 gem | Mitikus |
+| Ultra | 999 gem | Mitikus |
+| Super, Glass, Gamer | 1000 gem | Mitikus |
+| Ultra Black | 1500 gem | Plus exkluziv |
+| Sarkany | titkos rejtveny | Rejtett |
 
-### Hatterek (12 + 3 mythic)
+**Skin aktivaciò effekt**: Uj skin valasztasakor feher flash + 24 csillag szet + robot pulzal + csilingelo hang.
 
-Napszak (ingyen), Tavaszi Ret, Galaxy, Sakura, Graffiti, Stealth, Fire, Luxus Arany, Gyemant, Szivarvany, Gamer Room, Labor Glass, 🪐 **Nebula**, 🌌 **Aurora**, ♾️ **Infinity**.
+**Ultra Bot**: Feher robot pink neon csikokkal (csak a torsson). Pink szem, antenna, szaj. Halo aura.
 
-### Aurak (8 + 3 mythic)
+**Ultra Black Bot**: Pontosan ugyanaz, fekete testtel. Bot Pass Plus exkluziv.
 
-Nincs (ingyen), Tulipan, Tuz, Sakura, Glitch, Szent, RGB, Gyemant, ⭐ **Celestial**, 🌀 **Cosmic**, 🔮 **Prism**.
+### Hatterek (15)
 
-### Kiegeszitok (12) — Pouch-ból szerezhető
+Napszak (ingyenes), Tavaszi Ret, Galaxy, Sakura, Graffiti, Stealth, Fire, Luxus Arany, Gyemant, Szivarvany, Gamer Room, Labor Glass, Nebula, Aurora, Infinity.
+
+### Aurak (11)
+
+Nincs (ingyenes), Tulipan, Tuz, Sakura, Glitch, Szent, RGB, Gyemant, Celestial, Cosmic, Prism.
+
+### Kiegeszitok (12) — Pouch-bol szerezheto
 
 Kézzel rajzolt SVG-kel (nem emoji):
 
@@ -106,97 +116,144 @@ Kézzel rajzolt SVG-kel (nem emoji):
 - **Arc**: Napszemüveg, Goggle, Álarc
 - **Nyak**: Masni, Lánc, Gyémánt nyaklánc
 
-A kiegészítők a robot fejen/arcán/nyakán nagy méretben megjelennek (pl. a **tök** az egész fejet lefedi).
-
 ### Bot Tancok (6) — Pouch + Bot Pass
 
-6 CSS-alapú tánc animáció: **Bólogatás**, **Rázás**, **Csavar**, **Hullám**, **Ugrás**, **Pörgés**. Aktiválva a robot ezt táncolja az alap lebegés helyett.
+6 CSS-alapu tanc animacio: **Bolgoatas**, **Razas**, **Csavar**, **Hullam**, **Ugras**, **Porges**.
 
-### Skin aktivaciò effekt
+### Matricák (30) — Pouch-bol szerezheto
 
-Ha új skint választasz, **modern effekt** jelenik meg:
-- Fehér-arany flash az egész képernyőn
-- 24 csillag sugarasan szétrepül a robot körül
-- A robot pulzál (brightness 2x + drop-shadow)
-- Csilingelő hang kíséri
+Köszönés szövegek ritkaság szerint. Az aktiv matrica jelenik meg a fejlécben.
+
+Kozos: Hello, Szia, Hey, Hi, Csa, Csao  
+Ritka: Yo, Howdy, Sup, Wassup, Heya, Bonjour, Hola, Hallo, Salut, Privet, Hej  
+Epic: Aloha, Ciao, Ola, Annyeong, Csokolom, Beep boop  
+Legendas: Kon'nichiwa, Greetings, Udv kalandor, Az ero veled, Live long  
+Mitikus: Cosmic Hi, Galaxy salute, Quantum hello
+
+## DailyCard Gyujtemeny
+
+18 egyedi kártya, minden skinhez egy. **Hosszan nyomva** a robotot megnyilik a gyűjtemény.
+
+| Ritkaság | Kártyák |
+|----------|---------|
+| Kozos | Alap Bot, Tulipan Bot, Sakura Bot, Graffiti Bot |
+| Ritka | Galaxy Bot, Stealth Bot, Fire Bot, Gamer Bot |
+| Legendas | Golden Bot, Diamond Bot, Glass Bot, Lovas Bot, Rainbow Bot, Super Bot |
+| Mitikus | Prism Bot, Phoenix Bot, Aurora Bot, Ultra Bot |
+
+Ha mar megvan egy kartya es ujra kapsz: gem-t kapsz helyette (common: 20, rare: 40, legendary: 80, mythic: 120).
 
 ## Bot Pass — Havi Jutalomsor
 
-**60 szintes havi sáv** jutalmakkal. Minden hónap 1-én reset-el.
+**60 szintes havi sav** jutalmakkal. Minden honap 1-en reset-el.
 
 ### Progressio
 
-**Bot Points (BP)** gyűjtésével haladsz. 100 BP = 1 szint. Napi küldetések:
+**Bot Points (BP)** gyüjtesevel haladsz. 100 BP = 1 szint. Napi küldetések:
 
-| Küldetes | BP |
+| Kuldetes | BP |
 |-----------|-----|
-| Napi app megnyitás | +40 |
-| DailyBox nyitás | +20 |
-| Daily Pouch nyitás | +20 |
-| Daily Gem megszerzés | +20 |
-| **Mind a 4 bónusz** | **+40** |
+| Napi app megnyitas | +40 |
+| DailyBox nyitas | +20 |
+| Daily Pouch nyitas | +20 |
+| Daily Gem megszerzes | +20 |
+| **Mind a 4 bonusz** | **+40** |
 
-Napi max: **140 BP** (átlag 1-2 szint/nap).
+Napi max: **140 BP** (atlag 1-2 szint/nap).
 
 ### Szint skip
 
-**60 gem = +1 szint instant**. Ha sietsz, gyorsíthatsz.
+**60 gem = +1 szint instant**. Ha sietsz, gyorsithatsz.
 
-### Szint jutalmak
+### Alap szint jutalmak
 
-60 szinten keresztül változatos jutalmak: gem, DailyBox, Pouch, skinek, táncok.
+60 szinten keresztul valtozatos jutalmak: gem, DailyBox, Pouch, skinek, tancok.
 
-**Milestone szintek** (kiemeltek, koronával):
+**Milestone szintek** (kiemeltek, kronával):
 
-- **5**: Bólogatás tánc · **10**: 100 gem · **15**: Rázás tánc
-- **20**: Fire Skin · **25**: Csavar tánc · **30**: 200 gem · **35**: Hullám tánc
-- **40**: Golden Skin · **45**: Ugrás tánc · **50**: Gyémánt Aura
-- **55**: Pörgés tánc · **60**: **Rainbow Skin** 🌈
+- **5**: Bolgoatas tanc · **10**: 100 gem · **15**: Razas tanc
+- **20**: Fire Skin · **25**: Csavar tanc · **30**: 200 gem · **35**: Hullam tanc
+- **40**: Golden Skin · **45**: Ugras tanc · **50**: Gyemant Aura
+- **55**: Porges tanc · **60**: **Rainbow Skin**
 
 ### Bot Pass Plus (999 gem)
 
-Egyszerre **MINDEN 60 szintet megkapsz**. Minden jutalom duplán + item jutalmakhoz +100 gem bónusz. Kártya megjeleníti az elnyert összeget.
+Dual-track rendszer (Brawl Stars stilus):
+- Felso sor: Plus track exkluziv jutalmakkal (dupla gemek + Ultra Black skin)
+- Also sor: Alap jutalmak
 
-### Hogy néz ki?
+Plus megvásárlásakor azonnal claim-elhető mind a 60 Plus szint.
 
-- Premium panel áramló gradient háttérrel (4-színű flow)
-- Kompakt state: havi cím + nagy áramló szint szám + 22px animált progress bar
-- Horizontális sáv: kisebb node-ok, közöttük **fényes vonal** (arany+pink glow), ami a megszerzett szintekig **világít**
-- Milestone node-okon **👑 arany korona** billeg
-- Aktuális szint alatt **"TE VAGY ITT"** pulzáló marker
-- Claim-kor **18 konfetti részecske** (✨⭐💫🎉💎⚡) szétrepül diadalmas C-E-G-C akkord hanggal
-- 20 csillog lebeg a háttérben
+### Hogy nez ki?
+
+- Premium panel aramlo gradient hatterrel
+- Kompakt state: havi cim + nagy aramlo szint szam + animalt progress bar
+- Horizontalis sav: node-ok kozott fenyes vonal (arany+pink glow), ami a megszerzett szintekig vilagit
+- Milestone node-okon korona billeg
+- Aktualis szint alatt "TE VAGY ITT" pulzalo marker
+- Claim-kor 18 konfetti reszecske szétrepül diadalmas C-E-G-C akkord hanggal
+
+## Robot Battle Jatek
+
+Fockepernyoen alul **⚔️ Robot Harc** gomb.
+
+### AI ellen
+
+- Valassz skint (csak amit te is bírsz)
+- Vertikalis arena: ellenfél felul, te alul
+- ◄ ► mozgas, lö gomb, kepesseg gomb (skin-specifikus, cooldown-nal)
+- HP rendszer: 3 elet
+- Minden skinnek van egyedi kepessege:
+  - Tulipan: pajzs 10 mp-ig · Sakura: gyogyitas · Diamond/Super: pajzs
+  - Fire/Graffiti: dupla lövés · Gamer/Ultra/Rainbow: harom lövés
+  - Phoenix: feleel halal utan · Glass/Stealth: lathatatlanság
+
+### Ket szemely (cross-device — Vercel szuker)
+
+1. **1. szemely** nyit egy szobat → 5-jegyu kod jelenik meg
+2. **2. szemely** beirja a kodot → "Csatlakozas" gomb
+3. Jatek indul, 800ms polling a szerverrel
+
+**Szuker beallitasa** (eloszor egyszer kell):
+1. Deploy-old a `push-server/` mappat a Vercel-re (ingyenes)
+2. Kapcsolj be egy Vercel KV adatbazist
+3. A konzolban futtasd:
+   ```js
+   localStorage.setItem('nu_game_api_url', 'https://YOUR.vercel.app');
+   ```
+4. Ujratoltes utan mukodik
 
 ## Hang rendszer
 
-Web Audio API szintetizált hangok:
-- 🎁 Box nyitás: unwrap + chime
-- 👝 Pouch nyitás: ascending triad
-- 💎 Daily Gem: magas csengő
+Web Audio API szintetizalt hangok:
+- 🎁 Box nyitas: unwrap + chime
+- 👝 Pouch nyitas: ascending triad
+- 💎 Daily Gem: magas csengo
 - ✨ Skin equip: shimmering sweep
 - 🎖️ BP szint claim: C-E-G-C akkord
 - ⚡ BP skip: power-up whoosh
+- 🔮 ZYNOX: misztikus pentatonikus akkord
 
 ## Titkos Rejtveny (Dragon Skin)
 
-A boltban van egy rejtvény — ha megoldod, kapsz egy titkos skint! 3 fokozatos tipp segít.
+A boltban van egy rejtveny — ha megoldod, kapsz egy titkos skint! 3 fokozatos tipp segit.
 
-## Sarkany Het (április 11–17)
+## Sarkany Het (aprilis 11-17)
 
-Időszakos esemény:
-- **Színvaltos sárkány robot** szárnyakkal, farokkal, szarvakkal
-- **Sötét sárkányos háttér** kod es izzó parázs részecskékkel
-- **Tűzokádás koppintásra**
+Idoszakos esemeny:
+- **Szinvaltos sarkany robot** szarnyakkal, farokkal, szarvakkal
+- **Sotet sarkanyos hatter** kod es izzo parazsz reszecskekkel
+- **Tuzokadas koppintasra**
 
-(Az eredeti sárkány zene és ikon override eltávolítva — helyette az app idő-alapú ambient zenéje szól mindig.)
+(Az app ambient zenéje szol mindig — sarkany zene eltávolitva.)
 
 ## Szinkronizalas
 
-A bolt headerben a 🔄 gombbal exportalhatod az adataidat. Mindent tartalmaz: skinek, kiegészítők, táncok, **gem egyenleg**, **napi loot status**, **Bot Pass progress**, Plus. Másik eszközön importálhatod — az adatok okosan összefésülődnek (gem → MAX, napi loot → local wins).
+A bolt headerben a 🔄 gombbal exportalhatod az adataidat. Mindent tartalmaz: skinek, kiegészítők, tancok, matricak, kártyák, **gem egyenleg**, **napi loot status**, **Bot Pass progress**, Plus. Masik eszközön importalhatod — az adatok okosan osszefesulodnek (gem → MAX, napi loot → local wins).
 
 ## Uzenet kategoriak
 
-365 uzenet, 12 kategoriaban:
+365 uzenet, 12 kategoriabal:
 
 1. Csend & Onismeret · 2. Kapcsolatok & Kozelseg · 3. Bolcsesseg & Ido
 4. Kitartas & Turelem · 5. Nyugalom & Jelenlet · 6. Konnyedseg & Mosoly
@@ -208,14 +265,15 @@ A bolt headerben a 🔄 gombbal exportalhatod az adataidat. Mindent tartalmaz: s
 1. Elso megnyitaskor add meg a **keresztneved**
 2. Kapsz **50 gem** induloként
 3. Kattints a 🏪 gombra → nyisd meg a **Daily Gem**-et, **DailyBox**-ot, **Pouch**-ot naponta
-4. Használd a **Bot Pass**-t a gyűjtéshez (napi 140 BP-vel haladsz)
-5. Gyűjts össze skineket, háttereket, aurákat, kiegészítőket, táncokat
-6. A 🔄 gombbal szinkronizáld más eszközre
+4. Hasznaald a **Bot Pass**-t a gyüjteshez (napi 140 BP-vel haladsz)
+5. Gyüjts ossze skineket, hattereket, aurákat, kiegeszítőket, tancokat, matricakat, kártyákat
+6. A 🔄 gombbal szinkronizald mas eszkozre
+7. Az ⚔️ gombbal jatssz AI ellen vagy csatlakoztasd a barátod a kóddal
 
-## Shop ikon piros NEW buborék
+## Shop ikon piros NEW buborek
 
-Ha napi loot elérhető (box, pouch, gem, vagy BP claim-re váró szint), a 🏪 gomb mellett **NEW** piros buborék jelenik meg.
+Ha napi loot elerheto (box, pouch, gem, vagy BP claim-re varo szint), a 🏪 gomb mellett **NEW** piros buborek jelenik meg.
 
 ## Tech Stack
 
-Egyetlen `index.html` fájl, beágyazott CSS + vanilla JavaScript. Nincsenek függőségek. PWA-ként működik offline is. Service Worker (**v29**) kezeli a cache-t és értesítéseket. Automatikus frissités-detektálás: új verzió elérhetőségekor az app újratölt.
+Egyetlen `index.html` fajl, beagyazott CSS + vanilla JavaScript. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (**v52**) kezeli a cache-t es ertesiteseket. Automatikus frissites-detektaias: uj verzio elerheto segekór az app ujratolt.
