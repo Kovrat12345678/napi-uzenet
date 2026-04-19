@@ -5412,8 +5412,9 @@
             if(dgSection) dgSection.style.display=spunToday_gem()?'none':'';
             const dbSection=document.getElementById('shopDailyBoxSection');
             if(dbSection) dbSection.style.display=boxesRemaining()<=0?'none':'';
+            // Pouch szekció MINDIG látszik — ha az ingyen elfogyott, még gemért vehető
             const dpSection=document.getElementById('shopDailyPouchSection');
-            if(dpSection) dpSection.style.display=pouchFreeAvailable()?'':'none';
+            if(dpSection) dpSection.style.display='';
             const dsSection=document.getElementById('shopDailySuperSection');
             if(dsSection) dsSection.style.display=(typeof dsAvailableToday==='function' && !dsAvailableToday())?'none':'';
 
