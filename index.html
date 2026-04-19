@@ -103,12 +103,20 @@
         .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
         .robot.ultra .heart-icon{filter:hue-rotate(320deg) brightness(1.2) saturate(1.4)!important}
         .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
-        /* Két oldalsó pink neon csík CSAK a törzsön */
+        /* Tech accent — két oldalsó pink neon csík + LED pontok */
         .robot.ultra .torso{position:relative}
-        .robot.ultra .torso::before,.robot.ultra .torso::after{content:'';position:absolute;top:10%;bottom:10%;width:4px;background:linear-gradient(to bottom,transparent 0%,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent 100%);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
+        .robot.ultra .torso::before,.robot.ultra .torso::after{content:'';position:absolute;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent 0%,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent 100%);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
         .robot.ultra .torso::before{left:10%}
         .robot.ultra .torso::after{right:10%;animation-delay:.5s}
         @keyframes ultraNeonPulse{0%,100%{opacity:.75;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
+        /* Fej — vékony horizontális tech sáv (mint egy LED kijelző) */
+        .robot.ultra .head{position:relative}
+        .robot.ultra .head::before{content:'';position:absolute;left:14px;right:14px;top:6px;height:2px;background:linear-gradient(90deg,transparent,#ec4899 20%,#f9a8d4 50%,#ec4899 80%,transparent);border-radius:1px;box-shadow:0 0 6px #ec4899;pointer-events:none;z-index:4;animation:ultraNeonPulse 1.8s ease-in-out infinite}
+        /* LED-szerű pontok a vállakon — 2 kis pink dot */
+        .robot.ultra .shoulder-l::before,.robot.ultra .shoulder-r::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:#ec4899;box-shadow:0 0 6px #ec4899,0 0 12px rgba(236,72,153,.7);animation:ultraNeonPulse 1.6s ease-in-out infinite;z-index:5}
+        /* Lábfej — vékony pink LED csík */
+        .robot.ultra .foot{position:relative}
+        .robot.ultra .foot::after{content:'';position:absolute;left:4px;right:4px;top:2px;height:2px;background:#ec4899;border-radius:1px;box-shadow:0 0 4px #ec4899;animation:ultraNeonPulse 2s ease-in-out infinite}
         /* Pink halo aura */
         .robot.ultra::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.2),transparent 65%);pointer-events:none;z-index:-2;filter:blur(8px)}
 
@@ -2163,11 +2171,14 @@
         /* Actions row */
         .bp-actions{padding:8px 18px 14px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
         .bp-actions::before{content:'⚡ AKCIÓK';display:block;font-size:11px;font-weight:900;color:rgba(255,255,255,.5);letter-spacing:2px;margin-bottom:4px;padding:0 4px}
-        .bp-skip-btn{position:relative;overflow:hidden;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(167,139,250,.2),rgba(59,130,246,.2));background-size:200% 200%;border:1.5px solid rgba(236,72,153,.45);border-radius:12px;color:#fff;cursor:pointer;animation:bpSkipFlow 6s ease-in-out infinite;box-shadow:0 4px 14px rgba(236,72,153,.2);font-weight:900;font-size:13px}
-        .bp-skip-icon{font-size:16px}
-        .bp-skip-title{font-weight:900;font-size:13px}
-        .bp-skip-price{font-size:11px;background:rgba(0,0,0,.3);padding:2px 8px;border-radius:8px;margin-left:auto}
-        .bp-plus-btn{flex:1}
+        /* Skip + Plus kompakt gombok */
+        .bp-skip-btn,.bp-plus-btn{position:relative;overflow:hidden;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 12px!important;border-radius:11px!important;color:#fff;cursor:pointer;font-weight:900;font-size:12px!important;border:none;letter-spacing:.3px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+        .bp-skip-btn{background:linear-gradient(135deg,#a78bfa,#7c3aed)!important;box-shadow:0 3px 10px rgba(124,58,237,.35)!important;animation:none!important}
+        .bp-plus-btn{background:linear-gradient(135deg,#fbbf24,#f59e0b)!important;color:#1a1a2e!important;box-shadow:0 3px 10px rgba(251,191,36,.35)!important;animation:none!important;text-shadow:none!important}
+        .bp-skip-btn span,.bp-plus-btn span{font-size:11px;background:rgba(0,0,0,.18);padding:2px 7px;border-radius:7px;font-weight:800}
+        .bp-plus-btn span{background:rgba(0,0,0,.15)}
+        .bp-skip-btn::before,.bp-plus-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
+        .bp-plus-btn.active{background:linear-gradient(135deg,#10b981,#059669)!important;color:#fff!important}
         @keyframes bpSkipFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .bp-skip-btn:active{transform:scale(.98)}
         .bp-skip-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:bpShine 3.5s linear infinite;pointer-events:none}
@@ -2560,6 +2571,7 @@
         .bp-hero-lvl strong{font-size:24px;background:linear-gradient(135deg,#fbbf24,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
         .bp-hero-meta{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:rgba(255,255,255,.8);margin-top:8px;padding:0 2px}
         .bp-hero-meta span:nth-child(2){color:#fbbf24;font-weight:900}
+        .bp-hero-info{margin-top:8px;font-size:10px;color:rgba(255,255,255,.55);text-align:center;font-weight:600;letter-spacing:.3px;font-style:italic}
 
         /* KÜLDETÉS sor — kompakt 5 mission ikonnal (4 + 1 bonus) */
         .bp-missions-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 14px;position:relative;z-index:2}
@@ -2574,16 +2586,18 @@
         .bp-mission-bonus .bp-mission-rew{color:#a78bfa}
         .bp-mission-bonus.done .bp-mission-rew{color:#fbbf24}
 
-        /* Plus jutalom alsó sor minden szinten — kompakt, beférős */
-        .bp-lvl-plus-row{position:relative;margin-top:6px;padding:5px 6px;background:rgba(167,139,250,.1);border:1px dashed rgba(167,139,250,.35);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:800;color:rgba(255,255,255,.55);width:100%;box-sizing:border-box;flex-wrap:wrap}
-        .bp-lvl-plus-row.locked{opacity:.5}
-        .bp-lvl-plus-row.active{border-style:solid;border-color:rgba(251,191,36,.5);background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(167,139,250,.1));color:#fff;box-shadow:0 2px 6px rgba(251,191,36,.18)}
-        .bp-lvl-plus-row.active.claimed{border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.12);opacity:.75}
-        .bp-lvl-plus-tag{font-size:8px;font-weight:900;color:#fbbf24;background:rgba(0,0,0,.3);padding:2px 5px;border-radius:5px;letter-spacing:.4px;flex-shrink:0}
-        .bp-lvl-plus-row.locked .bp-lvl-plus-tag{color:rgba(167,139,250,.65)}
-        .bp-lvl-plus-icon{font-size:13px;line-height:1;flex-shrink:0}
-        .bp-lvl-plus-name{font-size:9px;line-height:1.1;text-align:center;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-        .bp-lvl-plus-check{font-size:11px;color:#10b981;font-weight:900;flex-shrink:0}
+        /* Plus jutalom — UGYANOLYAN kártya formátum mint a base, alatta */
+        .bp-lvl-plus-row{position:relative;margin-top:8px;padding:10px 8px 8px;background:linear-gradient(160deg,rgba(167,139,250,.12),rgba(167,139,250,.04));border:1.5px solid rgba(167,139,250,.35);border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;box-sizing:border-box;min-height:84px}
+        .bp-lvl-plus-row.locked{filter:grayscale(.7) brightness(.7)}
+        .bp-lvl-plus-row.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:24px;text-shadow:0 2px 4px rgba(0,0,0,.6);z-index:2}
+        .bp-lvl-plus-row.locked .bp-lvl-plus-icon,.bp-lvl-plus-row.locked .bp-lvl-plus-name{opacity:.4}
+        .bp-lvl-plus-row.active{border-color:rgba(251,191,36,.55);background:linear-gradient(160deg,rgba(251,191,36,.16),rgba(167,139,250,.1));box-shadow:0 3px 10px rgba(251,191,36,.18)}
+        .bp-lvl-plus-row.active.claimed{border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.14)}
+        .bp-lvl-plus-tag{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:900;color:#fff;background:linear-gradient(135deg,#a78bfa,#7c3aed);padding:3px 9px;border-radius:8px;letter-spacing:.5px;border:1.5px solid rgba(15,10,31,.95);box-shadow:0 2px 6px rgba(124,58,237,.4)}
+        .bp-lvl-plus-row.active .bp-lvl-plus-tag{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e}
+        .bp-lvl-plus-icon{font-size:30px;line-height:1;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4));margin-top:6px}
+        .bp-lvl-plus-name{font-size:10px;font-weight:800;color:#fff;line-height:1.15;text-align:center;max-width:120px}
+        .bp-lvl-plus-check{position:absolute;top:6px;right:6px;width:18px;height:18px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:11px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(15,10,31,.95);box-shadow:0 2px 5px rgba(16,185,129,.5)}
         /* Mini robot a 60. szinten — kompakt */
         .bp-lvl-robot{position:relative;width:90px;height:80px;display:flex;align-items:center;justify-content:center}
         .bp-lvl-robot .dc-mini-robot-frame{height:80px;width:90px}
@@ -4698,11 +4712,13 @@
         const ITEM_PRICES={
             // Skinek
             'tulip':100,'sakura':100,'graffiti':100,
-            'stealth':200,'galaxy':200,'fire':200,'gamer':200,
-            'golden':400,'diamond':400,'glass':400,'horse':400,
-            'rainbow':600,'super':700,'ultra':999,'ultra-black':1500,
-            // MYTHIC skinek
-            'prism':800,'phoenix':900,'aurora':1000,
+            'stealth':200,'galaxy':200,'fire':200,
+            'golden':400,'diamond':400,'horse':400,
+            'prism':400,'aurora':500,
+            'rainbow':600,
+            // MYTHIC skinek (601+)
+            'super':1000,'glass':1000,'gamer':1000,'phoenix':900,
+            'ultra':999,'ultra-black':1500,
             // Hátterek
             'bg-tulip':80,'bg-sakura':80,'bg-graffiti':80,
             'bg-galaxy':150,'bg-stealth':150,'bg-fire':150,
@@ -5829,7 +5845,7 @@
             17:{type:'item_rare',icon:'🔥',name:'Fire háttér',itemId:'bg-fire'},
             18:{type:'gems',amount:60,icon:'💎',name:'60 gem'},
             19:{type:'box_buy',tier:'common',icon:'📦',name:'Common Box'},
-            20:{type:'item_rare',icon:'🔥',name:'Fire Skin',itemId:'fire'},
+            20:{type:'gems',amount:150,icon:'💰',name:'150 gem'},
             21:{type:'gems',amount:50,icon:'💎',name:'50 gem'},
             22:{type:'pouch',icon:'👝',name:'1× Pouch'},
             23:{type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'},
@@ -5849,7 +5865,7 @@
             37:{type:'gems',amount:75,icon:'💎',name:'75 gem'},
             38:{type:'pouch',icon:'👝',name:'1× Pouch'},
             39:{type:'box_buy',tier:'legendary',icon:'🏆',name:'Legendary Box'},
-            40:{type:'item_epic',icon:'✨',name:'Golden Skin',itemId:'golden'},
+            40:{type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'},
             41:{type:'item_epic',icon:'💎',name:'Gyémánt Aura',itemId:'aura-diamond'},
             42:{type:'gems',amount:100,icon:'💎',name:'100 gem'},
             43:{type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'},
@@ -5859,7 +5875,7 @@
             47:{type:'pouch',icon:'👝',name:'1× Pouch'},
             48:{type:'gems',amount:120,icon:'💎',name:'120 gem'},
             49:{type:'item_ultra',icon:'⭐',name:'Celestial Aura',itemId:'aura-celestial'},
-            50:{type:'item_ultra',icon:'🦸',name:'Super Skin',itemId:'super'},
+            50:{type:'box_buy',tier:'mythic',icon:'💠',name:'Mythic Box'},
             51:{type:'item_epic',icon:'🌃',name:'Gamer Room háttér',itemId:'bg-gamer'},
             52:{type:'pouch',icon:'👝',name:'1× Pouch'},
             53:{type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'},
@@ -6022,8 +6038,8 @@
             if(progressFill) progressFill.style.width=(xp/XP_PER_LEVEL*100)+'%';
             if(heroBp) heroBp.textContent=xp+' / 100 BP';
 
-            if(plus){plusBtn.classList.add('active');plusBtn.textContent='⭐ Plus aktív';plusBtn.disabled=true}
-            else{plusBtn.classList.remove('active');plusBtn.textContent='⭐ Bot Pass Plus (999 💎) — dupla jutalom';plusBtn.disabled=false}
+            if(plus){plusBtn.classList.add('active');plusBtn.innerHTML='⭐ Plus aktív';plusBtn.disabled=true}
+            else{plusBtn.classList.remove('active');plusBtn.innerHTML='⭐ Plus <span>999 💎</span>';plusBtn.disabled=false}
 
             // Szezon countdown
             const remainEl=document.getElementById('bpSeasonRemain');
@@ -6074,20 +6090,7 @@
                 }
             }catch(_){}
 
-            // Season skin robot — tetején
-            try{
-                const seasonSkinId=plus?'ultra-black':'ultra';
-                const seasonSkinName=plus?'Ultra Black':'Ultra Bot';
-                const seasonSkinDesc=plus?'PLUS exkluzív · fekete + pink neon':'Áprilisi szezon · fehér + pink neon AI';
-                const robotEl=document.getElementById('bpSeasonSkinRobot');
-                const nameEl=document.getElementById('bpSeasonSkinName');
-                const descEl=document.getElementById('bpSeasonSkinDesc');
-                if(robotEl && typeof buildMiniRobotHtml==='function'){
-                    robotEl.innerHTML=buildMiniRobotHtml(seasonSkinId,false);
-                }
-                if(nameEl) nameEl.textContent=seasonSkinName;
-                if(descEl) descEl.textContent=seasonSkinDesc;
-            }catch(_){}
+            // Season skin display eltávolítva — már nem rendereljük
 
             // Csillámok háttérben
             const sparkleLayer=document.getElementById('bpSparkleLayer');
@@ -7733,16 +7736,6 @@
             <button class="shop-close-btn" id="bpClose">✕</button>
         </div>
 
-        <!-- SEASON SKIN — havi exkluzív robot -->
-        <div class="bp-season-skin" id="bpSeasonSkin">
-            <div class="bp-season-skin-info">
-                <div class="bp-season-skin-label">FŐ JUTALOM · SZINT 60</div>
-                <div class="bp-season-skin-name" id="bpSeasonSkinName">Ultra Bot</div>
-                <div class="bp-season-skin-desc" id="bpSeasonSkinDesc">Áprilisi szezon · fehér + pink neon AI</div>
-            </div>
-            <div class="bp-season-skin-robot" id="bpSeasonSkinRobot"></div>
-        </div>
-
         <!-- HERO: Szint + XP egyszerűsítve -->
         <div class="bp-hero">
             <div class="bp-hero-top">
@@ -7757,6 +7750,7 @@
                 <span>⏳ <span id="bpSeasonRemain">–</span> nap</span>
                 <span id="bpClaimablePill" style="display:none">🎁 <span id="bpClaimableCount">0</span> kérhető</span>
             </div>
+            <div class="bp-hero-info">💡 BP = Bot Pont · 100 BP = 1 szint</div>
         </div>
 
         <!-- KÜLDETÉSEK: kompakt sor, kevés szöveg -->
@@ -7788,24 +7782,10 @@
             </div>
         </div>
 
-        <!-- KÖVETKEZŐ JUTALOM: kompakt -->
-        <div class="bp-next-reward" id="bpNextReward" style="display:none">
-            <span class="bp-next-reward-icon" id="bpNextRewardIcon">🎁</span>
-            <div class="bp-next-reward-info">
-                <div class="bp-next-reward-label">Szint <span id="bpNextRewardLvl">2</span></div>
-                <div class="bp-next-reward-name" id="bpNextRewardName">DailyBox</div>
-            </div>
-            <div class="bp-next-reward-meta" id="bpNextRewardMeta">100 BP</div>
-        </div>
-
-        <!-- AKCIÓK -->
+        <!-- AKCIÓK — kompakt sor -->
         <div class="bp-actions">
-            <button class="bp-skip-btn" id="bpSkipBtn">
-                <span class="bp-skip-icon">⚡</span>
-                <span class="bp-skip-title">Skip</span>
-                <span class="bp-skip-price">60 💎</span>
-            </button>
-            <button class="bp-plus-btn" id="bpPlusBtn">⭐ Plus 999 💎</button>
+            <button class="bp-skip-btn" id="bpSkipBtn">⚡ Skip <span>60 💎</span></button>
+            <button class="bp-plus-btn" id="bpPlusBtn">⭐ Plus <span>999 💎</span></button>
         </div>
 
         <!-- SÁV -->
