@@ -565,25 +565,98 @@
         /* ========== LOADING SCREEN ========== */
         .loading-screen{
             position:fixed;inset:0;z-index:9999;
-            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
-            background:linear-gradient(165deg,#042f2e 0%,#064e3b 30%,#0c4a6e 60%,#0f172a 100%);
-            transition:opacity .5s ease;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
+            background:linear-gradient(135deg,#0f0a1f 0%,#1e1b4b 25%,#3b0764 50%,#581c87 75%,#0f0a1f 100%);
+            background-size:300% 300%;
+            animation:loadingBgFlow 14s ease infinite;
+            transition:opacity .55s ease, transform .55s ease;
+            overflow:hidden;
+            font-family:'SF Pro Display',system-ui,-apple-system,sans-serif;
         }
-        .loading-screen.fade-out{opacity:0;pointer-events:none}
+        @keyframes loadingBgFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .loading-screen.fade-out{opacity:0;transform:scale(1.05);pointer-events:none}
+        /* Csillagok háttér */
+        .loading-screen::before{
+            content:'';position:absolute;inset:0;
+            background:
+                radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.6),transparent),
+                radial-gradient(2px 2px at 70% 80%,rgba(251,191,36,.5),transparent),
+                radial-gradient(1px 1px at 35% 70%,rgba(255,255,255,.5),transparent),
+                radial-gradient(2px 2px at 85% 25%,rgba(236,72,153,.4),transparent),
+                radial-gradient(1px 1px at 50% 50%,rgba(167,139,250,.5),transparent),
+                radial-gradient(2px 2px at 15% 85%,rgba(255,255,255,.4),transparent),
+                radial-gradient(1px 1px at 60% 15%,rgba(34,211,238,.5),transparent),
+                radial-gradient(2px 2px at 90% 60%,rgba(255,255,255,.3),transparent);
+            background-size:800px 800px;
+            animation:loadingStarsDrift 60s linear infinite;
+            opacity:.7;
+        }
+        @keyframes loadingStarsDrift{from{transform:translateY(0)}to{transform:translateY(-800px)}}
+        /* Áramló konikus gyűrű az ikon körül */
+        .loading-icon-frame{
+            position:relative;width:128px;height:128px;display:flex;align-items:center;justify-content:center;
+            animation:loadingIconBob 3s ease-in-out infinite;
+        }
+        @keyframes loadingIconBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .loading-icon-frame::before{
+            content:'';position:absolute;inset:-8px;border-radius:50%;
+            background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#10b981,#fbbf24);
+            animation:dcMythicSpin 4s linear infinite;
+            filter:blur(8px);opacity:.8;
+        }
+        .loading-icon-frame::after{
+            content:'';position:absolute;inset:0;border-radius:30px;
+            background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.3),transparent 50%);
+            pointer-events:none;
+        }
         .loading-icon{
-            width:80px;height:80px;border-radius:20px;
-            box-shadow:0 4px 30px rgba(14,165,233,.4),0 0 60px rgba(14,165,233,.15);
-            object-fit:cover;
+            width:108px;height:108px;border-radius:28px;
+            box-shadow:0 10px 40px rgba(0,0,0,.4),0 0 30px rgba(167,139,250,.4),inset 0 1px 0 rgba(255,255,255,.2);
+            object-fit:cover;position:relative;z-index:2;
+            border:2px solid rgba(255,255,255,.1);
         }
+        .loading-title{
+            font-size:32px;font-weight:900;letter-spacing:1px;
+            background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);
+            background-size:300% 100%;
+            -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+            animation:flowColor 3.5s linear infinite;
+            text-align:center;
+            text-shadow:0 0 30px rgba(167,139,250,.4);
+            position:relative;z-index:2;
+        }
+        .loading-sub{
+            font-size:11px;font-weight:700;color:rgba(255,255,255,.6);
+            letter-spacing:3px;text-transform:uppercase;
+            margin-top:-14px;position:relative;z-index:2;
+            animation:loadingSubFade 2s ease-in-out infinite;
+        }
+        @keyframes loadingSubFade{0%,100%{opacity:.5}50%{opacity:1}}
         .loading-bar-wrap{
-            width:160px;height:4px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;
+            width:200px;height:8px;border-radius:8px;background:rgba(0,0,0,.4);
+            border:1.5px solid rgba(255,255,255,.15);
+            overflow:hidden;position:relative;z-index:2;
+            box-shadow:inset 0 2px 4px rgba(0,0,0,.5),0 0 20px rgba(167,139,250,.2);
         }
         .loading-bar{
-            height:100%;width:0%;border-radius:4px;
-            background:linear-gradient(90deg,#0ea5e9,#38bdf8,#7dd3fc);
-            transition:width .3s ease;
+            height:100%;width:0%;border-radius:6px;
+            background:linear-gradient(90deg,#fbbf24 0%,#ec4899 35%,#a78bfa 70%,#22d3ee 100%);
+            background-size:200% 100%;
+            animation:bpXpFlow 2s linear infinite;
+            transition:width .35s cubic-bezier(.4,1.4,.6,1);
+            box-shadow:0 0 12px rgba(251,191,36,.6),0 0 24px rgba(236,72,153,.3);
         }
-        .loading-pct{color:rgba(255,255,255,.5);font-size:12px;font-family:system-ui,sans-serif;font-weight:600}
+        .loading-bar::after{
+            content:'';position:absolute;top:0;right:0;width:20px;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.6));
+            animation:loadingBarTip 1.4s ease-in-out infinite;
+        }
+        @keyframes loadingBarTip{0%,100%{opacity:.6}50%{opacity:1}}
+        .loading-pct{
+            color:#fff;font-size:14px;font-weight:900;letter-spacing:.5px;
+            position:relative;z-index:2;
+            text-shadow:0 0 8px rgba(167,139,250,.5);
+        }
 
         /* ========== DRAGON SPIN ========== */
         .dragon-spin-section{padding:20px 0 8px}
@@ -1644,7 +1717,11 @@
         .loot-card.pouch-card{border-color:rgba(251,191,36,.3);background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(180,83,9,.08))}
         .loot-card-visual{flex-shrink:0;width:90px;height:90px;display:flex;align-items:center;justify-content:center}
         .loot-card-info{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
-        .loot-card-title{font-size:16px;font-weight:800;color:#fff}
+        .loot-card-title{font-size:18px;font-weight:900;color:#fff;letter-spacing:.4px}
+        /* Színes loot title gradients tier-szerint */
+        .loot-card.gem-card .loot-card-title{background:linear-gradient(90deg,#fde68a,#fbbf24,#f59e0b,#fde68a);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite}
+        .loot-card.box-card .loot-card-title{background:linear-gradient(90deg,#f9a8d4,#ec4899,#be185d,#f9a8d4);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite}
+        .loot-card.pouch-card .loot-card-title{background:linear-gradient(90deg,#fef3c7,#fbbf24,#92400e,#fef3c7);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite}
         .loot-card-sub{font-size:11px;color:rgba(255,255,255,.55);line-height:1.3}
         .loot-card-count{font-size:12px;color:rgba(255,255,255,.7);margin-top:4px;font-weight:600}
         .loot-card-btn{margin-top:8px;padding:9px 16px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:800;font-size:13px;border:none;border-radius:10px;cursor:pointer;align-self:flex-start;box-shadow:0 4px 12px rgba(251,191,36,.3)}
@@ -2103,6 +2180,9 @@
         .dc-mini-robot-frame.large{height:240px}
         /* Locked ikon — nagyobb, opacity */
         .dc-card-image-locked{font-size:64px;opacity:.55}
+        /* Grid kis nézet emoji ikon pulzáló glow-val */
+        .dc-card-image-emoji{font-size:72px;line-height:1;text-shadow:0 4px 14px rgba(0,0,0,.5);filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));animation:dcEmojiPulse 3s ease-in-out infinite;display:inline-block}
+        @keyframes dcEmojiPulse{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}}
         .dc-card-name{font-size:14px;font-weight:900;color:#fff;text-align:center;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:4px}
         .dc-card-bar{height:6px;background:rgba(0,0,0,.45);border-radius:3px;overflow:hidden;margin-bottom:6px}
         .dc-card-bar-fill{height:100%;width:var(--pwr,50%);background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);border-radius:3px;box-shadow:0 0 6px rgba(251,191,36,.5)}
@@ -2299,12 +2379,146 @@
         #streak.on{position:relative;overflow:visible}
         #streak.on::after{content:'';position:absolute;inset:-3px;border-radius:inherit;background:radial-gradient(ellipse at center,rgba(251,146,60,.4),transparent 70%);z-index:-1;animation:bpShine 3s ease-in-out infinite;pointer-events:none}
 
+        /* ============== BOT PASS — ÚJ ELEMEK ============== */
+        /* Háttér blob-ok */
+        .bp-bg-blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+        .bp-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;animation:bpBlobFloat 18s ease-in-out infinite}
+        .bp-blob-1{width:280px;height:280px;background:radial-gradient(circle,#a78bfa,transparent 70%);top:-80px;left:-60px;animation-delay:0s}
+        .bp-blob-2{width:240px;height:240px;background:radial-gradient(circle,#ec4899,transparent 70%);bottom:-40px;right:-40px;animation-delay:-6s}
+        .bp-blob-3{width:200px;height:200px;background:radial-gradient(circle,#fbbf24,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-12s}
+        @keyframes bpBlobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-20px) scale(1.1)}66%{transform:translate(-20px,15px) scale(.9)}}
+        /* Bot Pass header és state, többi sor felett */
+        .bp-header,.bp-state,.bp-missions,.bp-actions,.bp-rewards-title,.bp-swipe-hint,.bp-track-container{position:relative;z-index:2}
+
+        /* Szezon countdown sor */
+        .bp-season-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:center}
+        .bp-season-pill{font-size:11px;font-weight:800;padding:6px 12px;border-radius:20px;letter-spacing:.4px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff}
+        .bp-season-pill-time{background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(2,132,199,.1));border-color:rgba(56,189,248,.4)}
+        .bp-season-pill-claim{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(245,158,11,.12));border-color:rgba(251,191,36,.5);animation:bpClaimablePulse 2s ease-in-out infinite}
+        @keyframes bpClaimablePulse{0%,100%{transform:scale(1);box-shadow:0 0 0 rgba(251,191,36,.3)}50%{transform:scale(1.05);box-shadow:0 0 16px rgba(251,191,36,.5)}}
+
+        /* Napi küldetések sor */
+        .bp-missions{padding:12px 18px 4px;margin:8px 0 4px}
+        .bp-missions-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;padding:0 4px}
+        .bp-missions-title{font-size:12px;font-weight:900;color:rgba(255,255,255,.85);letter-spacing:1px;text-transform:uppercase}
+        .bp-missions-prog{font-size:13px;font-weight:900;color:#fbbf24;background:rgba(251,191,36,.12);padding:3px 10px;border-radius:12px;border:1px solid rgba(251,191,36,.3);letter-spacing:.5px}
+        .bp-missions-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+        .bp-mission{position:relative;padding:10px 6px 8px;text-align:center;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.01));border:1.5px solid rgba(255,255,255,.12);border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .3s cubic-bezier(.4,1.6,.5,1)}
+        .bp-mission-icon{font-size:24px;line-height:1;filter:drop-shadow(0 3px 8px rgba(0,0,0,.4));margin-bottom:2px}
+        .bp-mission-name{font-size:9.5px;font-weight:800;color:rgba(255,255,255,.85);letter-spacing:.3px;line-height:1.2}
+        .bp-mission-rew{font-size:9px;font-weight:900;color:#fbbf24;letter-spacing:.5px}
+        .bp-mission-check{position:absolute;top:-6px;right:-6px;width:22px;height:22px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:13px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(15,10,31,.95);box-shadow:0 3px 10px rgba(16,185,129,.5);opacity:0;transform:scale(0)}
+        .bp-mission.done{border-color:rgba(16,185,129,.55);background:linear-gradient(160deg,rgba(16,185,129,.18),rgba(5,150,105,.05));box-shadow:0 4px 14px rgba(16,185,129,.2)}
+        .bp-mission.done .bp-mission-check{opacity:1;transform:scale(1);transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+        .bp-mission.done .bp-mission-icon{animation:bpMissionDone .55s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes bpMissionDone{0%{transform:scale(1)}50%{transform:scale(1.3) rotate(-8deg)}100%{transform:scale(1) rotate(0deg)}}
+        .bp-missions-bonus{margin-top:10px;text-align:center;font-size:11px;font-weight:800;color:rgba(167,139,250,.85);background:rgba(167,139,250,.1);border:1px dashed rgba(167,139,250,.35);padding:6px 12px;border-radius:10px;letter-spacing:.4px}
+        .bp-missions-bonus.done{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(167,139,250,.12));border-style:solid;border-color:rgba(251,191,36,.5);color:#fbbf24}
+
+        /* ============== BOX TIER RENDSZER ============== */
+        .box-tier-row{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;padding:6px 20px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory}
+        .box-tier-row::-webkit-scrollbar{display:none}
+        .box-tier-card{position:relative;flex-shrink:0;width:170px;padding:18px 14px 14px;border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;cursor:default;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.16);box-shadow:0 8px 24px rgba(0,0,0,.3);scroll-snap-align:start;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .3s cubic-bezier(.4,1.6,.5,1),box-shadow .3s}
+        .box-tier-card:hover{transform:translateY(-6px)}
+        .box-tier-glow{position:absolute;inset:0;border-radius:20px;pointer-events:none;z-index:0;opacity:.7}
+        .box-tier-shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.1) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 4s linear infinite;pointer-events:none;z-index:1;border-radius:20px;mix-blend-mode:screen}
+        .box-tier-icon-wrap{position:relative;width:90px;height:90px;display:flex;align-items:center;justify-content:center;z-index:2}
+        .box-tier-name{font-size:14px;font-weight:900;letter-spacing:.4px;z-index:2;position:relative}
+        .box-tier-sub{font-size:10px;font-weight:600;color:rgba(255,255,255,.65);line-height:1.3;z-index:2;position:relative;min-height:26px;padding:0 4px}
+        .box-tier-btn{margin-top:4px;padding:10px 14px;border:none;border-radius:11px;font-weight:900;font-size:12px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;color:#1a1a2e;width:100%;position:relative;z-index:2;overflow:hidden;text-shadow:0 1px 2px rgba(255,255,255,.2);box-shadow:0 4px 14px rgba(0,0,0,.3);transition:transform .15s}
+        .box-tier-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
+        .box-tier-btn:active{transform:scale(.95)}
+        .box-tier-btn:disabled{opacity:.5;cursor:default}
+        /* Daily tier */
+        .box-tier-card.tier-daily{border-color:rgba(56,189,248,.45)}
+        .box-tier-card.tier-daily .box-tier-glow{background:radial-gradient(circle at 50% 30%,rgba(56,189,248,.3),rgba(14,165,233,.1) 60%,transparent 80%)}
+        .tier-daily-name{background:linear-gradient(90deg,#7dd3fc,#38bdf8,#0ea5e9,#7dd3fc);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite}
+        .tier-daily-btn{background:linear-gradient(135deg,#7dd3fc,#0ea5e9);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+        /* Common tier */
+        .box-tier-card.tier-common{border-color:rgba(148,163,184,.55)}
+        .box-tier-card.tier-common .box-tier-glow{background:radial-gradient(circle at 50% 30%,rgba(203,213,225,.35),rgba(100,116,139,.1) 60%,transparent 80%)}
+        .tier-common-name{color:#cbd5e1;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+        .tier-common-btn{background:linear-gradient(135deg,#cbd5e1,#94a3b8);color:#1a1a2e}
+        /* Legendary tier */
+        .box-tier-card.tier-legendary{border-color:rgba(251,191,36,.7);box-shadow:0 10px 30px rgba(251,191,36,.25)}
+        .box-tier-card.tier-legendary .box-tier-glow{background:radial-gradient(circle at 50% 30%,rgba(251,191,36,.4),rgba(217,119,6,.15) 60%,transparent 80%);animation:dcLegendaryPulse 2.5s ease-in-out infinite}
+        .tier-legendary-name{background:linear-gradient(90deg,#fde68a,#fbbf24,#f59e0b,#fde68a);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-size:15px}
+        .tier-legendary-btn{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;box-shadow:0 6px 18px rgba(251,191,36,.4)}
+        /* Mythic tier */
+        .box-tier-card.tier-mythic{border-color:transparent;background:linear-gradient(160deg,#1a0f2e,#0f0a1f);box-shadow:0 14px 40px rgba(167,139,250,.4),0 0 30px rgba(236,72,153,.2)}
+        .box-tier-card.tier-mythic::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);animation:dcMythicSpin 6s linear infinite;z-index:0;opacity:.6;filter:blur(4px)}
+        .box-tier-card.tier-mythic::after{content:'';position:absolute;inset:1.5px;border-radius:18px;background:linear-gradient(160deg,#1a0f2e 0%,#0f0a1f 100%);z-index:0}
+        .box-tier-card.tier-mythic > *{position:relative;z-index:2}
+        .tier-mythic-name{background:linear-gradient(90deg,#ec4899,#a78bfa,#22d3ee,#10b981,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;font-size:15px;letter-spacing:.6px}
+        .tier-mythic-btn{background:linear-gradient(135deg,#ec4899 0%,#a78bfa 50%,#22d3ee 100%);background-size:200% 100%;animation:flowColor 3s linear infinite;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4);box-shadow:0 8px 24px rgba(236,72,153,.4)}
+        .box-tier-mythic-orbit{position:absolute;inset:8px;pointer-events:none;z-index:3}
+        .box-tier-mythic-orbit span{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff,0 0 16px currentColor;top:50%;left:50%;animation:mythicOrbit 4s linear infinite}
+        .box-tier-mythic-orbit span:nth-child(1){color:#fbbf24;animation-delay:0s}
+        .box-tier-mythic-orbit span:nth-child(2){color:#ec4899;animation-delay:-1.3s}
+        .box-tier-mythic-orbit span:nth-child(3){color:#22d3ee;animation-delay:-2.6s}
+        @keyframes mythicOrbit{from{transform:rotate(0deg) translateX(70px) rotate(0deg)}to{transform:rotate(360deg) translateX(70px) rotate(-360deg)}}
+
+        /* Tier-specific gift box visuals */
+        .gift-box.mini{transform:scale(.6);transform-origin:center}
+        .tier-daily-box .gift-body{background:linear-gradient(135deg,#7dd3fc,#0ea5e9 60%,#0369a1)!important}
+        .tier-daily-box .gift-lid{background:linear-gradient(135deg,#bae6fd,#38bdf8 60%,#0ea5e9)!important}
+        .tier-daily-box .gift-ribbon-v,.tier-daily-box .gift-ribbon-h,.tier-daily-box .bow-l,.tier-daily-box .bow-r,.tier-daily-box .bow-c{background:#fbbf24!important}
+        .tier-common-box .gift-body{background:linear-gradient(135deg,#cbd5e1,#94a3b8 60%,#475569)!important}
+        .tier-common-box .gift-lid{background:linear-gradient(135deg,#e2e8f0,#cbd5e1 60%,#94a3b8)!important}
+        .tier-common-box .gift-ribbon-v,.tier-common-box .gift-ribbon-h,.tier-common-box .bow-l,.tier-common-box .bow-r,.tier-common-box .bow-c{background:#0ea5e9!important}
+        .tier-legendary-box .gift-body{background:linear-gradient(135deg,#fde68a,#fbbf24 50%,#b45309)!important;box-shadow:0 0 20px rgba(251,191,36,.5)}
+        .tier-legendary-box .gift-lid{background:linear-gradient(135deg,#fef3c7,#fde68a 50%,#fbbf24)!important}
+        .tier-legendary-box .gift-ribbon-v,.tier-legendary-box .gift-ribbon-h,.tier-legendary-box .bow-l,.tier-legendary-box .bow-r,.tier-legendary-box .bow-c{background:linear-gradient(135deg,#fff,#fde68a)!important}
+        .tier-mythic-box .gift-body{background:linear-gradient(135deg,#0f0a1f,#3b0764 50%,#831843)!important;box-shadow:0 0 24px rgba(236,72,153,.6)}
+        .tier-mythic-box .gift-lid{background:linear-gradient(135deg,#a78bfa,#ec4899 50%,#a78bfa)!important;background-size:200% 100%!important;animation:flowColor 3s linear infinite}
+        .tier-mythic-box .gift-ribbon-v,.tier-mythic-box .gift-ribbon-h{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24)!important;background-size:200% 100%!important;animation:flowColor 3s linear infinite}
+        .tier-mythic-box .bow-l,.tier-mythic-box .bow-r,.tier-mythic-box .bow-c{background:linear-gradient(135deg,#22d3ee,#ec4899)!important}
+
+        /* ============== GEM SHOP ============== */
+        .gem-shop-row{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:6px 20px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory}
+        .gem-shop-row::-webkit-scrollbar{display:none}
+        .gem-pack{position:relative;flex-shrink:0;width:140px;padding:14px 10px 12px;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;cursor:pointer;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.16);box-shadow:0 8px 24px rgba(0,0,0,.3);scroll-snap-align:start;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .3s cubic-bezier(.4,1.6,.5,1),box-shadow .3s}
+        .gem-pack:hover{transform:translateY(-4px) scale(1.02)}
+        .gem-pack-glow{position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:0;opacity:.7}
+        .gem-pack-shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 4.5s linear infinite;pointer-events:none;z-index:1;border-radius:18px;mix-blend-mode:screen}
+        .gem-pack-badge{position:absolute;top:-1px;right:-1px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:9px;font-weight:900;padding:4px 8px;border-radius:0 17px 0 10px;letter-spacing:.5px;z-index:3;box-shadow:0 2px 8px rgba(239,68,68,.4)}
+        .gem-pack-icon{font-size:30px;line-height:1.1;z-index:2;position:relative;filter:drop-shadow(0 4px 10px rgba(251,191,36,.5));margin-top:8px;animation:gemPackBob 3s ease-in-out infinite}
+        @keyframes gemPackBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-3px) rotate(3deg)}}
+        .gem-pack-amount{font-size:22px;font-weight:900;background:linear-gradient(135deg,#fde68a,#fbbf24,#f59e0b);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;line-height:1;z-index:2;position:relative}
+        .gem-pack-amount span{display:block;font-size:9px;font-weight:700;color:rgba(255,255,255,.55);-webkit-text-fill-color:rgba(255,255,255,.55);margin-top:2px;letter-spacing:1.5px;text-transform:uppercase}
+        .gem-pack-price{font-size:13px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);z-index:2;position:relative}
+        .gem-pack-btn{margin-top:4px;padding:8px 14px;border:none;border-radius:10px;font-weight:900;font-size:11px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;width:100%;color:#fff;background:linear-gradient(135deg,#fbbf24,#f59e0b);box-shadow:0 4px 12px rgba(251,191,36,.3);position:relative;overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+        .gem-pack-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
+        .gem-pack-btn:active{transform:scale(.95)}
+        .tier-pack-small{border-color:rgba(56,189,248,.4)}
+        .tier-pack-small .gem-pack-glow{background:radial-gradient(circle at 50% 30%,rgba(56,189,248,.25),rgba(2,132,199,.05) 60%,transparent 80%)}
+        .tier-pack-medium{border-color:rgba(168,85,247,.5)}
+        .tier-pack-medium .gem-pack-glow{background:radial-gradient(circle at 50% 30%,rgba(168,85,247,.3),rgba(124,58,237,.1) 60%,transparent 80%)}
+        .tier-pack-large{border-color:rgba(251,191,36,.6);box-shadow:0 10px 30px rgba(251,191,36,.25)}
+        .tier-pack-large .gem-pack-glow{background:radial-gradient(circle at 50% 30%,rgba(251,191,36,.35),rgba(217,119,6,.1) 60%,transparent 80%);animation:dcLegendaryPulse 3s ease-in-out infinite}
+        .tier-pack-mega{border-color:transparent;background:linear-gradient(160deg,#1a0f2e,#0f0a1f)}
+        .tier-pack-mega::before{content:'';position:absolute;inset:-2px;border-radius:20px;background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);animation:dcMythicSpin 6s linear infinite;z-index:0;opacity:.6;filter:blur(4px)}
+        .tier-pack-mega::after{content:'';position:absolute;inset:1.5px;border-radius:16px;background:linear-gradient(160deg,#1a0f2e 0%,#0f0a1f 100%);z-index:0}
+        .tier-pack-mega > *{position:relative;z-index:2}
+        .tier-pack-mega .gem-pack-amount{background:linear-gradient(90deg,#ec4899,#a78bfa,#22d3ee,#fbbf24,#ec4899);background-size:200% 100%}
+        .tier-pack-mega .gem-pack-btn{background:linear-gradient(135deg,#ec4899,#a78bfa,#22d3ee);background-size:200% 100%;animation:flowColor 3s linear infinite}
+
+        /* Box opening overlay tier-aware updates */
+        .db-overlay.tier-legendary .db-content{background:linear-gradient(135deg,rgba(120,80,20,.95),rgba(180,83,9,.95))!important;border-color:rgba(251,191,36,.7)!important;box-shadow:0 20px 60px rgba(251,191,36,.4)!important}
+        .db-overlay.tier-mythic .db-content{background:linear-gradient(135deg,rgba(60,30,90,.95),rgba(15,10,31,.97) 60%,rgba(131,24,67,.95))!important;background-size:300% 300%!important;animation:bpPanelFlow 12s ease infinite!important;border-color:rgba(236,72,153,.7)!important;box-shadow:0 20px 60px rgba(236,72,153,.5),0 0 50px rgba(167,139,250,.3)!important}
+        .db-overlay.tier-common .db-content{border-color:rgba(148,163,184,.5)!important}
+        .db-overlay.tier-mythic .db-prompt{background:linear-gradient(90deg,#ec4899,#a78bfa,#22d3ee,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;font-weight:900}
+
     </style>
 </head>
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <img class="loading-icon" id="loadingIcon" alt="DailyBot">
+        <div class="loading-icon-frame">
+            <img class="loading-icon" id="loadingIcon" alt="DailyBot">
+        </div>
+        <div class="loading-title">DailyBot</div>
+        <div class="loading-sub" id="loadingSub">Felkészítés...</div>
         <div class="loading-bar-wrap"><div class="loading-bar" id="loadingBar"></div></div>
         <div class="loading-pct" id="loadingPct">0%</div>
     </div>
@@ -2314,7 +2528,9 @@
         li.src='icon/dailybot-icon.png';
         const bar=document.getElementById('loadingBar');
         const pct=document.getElementById('loadingPct');
+        const sub=document.getElementById('loadingSub');
         const screen=document.getElementById('loadingScreen');
+        const messages=['Felkészítés...','DailyCard pakkok...','Bot Pass szezon...','Üdvözöllek!'];
         let progress=0;
         const steps=[12,25,38,50,62,75,85,92,97,100];
         let i=0;
@@ -2323,6 +2539,13 @@
             else{progress=100;}
             bar.style.width=progress+'%';
             pct.textContent=progress+'%';
+            // Üzenetek váltása a progress-szel
+            if(sub){
+                if(progress>=85) sub.textContent=messages[3];
+                else if(progress>=60) sub.textContent=messages[2];
+                else if(progress>=30) sub.textContent=messages[1];
+                else sub.textContent=messages[0];
+            }
             if(progress>=100){
                 clearInterval(iv);
                 setTimeout(()=>{
@@ -2473,7 +2696,7 @@
     <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
         <div class="shop-header">
-            <div class="shop-title">🏪 Skin Bolt</div>
+            <div class="shop-title">🏪 Skin Shop</div>
             <div style="display:flex;gap:8px;align-items:center">
                 <div class="shop-gems">💎 <span data-gem-display>0</span></div>
                 <div class="sync-toggle" id="syncToggle">🔄</div>
@@ -2512,29 +2735,110 @@
             </div>
         </div>
 
-        <!-- DailyBox szekció -->
+        <!-- Gem Shop — gem package vásárlás -->
         <div class="shop-section">
-            <div class="loot-card-wrap">
-                <div class="loot-card box-card" id="shopBoxCard">
-                    <div class="loot-card-visual">
-                        <div class="gift-box">
-                            <div class="gift-shine"></div>
-                            <div class="gift-body"></div>
-                            <div class="gift-lid"></div>
-                            <div class="gift-ribbon-v"></div>
-                            <div class="gift-ribbon-h"></div>
-                            <div class="gift-bow">
-                                <span class="bow-l"></span>
-                                <span class="bow-r"></span>
-                                <span class="bow-c"></span>
-                            </div>
+            <div class="gem-shop-row">
+                <div class="gem-pack tier-pack-small" data-gem-pack="small">
+                    <div class="gem-pack-glow"></div>
+                    <div class="gem-pack-shine"></div>
+                    <div class="gem-pack-icon">💎</div>
+                    <div class="gem-pack-amount">100<span>gem</span></div>
+                    <div class="gem-pack-price">0,99 €</div>
+                    <button class="gem-pack-btn">Vásárlás</button>
+                </div>
+                <div class="gem-pack tier-pack-medium" data-gem-pack="medium">
+                    <div class="gem-pack-glow"></div>
+                    <div class="gem-pack-shine"></div>
+                    <div class="gem-pack-badge">+10%</div>
+                    <div class="gem-pack-icon">💎💎</div>
+                    <div class="gem-pack-amount">550<span>gem</span></div>
+                    <div class="gem-pack-price">3,99 €</div>
+                    <button class="gem-pack-btn">Vásárlás</button>
+                </div>
+                <div class="gem-pack tier-pack-large" data-gem-pack="large">
+                    <div class="gem-pack-glow"></div>
+                    <div class="gem-pack-shine"></div>
+                    <div class="gem-pack-badge">+30%</div>
+                    <div class="gem-pack-icon">💎💎💎</div>
+                    <div class="gem-pack-amount">1950<span>gem</span></div>
+                    <div class="gem-pack-price">9,99 €</div>
+                    <button class="gem-pack-btn">Vásárlás</button>
+                </div>
+                <div class="gem-pack tier-pack-mega" data-gem-pack="mega">
+                    <div class="gem-pack-glow"></div>
+                    <div class="gem-pack-shine"></div>
+                    <div class="gem-pack-badge">BEST · +60%</div>
+                    <div class="gem-pack-icon">👑</div>
+                    <div class="gem-pack-amount">8000<span>gem</span></div>
+                    <div class="gem-pack-price">29,99 €</div>
+                    <button class="gem-pack-btn">Vásárlás</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loot Boxes — 4 tier (Daily Free + 3 Buyable) -->
+        <div class="shop-section">
+            <div class="box-tier-row">
+                <!-- Daily (free) -->
+                <div class="box-tier-card tier-daily" data-box="daily">
+                    <div class="box-tier-glow"></div>
+                    <div class="box-tier-shine"></div>
+                    <div class="box-tier-icon-wrap">
+                        <div class="gift-box mini tier-daily-box">
+                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
+                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
+                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
                         </div>
                     </div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title">DailyBox</div>
-                        <div class="loot-card-count"><span id="shopBoxCount">1/1</span> ma</div>
-                        <button class="loot-card-btn" id="shopBoxBtn">Megnyit</button>
+                    <div class="box-tier-name tier-daily-name">Daily Box</div>
+                    <div class="box-tier-sub" id="shopBoxCountWrap"><span id="shopBoxCount">1/1</span> ma</div>
+                    <button class="box-tier-btn tier-daily-btn" id="shopBoxBtn">Megnyit</button>
+                </div>
+                <!-- Common -->
+                <div class="box-tier-card tier-common" data-box="common">
+                    <div class="box-tier-glow"></div>
+                    <div class="box-tier-shine"></div>
+                    <div class="box-tier-icon-wrap">
+                        <div class="gift-box mini tier-common-box">
+                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
+                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
+                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
+                        </div>
                     </div>
+                    <div class="box-tier-name tier-common-name">Common Box</div>
+                    <div class="box-tier-sub">Korlátlan, item + gem</div>
+                    <button class="box-tier-btn tier-common-btn" data-buy-box="common">💎 100</button>
+                </div>
+                <!-- Legendary -->
+                <div class="box-tier-card tier-legendary" data-box="legendary">
+                    <div class="box-tier-glow"></div>
+                    <div class="box-tier-shine"></div>
+                    <div class="box-tier-icon-wrap">
+                        <div class="gift-box mini tier-legendary-box">
+                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
+                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
+                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
+                        </div>
+                    </div>
+                    <div class="box-tier-name tier-legendary-name">Legendary Box</div>
+                    <div class="box-tier-sub">Garantált rare+, eséllyel legendary</div>
+                    <button class="box-tier-btn tier-legendary-btn" data-buy-box="legendary">💎 300</button>
+                </div>
+                <!-- Mythic -->
+                <div class="box-tier-card tier-mythic" data-box="mythic">
+                    <div class="box-tier-glow"></div>
+                    <div class="box-tier-shine"></div>
+                    <div class="box-tier-mythic-orbit"><span></span><span></span><span></span></div>
+                    <div class="box-tier-icon-wrap">
+                        <div class="gift-box mini tier-mythic-box">
+                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
+                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
+                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
+                        </div>
+                    </div>
+                    <div class="box-tier-name tier-mythic-name">Mythic Box</div>
+                    <div class="box-tier-sub">Legendary garantált · MYTHIC drop esély</div>
+                    <button class="box-tier-btn tier-mythic-btn" data-buy-box="mythic">💎 800</button>
                 </div>
             </div>
         </div>
@@ -3974,17 +4278,25 @@
             </div>`;
         }
         // Kártya HTML render — kollekció és pack reveal egyaránt használja
+        // showRobot: csak részletek modalban / pack reveal-ben mutatja a robotot
         function renderCardHtml(card,opts){
             opts=opts||{};
             const owned=opts.owned!==false;
+            const showRobot=!!(opts.showRobot||opts.large);
             const cls='dc-card rarity-'+card.rarity+(owned?'':' locked');
             const rl=(RARITY_LABEL[card.rarity]||card.rarity).replace(/^[^\s]+\s/,'');
             const pwr=Math.min(100,Math.max(0,card.power));
             const name=owned?card.name:'??? Bot';
             const desc=owned?card.desc:'Még nem fedezted fel.';
-            const visual=owned
-                ? buildMiniRobotHtml(card.skinId,!!opts.large)
-                : `<span class="dc-card-image-locked">❓</span>`;
+            let visual;
+            if(!owned){
+                visual=`<span class="dc-card-image-locked">❓</span>`;
+            } else if(showRobot){
+                visual=buildMiniRobotHtml(card.skinId,!!opts.large);
+            } else {
+                // Grid kis nézet: skin emoji + pulzáló glow, nincs robot
+                visual=`<span class="dc-card-image-emoji">${card.icon||'🤖'}</span>`;
+            }
             return `<div class="${cls}" data-card-id="${card.id}">
                 <div class="dc-card-glow"></div>
                 <div class="dc-card-shine"></div>
@@ -4613,6 +4925,42 @@
 
             if(plus){plusBtn.classList.add('active');plusBtn.textContent='⭐ Plus aktív';plusBtn.disabled=true}
             else{plusBtn.classList.remove('active');plusBtn.textContent='⭐ Bot Pass Plus (999 💎) — dupla jutalom';plusBtn.disabled=false}
+
+            // Szezon countdown
+            const remainEl=document.getElementById('bpSeasonRemain');
+            if(remainEl){
+                const today=new Date();
+                const lastDay=new Date(today.getFullYear(),today.getMonth()+1,0);
+                const days=Math.max(0,Math.ceil((lastDay-today)/(1000*60*60*24)));
+                remainEl.textContent=days+' nap';
+            }
+            // Claimable pill
+            const claimablePill=document.getElementById('bpClaimablePill');
+            const claimableCount=document.getElementById('bpClaimableCount');
+            if(claimablePill && claimableCount){
+                let cnt=0;
+                for(let i=1;i<=lvl;i++){if(!claimed.includes(i))cnt++}
+                if(cnt>0){claimableCount.textContent=cnt;claimablePill.style.display='inline-flex'}
+                else claimablePill.style.display='none';
+            }
+            // Napi küldetés pipák
+            try{
+                const ms=getMissionStatus();
+                const mDoneEl=document.getElementById('bpMissionsDone');
+                const mBonusEl=document.getElementById('bpMissionsBonus');
+                let done=0;
+                ['open','box','pouch','gem'].forEach(k=>{
+                    const m=document.querySelector('.bp-mission[data-mission="'+k+'"]');
+                    if(m){if(ms[k]){m.classList.add('done');done++}else{m.classList.remove('done')}}
+                });
+                if(mDoneEl) mDoneEl.textContent=done;
+                const allDone=done===4;
+                const bonusClaimed=localStorage.getItem('nu_mission_bonus_day')===_today();
+                if(mBonusEl){
+                    if(allDone && bonusClaimed){mBonusEl.classList.add('done');mBonusEl.textContent='✅ Mind a 4 kész — +40 BP bónusz megkapva'}
+                    else{mBonusEl.classList.remove('done');mBonusEl.textContent='⚡ Mind a 4 = +40 BP bónusz'}
+                }
+            }catch(_){}
 
             // Csillámok háttérben
             const sparkleLayer=document.getElementById('bpSparkleLayer');
@@ -5560,6 +5908,31 @@
                 const g=pickRandom(zynox?[300,500,800]:[150,200,300]);
                 return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
             }
+            // Tier-alapú loot rendszer
+            function rollTierPrize(tier){
+                const r=Math.random();
+                if(tier==='daily' || tier==='common'){
+                    if(r<0.55){const g=pickRandom([10,20,30,40,50]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
+                    if(r<0.85){const pool=notOwnedByTier(1,100); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name}}}
+                    const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}
+                    return {type:'gems',gems:50,icon:'💎',name:'50 gem'};
+                }
+                if(tier==='legendary'){
+                    if(r<0.15){const g=pickRandom([60,100,150,200]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
+                    if(r<0.45){const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}}
+                    if(r<0.85){const pool=notOwnedByTier(251,500); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}}
+                    const pool=notOwnedByTier(501,9999); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:i.name}}
+                    return {type:'gems',gems:200,icon:'💎',name:'200 gem (kompenzáció)'};
+                }
+                if(tier==='mythic'){
+                    if(r<0.05){const g=pickRandom([300,500,800,1000]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
+                    if(r<0.25){const pool=notOwnedByTier(251,500); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}}
+                    if(r<0.70){const pool=notOwnedByTier(501,700); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:i.name}}}
+                    const pool=notOwnedByTier(701,9999); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'💠',name:'⚡ MYTHIC: '+i.name}}
+                    return {type:'gems',gems:500,icon:'💎',name:'500 gem (kompenzáció)'};
+                }
+                return rollNormalPrize();
+            }
             function applyPrize(p){
                 if(p.type==='gems') addGems(p.gems);
                 else if(p.type==='item') buyItem(p.id);
@@ -5567,9 +5940,12 @@
                 else if(p.type==='dance') buyItem(p.id);
             }
 
-            window.openDailyBox=function(bypass){
+            window.openDailyBox=function(bypass,tier){
+                tier=tier||'daily';
                 if(!bypass){
-                    if(!consumeBox()){alert('Ma már nincs több dobozod. Gyere vissza holnap 6-kor!');return}
+                    if(tier==='daily'){
+                        if(!consumeBox()){alert('Ma már nincs több ingyen dobozod. Vegyél egy Common/Legendary/Mythic Box-ot, vagy gyere vissza holnap 6-kor!');return}
+                    }
                     if(typeof markMission==='function') markMission('box',20);
                 }
                 playSfx('box-open');
@@ -5580,13 +5956,24 @@
                 const closeBtn=document.getElementById('dbCloseBtn');
                 const promptEl=document.getElementById('dbPrompt');
 
-                const isLucky=Math.random()<0.25;
+                // Tier color overlay
+                overlay.classList.remove('tier-daily','tier-common','tier-legendary','tier-mythic');
+                overlay.classList.add('tier-'+tier);
+                // Mini box CSS class az overlay nagy boxhoz
+                const giftEl=box.querySelector('.gift-box');
+                if(giftEl){
+                    giftEl.classList.remove('tier-daily-box','tier-common-box','tier-legendary-box','tier-mythic-box');
+                    giftEl.classList.add('tier-'+tier+'-box');
+                }
+
+                // Csak daily-nél van Lucky 2-es; tier boxok mindig 1 prize-t adnak (de nagyobbat)
+                const isLucky=(tier==='daily') && Math.random()<0.25;
                 let remaining=isLucky?2:1;
 
-                box.className='db-box';box.textContent='🎁';box.style.display='block';
+                box.className='db-box';box.style.display='block';
                 numEl.textContent=String(remaining);numEl.className='db-number';
                 prizeEl.style.display='none';closeBtn.style.display='none';
-                promptEl.textContent='Koppints a dobozra!';
+                promptEl.textContent=tier==='mythic'?'⚡ MYTHIC pakk vár rád!':tier==='legendary'?'🏆 Legendary doboz!':'Koppints a dobozra!';
                 overlay.style.display='flex';
 
                 const onTap=()=>{
@@ -5595,14 +5982,14 @@
                     setTimeout(()=>{
                         box.style.display='none';
                         const isSuper=(isLucky&&remaining===1);
-                        const prize=isSuper?rollSuperPrize():rollNormalPrize();
+                        const prize=isSuper?rollSuperPrize():(tier==='daily'?rollNormalPrize():rollTierPrize(tier));
                         applyPrize(prize);
                         document.getElementById('dbPrizeIcon').textContent=prize.icon;
                         document.getElementById('dbPrizeName').textContent=prize.name;
                         prizeEl.style.display='flex';
                         remaining--;
                         if(remaining<=0){
-                            promptEl.textContent=isSuper?'Hatalmas nyeremény! 🌟':'Szuper! 🎉';
+                            promptEl.textContent=tier==='mythic'?'⚡ MYTHIC! 💠':tier==='legendary'?'🏆 Legendary szerzemény!':isSuper?'Hatalmas nyeremény! 🌟':'Szuper! 🎉';
                             closeBtn.style.display='inline-block';
                         } else {
                             setTimeout(()=>{
@@ -5610,7 +5997,7 @@
                                 numEl.textContent='1';
                                 setTimeout(()=>numEl.classList.remove('switching'),600);
                                 prizeEl.style.display='none';
-                                box.style.display='block';box.className='db-box';box.textContent='🎁';
+                                box.style.display='block';box.className='db-box';
                                 promptEl.textContent='Még egy vár rád! Koppints!';
                                 box.addEventListener('click',onTap);
                             },1800);
@@ -5624,6 +6011,16 @@
                     updateLootBadges();
                     if(typeof renderShop==='function')renderShop();
                 };
+            };
+            // Vásárolt box-ok (Common/Legendary/Mythic)
+            window.buyBox=function(tier){
+                const costs={common:100,legendary:300,mythic:800};
+                const cost=costs[tier]; if(!cost) return;
+                const names={common:'Common Box',legendary:'Legendary Box',mythic:'Mythic Box'};
+                if(!confirm(names[tier]+' '+cost+' gemért. Megveszed? ('+getGems()+' gemed van)')) return;
+                if(!spendGems(cost)){alert('Nincs elég gem! ('+cost+' kell)');return}
+                if(typeof markMission==='function') markMission('box',20);
+                window.openDailyBox(true,tier);
             };
 
             function rollPouchItem(){
@@ -5731,6 +6128,26 @@
                     document.getElementById('skinPanel')?.classList.remove('open');
                     setTimeout(()=>openDcPanel(),250);
                 })}
+                // Box vásárlások — delegation a [data-buy-box] gombokra
+                document.querySelectorAll('[data-buy-box]').forEach(btn=>{
+                    if(btn._bound) return; btn._bound=true;
+                    btn.addEventListener('click',(e)=>{
+                        e.stopPropagation();
+                        const tier=btn.getAttribute('data-buy-box');
+                        if(typeof window.buyBox==='function') window.buyBox(tier);
+                    });
+                });
+                // Gem package vásárlás (placeholder)
+                document.querySelectorAll('[data-gem-pack]').forEach(card=>{
+                    if(card._bound) return; card._bound=true;
+                    card.addEventListener('click',(e)=>{
+                        e.stopPropagation();
+                        const t=card.getAttribute('data-gem-pack');
+                        const names={small:'100 gem (0,99 €)',medium:'550 gem (3,99 €)',large:'1950 gem (9,99 €)',mega:'8000 gem (29,99 €)'};
+                        try{playSfx('gem-claim')}catch(_){}
+                        alert('💎 Gem Shop\n\n'+names[t]+'\n\n🚀 Hamarosan elérhető!\n\nA fizetési integráció még készülőben van. Köszönjük a türelmet!');
+                    });
+                });
                 const bpC=document.getElementById('bpClose');
                 if(bpC&&!bpC._bound){bpC._bound=true;bpC.addEventListener('click',()=>{document.getElementById('botpassPanel').style.display='none';updateLootBadges();})}
                 const bpSkip=document.getElementById('bpSkipBtn');
@@ -5960,12 +6377,18 @@
     <!-- Bot Pass panel — TRACK-FÓKUSZÚ REDESIGN -->
     <div id="botpassPanel" class="bp-panel" style="display:none">
         <div class="bp-sparkle-layer" id="bpSparkleLayer"></div>
+        <!-- Háttér gradient body — lebegő blob-ok -->
+        <div class="bp-bg-blobs" aria-hidden="true">
+            <span class="bp-blob bp-blob-1"></span>
+            <span class="bp-blob bp-blob-2"></span>
+            <span class="bp-blob bp-blob-3"></span>
+        </div>
         <div class="bp-header">
             <div class="bp-title">🎖️ Bot Pass</div>
             <button class="shop-close-btn" id="bpClose">✕</button>
         </div>
 
-        <!-- Kompakt state bar -->
+        <!-- Kompakt state bar + szezon countdown -->
         <div class="bp-state">
             <div class="bp-state-row">
                 <div class="bp-state-month" id="bpMonth">Áprilisi szezon</div>
@@ -5975,7 +6398,45 @@
                 <div class="bp-progress-fill" id="bpProgressFill"></div>
                 <div class="bp-progress-label" id="bpHeroBp">0 / 100 BP</div>
             </div>
-            <div class="bp-state-hint">Hogy jutsz fel? Nyisd meg naponta a DailyBot-ot, nyiss DailyBox-ot/Pouch-ot, szerezd meg a Daily Gem-et — vagy fizess 60 💎-et egy szintlépésért.</div>
+            <div class="bp-season-row">
+                <span class="bp-season-pill bp-season-pill-time">⏳ <span id="bpSeasonRemain">– nap</span> a szezonból</span>
+                <span class="bp-season-pill bp-season-pill-claim" id="bpClaimablePill" style="display:none">🎁 <span id="bpClaimableCount">0</span> kérhető</span>
+            </div>
+        </div>
+
+        <!-- Napi küldetések -->
+        <div class="bp-missions">
+            <div class="bp-missions-head">
+                <span class="bp-missions-title">📋 Napi küldetések</span>
+                <span class="bp-missions-prog"><span id="bpMissionsDone">0</span>/4</span>
+            </div>
+            <div class="bp-missions-row" id="bpMissionsRow">
+                <div class="bp-mission" data-mission="open">
+                    <div class="bp-mission-icon">📲</div>
+                    <div class="bp-mission-name">Megnyitás</div>
+                    <div class="bp-mission-rew">+40 BP</div>
+                    <div class="bp-mission-check">✓</div>
+                </div>
+                <div class="bp-mission" data-mission="box">
+                    <div class="bp-mission-icon">🎁</div>
+                    <div class="bp-mission-name">Box nyitás</div>
+                    <div class="bp-mission-rew">+20 BP</div>
+                    <div class="bp-mission-check">✓</div>
+                </div>
+                <div class="bp-mission" data-mission="pouch">
+                    <div class="bp-mission-icon">👝</div>
+                    <div class="bp-mission-name">Pouch nyitás</div>
+                    <div class="bp-mission-rew">+20 BP</div>
+                    <div class="bp-mission-check">✓</div>
+                </div>
+                <div class="bp-mission" data-mission="gem">
+                    <div class="bp-mission-icon">💎</div>
+                    <div class="bp-mission-name">Daily Gem</div>
+                    <div class="bp-mission-rew">+20 BP</div>
+                    <div class="bp-mission-check">✓</div>
+                </div>
+            </div>
+            <div class="bp-missions-bonus" id="bpMissionsBonus">⚡ Mind a 4 = +40 BP bónusz</div>
         </div>
 
         <!-- Quick actions -->
