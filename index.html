@@ -2964,8 +2964,6 @@
         /* Aréna */
         .game-arena{flex:1;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,20px) + 16px) 14px 20px;position:relative}
         .game-arena-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(99,102,241,.06) 0,rgba(99,102,241,.06) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(99,102,241,.06) 0,rgba(99,102,241,.06) 1px,transparent 1px,transparent 40px),radial-gradient(ellipse at 50% 0%,rgba(139,92,246,.25) 0%,transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(239,68,68,.2) 0%,transparent 60%),linear-gradient(180deg,#0f0a1f 0%,#1e1b4b 50%,#0f0a1f 100%);pointer-events:none}
-        .game-arena-bg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(139,92,246,.15) 39px,rgba(139,92,246,.15) 40px);pointer-events:none;animation:scanLines 8s linear infinite}
-        @keyframes scanLines{0%{background-position:0 0}100%{background-position(40px 0}}
         .game-arena-head{display:flex;justify-content:space-between;gap:10px;position:relative;z-index:2;margin-bottom:14px}
         .game-hp{flex:1;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px}
         .game-hp-p2{justify-content:flex-end}
