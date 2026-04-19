@@ -2927,7 +2927,7 @@
         .loot-info-list li strong{color:#fbbf24;font-weight:900}
 
         /* ============== ROBOT HARC JÁTÉK ============== */
-        .game-toggle{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);left:18px;z-index:50;padding:12px 18px;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 6px 22px rgba(239,68,68,.45),inset 0 1px 0 rgba(255,255,255,.25)!important;letter-spacing:.5px;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s}
+        .game-toggle{position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);left:16px;z-index:50;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:0;font-size:20px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.45),inset 0 1px 0 rgba(255,255,255,.25)!important;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s}
         @keyframes gameToggleFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .game-toggle:active{transform:scale(.92)}
         .game-toggle:hover{transform:scale(1.06)}
@@ -2956,7 +2956,8 @@
         .game-code-row{display:flex;gap:8px}
         .game-code-input{flex:1;padding:10px 14px;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;outline:none;text-align:center}
         .game-code-input:disabled{opacity:.5}
-        .game-code-btn{padding:10px 16px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-weight:700;border:none;border-radius:10px;cursor:not-allowed}
+        .game-code-btn{padding:10px 16px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;border:none;border-radius:10px;cursor:pointer}
+        .game-code-btn:active{transform:scale(.95)}
         .game-my-code{margin-top:10px;text-align:center;font-size:12px;color:rgba(255,255,255,.7)}
         .game-my-code strong{color:#fbbf24;font-weight:900;letter-spacing:3px;font-size:16px;background:rgba(251,191,36,.15);padding:3px 10px;border-radius:8px}
 
@@ -2968,30 +2969,33 @@
         .game-hp-p2{justify-content:flex-end}
         .game-hp-name{font-size:12px;font-weight:900;color:#fff;letter-spacing:.5px}
         .game-hp-hearts{font-size:18px;letter-spacing:2px;line-height:1}
-        .game-arena-zone{flex:1;position:relative;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;z-index:2;min-height:280px}
-        .game-robot{position:absolute;bottom:18px;width:200px;height:280px;transition:transform .3s cubic-bezier(.4,1.6,.5,1);transform-origin:center bottom}
-        .game-robot .dc-mini-robot-frame{width:200px;height:280px}
-        .game-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(1)!important;animation:none!important}
-        .game-robot-p1{left:-30px;transform:scale(.55)}
-        .game-robot-p2{right:-30px;transform:scale(.55) scaleX(-1)}
-        .game-robot.dodge-up{animation:gameDodge .55s ease-out}
-        @keyframes gameDodge{0%,100%{transform:scale(.55) translateY(0)}50%{transform:scale(.55) translateY(-50px)}}
-        .game-robot-p2.dodge-up{animation:gameDodgeP2 .55s ease-out}
-        @keyframes gameDodgeP2{0%,100%{transform:scale(.55) scaleX(-1) translateY(0)}50%{transform:scale(.55) scaleX(-1) translateY(-50px)}}
+        /* VERTIKÁLIS aréna — AI felül, player alul */
+        .game-arena-zone{flex:1;position:relative;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;z-index:2;min-height:380px}
+        .game-robot{position:absolute;width:140px;height:200px;transition:left .25s cubic-bezier(.4,1.6,.5,1),transform .3s cubic-bezier(.4,1.6,.5,1);transform-origin:center}
+        .game-robot .dc-mini-robot-frame{width:140px;height:200px}
+        .game-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.7)!important;animation:none!important}
+        .game-robot-p1{bottom:18px;left:calc(50% - 70px);transform:scale(1)} /* PLAYER alul */
+        .game-robot-p2{top:18px;left:calc(50% - 70px);transform:scale(1) rotate(180deg)} /* AI felül, fejre állítva (vagy normál) */
+        .game-robot-p2{transform:scale(.95);} /* Normál állás, csak kicsit kisebb */
         .game-robot.invisible{opacity:.18;filter:grayscale(.7)}
         .game-robot.hit{animation:gameRobotHit .5s}
         @keyframes gameRobotHit{0%,100%{filter:none}25%{filter:brightness(2) hue-rotate(180deg)}50%{filter:brightness(.6)}75%{filter:brightness(2) hue-rotate(180deg)}}
-        .game-projectile{position:absolute;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#fef9c3,#fbbf24,#dc2626);box-shadow:0 0 12px #fbbf24,0 0 24px rgba(251,191,36,.6);bottom:160px;z-index:5;pointer-events:none;animation:gameProjAttack .9s linear forwards}
-        .game-projectile.from-p2{animation:gameProjAttackP2 .9s linear forwards}
-        @keyframes gameProjAttack{from{left:60px;transform:scale(.5)}to{left:calc(100% - 80px);transform:scale(1.2)}}
-        @keyframes gameProjAttackP2{from{right:60px;transform:scale(.5)}to{right:calc(100% - 80px);transform:scale(1.2)}}
+        .game-robot.shielded{filter:drop-shadow(0 0 14px #fbbf24) drop-shadow(0 0 28px #ec4899)}
+        .game-robot.tulip-armor::after{content:'🌷';position:absolute;top:-20px;right:-12px;font-size:24px;animation:gameTulipFloat 1.2s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(236,72,153,.7))}
+        @keyframes gameTulipFloat{0%,100%{transform:translateY(0) rotate(-15deg)}50%{transform:translateY(-6px) rotate(15deg)}}
+        /* Vertikális projektil — felülről le, alulról fel */
+        .game-projectile{position:absolute;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#fef9c3,#fbbf24,#dc2626);box-shadow:0 0 12px #fbbf24,0 0 24px rgba(251,191,36,.6);z-index:5;pointer-events:none}
+        .game-projectile.from-p1{animation:gameProjUp 1s linear forwards} /* alulról felfelé */
+        .game-projectile.from-p2{animation:gameProjDown 1s linear forwards} /* felülről lefele */
+        @keyframes gameProjUp{from{bottom:200px;transform:scale(.5)}to{bottom:calc(100% - 80px);transform:scale(1.2)}}
+        @keyframes gameProjDown{from{top:200px;transform:scale(.5)}to{top:calc(100% - 80px);transform:scale(1.2)}}
         .game-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:10}
         .game-flash.fire{animation:gameFlash .35s ease-out}
         @keyframes gameFlash{0%{opacity:0}30%{opacity:.5}100%{opacity:0}}
         .game-controls{display:flex;gap:8px;margin-top:14px;position:relative;z-index:2}
         .game-btn{flex:1;padding:14px 8px;font-weight:900;font-size:13px;border:none;border-radius:14px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4);box-shadow:0 4px 14px rgba(0,0,0,.3)}
-        .game-btn-fire{background:linear-gradient(135deg,#ef4444,#b91c1c)}
-        .game-btn-dodge{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+        .game-btn-fire{background:linear-gradient(135deg,#ef4444,#b91c1c);flex:1.5}
+        .game-btn-move{background:linear-gradient(135deg,#3b82f6,#1d4ed8);flex:0.6;font-size:18px;padding:14px 4px}
         .game-btn-ability{background:linear-gradient(135deg,#a78bfa,#7c3aed)}
         .game-btn:active{transform:scale(.95)}
         .game-btn:disabled{opacity:.4;cursor:default;filter:grayscale(.5)}
@@ -3524,33 +3528,6 @@
             </div>
         </div>
 
-        <!-- Daily Super — a Daily Pouch után -->
-        <div class="shop-section" id="shopDailySuperSection">
-            <div class="loot-card-wrap">
-                <div class="ds-card" id="dsCard">
-                    <div class="ds-card-bg"></div>
-                    <div class="ds-card-stars"><span></span><span></span><span></span><span></span><span></span></div>
-                    <div class="ds-card-star-wrap">
-                        <div class="ds-star-mini" data-ds-tier="legendary">
-                            <div class="ds-star-shape"></div>
-                            <div class="ds-star-icon">⚡</div>
-                        </div>
-                    </div>
-                    <div class="ds-card-content">
-                        <div class="ds-card-title">DAILY SUPER</div>
-                        <div class="ds-card-sub">Tier escalation · 1/nap · gem, pouch, box, kártya, Ultra skin esély</div>
-                        <div class="ds-card-tiers">
-                            <span class="ds-tier-pip rarity-rare"></span>
-                            <span class="ds-tier-pip rarity-epic"></span>
-                            <span class="ds-tier-pip rarity-legendary"></span>
-                            <span class="ds-tier-pip rarity-mythic"></span>
-                            <span class="ds-tier-pip rarity-ultra"></span>
-                        </div>
-                        <button class="ds-card-btn" id="dsCardBtn">Megnyit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Bot Pass belépő — a Pouch után, a skin szekciók előtt -->
         <div class="shop-section">
@@ -5522,21 +5499,44 @@
         // ========== ROBOT HARC JÁTÉK ==========
         // Egyedül vs AI — multiplayer "hamarosan"
         const GAME_ABILITIES={
-            'glass':{name:'Láthatatlanság',cd:6000,dur:3000,fn:'invisibility'},
-            'super':{name:'Pajzs',cd:6000,dur:3000,fn:'shield'},
-            'ultra':{name:'EMP villám',cd:8000,fn:'emp'},
-            'fire':{name:'Tűzgolyó',cd:6000,fn:'fireball'},
-            'rainbow':{name:'Szivárvány robbanás',cd:7000,fn:'rainbow'},
-            'phoenix':{name:'Újjászületés',cd:9000,fn:'revive'},
-            'galaxy':{name:'Csillagrobbanás',cd:7000,fn:'starblast'},
-            'gamer':{name:'Pixel ugrás',cd:5000,fn:'pixeljump'},
-            'golden':{name:'Arany csapás',cd:6000,fn:'goldenstrike'},
-            'diamond':{name:'Jégtüske',cd:6000,fn:'iceshard'},
-            'aurora':{name:'Fénypajzs',cd:7000,dur:2500,fn:'shield'},
-            'prism':{name:'Fénytörés',cd:6000,fn:'prismbeam'},
-            '':{name:'Energia lökés',cd:5000,fn:'basic'}
+            'tulip':{name:'Tulipán páncél',cd:14000,dur:10000,fn:'tulipArmor'},
+            'sakura':{name:'Cseresznye gyógyítás',cd:14000,fn:'heal'},
+            'graffiti':{name:'Spray sorozat',cd:8000,fn:'multishot'},
+            'galaxy':{name:'Csillagrobbanás',cd:8000,fn:'multishot'},
+            'stealth':{name:'Stealth mód',cd:10000,dur:5000,fn:'invisibility'},
+            'fire':{name:'Tűzgolyó (2x)',cd:8000,fn:'multishot'},
+            'gamer':{name:'Rapid fire',cd:8000,fn:'multishot3'},
+            'golden':{name:'Arany csapás',cd:8000,fn:'multishot'},
+            'diamond':{name:'Jégpajzs',cd:12000,dur:6000,fn:'shield'},
+            'glass':{name:'Láthatatlanság',cd:10000,dur:5000,fn:'invisibility'},
+            'horse':{name:'Lópatkó',cd:9000,fn:'multishot'},
+            'rainbow':{name:'Szivárvány tűz',cd:10000,fn:'multishot3'},
+            'super':{name:'Hős pajzs',cd:12000,dur:6000,fn:'shield'},
+            'ultra':{name:'EMP villám',cd:10000,fn:'multishot3'},
+            'prism':{name:'Prizma sugár',cd:9000,fn:'multishot'},
+            'phoenix':{name:'Újjászületés',cd:18000,fn:'revive'},
+            'aurora':{name:'Aurora pajzs',cd:12000,dur:7000,fn:'shield'},
+            '':{name:'Energia lökés',cd:7000,fn:'multishot'}
         };
+        let _gamePlayerLeft=null;
+        const GAME_PLAYER_STEP=40;
+        // Multiplayer szerver URL — Vercel deployment-re mutat (push-server)
+        // Konfigurálható: localStorage 'nu_game_api_url' kulccsal felülírhatod
+        const GAME_API_URL=localStorage.getItem('nu_game_api_url')||'';
         let _gameState=null;
+        let _gameMP=null; // multiplayer state {role:'host'/'guest', code, pollTimer}
+        async function gameApi(action,params){
+            if(!GAME_API_URL){throw new Error('no api url')}
+            const body={action,...params};
+            const res=await fetch(GAME_API_URL+'/api/game',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify(body)
+            });
+            const j=await res.json();
+            if(!res.ok) throw new Error(j.error||'API hiba');
+            return j;
+        }
         function getOwnedSkinIds(){
             try{
                 const skins=(window.SKINS && Array.isArray(window.SKINS))?window.SKINS:
@@ -5617,6 +5617,17 @@
                 gameOver:false,
                 projectileTimer:null
             };
+            _gamePlayerLeft=null;
+            // Inicializáljuk a robotok pozícióját
+            setTimeout(()=>{
+                const arena=document.getElementById('gameArenaZone');
+                if(arena){
+                    const cx=arena.clientWidth/2-70;
+                    if(robot1) robot1.style.left=cx+'px';
+                    if(robot2) robot2.style.left=cx+'px';
+                    _gamePlayerLeft=cx;
+                }
+            },50);
             updateGameHpUi();
             // Switch view
             document.getElementById('gameLobby').style.display='none';
@@ -5635,7 +5646,12 @@
                 if(_gameState.aiTimer){clearTimeout(_gameState.aiTimer);_gameState.aiTimer=null}
                 _gameState=null;
             }
-            // Clear projectiles
+            // Multiplayer leave
+            if(_gameMP){
+                if(_gameMP.pollTimer){clearTimeout(_gameMP.pollTimer);_gameMP.pollTimer=null}
+                try{gameApi('leave',{code:_gameMP.code,role:_gameMP.role}).catch(()=>{})}catch(_){}
+                _gameMP=null;
+            }
             const proj=document.getElementById('gameProjectiles');
             if(proj) proj.innerHTML='';
         }
@@ -5650,9 +5666,45 @@
             const proj=document.getElementById('gameProjectiles');
             if(!proj) return;
             const p=document.createElement('span');
-            p.className='game-projectile'+(fromP1?'':' from-p2');
+            p.className='game-projectile'+(fromP1?' from-p1':' from-p2');
+            // Pozíció a lövő robotjára
+            const arena=document.getElementById('gameArenaZone');
+            if(arena){
+                const aw=arena.clientWidth;
+                if(fromP1){
+                    // alulról fel, player x pozíciójához
+                    const player=document.getElementById('gameRobotP1');
+                    const px=player?(parseFloat(player.style.left)||(aw/2-70))+50:aw/2-12;
+                    p.style.left=px+'px';
+                } else {
+                    const ai=document.getElementById('gameRobotP2');
+                    const ax=ai?(parseFloat(ai.style.left)||(aw/2-70))+50:aw/2-12;
+                    p.style.left=ax+'px';
+                }
+            }
             proj.appendChild(p);
-            setTimeout(()=>{p.remove();onComplete && onComplete()},900);
+            setTimeout(()=>{p.remove();onComplete && onComplete()},1000);
+        }
+        function moveGamePlayer(dir){
+            if(!_gameState||_gameState.gameOver) return;
+            const arena=document.getElementById('gameArenaZone');
+            const player=document.getElementById('gameRobotP1');
+            if(!arena||!player) return;
+            if(_gamePlayerLeft===null) _gamePlayerLeft=arena.clientWidth/2-70;
+            const newLeft=_gamePlayerLeft+dir*GAME_PLAYER_STEP;
+            const minL=10, maxL=arena.clientWidth-150;
+            _gamePlayerLeft=Math.max(minL,Math.min(maxL,newLeft));
+            player.style.left=_gamePlayerLeft+'px';
+            if(_gameState.multiplayer && _gameMP) sendMpEvent('move');
+        }
+        function moveGameAi(){
+            if(!_gameState||_gameState.gameOver) return;
+            const arena=document.getElementById('gameArenaZone');
+            const ai=document.getElementById('gameRobotP2');
+            if(!arena||!ai) return;
+            const w=arena.clientWidth;
+            const newLeft=Math.max(10,Math.min(w-150, (parseFloat(ai.style.left)||w/2-70) + (Math.random()-.5)*120));
+            ai.style.left=newLeft+'px';
         }
         function flashFire(){
             const f=document.getElementById('gameFlash');
@@ -5663,25 +5715,29 @@
             if(!_gameState||_gameState.gameOver) return;
             try{playSfx('zynox')}catch(_){}
             flashFire();
-            spawnProjectile(targetIsAi,()=>{
+            // Multiplayer: küldjük a fire event-et
+            if(_gameState.multiplayer && _gameMP) sendMpEvent('fire');
+            // Mentsük el a lövéskor a célpont x pozícióját (akkor találat ha még ott áll)
+            const arena=document.getElementById('gameArenaZone');
+            const targetEl=targetIsAi?document.getElementById('gameRobotP2'):document.getElementById('gameRobotP1');
+            const shooterEl=targetIsAi?document.getElementById('gameRobotP1'):document.getElementById('gameRobotP2');
+            const shooterX=shooterEl?(parseFloat(shooterEl.style.left)||0)+70:0;
+            spawnProjectile(!targetIsAi?false:true,()=>{
                 if(!_gameState||_gameState.gameOver) return;
                 const target=targetIsAi?_gameState.ai:_gameState.player;
                 if(target.invincible) return;
+                // Találat ellenőrzés: ha a célpont x pozíciója elég közel van a projektil x-éhez, találat
+                if(targetEl && arena){
+                    const targetX=(parseFloat(targetEl.style.left)||arena.clientWidth/2-70)+70;
+                    const dx=Math.abs(targetX-shooterX);
+                    if(dx>80) return; // kikerülte mozgással
+                }
                 target.hp-=1;
-                const robotEl=targetIsAi?document.getElementById('gameRobotP2'):document.getElementById('gameRobotP1');
-                if(robotEl){robotEl.classList.remove('hit');void robotEl.offsetWidth;robotEl.classList.add('hit');setTimeout(()=>robotEl.classList.remove('hit'),500)}
+                if(targetEl){targetEl.classList.remove('hit');void targetEl.offsetWidth;targetEl.classList.add('hit');setTimeout(()=>targetEl.classList.remove('hit'),500)}
                 try{playSfx('error')}catch(_){}
                 updateGameHpUi();
                 if(target.hp<=0){endGame(targetIsAi?true:false)}
             });
-        }
-        function dodge(isPlayer){
-            const robotEl=isPlayer?document.getElementById('gameRobotP1'):document.getElementById('gameRobotP2');
-            if(!robotEl) return;
-            robotEl.classList.remove('dodge-up');void robotEl.offsetWidth;robotEl.classList.add('dodge-up');
-            const target=isPlayer?_gameState.player:_gameState.ai;
-            target.invincible=true;
-            setTimeout(()=>{target.invincible=false;robotEl.classList.remove('dodge-up')},550);
         }
         function useAbility(){
             if(!_gameState||_gameState.gameOver) return;
@@ -5701,24 +5757,42 @@
                     setTimeout(()=>{
                         if(robotEl) robotEl.classList.remove('invisible');
                         if(_gameState) _gameState.player.invincible=false;
-                    },ab.dur||3000);
+                    },ab.dur||5000);
                     break;
                 }
                 case 'shield':{
                     _gameState.player.invincible=true;
-                    if(robotEl) robotEl.style.filter='drop-shadow(0 0 18px #fbbf24)';
+                    if(robotEl) robotEl.classList.add('shielded');
                     setTimeout(()=>{
                         if(_gameState) _gameState.player.invincible=false;
-                        if(robotEl) robotEl.style.filter='';
-                    },ab.dur||3000);
+                        if(robotEl) robotEl.classList.remove('shielded');
+                    },ab.dur||6000);
                     break;
                 }
-                case 'revive':{
+                case 'tulipArmor':{
+                    _gameState.player.invincible=true;
+                    if(robotEl) robotEl.classList.add('tulip-armor','shielded');
+                    setTimeout(()=>{
+                        if(_gameState) _gameState.player.invincible=false;
+                        if(robotEl){robotEl.classList.remove('tulip-armor','shielded')}
+                    },ab.dur||10000);
+                    break;
+                }
+                case 'heal':{
                     if(_gameState.player.hp<3){_gameState.player.hp=Math.min(3,_gameState.player.hp+1);updateGameHpUi()}
                     break;
                 }
-                case 'emp':case 'starblast':case 'fireball':case 'rainbow':case 'goldenstrike':case 'iceshard':case 'prismbeam':case 'pixeljump':case 'basic':default:{
-                    // Mind: extra damage egy lövés
+                case 'revive':{
+                    _gameState.player.hp=3;updateGameHpUi();
+                    break;
+                }
+                case 'multishot3':{
+                    fireAt(true);
+                    setTimeout(()=>{ if(_gameState&&!_gameState.gameOver) fireAt(true) },250);
+                    setTimeout(()=>{ if(_gameState&&!_gameState.gameOver) fireAt(true) },500);
+                    break;
+                }
+                case 'multishot':default:{
                     fireAt(true);
                     setTimeout(()=>{ if(_gameState&&!_gameState.gameOver) fireAt(true) },300);
                     break;
@@ -5727,27 +5801,17 @@
         }
         function scheduleAiAction(){
             if(!_gameState||_gameState.gameOver) return;
-            const delay=1500+Math.random()*2000;
+            const delay=1800+Math.random()*1800;
             _gameState.aiTimer=setTimeout(()=>{
                 if(!_gameState||_gameState.gameOver) return;
-                // AI mostly fires, sometimes dodges
+                // AI: 60% lő, 40% mozog
                 const r=Math.random();
-                if(r<0.7){
-                    // Fire at player
-                    flashFire();
-                    spawnProjectile(false,()=>{
-                        if(!_gameState||_gameState.gameOver) return;
-                        if(_gameState.player.invincible) return;
-                        _gameState.player.hp-=1;
-                        const re=document.getElementById('gameRobotP1');
-                        if(re){re.classList.remove('hit');void re.offsetWidth;re.classList.add('hit');setTimeout(()=>re.classList.remove('hit'),500)}
-                        try{playSfx('error')}catch(_){}
-                        updateGameHpUi();
-                        if(_gameState.player.hp<=0) endGame(false);
-                    });
+                if(r<0.60){
+                    // AI lövés a játékosra
+                    fireAt(false);
                 } else {
-                    // AI dodges (in advance — doesn't help anyway since player fires manually)
-                    dodge(false);
+                    // AI mozog véletlenszerűen
+                    moveGameAi();
                 }
                 scheduleAiAction();
             },delay);
@@ -5782,6 +5846,173 @@
                 try{playSfx('error')}catch(_){}
             }
             if(overEl) overEl.style.display='flex';
+        }
+
+        // ========== MULTIPLAYER (kód-alapú, Vercel KV backend) ==========
+        async function createMpRoom(){
+            if(!GAME_API_URL){
+                const url=prompt('Multiplayer szerver URL beállítása (Vercel push-server URL, pl. https://napi-uzenet-push.vercel.app):','');
+                if(url && url.startsWith('http')){
+                    localStorage.setItem('nu_game_api_url',url);
+                    alert('Beállítva. Töltsd újra az appot.');
+                    return;
+                }
+                alert('A multiplayer-hez Vercel backend kell. Deploy-old a /push-server mappát Vercel-re és állítsd be az URL-t.');
+                return;
+            }
+            try{
+                const activeTile=document.querySelector('.game-skin-tile.active');
+                const skin=activeTile?activeTile.dataset.skinId||'':'';
+                const j=await gameApi('create',{
+                    uid:localStorage.getItem('nu_uid')||'p'+Math.random().toString(36).slice(2,8),
+                    name:localStorage.getItem('nu_name')||'Te',
+                    skin
+                });
+                _gameMP={role:'host',code:j.code,skin};
+                document.getElementById('gameMyCode').textContent=j.code;
+                document.getElementById('gameRoomStatus').textContent='várjuk a 2. játékost...';
+                document.getElementById('gameMyCodeRow').style.display='block';
+                startMpPoll();
+            }catch(e){alert('Hiba: '+e.message)}
+        }
+        async function joinMpRoom(){
+            if(!GAME_API_URL){alert('Először állítsd be a szerver URL-t (kattints a "Új szoba létrehozása" gombra)');return}
+            const codeInput=document.getElementById('gameCodeInput');
+            const code=(codeInput?.value||'').trim();
+            if(!/^\d{4,6}$/.test(code)){alert('Adj meg egy érvényes kódot (4-6 számjegy)');return}
+            try{
+                const activeTile=document.querySelector('.game-skin-tile.active');
+                const skin=activeTile?activeTile.dataset.skinId||'':'';
+                const j=await gameApi('join',{
+                    code,
+                    uid:localStorage.getItem('nu_uid')||'p'+Math.random().toString(36).slice(2,8),
+                    name:localStorage.getItem('nu_name')||'Vendég',
+                    skin
+                });
+                _gameMP={role:'guest',code:j.code,skin};
+                startMpGame(j.room);
+            }catch(e){alert('Hiba: '+e.message)}
+        }
+        function startMpPoll(){
+            if(!_gameMP) return;
+            const tick=async ()=>{
+                if(!_gameMP) return;
+                try{
+                    const j=await gameApi('poll',{code:_gameMP.code,role:_gameMP.role});
+                    if(j.room && j.room.status==='playing' && j.room.guest){
+                        // Game starts!
+                        startMpGame(j.room);
+                        return;
+                    }
+                }catch(e){}
+                _gameMP.pollTimer=setTimeout(tick,1500);
+            };
+            tick();
+        }
+        function startMpGame(room){
+            if(_gameMP && _gameMP.pollTimer){clearTimeout(_gameMP.pollTimer);_gameMP.pollTimer=null}
+            // A pure local game vs AI helyett indítsuk el a multiplayer arénát
+            // Először switch view-ot
+            document.getElementById('gameLobby').style.display='none';
+            document.getElementById('gameArena').style.display='flex';
+            document.getElementById('gameOver').style.display='none';
+            // Robotok init
+            const myRole=_gameMP.role;
+            const me=myRole==='host'?room.host:room.guest;
+            const opp=myRole==='host'?room.guest:room.host;
+            const robot1=document.getElementById('gameRobotP1');
+            const robot2=document.getElementById('gameRobotP2');
+            if(robot1) robot1.innerHTML=buildMiniRobotHtml(me?.skin||'',false);
+            if(robot2) robot2.innerHTML=buildMiniRobotHtml(opp?.skin||'',false);
+            document.getElementById('gamePlayerName').textContent=me?.name||'Te';
+            document.getElementById('gameAiName').textContent=opp?.name||'Ellenfél';
+            // Helyi state — csak HP nyomon követés
+            _gameState={
+                player:{hp:3,skin:me?.skin||'',abilityCd:0,invincible:false},
+                ai:{hp:3,skin:opp?.skin||'',abilityCd:0,invincible:false},
+                gameOver:false,
+                multiplayer:true
+            };
+            _gamePlayerLeft=null;
+            updateGameHpUi();
+            const abBtn=document.getElementById('gameAbilityBtn');
+            const ab=GAME_ABILITIES[me?.skin||'']||GAME_ABILITIES[''];
+            if(abBtn) abBtn.innerHTML='⚡ '+ab.name;
+            // MP poll loop az események szinkronizálásához
+            startMpEventPoll();
+        }
+        let _mpLastEventTs=0;
+        function startMpEventPoll(){
+            if(!_gameMP) return;
+            const tick=async ()=>{
+                if(!_gameMP||!_gameState||_gameState.gameOver) return;
+                try{
+                    const j=await gameApi('poll',{code:_gameMP.code,role:_gameMP.role});
+                    if(j.room){
+                        // Process new events
+                        const newEvts=j.room.events.filter(e=>e.ts>_mpLastEventTs && e.from!==_gameMP.role);
+                        newEvts.forEach(handleMpEvent);
+                        if(j.room.events.length){_mpLastEventTs=Math.max(_mpLastEventTs,...j.room.events.map(e=>e.ts))}
+                        // Frissítsük HP-t
+                        const myRole=_gameMP.role;
+                        const opp=myRole==='host'?j.room.guest:j.room.host;
+                        if(opp && opp.hp!==undefined){
+                            _gameState.ai.hp=opp.hp;
+                            updateGameHpUi();
+                            if(opp.hp<=0) endGame(true);
+                        }
+                    }
+                }catch(e){}
+                _gameMP.pollTimer=setTimeout(tick,800);
+            };
+            tick();
+        }
+        function handleMpEvent(ev){
+            if(ev.type==='fire'){
+                // Ellenfél tüzelt — projektil felülről lefele (vagy fordítva)
+                // Lokálisan render-eljük
+                const proj=document.getElementById('gameProjectiles');
+                if(!proj) return;
+                const p=document.createElement('span');
+                p.className='game-projectile from-p2';
+                const arena=document.getElementById('gameArenaZone');
+                if(arena){
+                    p.style.left=((parseFloat(ev.x)||50)/100*arena.clientWidth)+'px';
+                }
+                proj.appendChild(p);
+                setTimeout(()=>{
+                    p.remove();
+                    if(!_gameState||_gameState.gameOver) return;
+                    if(_gameState.player.invincible) return;
+                    // Hit detection: ha a játékos x ≈ projektil x
+                    const px=_gamePlayerLeft||(arena?arena.clientWidth/2-70:0);
+                    const projX=parseFloat(p.style.left)||0;
+                    if(Math.abs((px+70)-projX)<80){
+                        // Találat — küldjünk hit event-et
+                        sendMpEvent('hit',{target:_gameMP.role==='host'?'host':'guest'});
+                        _gameState.player.hp-=1;
+                        const re=document.getElementById('gameRobotP1');
+                        if(re){re.classList.remove('hit');void re.offsetWidth;re.classList.add('hit');setTimeout(()=>re.classList.remove('hit'),500)}
+                        try{playSfx('error')}catch(_){}
+                        updateGameHpUi();
+                        if(_gameState.player.hp<=0) endGame(false);
+                    }
+                },1000);
+            }
+            if(ev.type==='move'){
+                // Ellenfél mozgása
+                const ai=document.getElementById('gameRobotP2');
+                const arena=document.getElementById('gameArenaZone');
+                if(ai && arena) ai.style.left=((parseFloat(ev.x)||50)/100*arena.clientWidth-70)+'px';
+            }
+        }
+        async function sendMpEvent(evt,extra){
+            if(!_gameMP) return;
+            try{
+                const arena=document.getElementById('gameArenaZone');
+                const xPct=(_gamePlayerLeft!==null && arena)?((_gamePlayerLeft+70)/arena.clientWidth*100):50;
+                await gameApi('event',{code:_gameMP.code,evt,from:_gameMP.role,x:xPct,...(extra||{})});
+            }catch(e){}
         }
 
         // ========== UPDATE MODAL — verzió változás ==========
@@ -8026,8 +8257,11 @@
                 if(e.target.closest&&e.target.closest('#gameToggle')){ openGamePanel(); return; }
                 if(closeId==='gameClose' || closeId==='gameArenaExit'){ closeGamePanel(); return; }
                 if(closeId==='gameStartAi'){ startGameVsAi(); return; }
+                if(closeId==='gameCreateRoomBtn'){ createMpRoom(); return; }
+                if(closeId==='gameJoinBtn'){ joinMpRoom(); return; }
                 if(closeId==='gameFireBtn'){ fireAt(true); return; }
-                if(closeId==='gameDodgeBtn'){ dodge(true); return; }
+                if(closeId==='gameMoveLeftBtn'){ moveGamePlayer(-1); return; }
+                if(closeId==='gameMoveRightBtn'){ moveGamePlayer(1); return; }
                 if(closeId==='gameAbilityBtn'){ useAbility(); return; }
                 if(closeId==='gameOverBtn'){
                     document.getElementById('gameOver').style.display='none';
@@ -8323,12 +8557,13 @@
             <div class="game-mode-section">
                 <button class="game-mode-btn" id="gameStartAi">🤖 Egyedül AI ellen</button>
                 <div class="game-multiplayer">
-                    <div class="game-section-title">vagy 2 játékos kóddal (hamarosan)</div>
+                    <div class="game-section-title">vagy 2 játékos kóddal</div>
                     <div class="game-code-row">
-                        <input class="game-code-input" id="gameCodeInput" placeholder="Kód: pl. 77321" maxlength="6" disabled>
-                        <button class="game-code-btn" disabled>Csatlakoz</button>
+                        <input class="game-code-input" id="gameCodeInput" placeholder="Kód" maxlength="6">
+                        <button class="game-code-btn" id="gameJoinBtn">Csatlakoz</button>
                     </div>
-                    <div class="game-my-code">A te kódod: <strong id="gameMyCode">––––––</strong></div>
+                    <button class="game-mode-btn" id="gameCreateRoomBtn" style="margin-top:10px;background:linear-gradient(135deg,#a78bfa,#7c3aed)">🌐 Új szoba létrehozása</button>
+                    <div class="game-my-code" id="gameMyCodeRow" style="display:none">A te kódod: <strong id="gameMyCode">––––––</strong> · <span id="gameRoomStatus">várakozás</span></div>
                 </div>
             </div>
         </div>
@@ -8353,9 +8588,10 @@
                 <div class="game-flash" id="gameFlash"></div>
             </div>
             <div class="game-controls">
+                <button class="game-btn game-btn-move" id="gameMoveLeftBtn">◄</button>
                 <button class="game-btn game-btn-fire" id="gameFireBtn">🔫 LÖVÉS</button>
-                <button class="game-btn game-btn-dodge" id="gameDodgeBtn">↑ KIKERÜL</button>
                 <button class="game-btn game-btn-ability" id="gameAbilityBtn">⚡ Ability</button>
+                <button class="game-btn game-btn-move" id="gameMoveRightBtn">►</button>
             </div>
             <button class="game-arena-exit" id="gameArenaExit">✕ Kilép</button>
         </div>
