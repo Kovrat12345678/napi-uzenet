@@ -71,6 +71,30 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
+        /* SUPER BOT — köpenyes szuperhős */
+        .robot.super .head,.robot.super .torso{background:linear-gradient(165deg,#dbeafe 0%,#3b82f6 40%,#1e3a8a 100%)!important;box-shadow:0 0 20px rgba(59,130,246,.4),inset 0 -4px 8px rgba(0,0,0,.25)!important}
+        .robot.super .eye{background:radial-gradient(circle,#fef9c3,#fbbf24,#f59e0b)!important;box-shadow:0 0 16px rgba(251,191,36,.9),0 0 32px rgba(251,191,36,.5)!important}
+        .robot.super .antenna-ball{background:radial-gradient(circle,#fef9c3,#fbbf24,#dc2626)!important;box-shadow:0 0 22px rgba(220,38,38,1),0 0 44px rgba(251,191,36,.6)!important;animation:superAntenna 2s ease-in-out infinite!important}
+        @keyframes superAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.25)}}
+        .robot.super .arm-l,.robot.super .arm-r{background:linear-gradient(to bottom,#3b82f6,#1e3a8a)!important}
+        .robot.super .leg{background:linear-gradient(to bottom,#dc2626,#7f1d1d)!important}
+        .robot.super .shoulder-l,.robot.super .shoulder-r{background:radial-gradient(circle,#dbeafe,#3b82f6)!important;box-shadow:0 0 8px rgba(251,191,36,.4)!important}
+        .robot.super .chest{background:linear-gradient(135deg,#dc2626,#991b1b)!important;border:2px solid #fbbf24!important;border-radius:12px!important;position:relative;display:flex!important;align-items:center;justify-content:center}
+        .robot.super .heart-icon{display:none!important}
+        .robot.super .chest::after{content:'⚡';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:34px;text-shadow:0 0 10px #fbbf24,0 0 20px rgba(251,191,36,.6);filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));z-index:2;animation:superLogo 1.6s ease-in-out infinite}
+        @keyframes superLogo{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.15)}}
+        .robot.super .chest-dots{display:none!important}
+        .robot.super .mouth{background:#fbbf24!important;box-shadow:0 0 8px rgba(251,191,36,.8)!important}
+        .robot.super .neck{background:#dc2626!important}
+        .robot.super .ear-l,.robot.super .ear-r{background:#dc2626!important;box-shadow:0 0 8px rgba(220,38,38,.6)!important}
+        .robot.super .foot{background:#fbbf24!important;box-shadow:0 0 6px rgba(251,191,36,.5)!important}
+        /* Köpeny — pseudo-element a robot mögött */
+        .robot.super::before{content:'';position:absolute;top:38px;left:50%;transform:translateX(-50%);width:160px;height:200px;background:linear-gradient(180deg,#dc2626 0%,#991b1b 60%,#7f1d1d 100%);border-radius:50% 50% 30% 30% / 30% 30% 70% 70%;box-shadow:inset 0 -10px 20px rgba(0,0,0,.4),0 6px 18px rgba(220,38,38,.4);z-index:-1;clip-path:polygon(20% 0%,80% 0%,100% 80%,75% 100%,50% 90%,25% 100%,0% 80%);animation:superCape 3s ease-in-out infinite}
+        @keyframes superCape{0%,100%{transform:translateX(-50%) rotate(-2deg) scaleY(1)}50%{transform:translateX(-50%) rotate(2deg) scaleY(1.03)}}
+        /* Energiapulzus glow a robot körül */
+        .robot.super::after{content:'';position:absolute;inset:-20px;border-radius:50%;background:radial-gradient(circle at center,rgba(251,191,36,.25),transparent 60%);z-index:-2;animation:superAura 2.4s ease-in-out infinite;pointer-events:none}
+        @keyframes superAura{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.1)}}
+
         /* Rainbow robot jutalom */
         @keyframes rainbowShift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
         .robot.rainbow{animation:rainbowShift 3s linear infinite}
@@ -2372,6 +2396,52 @@
         .shop-greeting{padding:14px 22px 6px;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.5}
         .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
 
+        /* ============== ÚJABB POLISH ============== */
+        /* Shop háttér: lebegő blob-ok mint a Bot Pass-ban */
+        .skin-panel{position:relative;overflow-x:hidden}
+        .skin-panel::before{
+            content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+            background:
+                radial-gradient(circle at 20% 20%,rgba(167,139,250,.18),transparent 40%),
+                radial-gradient(circle at 80% 80%,rgba(236,72,153,.15),transparent 40%),
+                radial-gradient(circle at 50% 50%,rgba(251,191,36,.08),transparent 50%);
+            animation:shopBgFlow 20s ease-in-out infinite;
+        }
+        @keyframes shopBgFlow{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(40deg)}}
+        .skin-panel > *{position:relative;z-index:1}
+        /* Shop greeting modernebb */
+        .shop-greeting{padding:18px 22px 8px;font-size:15px;color:rgba(255,255,255,.9);font-weight:600;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+        /* Loot card modern hover & animation */
+        .loot-card{position:relative;overflow:hidden}
+        .loot-card::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.06) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 5s linear infinite;pointer-events:none}
+        /* Box tier card animáció bekötése a robotnak: mythic boxnál energia ring */
+        .box-tier-card.tier-mythic{animation:mythicBreath 4s ease-in-out infinite}
+        @keyframes mythicBreath{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+        /* Card részletek modal — háttér csillagos */
+        .dc-detail-overlay::before{
+            content:'';position:absolute;inset:0;
+            background:
+                radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.6),transparent),
+                radial-gradient(2px 2px at 70% 80%,rgba(251,191,36,.5),transparent),
+                radial-gradient(1px 1px at 35% 70%,rgba(255,255,255,.5),transparent),
+                radial-gradient(2px 2px at 85% 25%,rgba(236,72,153,.4),transparent),
+                radial-gradient(1px 1px at 50% 50%,rgba(167,139,250,.5),transparent);
+            background-size:600px 600px;
+            animation:loadingStarsDrift 50s linear infinite;
+            opacity:.6;pointer-events:none;
+        }
+        .dc-detail-overlay > *{position:relative;z-index:2}
+        /* Bot Pass — szebb átmenet a state és missions között */
+        .bp-state{padding-bottom:6px!important}
+        /* Box-tier-card belső szebb shadow */
+        .box-tier-card{transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s,border-color .35s}
+        .box-tier-card:active{transform:scale(.97)}
+        /* Buy gomb shine */
+        .gem-pack-btn,.box-tier-btn,.bp-lvl-btn,.loot-card-btn,.dc-detail-btn{position:relative}
+        /* Robot főképernyőn — finom belépő scale */
+        .robot{transition:filter .3s}
+        .robot.robot-pressing{filter:brightness(1.4) drop-shadow(0 0 30px rgba(251,191,36,.7))!important}
+
         /* ============== KISEBB FŐKÉPERNYŐ FRISSÍTÉS ============== */
         /* A buborék text — finom belépő animáció */
         .bubble{animation:dbFadeIn .35s ease}
@@ -2473,6 +2543,35 @@
         .tier-mythic-box .gift-lid{background:linear-gradient(135deg,#a78bfa,#ec4899 50%,#a78bfa)!important;background-size:200% 100%!important;animation:flowColor 3s linear infinite}
         .tier-mythic-box .gift-ribbon-v,.tier-mythic-box .gift-ribbon-h{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24)!important;background-size:200% 100%!important;animation:flowColor 3s linear infinite}
         .tier-mythic-box .bow-l,.tier-mythic-box .bow-r,.tier-mythic-box .bow-c{background:linear-gradient(135deg,#22d3ee,#ec4899)!important}
+
+        /* ============== ADMIN PANEL ============== */
+        .admin-panel{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;animation:dbFadeIn .3s ease}
+        .admin-panel.open{display:flex}
+        .admin-card{width:100%;max-width:480px;max-height:80vh;background:linear-gradient(160deg,#1e1b4b 0%,#3b0764 50%,#1e1b4b 100%);border:1.5px solid rgba(251,191,36,.4);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(124,58,237,.4);overflow:hidden}
+        .admin-head{display:flex;justify-content:space-between;align-items:center}
+        .admin-title{font-size:18px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite}
+        .admin-stats{display:flex;gap:8px;flex-wrap:wrap}
+        .admin-stat{flex:1;min-width:80px;padding:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:10px;text-align:center}
+        .admin-stat-num{font-size:18px;font-weight:900;color:#fbbf24}
+        .admin-stat-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase}
+        .admin-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px}
+        .admin-list::-webkit-scrollbar{width:5px}
+        .admin-list::-webkit-scrollbar-thumb{background:rgba(251,191,36,.4);border-radius:3px}
+        .admin-empty{text-align:center;color:rgba(255,255,255,.5);font-style:italic;padding:30px 10px}
+        .admin-row{padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+        .admin-row.paid{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3)}
+        .admin-row-info{flex:1;min-width:0}
+        .admin-row-pack{font-size:13px;font-weight:800;color:#fff}
+        .admin-row-meta{font-size:10px;color:rgba(255,255,255,.55);margin-top:2px}
+        .admin-row-actions{display:flex;gap:6px}
+        .admin-row-btn{padding:6px 10px;font-size:11px;font-weight:800;border:none;border-radius:8px;cursor:pointer;color:#fff;letter-spacing:.3px}
+        .admin-row-paid{background:linear-gradient(135deg,#10b981,#059669)}
+        .admin-row-unpaid{background:rgba(255,255,255,.1)}
+        .admin-row-del{background:rgba(239,68,68,.4)}
+        .admin-actions{display:flex;gap:8px}
+        .admin-btn{flex:1;padding:10px;border:none;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
+        .admin-btn-export{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+        .admin-btn-clear{background:rgba(239,68,68,.5)}
 
         /* ============== GEM SHOP ============== */
         .gem-shop-row{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:6px 20px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory}
@@ -4152,7 +4251,7 @@
             'tulip':100,'sakura':100,'graffiti':100,
             'stealth':200,'galaxy':200,'fire':200,'gamer':200,
             'golden':400,'diamond':400,'glass':400,'horse':400,
-            'rainbow':600,
+            'rainbow':600,'super':700,
             // MYTHIC skinek
             'prism':800,'phoenix':900,'aurora':1000,
             // Hátterek
@@ -4203,6 +4302,7 @@
             {id:'card-glass',    skinId:'glass',    name:'Glass Bot',    icon:'🪟', rarity:'legendary', power:91, desc:'Áttetsző labor üveg.'},
             {id:'card-horse',    skinId:'horse',    name:'Lovas Bot',    icon:'🐴', rarity:'legendary', power:89, desc:'Vadlovas kalandor.'},
             {id:'card-rainbow',  skinId:'rainbow',  name:'Rainbow Bot',  icon:'🌈', rarity:'legendary', power:93, desc:'Szivárvány színekben táncol.'},
+            {id:'card-super',    skinId:'super',    name:'Super Bot',    icon:'🦸', rarity:'legendary', power:94, desc:'Köpenyes szuperhős, a város reménye.'},
             {id:'card-prism',    skinId:'prism',    name:'Prism Bot',    icon:'🔷', rarity:'mythic',    power:97, desc:'Kristály fénytörés.'},
             {id:'card-phoenix',  skinId:'phoenix',  name:'Phoenix Bot',  icon:'🔥', rarity:'mythic',    power:99, desc:'Hamvából újjáéled.'},
             {id:'card-aurora',   skinId:'aurora',   name:'Aurora Bot',   icon:'🌠', rarity:'mythic',    power:100,desc:'Sarki fény, megszelídítve.'}
@@ -4491,6 +4591,66 @@
             const n=getNewCardCount();
             if(n>0){bub.textContent=n>9?'9+':String(n);bub.classList.add('show')}
             else bub.classList.remove('show');
+        }
+
+        // ========== ADMIN PANEL — gem vásárlás napló ==========
+        function openAdminPanel(){
+            const p=document.getElementById('adminPanel');
+            if(!p) return;
+            renderAdminPanel();
+            p.classList.add('open');
+        }
+        function closeAdminPanel(){
+            const p=document.getElementById('adminPanel');
+            if(p) p.classList.remove('open');
+        }
+        function getPurchaseLog(){
+            try{return JSON.parse(localStorage.getItem('nu_gem_purchases')||'[]')}
+            catch(e){return []}
+        }
+        function savePurchaseLog(log){localStorage.setItem('nu_gem_purchases',JSON.stringify(log))}
+        function renderAdminPanel(){
+            const list=document.getElementById('adminList');
+            const stats=document.getElementById('adminStats');
+            if(!list) return;
+            const log=getPurchaseLog();
+            if(stats){
+                let totalGems=0,totalCount=log.length,paidCount=0,unpaidPrice=0;
+                const PRICES={small:0.99,medium:3.99,large:9.99,mega:29.99};
+                log.forEach(r=>{
+                    totalGems+=r.gems||0;
+                    if(r.paid) paidCount++;
+                    else unpaidPrice+=PRICES[r.pack]||0;
+                });
+                stats.innerHTML=`
+                    <div class="admin-stat"><div class="admin-stat-num">${totalCount}</div><div class="admin-stat-label">Vásárlás</div></div>
+                    <div class="admin-stat"><div class="admin-stat-num">${totalGems}</div><div class="admin-stat-label">Gem</div></div>
+                    <div class="admin-stat"><div class="admin-stat-num">${unpaidPrice.toFixed(2)} €</div><div class="admin-stat-label">Még fizetendő</div></div>
+                    <div class="admin-stat"><div class="admin-stat-num">${paidCount}/${totalCount}</div><div class="admin-stat-label">Fizetve</div></div>
+                `;
+            }
+            if(!log.length){
+                list.innerHTML='<div class="admin-empty">Még nincs vásárlás</div>';
+                return;
+            }
+            list.innerHTML='';
+            log.slice().reverse().forEach((r,idx)=>{
+                const realIdx=log.length-1-idx;
+                const date=new Date(r.ts||r.date).toLocaleString('hu-HU',{year:'2-digit',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+                const row=document.createElement('div');
+                row.className='admin-row'+(r.paid?' paid':'');
+                row.innerHTML=`
+                    <div class="admin-row-info">
+                        <div class="admin-row-pack">💎 ${r.gems} gem · ${r.price}</div>
+                        <div class="admin-row-meta">${date} · ${r.user||'?'} · ${r.pack||'?'}</div>
+                    </div>
+                    <div class="admin-row-actions">
+                        <button class="admin-row-btn ${r.paid?'admin-row-paid':'admin-row-unpaid'}" data-admin-toggle="${realIdx}">${r.paid?'✅ Fizetve':'💳 Fizet'}</button>
+                        <button class="admin-row-btn admin-row-del" data-admin-del="${realIdx}">🗑️</button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
         }
 
         // ========== ROBOT KIEGÉSZÍTŐK ==========
@@ -4790,30 +4950,73 @@
                 if(badge) badge.style.display=getNewCardCount()>0?'flex':'none';
             }catch(_){}
         }
-        // Szint jutalmak generálása (mintázat)
+        // Bot Pass szint jutalmak — vegyes (gem, box, pouch, card, bg, aura, dance, skin)
+        const BP_LEVEL_REWARDS={
+            1:{type:'gems',amount:10,icon:'💎',name:'10 gem'},
+            2:{type:'box',icon:'🎁',name:'1× DailyBox'},
+            3:{type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'},
+            4:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            5:{type:'dance',icon:'🎵',name:'Bólogatás tánc',itemId:'dance-bob'},
+            6:{type:'gems',amount:25,icon:'💎',name:'25 gem'},
+            7:{type:'item_rare',icon:'🌷',name:'Tavaszi Rét háttér',itemId:'bg-tulip'},
+            8:{type:'item_rare',icon:'🌷',name:'Tulipán Aura',itemId:'aura-tulip'},
+            9:{type:'gems',amount:30,icon:'💎',name:'30 gem'},
+            10:{type:'gems',amount:100,icon:'💰',name:'100 gem'},
+            11:{type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'},
+            12:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            13:{type:'item_rare',icon:'🌸',name:'Sakura háttér',itemId:'bg-sakura'},
+            14:{type:'gems',amount:40,icon:'💎',name:'40 gem'},
+            15:{type:'dance',icon:'💃',name:'Rázás tánc',itemId:'dance-shake'},
+            16:{type:'item_rare',icon:'🔥',name:'Tűz Aura',itemId:'aura-fire'},
+            17:{type:'item_rare',icon:'🔥',name:'Fire háttér',itemId:'bg-fire'},
+            18:{type:'gems',amount:60,icon:'💎',name:'60 gem'},
+            19:{type:'box_buy',tier:'common',icon:'📦',name:'Common Box'},
+            20:{type:'item_rare',icon:'🔥',name:'Fire Skin',itemId:'fire'},
+            21:{type:'gems',amount:50,icon:'💎',name:'50 gem'},
+            22:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            23:{type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'},
+            24:{type:'item_rare',icon:'👾',name:'Glitch Aura',itemId:'aura-glitch'},
+            25:{type:'dance',icon:'🌀',name:'Csavar tánc',itemId:'dance-twist'},
+            26:{type:'item_rare',icon:'🌌',name:'Galaxy háttér',itemId:'bg-galaxy'},
+            27:{type:'gems',amount:80,icon:'💎',name:'80 gem'},
+            28:{type:'item_epic',icon:'😇',name:'Szent Aura',itemId:'aura-halo'},
+            29:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            30:{type:'gems',amount:200,icon:'💰',name:'200 gem'},
+            31:{type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'},
+            32:{type:'item_rare',icon:'🌑',name:'Stealth háttér',itemId:'bg-stealth'},
+            33:{type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'},
+            34:{type:'item_epic',icon:'🌈',name:'RGB Aura',itemId:'aura-rgb'},
+            35:{type:'dance',icon:'🌊',name:'Hullám tánc',itemId:'dance-wobble'},
+            36:{type:'item_epic',icon:'✨',name:'Luxus Arany háttér',itemId:'bg-golden'},
+            37:{type:'gems',amount:75,icon:'💎',name:'75 gem'},
+            38:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            39:{type:'box_buy',tier:'legendary',icon:'🏆',name:'Legendary Box'},
+            40:{type:'item_epic',icon:'✨',name:'Golden Skin',itemId:'golden'},
+            41:{type:'item_epic',icon:'💎',name:'Gyémánt Aura',itemId:'aura-diamond'},
+            42:{type:'gems',amount:100,icon:'💎',name:'100 gem'},
+            43:{type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'},
+            44:{type:'item_epic',icon:'💎',name:'Gyémánt háttér',itemId:'bg-diamond'},
+            45:{type:'dance',icon:'🤸',name:'Ugrás tánc',itemId:'dance-jump'},
+            46:{type:'item_epic',icon:'🌈',name:'Szivárvány háttér',itemId:'bg-rainbow'},
+            47:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            48:{type:'gems',amount:120,icon:'💎',name:'120 gem'},
+            49:{type:'item_ultra',icon:'⭐',name:'Celestial Aura',itemId:'aura-celestial'},
+            50:{type:'item_ultra',icon:'🦸',name:'Super Skin',itemId:'super'},
+            51:{type:'item_epic',icon:'🌃',name:'Gamer Room háttér',itemId:'bg-gamer'},
+            52:{type:'pouch',icon:'👝',name:'1× Pouch'},
+            53:{type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'},
+            54:{type:'gems',amount:150,icon:'💰',name:'150 gem'},
+            55:{type:'dance',icon:'🕺',name:'Pörgés tánc',itemId:'dance-spin'},
+            56:{type:'item_ultra',icon:'🌀',name:'Cosmic Aura',itemId:'aura-cosmic'},
+            57:{type:'item_ultra',icon:'🪐',name:'Nebula háttér',itemId:'bg-nebula'},
+            58:{type:'box_buy',tier:'mythic',icon:'💠',name:'Mythic Box'},
+            59:{type:'item_ultra',icon:'🌌',name:'Aurora háttér',itemId:'bg-aurora'},
+            60:{type:'item_ultra',icon:'🌈',name:'Rainbow Skin',itemId:'rainbow'}
+        };
         function botpassReward(lvl){
-            if(lvl===60) return {type:'item_ultra',icon:'🌈',name:'Rainbow Skin',itemId:'rainbow'};
-            if(lvl===55) return {type:'dance',icon:'🕺',name:'Pörgés tánc',itemId:'dance-spin'};
-            if(lvl===50) return {type:'item_epic',icon:'💎',name:'Gyémánt Aura',itemId:'aura-diamond'};
-            if(lvl===45) return {type:'dance',icon:'🤸',name:'Ugrás tánc',itemId:'dance-jump'};
-            if(lvl===40) return {type:'item_epic',icon:'✨',name:'Golden Skin',itemId:'golden'};
-            if(lvl===35) return {type:'dance',icon:'🌊',name:'Hullám tánc',itemId:'dance-wobble'};
-            if(lvl===30) return {type:'gems',amount:200,icon:'💎',name:'200 gem'};
-            if(lvl===25) return {type:'dance',icon:'🌀',name:'Csavar tánc',itemId:'dance-twist'};
-            if(lvl===20) return {type:'item_rare',icon:'🔥',name:'Fire Skin',itemId:'fire'};
-            if(lvl===15) return {type:'dance',icon:'💃',name:'Rázás tánc',itemId:'dance-shake'};
-            if(lvl===10) return {type:'gems',amount:100,icon:'💎',name:'100 gem'};
-            if(lvl===5)  return {type:'dance',icon:'🎵',name:'Bólogatás tánc',itemId:'dance-bob'};
-            // Card pack jutalmak meghatározott szinteken (3, 13, 23, 33, 43, 53)
-            // 3, 13, 23 → normál pakk; 33, 43, 53 → boost-olt pakk
-            if(lvl===3||lvl===13||lvl===23) return {type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'};
-            if(lvl===33||lvl===43||lvl===53) return {type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'};
-            const m=lvl%5;
-            if(m===1) return {type:'gems',amount:10+Math.floor(lvl/5)*2,icon:'💎',name:(10+Math.floor(lvl/5)*2)+' gem'};
-            if(m===2) return {type:'box',icon:'🎁',name:'1× DailyBox'};
-            if(m===3) return {type:'gems',amount:15+Math.floor(lvl/5)*2,icon:'💎',name:(15+Math.floor(lvl/5)*2)+' gem'};
-            if(m===4) return {type:'pouch',icon:'👝',name:'1× Pouch'};
-            return {type:'gems',amount:25+Math.floor(lvl/5)*3,icon:'💰',name:(25+Math.floor(lvl/5)*3)+' gem'};
+            if(BP_LEVEL_REWARDS[lvl]) return BP_LEVEL_REWARDS[lvl];
+            // Fallback (nem használt)
+            return {type:'gems',amount:20,icon:'💎',name:'20 gem'};
         }
         function applyBotpassReward(lvl){
             const r=botpassReward(lvl);
@@ -4832,6 +5035,11 @@
             if(r.type==='card_pack'){
                 setTimeout(()=>{if(typeof window.openRandomCardPack==='function')window.openRandomCardPack(!!r.boost)},250);
                 return 'DailyCard pakk nyitás...';
+            }
+            if(r.type==='box_buy'){
+                // Vásárolt tier-box azonnal nyit (bypass cost)
+                setTimeout(()=>{if(typeof window.openDailyBox==='function')window.openDailyBox(true,r.tier)},250);
+                return r.name+' nyitás...';
             }
             if(r.type==='dance'){
                 if(r.itemId)buyItem(r.itemId);
@@ -5233,7 +5441,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -5297,7 +5505,7 @@
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora)\b/g,'').trim();
             r.classList.add('dragon-week');
 
             // --- Háttér felülírás ---
@@ -5492,6 +5700,7 @@
                 {id:'prism',name:'Prism',desc:'Kristály fénytörés',icon:'🔷',cost:0,tier:'free'},
                 {id:'phoenix',name:'Phoenix',desc:'Tüzes főnix szellem',icon:'🔥',cost:0,tier:'free'},
                 {id:'aurora',name:'Aurora',desc:'Sarki fény robot',icon:'🌠',cost:0,tier:'free'},
+                {id:'super',name:'Super',desc:'Köpenyes szuperhős robot',icon:'🦸',cost:0,tier:'free'},
                 {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true}
             ];
             const BGS=[
@@ -5908,27 +6117,63 @@
                 const g=pickRandom(zynox?[300,500,800]:[150,200,300]);
                 return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
             }
-            // Tier-alapú loot rendszer
+            // ====== ÚJ BOX LOOT ÚJRABALANSZ ======
+            // notOwnedCardsByRarity(rarity) — DAILY_CARDS pool ami nincs még meg
+            function notOwnedCardsByRarity(){
+                const rs=Array.from(arguments);
+                const owned=(typeof getOwnedCards==='function')?getOwnedCards():[];
+                return DAILY_CARDS.filter(c=>!owned.includes(c.id) && rs.includes(c.rarity));
+            }
+            function rollCardPrize(rs){
+                const pool=DAILY_CARDS.filter(c=>{
+                    const owned=(typeof getOwnedCards==='function')?getOwnedCards():[];
+                    return !owned.includes(c.id) && rs.includes(c.rarity);
+                });
+                if(!pool.length){
+                    // Ha minden kártya megvan ezen ritkaságon, adj duplikátot kompenzáció gemmel
+                    const allOfRarity=DAILY_CARDS.filter(c=>rs.includes(c.rarity));
+                    if(allOfRarity.length){
+                        const c=pickRandom(allOfRarity);
+                        return {type:'card',id:c.id,icon:c.icon,name:c.name+' (duplikát)',_dupe:true,_card:c};
+                    }
+                    return null;
+                }
+                const c=pickRandom(pool);
+                return {type:'card',id:c.id,icon:c.icon,name:c.name+' kártya',_card:c};
+            }
+            // Tier-alapú loot rendszer — gem + skin + bg + aura + card vegyesen
             function rollTierPrize(tier){
                 const r=Math.random();
                 if(tier==='daily' || tier==='common'){
-                    if(r<0.55){const g=pickRandom([10,20,30,40,50]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
-                    if(r<0.85){const pool=notOwnedByTier(1,100); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name}}}
+                    // Daily/Common: 30% gem, 30% common item, 20% rare item, 15% common kártya, 5% rare kártya
+                    if(r<0.30){const g=pickRandom([10,20,30,40,50]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
+                    if(r<0.60){const pool=notOwnedByTier(1,100); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name}}}
+                    if(r<0.80){const pool=notOwnedByTier(101,200); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}}
+                    if(r<0.95){const c=rollCardPrize(['common']); if(c)return c;}
+                    const c=rollCardPrize(['rare']); if(c)return c;
                     const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}
-                    return {type:'gems',gems:50,icon:'💎',name:'50 gem'};
+                    return {type:'gems',gems:50,icon:'💎',name:'50 gem (kompenzáció)'};
                 }
                 if(tier==='legendary'){
-                    if(r<0.15){const g=pickRandom([60,100,150,200]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
-                    if(r<0.45){const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}}
-                    if(r<0.85){const pool=notOwnedByTier(251,500); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}}
+                    // Legendary: 5% gems, 25% rare item, 35% epic/legendary item, 25% legendary kártya, 10% rare kártya
+                    if(r<0.05){const g=pickRandom([100,150,200]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
+                    if(r<0.30){const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}}
+                    if(r<0.65){const pool=notOwnedByTier(251,500); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}}
+                    if(r<0.90){const c=rollCardPrize(['legendary']); if(c)return c;}
+                    const c=rollCardPrize(['rare']); if(c)return c;
                     const pool=notOwnedByTier(501,9999); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:i.name}}
                     return {type:'gems',gems:200,icon:'💎',name:'200 gem (kompenzáció)'};
                 }
                 if(tier==='mythic'){
-                    if(r<0.05){const g=pickRandom([300,500,800,1000]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
-                    if(r<0.25){const pool=notOwnedByTier(251,500); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}}
-                    if(r<0.70){const pool=notOwnedByTier(501,700); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:i.name}}}
-                    const pool=notOwnedByTier(701,9999); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'💠',name:'⚡ MYTHIC: '+i.name}}
+                    // Mythic: 0% gems, 60% mythic skin/bg/aura, 35% mythic kártya, 5% legendary kártya
+                    if(r<0.60){
+                        const pool=notOwnedByTier(501,9999); // legendary+mythic items
+                        if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'💠',name:'⚡ '+i.name}}
+                    }
+                    if(r<0.95){const c=rollCardPrize(['mythic']); if(c){c.name='⚡ '+c.name;return c}}
+                    const c=rollCardPrize(['legendary']); if(c)return c;
+                    // Fallback: legendary item
+                    const pool=notOwnedByTier(401,700); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:'⚡ '+i.name}}
                     return {type:'gems',gems:500,icon:'💎',name:'500 gem (kompenzáció)'};
                 }
                 return rollNormalPrize();
@@ -5938,6 +6183,16 @@
                 else if(p.type==='item') buyItem(p.id);
                 else if(p.type==='accessory') buyItem(p.id);
                 else if(p.type==='dance') buyItem(p.id);
+                else if(p.type==='card'){
+                    if(typeof awardCard==='function' && p.id){
+                        const res=awardCard(p.id);
+                        // Ha duplikát, a awardCard már jóváírta a kompenzáció gemet
+                        if(res && res.duplicate && res.gems){
+                            // jelöljük a name-en, hogy duplikát+gem
+                            p.name=p.name+' (+'+res.gems+' gem)';
+                        }
+                    }
+                }
             }
 
             window.openDailyBox=function(bypass,tier){
@@ -6024,19 +6279,24 @@
             };
 
             function rollPouchItem(){
-                // Pouch: 25% DailyCard pakk + 50% kiegészítő + 25% tánc
+                // Pouch: 50% accessory + 25% dance + 15% kártya pakk + 10% kis gem (max 50)
                 const owned=getOwned();
                 const notOwnedAcc=ACCESSORIES.filter(a=>!owned.includes(a.id));
                 const notOwnedDance=DANCES.filter(d=>!owned.includes(d.id));
 
                 const roll=Math.random();
-                // 25% kártya pakk (mindig elérhető)
+                // 10% kis gem
+                if(roll<0.10){
+                    const g=pickRandom([10,15,20,25,30,40,50]);
+                    return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
+                }
+                // 15% kártya pakk
                 if(roll<0.25){
                     return {type:'card_pack',icon:'🎴',name:'DailyCard pakk!',_isCardPack:true};
                 }
+                // 25% tánc (ha van új)
                 let chooseDance=(roll<0.50 && notOwnedDance.length) || !notOwnedAcc.length;
                 if(chooseDance && !notOwnedDance.length) chooseDance=false;
-
                 const pool= chooseDance ? notOwnedDance : notOwnedAcc;
                 if(!pool.length){
                     // Ha már nincs új kiegészítő/tánc → kártya
@@ -6045,9 +6305,9 @@
                 // Rarity súlyozás
                 const r=Math.random();
                 let tier;
-                if(r<0.60) tier='common';
-                else if(r<0.90) tier='rare';
-                else if(r<0.98) tier='epic';
+                if(r<0.55) tier='common';
+                else if(r<0.85) tier='rare';
+                else if(r<0.97) tier='epic';
                 else tier='legendary';
                 let tierPool=pool.filter(a=>a.rarity===tier);
                 if(!tierPool.length) tierPool=pool;
@@ -6137,17 +6397,57 @@
                         if(typeof window.buyBox==='function') window.buyBox(tier);
                     });
                 });
-                // Gem package vásárlás (placeholder)
+                // Gem package vásárlás — azonnal jóváírja, log megy az admin panelbe
                 document.querySelectorAll('[data-gem-pack]').forEach(card=>{
                     if(card._bound) return; card._bound=true;
                     card.addEventListener('click',(e)=>{
                         e.stopPropagation();
                         const t=card.getAttribute('data-gem-pack');
-                        const names={small:'100 gem (0,99 €)',medium:'550 gem (3,99 €)',large:'1950 gem (9,99 €)',mega:'8000 gem (29,99 €)'};
+                        const PACKS={
+                            small:{gems:100,price:'0,99 €',label:'Small'},
+                            medium:{gems:550,price:'3,99 €',label:'Medium'},
+                            large:{gems:1950,price:'9,99 €',label:'Large'},
+                            mega:{gems:8000,price:'29,99 €',label:'Mega'}
+                        };
+                        const p=PACKS[t]; if(!p) return;
+                        if(!confirm('💎 '+p.label+' csomag\n\n'+p.gems+' gem · '+p.price+'\n\n✅ A gem azonnal hozzáadódik a fiókodhoz.\n💳 A fizetést kérjük, utalással rendezd.\n\nMegrendeled?')) return;
+                        addGems(p.gems);
+                        // Log a vásárlást
+                        try{
+                            const log=JSON.parse(localStorage.getItem('nu_gem_purchases')||'[]');
+                            log.push({
+                                ts:Date.now(),
+                                date:new Date().toISOString(),
+                                pack:t,
+                                gems:p.gems,
+                                price:p.price,
+                                user:localStorage.getItem('nu_name')||'?',
+                                uid:localStorage.getItem('nu_uid')||'?',
+                                paid:false
+                            });
+                            localStorage.setItem('nu_gem_purchases',JSON.stringify(log));
+                        }catch(_){}
                         try{playSfx('gem-claim')}catch(_){}
-                        alert('💎 Gem Shop\n\n'+names[t]+'\n\n🚀 Hamarosan elérhető!\n\nA fizetési integráció még készülőben van. Köszönjük a türelmet!');
+                        if(typeof showGemFlash==='function') showGemFlash(p.gems);
+                        if(typeof updateGemUI==='function') updateGemUI();
+                        if(typeof updateLootBadges==='function') updateLootBadges();
+                        alert('🎉 '+p.gems+' gem hozzáadva!\n\n💳 Fizetendő: '+p.price+'\nKöszönjük a támogatást! 💜');
                     });
                 });
+                // Admin panel — gem display 💎 hosszú nyomásra nyílik
+                const gemDisplay=document.querySelector('.shop-gems');
+                if(gemDisplay && !gemDisplay._bound){
+                    gemDisplay._bound=true;
+                    let adminPress=null;
+                    const startAdmin=()=>{adminPress=setTimeout(()=>{openAdminPanel()},900)};
+                    const cancelAdmin=()=>{if(adminPress){clearTimeout(adminPress);adminPress=null}};
+                    gemDisplay.addEventListener('mousedown',startAdmin);
+                    gemDisplay.addEventListener('touchstart',startAdmin,{passive:true});
+                    gemDisplay.addEventListener('mouseup',cancelAdmin);
+                    gemDisplay.addEventListener('mouseleave',cancelAdmin);
+                    gemDisplay.addEventListener('touchend',cancelAdmin);
+                    gemDisplay.addEventListener('touchcancel',cancelAdmin);
+                }
                 const bpC=document.getElementById('bpClose');
                 if(bpC&&!bpC._bound){bpC._bound=true;bpC.addEventListener('click',()=>{document.getElementById('botpassPanel').style.display='none';updateLootBadges();})}
                 const bpSkip=document.getElementById('bpSkipBtn');
@@ -6295,6 +6595,39 @@
                     return;
                 }
                 if(closeId==='dcDetailClose'){ closeCardDetail(); return; }
+                if(closeId==='adminClose'){ closeAdminPanel(); return; }
+                if(closeId==='adminClear'){
+                    if(confirm('Biztosan törlöd az összes vásárlási logot?')){
+                        savePurchaseLog([]);
+                        renderAdminPanel();
+                    }
+                    return;
+                }
+                if(closeId==='adminExport'){
+                    const log=getPurchaseLog();
+                    const csv=['Datum,Felhasznalo,UID,Csomag,Gem,Ar,Fizetve'];
+                    log.forEach(r=>{csv.push([new Date(r.ts).toISOString(),r.user,r.uid,r.pack,r.gems,r.price,r.paid?'igen':'nem'].join(','))});
+                    const text=csv.join('\n');
+                    if(navigator.clipboard) navigator.clipboard.writeText(text).then(()=>alert('CSV vágólapra másolva ('+log.length+' sor)'));
+                    else alert(text);
+                    return;
+                }
+                const tgl=e.target.closest&&e.target.closest('[data-admin-toggle]');
+                if(tgl){
+                    const i=parseInt(tgl.getAttribute('data-admin-toggle'),10);
+                    const log=getPurchaseLog();
+                    if(log[i]){log[i].paid=!log[i].paid;savePurchaseLog(log);renderAdminPanel()}
+                    return;
+                }
+                const del=e.target.closest&&e.target.closest('[data-admin-del]');
+                if(del){
+                    const i=parseInt(del.getAttribute('data-admin-del'),10);
+                    if(confirm('Biztosan törlöd ezt a vásárlást?')){
+                        const log=getPurchaseLog();
+                        if(log[i]){log.splice(i,1);savePurchaseLog(log);renderAdminPanel()}
+                    }
+                    return;
+                }
                 // Skin equip a részletek modalból
                 const equipBtn=e.target.closest&&e.target.closest('[data-equip-skin]');
                 if(equipBtn){
@@ -6502,6 +6835,22 @@
             </div>
         </div>
         <div class="dc-grid" id="dcGrid"></div>
+    </div>
+
+    <!-- Admin panel (gem vásárlás napló) -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-card">
+            <div class="admin-head">
+                <div class="admin-title">👑 Admin · Gem vásárlások</div>
+                <button class="shop-close-btn" id="adminClose">✕</button>
+            </div>
+            <div class="admin-stats" id="adminStats"></div>
+            <div class="admin-list" id="adminList"></div>
+            <div class="admin-actions">
+                <button class="admin-btn admin-btn-export" id="adminExport">📤 Export CSV</button>
+                <button class="admin-btn admin-btn-clear" id="adminClear">🗑️ Mind törlése</button>
+            </div>
+        </div>
     </div>
 
     <!-- DailyCard részletek overlay -->
