@@ -1954,20 +1954,31 @@
         .skin-equip-pulse{animation:skinEquipPulse .7s cubic-bezier(.4,1.6,.5,1)!important}
         @keyframes skinEquipPulse{0%{transform:scale(1);filter:brightness(1)}40%{transform:scale(1.15);filter:brightness(2) drop-shadow(0 0 30px #fbbf24)}100%{transform:scale(1);filter:brightness(1)}}
 
-        /* ZYNOX támogatás szekció */
-        .support-card{margin:0 20px 10px;padding:16px 16px 14px;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.14);border-radius:16px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-        .support-card.lucky{background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(236,72,153,.12),rgba(167,139,250,.12));background-size:200% 200%;border-color:rgba(251,191,36,.4);animation:supportFlow 5s ease-in-out infinite;box-shadow:0 6px 22px rgba(251,191,36,.15)}
+        /* SUPPORT szekció — modern, animált, vertikális layout */
+        .support-card{position:relative;margin:0 20px 14px;padding:18px 18px 16px;background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(236,72,153,.08),rgba(251,191,36,.08));background-size:300% 300%;border:1.5px solid rgba(255,255,255,.18);border-radius:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden;animation:supportFlow 8s ease-in-out infinite;box-shadow:0 6px 22px rgba(124,58,237,.18)}
+        .support-card::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:conic-gradient(from var(--ang,0deg),#a78bfa,#ec4899,#fbbf24,#a78bfa);opacity:.45;z-index:0;animation:supportRing 6s linear infinite;filter:blur(6px)}
+        .support-card::after{content:'';position:absolute;inset:1.5px;border-radius:18px;background:linear-gradient(160deg,#1a1530 0%,#241b3d 100%);z-index:0}
+        @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+        @keyframes supportRing{to{--ang:360deg}}
         @keyframes supportFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        .support-title{font-size:13px;font-weight:900;color:#fff;letter-spacing:.5px;margin-bottom:3px}
-        .support-sub{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px}
-        .support-row{display:flex;gap:8px}
-        .support-input{flex:1;padding:10px 14px;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;outline:none;transition:border-color .2s,box-shadow .2s}
-        .support-input:focus{border-color:rgba(251,191,36,.5);box-shadow:0 0 0 3px rgba(251,191,36,.15)}
-        .support-input::placeholder{color:rgba(255,255,255,.25);letter-spacing:.5px;text-transform:none;font-weight:500}
-        .support-submit{padding:10px 16px;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;font-weight:800;font-size:12px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 4px 14px rgba(124,58,237,.3)}
-        .support-submit:active{transform:scale(.95)}
-        .support-status{margin-top:8px;font-size:11px;color:#fbbf24;font-weight:800;display:none}
-        .support-status.active{display:block}
+        .support-card.lucky{border-color:rgba(251,191,36,.55);box-shadow:0 8px 30px rgba(251,191,36,.25)}
+        .support-card.lucky::before{opacity:.7;background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#10b981,#fbbf24)}
+        .support-inner{position:relative;z-index:2}
+        .support-title{font-size:18px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;letter-spacing:1.5px;margin-bottom:4px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+        .support-title-icon{font-size:18px;-webkit-text-fill-color:initial;filter:drop-shadow(0 0 8px rgba(251,191,36,.5))}
+        .support-sub{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:14px;line-height:1.4}
+        .support-row{display:flex;flex-direction:column;gap:10px}
+        .support-input{width:100%;padding:13px 16px;background:rgba(0,0,0,.35);border:1.5px solid rgba(255,255,255,.18);border-radius:12px;color:#fff;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;outline:none;transition:border-color .25s,box-shadow .25s,background .25s;box-sizing:border-box;text-align:center}
+        .support-input:focus{border-color:rgba(251,191,36,.6);background:rgba(0,0,0,.5);box-shadow:0 0 0 3px rgba(251,191,36,.18)}
+        .support-input::placeholder{color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:none;font-weight:500}
+        .support-submit{position:relative;width:100%;padding:14px 16px;background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 30%,#ec4899 65%,#a78bfa 100%);background-size:200% 200%;animation:supportBtnFlow 4s ease-in-out infinite;color:#fff;font-weight:900;font-size:14px;border:none;border-radius:12px;cursor:pointer;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 6px 20px rgba(236,72,153,.35),inset 0 1px 0 rgba(255,255,255,.3);overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+        .support-submit::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:bpShine 2.8s linear infinite;pointer-events:none}
+        .support-submit:active{transform:scale(.97)}
+        .support-submit:disabled{opacity:.6;animation:none;cursor:default}
+        @keyframes supportBtnFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .support-status{margin-top:10px;padding:8px 12px;font-size:12px;color:#fbbf24;font-weight:800;display:none;text-align:center;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:10px}
+        .support-status.active{display:block;animation:supportStatusIn .5s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes supportStatusIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
         /* Robot tap particle trail */
         .tap-particle{position:fixed;z-index:999;pointer-events:none;font-size:16px;animation:tapParticle 1s cubic-bezier(.2,.8,.3,1) forwards;filter:drop-shadow(0 0 6px rgba(251,191,36,.8))}
@@ -2068,6 +2079,186 @@
         .dp-reward{font-size:48px;font-weight:900;color:#fbbf24;text-shadow:0 0 24px rgba(251,191,36,.7);animation:dbPrizeIn .5s ease}
         .dp-close{padding:12px 24px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:800;border:none;border-radius:12px;cursor:pointer}
         .dp-close:active{transform:scale(.95)}
+
+        /* ============== DAILYCARD RENDSZER ============== */
+        /* Egy kártya — Pokemon stílusú trading card */
+        .dc-card{position:relative;width:200px;aspect-ratio:5/7;border-radius:18px;background:linear-gradient(160deg,#1f1738 0%,#2c1f4d 100%);border:2px solid rgba(255,255,255,.15);overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.15);font-family:'SF Pro Display',system-ui,-apple-system,sans-serif;cursor:pointer;transition:transform .35s cubic-bezier(.4,1.6,.5,1),box-shadow .3s;flex-shrink:0}
+        .dc-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 44px rgba(0,0,0,.6)}
+        .dc-card.locked{opacity:.5;filter:grayscale(.6)}
+        .dc-card-inner{position:absolute;inset:0;padding:10px;display:flex;flex-direction:column;z-index:2}
+        .dc-card-glow{position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:0;opacity:.85}
+        .dc-card-shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 3.5s linear infinite;pointer-events:none;z-index:3;mix-blend-mode:screen;border-radius:18px}
+        @keyframes dcShine{0%{background-position:200% 0}100%{background-position:-100% 0}}
+        .dc-card-rarity{font-size:9px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.95);background:rgba(0,0,0,.4);padding:4px 8px;border-radius:8px;align-self:flex-start;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+        .dc-card-power{position:absolute;top:10px;right:10px;font-size:18px;font-weight:900;color:#fff;background:rgba(0,0,0,.4);padding:4px 9px;border-radius:10px;text-shadow:0 1px 3px rgba(0,0,0,.6);z-index:4}
+        .dc-card-power-label{font-size:8px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;display:block;line-height:1}
+        .dc-card-image{flex:1;display:flex;align-items:center;justify-content:center;font-size:70px;text-align:center;text-shadow:0 4px 12px rgba(0,0,0,.5);filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));margin:6px 0}
+        .dc-card-name{font-size:14px;font-weight:900;color:#fff;text-align:center;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:4px}
+        .dc-card-bar{height:6px;background:rgba(0,0,0,.45);border-radius:3px;overflow:hidden;margin-bottom:6px}
+        .dc-card-bar-fill{height:100%;width:var(--pwr,50%);background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);border-radius:3px;box-shadow:0 0 6px rgba(251,191,36,.5)}
+        .dc-card-desc{font-size:9px;font-weight:600;color:rgba(255,255,255,.75);text-align:center;line-height:1.2;font-style:italic}
+
+        /* Rarity színek a kártya glow-ra */
+        .dc-card.rarity-common .dc-card-glow{background:radial-gradient(circle at 50% 30%,rgba(148,163,184,.45),rgba(71,85,105,.2) 60%,transparent 80%)}
+        .dc-card.rarity-common{border-color:rgba(148,163,184,.6)}
+        .dc-card.rarity-rare .dc-card-glow{background:radial-gradient(circle at 50% 30%,rgba(96,165,250,.55),rgba(37,99,235,.25) 60%,transparent 80%)}
+        .dc-card.rarity-rare{border-color:rgba(96,165,250,.7);box-shadow:0 10px 30px rgba(37,99,235,.3),inset 0 1px 0 rgba(255,255,255,.2)}
+        .dc-card.rarity-epic .dc-card-glow{background:radial-gradient(circle at 50% 30%,rgba(168,85,247,.55),rgba(124,58,237,.25) 60%,transparent 80%)}
+        .dc-card.rarity-epic{border-color:rgba(168,85,247,.7);box-shadow:0 10px 30px rgba(124,58,237,.4),inset 0 1px 0 rgba(255,255,255,.2)}
+        .dc-card.rarity-legendary .dc-card-glow{background:linear-gradient(160deg,rgba(251,191,36,.4),rgba(245,158,11,.25) 50%,rgba(180,83,9,.15));animation:dcLegendaryPulse 2.5s ease-in-out infinite}
+        .dc-card.rarity-legendary{border-color:rgba(251,191,36,.85);box-shadow:0 12px 36px rgba(251,191,36,.45),inset 0 1px 0 rgba(255,255,255,.3),0 0 30px rgba(251,191,36,.2)}
+        .dc-card.rarity-mythic .dc-card-glow{background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#10b981,#fbbf24);animation:dcMythicSpin 8s linear infinite;opacity:.55;filter:blur(6px)}
+        .dc-card.rarity-mythic{border-color:transparent;background:linear-gradient(160deg,#0f0a1f 0%,#1a0f2e 100%);box-shadow:0 14px 44px rgba(167,139,250,.5),inset 0 1px 0 rgba(255,255,255,.3),0 0 40px rgba(236,72,153,.3)}
+        .dc-card.rarity-mythic .dc-card-shine{background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);animation-duration:2s}
+        @keyframes dcLegendaryPulse{0%,100%{opacity:.7}50%{opacity:1}}
+        @keyframes dcMythicSpin{to{--ang:360deg}}
+
+        .dc-card.rarity-common .dc-card-rarity{background:linear-gradient(135deg,#94a3b8,#64748b)}
+        .dc-card.rarity-rare .dc-card-rarity{background:linear-gradient(135deg,#60a5fa,#2563eb)}
+        .dc-card.rarity-epic .dc-card-rarity{background:linear-gradient(135deg,#a855f7,#7c3aed)}
+        .dc-card.rarity-legendary .dc-card-rarity{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e}
+        .dc-card.rarity-mythic .dc-card-rarity{background:linear-gradient(135deg,#ec4899,#a78bfa,#22d3ee);background-size:200% 100%;animation:flowColor 3s linear infinite}
+
+        /* DailyCard menü panel — saját külön overlay */
+        .dc-panel{position:fixed;inset:0;z-index:9997;background:linear-gradient(165deg,#0f0a1f 0%,#1e1b4b 30%,#3b0764 65%,#581c87 100%);background-size:300% 300%;animation:dcPanelFlow 25s ease infinite;display:none;flex-direction:column;overflow:hidden;padding-top:calc(env(safe-area-inset-top,0px) + 6px)}
+        .dc-panel.open{display:flex;animation:dbFadeIn .35s ease,dcPanelFlow 25s ease infinite}
+        @keyframes dcPanelFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .dc-panel-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:linear-gradient(180deg,rgba(15,10,31,.85),rgba(15,10,31,.55));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:5}
+        .dc-panel-title{font-size:24px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+        .dc-panel-stats{padding:10px 22px 0;display:flex;gap:10px;flex-wrap:wrap}
+        .dc-stat-pill{font-size:11px;font-weight:800;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 12px;border-radius:20px;letter-spacing:.5px}
+        .dc-stat-pill .dc-stat-num{color:#fbbf24;font-weight:900}
+        .dc-progress-wrap{padding:14px 22px 6px}
+        .dc-progress-bar{height:14px;background:rgba(0,0,0,.4);border:1.5px solid rgba(251,191,36,.3);border-radius:8px;overflow:hidden;position:relative;box-shadow:inset 0 2px 6px rgba(0,0,0,.4)}
+        .dc-progress-fill{height:100%;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;animation:bpXpFlow 3s linear infinite;border-radius:6px;transition:width .8s cubic-bezier(.4,1.4,.6,1);box-shadow:0 0 10px rgba(251,191,36,.5)}
+        .dc-progress-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7);letter-spacing:.5px}
+        .dc-grid{flex:1;overflow-y:auto;padding:18px 18px calc(env(safe-area-inset-bottom,0px) + 30px);display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;justify-items:center}
+        .dc-grid::-webkit-scrollbar{width:6px}
+        .dc-grid::-webkit-scrollbar-thumb{background:rgba(251,191,36,.4);border-radius:3px}
+        .dc-grid .dc-card{width:100%;max-width:170px}
+        .dc-grid .dc-card-image{font-size:60px}
+        .dc-grid .dc-card-name{font-size:13px}
+
+        /* Card pack opening overlay */
+        .dc-pack-overlay{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at center,rgba(60,40,100,.95),rgba(10,5,25,.98) 70%);display:none;align-items:center;justify-content:center;animation:dbFadeIn .3s ease;flex-direction:column;gap:24px;padding:20px;overflow:hidden}
+        .dc-pack-overlay.open{display:flex}
+        .dc-pack-prompt{font-size:14px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;text-align:center}
+        .dc-pack-stage{position:relative;width:240px;height:336px;perspective:1000px}
+        .dc-pack-back{position:absolute;inset:0;border-radius:20px;background:linear-gradient(160deg,#1e1b4b 0%,#3b0764 50%,#831843 100%);border:2px solid rgba(251,191,36,.5);box-shadow:0 20px 60px rgba(124,58,237,.5),inset 0 2px 0 rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;backface-visibility:hidden;transition:transform .8s cubic-bezier(.7,.0,.3,1)}
+        .dc-pack-back::before{content:'';position:absolute;inset:0;border-radius:20px;background:radial-gradient(circle at 30% 20%,rgba(251,191,36,.2),transparent 50%),radial-gradient(circle at 70% 80%,rgba(236,72,153,.2),transparent 50%);animation:bpShine 4s ease-in-out infinite}
+        .dc-pack-back-logo{font-size:60px;font-weight:900;background:linear-gradient(135deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;text-align:center;letter-spacing:1px;line-height:1}
+        .dc-pack-back-sub{font-size:11px;font-weight:800;color:rgba(251,191,36,.9);letter-spacing:3px;text-transform:uppercase;margin-top:8px;text-align:center}
+        .dc-pack-back-stack{position:relative;display:flex;flex-direction:column;align-items:center;animation:dcPackHover 2s ease-in-out infinite}
+        @keyframes dcPackHover{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+        .dc-pack-back.flipping{animation:dcPackFlip 1s cubic-bezier(.7,.0,.3,1) forwards}
+        @keyframes dcPackFlip{0%{transform:rotateY(0deg) scale(1)}50%{transform:rotateY(90deg) scale(1.2)}100%{transform:rotateY(180deg) scale(0);opacity:0}}
+        .dc-pack-reveal{position:absolute;inset:0;opacity:0;display:flex;align-items:center;justify-content:center}
+        .dc-pack-reveal.show{animation:dcPackReveal 1s cubic-bezier(.34,1.56,.64,1) forwards}
+        @keyframes dcPackReveal{0%{opacity:0;transform:scale(.4) rotateY(180deg)}100%{opacity:1;transform:scale(1) rotateY(360deg)}}
+        .dc-pack-reveal .dc-card{width:100%;height:100%;cursor:default}
+        .dc-pack-rarity-banner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:42px;font-weight:900;letter-spacing:6px;text-transform:uppercase;-webkit-text-stroke:2px rgba(0,0,0,.3);text-shadow:0 0 20px currentColor;pointer-events:none;z-index:10;white-space:nowrap}
+        .dc-pack-rarity-banner.show{animation:dcRarityBanner 1.6s cubic-bezier(.34,1.56,.64,1) forwards}
+        @keyframes dcRarityBanner{0%{transform:translate(-50%,-50%) scale(0) rotate(-30deg);opacity:0}30%{transform:translate(-50%,-50%) scale(1.4) rotate(0deg);opacity:1}70%{transform:translate(-50%,-50%) scale(1.1);opacity:1}100%{transform:translate(-50%,-200%) scale(.8);opacity:0}}
+        .dc-pack-rarity-banner.rarity-common{color:#cbd5e1}
+        .dc-pack-rarity-banner.rarity-rare{color:#60a5fa}
+        .dc-pack-rarity-banner.rarity-epic{color:#a855f7}
+        .dc-pack-rarity-banner.rarity-legendary{color:#fbbf24;text-shadow:0 0 30px #fbbf24,0 0 50px rgba(251,191,36,.5)}
+        .dc-pack-rarity-banner.rarity-mythic{background:linear-gradient(90deg,#ec4899,#a78bfa,#22d3ee,#10b981,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;-webkit-text-stroke:0;animation:dcRarityBanner 1.6s cubic-bezier(.34,1.56,.64,1) forwards,flowColor 2s linear infinite}
+        .dc-pack-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+        .dc-pack-particle{position:absolute;font-size:18px;animation:dcParticleBurst var(--dur,1.4s) ease-out forwards;left:50%;top:50%;filter:drop-shadow(0 0 8px currentColor)}
+        @keyframes dcParticleBurst{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(calc(-50% + var(--dx,0px)),calc(-50% + var(--dy,0px))) scale(1.3);opacity:0}}
+        .dc-pack-close{padding:14px 32px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:900;font-size:14px;border:none;border-radius:14px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;box-shadow:0 6px 24px rgba(251,191,36,.4);display:none}
+        .dc-pack-close.show{display:inline-block;animation:dbPrizeIn .5s ease}
+        .dc-pack-close:active{transform:scale(.96)}
+        .dc-pack-dupe-info{font-size:11px;color:rgba(251,191,36,.85);font-weight:700;display:none;text-align:center}
+        .dc-pack-dupe-info.show{display:block}
+
+        /* Robot long-press hint badge */
+        .robot-card-hint{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px;background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(236,72,153,.16));border:1.5px solid rgba(251,191,36,.4);border-radius:14px;padding:8px 14px 8px 10px;color:#fff;font-size:11px;font-weight:800;letter-spacing:.4px;cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 6px 22px rgba(0,0,0,.3);z-index:50;display:flex;align-items:center;gap:6px;transition:transform .25s,box-shadow .25s}
+        .robot-card-hint:active{transform:scale(.95)}
+        .robot-card-hint:hover{box-shadow:0 10px 30px rgba(251,191,36,.3)}
+        .robot-card-hint-icon{font-size:16px;animation:dcCardHintBob 2s ease-in-out infinite}
+        @keyframes dcCardHintBob{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+        .robot-card-hint .dc-new-bubble{position:absolute;top:-5px;right:-5px;width:16px;height:16px;background:linear-gradient(135deg,#ef4444,#dc2626);border:1.5px solid #fff;border-radius:50%;font-size:9px;display:none;align-items:center;justify-content:center;color:#fff;font-weight:900;animation:shopBadgePulse 1.4s ease-in-out infinite}
+        .robot-card-hint .dc-new-bubble.show{display:flex}
+
+        /* Long-press visual feedback a robotra */
+        .robot-pressing{animation:robotPressGlow 1.2s ease-out forwards}
+        @keyframes robotPressGlow{0%{filter:brightness(1)}80%{filter:brightness(1.4) drop-shadow(0 0 30px rgba(251,191,36,.7))}100%{filter:brightness(1)}}
+
+        /* Modern shop section enhancement */
+        .shop-section-title{position:relative;display:flex;align-items:center}
+        .shop-section-title::after{content:'';flex:1;height:1px;margin-left:10px;background:linear-gradient(90deg,rgba(255,255,255,.15),transparent);max-width:60%}
+
+        /* DailyCard shop banner */
+        .dc-shop-banner{position:relative;width:100%;padding:18px 18px 16px;background:linear-gradient(135deg,#0f0a1f 0%,#1e1b4b 30%,#3b0764 60%,#831843 100%);background-size:300% 300%;border:1.5px solid rgba(251,191,36,.45);border-radius:20px;cursor:pointer;overflow:hidden;box-shadow:0 8px 30px rgba(124,58,237,.4);animation:bpBannerFlow 12s ease-in-out infinite;transition:transform .25s,box-shadow .25s}
+        .dc-shop-banner:active{transform:scale(.98)}
+        .dc-shop-banner:hover{box-shadow:0 14px 40px rgba(167,139,250,.45)}
+        .dc-shop-banner-glow{position:absolute;inset:0;background:radial-gradient(circle at 25% 30%,rgba(251,191,36,.25),transparent 50%),radial-gradient(circle at 80% 70%,rgba(236,72,153,.25),transparent 50%);pointer-events:none;animation:bpShine 5s ease-in-out infinite}
+        .dc-shop-banner-stack{position:absolute;top:14px;right:14px;width:80px;height:90px;pointer-events:none}
+        .dc-shop-mini{position:absolute;width:46px;height:64px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;border:1.5px solid rgba(255,255,255,.3);box-shadow:0 6px 16px rgba(0,0,0,.5);background:linear-gradient(160deg,#1e1b4b,#3b0764)}
+        .dc-shop-mini-1{transform:rotate(-12deg);left:0;top:6px;background:linear-gradient(160deg,#1e3a8a,#1e1b4b);z-index:1}
+        .dc-shop-mini-2{transform:rotate(0deg);left:14px;top:0;background:linear-gradient(160deg,#7f1d1d,#451a03);z-index:2;border-color:rgba(251,191,36,.6)}
+        .dc-shop-mini-3{transform:rotate(12deg);left:30px;top:6px;background:linear-gradient(160deg,#fbbf24,#b45309);z-index:3;border-color:rgba(251,191,36,.8);box-shadow:0 6px 18px rgba(251,191,36,.4)}
+        .dc-shop-banner:hover .dc-shop-mini-1{transform:rotate(-22deg) translateY(-3px)}
+        .dc-shop-banner:hover .dc-shop-mini-2{transform:rotate(0deg) translateY(-6px)}
+        .dc-shop-banner:hover .dc-shop-mini-3{transform:rotate(22deg) translateY(-3px)}
+        .dc-shop-mini{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+        .dc-shop-banner-content{position:relative;z-index:2;padding-right:96px}
+        .dc-shop-banner-title{font-size:20px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;letter-spacing:.3px}
+        .dc-shop-banner-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;margin-bottom:10px}
+        .dc-shop-banner-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:10px}
+        .dc-shop-banner-stat{font-size:12px;color:rgba(255,255,255,.75);font-weight:700}
+        .dc-shop-banner-stat strong{color:#fbbf24;font-weight:900;font-size:14px}
+        .dc-shop-banner-bar-wrap{height:10px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12);border-radius:6px;overflow:hidden;position:relative}
+        .dc-shop-banner-bar{height:100%;width:0%;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;animation:bpXpFlow 3s linear infinite;border-radius:5px;transition:width .8s ease;box-shadow:0 0 10px rgba(251,191,36,.4)}
+        .dc-shop-banner-hint{margin-top:6px;font-size:10px;color:rgba(251,191,36,.7);font-style:italic;line-height:1.3}
+        .dc-shop-banner-cta{margin-top:6px;text-align:right;font-size:12px;font-weight:800;color:#fbbf24;letter-spacing:.5px}
+        .dc-shop-banner-badge{position:absolute;top:10px;left:12px;width:22px;height:22px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 10px rgba(239,68,68,.6);animation:shopBadgePulse 1.4s ease-in-out infinite;z-index:5}
+
+        /* ============== MODERN ENHANCEMENT: SHOP + MAIN ============== */
+        /* Shop title — animált gradient flow */
+        .shop-title{background:linear-gradient(90deg,#38bdf8,#a78bfa,#ec4899,#fbbf24,#38bdf8);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 6s linear infinite;letter-spacing:.5px;font-weight:900}
+        /* Shop close gomb modern */
+        .shop-close-btn{transition:transform .25s cubic-bezier(.4,1.6,.5,1),background .25s,box-shadow .25s}
+        .shop-close-btn:hover{transform:rotate(90deg);background:rgba(236,72,153,.25);box-shadow:0 4px 18px rgba(236,72,153,.4)}
+        /* Skin/shop toggle — modern glow + breathe */
+        .skin-toggle{transition:transform .3s cubic-bezier(.4,1.6,.5,1),box-shadow .3s,background .3s;animation:shopToggleBreathe 4s ease-in-out infinite;background:linear-gradient(135deg,rgba(167,139,250,.25),rgba(236,72,153,.18))!important;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(124,58,237,.3),inset 0 1px 0 rgba(255,255,255,.2)!important}
+        .skin-toggle:hover{transform:scale(1.1) rotate(-8deg);box-shadow:0 8px 28px rgba(167,139,250,.5),inset 0 1px 0 rgba(255,255,255,.3)!important}
+        @keyframes shopToggleBreathe{0%,100%{box-shadow:0 4px 18px rgba(124,58,237,.3),inset 0 1px 0 rgba(255,255,255,.2)}50%{box-shadow:0 6px 26px rgba(236,72,153,.45),inset 0 1px 0 rgba(255,255,255,.3)}}
+        /* Kedvencek toggle modern */
+        .favs-toggle{transition:transform .3s cubic-bezier(.4,1.6,.5,1),box-shadow .3s,background .3s;background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(236,72,153,.2))!important;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.3),inset 0 1px 0 rgba(255,255,255,.2)!important}
+        .favs-toggle:hover{transform:scale(1.1) rotate(8deg);box-shadow:0 8px 28px rgba(239,68,68,.5),inset 0 1px 0 rgba(255,255,255,.3)!important}
+        /* Shop gem display flow */
+        .shop-gems{transition:transform .25s,box-shadow .25s;background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(180,83,9,.12))!important;border:1.5px solid rgba(251,191,36,.4)!important;box-shadow:0 4px 14px rgba(251,191,36,.2)}
+        /* Loot card entry animation */
+        .shop-section{animation:shopSectionIn .55s cubic-bezier(.34,1.56,.64,1) backwards}
+        .shop-section:nth-child(1){animation-delay:.05s}
+        .shop-section:nth-child(2){animation-delay:.1s}
+        .shop-section:nth-child(3){animation-delay:.15s}
+        .shop-section:nth-child(4){animation-delay:.2s}
+        .shop-section:nth-child(5){animation-delay:.25s}
+        .shop-section:nth-child(n+6){animation-delay:.3s}
+        @keyframes shopSectionIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+        /* Daily card kártya hover lifelike */
+        .dc-card{transform-origin:center center}
+        .dc-card:active{transform:scale(.97) translateY(-2px)}
+        /* Streak badge modern enhancement (already animated, add gentle drop shadow) */
+        #streak{transition:transform .25s cubic-bezier(.4,1.6,.5,1)}
+        #streak:hover{transform:translateY(-2px) scale(1.04)}
+        /* Loot card icon belül — finom lebegés */
+        .loot-card-visual{animation:lootIconBob 4s ease-in-out infinite}
+        @keyframes lootIconBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+        /* Shop greeting nagyobb hangsúly */
+        .shop-greeting{padding:14px 22px 6px;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.5}
+        .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
+
+        /* ============== KISEBB FŐKÉPERNYŐ FRISSÍTÉS ============== */
+        /* A buborék text — finom belépő animáció */
+        .bubble{animation:dbFadeIn .35s ease}
+        /* Streak badge soft glow */
+        #streak.on{position:relative;overflow:visible}
+        #streak.on::after{content:'';position:absolute;inset:-3px;border-radius:inherit;background:radial-gradient(ellipse at center,rgba(251,146,60,.4),transparent 70%);z-index:-1;animation:bpShine 3s ease-in-out infinite;pointer-events:none}
 
     </style>
 </head>
@@ -2374,6 +2565,35 @@
             </div>
         </div>
 
+        <!-- DailyCard belépő banner -->
+        <div class="shop-section">
+            <div class="shop-section-title">🎴 DailyCard</div>
+            <div class="loot-card-wrap">
+                <div class="dc-shop-banner" id="dcShopBanner">
+                    <div class="dc-shop-banner-glow"></div>
+                    <div class="dc-shop-banner-stack">
+                        <span class="dc-shop-mini dc-shop-mini-1">🌌</span>
+                        <span class="dc-shop-mini dc-shop-mini-2">🔥</span>
+                        <span class="dc-shop-mini dc-shop-mini-3">✨</span>
+                    </div>
+                    <div class="dc-shop-banner-content">
+                        <div class="dc-shop-banner-title">DailyCard gyűjtemény</div>
+                        <div class="dc-shop-banner-sub">Skin alapú robot kártyák</div>
+                        <div class="dc-shop-banner-row">
+                            <div class="dc-shop-banner-stat">Birtokolt <strong id="dcBannerOwn">0</strong> / <span id="dcBannerTotal">16</span></div>
+                            <div class="dc-shop-banner-stat">PWR <strong id="dcBannerPwr">0</strong></div>
+                        </div>
+                        <div class="dc-shop-banner-bar-wrap">
+                            <div class="dc-shop-banner-bar" id="dcBannerBar"></div>
+                        </div>
+                        <div class="dc-shop-banner-hint">Hosszan nyomd a robotot, vagy koppints a 🎴 gombra</div>
+                        <div class="dc-shop-banner-cta">Megnyitás →</div>
+                    </div>
+                    <div class="dc-shop-banner-badge" id="dcShopBadge" style="display:none">!</div>
+                </div>
+            </div>
+        </div>
+
         <div class="shop-section">
             <div class="shop-section-title">🤖 Skin választék</div>
             <div class="shop-scroll" id="skinList"></div>
@@ -2398,20 +2618,29 @@
             </div>
         </div>
 
-        <!-- Támogatás / titkos kód szekció — LEGALUL -->
+        <!-- Support / titkos kód szekció — LEGALUL -->
         <div class="shop-section">
-            <div class="shop-section-title">📮 Támogatás</div>
+            <div class="shop-section-title">📮 Support</div>
             <div class="support-card" id="supportCard">
-                <div class="support-title">Támogatói kód</div>
-                <div class="support-sub">Van kódod? Írd be és aktiváld a bónuszt.</div>
-                <div class="support-row">
-                    <input class="support-input" id="supportInput" placeholder="Írd be a kódot..." maxlength="16" autocomplete="off" autocapitalize="characters">
-                    <button class="support-submit" id="supportSubmit">Aktivál</button>
+                <div class="support-inner">
+                    <div class="support-title"><span class="support-title-icon">✨</span>Support</div>
+                    <div class="support-sub">Van titkos kódod? Írd be alább és aktiváld a bónuszt.</div>
+                    <div class="support-row">
+                        <input class="support-input" id="supportInput" placeholder="Írd be a kódot..." maxlength="16" autocomplete="off" autocapitalize="characters">
+                        <button class="support-submit" id="supportSubmit">⚡ Aktiválom</button>
+                    </div>
+                    <div class="support-status" id="supportStatus">✨ Aktív bónusz: szerencsésebb nyeremények</div>
                 </div>
-                <div class="support-status" id="supportStatus">✨ Aktív bónusz: szerencsésebb nyeremények</div>
             </div>
         </div>
 
+    </div>
+
+    <!-- DailyCard gyors hozzáférés gomb (a hosszú nyomás mellett) -->
+    <div class="robot-card-hint" id="robotCardHint" title="DailyCard gyűjtemény">
+        <span class="robot-card-hint-icon">🎴</span>
+        <span>DailyCard</span>
+        <span class="dc-new-bubble" id="dcNewBubble">!</span>
     </div>
 
     <!-- Kedvencek gomb -->
@@ -3637,6 +3866,237 @@
         const RARITY_ORDER={free:0,common:1,rare:2,epic:3,legendary:4,mythic:5};
         const RARITY_LABEL={common:'⚪ Common',rare:'🔵 Rare',epic:'🟣 Epic',legendary:'🟡 Legendary',mythic:'🌈 Mythic'};
 
+        // ========== DAILYCARD RENDSZER ==========
+        // Minden kártya egy SKIN-hez kapcsolódik. Név: "[Skinnév] Bot".
+        // Power érték a ritkasághoz mérten.
+        // Tárolás: nu_cards (JSON tömb az ID-kkel)
+        const DAILY_CARDS=[
+            {id:'card-base',     skinId:'',         name:'Alap Bot',     icon:'🤖', rarity:'common',    power:55, desc:'A klasszikus, ahonnan minden indul.'},
+            {id:'card-tulip',    skinId:'tulip',    name:'Tulipán Bot',  icon:'🌷', rarity:'common',    power:60, desc:'Tavaszi virágokkal díszített.'},
+            {id:'card-sakura',   skinId:'sakura',   name:'Sakura Bot',   icon:'🌸', rarity:'common',    power:62, desc:'Cseresznyevirágok között álmodik.'},
+            {id:'card-graffiti', skinId:'graffiti', name:'Graffiti Bot', icon:'🧱', rarity:'common',    power:64, desc:'Az utca művésze.'},
+            {id:'card-galaxy',   skinId:'galaxy',   name:'Galaxy Bot',   icon:'🌌', rarity:'rare',      power:72, desc:'Csillagok ragyognak benne.'},
+            {id:'card-stealth',  skinId:'stealth',  name:'Stealth Bot',  icon:'👤', rarity:'rare',      power:74, desc:'Láthatatlan árnyékügynök.'},
+            {id:'card-fire',     skinId:'fire',     name:'Fire Bot',     icon:'🔥', rarity:'rare',      power:76, desc:'Lángoló energiával izzik.'},
+            {id:'card-gamer',    skinId:'gamer',    name:'Gamer Bot',    icon:'🎮', rarity:'rare',      power:78, desc:'RGB ragyogás, pro szint.'},
+            {id:'card-golden',   skinId:'golden',   name:'Golden Bot',   icon:'✨', rarity:'legendary', power:88, desc:'Tiszta arany csillogással.'},
+            {id:'card-diamond',  skinId:'diamond',  name:'Diamond Bot',  icon:'💎', rarity:'legendary', power:90, desc:'Jégkék drágakő test.'},
+            {id:'card-glass',    skinId:'glass',    name:'Glass Bot',    icon:'🪟', rarity:'legendary', power:91, desc:'Áttetsző labor üveg.'},
+            {id:'card-horse',    skinId:'horse',    name:'Lovas Bot',    icon:'🐴', rarity:'legendary', power:89, desc:'Vadlovas kalandor.'},
+            {id:'card-rainbow',  skinId:'rainbow',  name:'Rainbow Bot',  icon:'🌈', rarity:'legendary', power:93, desc:'Szivárvány színekben táncol.'},
+            {id:'card-prism',    skinId:'prism',    name:'Prism Bot',    icon:'🔷', rarity:'mythic',    power:97, desc:'Kristály fénytörés.'},
+            {id:'card-phoenix',  skinId:'phoenix',  name:'Phoenix Bot',  icon:'🔥', rarity:'mythic',    power:99, desc:'Hamvából újjáéled.'},
+            {id:'card-aurora',   skinId:'aurora',   name:'Aurora Bot',   icon:'🌠', rarity:'mythic',    power:100,desc:'Sarki fény, megszelídítve.'}
+        ];
+        const CARD_DUPE_GEMS={common:20,rare:40,epic:60,legendary:80,mythic:120};
+
+        function getOwnedCards(){
+            try{return JSON.parse(localStorage.getItem('nu_cards')||'[]')}
+            catch(e){return []}
+        }
+        function saveOwnedCards(arr){localStorage.setItem('nu_cards',JSON.stringify(arr))}
+        function hasCard(id){return getOwnedCards().includes(id)}
+        function ownsAllCards(){return getOwnedCards().length>=DAILY_CARDS.length}
+        function getCardById(id){return DAILY_CARDS.find(c=>c.id===id)}
+        function getNewCardCount(){
+            const seen=parseInt(localStorage.getItem('nu_cards_seen')||'0',10);
+            const owned=getOwnedCards().length;
+            return Math.max(0,owned-seen);
+        }
+        function markCardsSeen(){localStorage.setItem('nu_cards_seen',String(getOwnedCards().length))}
+        // Hozzáadás: ha új, jutalmazás kezelve a hívónál; ha duplikát, gem kompenzáció
+        function awardCard(cardId){
+            const owned=getOwnedCards();
+            const c=getCardById(cardId);
+            if(!c) return {duplicate:false,gems:0};
+            if(owned.includes(cardId)){
+                const g=CARD_DUPE_GEMS[c.rarity]||30;
+                if(typeof addGems==='function') addGems(g);
+                return {duplicate:true,gems:g,card:c};
+            }
+            owned.push(cardId);
+            saveOwnedCards(owned);
+            return {duplicate:false,gems:0,card:c};
+        }
+        // Súlyozott véletlen kártya — magasabb ritkaság ritkábban
+        function rollRandomCard(boost){
+            // boost: 0 = normál, 1 = ritkább kártyák (Bot Pass milestone)
+            const roll=Math.random();
+            const w=boost?
+                {common:0.20,rare:0.40,epic:0,legendary:0.30,mythic:0.10}:
+                {common:0.55,rare:0.30,epic:0,legendary:0.13,mythic:0.02};
+            let acc=0,tier='common';
+            for(const t of ['common','rare','epic','legendary','mythic']){
+                acc+=w[t];
+                if(roll<acc){tier=t;break}
+            }
+            const pool=DAILY_CARDS.filter(c=>c.rarity===tier);
+            if(!pool.length) return DAILY_CARDS[0];
+            return pool[Math.floor(Math.random()*pool.length)];
+        }
+        // Kártya HTML render — kollekció és pack reveal egyaránt használja
+        function renderCardHtml(card,opts){
+            opts=opts||{};
+            const owned=opts.owned!==false;
+            const cls='dc-card rarity-'+card.rarity+(owned?'':' locked');
+            const rl=(RARITY_LABEL[card.rarity]||card.rarity).replace(/^[^\s]+\s/,'');
+            const pwr=Math.min(100,Math.max(0,card.power));
+            const icon=owned?card.icon:'❓';
+            const name=owned?card.name:'??? Bot';
+            const desc=owned?card.desc:'Még nem fedezted fel.';
+            return `<div class="${cls}" data-card-id="${card.id}">
+                <div class="dc-card-glow"></div>
+                <div class="dc-card-shine"></div>
+                <div class="dc-card-power"><span class="dc-card-power-label">PWR</span>${pwr}</div>
+                <div class="dc-card-inner">
+                    <div class="dc-card-rarity">${rl}</div>
+                    <div class="dc-card-image">${icon}</div>
+                    <div class="dc-card-name">${name}</div>
+                    <div class="dc-card-bar"><div class="dc-card-bar-fill" style="--pwr:${pwr}%"></div></div>
+                    <div class="dc-card-desc">${desc}</div>
+                </div>
+            </div>`;
+        }
+        // Pack megnyitás overlay-vel
+        function openCardPackForCard(card){
+            const overlay=document.getElementById('dcPackOverlay');
+            const back=document.getElementById('dcPackBack');
+            const reveal=document.getElementById('dcPackReveal');
+            const banner=document.getElementById('dcPackBanner');
+            const closeBtn=document.getElementById('dcPackClose');
+            const dupe=document.getElementById('dcPackDupeInfo');
+            const prompt=document.getElementById('dcPackPrompt');
+            const particles=document.getElementById('dcPackParticles');
+            if(!overlay||!back||!reveal) return;
+
+            back.classList.remove('flipping');
+            back.style.opacity='1';
+            back.style.display='flex';
+            reveal.classList.remove('show');
+            reveal.innerHTML='';
+            banner.className='dc-pack-rarity-banner rarity-'+card.rarity;
+            banner.textContent=(RARITY_LABEL[card.rarity]||card.rarity).replace(/^[^\s]+\s/,'').toUpperCase()+'!';
+            closeBtn.classList.remove('show');
+            dupe.classList.remove('show');
+            prompt.textContent='Koppints a pakkra!';
+            particles.innerHTML='';
+            overlay.classList.add('open');
+            try{playSfx('box-open')}catch(e){}
+
+            const onTap=()=>{
+                back.removeEventListener('click',onTap);
+                back.classList.add('flipping');
+                try{playSfx('skin-equip')}catch(e){}
+                // Ritkaság banner felugrik
+                banner.classList.remove('show');
+                void banner.offsetWidth;
+                banner.classList.add('show');
+                // Particle burst
+                const colors=card.rarity==='mythic'?['#fbbf24','#ec4899','#a78bfa','#22d3ee','#10b981']:
+                              card.rarity==='legendary'?['#fbbf24','#f59e0b','#fde68a']:
+                              card.rarity==='epic'?['#a855f7','#ec4899','#fbbf24']:
+                              card.rarity==='rare'?['#60a5fa','#a78bfa','#fff']:
+                              ['#cbd5e1','#94a3b8','#e2e8f0'];
+                const partCount=card.rarity==='mythic'?40:card.rarity==='legendary'?28:18;
+                for(let i=0;i<partCount;i++){
+                    const p=document.createElement('span');
+                    p.className='dc-pack-particle';
+                    p.textContent=card.rarity==='mythic'||card.rarity==='legendary'?'✨':'·';
+                    const ang=Math.random()*Math.PI*2;
+                    const dist=80+Math.random()*180;
+                    p.style.setProperty('--dx',(Math.cos(ang)*dist)+'px');
+                    p.style.setProperty('--dy',(Math.sin(ang)*dist)+'px');
+                    p.style.setProperty('--dur',(.9+Math.random()*.8)+'s');
+                    p.style.color=colors[i%colors.length];
+                    p.style.fontSize=(card.rarity==='mythic'?20:14)+'px';
+                    particles.appendChild(p);
+                }
+                setTimeout(()=>{
+                    back.style.display='none';
+                    reveal.innerHTML=renderCardHtml(card,{owned:true});
+                    reveal.classList.add('show');
+                    try{playSfx(card.rarity==='mythic'||card.rarity==='legendary'?'zynox':'gem-claim')}catch(e){}
+                    // Award
+                    const result=awardCard(card.id);
+                    if(result.duplicate){
+                        dupe.textContent='✨ Duplikát! +'+result.gems+' gem kompenzáció';
+                        dupe.classList.add('show');
+                        prompt.textContent='Már megvolt — viszont kapsz gemet!';
+                    }else{
+                        prompt.textContent='Új kártya feloldva! 🎉';
+                        if(typeof bpClaimCelebrate==='function'){
+                            const r=document.querySelector('#dcPackReveal .dc-card');
+                            if(r) bpClaimCelebrate(r);
+                        }
+                    }
+                    setTimeout(()=>closeBtn.classList.add('show'),700);
+                    if(typeof updateGemUI==='function') updateGemUI();
+                    if(typeof updateDcNewBubble==='function') updateDcNewBubble();
+                },800);
+            };
+            back.addEventListener('click',onTap,{once:false});
+            closeBtn.onclick=()=>{
+                overlay.classList.remove('open');
+                if(typeof renderDcPanel==='function' && document.getElementById('dcPanel').classList.contains('open')){
+                    renderDcPanel();
+                }
+            };
+        }
+        // Random pack megnyitás (használja a Pouch + DailyBox + BotPass)
+        window.openRandomCardPack=function(boost){
+            const c=rollRandomCard(boost);
+            openCardPackForCard(c);
+        };
+        // Kollekció panel render
+        function renderDcPanel(){
+            const grid=document.getElementById('dcGrid');
+            const ownedCount=document.getElementById('dcOwnedCount');
+            const totalCount=document.getElementById('dcTotalCount');
+            const totalPower=document.getElementById('dcTotalPower');
+            const fill=document.getElementById('dcProgressFill');
+            const text=document.getElementById('dcProgressText');
+            if(!grid) return;
+            const owned=getOwnedCards();
+            grid.innerHTML='';
+            // Sorrend: ritkaság szerint (legritkább elöl), birtokoltak elöl
+            const sorted=DAILY_CARDS.slice().sort((a,b)=>{
+                const oa=owned.includes(a.id)?0:1, ob=owned.includes(b.id)?0:1;
+                if(oa!==ob) return oa-ob;
+                return (RARITY_ORDER[b.rarity]||0)-(RARITY_ORDER[a.rarity]||0);
+            });
+            let pwr=0;
+            sorted.forEach(c=>{
+                const has=owned.includes(c.id);
+                if(has) pwr+=c.power;
+                grid.insertAdjacentHTML('beforeend',renderCardHtml(c,{owned:has}));
+            });
+            if(ownedCount) ownedCount.textContent=owned.length;
+            if(totalCount) totalCount.textContent=DAILY_CARDS.length;
+            if(totalPower) totalPower.textContent=pwr;
+            const pct=Math.round((owned.length/DAILY_CARDS.length)*100);
+            if(fill) fill.style.width=pct+'%';
+            if(text) text.textContent=pct+'% gyűjtve';
+        }
+        function openDcPanel(){
+            const p=document.getElementById('dcPanel');
+            if(!p) return;
+            renderDcPanel();
+            p.classList.add('open');
+            markCardsSeen();
+            updateDcNewBubble();
+        }
+        function closeDcPanel(){
+            const p=document.getElementById('dcPanel');
+            if(p) p.classList.remove('open');
+        }
+        function updateDcNewBubble(){
+            const bub=document.getElementById('dcNewBubble');
+            if(!bub) return;
+            const n=getNewCardCount();
+            if(n>0){bub.textContent=n>9?'9+':String(n);bub.classList.add('show')}
+            else bub.classList.remove('show');
+        }
+
         // ========== ROBOT KIEGÉSZÍTŐK ==========
         // Pouch-ból nyerhetőek. Slot: hat/face/neck. Ünnepi öltözék mindig felülírja.
         const ACCESSORIES=[
@@ -3780,12 +4240,13 @@
             // Shop ikon NEW badge — akkor mutat, ha bármelyik napi loot elérhető
             const newBadge=document.getElementById('shopNewBadge');
             if(newBadge){
-                const hasNew=boxesRemaining()>0 || pouchFreeAvailable() || !spunToday_gem() || botpassHasClaimable();
+                const hasNew=boxesRemaining()>0 || pouchFreeAvailable() || !spunToday_gem() || botpassHasClaimable() || (typeof getNewCardCount==='function' && getNewCardCount()>0);
                 newBadge.style.display=hasNew?'inline-block':'none';
             }
 
             // Bot Pass banner frissítés
             if(typeof updateBotpassBanner==='function')updateBotpassBanner();
+            if(typeof updateDcNewBubble==='function')updateDcNewBubble();
         }
 
         // ========== DAILY DEAL ==========
@@ -3914,6 +4375,24 @@
                 monthEl.textContent=months[new Date().getMonth()];
             }
             if(badge) badge.style.display=botpassHasClaimable()?'flex':'none';
+            // DailyCard banner frissítés
+            updateDcBanner();
+        }
+        function updateDcBanner(){
+            try{
+                const own=getOwnedCards();
+                let pwr=0; own.forEach(id=>{const c=getCardById(id); if(c) pwr+=c.power});
+                const o=document.getElementById('dcBannerOwn');
+                const t=document.getElementById('dcBannerTotal');
+                const p=document.getElementById('dcBannerPwr');
+                const b=document.getElementById('dcBannerBar');
+                const badge=document.getElementById('dcShopBadge');
+                if(o) o.textContent=own.length;
+                if(t) t.textContent=DAILY_CARDS.length;
+                if(p) p.textContent=pwr;
+                if(b) b.style.width=Math.round((own.length/DAILY_CARDS.length)*100)+'%';
+                if(badge) badge.style.display=getNewCardCount()>0?'flex':'none';
+            }catch(_){}
         }
         // Szint jutalmak generálása (mintázat)
         function botpassReward(lvl){
@@ -3929,6 +4408,10 @@
             if(lvl===15) return {type:'dance',icon:'💃',name:'Rázás tánc',itemId:'dance-shake'};
             if(lvl===10) return {type:'gems',amount:100,icon:'💎',name:'100 gem'};
             if(lvl===5)  return {type:'dance',icon:'🎵',name:'Bólogatás tánc',itemId:'dance-bob'};
+            // Card pack jutalmak meghatározott szinteken (3, 13, 23, 33, 43, 53)
+            // 3, 13, 23 → normál pakk; 33, 43, 53 → boost-olt pakk
+            if(lvl===3||lvl===13||lvl===23) return {type:'card_pack',boost:false,icon:'🎴',name:'DailyCard pakk'};
+            if(lvl===33||lvl===43||lvl===53) return {type:'card_pack',boost:true,icon:'🎴',name:'Ritka DailyCard pakk'};
             const m=lvl%5;
             if(m===1) return {type:'gems',amount:10+Math.floor(lvl/5)*2,icon:'💎',name:(10+Math.floor(lvl/5)*2)+' gem'};
             if(m===2) return {type:'box',icon:'🎁',name:'1× DailyBox'};
@@ -3949,6 +4432,10 @@
             if(r.type==='pouch'){
                 setTimeout(()=>{if(typeof window.openPouch==='function')window.openPouch()},250);
                 return 'Pouch nyitás...';
+            }
+            if(r.type==='card_pack'){
+                setTimeout(()=>{if(typeof window.openRandomCardPack==='function')window.openRandomCardPack(!!r.boost)},250);
+                return 'DailyCard pakk nyitás...';
             }
             if(r.type==='dance'){
                 if(r.itemId)buyItem(r.itemId);
@@ -4886,7 +5373,7 @@
             syncClose.addEventListener('click',()=>syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS=['nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid','nu_gems','nu_box_day','nu_box_count','nu_pouch_day','nu_pouch_free','nu_spin_day'];
+            const SYNC_KEYS=['nu_owned','nu_active_skin','nu_active_bg','nu_active_aura','nu_favs','nu_s','nu_l','nu_name','nu_uid','nu_gems','nu_box_day','nu_box_count','nu_pouch_day','nu_pouch_free','nu_spin_day','nu_cards','nu_cards_seen'];
 
             exportBtn.addEventListener('click',()=>{
                 const data={};
@@ -4935,6 +5422,11 @@
                     const currentOwned=JSON.parse(localStorage.getItem('nu_owned')||'[]');
                     const importOwned=JSON.parse(data.nu_owned||'[]');
                     const mergedOwned=[...new Set([...currentOwned,...importOwned])];
+                    // DailyCard kártyák összefésülése — szintén unió
+                    const currentCards=JSON.parse(localStorage.getItem('nu_cards')||'[]');
+                    const importCards=JSON.parse(data.nu_cards||'[]');
+                    const mergedCards=[...new Set([...currentCards,...importCards])];
+                    localStorage.setItem('nu_cards',JSON.stringify(mergedCards));
                     const currentFavs=JSON.parse(localStorage.getItem('nu_favs')||'[]');
                     const importFavs=JSON.parse(data.nu_favs||'[]');
                     // Kedvencek összefésülés szöveg alapján
@@ -5121,18 +5613,23 @@
             };
 
             function rollPouchItem(){
-                // Pouch: 65% kiegészítő + 35% tánc (ha van még nem birtokolt)
+                // Pouch: 25% DailyCard pakk + 50% kiegészítő + 25% tánc
                 const owned=getOwned();
                 const notOwnedAcc=ACCESSORIES.filter(a=>!owned.includes(a.id));
                 const notOwnedDance=DANCES.filter(d=>!owned.includes(d.id));
 
                 const roll=Math.random();
-                let chooseDance=(roll<0.35 && notOwnedDance.length) || !notOwnedAcc.length;
+                // 25% kártya pakk (mindig elérhető)
+                if(roll<0.25){
+                    return {type:'card_pack',icon:'🎴',name:'DailyCard pakk!',_isCardPack:true};
+                }
+                let chooseDance=(roll<0.50 && notOwnedDance.length) || !notOwnedAcc.length;
                 if(chooseDance && !notOwnedDance.length) chooseDance=false;
 
                 const pool= chooseDance ? notOwnedDance : notOwnedAcc;
                 if(!pool.length){
-                    return {type:'gems',gems:100,icon:'💎',name:'100 gem (minden megvan)'};
+                    // Ha már nincs új kiegészítő/tánc → kártya
+                    return {type:'card_pack',icon:'🎴',name:'DailyCard pakk!',_isCardPack:true};
                 }
                 // Rarity súlyozás
                 const r=Math.random();
@@ -5171,7 +5668,16 @@
                         nameEl.textContent=prize.name;
                         reward.style.display='block';
                         closeBtn.style.display='inline-block';
-                        applyPrize(prize);
+                        // Ha kártya pakk: rövid villanás után átveszi a card pack overlay
+                        if(prize._isCardPack){
+                            setTimeout(()=>{
+                                overlay.style.display='none';
+                                if(typeof window.openRandomCardPack==='function') window.openRandomCardPack(false);
+                                updateLootBadges();
+                            },1100);
+                        } else {
+                            applyPrize(prize);
+                        }
                     },600);
                 };
                 closeBtn.onclick=()=>{
@@ -5205,6 +5711,11 @@
                     // Először zárjuk be a shopot, aztán nyissuk a Bot Pass panelt
                     document.getElementById('skinPanel')?.classList.remove('open');
                     setTimeout(()=>openBotpassPanel(),250);
+                })}
+                const dcB=document.getElementById('dcShopBanner');
+                if(dcB&&!dcB._bound){dcB._bound=true;dcB.addEventListener('click',()=>{
+                    document.getElementById('skinPanel')?.classList.remove('open');
+                    setTimeout(()=>openDcPanel(),250);
                 })}
                 const bpC=document.getElementById('bpClose');
                 if(bpC&&!bpC._bound){bpC._bound=true;bpC.addEventListener('click',()=>{document.getElementById('botpassPanel').style.display='none';updateLootBadges();})}
@@ -5255,6 +5766,13 @@
                         else if(r.type==='box'){const cur=boxesRemaining();localStorage.setItem('nu_box_count',String(cur+2));gained.boxes+=2}
                         else if(r.type==='pouch'){localStorage.setItem('nu_pouch_free','true');gained.pouches+=1}
                         else if(r.type==='item_rare'||r.type==='item_epic'||r.type==='item_ultra'){if(r.itemId)buyItem(r.itemId);addGems(100);gained.items+=1;gained.gems+=100}
+                        else if(r.type==='card_pack'){
+                            // Plus aktív → 2 kártya minden pakk szintért
+                            for(let k=0;k<2;k++){
+                                const c=rollRandomCard(!!r.boost);
+                                awardCard(c.id);
+                            }
+                        }
                         claimed.push(i);
                     }
                     saveBotpassClaimed(claimed);
@@ -5284,6 +5802,75 @@
                     updateLootBadges();
                 }
             });
+        })();
+
+        // ========== DAILYCARD: HOSSZÚ NYOMÁS A ROBOTRA + GOMB BEKÖTÉSE ==========
+        (function(){
+            const robot=document.getElementById('robot');
+            const btn=document.getElementById('btn');
+            const hint=document.getElementById('robotCardHint');
+            const closeBtn=document.getElementById('dcClose');
+            let pressTimer=null;
+            let longPressTriggered=false;
+            let startX=0,startY=0;
+
+            function startPress(e){
+                longPressTriggered=false;
+                const t=e.touches?e.touches[0]:e;
+                startX=t.clientX; startY=t.clientY;
+                pressTimer=setTimeout(()=>{
+                    longPressTriggered=true;
+                    if(robot) robot.classList.add('robot-pressing');
+                    setTimeout(()=>{ if(robot) robot.classList.remove('robot-pressing') },1200);
+                    try{playSfx('skin-equip')}catch(_){}
+                    openDcPanel();
+                },650);
+            }
+            function cancelPress(e){
+                if(pressTimer){clearTimeout(pressTimer);pressTimer=null}
+            }
+            function checkMove(e){
+                if(!pressTimer) return;
+                const t=e.touches?e.touches[0]:e;
+                const dx=Math.abs(t.clientX-startX);
+                const dy=Math.abs(t.clientY-startY);
+                if(dx>10||dy>10){cancelPress()}
+            }
+            // Csak a botra hosszú nyomást akarunk — a sima koppintás napi üzenetet nyit
+            if(btn){
+                btn.addEventListener('touchstart',startPress,{passive:true});
+                btn.addEventListener('touchmove',checkMove,{passive:true});
+                btn.addEventListener('touchend',cancelPress);
+                btn.addEventListener('touchcancel',cancelPress);
+                btn.addEventListener('mousedown',startPress);
+                btn.addEventListener('mousemove',checkMove);
+                btn.addEventListener('mouseup',cancelPress);
+                btn.addEventListener('mouseleave',cancelPress);
+                // Ha hosszú nyomás történt, a click-et megakadályozzuk
+                btn.addEventListener('click',(e)=>{
+                    if(longPressTriggered){
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                        longPressTriggered=false;
+                    }
+                },true);
+            }
+            // Hint gomb is megnyitja a panelt
+            if(hint && !hint._bound){
+                hint._bound=true;
+                hint.addEventListener('click',()=>{
+                    try{playSfx('skin-equip')}catch(_){}
+                    openDcPanel();
+                });
+            }
+            if(closeBtn && !closeBtn._bound){
+                closeBtn._bound=true;
+                closeBtn.addEventListener('click',closeDcPanel);
+            }
+            // Új kártya buborék frissítés
+            setTimeout(updateDcNewBubble,300);
+            setTimeout(updateDcNewBubble,1500);
+            document.addEventListener('visibilitychange',()=>{if(!document.hidden) setTimeout(updateDcNewBubble,200)});
         })();
     </script>
 
@@ -5400,6 +5987,43 @@
             </div>
             <button class="db-close-btn" id="kvClose" style="display:none">Köszönöm! 🎉</button>
         </div>
+    </div>
+
+    <!-- DailyCard kollekció panel -->
+    <div id="dcPanel" class="dc-panel">
+        <div class="dc-panel-header">
+            <div class="dc-panel-title">🎴 DailyCard</div>
+            <button class="shop-close-btn" id="dcClose">✕</button>
+        </div>
+        <div class="dc-panel-stats">
+            <div class="dc-stat-pill">Birtokolt: <span class="dc-stat-num" id="dcOwnedCount">0</span> / <span id="dcTotalCount">0</span></div>
+            <div class="dc-stat-pill">Power: <span class="dc-stat-num" id="dcTotalPower">0</span></div>
+        </div>
+        <div class="dc-progress-wrap">
+            <div class="dc-progress-bar">
+                <div class="dc-progress-fill" id="dcProgressFill" style="width:0%"></div>
+                <div class="dc-progress-text" id="dcProgressText">0%</div>
+            </div>
+        </div>
+        <div class="dc-grid" id="dcGrid"></div>
+    </div>
+
+    <!-- DailyCard pack megnyitás overlay -->
+    <div id="dcPackOverlay" class="dc-pack-overlay">
+        <div class="dc-pack-prompt" id="dcPackPrompt">Koppints a pakkra!</div>
+        <div class="dc-pack-stage">
+            <div class="dc-pack-rarity-banner" id="dcPackBanner">RARE!</div>
+            <div class="dc-pack-back" id="dcPackBack">
+                <div class="dc-pack-back-stack">
+                    <div class="dc-pack-back-logo">🎴</div>
+                    <div class="dc-pack-back-sub">DailyCard</div>
+                </div>
+            </div>
+            <div class="dc-pack-reveal" id="dcPackReveal"></div>
+            <div class="dc-pack-particles" id="dcPackParticles"></div>
+        </div>
+        <div class="dc-pack-dupe-info" id="dcPackDupeInfo">✨ Duplikát! +50 gem kompenzáció</div>
+        <button class="dc-pack-close" id="dcPackClose">Köszönöm! ✨</button>
     </div>
 </body>
 </html>
