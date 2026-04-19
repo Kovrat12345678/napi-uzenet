@@ -2252,9 +2252,14 @@
         .dc-mini-robot-frame.large{height:240px}
         /* Locked ikon — nagyobb, opacity */
         .dc-card-image-locked{font-size:64px;opacity:.55}
-        /* Grid kis nézet emoji ikon pulzáló glow-val */
-        .dc-card-image-emoji{font-size:72px;line-height:1;text-shadow:0 4px 14px rgba(0,0,0,.5);filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));animation:dcEmojiPulse 3s ease-in-out infinite;display:inline-block}
-        @keyframes dcEmojiPulse{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}}
+        /* Grid emblem — emoji helyett egy ritkasághoz színezett gömb-ragyogás */
+        .dc-card-image-emblem{display:block;width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),rgba(255,255,255,.15) 50%,transparent 80%);box-shadow:0 6px 16px rgba(0,0,0,.35),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4);position:relative}
+        .dc-card-image-emblem::after{content:'';position:absolute;inset:14px;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.8),rgba(255,255,255,.3));mix-blend-mode:overlay;opacity:.6}
+        .dc-emblem-common{background-color:#94a3b8}
+        .dc-emblem-rare{background-color:#3b82f6;box-shadow:0 6px 16px rgba(59,130,246,.5),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4)}
+        .dc-emblem-epic{background-color:#a855f7;box-shadow:0 6px 16px rgba(168,85,247,.5),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4)}
+        .dc-emblem-legendary{background-color:#fbbf24;box-shadow:0 6px 18px rgba(251,191,36,.6),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.5)}
+        .dc-emblem-mythic{background:linear-gradient(135deg,#ec4899 0%,#a78bfa 50%,#22d3ee 100%);box-shadow:0 8px 22px rgba(236,72,153,.6),inset 0 -4px 10px rgba(0,0,0,.3),inset 0 4px 6px rgba(255,255,255,.4)}
         .dc-card-name{font-size:14px;font-weight:900;color:#fff;text-align:center;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:4px}
         .dc-card-bar{height:6px;background:rgba(0,0,0,.45);border-radius:3px;overflow:hidden;margin-bottom:6px}
         .dc-card-bar-fill{height:100%;width:var(--pwr,50%);background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);border-radius:3px;box-shadow:0 0 6px rgba(251,191,36,.5)}
@@ -4845,8 +4850,8 @@
             } else if(showRobot){
                 visual=buildMiniRobotHtml(card.skinId,!!opts.large);
             } else {
-                // Grid kis nézet: skin emoji + pulzáló glow, nincs robot
-                visual=`<span class="dc-card-image-emoji">${card.icon||'🤖'}</span>`;
+                // Grid kis nézet: csak egy elegáns rarity badge, NINCS emoji
+                visual=`<span class="dc-card-image-emblem dc-emblem-${card.rarity}"></span>`;
             }
             return `<div class="${cls}" data-card-id="${card.id}">
                 <div class="dc-card-glow"></div>
