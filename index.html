@@ -2927,7 +2927,7 @@
         .loot-info-list li strong{color:#fbbf24;font-weight:900}
 
         /* ============== ROBOT HARC JÁTÉK ============== */
-        .game-toggle{position:fixed;bottom:calc(env(safe-area-inset-bottom,20px) + 20px);right:20px;z-index:50;height:48px;padding:0 18px;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.5),inset 0 1px 0 rgba(255,255,255,.25)!important;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s;letter-spacing:.5px}
+        .game-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:42px;padding:0 22px;border-radius:21px;font-size:14px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.5),inset 0 1px 0 rgba(255,255,255,.25)!important;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s;letter-spacing:.5px;margin-top:6px;flex-shrink:0}
         @keyframes gameToggleFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .game-toggle:active{transform:scale(.92)}
         .game-toggle:hover{transform:scale(1.06)}
@@ -2953,17 +2953,19 @@
         .game-mode-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
         .game-mode-btn:active{transform:scale(.96)}
         .game-multiplayer{padding:14px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.15);border-radius:14px}
-        .game-code-row{display:flex;gap:8px}
-        .game-code-input{flex:1;padding:10px 14px;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;outline:none;text-align:center}
+        .game-code-row{display:flex;flex-direction:column;gap:8px}
+        .game-code-input{width:100%;padding:11px 14px;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:18px;font-weight:700;letter-spacing:4px;text-transform:uppercase;outline:none;text-align:center;box-sizing:border-box}
         .game-code-input:disabled{opacity:.5}
-        .game-code-btn{padding:10px 16px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;border:none;border-radius:10px;cursor:pointer}
+        .game-code-btn{width:100%;padding:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;font-size:15px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.5px}
         .game-code-btn:active{transform:scale(.95)}
         .game-my-code{margin-top:10px;text-align:center;font-size:12px;color:rgba(255,255,255,.7)}
         .game-my-code strong{color:#fbbf24;font-weight:900;letter-spacing:3px;font-size:16px;background:rgba(251,191,36,.15);padding:3px 10px;border-radius:8px}
 
         /* Aréna */
         .game-arena{flex:1;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,20px) + 16px) 14px 20px;position:relative}
-        .game-arena-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 30px),repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 30px),radial-gradient(ellipse at center,#1e1b4b 0%,#0f0a1f 100%);pointer-events:none}
+        .game-arena-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(99,102,241,.06) 0,rgba(99,102,241,.06) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(99,102,241,.06) 0,rgba(99,102,241,.06) 1px,transparent 1px,transparent 40px),radial-gradient(ellipse at 50% 0%,rgba(139,92,246,.25) 0%,transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(239,68,68,.2) 0%,transparent 60%),linear-gradient(180deg,#0f0a1f 0%,#1e1b4b 50%,#0f0a1f 100%);pointer-events:none}
+        .game-arena-bg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(139,92,246,.15) 39px,rgba(139,92,246,.15) 40px);pointer-events:none;animation:scanLines 8s linear infinite}
+        @keyframes scanLines{0%{background-position:0 0}100%{background-position(40px 0}}
         .game-arena-head{display:flex;justify-content:space-between;gap:10px;position:relative;z-index:2;margin-bottom:14px}
         .game-hp{flex:1;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px}
         .game-hp-p2{justify-content:flex-end}
@@ -2984,11 +2986,11 @@
         .game-robot.tulip-armor::after{content:'🌷';position:absolute;top:-20px;right:-12px;font-size:24px;animation:gameTulipFloat 1.2s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(236,72,153,.7))}
         @keyframes gameTulipFloat{0%,100%{transform:translateY(0) rotate(-15deg)}50%{transform:translateY(-6px) rotate(15deg)}}
         /* Vertikális projektil — felülről le, alulról fel */
-        .game-projectile{position:absolute;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#fef9c3,#fbbf24,#dc2626);box-shadow:0 0 12px #fbbf24,0 0 24px rgba(251,191,36,.6);z-index:5;pointer-events:none}
-        .game-projectile.from-p1{animation:gameProjUp 1s linear forwards} /* alulról felfelé */
-        .game-projectile.from-p2{animation:gameProjDown 1s linear forwards} /* felülről lefele */
-        @keyframes gameProjUp{from{bottom:200px;transform:scale(.5)}to{bottom:calc(100% - 80px);transform:scale(1.2)}}
-        @keyframes gameProjDown{from{top:200px;transform:scale(.5)}to{top:calc(100% - 80px);transform:scale(1.2)}}
+        .game-projectile{position:absolute;width:18px;height:28px;border-radius:50% 50% 30% 30%;background:linear-gradient(180deg,#fff 0%,#fbbf24 40%,#ef4444 100%);box-shadow:0 0 10px #fbbf24,0 0 20px rgba(251,191,36,.7),0 0 4px #fff;z-index:5;pointer-events:none}
+        .game-projectile.from-p1{animation:gameProjUp .7s linear forwards}
+        .game-projectile.from-p2{animation:gameProjDown .7s linear forwards;transform:rotate(180deg)}
+        @keyframes gameProjUp{from{bottom:160px;opacity:1}to{bottom:calc(100% - 60px);opacity:.6}}
+        @keyframes gameProjDown{from{top:120px;opacity:1}to{top:calc(100% - 60px);opacity:.6}}
         .game-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:10}
         .game-flash.fire{animation:gameFlash .35s ease-out}
         @keyframes gameFlash{0%{opacity:0}30%{opacity:.5}100%{opacity:0}}
@@ -3229,7 +3231,7 @@
             </div>
         </div>
 
-        <div class="robot-area">
+        <div class="robot-area" style="display:flex;flex-direction:column;align-items:center;gap:0">
             <button class="robot-btn" id="btn" aria-label="Napi üzenet">
                 <div class="robot" id="robot">
                     <!-- Öltözék -->
@@ -3286,6 +3288,7 @@
                     </div>
                 </div>
             </button>
+            <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️ Harc</div>
         </div>
 
         <div class="next-msg" id="nextMsg"></div>
@@ -3622,9 +3625,6 @@
         </div>
 
     </div>
-
-    <!-- Játék gomb — jobb alsó sarok -->
-    <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️ Harc</div>
 
     <!-- Kedvencek gomb -->
     <div class="favs-toggle" id="favsToggle">❤️<span class="favs-badge" id="favsBadge">0</span></div>
@@ -5668,7 +5668,7 @@
                 }
             }
             proj.appendChild(p);
-            setTimeout(()=>{p.remove();onComplete && onComplete()},1000);
+            setTimeout(()=>{p.remove();onComplete && onComplete()},700);
         }
         function moveGamePlayer(dir){
             if(!_gameState||_gameState.gameOver) return;
@@ -5739,9 +5739,11 @@
                 case 'invisibility':{
                     if(robotEl) robotEl.classList.add('invisible');
                     _gameState.player.invincible=true;
+                    if(_gameState.multiplayer) sendMpEvent('_invisible');
                     setTimeout(()=>{
                         if(robotEl) robotEl.classList.remove('invisible');
                         if(_gameState) _gameState.player.invincible=false;
+                        if(_gameState&&_gameState.multiplayer) sendMpEvent('_visible');
                     },ab.dur||5000);
                     break;
                 }
@@ -5786,17 +5788,27 @@
         }
         function scheduleAiAction(){
             if(!_gameState||_gameState.gameOver) return;
-            const delay=1800+Math.random()*1800;
+            // Nehézség: minél kevesebb HP-ja van a játékosnak, annál gyorsabb az AI
+            const playerHp=_gameState.player.hp||3;
+            const aiHp=_gameState.ai.hp||3;
+            const aggression=Math.max(0,(3-playerHp)*0.15+(3-aiHp)*0.1); // 0–0.75
+            const baseDelay=1000+Math.random()*800;
+            const delay=Math.max(350,baseDelay*(1-aggression));
             _gameState.aiTimer=setTimeout(()=>{
                 if(!_gameState||_gameState.gameOver) return;
-                // AI: 60% lő, 40% mozog
                 const r=Math.random();
-                if(r<0.60){
-                    // AI lövés a játékosra
+                if(r<0.72){
+                    // AI lövés — ha kevés HP, double shot
                     fireAt(false);
-                } else {
-                    // AI mozog véletlenszerűen
+                    if(aiHp<=1 && Math.random()<0.5){
+                        setTimeout(()=>{ if(_gameState&&!_gameState.gameOver) fireAt(false) },280);
+                    }
+                } else if(r<0.92){
                     moveGameAi();
+                } else {
+                    // Dodge: mozog majd utána lő
+                    moveGameAi();
+                    setTimeout(()=>{ if(_gameState&&!_gameState.gameOver) fireAt(false) },300);
                 }
                 scheduleAiAction();
             },delay);
@@ -5973,7 +5985,7 @@
                         sendMpEvent('_hit');
                         if(_gameState.player.hp<=0) endGame(false);
                     }
-                },1000);
+                },700);
             }
             // Ellenfél mozgása
             if(d.type==='move'){
@@ -5989,6 +6001,15 @@
                 if(re){re.classList.remove('hit');void re.offsetWidth;re.classList.add('hit');setTimeout(()=>re.classList.remove('hit'),500)}
                 updateGameHpUi();
                 if(_gameState.ai.hp<=0) endGame(true);
+            }
+            // Ellenfél láthatatlan lett
+            if(d.type==='_invisible'){
+                const opp=document.getElementById('gameRobotP2');
+                if(opp) opp.style.opacity='0';
+            }
+            if(d.type==='_visible'){
+                const opp=document.getElementById('gameRobotP2');
+                if(opp) opp.style.opacity='1';
             }
             // Ellenfél győzött (elveszítettük a játékot)
             if(d.type==='_win') endGame(false);
@@ -8545,7 +8566,7 @@
                     <div class="game-section-title">vagy 2 játékos kóddal</div>
                     <div class="game-code-row">
                         <input class="game-code-input" id="gameCodeInput" placeholder="Kód" maxlength="6">
-                        <button class="game-code-btn" id="gameJoinBtn">Csatlakoz</button>
+                        <button class="game-code-btn" id="gameJoinBtn">🎮 Csatlakozás</button>
                     </div>
                     <button class="game-mode-btn" id="gameCreateRoomBtn" style="margin-top:10px;background:linear-gradient(135deg,#a78bfa,#7c3aed)">🌐 Új szoba létrehozása</button>
                     <div class="game-my-code" id="gameMyCodeRow" style="display:none">A te kódod: <strong id="gameMyCode">––––––</strong> · <span id="gameRoomStatus">várakozás</span></div>
