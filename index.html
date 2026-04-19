@@ -2920,9 +2920,11 @@
         .loot-info-list li strong{color:#fbbf24;font-weight:900}
 
         /* ============== ROBOT HARC JÁTÉK ============== */
-        .game-toggle{position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:108px;z-index:50;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(220,38,38,.18))!important;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.3),inset 0 1px 0 rgba(255,255,255,.2)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .25s}
-        .game-toggle:active{transform:scale(.92) rotate(15deg)}
-        .game-toggle:hover{transform:scale(1.1)}
+        .game-toggle{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);left:18px;z-index:50;padding:12px 18px;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:900;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ef4444,#dc2626,#7f1d1d)!important;background-size:200% 200%;animation:gameToggleFlow 4s ease-in-out infinite;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 6px 22px rgba(239,68,68,.45),inset 0 1px 0 rgba(255,255,255,.25)!important;letter-spacing:.5px;text-shadow:0 1px 2px rgba(0,0,0,.4);transition:transform .25s}
+        @keyframes gameToggleFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .game-toggle:active{transform:scale(.92)}
+        .game-toggle:hover{transform:scale(1.06)}
+        .game-toggle::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:bpShine 3s linear infinite;pointer-events:none;border-radius:18px}
         .game-panel{position:fixed;inset:0;z-index:9998;background:linear-gradient(165deg,#0a0a14 0%,#1e1b4b 30%,#3b0764 70%,#0a0a14 100%);display:none;flex-direction:column;overflow:hidden;animation:dbFadeIn .3s ease}
         .game-panel.open{display:flex}
         .game-lobby{padding:calc(env(safe-area-inset-top,20px) + 16px) 20px 20px;display:flex;flex-direction:column;gap:18px;overflow-y:auto;flex:1}
@@ -2961,6 +2963,8 @@
         .game-hp-hearts{font-size:18px;letter-spacing:2px;line-height:1}
         .game-arena-zone{flex:1;position:relative;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;z-index:2;min-height:280px}
         .game-robot{position:absolute;bottom:18px;width:200px;height:280px;transition:transform .3s cubic-bezier(.4,1.6,.5,1);transform-origin:center bottom}
+        .game-robot .dc-mini-robot-frame{width:200px;height:280px}
+        .game-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(1)!important;animation:none!important}
         .game-robot-p1{left:-30px;transform:scale(.55)}
         .game-robot-p2{right:-30px;transform:scale(.55) scaleX(-1)}
         .game-robot.dodge-up{animation:gameDodge .55s ease-out}
@@ -3634,8 +3638,8 @@
 
     </div>
 
-    <!-- Játék gomb -->
-    <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️</div>
+    <!-- Játék gomb — bal alsó sarok -->
+    <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️ Harc</div>
 
     <!-- Kedvencek gomb -->
     <div class="favs-toggle" id="favsToggle">❤️<span class="favs-badge" id="favsBadge">0</span></div>
@@ -6487,127 +6491,75 @@
                 if(featuredName) featuredName.textContent=plus?'Ultra Black':'Ultra Bot';
             }catch(_){}
 
-            // Új két-sávos render
-            const tracks=document.getElementById('bpTracks');
-            if(tracks){
-                tracks.innerHTML='';
-                const MILE=[5,10,15,20,25,30,35,40,45,50,55,60];
-                const pcl=getBotpassPlusClaimed();
-                for(let i=1;i<=60;i++){
-                    const isClaimed=claimed.includes(i);
-                    const reachable=i<=lvl;
-                    const isCurrent=i===(lvl+1);
-                    const isMile=MILE.includes(i);
-                    const r=botpassReward(i);
-                    const pr=botpassPlusReward(i);
-                    const isPlusClaimed=pcl.includes(i);
+            // Új két-sávos render — try/catch hogy panel mindig megnyíljon
+            try{
+                const tracks=document.getElementById('bpTracks');
+                if(tracks){
+                    tracks.innerHTML='';
+                    const MILE=[5,10,15,20,25,30,35,40,45,50,55,60];
+                    let pcl=[];
+                    try{pcl=getBotpassPlusClaimed()}catch(_){}
+                    for(let i=1;i<=60;i++){
+                        const isClaimed=claimed.includes(i);
+                        const reachable=i<=lvl;
+                        const isCurrent=i===(lvl+1);
+                        const isMile=MILE.includes(i);
+                        let r,pr;
+                        try{r=botpassReward(i)}catch(_){r={type:'gems',icon:'💎',name:'gem'}}
+                        try{pr=botpassPlusReward(i)}catch(_){pr={type:'gems',icon:'💎',name:'+gem'}}
+                        const isPlusClaimed=pcl.includes(i);
 
-                    // PLUS cella (felső sor)
-                    const plusCell=document.createElement('div');
-                    plusCell.className='bp-cell bp-cell-plus';
-                    let plusCls='bp-tile tier-plus'+(isMile?' milestone':'');
-                    if(plus){
-                        if(isPlusClaimed) plusCls+=' claimed';
-                        else if(reachable && isClaimed) plusCls+=' claimable';
-                    } else {
-                        plusCls+=' locked';
+                        // PLUS cella (felső sor)
+                        const plusCell=document.createElement('div');
+                        plusCell.className='bp-cell bp-cell-plus';
+                        let plusCls='bp-tile tier-plus'+(isMile?' milestone':'');
+                        if(plus){
+                            if(isPlusClaimed) plusCls+=' claimed';
+                            else if(reachable && isClaimed) plusCls+=' claimable';
+                        } else {
+                            plusCls+=' locked';
+                        }
+                        plusCell.innerHTML=`<div class="${plusCls}" data-bp-plus="${i}">
+                            <span class="bp-tile-tag plus">PLUS</span>
+                            ${(i===60 && typeof buildMiniRobotHtml==='function')?`<div class="bp-tile-robot">${buildMiniRobotHtml('ultra-black',false)}</div>`:`<span class="bp-tile-icon">${pr.icon||'💎'}</span>`}
+                            <span class="bp-tile-name">${pr.name||''}</span>
+                        </div>`;
+                        tracks.appendChild(plusCell);
+
+                        // SZINT szám (középső)
+                        const numCell=document.createElement('div');
+                        numCell.className='bp-cell-num'+(isMile?' milestone':'')+(isCurrent?' current':'');
+                        numCell.style.gridRow='2';
+                        numCell.textContent=i;
+                        tracks.appendChild(numCell);
+
+                        // FREE cella (alsó sor)
+                        const freeCell=document.createElement('div');
+                        freeCell.className='bp-cell bp-cell-free';
+                        let freeCls='bp-tile tier-free'+(isMile?' milestone':'');
+                        if(isClaimed) freeCls+=' claimed';
+                        else if(reachable) freeCls+=' claimable';
+                        else freeCls+=' locked';
+                        freeCell.innerHTML=`<div class="${freeCls}" data-bp-free="${i}">
+                            <span class="bp-tile-tag free">FREE</span>
+                            ${(i===60 && typeof buildMiniRobotHtml==='function')?`<div class="bp-tile-robot">${buildMiniRobotHtml('ultra',false)}</div>`:`<span class="bp-tile-icon">${r.icon||'💎'}</span>`}
+                            <span class="bp-tile-name">${r.name||''}</span>
+                        </div>`;
+                        tracks.appendChild(freeCell);
                     }
-                    plusCell.innerHTML=`<div class="${plusCls}" data-bp-plus="${i}">
-                        <span class="bp-tile-tag plus">PLUS</span>
-                        ${(i===60)?`<div class="bp-tile-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml('ultra-black',false):'⚡'}</div>`:`<span class="bp-tile-icon">${pr.icon}</span>`}
-                        <span class="bp-tile-name">${pr.name}</span>
-                    </div>`;
-                    tracks.appendChild(plusCell);
-
-                    // SZINT szám (középső)
-                    const numCell=document.createElement('div');
-                    numCell.className='bp-cell-num'+(isMile?' milestone':'')+(isCurrent?' current':'');
-                    numCell.style.gridRow='2';
-                    numCell.textContent=i;
-                    tracks.appendChild(numCell);
-
-                    // FREE cella (alsó sor)
-                    const freeCell=document.createElement('div');
-                    freeCell.className='bp-cell bp-cell-free';
-                    let freeCls='bp-tile tier-free'+(isMile?' milestone':'');
-                    if(isClaimed) freeCls+=' claimed';
-                    else if(reachable) freeCls+=' claimable';
-                    else freeCls+=' locked';
-                    freeCell.innerHTML=`<div class="${freeCls}" data-bp-free="${i}">
-                        <span class="bp-tile-tag free">FREE</span>
-                        ${(i===60)?`<div class="bp-tile-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml('ultra',false):'⚡'}</div>`:`<span class="bp-tile-icon">${r.icon}</span>`}
-                        <span class="bp-tile-name">${r.name}</span>
-                    </div>`;
-                    tracks.appendChild(freeCell);
+                    // Görgetés a jelenlegi szinthez
+                    setTimeout(()=>{
+                        const current=tracks.querySelector('.bp-cell-num.current');
+                        if(current){
+                            try{current.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}catch(_){}
+                        }
+                    },200);
                 }
-                // Görgetés a jelenlegi szinthez
-                setTimeout(()=>{
-                    const current=tracks.querySelector('.bp-cell-num.current');
-                    if(current){
-                        try{current.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}catch(_){}
-                    }
-                },200);
+            }catch(err){
+                console.error('BP dual track render hiba:',err);
             }
 
-            // Szintek renderelése (régi — el is hagyhatjuk)
-            levels.innerHTML='';
-            // Track vonal töltés — a megszerzett szintekig
-            const trackLine=document.querySelector('.bp-track-line');
-            if(trackLine) trackLine.style.setProperty('--bp-line-pct',Math.min(100,(lvl/60)*100)+'%');
-            const MILESTONES=[5,10,15,20,25,30,35,40,45,50,55,60];
-            const currentLvl=lvl+1; // ami majd jön
-            for(let i=1;i<=60;i++){
-                const r=botpassReward(i);
-                const row=document.createElement('div');
-                let cls='bp-lvl';
-                const isClaimed=claimed.includes(i);
-                const reachable=i<=lvl;
-                const isCurrent=i===currentLvl && !isClaimed && i<=60;
-                if(MILESTONES.includes(i)) cls+=' milestone';
-                if(isClaimed) cls+=' claimed';
-                else if(reachable) cls+=' claimable';
-                else cls+=' locked';
-                if(isCurrent) cls+=' current';
-                row.className=cls;
-                // 60. szint: ne ikon, hanem mini robot Ultra (vagy Ultra-Black ha Plus)
-                const isLvl60=(i===60);
-                const lvl60Skin=plus?'ultra-black':'ultra';
-                const iconHtml=isLvl60
-                    ? `<div class="bp-lvl-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml(lvl60Skin,false):'⚡'}</div>`
-                    : `<span class="bp-lvl-icon">${r.icon}</span>`;
-                // Plus jutalom alsó sor (csak ha Plus vagy meg van mutatva mint zárolt)
-                const plusReward=botpassPlusReward(i);
-                const plusClaimedList=getBotpassPlusClaimed();
-                const isPlusClaimed=plusClaimedList.includes(i);
-                const showPlusRow=true; // mindig mutassuk a Plus rewardot
-                const plusUnlocked=plus && isClaimed; // csak ha Plus vétve ÉS sima kérve
-                let plusRowHtml='';
-                if(showPlusRow){
-                    const plusCls='bp-lvl-plus-row'+(plus?' active':' locked')+(isPlusClaimed?' claimed':'');
-                    plusRowHtml=`<div class="${plusCls}">
-                        <span class="bp-lvl-plus-tag">⭐ PLUS</span>
-                        <span class="bp-lvl-plus-icon">${plusReward.icon}</span>
-                        <span class="bp-lvl-plus-name">${plusReward.name}</span>
-                        ${isPlusClaimed?'<span class="bp-lvl-plus-check">✓</span>':''}
-                    </div>`;
-                }
-                row.innerHTML=`
-                    <div class="bp-lvl-num">${i}</div>
-                    <div class="bp-lvl-reward">
-                        ${iconHtml}
-                        <span class="bp-lvl-name">${r.name}</span>
-                    </div>
-                    <button class="bp-lvl-btn${isClaimed?' claimed':''}" data-lvl="${i}" ${isClaimed||!reachable?'disabled':''}>${isClaimed?'✓ Kész':(reachable?'Igényelj':'🔒')}</button>
-                    ${plusRowHtml}
-                `;
-                levels.appendChild(row);
-            }
             panel.style.display='flex';
-            // Görgetés a jelenlegi szinthez
-            setTimeout(()=>{
-                const target=levels.querySelector(`.bp-lvl.claimable`) || levels.children[Math.max(0,lvl-1)];
-                if(target) target.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
-            },150);
         }
         document.addEventListener('click',(e)=>{
             // Új: dual track — FREE tile claim
