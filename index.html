@@ -71,37 +71,27 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* ULTRA BOT — tiszta fehér test, egyetlen áramló pink neon csík + glow */
-        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#f8fafc 60%,#f1f5f9 100%)!important;box-shadow:0 6px 20px rgba(236,72,153,.4),inset 0 -3px 6px rgba(0,0,0,.05),inset 0 2px 0 rgba(255,255,255,.95)!important;border:2px solid #ec4899!important;position:relative}
-        /* Egyetlen vízszintes pink neon csík a fej közepén — nem chaotic, csak elegáns */
-        .robot.ultra .head::after{content:'';position:absolute;left:8px;right:8px;top:38%;height:5px;background:linear-gradient(90deg,transparent,#ec4899 30%,#f472b6 50%,#ec4899 70%,transparent);border-radius:3px;box-shadow:0 0 14px #ec4899,0 0 28px rgba(236,72,153,.6);pointer-events:none;animation:ultraFlowStripe 2.4s ease-in-out infinite}
-        @keyframes ultraFlowStripe{0%,100%{opacity:.7;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
-        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 8px 24px rgba(236,72,153,.4),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important;border:2px solid #ec4899!important;position:relative}
-        /* Két párhuzamos vízszintes csík a törzsön */
-        .robot.ultra .torso::before{content:'';position:absolute;left:6px;right:6px;top:30%;height:4px;background:linear-gradient(90deg,transparent,#ec4899 30%,#f472b6 50%,#ec4899 70%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.5);pointer-events:none;animation:ultraFlowStripe 2.4s ease-in-out infinite}
-        .robot.ultra .torso::after{content:'';position:absolute;left:6px;right:6px;bottom:30%;height:4px;background:linear-gradient(90deg,transparent,#ec4899 30%,#f472b6 50%,#ec4899 70%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.5);pointer-events:none;animation:ultraFlowStripe 2.4s ease-in-out infinite .6s}
-        .robot.ultra .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 16px #ec4899,0 0 32px rgba(236,72,153,.7),inset 0 0 4px rgba(255,255,255,.8)!important;animation:ultraEye 2.5s ease-in-out infinite!important}
-        @keyframes ultraEye{0%,100%{box-shadow:0 0 16px #ec4899,0 0 32px rgba(236,72,153,.7),inset 0 0 4px rgba(255,255,255,.8)}50%{box-shadow:0 0 22px #ec4899,0 0 44px rgba(236,72,153,.9),inset 0 0 6px rgba(255,255,255,1)}}
-        .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#fff,#fce7f3)!important;box-shadow:0 0 6px rgba(236,72,153,.5)!important;border-left:1px solid rgba(236,72,153,.3);border-right:1px solid rgba(236,72,153,.3)}
-        .robot.ultra .antenna-ball{background:radial-gradient(circle,#fff 0%,#f9a8d4 50%,#ec4899 100%)!important;box-shadow:0 0 22px #ec4899,0 0 44px rgba(236,72,153,.7),0 0 60px rgba(236,72,153,.3)!important;border:1.5px solid #ec4899!important;animation:ultraAntenna 1.8s ease-in-out infinite!important}
-        @keyframes ultraAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.3)}}
-        /* Karok és lábak — fehér + pink kontúr, 1 csík középen */
-        .robot.ultra .arm-l,.robot.ultra .arm-r{background:linear-gradient(to bottom,#fff,#f8fafc)!important;box-shadow:0 0 10px rgba(236,72,153,.5),inset 1px 0 0 rgba(255,255,255,.8)!important;border:1.5px solid #ec4899!important;position:relative}
-        .robot.ultra .arm-l::after,.robot.ultra .arm-r::after{content:'';position:absolute;left:50%;top:6px;bottom:6px;width:2.5px;transform:translateX(-50%);background:linear-gradient(to bottom,#ec4899,#f472b6,#ec4899);background-size:100% 200%;border-radius:2px;box-shadow:0 0 6px #ec4899;animation:ultraStripeFlow 2s linear infinite}
-        @keyframes ultraStripeFlow{from{background-position:0 0}to{background-position:0 -40px}}
-        .robot.ultra .leg{background:linear-gradient(to bottom,#fff,#f8fafc)!important;box-shadow:0 0 12px rgba(236,72,153,.5),inset 1px 0 0 rgba(255,255,255,.8)!important;border:1.5px solid #ec4899!important;position:relative}
-        .robot.ultra .leg::after{content:'';position:absolute;left:50%;top:6px;bottom:6px;width:3px;transform:translateX(-50%);background:linear-gradient(to bottom,#ec4899,#f472b6,#ec4899);background-size:100% 200%;border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 14px rgba(236,72,153,.5);animation:ultraStripeFlow 2.2s linear infinite}
-        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{background:radial-gradient(circle at 30% 30%,#fff,#f8fafc 70%,#fce7f3)!important;box-shadow:0 0 12px rgba(236,72,153,.6),inset -2px -2px 4px rgba(236,72,153,.15)!important;border:2px solid #ec4899!important}
+        /* ULTRA BOT — tiszta fehér test, csak pink glow, semmi extra */
+        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 6px 20px rgba(236,72,153,.5),0 0 24px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important}
+        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 8px 24px rgba(236,72,153,.5),0 0 30px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important}
+        .robot.ultra .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7),inset 0 0 3px rgba(255,255,255,.9)!important;animation:ultraEye 2.4s ease-in-out infinite!important}
+        @keyframes ultraEye{0%,100%{box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7),inset 0 0 3px rgba(255,255,255,.9)}50%{box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.9),inset 0 0 5px rgba(255,255,255,1)}}
+        .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#fff,#fce7f3)!important;box-shadow:0 0 6px rgba(236,72,153,.5)!important}
+        .robot.ultra .antenna-ball{background:radial-gradient(circle,#fff 0%,#f9a8d4 50%,#ec4899 100%)!important;box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.7),0 0 50px rgba(236,72,153,.3)!important;animation:ultraAntenna 1.8s ease-in-out infinite!important}
+        @keyframes ultraAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.25)}}
+        /* Karok és lábak — fehér, pink glow */
+        .robot.ultra .arm-l,.robot.ultra .arm-r{background:linear-gradient(to bottom,#fff,#f1f5f9)!important;box-shadow:0 0 10px rgba(236,72,153,.45)!important}
+        .robot.ultra .leg{background:linear-gradient(to bottom,#fff,#fce7f3 80%,#f9a8d4)!important;box-shadow:0 0 12px rgba(236,72,153,.5)!important}
+        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{background:radial-gradient(circle at 30% 30%,#fff,#f1f5f9 70%,#fce7f3)!important;box-shadow:0 0 10px rgba(236,72,153,.55)!important}
         .robot.ultra .heart-icon{filter:hue-rotate(320deg) brightness(1.2) saturate(1.4)!important}
-        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.6)!important;animation:ultraChestDot 1.5s ease-in-out infinite!important}
-        @keyframes ultraChestDot{0%,100%{transform:scale(1);box-shadow:0 0 10px #ec4899}50%{transform:scale(1.25);box-shadow:0 0 16px #ec4899,0 0 28px rgba(236,72,153,.8)}}
-        .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 10px #ec4899!important;border-radius:6px}
-        .robot.ultra .neck{background:linear-gradient(to bottom,#fff,#f8fafc)!important;border:1.5px solid #ec4899!important;box-shadow:0 0 8px rgba(236,72,153,.5)!important}
-        .robot.ultra .ear-l,.robot.ultra .ear-r{background:linear-gradient(to right,#fff,#ec4899)!important;box-shadow:0 0 10px rgba(236,72,153,.6)!important;border:1px solid rgba(236,72,153,.3)}
-        .robot.ultra .foot{background:linear-gradient(135deg,#fff,#ec4899)!important;box-shadow:0 0 14px rgba(236,72,153,.6)!important;border:1.5px solid rgba(236,72,153,.5)!important}
-        /* Ultra körüli aura — finom rózsaszín ködhalóval */
-        .robot.ultra::after{content:'';position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.32),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(10px)}
-        @keyframes ultraNeonGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.95;transform:scale(1.12)}}
+        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.6)!important}
+        .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 8px #ec4899!important;border-radius:6px}
+        .robot.ultra .neck{background:linear-gradient(to bottom,#fff,#f8fafc)!important;box-shadow:0 0 6px rgba(236,72,153,.4)!important}
+        .robot.ultra .ear-l,.robot.ultra .ear-r{background:linear-gradient(to right,#fff,#f9a8d4)!important;box-shadow:0 0 8px rgba(236,72,153,.5)!important}
+        .robot.ultra .foot{background:linear-gradient(135deg,#fff,#ec4899)!important;box-shadow:0 0 12px rgba(236,72,153,.55)!important}
+        /* Ultra körüli aura — finom rózsaszín halo */
+        .robot.ultra::after{content:'';position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.28),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(8px)}
+        @keyframes ultraNeonGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
 
         /* SUPER BOT — high-tech harci robot, neon visor, arc reactor, energia köpeny */
         .robot.super .head{background:linear-gradient(165deg,#e2e8f0 0%,#cbd5e1 30%,#475569 70%,#1e293b 100%)!important;box-shadow:0 0 24px rgba(220,38,38,.45),inset 0 -6px 10px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.3)!important;border:1.5px solid rgba(220,38,38,.5)!important}
@@ -2103,7 +2093,7 @@
 
         /* SUPPORT szekció — modern, animált, vertikális layout */
         .support-card{position:relative;margin:0 20px 14px;padding:18px 18px 16px;background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(236,72,153,.08),rgba(251,191,36,.08));background-size:300% 300%;border:1.5px solid rgba(255,255,255,.18);border-radius:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden;animation:supportFlow 8s ease-in-out infinite;box-shadow:0 6px 22px rgba(124,58,237,.18)}
-        .support-card::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:conic-gradient(from var(--ang,0deg),#a78bfa,#ec4899,#fbbf24,#a78bfa);opacity:.45;z-index:0;animation:supportRing 6s linear infinite;filter:blur(6px)}
+        .support-card::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,#a78bfa,#ec4899,#fbbf24);opacity:.4;z-index:0;filter:blur(4px)}
         .support-card::after{content:'';position:absolute;inset:1.5px;border-radius:18px;background:linear-gradient(160deg,#1a1530 0%,#241b3d 100%);z-index:0}
         @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
         @keyframes supportRing{to{--ang:360deg}}
@@ -2149,7 +2139,8 @@
         .bp-state-hint{margin-top:10px;font-size:11px;color:rgba(255,255,255,.55);line-height:1.45;text-align:center}
 
         /* Actions row */
-        .bp-actions{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+        .bp-actions{padding:8px 18px 14px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+        .bp-actions::before{content:'⚡ AKCIÓK';display:block;font-size:11px;font-weight:900;color:rgba(255,255,255,.5);letter-spacing:2px;margin-bottom:4px;padding:0 4px}
         .bp-skip-btn{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(167,139,250,.2),rgba(59,130,246,.2));background-size:200% 200%;border:1.5px solid rgba(236,72,153,.45);border-radius:14px;color:#fff;cursor:pointer;text-align:left;animation:bpSkipFlow 6s ease-in-out infinite;box-shadow:0 6px 20px rgba(236,72,153,.25)}
         @keyframes bpSkipFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .bp-skip-btn:active{transform:scale(.98)}
@@ -2234,7 +2225,8 @@
         .dc-card.locked{opacity:.5;filter:grayscale(.6)}
         .dc-card-inner{position:absolute;inset:0;padding:10px;display:flex;flex-direction:column;z-index:2}
         .dc-card-glow{position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:0;opacity:.85}
-        .dc-card-shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 3.5s linear infinite;pointer-events:none;z-index:3;mix-blend-mode:screen;border-radius:18px}
+        .dc-card-shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:200% 100%;pointer-events:none;z-index:3;border-radius:18px;opacity:0;transition:opacity .3s}
+        .dc-card:hover .dc-card-shine,.dc-grid .dc-card .dc-card-shine{opacity:1;animation:dcShine 3.5s linear infinite}
         @keyframes dcShine{0%{background-position:200% 0}100%{background-position:-100% 0}}
         .dc-card-rarity{font-size:9px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.95);background:rgba(0,0,0,.4);padding:4px 8px;border-radius:8px;align-self:flex-start;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,.5)}
         .dc-card-power{position:absolute;top:10px;right:10px;font-size:18px;font-weight:900;color:#fff;background:rgba(0,0,0,.4);padding:4px 9px;border-radius:10px;text-shadow:0 1px 3px rgba(0,0,0,.6);z-index:4}
@@ -2393,13 +2385,11 @@
         .dc-shop-mini-card{position:relative;flex-shrink:0;width:54px;height:76px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden;border:1.5px solid rgba(255,255,255,.18);box-shadow:0 4px 12px rgba(0,0,0,.45);background:linear-gradient(160deg,#1e1b4b,#0f0a1f);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
         .dc-shop-mini-card:hover{transform:translateY(-4px) scale(1.08)}
         .dc-shop-mini-card.locked{opacity:.5;filter:grayscale(.7)}
-        .dc-shop-mini-card::before{content:'';position:absolute;inset:0;border-radius:8px;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 3.5s linear infinite}
         .dc-shop-mini-card.rarity-common{background:linear-gradient(160deg,#475569,#1e293b);border-color:rgba(148,163,184,.5)}
         .dc-shop-mini-card.rarity-rare{background:linear-gradient(160deg,#1e3a8a,#0f172a);border-color:rgba(96,165,250,.6);box-shadow:0 4px 14px rgba(37,99,235,.35)}
         .dc-shop-mini-card.rarity-epic{background:linear-gradient(160deg,#581c87,#1e1b4b);border-color:rgba(168,85,247,.6);box-shadow:0 4px 14px rgba(124,58,237,.4)}
         .dc-shop-mini-card.rarity-legendary{background:linear-gradient(160deg,#b45309,#451a03);border-color:rgba(251,191,36,.7);box-shadow:0 4px 14px rgba(251,191,36,.45)}
-        .dc-shop-mini-card.rarity-mythic{border-color:transparent;background:linear-gradient(160deg,#0f0a1f,#1a0f2e)}
-        .dc-shop-mini-card.rarity-mythic::after{content:'';position:absolute;inset:-1.5px;border-radius:10px;background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);animation:dcMythicSpin 5s linear infinite;z-index:-1;filter:blur(2px)}
+        .dc-shop-mini-card.rarity-mythic{border:2px solid #ec4899;background:linear-gradient(160deg,#831843,#0f0a1f);box-shadow:0 4px 14px rgba(236,72,153,.5)}
         .dc-shop-mini-card .dc-mini-rarity-dot{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 4px currentColor}
         .dc-shop-mini-card.rarity-common .dc-mini-rarity-dot{color:#cbd5e1}
         .dc-shop-mini-card.rarity-rare .dc-mini-rarity-dot{color:#60a5fa}
@@ -2455,21 +2445,18 @@
         .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
 
         /* ============== ÚJABB POLISH ============== */
-        /* Shop háttér: lebegő blob overlay (NEM bántja a panel position:fixed-et) */
+        /* Shop háttér: STATIKUS blob overlay (gpu-friendly, nincs filter animáció) */
         .skin-panel.open::before{
             content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
             background:
                 radial-gradient(circle at 20% 20%,rgba(167,139,250,.18),transparent 40%),
                 radial-gradient(circle at 80% 80%,rgba(236,72,153,.15),transparent 40%),
                 radial-gradient(circle at 50% 50%,rgba(251,191,36,.08),transparent 50%);
-            animation:shopBgFlow 20s ease-in-out infinite;
         }
-        @keyframes shopBgFlow{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(40deg)}}
         /* Shop greeting modernebb */
         .shop-greeting{padding:18px 22px 8px;font-size:15px;color:rgba(255,255,255,.9);font-weight:600;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.3)}
-        /* Loot card modern hover & animation */
+        /* Loot card hover only (perf) */
         .loot-card{position:relative;overflow:hidden}
-        .loot-card::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.06) 50%,transparent 65%);background-size:200% 100%;animation:dcShine 5s linear infinite;pointer-events:none}
         /* Box tier card animáció bekötése a robotnak: mythic boxnál energia ring */
         .box-tier-card.tier-mythic{animation:mythicBreath 4s ease-in-out infinite}
         @keyframes mythicBreath{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
@@ -2527,8 +2514,8 @@
         .bp-season-pill-claim{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(245,158,11,.12));border-color:rgba(251,191,36,.5);animation:bpClaimablePulse 2s ease-in-out infinite}
         @keyframes bpClaimablePulse{0%,100%{transform:scale(1);box-shadow:0 0 0 rgba(251,191,36,.3)}50%{transform:scale(1.05);box-shadow:0 0 16px rgba(251,191,36,.5)}}
 
-        /* Napi küldetések sor */
-        .bp-missions{padding:12px 18px 4px;margin:8px 0 4px}
+        /* Napi küldetések sor — vizuálisan elválasztva */
+        .bp-missions{padding:14px 18px 8px;margin:8px 18px;background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:16px}
         .bp-missions-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;padding:0 4px}
         .bp-missions-title{font-size:12px;font-weight:900;color:rgba(255,255,255,.85);letter-spacing:1px;text-transform:uppercase}
         .bp-missions-prog{font-size:13px;font-weight:900;color:#fbbf24;background:rgba(251,191,36,.12);padding:3px 10px;border-radius:12px;border:1px solid rgba(251,191,36,.3);letter-spacing:.5px}
@@ -2546,7 +2533,7 @@
         .bp-missions-bonus.done{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(167,139,250,.12));border-style:solid;border-color:rgba(251,191,36,.5);color:#fbbf24}
 
         /* Következő jutalom preview kártya */
-        .bp-next-reward{position:relative;margin:10px 18px 0;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(236,72,153,.12),rgba(167,139,250,.12));background-size:200% 200%;border:1.5px solid rgba(251,191,36,.45);box-shadow:0 6px 20px rgba(251,191,36,.18);animation:bpClaimableBg 4s ease-in-out infinite;display:flex;align-items:center;gap:12px;overflow:hidden;z-index:2}
+        .bp-next-reward{position:relative;margin:8px 18px 4px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(236,72,153,.12),rgba(167,139,250,.12));background-size:200% 200%;border:1.5px solid rgba(251,191,36,.45);box-shadow:0 6px 20px rgba(251,191,36,.18);animation:bpClaimableBg 4s ease-in-out infinite;display:flex;align-items:center;gap:12px;overflow:hidden;z-index:2}
         .bp-next-reward::before{content:'';position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
         .bp-next-reward-icon{font-size:38px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4));animation:bpIconFloat 2.5s ease-in-out infinite;z-index:1}
         .bp-next-reward-info{flex:1;z-index:1}
@@ -2755,6 +2742,38 @@
         .ds-particle{position:absolute;font-size:18px;animation:dsParticle var(--dur,1.8s) ease-out forwards;left:50%;top:50%;filter:drop-shadow(0 0 6px currentColor);pointer-events:none;z-index:6}
         @keyframes dsParticle{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(calc(-50% + var(--dx,0px)),calc(-50% + var(--dy,0px))) scale(1.4);opacity:0}}
 
+        /* ============== UPDATE MODAL ============== */
+        .update-modal{position:fixed;inset:0;z-index:10000;background:radial-gradient(ellipse at center,#1e1b4b 0%,#0f0a1f 70%,#000 100%);display:none;align-items:center;justify-content:center;padding:20px;animation:dbFadeIn .4s ease;overflow:hidden}
+        .update-modal.open{display:flex}
+        .update-bg-stars{position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,rgba(251,191,36,.6),transparent),radial-gradient(2px 2px at 70% 80%,rgba(236,72,153,.5),transparent),radial-gradient(1px 1px at 35% 70%,rgba(167,139,250,.5),transparent),radial-gradient(2px 2px at 85% 25%,rgba(34,211,238,.4),transparent),radial-gradient(1px 1px at 50% 50%,rgba(255,255,255,.5),transparent),radial-gradient(2px 2px at 15% 85%,rgba(255,255,255,.4),transparent),radial-gradient(1px 1px at 60% 15%,rgba(251,191,36,.5),transparent),radial-gradient(2px 2px at 90% 60%,rgba(255,255,255,.3),transparent);background-size:600px 600px;animation:loadingStarsDrift 50s linear infinite;opacity:.6;pointer-events:none}
+        .update-card{position:relative;width:100%;max-width:440px;max-height:90vh;background:linear-gradient(160deg,#1e1b4b 0%,#3b0764 50%,#831843 100%);border-radius:24px;padding:24px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 20px 80px rgba(167,139,250,.5),0 0 60px rgba(236,72,153,.3);overflow-y:auto;animation:updateIn .55s cubic-bezier(.34,1.56,.64,1);border:2px solid transparent;background-clip:padding-box}
+        @keyframes updateIn{0%{opacity:0;transform:scale(.7) translateY(40px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+        .update-glow{position:absolute;inset:-3px;border-radius:26px;background:conic-gradient(from var(--ang,0deg),#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);animation:dcMythicSpin 8s linear infinite;z-index:-1;filter:blur(8px);opacity:.7}
+        .update-icon-wrap{position:relative;width:84px;height:84px;display:flex;align-items:center;justify-content:center}
+        .update-icon{font-size:60px;line-height:1;animation:dcEmojiPulse 2s ease-in-out infinite;z-index:1;filter:drop-shadow(0 4px 14px rgba(251,191,36,.6))}
+        .update-icon-ring{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(251,191,36,.5);animation:dcMythicSpin 4s linear infinite;border-top-color:#ec4899;border-right-color:#a78bfa}
+        .update-version{font-size:11px;font-weight:900;color:rgba(251,191,36,.85);letter-spacing:3px;background:rgba(251,191,36,.12);padding:4px 12px;border-radius:10px;border:1px solid rgba(251,191,36,.4)}
+        .update-title{font-size:26px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#22d3ee,#fbbf24);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3.5s linear infinite;letter-spacing:1.5px;text-align:center;margin-bottom:4px}
+        .update-list{width:100%;display:flex;flex-direction:column;gap:8px;padding:8px 0}
+        .update-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:12px;font-size:13px;font-weight:600;color:rgba(255,255,255,.9);line-height:1.3;animation:updateRowIn .5s cubic-bezier(.34,1.56,.64,1) backwards}
+        .update-list .update-row:nth-child(1){animation-delay:.1s}
+        .update-list .update-row:nth-child(2){animation-delay:.18s}
+        .update-list .update-row:nth-child(3){animation-delay:.26s}
+        .update-list .update-row:nth-child(4){animation-delay:.34s}
+        .update-list .update-row:nth-child(5){animation-delay:.42s}
+        .update-list .update-row:nth-child(6){animation-delay:.5s}
+        .update-list .update-row:nth-child(7){animation-delay:.58s}
+        .update-list .update-row:nth-child(8){animation-delay:.66s}
+        @keyframes updateRowIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+        .update-emoji{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+        .update-gift{position:relative;width:100%;padding:14px 18px;background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(245,158,11,.12));border:2px solid rgba(251,191,36,.6);border-radius:16px;display:flex;align-items:center;justify-content:center;gap:10px;animation:updateGiftPulse 2s ease-in-out infinite;box-shadow:0 6px 20px rgba(251,191,36,.3)}
+        @keyframes updateGiftPulse{0%,100%{transform:scale(1);box-shadow:0 6px 20px rgba(251,191,36,.3)}50%{transform:scale(1.02);box-shadow:0 8px 28px rgba(251,191,36,.5)}}
+        .update-gift-emoji{font-size:30px;animation:gemPackBob 1.5s ease-in-out infinite;filter:drop-shadow(0 3px 8px rgba(251,191,36,.6))}
+        .update-gift-text{font-size:18px;font-weight:900;background:linear-gradient(90deg,#fde68a,#fbbf24,#fde68a);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 2.5s linear infinite}
+        .update-claim-btn{width:100%;padding:14px 24px;background:linear-gradient(135deg,#fbbf24,#f59e0b,#ec4899);background-size:200% 200%;animation:flowColor 4s linear infinite;color:#fff;font-weight:900;font-size:14px;border:none;border-radius:14px;cursor:pointer;letter-spacing:.8px;text-transform:uppercase;box-shadow:0 8px 24px rgba(236,72,153,.4);text-shadow:0 1px 2px rgba(0,0,0,.3);position:relative;overflow:hidden}
+        .update-claim-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:bpShine 2.5s linear infinite;pointer-events:none}
+        .update-claim-btn:active{transform:scale(.96)}
+
         /* ============== MATRICÁK / STICKERS ============== */
         .sticker-banner{position:relative;width:100%;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,#3b0764 0%,#7c3aed 50%,#3b0764 100%);background-size:200% 200%;animation:bpBannerFlow 10s ease-in-out infinite;border:1.5px solid rgba(167,139,250,.5);overflow:hidden;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 6px 22px rgba(124,58,237,.3);transition:transform .25s,box-shadow .25s}
         .sticker-banner:active{transform:scale(.97)}
@@ -2774,6 +2793,8 @@
         .sticker-head{display:flex;justify-content:space-between;align-items:center}
         .sticker-title{font-size:18px;font-weight:900;background:linear-gradient(90deg,#a78bfa,#ec4899,#fbbf24,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite}
         .sticker-info{font-size:12px;color:rgba(255,255,255,.6);text-align:center}
+        .sticker-source{font-size:11px;color:rgba(251,191,36,.85);text-align:center;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);padding:8px 12px;border-radius:10px;line-height:1.4}
+        .sticker-source strong{color:#fde68a;font-weight:900}
         .sticker-grid{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;padding-right:4px}
         .sticker-grid::-webkit-scrollbar{width:5px}
         .sticker-grid::-webkit-scrollbar-thumb{background:rgba(167,139,250,.4);border-radius:3px}
@@ -3200,6 +3221,22 @@
             </div>
         </div>
 
+        <!-- Matricák gyors-belépő (Loot Boxes után) -->
+        <div class="shop-section">
+            <div class="loot-card-wrap">
+                <div class="sticker-banner" id="stickerBanner">
+                    <div class="sticker-banner-glow"></div>
+                    <div class="sticker-banner-icon">💬</div>
+                    <div class="sticker-banner-info">
+                        <div class="sticker-banner-title">Köszönés matricák</div>
+                        <div class="sticker-banner-sub">Pouch-ból szerezhető · állítsd be a robot köszönését!</div>
+                        <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span id="stickerTotal">12</span> · most: <span id="stickerCurrent">Hello 👋</span></div>
+                    </div>
+                    <div class="sticker-banner-cta">→</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Daily Pouch szekció -->
         <div class="shop-section" id="shopDailyPouchSection">
             <div class="loot-card-wrap">
@@ -3239,7 +3276,7 @@
                     </div>
                     <div class="ds-card-content">
                         <div class="ds-card-title">DAILY SUPER</div>
-                        <div class="ds-card-sub">Mystery napi jutalom · 1/nap</div>
+                        <div class="ds-card-sub">Tier escalation · 1/nap · gem, pouch, box, kártya, Ultra skin esély</div>
                         <div class="ds-card-tiers">
                             <span class="ds-tier-pip rarity-rare"></span>
                             <span class="ds-tier-pip rarity-epic"></span>
@@ -3273,22 +3310,6 @@
                         <div class="bp-banner-cta">Megnyitás →</div>
                     </div>
                     <div class="bp-banner-badge" id="bpBannerBadge" style="display:none">!</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Matricák gyors-belépő -->
-        <div class="shop-section">
-            <div class="loot-card-wrap">
-                <div class="sticker-banner" id="stickerBanner">
-                    <div class="sticker-banner-glow"></div>
-                    <div class="sticker-banner-icon">💬</div>
-                    <div class="sticker-banner-info">
-                        <div class="sticker-banner-title">Köszönés matricák</div>
-                        <div class="sticker-banner-sub">Állítsd be milyen szöveggel köszönjön a robot!</div>
-                        <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span id="stickerTotal">12</span> · most: <span id="stickerCurrent">Hello 👋</span></div>
-                    </div>
-                    <div class="sticker-banner-cta">→</div>
                 </div>
             </div>
         </div>
@@ -5207,6 +5228,38 @@
         _dsShakeStyle.textContent='@keyframes dsStarShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-12px) rotate(-5deg)}75%{transform:translateX(12px) rotate(5deg)}}';
         document.head.appendChild(_dsShakeStyle);
 
+        // ========== UPDATE MODAL — verzió változás ==========
+        const APP_VERSION='v0.4.0';
+        function checkUpdateModal(){
+            const seen=localStorage.getItem('nu_seen_version');
+            if(seen===APP_VERSION) return;
+            // Ne akkor jelenjen meg, ha új user (még nincs név)
+            if(!localStorage.getItem('nu_name')) return;
+            setTimeout(()=>showUpdateModal(),900);
+        }
+        function showUpdateModal(){
+            const m=document.getElementById('updateModal');
+            const v=document.getElementById('updateVersion');
+            if(!m) return;
+            if(v) v.textContent=APP_VERSION;
+            m.classList.add('open');
+            try{playSfx('zynox')}catch(_){}
+        }
+        function claimUpdateGift(){
+            const m=document.getElementById('updateModal');
+            // Csak akkor ad gemet ha még nem kapta meg
+            const seen=localStorage.getItem('nu_seen_version');
+            if(seen!==APP_VERSION){
+                if(typeof addGems==='function') addGems(100);
+                if(typeof showGemFlash==='function') showGemFlash(100);
+                if(typeof updateGemUI==='function') updateGemUI();
+                if(typeof updateLootBadges==='function') updateLootBadges();
+                try{playSfx('gem-claim')}catch(_){}
+            }
+            localStorage.setItem('nu_seen_version',APP_VERSION);
+            if(m) m.classList.remove('open');
+        }
+
         // ========== ADMIN PANEL — gem vásárlás napló ==========
         function openAdminPanel(){
             const p=document.getElementById('adminPanel');
@@ -5978,6 +6031,8 @@
         // Kicsit várunk hogy az onboarding vagy reload után is lefusson
         setTimeout(checkKovratBonus, 2000);
         document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkKovratBonus,500)});
+        // Update modal — verzió újdonságok + 100 gem
+        setTimeout(()=>{try{checkUpdateModal()}catch(_){}}, 1500);
 
         function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
@@ -7287,6 +7342,7 @@
                 if(closeId==='dcDetailClose'){ closeCardDetail(); return; }
                 if(closeId==='adminClose'){ closeAdminPanel(); return; }
                 if(closeId==='dsClaimBtn'){ dsClaim(); return; }
+                if(closeId==='updateClaimBtn'){ claimUpdateGift(); return; }
                 if(closeId==='stickerClose'){ closeStickerPanel(); return; }
                 const stB=e.target.closest&&e.target.closest('#stickerBanner');
                 if(stB){ openStickerPanel(); return; }
@@ -7565,6 +7621,35 @@
         </div>
     </div>
 
+    <!-- Update modal — első belépés új verzió után -->
+    <div id="updateModal" class="update-modal">
+        <div class="update-bg-stars"></div>
+        <div class="update-card">
+            <div class="update-glow"></div>
+            <div class="update-icon-wrap">
+                <span class="update-icon">🎉</span>
+                <div class="update-icon-ring"></div>
+            </div>
+            <div class="update-version" id="updateVersion">v0.4.0</div>
+            <div class="update-title">ÚJ FRISSÍTÉS!</div>
+            <div class="update-list" id="updateList">
+                <div class="update-row"><span class="update-emoji">🌟</span><span>Daily Super eszkaláció — Common-tól Ultra-ig</span></div>
+                <div class="update-row"><span class="update-emoji">⚡</span><span>Ultra Bot skin (Bot Pass szint 60)</span></div>
+                <div class="update-row"><span class="update-emoji">💬</span><span>Köszönés matricák — egyedi greeting</span></div>
+                <div class="update-row"><span class="update-emoji">🎴</span><span>DailyCard banner mozgó carousel</span></div>
+                <div class="update-row"><span class="update-emoji">📦</span><span>4 Box tier (Daily/Common/Legendary/Mythic)</span></div>
+                <div class="update-row"><span class="update-emoji">💎</span><span>Gem Shop + admin panel</span></div>
+                <div class="update-row"><span class="update-emoji">🎖️</span><span>Bot Pass: napi küldetések, Next reward, blob háttér</span></div>
+                <div class="update-row"><span class="update-emoji">🚀</span><span>Új loading screen, modern animációk</span></div>
+            </div>
+            <div class="update-gift">
+                <div class="update-gift-emoji">💎</div>
+                <div class="update-gift-text">+100 gem ajándék!</div>
+            </div>
+            <button class="update-claim-btn" id="updateClaimBtn">Köszönöm! Begyűjtöm</button>
+        </div>
+    </div>
+
     <!-- Matricák panel -->
     <div id="stickerPanel" class="sticker-panel">
         <div class="sticker-panel-card">
@@ -7572,7 +7657,8 @@
                 <div class="sticker-title">💬 Köszönés matricák</div>
                 <button class="shop-close-btn" id="stickerClose">✕</button>
             </div>
-            <div class="sticker-info">A robot ezzel köszön a főképernyőn</div>
+            <div class="sticker-info">A robot ezzel köszön a főképernyőn — koppints rá hogy beállítsd</div>
+            <div class="sticker-source">📥 Hogyan szerezz újat: <strong>Pouch megnyitása (5% esély)</strong> · Daily Super</div>
             <div class="sticker-grid" id="stickerGrid"></div>
         </div>
     </div>
