@@ -71,37 +71,20 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* ULTRA BOT — tiszta fehér test + függőleges pink neon elektronika csíkok */
-        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 6px 20px rgba(236,72,153,.5),0 0 24px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative;overflow:visible}
-        /* Fej: 2 vékony függőleges neon csík oldalt */
-        .robot.ultra .head::before{content:'';position:absolute;left:14%;top:5%;bottom:5%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 20%,#f472b6 50%,#ec4899 80%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 14px rgba(236,72,153,.6);pointer-events:none;animation:ultraNeonPulse 2s ease-in-out infinite;z-index:3}
-        .robot.ultra .head::after{content:'';position:absolute;right:14%;top:5%;bottom:5%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 20%,#f472b6 50%,#ec4899 80%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 14px rgba(236,72,153,.6);pointer-events:none;animation:ultraNeonPulse 2s ease-in-out infinite .3s;z-index:3}
-        @keyframes ultraNeonPulse{0%,100%{opacity:.7;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
-        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 8px 24px rgba(236,72,153,.5),0 0 30px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative;overflow:visible}
-        /* Törzs: 3 függőleges neon csík (központi vastagabb) — felülről lefelé */
-        .robot.ultra .torso::before{content:'';position:absolute;left:25%;top:8%;bottom:8%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f472b6 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.5);pointer-events:none;animation:ultraNeonPulse 2.4s ease-in-out infinite;z-index:3}
-        .robot.ultra .torso::after{content:'';position:absolute;right:25%;top:8%;bottom:8%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f472b6 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.5);pointer-events:none;animation:ultraNeonPulse 2.4s ease-in-out infinite .6s;z-index:3}
-        /* Központi vastagabb csík (chest area mellett külön elemen) */
-        .robot.ultra .chest{position:relative}
-        .robot.ultra .chest::before{content:'';position:absolute;left:50%;top:-50%;bottom:-50%;width:4px;transform:translateX(-50%);background:linear-gradient(to bottom,transparent,#ec4899 10%,#f472b6 50%,#ec4899 90%,transparent);border-radius:3px;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7);pointer-events:none;animation:ultraNeonPulse 2s ease-in-out infinite .15s;z-index:1}
-        .robot.ultra .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7),inset 0 0 3px rgba(255,255,255,.9)!important;animation:ultraEye 2.4s ease-in-out infinite!important}
-        @keyframes ultraEye{0%,100%{box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7),inset 0 0 3px rgba(255,255,255,.9)}50%{box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.9),inset 0 0 5px rgba(255,255,255,1)}}
-        .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#fff,#fce7f3)!important;box-shadow:0 0 6px rgba(236,72,153,.5)!important}
-        .robot.ultra .antenna-ball{background:radial-gradient(circle,#fff 0%,#f9a8d4 50%,#ec4899 100%)!important;box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.7),0 0 50px rgba(236,72,153,.3)!important;animation:ultraAntenna 1.8s ease-in-out infinite!important}
-        @keyframes ultraAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.25)}}
-        /* Karok és lábak — fehér, pink glow */
-        .robot.ultra .arm-l,.robot.ultra .arm-r{background:linear-gradient(to bottom,#fff,#f1f5f9)!important;box-shadow:0 0 10px rgba(236,72,153,.45)!important}
-        .robot.ultra .leg{background:linear-gradient(to bottom,#fff,#fce7f3 80%,#f9a8d4)!important;box-shadow:0 0 12px rgba(236,72,153,.5)!important}
-        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{background:radial-gradient(circle at 30% 30%,#fff,#f1f5f9 70%,#fce7f3)!important;box-shadow:0 0 10px rgba(236,72,153,.55)!important}
-        .robot.ultra .heart-icon{filter:hue-rotate(320deg) brightness(1.2) saturate(1.4)!important}
-        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.6)!important}
-        .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 8px #ec4899!important;border-radius:6px}
-        .robot.ultra .neck{background:linear-gradient(to bottom,#fff,#f8fafc)!important;box-shadow:0 0 6px rgba(236,72,153,.4)!important}
-        .robot.ultra .ear-l,.robot.ultra .ear-r{background:linear-gradient(to right,#fff,#f9a8d4)!important;box-shadow:0 0 8px rgba(236,72,153,.5)!important}
-        .robot.ultra .foot{background:linear-gradient(135deg,#fff,#ec4899)!important;box-shadow:0 0 12px rgba(236,72,153,.55)!important}
-        /* Ultra körüli aura — finom rózsaszín halo */
-        .robot.ultra::after{content:'';position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.28),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(8px)}
-        @keyframes ultraNeonGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
+        /* ULTRA BOT — alap robot tiszta fehér testtel + 3 függőleges pink neon AI csík */
+        /* CSAK a fej és törzs lesz fehér, minden más marad az alap robot */
+        .robot.ultra .head{background:linear-gradient(165deg,#ffffff 0%,#f1f5f9 100%)!important;box-shadow:0 6px 18px rgba(236,72,153,.4),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative;overflow:hidden}
+        .robot.ultra .torso{background:linear-gradient(165deg,#ffffff 0%,#f1f5f9 100%)!important;box-shadow:0 8px 22px rgba(236,72,153,.4),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative;overflow:hidden}
+        /* Fej: 2 függőleges pink neon csík oldalt + glow */
+        .robot.ultra .head::before{content:'';position:absolute;left:18%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2s ease-in-out infinite}
+        .robot.ultra .head::after{content:'';position:absolute;right:18%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2s ease-in-out infinite .4s}
+        @keyframes ultraNeonPulse{0%,100%{opacity:.75;filter:brightness(1)}50%{opacity:1;filter:brightness(1.5)}}
+        /* Törzs: 3 függőleges pink neon csík (két oldalt + középen) */
+        .robot.ultra .torso::before{content:'';position:absolute;left:22%;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 12%,#f9a8d4 50%,#ec4899 88%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2.2s ease-in-out infinite}
+        .robot.ultra .torso::after{content:'';position:absolute;right:22%;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 12%,#f9a8d4 50%,#ec4899 88%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2.2s ease-in-out infinite .5s}
+        /* Halo aura — finom pink glow a robot körül */
+        .robot.ultra::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.22),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(8px)}
+        @keyframes ultraNeonGlow{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.85;transform:scale(1.1)}}
 
         /* SUPER BOT — high-tech harci robot, neon visor, arc reactor, energia köpeny */
         .robot.super .head{background:linear-gradient(165deg,#e2e8f0 0%,#cbd5e1 30%,#475569 70%,#1e293b 100%)!important;box-shadow:0 0 24px rgba(220,38,38,.45),inset 0 -6px 10px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.3)!important;border:1.5px solid rgba(220,38,38,.5)!important}
@@ -1094,6 +1077,9 @@
         .shop-item.locked .shop-item-icon{filter:grayscale(.7) brightness(.8)}
         .shop-item.buyable{border-color:rgba(251,191,36,.4);background:linear-gradient(160deg,rgba(251,191,36,.14),rgba(180,83,9,.04))}
         .shop-item-icon{font-size:48px;display:block;margin-bottom:8px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25));animation:shopIconFloat 3s ease-in-out infinite}
+        /* Skin shop item — mini robot center */
+        .shop-item-robot{height:120px;display:flex;align-items:center;justify-content:center;animation:none!important;filter:none}
+        .shop-item-robot .dc-mini-robot-frame{height:120px}
         @keyframes shopIconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
         /* Rarity-specifikus háttér glow */
         .shop-item:has(.rarity-rare){border-color:rgba(59,130,246,.3)}
@@ -2252,18 +2238,21 @@
         .dc-mini-robot-frame.large{height:240px}
         /* Locked ikon — nagyobb, opacity */
         .dc-card-image-locked{font-size:64px;opacity:.55}
-        /* Grid emblem — emoji helyett egy ritkasághoz színezett gömb-ragyogás */
-        .dc-card-image-emblem{display:block;width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),rgba(255,255,255,.15) 50%,transparent 80%);box-shadow:0 6px 16px rgba(0,0,0,.35),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4);position:relative}
-        .dc-card-image-emblem::after{content:'';position:absolute;inset:14px;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.8),rgba(255,255,255,.3));mix-blend-mode:overlay;opacity:.6}
+        /* Grid emblem — ritkasági gömb + skin emoji benne kis méretben */
+        .dc-card-image-emblem{display:flex;align-items:center;justify-content:center;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.6),rgba(255,255,255,.1) 55%,transparent 85%);box-shadow:0 6px 16px rgba(0,0,0,.35),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4);position:relative}
+        .dc-emblem-icon{font-size:38px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));z-index:2;position:relative}
         .dc-emblem-common{background-color:#94a3b8}
         .dc-emblem-rare{background-color:#3b82f6;box-shadow:0 6px 16px rgba(59,130,246,.5),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4)}
         .dc-emblem-epic{background-color:#a855f7;box-shadow:0 6px 16px rgba(168,85,247,.5),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.4)}
         .dc-emblem-legendary{background-color:#fbbf24;box-shadow:0 6px 18px rgba(251,191,36,.6),inset 0 -4px 10px rgba(0,0,0,.25),inset 0 4px 6px rgba(255,255,255,.5)}
         .dc-emblem-mythic{background:linear-gradient(135deg,#ec4899 0%,#a78bfa 50%,#22d3ee 100%);box-shadow:0 8px 22px rgba(236,72,153,.6),inset 0 -4px 10px rgba(0,0,0,.3),inset 0 4px 6px rgba(255,255,255,.4)}
-        .dc-card-name{font-size:14px;font-weight:900;color:#fff;text-align:center;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:4px}
-        .dc-card-bar{height:6px;background:rgba(0,0,0,.45);border-radius:3px;overflow:hidden;margin-bottom:6px}
-        .dc-card-bar-fill{height:100%;width:var(--pwr,50%);background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);border-radius:3px;box-shadow:0 0 6px rgba(251,191,36,.5)}
-        .dc-card-desc{font-size:9px;font-weight:600;color:rgba(255,255,255,.75);text-align:center;line-height:1.2;font-style:italic}
+        .dc-card-name{font-size:15px;font-weight:900;color:#fff;text-align:center;letter-spacing:.4px;text-shadow:0 1px 3px rgba(0,0,0,.7);margin-bottom:6px;line-height:1.1}
+        .dc-card-bar{height:7px;background:rgba(0,0,0,.55);border-radius:4px;overflow:hidden;margin-bottom:6px;border:1px solid rgba(255,255,255,.1)}
+        .dc-card-bar-fill{height:100%;width:var(--pwr,50%);background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);border-radius:3px;box-shadow:0 0 6px rgba(251,191,36,.6)}
+        .dc-card-desc{font-size:10px;font-weight:600;color:rgba(255,255,255,.85);text-align:center;line-height:1.3;font-style:italic}
+        /* Grid kártya speciálisan — name nagyobb az olvashatóságért */
+        .dc-grid .dc-card .dc-card-name{font-size:14px}
+        .dc-grid .dc-card .dc-card-desc{display:none}
 
         /* Rarity színek a kártya glow-ra */
         .dc-card.rarity-common .dc-card-glow{background:radial-gradient(circle at 50% 30%,rgba(148,163,184,.45),rgba(71,85,105,.2) 60%,transparent 80%)}
@@ -4850,8 +4839,8 @@
             } else if(showRobot){
                 visual=buildMiniRobotHtml(card.skinId,!!opts.large);
             } else {
-                // Grid kis nézet: csak egy elegáns rarity badge, NINCS emoji
-                visual=`<span class="dc-card-image-emblem dc-emblem-${card.rarity}"></span>`;
+                // Grid: emblem orb + skin emoji benne (azonosíthatóság)
+                visual=`<span class="dc-card-image-emblem dc-emblem-${card.rarity}"><span class="dc-emblem-icon">${card.icon||'🤖'}</span></span>`;
             }
             return `<div class="${cls}" data-card-id="${card.id}">
                 <div class="dc-card-glow"></div>
@@ -6630,7 +6619,11 @@
                         }
 
                         const rarityLabel=(rarity!=='free')?`<div class="shop-item-rarity-label rarity-label-${rarity}">${rarity}</div>`:'<div class="shop-item-rarity-label rarity-label-free">free</div>';
-                        el.innerHTML=`<div class="shop-item-icon">${s.icon}</div>${rarityLabel}<div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+                        const isSkinList=cfg.id==='skinList';
+                        const iconHtml=(isSkinList && typeof buildMiniRobotHtml==='function')
+                            ? `<div class="shop-item-icon shop-item-robot">${buildMiniRobotHtml(s.id||'',false)}</div>`
+                            : `<div class="shop-item-icon">${s.icon}</div>`;
+                        el.innerHTML=`${iconHtml}${rarityLabel}<div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
 
                         if(ownedItem && !isActive) el.addEventListener('click',(e)=>{if(e.target.closest('.buy-tag'))return;cfg.setter(s.id);cfg.applier();playSfx('skin-equip');triggerSkinEquipEffect();renderShop()});
                         cfg.list.appendChild(el);
