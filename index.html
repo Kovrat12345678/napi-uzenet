@@ -2665,6 +2665,10 @@
         @keyframes dsStarBob{0%,100%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(3deg) scale(1.05)}}
         @keyframes dsStarColorFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .ds-star-shape.big{width:220px;height:220px;box-shadow:0 0 80px rgba(167,139,250,.8),0 0 160px rgba(236,72,153,.5);animation:dsStarBobBig 2.4s ease-in-out infinite,dsStarColorFlow 4s ease-in-out infinite}
+        #dsStarBig{cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+        #dsStarBig:active{transform:scale(.92)}
+        #dsStarBig::before{content:'KOPPINTS';position:absolute;bottom:-44px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:900;letter-spacing:3px;color:rgba(255,255,255,.85);text-shadow:0 0 8px var(--ds-glow,rgba(167,139,250,.7));white-space:nowrap;background:rgba(0,0,0,.4);padding:5px 12px;border-radius:14px;animation:dsStarHint 1.4s ease-in-out infinite;pointer-events:none;z-index:5;border:1px solid rgba(255,255,255,.2)}
+        @keyframes dsStarHint{0%,100%{opacity:.6;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(-3px)}}
         @keyframes dsStarBobBig{0%,100%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(3deg) scale(1.07)}}
         .ds-star-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px;z-index:2;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));pointer-events:none;color:#fff;text-shadow:0 0 12px rgba(255,255,255,.8)}
         .ds-star-icon.big{font-size:88px;filter:drop-shadow(0 4px 18px rgba(0,0,0,.6))}
@@ -7298,6 +7302,12 @@
                     return;
                 }
                 if(closeId==='dsContinueBtn' || (e.target&&e.target.closest&&e.target.closest('#dsContinueBtn'))){ dsContinue(); return; }
+                // Csillagra koppintás = Tovább lépés (vagy Begyűjtöm ha már nem lehet tovább)
+                const starTap=e.target.closest&&e.target.closest('#dsStarBig');
+                if(starTap && typeof _dsState!=='undefined'){
+                    if(_dsState.canContinue){ dsContinue(); return; }
+                    if(_dsState.pendingPrize){ dsClaim(); return; }
+                }
                 if(closeId==='dsCloseBtn' || (e.target&&e.target.closest&&e.target.closest('#dsCloseBtn'))){
                     const ov=document.getElementById('dsOverlay');
                     if(ov){ov.classList.remove('open');ov.style.display='none'}
