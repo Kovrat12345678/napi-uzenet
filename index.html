@@ -71,37 +71,37 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* ULTRA BOT — fehér alapon pink neon fénylő csíkok */
-        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#fce7f3 40%,#f9a8d4 100%)!important;box-shadow:0 0 30px rgba(236,72,153,.6),inset 0 -4px 8px rgba(236,72,153,.15),inset 0 2px 0 rgba(255,255,255,.6)!important;border:2px solid rgba(255,255,255,.5)!important;position:relative;overflow:hidden}
-        .robot.ultra .head::after{content:'';position:absolute;top:0;left:0;right:0;height:100%;background:repeating-linear-gradient(135deg,transparent 0px,transparent 14px,rgba(236,72,153,.55) 14px,rgba(236,72,153,.55) 17px,transparent 17px,transparent 32px);pointer-events:none;animation:ultraStripes 3s linear infinite;mix-blend-mode:multiply;border-radius:inherit}
-        @keyframes ultraStripes{from{background-position:0 0}to{background-position:60px 0}}
-        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#fdf2f8 50%,#fce7f3 100%)!important;box-shadow:0 0 26px rgba(236,72,153,.5),inset 0 -4px 8px rgba(236,72,153,.18),inset 0 1px 0 rgba(255,255,255,.6)!important;border:2px solid rgba(255,255,255,.5)!important;position:relative;overflow:hidden}
-        .robot.ultra .torso::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0px,transparent 18px,rgba(236,72,153,.5) 18px,rgba(236,72,153,.5) 22px,transparent 22px,transparent 40px);animation:ultraStripesT 4s linear infinite;mix-blend-mode:multiply;border-radius:inherit}
-        @keyframes ultraStripesT{from{background-position:0 0}to{background-position:0 80px}}
+        /* ULTRA BOT — tiszta fehér test, egyetlen áramló pink neon csík + glow */
+        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#f8fafc 60%,#f1f5f9 100%)!important;box-shadow:0 6px 20px rgba(236,72,153,.4),inset 0 -3px 6px rgba(0,0,0,.05),inset 0 2px 0 rgba(255,255,255,.95)!important;border:2px solid #ec4899!important;position:relative}
+        /* Egyetlen vízszintes pink neon csík a fej közepén — nem chaotic, csak elegáns */
+        .robot.ultra .head::after{content:'';position:absolute;left:8px;right:8px;top:38%;height:5px;background:linear-gradient(90deg,transparent,#ec4899 30%,#f472b6 50%,#ec4899 70%,transparent);border-radius:3px;box-shadow:0 0 14px #ec4899,0 0 28px rgba(236,72,153,.6);pointer-events:none;animation:ultraFlowStripe 2.4s ease-in-out infinite}
+        @keyframes ultraFlowStripe{0%,100%{opacity:.7;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
+        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 8px 24px rgba(236,72,153,.4),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important;border:2px solid #ec4899!important;position:relative}
+        /* Két párhuzamos vízszintes csík a törzsön */
+        .robot.ultra .torso::before{content:'';position:absolute;left:6px;right:6px;top:30%;height:4px;background:linear-gradient(90deg,transparent,#ec4899 30%,#f472b6 50%,#ec4899 70%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.5);pointer-events:none;animation:ultraFlowStripe 2.4s ease-in-out infinite}
+        .robot.ultra .torso::after{content:'';position:absolute;left:6px;right:6px;bottom:30%;height:4px;background:linear-gradient(90deg,transparent,#ec4899 30%,#f472b6 50%,#ec4899 70%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.5);pointer-events:none;animation:ultraFlowStripe 2.4s ease-in-out infinite .6s}
         .robot.ultra .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 16px #ec4899,0 0 32px rgba(236,72,153,.7),inset 0 0 4px rgba(255,255,255,.8)!important;animation:ultraEye 2.5s ease-in-out infinite!important}
-        @keyframes ultraEye{0%,100%{box-shadow:0 0 16px #ec4899,0 0 32px rgba(236,72,153,.7),inset 0 0 4px rgba(255,255,255,.8)}50%{box-shadow:0 0 24px #ec4899,0 0 48px rgba(236,72,153,.95),0 0 70px rgba(244,114,182,.5),inset 0 0 6px rgba(255,255,255,1)}}
-        .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#fff,#fce7f3)!important;box-shadow:0 0 6px rgba(236,72,153,.4)!important}
-        .robot.ultra .antenna-ball{background:radial-gradient(circle,#fff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 24px #ec4899,0 0 48px rgba(236,72,153,.8),0 0 70px rgba(236,72,153,.4)!important;animation:ultraAntenna 1.6s ease-in-out infinite!important}
-        @keyframes ultraAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.4)}}
-        .robot.ultra .arm-l,.robot.ultra .arm-r{background:linear-gradient(to bottom,#fff,#fce7f3 60%,#f9a8d4)!important;box-shadow:0 0 12px rgba(236,72,153,.4),inset 1px 0 0 rgba(255,255,255,.6)!important;position:relative;overflow:hidden}
-        .robot.ultra .arm-l::after,.robot.ultra .arm-r::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0px,transparent 8px,rgba(236,72,153,.6) 8px,rgba(236,72,153,.6) 10px);animation:ultraStripesArm 2.5s linear infinite;mix-blend-mode:multiply}
-        @keyframes ultraStripesArm{from{background-position:0 0}to{background-position:0 36px}}
-        .robot.ultra .leg{background:linear-gradient(to bottom,#fff,#fce7f3 60%,#ec4899)!important;box-shadow:0 0 14px rgba(236,72,153,.5),inset 1px 0 0 rgba(255,255,255,.6)!important;position:relative;overflow:hidden}
-        .robot.ultra .leg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0px,transparent 10px,rgba(236,72,153,.6) 10px,rgba(236,72,153,.6) 12px);animation:ultraStripesLeg 3s linear infinite;mix-blend-mode:multiply}
-        @keyframes ultraStripesLeg{from{background-position:0 0}to{background-position:0 44px}}
-        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{background:radial-gradient(circle at 30% 30%,#fff,#fce7f3 60%,#f9a8d4)!important;box-shadow:0 0 12px rgba(236,72,153,.6),inset -2px -2px 4px rgba(236,72,153,.2)!important;border:1.5px solid rgba(236,72,153,.4)!important}
+        @keyframes ultraEye{0%,100%{box-shadow:0 0 16px #ec4899,0 0 32px rgba(236,72,153,.7),inset 0 0 4px rgba(255,255,255,.8)}50%{box-shadow:0 0 22px #ec4899,0 0 44px rgba(236,72,153,.9),inset 0 0 6px rgba(255,255,255,1)}}
+        .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#fff,#fce7f3)!important;box-shadow:0 0 6px rgba(236,72,153,.5)!important;border-left:1px solid rgba(236,72,153,.3);border-right:1px solid rgba(236,72,153,.3)}
+        .robot.ultra .antenna-ball{background:radial-gradient(circle,#fff 0%,#f9a8d4 50%,#ec4899 100%)!important;box-shadow:0 0 22px #ec4899,0 0 44px rgba(236,72,153,.7),0 0 60px rgba(236,72,153,.3)!important;border:1.5px solid #ec4899!important;animation:ultraAntenna 1.8s ease-in-out infinite!important}
+        @keyframes ultraAntenna{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.3)}}
+        /* Karok és lábak — fehér + pink kontúr, 1 csík középen */
+        .robot.ultra .arm-l,.robot.ultra .arm-r{background:linear-gradient(to bottom,#fff,#f8fafc)!important;box-shadow:0 0 10px rgba(236,72,153,.5),inset 1px 0 0 rgba(255,255,255,.8)!important;border:1.5px solid #ec4899!important;position:relative}
+        .robot.ultra .arm-l::after,.robot.ultra .arm-r::after{content:'';position:absolute;left:50%;top:6px;bottom:6px;width:2.5px;transform:translateX(-50%);background:linear-gradient(to bottom,#ec4899,#f472b6,#ec4899);background-size:100% 200%;border-radius:2px;box-shadow:0 0 6px #ec4899;animation:ultraStripeFlow 2s linear infinite}
+        @keyframes ultraStripeFlow{from{background-position:0 0}to{background-position:0 -40px}}
+        .robot.ultra .leg{background:linear-gradient(to bottom,#fff,#f8fafc)!important;box-shadow:0 0 12px rgba(236,72,153,.5),inset 1px 0 0 rgba(255,255,255,.8)!important;border:1.5px solid #ec4899!important;position:relative}
+        .robot.ultra .leg::after{content:'';position:absolute;left:50%;top:6px;bottom:6px;width:3px;transform:translateX(-50%);background:linear-gradient(to bottom,#ec4899,#f472b6,#ec4899);background-size:100% 200%;border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 14px rgba(236,72,153,.5);animation:ultraStripeFlow 2.2s linear infinite}
+        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{background:radial-gradient(circle at 30% 30%,#fff,#f8fafc 70%,#fce7f3)!important;box-shadow:0 0 12px rgba(236,72,153,.6),inset -2px -2px 4px rgba(236,72,153,.15)!important;border:2px solid #ec4899!important}
         .robot.ultra .heart-icon{filter:hue-rotate(320deg) brightness(1.2) saturate(1.4)!important}
-        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.6)!important;animation:ultraChestDot 1.5s ease-in-out infinite!important}
-        @keyframes ultraChestDot{0%,100%{transform:scale(1);box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.6)}50%{transform:scale(1.3);box-shadow:0 0 16px #ec4899,0 0 30px rgba(236,72,153,.9)}}
-        .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.6)!important}
-        .robot.ultra .neck{background:linear-gradient(to bottom,#fff,#f9a8d4)!important;box-shadow:0 0 8px rgba(236,72,153,.5)!important}
-        .robot.ultra .ear-l,.robot.ultra .ear-r{background:linear-gradient(to right,#fff,#ec4899)!important;box-shadow:0 0 14px rgba(236,72,153,.7)!important}
-        .robot.ultra .foot{background:linear-gradient(135deg,#fff,#ec4899)!important;box-shadow:0 0 14px rgba(236,72,153,.6)!important}
-        /* Ultra körüli neon ring */
-        .robot.ultra::before{content:'';position:absolute;inset:-26px;border-radius:50%;border:3px solid rgba(236,72,153,.45);pointer-events:none;z-index:-1;animation:ultraNeonRing 2.4s ease-in-out infinite;box-shadow:0 0 30px rgba(236,72,153,.4),inset 0 0 30px rgba(236,72,153,.3)}
-        @keyframes ultraNeonRing{0%,100%{transform:scale(1) rotate(0deg);opacity:.6}50%{transform:scale(1.08) rotate(180deg);opacity:1}}
-        .robot.ultra::after{content:'';position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.25),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2s ease-in-out infinite;filter:blur(8px)}
-        @keyframes ultraNeonGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.18)}}
+        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.6)!important;animation:ultraChestDot 1.5s ease-in-out infinite!important}
+        @keyframes ultraChestDot{0%,100%{transform:scale(1);box-shadow:0 0 10px #ec4899}50%{transform:scale(1.25);box-shadow:0 0 16px #ec4899,0 0 28px rgba(236,72,153,.8)}}
+        .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 10px #ec4899!important;border-radius:6px}
+        .robot.ultra .neck{background:linear-gradient(to bottom,#fff,#f8fafc)!important;border:1.5px solid #ec4899!important;box-shadow:0 0 8px rgba(236,72,153,.5)!important}
+        .robot.ultra .ear-l,.robot.ultra .ear-r{background:linear-gradient(to right,#fff,#ec4899)!important;box-shadow:0 0 10px rgba(236,72,153,.6)!important;border:1px solid rgba(236,72,153,.3)}
+        .robot.ultra .foot{background:linear-gradient(135deg,#fff,#ec4899)!important;box-shadow:0 0 14px rgba(236,72,153,.6)!important;border:1.5px solid rgba(236,72,153,.5)!important}
+        /* Ultra körüli aura — finom rózsaszín ködhalóval */
+        .robot.ultra::after{content:'';position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.32),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(10px)}
+        @keyframes ultraNeonGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.95;transform:scale(1.12)}}
 
         /* SUPER BOT — high-tech harci robot, neon visor, arc reactor, energia köpeny */
         .robot.super .head{background:linear-gradient(165deg,#e2e8f0 0%,#cbd5e1 30%,#475569 70%,#1e293b 100%)!important;box-shadow:0 0 24px rgba(220,38,38,.45),inset 0 -6px 10px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.3)!important;border:1.5px solid rgba(220,38,38,.5)!important}
