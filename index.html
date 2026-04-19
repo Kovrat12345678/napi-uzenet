@@ -103,20 +103,12 @@
         .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
         .robot.ultra .heart-icon{filter:hue-rotate(320deg) brightness(1.2) saturate(1.4)!important}
         .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
-        /* Tech accent — két oldalsó pink neon csík + LED pontok */
+        /* Két oldalsó pink neon csík CSAK a törzsön — semmi más */
         .robot.ultra .torso{position:relative}
         .robot.ultra .torso::before,.robot.ultra .torso::after{content:'';position:absolute;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent 0%,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent 100%);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
         .robot.ultra .torso::before{left:10%}
         .robot.ultra .torso::after{right:10%;animation-delay:.5s}
         @keyframes ultraNeonPulse{0%,100%{opacity:.75;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
-        /* Fej — vékony horizontális tech sáv (mint egy LED kijelző) */
-        .robot.ultra .head{position:relative}
-        .robot.ultra .head::before{content:'';position:absolute;left:14px;right:14px;top:6px;height:2px;background:linear-gradient(90deg,transparent,#ec4899 20%,#f9a8d4 50%,#ec4899 80%,transparent);border-radius:1px;box-shadow:0 0 6px #ec4899;pointer-events:none;z-index:4;animation:ultraNeonPulse 1.8s ease-in-out infinite}
-        /* LED-szerű pontok a vállakon — 2 kis pink dot */
-        .robot.ultra .shoulder-l::before,.robot.ultra .shoulder-r::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:#ec4899;box-shadow:0 0 6px #ec4899,0 0 12px rgba(236,72,153,.7);animation:ultraNeonPulse 1.6s ease-in-out infinite;z-index:5}
-        /* Lábfej — vékony pink LED csík */
-        .robot.ultra .foot{position:relative}
-        .robot.ultra .foot::after{content:'';position:absolute;left:4px;right:4px;top:2px;height:2px;background:#ec4899;border-radius:1px;box-shadow:0 0 4px #ec4899;animation:ultraNeonPulse 2s ease-in-out infinite}
         /* Pink halo aura */
         .robot.ultra::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.2),transparent 65%);pointer-events:none;z-index:-2;filter:blur(8px)}
 
@@ -2603,6 +2595,50 @@
         .bp-lvl-robot .dc-mini-robot-frame{height:80px;width:90px}
         .bp-lvl-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.3)}
 
+        /* ============== ÚJ BOT PASS DUAL TRACK (Brawl Stars stílus) ============== */
+        .bp-dual-track{display:flex;align-items:stretch;margin-top:6px;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.4));border-top:1px solid rgba(167,139,250,.3);border-bottom:1px solid rgba(167,139,250,.3)}
+        /* Featured skin tile bal oldalon */
+        .bp-featured{position:relative;flex-shrink:0;width:130px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(160deg,#7c3aed 0%,#3b0764 50%,#1e1b4b 100%);border-right:2px solid rgba(251,191,36,.45);overflow:hidden}
+        .bp-featured-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(251,191,36,.25),transparent 60%);pointer-events:none}
+        .bp-featured-robot{position:relative;width:100px;height:130px;z-index:2;flex-shrink:0}
+        .bp-featured-robot .dc-mini-robot-frame{width:100px;height:130px}
+        .bp-featured-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.5)}
+        .bp-featured-name{position:relative;z-index:2;font-size:14px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;letter-spacing:.5px;text-align:center}
+        .bp-featured-lvl{position:relative;z-index:2;font-size:9px;font-weight:900;color:#fbbf24;background:rgba(251,191,36,.15);padding:3px 8px;border-radius:8px;letter-spacing:1px;border:1px solid rgba(251,191,36,.4)}
+
+        /* A két sáv konténer */
+        .bp-tracks{flex:1;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;display:grid;grid-template-rows:1fr auto 1fr;grid-auto-flow:column;grid-auto-columns:96px;gap:0;padding:14px 0}
+        .bp-tracks::-webkit-scrollbar{display:none}
+        .bp-tracks > .bp-cell-spacer{grid-row:2;height:36px;display:flex;align-items:center;justify-content:center}
+        /* Egy oszlop = 1 szint = 3 cell: PLUS, NUM, FREE */
+        .bp-cell{padding:6px;display:flex;align-items:center;justify-content:center}
+        .bp-cell-plus{grid-row:1}
+        .bp-cell-num{grid-row:2;text-align:center;font-size:14px;font-weight:900;color:#fbbf24;background:linear-gradient(135deg,#1e1b4b,#3b0764);border:1.5px solid rgba(251,191,36,.4);border-radius:50%;width:34px;height:34px;line-height:1;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 2px 8px rgba(251,191,36,.3)}
+        .bp-cell-num.milestone{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;border-color:#fff;box-shadow:0 3px 12px rgba(251,191,36,.6)}
+        .bp-cell-num.current{box-shadow:0 0 0 3px #fbbf24,0 4px 14px rgba(251,191,36,.7);animation:bpCurrentPulse 1.5s ease-in-out infinite}
+        @keyframes bpCurrentPulse{0%,100%{box-shadow:0 0 0 3px #fbbf24,0 4px 14px rgba(251,191,36,.7)}50%{box-shadow:0 0 0 5px #ec4899,0 6px 20px rgba(236,72,153,.7)}}
+        .bp-cell-free{grid-row:3}
+
+        /* Reward tile — kompakt kártya minden cellben */
+        .bp-tile{position:relative;width:84px;height:96px;border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1.5px solid rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer;transition:transform .25s,box-shadow .25s;overflow:hidden}
+        .bp-tile.tier-plus{background:linear-gradient(160deg,rgba(167,139,250,.18),rgba(124,58,237,.08));border-color:rgba(167,139,250,.4)}
+        .bp-tile.claimable{border-color:rgba(251,191,36,.7);background:linear-gradient(160deg,rgba(251,191,36,.18),rgba(245,158,11,.06));box-shadow:0 4px 14px rgba(251,191,36,.3)}
+        .bp-tile.claimed{opacity:.55}
+        .bp-tile.claimed::after{content:'✓';position:absolute;top:4px;right:4px;width:16px;height:16px;background:#10b981;color:#fff;font-size:10px;font-weight:900;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(15,10,31,.95)}
+        .bp-tile.locked{filter:grayscale(.7);opacity:.5}
+        .bp-tile.locked::before{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:22px;text-shadow:0 2px 4px rgba(0,0,0,.7);z-index:3}
+        .bp-tile.milestone{transform:scale(1.04);border-width:2px}
+        .bp-tile.milestone.tier-free{border-color:rgba(251,191,36,.6)}
+        .bp-tile.milestone.tier-plus{border-color:rgba(236,72,153,.6)}
+        .bp-tile-icon{font-size:30px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+        .bp-tile-robot{width:60px;height:60px;display:flex;align-items:center;justify-content:center;position:relative}
+        .bp-tile-robot .dc-mini-robot-frame{width:60px;height:60px}
+        .bp-tile-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.22)}
+        .bp-tile-name{font-size:9px;font-weight:800;color:#fff;text-align:center;line-height:1.1;max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .bp-tile-tag{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:7px;font-weight:900;letter-spacing:1px;padding:2px 6px;border-radius:6px;border:1.5px solid rgba(15,10,31,.95);z-index:2;white-space:nowrap}
+        .bp-tile-tag.free{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+        .bp-tile-tag.plus{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e}
+
         /* Track szekció — minimal head */
         .bp-track-section{margin-top:8px;position:relative;z-index:2}
         .bp-track-title{font-size:11px;font-weight:900;color:rgba(255,255,255,.7);letter-spacing:2px;text-transform:uppercase;padding:0 18px 6px;display:flex;justify-content:space-between;align-items:center}
@@ -2882,6 +2918,80 @@
         .loot-info-list li{font-size:12px;color:rgba(255,255,255,.85);line-height:1.4;padding:5px 10px;background:rgba(0,0,0,.2);border-radius:8px;display:flex;align-items:center;gap:8px}
         .loot-info-list li span{display:inline-block;min-width:38px;padding:2px 6px;background:rgba(251,191,36,.2);color:#fbbf24;font-weight:900;font-size:10px;border-radius:6px;text-align:center;flex-shrink:0}
         .loot-info-list li strong{color:#fbbf24;font-weight:900}
+
+        /* ============== ROBOT HARC JÁTÉK ============== */
+        .game-toggle{position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);right:108px;z-index:50;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(220,38,38,.18))!important;border:1.5px solid rgba(255,255,255,.3)!important;box-shadow:0 4px 18px rgba(239,68,68,.3),inset 0 1px 0 rgba(255,255,255,.2)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .25s}
+        .game-toggle:active{transform:scale(.92) rotate(15deg)}
+        .game-toggle:hover{transform:scale(1.1)}
+        .game-panel{position:fixed;inset:0;z-index:9998;background:linear-gradient(165deg,#0a0a14 0%,#1e1b4b 30%,#3b0764 70%,#0a0a14 100%);display:none;flex-direction:column;overflow:hidden;animation:dbFadeIn .3s ease}
+        .game-panel.open{display:flex}
+        .game-lobby{padding:calc(env(safe-area-inset-top,20px) + 16px) 20px 20px;display:flex;flex-direction:column;gap:18px;overflow-y:auto;flex:1}
+        .game-lobby-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+        .game-lobby-title{font-size:24px;font-weight:900;background:linear-gradient(90deg,#ef4444,#fbbf24,#ef4444);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;letter-spacing:.5px}
+        .game-lobby-info{font-size:12px;color:rgba(255,255,255,.7);text-align:center;line-height:1.4;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:10px 14px;border-radius:12px}
+        .game-section-title{font-size:11px;font-weight:900;color:rgba(255,255,255,.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+        .game-skin-list{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .game-skin-list::-webkit-scrollbar{display:none}
+        .game-skin-tile{flex-shrink:0;width:96px;padding:10px 6px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.01));border:1.5px solid rgba(255,255,255,.12);border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:all .25s}
+        .game-skin-tile:active{transform:scale(.95)}
+        .game-skin-tile.active{border-color:#fbbf24;background:linear-gradient(160deg,rgba(251,191,36,.18),rgba(245,158,11,.05));box-shadow:0 4px 14px rgba(251,191,36,.3)}
+        .game-skin-tile-robot{width:80px;height:90px;display:flex;align-items:center;justify-content:center;position:relative}
+        .game-skin-tile-robot .dc-mini-robot-frame{width:80px;height:90px}
+        .game-skin-tile-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.32)}
+        .game-skin-tile-name{font-size:11px;font-weight:800;color:#fff;text-align:center;line-height:1.1}
+        .game-skin-tile-power{font-size:9px;font-weight:700;color:#fbbf24;letter-spacing:.5px}
+        .game-mode-btn{padding:14px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-weight:900;font-size:15px;border:none;border-radius:14px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;box-shadow:0 6px 20px rgba(239,68,68,.4);position:relative;overflow:hidden}
+        .game-mode-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:bpShine 3s linear infinite;pointer-events:none}
+        .game-mode-btn:active{transform:scale(.96)}
+        .game-multiplayer{padding:14px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.15);border-radius:14px}
+        .game-code-row{display:flex;gap:8px}
+        .game-code-input{flex:1;padding:10px 14px;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;outline:none;text-align:center}
+        .game-code-input:disabled{opacity:.5}
+        .game-code-btn{padding:10px 16px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-weight:700;border:none;border-radius:10px;cursor:not-allowed}
+        .game-my-code{margin-top:10px;text-align:center;font-size:12px;color:rgba(255,255,255,.7)}
+        .game-my-code strong{color:#fbbf24;font-weight:900;letter-spacing:3px;font-size:16px;background:rgba(251,191,36,.15);padding:3px 10px;border-radius:8px}
+
+        /* Aréna */
+        .game-arena{flex:1;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,20px) + 16px) 14px 20px;position:relative}
+        .game-arena-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 30px),repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 30px),radial-gradient(ellipse at center,#1e1b4b 0%,#0f0a1f 100%);pointer-events:none}
+        .game-arena-head{display:flex;justify-content:space-between;gap:10px;position:relative;z-index:2;margin-bottom:14px}
+        .game-hp{flex:1;background:rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:8px}
+        .game-hp-p2{justify-content:flex-end}
+        .game-hp-name{font-size:12px;font-weight:900;color:#fff;letter-spacing:.5px}
+        .game-hp-hearts{font-size:18px;letter-spacing:2px;line-height:1}
+        .game-arena-zone{flex:1;position:relative;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;z-index:2;min-height:280px}
+        .game-robot{position:absolute;bottom:18px;width:200px;height:280px;transition:transform .3s cubic-bezier(.4,1.6,.5,1);transform-origin:center bottom}
+        .game-robot-p1{left:-30px;transform:scale(.55)}
+        .game-robot-p2{right:-30px;transform:scale(.55) scaleX(-1)}
+        .game-robot.dodge-up{animation:gameDodge .55s ease-out}
+        @keyframes gameDodge{0%,100%{transform:scale(.55) translateY(0)}50%{transform:scale(.55) translateY(-50px)}}
+        .game-robot-p2.dodge-up{animation:gameDodgeP2 .55s ease-out}
+        @keyframes gameDodgeP2{0%,100%{transform:scale(.55) scaleX(-1) translateY(0)}50%{transform:scale(.55) scaleX(-1) translateY(-50px)}}
+        .game-robot.invisible{opacity:.18;filter:grayscale(.7)}
+        .game-robot.hit{animation:gameRobotHit .5s}
+        @keyframes gameRobotHit{0%,100%{filter:none}25%{filter:brightness(2) hue-rotate(180deg)}50%{filter:brightness(.6)}75%{filter:brightness(2) hue-rotate(180deg)}}
+        .game-projectile{position:absolute;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#fef9c3,#fbbf24,#dc2626);box-shadow:0 0 12px #fbbf24,0 0 24px rgba(251,191,36,.6);bottom:160px;z-index:5;pointer-events:none;animation:gameProjAttack .9s linear forwards}
+        .game-projectile.from-p2{animation:gameProjAttackP2 .9s linear forwards}
+        @keyframes gameProjAttack{from{left:60px;transform:scale(.5)}to{left:calc(100% - 80px);transform:scale(1.2)}}
+        @keyframes gameProjAttackP2{from{right:60px;transform:scale(.5)}to{right:calc(100% - 80px);transform:scale(1.2)}}
+        .game-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:10}
+        .game-flash.fire{animation:gameFlash .35s ease-out}
+        @keyframes gameFlash{0%{opacity:0}30%{opacity:.5}100%{opacity:0}}
+        .game-controls{display:flex;gap:8px;margin-top:14px;position:relative;z-index:2}
+        .game-btn{flex:1;padding:14px 8px;font-weight:900;font-size:13px;border:none;border-radius:14px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4);box-shadow:0 4px 14px rgba(0,0,0,.3)}
+        .game-btn-fire{background:linear-gradient(135deg,#ef4444,#b91c1c)}
+        .game-btn-dodge{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
+        .game-btn-ability{background:linear-gradient(135deg,#a78bfa,#7c3aed)}
+        .game-btn:active{transform:scale(.95)}
+        .game-btn:disabled{opacity:.4;cursor:default;filter:grayscale(.5)}
+        .game-arena-exit{position:absolute;top:calc(env(safe-area-inset-top,20px) + 14px);right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;cursor:pointer;z-index:5}
+        .game-over{position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;animation:dbFadeIn .35s ease}
+        .game-over-card{background:linear-gradient(160deg,#1e1b4b 0%,#3b0764 50%,#831843 100%);border:2px solid rgba(251,191,36,.5);border-radius:22px;padding:30px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 20px 60px rgba(251,191,36,.4);max-width:300px}
+        .game-over-emoji{font-size:64px;animation:dcEmojiPulse 1.5s ease-in-out infinite;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))}
+        .game-over-title{font-size:22px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;letter-spacing:1px}
+        .game-over-prize{font-size:24px;font-weight:900;color:#fbbf24;background:rgba(251,191,36,.15);padding:8px 16px;border-radius:12px;border:1.5px solid rgba(251,191,36,.5);letter-spacing:.5px}
+        .game-over-btn{padding:12px 24px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;font-weight:900;font-size:14px;border:none;border-radius:14px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 6px 20px rgba(251,191,36,.4)}
+        .game-over-btn:active{transform:scale(.96)}
 
         /* ============== UPDATE MODAL ============== */
         .update-modal{position:fixed;inset:0;z-index:10000;background:radial-gradient(ellipse at center,#1e1b4b 0%,#0f0a1f 70%,#000 100%);display:none;align-items:center;justify-content:center;padding:20px;animation:dbFadeIn .4s ease;overflow:hidden}
@@ -3523,6 +3633,9 @@
         </div>
 
     </div>
+
+    <!-- Játék gomb -->
+    <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️</div>
 
     <!-- Kedvencek gomb -->
     <div class="favs-toggle" id="favsToggle">❤️<span class="favs-badge" id="favsBadge">0</span></div>
@@ -5395,6 +5508,260 @@
         _dsShakeStyle.textContent='@keyframes dsStarShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-12px) rotate(-5deg)}75%{transform:translateX(12px) rotate(5deg)}}';
         document.head.appendChild(_dsShakeStyle);
 
+        // ========== ROBOT HARC JÁTÉK ==========
+        // Egyedül vs AI — multiplayer "hamarosan"
+        const GAME_ABILITIES={
+            'glass':{name:'Láthatatlanság',cd:6000,dur:3000,fn:'invisibility'},
+            'super':{name:'Pajzs',cd:6000,dur:3000,fn:'shield'},
+            'ultra':{name:'EMP villám',cd:8000,fn:'emp'},
+            'fire':{name:'Tűzgolyó',cd:6000,fn:'fireball'},
+            'rainbow':{name:'Szivárvány robbanás',cd:7000,fn:'rainbow'},
+            'phoenix':{name:'Újjászületés',cd:9000,fn:'revive'},
+            'galaxy':{name:'Csillagrobbanás',cd:7000,fn:'starblast'},
+            'gamer':{name:'Pixel ugrás',cd:5000,fn:'pixeljump'},
+            'golden':{name:'Arany csapás',cd:6000,fn:'goldenstrike'},
+            'diamond':{name:'Jégtüske',cd:6000,fn:'iceshard'},
+            'aurora':{name:'Fénypajzs',cd:7000,dur:2500,fn:'shield'},
+            'prism':{name:'Fénytörés',cd:6000,fn:'prismbeam'},
+            '':{name:'Energia lökés',cd:5000,fn:'basic'}
+        };
+        let _gameState=null;
+        function getOwnedSkinIds(){
+            try{
+                const skins=(typeof SKINS!=='undefined')?SKINS:[];
+                const owned=[];
+                skins.forEach(s=>{if(!s.hide && (s.id===''||s.id==='tulip'||owns(s.id))) owned.push(s)});
+                return owned;
+            }catch(_){return [{id:'',name:'Alap',icon:'🤖'}]}
+        }
+        function genGameCode(){
+            return Math.floor(10000+Math.random()*89999).toString();
+        }
+        function openGamePanel(){
+            const p=document.getElementById('gamePanel');
+            if(!p) return;
+            // Reset
+            document.getElementById('gameLobby').style.display='flex';
+            document.getElementById('gameArena').style.display='none';
+            const over=document.getElementById('gameOver');if(over) over.style.display='none';
+            // Skin lista
+            const skinList=document.getElementById('gameSkinList');
+            if(skinList){
+                skinList.innerHTML='';
+                const skins=getOwnedSkinIds();
+                skins.forEach((s,idx)=>{
+                    const tile=document.createElement('div');
+                    tile.className='game-skin-tile'+(idx===0?' active':'');
+                    tile.dataset.skinId=s.id||'';
+                    const ab=GAME_ABILITIES[s.id||'']||GAME_ABILITIES[''];
+                    tile.innerHTML=`<div class="game-skin-tile-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml(s.id||'',false):'🤖'}</div><div class="game-skin-tile-name">${s.name}</div><div class="game-skin-tile-power">⚡ ${ab.name}</div>`;
+                    skinList.appendChild(tile);
+                });
+            }
+            // Saját kód
+            const codeEl=document.getElementById('gameMyCode');
+            if(codeEl){
+                let code=localStorage.getItem('nu_game_code');
+                if(!code){code=genGameCode();localStorage.setItem('nu_game_code',code)}
+                codeEl.textContent=code;
+            }
+            p.classList.add('open');
+        }
+        function closeGamePanel(){
+            const p=document.getElementById('gamePanel');
+            if(p) p.classList.remove('open');
+            stopGame();
+        }
+        function startGameVsAi(){
+            const activeTile=document.querySelector('.game-skin-tile.active');
+            const playerSkin=activeTile?activeTile.dataset.skinId:'';
+            // AI random skinje
+            const ownedSkins=getOwnedSkinIds();
+            const aiSkin=ownedSkins[Math.floor(Math.random()*ownedSkins.length)].id||'';
+            // Aréna setup
+            const robot1=document.getElementById('gameRobotP1');
+            const robot2=document.getElementById('gameRobotP2');
+            const playerName=document.getElementById('gamePlayerName');
+            const aiName=document.getElementById('gameAiName');
+            if(robot1) robot1.innerHTML=buildMiniRobotHtml(playerSkin,false);
+            if(robot2) robot2.innerHTML=buildMiniRobotHtml(aiSkin,false);
+            if(playerName) playerName.textContent=localStorage.getItem('nu_name')||'Te';
+            if(aiName) aiName.textContent='AI ('+(ownedSkins.find(x=>x.id===aiSkin)?.name||'Bot')+')';
+            // State
+            _gameState={
+                player:{hp:3,skin:playerSkin,abilityCd:0,invincible:false,abilityActive:false},
+                ai:{hp:3,skin:aiSkin,abilityCd:0,invincible:false,abilityActive:false},
+                tick:0,
+                gameOver:false,
+                projectileTimer:null
+            };
+            updateGameHpUi();
+            // Switch view
+            document.getElementById('gameLobby').style.display='none';
+            document.getElementById('gameArena').style.display='flex';
+            document.getElementById('gameOver').style.display='none';
+            // Ability button label
+            const abBtn=document.getElementById('gameAbilityBtn');
+            const ab=GAME_ABILITIES[playerSkin]||GAME_ABILITIES[''];
+            if(abBtn) abBtn.innerHTML='⚡ '+ab.name;
+            // AI loop
+            scheduleAiAction();
+        }
+        function stopGame(){
+            if(_gameState){
+                _gameState.gameOver=true;
+                if(_gameState.aiTimer){clearTimeout(_gameState.aiTimer);_gameState.aiTimer=null}
+                _gameState=null;
+            }
+            // Clear projectiles
+            const proj=document.getElementById('gameProjectiles');
+            if(proj) proj.innerHTML='';
+        }
+        function updateGameHpUi(){
+            if(!_gameState) return;
+            const p=document.getElementById('gamePlayerHearts');
+            const a=document.getElementById('gameAiHearts');
+            if(p) p.textContent='❤️'.repeat(Math.max(0,_gameState.player.hp))+'🖤'.repeat(Math.max(0,3-_gameState.player.hp));
+            if(a) a.textContent='❤️'.repeat(Math.max(0,_gameState.ai.hp))+'🖤'.repeat(Math.max(0,3-_gameState.ai.hp));
+        }
+        function spawnProjectile(fromP1,onComplete){
+            const proj=document.getElementById('gameProjectiles');
+            if(!proj) return;
+            const p=document.createElement('span');
+            p.className='game-projectile'+(fromP1?'':' from-p2');
+            proj.appendChild(p);
+            setTimeout(()=>{p.remove();onComplete && onComplete()},900);
+        }
+        function flashFire(){
+            const f=document.getElementById('gameFlash');
+            if(!f) return;
+            f.classList.remove('fire');void f.offsetWidth;f.classList.add('fire');
+        }
+        function fireAt(targetIsAi){
+            if(!_gameState||_gameState.gameOver) return;
+            try{playSfx('zynox')}catch(_){}
+            flashFire();
+            spawnProjectile(targetIsAi,()=>{
+                if(!_gameState||_gameState.gameOver) return;
+                const target=targetIsAi?_gameState.ai:_gameState.player;
+                if(target.invincible) return;
+                target.hp-=1;
+                const robotEl=targetIsAi?document.getElementById('gameRobotP2'):document.getElementById('gameRobotP1');
+                if(robotEl){robotEl.classList.remove('hit');void robotEl.offsetWidth;robotEl.classList.add('hit');setTimeout(()=>robotEl.classList.remove('hit'),500)}
+                try{playSfx('error')}catch(_){}
+                updateGameHpUi();
+                if(target.hp<=0){endGame(targetIsAi?true:false)}
+            });
+        }
+        function dodge(isPlayer){
+            const robotEl=isPlayer?document.getElementById('gameRobotP1'):document.getElementById('gameRobotP2');
+            if(!robotEl) return;
+            robotEl.classList.remove('dodge-up');void robotEl.offsetWidth;robotEl.classList.add('dodge-up');
+            const target=isPlayer?_gameState.player:_gameState.ai;
+            target.invincible=true;
+            setTimeout(()=>{target.invincible=false;robotEl.classList.remove('dodge-up')},550);
+        }
+        function useAbility(){
+            if(!_gameState||_gameState.gameOver) return;
+            const ab=GAME_ABILITIES[_gameState.player.skin]||GAME_ABILITIES[''];
+            if(_gameState.player.abilityCd>Date.now()){
+                const left=Math.ceil((_gameState.player.abilityCd-Date.now())/1000);
+                alert('⚡ Cooldown: '+left+'s');
+                return;
+            }
+            _gameState.player.abilityCd=Date.now()+ab.cd;
+            try{playSfx('skin-equip')}catch(_){}
+            const robotEl=document.getElementById('gameRobotP1');
+            switch(ab.fn){
+                case 'invisibility':{
+                    if(robotEl) robotEl.classList.add('invisible');
+                    _gameState.player.invincible=true;
+                    setTimeout(()=>{
+                        if(robotEl) robotEl.classList.remove('invisible');
+                        if(_gameState) _gameState.player.invincible=false;
+                    },ab.dur||3000);
+                    break;
+                }
+                case 'shield':{
+                    _gameState.player.invincible=true;
+                    if(robotEl) robotEl.style.filter='drop-shadow(0 0 18px #fbbf24)';
+                    setTimeout(()=>{
+                        if(_gameState) _gameState.player.invincible=false;
+                        if(robotEl) robotEl.style.filter='';
+                    },ab.dur||3000);
+                    break;
+                }
+                case 'revive':{
+                    if(_gameState.player.hp<3){_gameState.player.hp=Math.min(3,_gameState.player.hp+1);updateGameHpUi()}
+                    break;
+                }
+                case 'emp':case 'starblast':case 'fireball':case 'rainbow':case 'goldenstrike':case 'iceshard':case 'prismbeam':case 'pixeljump':case 'basic':default:{
+                    // Mind: extra damage egy lövés
+                    fireAt(true);
+                    setTimeout(()=>{ if(_gameState&&!_gameState.gameOver) fireAt(true) },300);
+                    break;
+                }
+            }
+        }
+        function scheduleAiAction(){
+            if(!_gameState||_gameState.gameOver) return;
+            const delay=1500+Math.random()*2000;
+            _gameState.aiTimer=setTimeout(()=>{
+                if(!_gameState||_gameState.gameOver) return;
+                // AI mostly fires, sometimes dodges
+                const r=Math.random();
+                if(r<0.7){
+                    // Fire at player
+                    flashFire();
+                    spawnProjectile(false,()=>{
+                        if(!_gameState||_gameState.gameOver) return;
+                        if(_gameState.player.invincible) return;
+                        _gameState.player.hp-=1;
+                        const re=document.getElementById('gameRobotP1');
+                        if(re){re.classList.remove('hit');void re.offsetWidth;re.classList.add('hit');setTimeout(()=>re.classList.remove('hit'),500)}
+                        try{playSfx('error')}catch(_){}
+                        updateGameHpUi();
+                        if(_gameState.player.hp<=0) endGame(false);
+                    });
+                } else {
+                    // AI dodges (in advance — doesn't help anyway since player fires manually)
+                    dodge(false);
+                }
+                scheduleAiAction();
+            },delay);
+        }
+        function endGame(playerWon){
+            if(!_gameState) return;
+            _gameState.gameOver=true;
+            if(_gameState.aiTimer){clearTimeout(_gameState.aiTimer);_gameState.aiTimer=null}
+            const overEl=document.getElementById('gameOver');
+            const emojiEl=document.getElementById('gameOverEmoji');
+            const titleEl=document.getElementById('gameOverTitle');
+            const prizeEl=document.getElementById('gameOverPrize');
+            if(playerWon){
+                if(emojiEl) emojiEl.textContent='🏆';
+                if(titleEl) titleEl.textContent='GYŐZELEM!';
+                // Daily limit: max 1 győzelem per nap = 100 gem
+                const today=_today();
+                if(localStorage.getItem('nu_game_win_day')!==today){
+                    addGems(100);
+                    localStorage.setItem('nu_game_win_day',today);
+                    if(prizeEl) prizeEl.textContent='+100 💎';
+                    try{playSfx('bp-claim')}catch(_){}
+                    if(typeof updateGemUI==='function') updateGemUI();
+                } else {
+                    if(prizeEl) prizeEl.textContent='Mai jutalom megvolt';
+                    try{playSfx('gem-claim')}catch(_){}
+                }
+            } else {
+                if(emojiEl) emojiEl.textContent='💀';
+                if(titleEl) titleEl.textContent='VERESÉG';
+                if(prizeEl) prizeEl.textContent='Próbáld újra!';
+                try{playSfx('error')}catch(_){}
+            }
+            if(overEl) overEl.style.display='flex';
+        }
+
         // ========== UPDATE MODAL — verzió változás ==========
         const APP_VERSION='v0.4.0';
         function checkUpdateModal(){
@@ -6109,7 +6476,80 @@
                 }
             }
 
-            // Szintek renderelése
+            // Featured robot render (BP tetején a season skin)
+            try{
+                const seasonSkinId=plus?'ultra-black':'ultra';
+                const featuredRobot=document.getElementById('bpFeaturedRobot');
+                const featuredName=document.getElementById('bpFeaturedName');
+                if(featuredRobot && typeof buildMiniRobotHtml==='function'){
+                    featuredRobot.innerHTML=buildMiniRobotHtml(seasonSkinId,false);
+                }
+                if(featuredName) featuredName.textContent=plus?'Ultra Black':'Ultra Bot';
+            }catch(_){}
+
+            // Új két-sávos render
+            const tracks=document.getElementById('bpTracks');
+            if(tracks){
+                tracks.innerHTML='';
+                const MILE=[5,10,15,20,25,30,35,40,45,50,55,60];
+                const pcl=getBotpassPlusClaimed();
+                for(let i=1;i<=60;i++){
+                    const isClaimed=claimed.includes(i);
+                    const reachable=i<=lvl;
+                    const isCurrent=i===(lvl+1);
+                    const isMile=MILE.includes(i);
+                    const r=botpassReward(i);
+                    const pr=botpassPlusReward(i);
+                    const isPlusClaimed=pcl.includes(i);
+
+                    // PLUS cella (felső sor)
+                    const plusCell=document.createElement('div');
+                    plusCell.className='bp-cell bp-cell-plus';
+                    let plusCls='bp-tile tier-plus'+(isMile?' milestone':'');
+                    if(plus){
+                        if(isPlusClaimed) plusCls+=' claimed';
+                        else if(reachable && isClaimed) plusCls+=' claimable';
+                    } else {
+                        plusCls+=' locked';
+                    }
+                    plusCell.innerHTML=`<div class="${plusCls}" data-bp-plus="${i}">
+                        <span class="bp-tile-tag plus">PLUS</span>
+                        ${(i===60)?`<div class="bp-tile-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml('ultra-black',false):'⚡'}</div>`:`<span class="bp-tile-icon">${pr.icon}</span>`}
+                        <span class="bp-tile-name">${pr.name}</span>
+                    </div>`;
+                    tracks.appendChild(plusCell);
+
+                    // SZINT szám (középső)
+                    const numCell=document.createElement('div');
+                    numCell.className='bp-cell-num'+(isMile?' milestone':'')+(isCurrent?' current':'');
+                    numCell.style.gridRow='2';
+                    numCell.textContent=i;
+                    tracks.appendChild(numCell);
+
+                    // FREE cella (alsó sor)
+                    const freeCell=document.createElement('div');
+                    freeCell.className='bp-cell bp-cell-free';
+                    let freeCls='bp-tile tier-free'+(isMile?' milestone':'');
+                    if(isClaimed) freeCls+=' claimed';
+                    else if(reachable) freeCls+=' claimable';
+                    else freeCls+=' locked';
+                    freeCell.innerHTML=`<div class="${freeCls}" data-bp-free="${i}">
+                        <span class="bp-tile-tag free">FREE</span>
+                        ${(i===60)?`<div class="bp-tile-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml('ultra',false):'⚡'}</div>`:`<span class="bp-tile-icon">${r.icon}</span>`}
+                        <span class="bp-tile-name">${r.name}</span>
+                    </div>`;
+                    tracks.appendChild(freeCell);
+                }
+                // Görgetés a jelenlegi szinthez
+                setTimeout(()=>{
+                    const current=tracks.querySelector('.bp-cell-num.current');
+                    if(current){
+                        try{current.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}catch(_){}
+                    }
+                },200);
+            }
+
+            // Szintek renderelése (régi — el is hagyhatjuk)
             levels.innerHTML='';
             // Track vonal töltés — a megszerzett szintekig
             const trackLine=document.querySelector('.bp-track-line');
@@ -6170,6 +6610,31 @@
             },150);
         }
         document.addEventListener('click',(e)=>{
+            // Új: dual track — FREE tile claim
+            const freeTile=e.target.closest('[data-bp-free]');
+            if(freeTile){
+                const ii=parseInt(freeTile.getAttribute('data-bp-free'),10);
+                if(getBotpassClaimed().includes(ii)) return;
+                if(ii>getBotpassLevel()) return;
+                _bpDoClaim(ii,freeTile);
+                return;
+            }
+            // Új: dual track — PLUS tile (csak ha plus aktív + free már begyűjtve)
+            const plusTile=e.target.closest('[data-bp-plus]');
+            if(plusTile){
+                const ii=parseInt(plusTile.getAttribute('data-bp-plus'),10);
+                if(!isBotpassPlus()){alert('⭐ Vásárold meg a Bot Pass Plus-t hogy megkapd a PLUS jutalmakat!');return}
+                if(!getBotpassClaimed().includes(ii)){alert('Először a FREE jutalmat kérd be ezen a szinten!');return}
+                const pcl=getBotpassPlusClaimed();
+                if(pcl.includes(ii)) return;
+                pcl.push(ii); saveBotpassPlusClaimed(pcl);
+                bpClaimCelebrate(plusTile);
+                playSfx('bp-claim');
+                const pr=applyBotpassPlusReward(ii);
+                setTimeout(()=>{alert('⭐ '+ii+'. szint PLUS bónusz!\n'+pr.name);openBotpassPanel();updateLootBadges();if(typeof renderShop==='function')renderShop()},400);
+                return;
+            }
+            // Régi bp-lvl-btn (deprecated, megtartva)
             const btn=e.target.closest('.bp-lvl-btn');
             if(!btn||!btn.dataset.lvl)return;
             e.stopPropagation();
@@ -6198,6 +6663,25 @@
                 if(typeof renderShop==='function')renderShop();
             },400);
         });
+        function _bpDoClaim(i,btn){
+            const cl=getBotpassClaimed();
+            if(cl.includes(i))return;
+            if(i>getBotpassLevel())return;
+            cl.push(i); saveBotpassClaimed(cl);
+            bpClaimCelebrate(btn);
+            playSfx('bp-claim');
+            const msg=applyBotpassReward(i);
+            let plusMsg='';
+            if(isBotpassPlus()){
+                const pcl=getBotpassPlusClaimed();
+                if(!pcl.includes(i)){
+                    pcl.push(i); saveBotpassPlusClaimed(pcl);
+                    const pr=applyBotpassPlusReward(i);
+                    plusMsg='\n⭐ Plus bónusz: '+pr.name;
+                }
+            }
+            setTimeout(()=>{alert('🎖️ '+i+'. szint megszerezve!\n'+msg+plusMsg);openBotpassPanel();updateLootBadges();if(typeof renderShop==='function')renderShop()},400);
+        }
         function bpClaimCelebrate(el){
             const rect=el.getBoundingClientRect();
             const cx=rect.left+rect.width/2;
@@ -7565,6 +8049,27 @@
                 if(closeId==='adminClose'){ closeAdminPanel(); return; }
                 if(closeId==='dsClaimBtn'){ dsClaim(); return; }
                 if(closeId==='updateClaimBtn'){ claimUpdateGift(); return; }
+                // Robot harc játék
+                if(e.target.closest&&e.target.closest('#gameToggle')){ openGamePanel(); return; }
+                if(closeId==='gameClose' || closeId==='gameArenaExit'){ closeGamePanel(); return; }
+                if(closeId==='gameStartAi'){ startGameVsAi(); return; }
+                if(closeId==='gameFireBtn'){ fireAt(true); return; }
+                if(closeId==='gameDodgeBtn'){ dodge(true); return; }
+                if(closeId==='gameAbilityBtn'){ useAbility(); return; }
+                if(closeId==='gameOverBtn'){
+                    document.getElementById('gameOver').style.display='none';
+                    document.getElementById('gameArena').style.display='none';
+                    document.getElementById('gameLobby').style.display='flex';
+                    if(typeof updateGemUI==='function') updateGemUI();
+                    if(typeof updateLootBadges==='function') updateLootBadges();
+                    return;
+                }
+                const skinTile=e.target.closest&&e.target.closest('.game-skin-tile');
+                if(skinTile){
+                    document.querySelectorAll('.game-skin-tile').forEach(t=>t.classList.remove('active'));
+                    skinTile.classList.add('active');
+                    return;
+                }
                 if(closeId==='lootInfoBtn'){ const m=document.getElementById('lootInfoModal'); if(m) m.classList.add('open'); return; }
                 if(closeId==='lootInfoClose'){ const m=document.getElementById('lootInfoModal'); if(m) m.classList.remove('open'); return; }
                 if(closeId==='stickerClose'){ closeStickerPanel(); return; }
@@ -7788,12 +8293,19 @@
             <button class="bp-plus-btn" id="bpPlusBtn">⭐ Plus <span>999 💎</span></button>
         </div>
 
-        <!-- SÁV -->
+        <!-- SÁV — Brawl Stars stílus: PLUS felül, FREE alul -->
         <div class="bp-track-section">
-            <div class="bp-track-title">🎁 Szint sáv <span>← húzd oldalra →</span></div>
-            <div class="bp-track-container">
-                <div class="bp-track-line"></div>
-                <div class="bp-levels" id="bpLevels"></div>
+            <div class="bp-track-title">🎁 Jutalmak <span>← húzd oldalra →</span></div>
+            <div class="bp-dual-track" id="bpDualTrack">
+                <!-- Featured skin (sticky bal oldalon) -->
+                <div class="bp-featured" id="bpFeatured">
+                    <div class="bp-featured-bg"></div>
+                    <div class="bp-featured-robot" id="bpFeaturedRobot"></div>
+                    <div class="bp-featured-name" id="bpFeaturedName">Ultra Bot</div>
+                    <div class="bp-featured-lvl">SZINT 60</div>
+                </div>
+                <!-- A két sáv: levels grid -->
+                <div class="bp-tracks" id="bpTracks"></div>
             </div>
         </div>
     </div>
@@ -7819,6 +8331,70 @@
                 <div class="db-prize-name">10 000 gem!</div>
             </div>
             <button class="db-close-btn" id="kvClose" style="display:none">Köszönöm! 🎉</button>
+        </div>
+    </div>
+
+    <!-- ROBOT HARC játék panel -->
+    <div id="gamePanel" class="game-panel">
+        <!-- Lobby: skin választás + multiplayer kód -->
+        <div class="game-lobby" id="gameLobby">
+            <div class="game-lobby-head">
+                <div class="game-lobby-title">⚔️ Robot Harc</div>
+                <button class="shop-close-btn" id="gameClose">✕</button>
+            </div>
+            <div class="game-lobby-info">3 élet · golyók kilövése · ability gomb · győztes kap 100 gem (napi 1× max)</div>
+            <div class="game-skin-section">
+                <div class="game-section-title">Válassz skint</div>
+                <div class="game-skin-list" id="gameSkinList"></div>
+            </div>
+            <div class="game-mode-section">
+                <button class="game-mode-btn" id="gameStartAi">🤖 Egyedül AI ellen</button>
+                <div class="game-multiplayer">
+                    <div class="game-section-title">vagy 2 játékos kóddal (hamarosan)</div>
+                    <div class="game-code-row">
+                        <input class="game-code-input" id="gameCodeInput" placeholder="Kód: pl. 77321" maxlength="6" disabled>
+                        <button class="game-code-btn" disabled>Csatlakoz</button>
+                    </div>
+                    <div class="game-my-code">A te kódod: <strong id="gameMyCode">––––––</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aréna -->
+        <div class="game-arena" id="gameArena" style="display:none">
+            <div class="game-arena-bg"></div>
+            <div class="game-arena-head">
+                <div class="game-hp game-hp-p1">
+                    <span class="game-hp-name" id="gamePlayerName">Te</span>
+                    <span class="game-hp-hearts" id="gamePlayerHearts">❤️❤️❤️</span>
+                </div>
+                <div class="game-hp game-hp-p2">
+                    <span class="game-hp-hearts" id="gameAiHearts">❤️❤️❤️</span>
+                    <span class="game-hp-name" id="gameAiName">AI</span>
+                </div>
+            </div>
+            <div class="game-arena-zone" id="gameArenaZone">
+                <div class="game-robot game-robot-p1" id="gameRobotP1"></div>
+                <div class="game-robot game-robot-p2" id="gameRobotP2"></div>
+                <div class="game-projectiles" id="gameProjectiles"></div>
+                <div class="game-flash" id="gameFlash"></div>
+            </div>
+            <div class="game-controls">
+                <button class="game-btn game-btn-fire" id="gameFireBtn">🔫 LÖVÉS</button>
+                <button class="game-btn game-btn-dodge" id="gameDodgeBtn">↑ KIKERÜL</button>
+                <button class="game-btn game-btn-ability" id="gameAbilityBtn">⚡ Ability</button>
+            </div>
+            <button class="game-arena-exit" id="gameArenaExit">✕ Kilép</button>
+        </div>
+
+        <!-- Game over -->
+        <div class="game-over" id="gameOver" style="display:none">
+            <div class="game-over-card">
+                <div class="game-over-emoji" id="gameOverEmoji">🏆</div>
+                <div class="game-over-title" id="gameOverTitle">GYŐZELEM!</div>
+                <div class="game-over-prize" id="gameOverPrize">+100 💎</div>
+                <button class="game-over-btn" id="gameOverBtn">Köszönöm!</button>
+            </div>
         </div>
     </div>
 
