@@ -4641,9 +4641,13 @@
             return true;
         }
         function getActiveGreeting(name){
-            const id=getActiveStickerId();
-            const s=STICKERS.find(x=>x.id===id) || STICKERS[0];
-            return s.text+', '+name+'! '+s.emoji;
+            try{
+                const id=getActiveStickerId();
+                const s=STICKERS.find(x=>x.id===id) || STICKERS[0];
+                return s.text+', '+name+'! '+s.emoji;
+            }catch(e){
+                return 'Hello, '+name+'! 👋';
+            }
         }
         function rollRandomSticker(){
             const owned=getOwnedStickers();
@@ -4698,6 +4702,8 @@
             if(totEl) totEl.textContent=STICKERS.length;
             if(curEl) curEl.textContent=s.text+' '+s.emoji;
         }
+        // STICKERS most már betöltve — refresheljük a greeting-et
+        setTimeout(()=>{try{refreshGreetingNow()}catch(_){}},0);
         function refreshGreetingNow(){
             const name=localStorage.getItem('nu_name');
             if(!name) return;
