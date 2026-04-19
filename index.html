@@ -71,9 +71,19 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* ULTRA BOT — tiszta fehér test, csak pink glow, semmi extra */
-        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 6px 20px rgba(236,72,153,.5),0 0 24px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important}
-        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 8px 24px rgba(236,72,153,.5),0 0 30px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important}
+        /* ULTRA BOT — tiszta fehér test + függőleges pink neon elektronika csíkok */
+        .robot.ultra .head{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 6px 20px rgba(236,72,153,.5),0 0 24px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative;overflow:visible}
+        /* Fej: 2 vékony függőleges neon csík oldalt */
+        .robot.ultra .head::before{content:'';position:absolute;left:14%;top:5%;bottom:5%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 20%,#f472b6 50%,#ec4899 80%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 14px rgba(236,72,153,.6);pointer-events:none;animation:ultraNeonPulse 2s ease-in-out infinite;z-index:3}
+        .robot.ultra .head::after{content:'';position:absolute;right:14%;top:5%;bottom:5%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 20%,#f472b6 50%,#ec4899 80%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 14px rgba(236,72,153,.6);pointer-events:none;animation:ultraNeonPulse 2s ease-in-out infinite .3s;z-index:3}
+        @keyframes ultraNeonPulse{0%,100%{opacity:.7;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
+        .robot.ultra .torso{background:linear-gradient(165deg,#fff 0%,#f8fafc 70%,#f1f5f9 100%)!important;box-shadow:0 8px 24px rgba(236,72,153,.5),0 0 30px rgba(244,114,182,.3),inset 0 -3px 6px rgba(0,0,0,.06),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative;overflow:visible}
+        /* Törzs: 3 függőleges neon csík (központi vastagabb) — felülről lefelé */
+        .robot.ultra .torso::before{content:'';position:absolute;left:25%;top:8%;bottom:8%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f472b6 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.5);pointer-events:none;animation:ultraNeonPulse 2.4s ease-in-out infinite;z-index:3}
+        .robot.ultra .torso::after{content:'';position:absolute;right:25%;top:8%;bottom:8%;width:2.5px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f472b6 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 18px rgba(236,72,153,.5);pointer-events:none;animation:ultraNeonPulse 2.4s ease-in-out infinite .6s;z-index:3}
+        /* Központi vastagabb csík (chest area mellett külön elemen) */
+        .robot.ultra .chest{position:relative}
+        .robot.ultra .chest::before{content:'';position:absolute;left:50%;top:-50%;bottom:-50%;width:4px;transform:translateX(-50%);background:linear-gradient(to bottom,transparent,#ec4899 10%,#f472b6 50%,#ec4899 90%,transparent);border-radius:3px;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7);pointer-events:none;animation:ultraNeonPulse 2s ease-in-out infinite .15s;z-index:1}
         .robot.ultra .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7),inset 0 0 3px rgba(255,255,255,.9)!important;animation:ultraEye 2.4s ease-in-out infinite!important}
         @keyframes ultraEye{0%,100%{box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7),inset 0 0 3px rgba(255,255,255,.9)}50%{box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.9),inset 0 0 5px rgba(255,255,255,1)}}
         .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#fff,#fce7f3)!important;box-shadow:0 0 6px rgba(236,72,153,.5)!important}
@@ -2497,6 +2507,20 @@
         .bp-title{font-size:26px!important;letter-spacing:1px!important}
         .bp-title::before{content:'';position:absolute;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.4),transparent 70%);left:-6px;top:50%;transform:translateY(-50%);animation:dcLegendaryPulse 2s ease-in-out infinite;filter:blur(8px);z-index:-1}
         .bp-header{position:relative;z-index:5}
+        /* Bot Pass szekció kártyák — egységes vizuális csoportok */
+        .bp-card{position:relative;margin:8px 14px;padding:12px 14px 14px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);border-radius:18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+        .bp-card-head{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;font-weight:900;color:rgba(255,255,255,.7);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;padding:0 2px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:8px}
+        .bp-card-meta{font-size:11px;font-weight:900;color:#fbbf24;background:rgba(251,191,36,.12);padding:3px 10px;border-radius:10px;border:1px solid rgba(251,191,36,.3);letter-spacing:.5px;text-transform:none}
+        .bp-card-track{padding:12px 0 4px}
+        .bp-card-track .bp-card-head{margin:0 14px 8px;padding-bottom:8px}
+        /* A korábbi bp-state, bp-missions, bp-actions wrappers most kártyán belül */
+        .bp-state{padding:0;margin:0}
+        .bp-missions{padding:0;margin:0;background:none;border:none}
+        .bp-missions::before{display:none}
+        .bp-actions{padding:0;margin:0}
+        .bp-actions::before{display:none}
+        .bp-next-reward{margin:0;animation:none;padding:10px 12px}
+
         /* Háttér blob-ok */
         .bp-bg-blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
         .bp-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;animation:bpBlobFloat 18s ease-in-out infinite}
@@ -5880,8 +5904,9 @@
             try{
                 const nextLvl=lvl+1;
                 const wrap=document.getElementById('bpNextReward');
+                const wrapCard=document.getElementById('bpNextRewardWrap');
                 if(wrap){
-                    if(nextLvl>60){wrap.style.display='none'}
+                    if(nextLvl>60){if(wrapCard) wrapCard.style.display='none';wrap.style.display='none'}
                     else{
                         const r=botpassReward(nextLvl);
                         const remain=Math.max(0,XP_PER_LEVEL-xp);
@@ -5889,6 +5914,7 @@
                         document.getElementById('bpNextRewardIcon').textContent=r.icon||'🎁';
                         document.getElementById('bpNextRewardName').textContent=r.name||'';
                         document.getElementById('bpNextRewardMeta').textContent=remain>0?(remain+' BP-re vagy'):'Most kérheted!';
+                        if(wrapCard) wrapCard.style.display='';
                         wrap.style.display='flex';
                     }
                 }
@@ -7502,7 +7528,6 @@
     <!-- Bot Pass panel — TRACK-FÓKUSZÚ REDESIGN -->
     <div id="botpassPanel" class="bp-panel" style="display:none">
         <div class="bp-sparkle-layer" id="bpSparkleLayer"></div>
-        <!-- Háttér gradient body — lebegő blob-ok -->
         <div class="bp-bg-blobs" aria-hidden="true">
             <span class="bp-blob bp-blob-1"></span>
             <span class="bp-blob bp-blob-2"></span>
@@ -7513,28 +7538,28 @@
             <button class="shop-close-btn" id="bpClose">✕</button>
         </div>
 
-        <!-- Kompakt state bar + szezon countdown -->
-        <div class="bp-state">
-            <div class="bp-state-row">
-                <div class="bp-state-month" id="bpMonth">Áprilisi szezon</div>
-                <div class="bp-state-lvl">Szint <span id="bpMegaNum">0</span><span class="bp-state-lvl-max">/60</span></div>
-            </div>
-            <div class="bp-progress-bar">
-                <div class="bp-progress-fill" id="bpProgressFill"></div>
-                <div class="bp-progress-label" id="bpHeroBp">0 / 100 BP</div>
-            </div>
-            <div class="bp-season-row">
-                <span class="bp-season-pill bp-season-pill-time">⏳ <span id="bpSeasonRemain">– nap</span> a szezonból</span>
-                <span class="bp-season-pill bp-season-pill-claim" id="bpClaimablePill" style="display:none">🎁 <span id="bpClaimableCount">0</span> kérhető</span>
+        <!-- 1. KÁRTYA: STÁTUSZ -->
+        <div class="bp-card">
+            <div class="bp-card-head"><span>📊 STÁTUSZ</span></div>
+            <div class="bp-state">
+                <div class="bp-state-row">
+                    <div class="bp-state-month" id="bpMonth">Áprilisi szezon</div>
+                    <div class="bp-state-lvl">Szint <span id="bpMegaNum">0</span><span class="bp-state-lvl-max">/60</span></div>
+                </div>
+                <div class="bp-progress-bar">
+                    <div class="bp-progress-fill" id="bpProgressFill"></div>
+                    <div class="bp-progress-label" id="bpHeroBp">0 / 100 BP</div>
+                </div>
+                <div class="bp-season-row">
+                    <span class="bp-season-pill bp-season-pill-time">⏳ <span id="bpSeasonRemain">– nap</span> a szezonból</span>
+                    <span class="bp-season-pill bp-season-pill-claim" id="bpClaimablePill" style="display:none">🎁 <span id="bpClaimableCount">0</span> kérhető</span>
+                </div>
             </div>
         </div>
 
-        <!-- Napi küldetések -->
-        <div class="bp-missions">
-            <div class="bp-missions-head">
-                <span class="bp-missions-title">📋 Napi küldetések</span>
-                <span class="bp-missions-prog"><span id="bpMissionsDone">0</span>/4</span>
-            </div>
+        <!-- 2. KÁRTYA: NAPI KÜLDETÉSEK -->
+        <div class="bp-card">
+            <div class="bp-card-head"><span>📋 NAPI KÜLDETÉSEK</span><span class="bp-card-meta"><span id="bpMissionsDone">0</span>/4</span></div>
             <div class="bp-missions-row" id="bpMissionsRow">
                 <div class="bp-mission" data-mission="open">
                     <div class="bp-mission-icon">📲</div>
@@ -7564,36 +7589,43 @@
             <div class="bp-missions-bonus" id="bpMissionsBonus">⚡ Mind a 4 = +40 BP bónusz</div>
         </div>
 
-        <!-- Következő jutalom preview -->
-        <div class="bp-next-reward" id="bpNextReward" style="display:none">
-            <span class="bp-next-reward-icon" id="bpNextRewardIcon">🎁</span>
-            <div class="bp-next-reward-info">
-                <div class="bp-next-reward-label">Következő jutalom · Szint <span id="bpNextRewardLvl">2</span></div>
-                <div class="bp-next-reward-name" id="bpNextRewardName">DailyBox</div>
-                <div class="bp-next-reward-meta" id="bpNextRewardMeta">100 BP-re vagy</div>
+        <!-- 3. KÁRTYA: KÖVETKEZŐ JUTALOM -->
+        <div class="bp-card" id="bpNextRewardWrap" style="display:none">
+            <div class="bp-card-head"><span>🎯 KÖVETKEZŐ JUTALOM</span></div>
+            <div class="bp-next-reward" id="bpNextReward">
+                <span class="bp-next-reward-icon" id="bpNextRewardIcon">🎁</span>
+                <div class="bp-next-reward-info">
+                    <div class="bp-next-reward-label">Szint <span id="bpNextRewardLvl">2</span></div>
+                    <div class="bp-next-reward-name" id="bpNextRewardName">DailyBox</div>
+                    <div class="bp-next-reward-meta" id="bpNextRewardMeta">100 BP-re vagy</div>
+                </div>
+                <span class="bp-next-reward-arrow">→</span>
             </div>
-            <span class="bp-next-reward-arrow">→</span>
         </div>
 
-        <!-- Quick actions -->
-        <div class="bp-actions">
-            <button class="bp-skip-btn" id="bpSkipBtn">
-                <span class="bp-skip-icon">⚡</span>
-                <span class="bp-skip-content">
-                    <span class="bp-skip-title">Szint skip</span>
-                    <span class="bp-skip-sub">+1 szint, azonnal</span>
-                </span>
-                <span class="bp-skip-price">60 💎</span>
-            </button>
-            <button class="bp-plus-btn" id="bpPlusBtn">⭐ Bot Pass Plus (999 💎)</button>
+        <!-- 4. KÁRTYA: AKCIÓK -->
+        <div class="bp-card">
+            <div class="bp-card-head"><span>⚡ AKCIÓK</span></div>
+            <div class="bp-actions">
+                <button class="bp-skip-btn" id="bpSkipBtn">
+                    <span class="bp-skip-icon">⚡</span>
+                    <span class="bp-skip-content">
+                        <span class="bp-skip-title">Szint skip</span>
+                        <span class="bp-skip-sub">+1 szint, azonnal</span>
+                    </span>
+                    <span class="bp-skip-price">60 💎</span>
+                </button>
+                <button class="bp-plus-btn" id="bpPlusBtn">⭐ Bot Pass Plus (999 💎)</button>
+            </div>
         </div>
 
-        <!-- A SÁV -->
-        <div class="bp-rewards-title">🎁 SZINT SÁV — 1 → 60</div>
-        <div class="bp-swipe-hint">← húzd oldalra →</div>
-        <div class="bp-track-container">
-            <div class="bp-track-line"></div>
-            <div class="bp-levels" id="bpLevels"></div>
+        <!-- 5. KÁRTYA: SZINT SÁV -->
+        <div class="bp-card bp-card-track">
+            <div class="bp-card-head"><span>🎁 SZINT SÁV — 1 → 60</span><span class="bp-card-meta">← húzd oldalra →</span></div>
+            <div class="bp-track-container">
+                <div class="bp-track-line"></div>
+                <div class="bp-levels" id="bpLevels"></div>
+            </div>
         </div>
     </div>
 
