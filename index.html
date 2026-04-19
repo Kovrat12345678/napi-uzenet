@@ -3105,6 +3105,13 @@
         .admin-btn{flex:1;padding:10px;border:none;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
         .admin-btn-export{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
         .admin-btn-clear{background:rgba(239,68,68,.5)}
+        .buy-tag.vip-req-btn{background:linear-gradient(135deg,#8b5cf6,#6d28d9)!important;font-size:11px}
+        .admin-req-section{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:220px}
+        .admin-req-title{font-size:11px;font-weight:800;color:#a78bfa;letter-spacing:1px;text-transform:uppercase}
+        .admin-req-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;background:rgba(0,0,0,.3);border-radius:8px;font-size:12px;color:#fff}
+        .admin-req-info{flex:1;line-height:1.4}
+        .admin-req-approve{padding:6px 12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;border:none;border-radius:8px;cursor:pointer;font-size:11px;white-space:nowrap}
+        .admin-req-del{padding:6px 8px;background:rgba(239,68,68,.4);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:11px}
 
         /* ============== GEM SHOP ============== */
         .gem-shop-row{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:6px 20px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory}
@@ -4799,6 +4806,30 @@
         function owns(id){return id===''||getOwned().includes(id)}
         function buyItem(id){const o=getOwned();if(!o.includes(id)){o.push(id);saveOwned(o)}}
 
+        // ========== VIP VÁSÁRLÁS JÓVÁHAGYÁS ==========
+        const VIP_USERS=['rea','zerénd','kovrat','rella','rita','mihály','endre'];
+        function isVipUser(){return VIP_USERS.includes((localStorage.getItem('nu_name')||'').toLowerCase().trim())}
+        function getItemRequests(){try{return JSON.parse(localStorage.getItem('nu_item_requests')||'[]')}catch(e){return[]}}
+        function saveItemRequests(r){localStorage.setItem('nu_item_requests',JSON.stringify(r))}
+        function addItemRequest(itemId,itemName,price){
+            const reqs=getItemRequests();
+            if(reqs.find(r=>r.itemId===itemId&&!r.approved)){return} // már van ilyen kérelem
+            reqs.push({itemId,itemName,price,user:localStorage.getItem('nu_name')||'?',ts:Date.now(),approved:false});
+            saveItemRequests(reqs);
+        }
+        function approveItemRequest(idx){
+            const reqs=getItemRequests();
+            if(!reqs[idx])return;
+            buyItem(reqs[idx].itemId);
+            reqs.splice(idx,1);
+            saveItemRequests(reqs);
+        }
+        function deleteItemRequest(idx){
+            const reqs=getItemRequests();
+            reqs.splice(idx,1);
+            saveItemRequests(reqs);
+        }
+
         // ========== GÉM PÉNZNEM ==========
         function getGems(){const v=parseInt(localStorage.getItem('nu_gems'),10);return isNaN(v)?0:v}
         function setGems(n){localStorage.setItem('nu_gems',String(Math.max(0,Math.floor(n))));updateGemUI()}
@@ -6062,12 +6093,30 @@
             const p=document.getElementById('adminPanel');
             if(p) p.classList.remove('open');
         }
+        function renderAdminRequests(){
+            const sec=document.getElementById('adminReqSection');
+            const list=document.getElementById('adminReqList');
+            if(!sec||!list) return;
+            const reqs=getItemRequests();
+            const pending=reqs.filter(r=>!r.approved);
+            sec.style.display=pending.length?'flex':'none';
+            list.innerHTML='';
+            reqs.forEach((r,idx)=>{
+                if(r.approved) return;
+                const row=document.createElement('div');
+                row.className='admin-req-row';
+                const d=new Date(r.ts).toLocaleString('hu-HU',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+                row.innerHTML=`<div class="admin-req-info"><b>${r.user}</b> kéri: <b>${r.itemName}</b> (${r.itemId})<br><span style="opacity:.6;font-size:10px">${d}</span></div><button class="admin-req-approve" data-req-approve="${idx}">✅ OK</button><button class="admin-req-del" data-req-del="${idx}">✕</button>`;
+                list.appendChild(row);
+            });
+        }
         function getPurchaseLog(){
             try{return JSON.parse(localStorage.getItem('nu_gem_purchases')||'[]')}
             catch(e){return []}
         }
         function savePurchaseLog(log){localStorage.setItem('nu_gem_purchases',JSON.stringify(log))}
         function renderAdminPanel(){
+            renderAdminRequests();
             const list=document.getElementById('adminList');
             const stats=document.getElementById('adminStats');
             if(!list) return;
@@ -7512,7 +7561,14 @@
                         } else if(isDragonLocked){
                             status='<div class="shop-item-status lock-tag">🔒 Rejtvény</div>';
                         } else if(price>0){
-                            status='<div class="shop-item-status price"><button class="buy-tag" data-buy="'+s.id+'" data-price="'+price+'">💎 '+price+'</button></div>';
+                            if(isVipUser()){
+                                const pending=getItemRequests().find(r=>r.itemId===s.id&&!r.approved);
+                                status=pending
+                                    ?'<div class="shop-item-status lock-tag">⏳ Várjuk…</div>'
+                                    :'<div class="shop-item-status price"><button class="buy-tag vip-req-btn" data-vip="'+s.id+'" data-vip-name="'+(s.name||s.id)+'" data-vip-price="'+price+'">📩 Kérem</button></div>';
+                            } else {
+                                status='<div class="shop-item-status price"><button class="buy-tag" data-buy="'+s.id+'" data-price="'+price+'">💎 '+price+'</button></div>';
+                            }
                         } else {
                             status='<div class="shop-item-status">Ingyenes</div>';
                         }
@@ -7543,6 +7599,16 @@
 
             // ========== VÁSÁRLÁSI HANDLER ==========
             document.body.addEventListener('click',(e)=>{
+                // VIP kérelem
+                const vipBtn=e.target.closest('[data-vip]');
+                if(vipBtn){
+                    e.stopPropagation();
+                    addItemRequest(vipBtn.dataset.vip, vipBtn.dataset.vipName, parseInt(vipBtn.dataset.vipPrice,10)||0);
+                    renderShop();
+                    alert('📩 Kérelem elküldve! Az admin jóváhagyja.');
+                    return;
+                }
+                // Normál vásárlás
                 const btn=e.target.closest('.buy-tag');
                 if(!btn||!btn.dataset.buy)return;
                 e.stopPropagation();
@@ -8312,6 +8378,22 @@
                     if(typeof renderShop==='function') renderShop();
                     return;
                 }
+                // VIP kérelem jóváhagyás / törlés
+                const approveBtn=e.target.closest('[data-req-approve]');
+                if(approveBtn){
+                    const idx=parseInt(approveBtn.dataset.reqApprove,10);
+                    approveItemRequest(idx);
+                    renderAdminPanel();
+                    if(typeof renderShop==='function') renderShop();
+                    return;
+                }
+                const delBtn=e.target.closest('[data-req-del]');
+                if(delBtn){
+                    const idx=parseInt(delBtn.dataset.reqDel,10);
+                    deleteItemRequest(idx);
+                    renderAdminPanel();
+                    return;
+                }
                 if(closeId==='adminClear'){
                     if(confirm('Biztosan törlöd az összes vásárlási logot?')){
                         savePurchaseLog([]);
@@ -8788,12 +8870,16 @@
         </div>
     </div>
 
-    <!-- Admin panel (gem vásárlás napló) -->
+    <!-- Admin panel -->
     <div id="adminPanel" class="admin-panel">
         <div class="admin-card">
             <div class="admin-head">
-                <div class="admin-title">👑 Admin · Gem vásárlások</div>
+                <div class="admin-title">👑 Admin Panel</div>
                 <button class="shop-close-btn" id="adminClose">✕</button>
+            </div>
+            <div class="admin-req-section" id="adminReqSection" style="display:none">
+                <div class="admin-req-title">📩 Vásárlási kérelmek</div>
+                <div id="adminReqList"></div>
             </div>
             <div class="admin-stats" id="adminStats"></div>
             <div class="admin-list" id="adminList"></div>
