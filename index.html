@@ -71,21 +71,28 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* ULTRA BLACK BOT — Plus jutalom: fekete test + pink neon csíkok */
-        .robot.ultra-black .head,.robot.ultra-black .torso{background:linear-gradient(165deg,#1a0f2e 0%,#0f0a1f 100%)!important;box-shadow:0 4px 14px rgba(236,72,153,.45),inset 0 2px 0 rgba(236,72,153,.35)!important;position:relative;overflow:hidden;border:1px solid rgba(236,72,153,.4)}
-        .robot.ultra-black .arm-l,.robot.ultra-black .arm-r,.robot.ultra-black .leg{background:linear-gradient(to bottom,#1a0f2e,#0f0a1f)!important;box-shadow:0 2px 8px rgba(236,72,153,.35)!important}
-        .robot.ultra-black .shoulder-l,.robot.ultra-black .shoulder-r{background:radial-gradient(circle at 30% 30%,#1a0f2e,#0f0a1f 80%)!important;box-shadow:0 2px 8px rgba(236,72,153,.4)!important;border:1px solid rgba(236,72,153,.4)}
-        .robot.ultra-black .neck{background:linear-gradient(to bottom,#1a0f2e,#0f0a1f)!important}
-        .robot.ultra-black .ear-l,.robot.ultra-black .ear-r{background:#0f0a1f!important;box-shadow:0 0 6px rgba(236,72,153,.4)!important}
-        .robot.ultra-black .foot{background:linear-gradient(135deg,#1a0f2e,#0f0a1f)!important;box-shadow:0 2px 6px rgba(236,72,153,.4)!important}
-        .robot.ultra-black .antenna-stick{background:linear-gradient(to bottom,#1a0f2e,#0f0a1f)!important}
-        .robot.ultra-black .antenna-ball{background:radial-gradient(circle,#fff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.7)!important}
-        .robot.ultra-black .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.6)!important}
-        .robot.ultra-black .mouth{background:#ec4899!important;box-shadow:0 0 8px #ec4899!important}
-        .robot.ultra-black .torso::before{content:'';position:absolute;left:8%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 22px rgba(236,72,153,.7);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
-        .robot.ultra-black .torso::after{content:'';position:absolute;right:8%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 22px rgba(236,72,153,.7);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite .5s}
+        /* ULTRA BLACK BOT — pontosan ugyanaz mint az Ultra, csak fekete test */
+        .robot.ultra-black .head,.robot.ultra-black .torso{background:linear-gradient(165deg,#1a1a2e 0%,#0f0a1f 40%,#000 100%)!important}
+        .robot.ultra-black .arm-l,.robot.ultra-black .arm-r{background:linear-gradient(to bottom,#1a1a2e,#000)!important}
+        .robot.ultra-black .leg{background:linear-gradient(to bottom,#1a1a2e,#000)!important}
+        .robot.ultra-black .shoulder-l,.robot.ultra-black .shoulder-r{background:radial-gradient(circle,#1a1a2e,#000)!important}
+        .robot.ultra-black .neck{background:linear-gradient(to bottom,#1a1a2e,#000)!important}
+        .robot.ultra-black .ear-l,.robot.ultra-black .ear-r{background:#000!important}
+        .robot.ultra-black .foot{background:#000!important}
+        .robot.ultra-black .antenna-stick{background:linear-gradient(to bottom,#1a1a2e,#000)!important}
+        /* Pink accent: szem, antenna, száj */
+        .robot.ultra-black .antenna-ball{background:radial-gradient(circle,#ffffff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.6)!important}
+        .robot.ultra-black .eye{background:radial-gradient(circle,#ffffff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.6)!important}
+        .robot.ultra-black .mouth{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
+        .robot.ultra-black .heart-icon{filter:hue-rotate(320deg) brightness(1.2) saturate(1.4)!important}
         .robot.ultra-black .chest-dot{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
-        .robot.ultra-black::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.3),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(10px)}
+        /* Két oldalsó pink neon csík CSAK a törzsön — ugyanaz mint Ultra */
+        .robot.ultra-black .torso{position:relative}
+        .robot.ultra-black .torso::before,.robot.ultra-black .torso::after{content:'';position:absolute;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent 0%,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent 100%);border-radius:2px;box-shadow:0 0 12px #ec4899,0 0 24px rgba(236,72,153,.7);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
+        .robot.ultra-black .torso::before{left:10%}
+        .robot.ultra-black .torso::after{right:10%;animation-delay:.5s}
+        /* Pink halo aura — kicsit erősebb a fekete háttérhez */
+        .robot.ultra-black::after{content:'';position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.32),transparent 65%);pointer-events:none;z-index:-2;filter:blur(10px)}
 
         /* ULTRA BOT — egységes fehér robot (mint a többi skin szerkezetileg) + pink AI accent */
         /* Diamond skin mintáját követi: minden body part konzisztens gradient palettával */
@@ -5532,9 +5539,19 @@
         let _gameState=null;
         function getOwnedSkinIds(){
             try{
-                const skins=(typeof SKINS!=='undefined')?SKINS:[];
+                const skins=(window.SKINS && Array.isArray(window.SKINS))?window.SKINS:
+                            (typeof SKINS!=='undefined'?SKINS:null);
+                if(!skins){
+                    // Fallback: alap + tulip + minden meg lehet
+                    return [
+                        {id:'',name:'Alap',icon:'🤖'},
+                        {id:'tulip',name:'Tulipán',icon:'🌷'}
+                    ];
+                }
                 const owned=[];
-                skins.forEach(s=>{if(!s.hide && (s.id===''||s.id==='tulip'||owns(s.id))) owned.push(s)});
+                const ownsFn=(typeof window.owns==='function')?window.owns:(typeof owns==='function'?owns:()=>false);
+                skins.forEach(s=>{if(!s.hide && (s.id===''||s.id==='tulip'||ownsFn(s.id))) owned.push(s)});
+                if(!owned.length){owned.push({id:'',name:'Alap',icon:'🤖'})}
                 return owned;
             }catch(_){return [{id:'',name:'Alap',icon:'🤖'}]}
         }
@@ -5578,10 +5595,11 @@
         }
         function startGameVsAi(){
             const activeTile=document.querySelector('.game-skin-tile.active');
-            const playerSkin=activeTile?activeTile.dataset.skinId:'';
+            const playerSkin=activeTile?activeTile.dataset.skinId||'':'';
             // AI random skinje
             const ownedSkins=getOwnedSkinIds();
-            const aiSkin=ownedSkins[Math.floor(Math.random()*ownedSkins.length)].id||'';
+            const aiPick=ownedSkins.length?ownedSkins[Math.floor(Math.random()*ownedSkins.length)]:{id:'',name:'Bot'};
+            const aiSkin=aiPick.id||'';
             // Aréna setup
             const robot1=document.getElementById('gameRobotP1');
             const robot2=document.getElementById('gameRobotP2');
@@ -7277,6 +7295,9 @@
                 });
             }
             window.renderShop=renderShop;
+            // SKINS és owns globálisan elérhető — kell a játékhoz
+            window.SKINS=SKINS;
+            if(typeof window.owns!=='function') window.owns=owns;
             toggle.addEventListener('click',()=>{
                 renderShop();
                 if(typeof updateLootBadges==='function')updateLootBadges();
