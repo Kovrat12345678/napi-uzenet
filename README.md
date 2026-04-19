@@ -195,7 +195,7 @@ Plus megvásárlásakor azonnal claim-elhető mind a 60 Plus szint.
 
 ## Robot Battle Jatek
 
-Fockepernyoen alul **⚔️ Robot Harc** gomb.
+A robot alatt **⚔️ Harc** gomb (a fokepernyoen, a robot alatt kozvetlenul).
 
 ### AI ellen
 
@@ -203,25 +203,21 @@ Fockepernyoen alul **⚔️ Robot Harc** gomb.
 - Vertikalis arena: ellenfél felul, te alul
 - ◄ ► mozgas, lö gomb, kepesseg gomb (skin-specifikus, cooldown-nal)
 - HP rendszer: 3 elet
+- **Nehezsegi szint**: az AI gyorsul ahogy csokken az eleted / HP-ja
 - Minden skinnek van egyedi kepessege:
   - Tulipan: pajzs 10 mp-ig · Sakura: gyogyitas · Diamond/Super: pajzs
   - Fire/Graffiti: dupla lövés · Gamer/Ultra/Rainbow: harom lövés
-  - Phoenix: feleel halal utan · Glass/Stealth: lathatatlanság
+  - Phoenix: feleel halal utan · **Glass/Stealth: lathatatlanság** (MP-ban is valóban eltünsz)
 
-### Ket szemely (cross-device — Vercel szuker)
+### Ket szemely (cross-device — backend nelkul!)
 
-1. **1. szemely** nyit egy szobat → 5-jegyu kod jelenik meg
-2. **2. szemely** beirja a kodot → "Csatlakozas" gomb
-3. Jatek indul, 800ms polling a szerverrel
+**PeerJS WebRTC** alapu — nincs szuker, nincs deploy, azonnal mukodik.
 
-**Szuker beallitasa** (eloszor egyszer kell):
-1. Deploy-old a `push-server/` mappat a Vercel-re (ingyenes)
-2. Kapcsolj be egy Vercel KV adatbazist
-3. A konzolban futtasd:
-   ```js
-   localStorage.setItem('nu_game_api_url', 'https://YOUR.vercel.app');
-   ```
-4. Ujratoltes utan mukodik
+1. **1. szemely** → "Uj szoba letrehozasa" → kap egy 5-jegyu kodot
+2. **2. szemely** → beirja a kodot → "Csatlakozas"
+3. Kozvetlen P2P kapcsolat epul ki — jatek indul
+
+Nincs szukseg Vercel-re, adatbazisra vagy barmilyen szerverre.
 
 ## Hang rendszer
 

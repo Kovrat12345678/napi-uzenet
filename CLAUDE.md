@@ -57,7 +57,6 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
 - `nu_mission_open_day`, `nu_mission_box_day`, `nu_mission_pouch_day`, `nu_mission_gem_day`, `nu_mission_bonus_day` (napi kuldetesek teljesitese)
 
 **Jatek:**
-- `nu_game_api_url` (Vercel push-server URL — multiplayer-hez kell, pl. `https://YOUR.vercel.app`)
 
 ### Onboarding (regisztracio)
 
@@ -340,7 +339,7 @@ Elso user gesture (click/touch) utan indul. Nem kikapcsólhato. Master gain 0.04
 
 ## Robot Battle jatek
 
-Fockepernyoen alul "⚔️ Robot Harc" gomb → `#gamePanel`.
+A robot alatt "⚔️ Harc" gomb (inline, `.game-toggle`, nem fixed pozicio) → `#gamePanel`.
 
 ### AI mod
 
@@ -348,8 +347,8 @@ Fockepernyoen alul "⚔️ Robot Harc" gomb → `#gamePanel`.
 - Vertikalis arena: ellenfél felül, te alul
 - ◄ ► gombok mozgashoz (`GAME_PLAYER_STEP = 40px`)
 - HP rendszer: 3 elet mindket félnek
-- Lövedekek: `fireBullet(from, x)` — CSS animacio
-- AI: velett szerű lövések + mozgás, nehezseg emelkedik
+- Lövedekek: CSS animacio, 700ms repulesi ido
+- **Adaptiv AI nehezseg** (`scheduleAiAction`): alap delay 1000-1800ms, gyorsul ha jatekos/AI HP csokkent; 72% lov, 20% mozog, 8% mozog+lov; alacsony HP-n dupla lövés
 - Kepesseg gomb: skin-specifikus különleges (cooldown-nal)
 
 ### Képességek (GAME_ABILITIES)
@@ -375,26 +374,26 @@ Fockepernyoen alul "⚔️ Robot Harc" gomb → `#gamePanel`.
 
 ### Multiplayer (cross-device)
 
-**FONTOS: Vercel deployment-et igenyel!**
+**PeerJS WebRTC alapu — nincs szerver, nincs deploy, azonnal mukodik.**
 
-**Setup:**
-1. Deploy-old a `push-server/` mappat Vercel-re
-2. Vercel KV adatbazist kapcsolj be a projekthez (Vercel dashboard → Storage)
-3. Az appban a böngésző konzolban futtasd:
-   ```js
-   localStorage.setItem('nu_game_api_url', 'https://YOUR-PROJECT.vercel.app');
-   ```
-4. Ujratoltes utan a "Uj szoba" gomb aktiv lesz
+PeerJS CDN betoltve a `<head>`-ben: `https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js`
+
+State vars: `let _gamePeer=null; let _mpConn=null;`
 
 **Hogyan jatszik ket szemely:**
-- **1. jatekos**: Skin valaszt → "Uj szoba letrehozasa" → megkapja a 5-jegyu kodot
-- **2. jatekos**: Ugyanazt a kodot beirja a "Csatlakozas" mezőbe → "Csatlakozas" gomb
-- A szoba 5 percig el (ROOM_TTL = 300s), polling 800ms-kent (`startMpPoll`)
-- Events: `move`, `hit`, `hp`, `end`
+- **1. jatekos**: Skin valaszt → "Uj szoba letrehozasa" → kap egy 5-jegyű kodot
+- **2. jatekos**: Beirja a kodot → "🎮 Csatlakozas" gomb
+- Kozvetlen P2P kapcsolat epul ki (`new Peer(code)` + `peer.connect(code)`)
 
-**API vegpontok** (`push-server/api/game.js`):
-- `create`, `join`, `poll`, `event`, `leave`
-- Vercel KV-ban tarolva: `game:{code}` kulcsokon
+**P2P esemeny protokoll** (`sendMpEvent` / `handleMpData`):
+- `_hostInfo` / `_guestInfo`: jatekos adatok cserete
+- `_start`: jatek inditas
+- `fire` / `move`: lovés / mozgas szinkron
+- `_hit`: jatekos jelenti a sajat találatát az ellenfélnek
+- `_win`: nyertes jelzi a vegeredmenyt
+- `_invisible` / `_visible`: Stealth/Glass lahatatlansag szinkron (ellenfélnél `opacity:0/1`)
+
+`stopGame()` hivja `_mpDestroyPeer()`-t a PeerJS cleanup-hoz.
 
 ## Főképernyő UI
 
@@ -404,7 +403,7 @@ Fockepernyoen alul "⚔️ Robot Harc" gomb → `#gamePanel`.
   - **NEW piros buborek** (`shopNewBadge`) — ha bármelyik napi loot elérheto
 - **Kedvencek gomb** (❤️, bal felső)
 - **Szinkronizalas gomb** (🔄, shop headerben)
-- **Robot Harc gomb** (⚔️, fokepernyő aljan)
+- **Robot Harc gomb** (⚔️ Harc, inline pill gomb a robot alatt, `.game-toggle`, nem fixed pozicio)
 
 ## Shop szekciók sorrendje
 
