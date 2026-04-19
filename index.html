@@ -3105,6 +3105,27 @@
         .admin-btn{flex:1;padding:10px;border:none;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;color:#fff}
         .admin-btn-export{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}
         .admin-btn-clear{background:rgba(239,68,68,.5)}
+        /* VIP vásárlás */
+        .buy-tag.vip-request{background:linear-gradient(135deg,#8b5cf6,#6d28d9)!important;font-size:11px;padding:6px 10px}
+        .vip-redeem-bar{display:flex;gap:6px;margin-top:8px}
+        .vip-redeem-input{flex:1;padding:8px 10px;background:rgba(0,0,0,.3);border:1.5px solid rgba(139,92,246,.4);border-radius:8px;color:#fff;font-size:13px;outline:none}
+        .vip-redeem-btn{padding:8px 12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:800;border:none;border-radius:8px;cursor:pointer;font-size:12px;white-space:nowrap}
+        /* Kód modal */
+        .vip-modal{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:20px}
+        .vip-modal.open{display:flex}
+        .vip-modal-card{width:100%;max-width:360px;background:linear-gradient(160deg,#1e1b4b,#3b0764);border:1.5px solid rgba(139,92,246,.5);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 20px 60px rgba(124,58,237,.5)}
+        .vip-modal-title{font-size:18px;font-weight:900;color:#fff;text-align:center}
+        .vip-modal-item{font-size:14px;color:rgba(255,255,255,.8);text-align:center}
+        .vip-modal-code{background:rgba(0,0,0,.4);border:1.5px solid rgba(139,92,246,.4);border-radius:12px;padding:14px;font-size:16px;font-weight:800;color:#a78bfa;text-align:center;letter-spacing:2px;word-break:break-all;cursor:pointer}
+        .vip-modal-hint{font-size:12px;color:rgba(255,255,255,.5);text-align:center;line-height:1.5}
+        .vip-modal-close{padding:12px;background:rgba(255,255,255,.1);border:none;border-radius:10px;color:#fff;font-weight:800;cursor:pointer;font-size:14px}
+        /* Admin jóváhagyás szekció */
+        .admin-approve-section{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+        .admin-approve-title{font-size:12px;font-weight:800;color:#a78bfa;letter-spacing:1px;text-transform:uppercase}
+        .admin-approve-row{display:flex;gap:8px}
+        .admin-approve-input{flex:1;padding:9px 12px;background:rgba(0,0,0,.3);border:1.5px solid rgba(139,92,246,.3);border-radius:8px;color:#fff;font-size:13px;outline:none;font-family:monospace}
+        .admin-approve-btn{padding:9px 14px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-weight:800;border:none;border-radius:8px;cursor:pointer;font-size:12px}
+        .admin-approve-result{font-size:13px;color:#a78bfa;font-weight:700;text-align:center;min-height:20px;word-break:break-all;cursor:pointer}
 
         /* ============== GEM SHOP ============== */
         .gem-shop-row{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding:6px 20px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory}
@@ -3603,6 +3624,15 @@
                         <button class="loot-card-btn" id="dealBuyBtn">Megveszem</button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- VIP kód beváltó — csak VIP felhasználóknak jelenik meg JS-ből -->
+        <div class="shop-section" id="vipRedeemSection" style="display:none">
+            <div class="shop-section-title">🔓 Kód beváltása</div>
+            <div class="vip-redeem-bar" id="vipRedeemBar">
+                <input class="vip-redeem-input" id="vipRedeemInput" placeholder="Jóváhagyó kód…" autocomplete="off">
+                <button class="vip-redeem-btn" id="vipRedeemBtn">Beváltás</button>
             </div>
         </div>
 
@@ -4798,6 +4828,32 @@
         function saveOwned(arr){localStorage.setItem('nu_owned',JSON.stringify(arr))}
         function owns(id){return id===''||getOwned().includes(id)}
         function buyItem(id){const o=getOwned();if(!o.includes(id)){o.push(id);saveOwned(o)}}
+
+        // ========== VIP JÓVÁHAGYÁS RENDSZER ==========
+        const VIP_USERS=['rea','zerénd','kovrat','rella','rita','mihály','endre'];
+        const _ADMIN_SIG='DBOT26';
+        function isVipUser(){
+            const name=(localStorage.getItem('nu_name')||'').toLowerCase().trim();
+            return VIP_USERS.includes(name);
+        }
+        function genApprovalCode(itemId){
+            // Kód: base64(itemId + '|' + sig)
+            return btoa(unescape(encodeURIComponent(itemId+'|'+_ADMIN_SIG)));
+        }
+        function verifyApprovalCode(code){
+            try{
+                const decoded=decodeURIComponent(escape(atob(code.trim())));
+                const parts=decoded.split('|');
+                if(parts.length===2 && parts[1]===_ADMIN_SIG) return parts[0];
+            }catch(e){}
+            return null;
+        }
+        function redeemApprovalCode(code){
+            const itemId=verifyApprovalCode(code);
+            if(!itemId) return false;
+            buyItem(itemId);
+            return itemId;
+        }
 
         // ========== GÉM PÉNZNEM ==========
         function getGems(){const v=parseInt(localStorage.getItem('nu_gems'),10);return isNaN(v)?0:v}
@@ -7383,6 +7439,9 @@
             function renderShop(){
                 const name=localStorage.getItem('nu_name')||'Barátom';
                 greet.innerHTML=`Hello <span class="greet-name">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
+                // VIP kód beváltó megjelenítése
+                const vipSec=document.getElementById('vipRedeemSection');
+                if(vipSec) vipSec.style.display=isVipUser()?'block':'none';
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
                 const activeAura=getActiveAura();
@@ -7512,7 +7571,11 @@
                         } else if(isDragonLocked){
                             status='<div class="shop-item-status lock-tag">🔒 Rejtvény</div>';
                         } else if(price>0){
-                            status='<div class="shop-item-status price"><button class="buy-tag" data-buy="'+s.id+'" data-price="'+price+'">💎 '+price+'</button></div>';
+                            if(isVipUser()){
+                                status='<div class="shop-item-status price"><button class="buy-tag vip-request" data-vip-req="'+s.id+'" data-item-name="'+(s.name||s.id)+'">📩 Kérem</button></div>';
+                            } else {
+                                status='<div class="shop-item-status price"><button class="buy-tag" data-buy="'+s.id+'" data-price="'+price+'">💎 '+price+'</button></div>';
+                            }
                         } else {
                             status='<div class="shop-item-status">Ingyenes</div>';
                         }
@@ -7543,6 +7606,20 @@
 
             // ========== VÁSÁRLÁSI HANDLER ==========
             document.body.addEventListener('click',(e)=>{
+                // VIP kérelem gomb
+                const vipBtn=e.target.closest('[data-vip-req]');
+                if(vipBtn){
+                    e.stopPropagation();
+                    const itemId=vipBtn.dataset.vipReq;
+                    const itemName=vipBtn.dataset.itemName||itemId;
+                    const userName=localStorage.getItem('nu_name')||'?';
+                    const reqCode=genApprovalCode(itemId);
+                    document.getElementById('vipModalItem').textContent=itemName+' ('+itemId+')';
+                    document.getElementById('vipModalCode').textContent=reqCode;
+                    document.getElementById('vipModal').classList.add('open');
+                    return;
+                }
+                // Normál vásárlás
                 const btn=e.target.closest('.buy-tag');
                 if(!btn||!btn.dataset.buy)return;
                 e.stopPropagation();
@@ -7553,6 +7630,34 @@
                 buyItem(id);
                 renderShop();
             });
+
+            // ========== VIP KÓD BEVÁLTÁS ==========
+            (function(){
+                // Kód beváltó gomb a shop aljára
+                const redeemRow=document.getElementById('vipRedeemBar');
+                if(redeemRow){
+                    document.getElementById('vipRedeemBtn').addEventListener('click',()=>{
+                        const code=(document.getElementById('vipRedeemInput').value||'').trim();
+                        const itemId=redeemApprovalCode(code);
+                        if(itemId){
+                            document.getElementById('vipRedeemInput').value='';
+                            try{playSfx('skin-equip')}catch(_){}
+                            renderShop();
+                            alert('✅ Feloldva: '+itemId);
+                        } else {
+                            alert('❌ Érvénytelen kód');
+                        }
+                    });
+                }
+                // VIP modal másolás
+                const codeEl=document.getElementById('vipModalCode');
+                if(codeEl) codeEl.addEventListener('click',()=>{
+                    navigator.clipboard&&navigator.clipboard.writeText(codeEl.textContent).then(()=>alert('Kód másolva!')).catch(()=>{});
+                });
+                // VIP modal bezárás
+                const closeBtn=document.getElementById('vipModalClose');
+                if(closeBtn) closeBtn.addEventListener('click',()=>document.getElementById('vipModal').classList.remove('open'));
+            })();
 
             // ========== DAILY GEM (régi szerencsekerék helyett) ==========
             (function(){
@@ -8312,6 +8417,19 @@
                     if(typeof renderShop==='function') renderShop();
                     return;
                 }
+                if(closeId==='adminApproveBtn'){
+                    const inp=document.getElementById('adminApproveInput');
+                    const res=document.getElementById('adminApproveResult');
+                    const itemId=(inp?inp.value.trim().toLowerCase():'');
+                    if(!itemId){if(res)res.textContent='Adj meg egy item ID-t!';return}
+                    const code=genApprovalCode(itemId);
+                    if(res){
+                        res.textContent=code;
+                        res.title='Kattints a másoláshoz';
+                        res.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(code).then(()=>{res.textContent='✅ Másolva! ('+code+')'})}
+                    }
+                    return;
+                }
                 if(closeId==='adminClear'){
                     if(confirm('Biztosan törlöd az összes vásárlási logot?')){
                         savePurchaseLog([]);
@@ -8788,12 +8906,20 @@
         </div>
     </div>
 
-    <!-- Admin panel (gem vásárlás napló) -->
+    <!-- Admin panel -->
     <div id="adminPanel" class="admin-panel">
         <div class="admin-card">
             <div class="admin-head">
-                <div class="admin-title">👑 Admin · Gem vásárlások</div>
+                <div class="admin-title">👑 Admin Panel</div>
                 <button class="shop-close-btn" id="adminClose">✕</button>
+            </div>
+            <div class="admin-approve-section">
+                <div class="admin-approve-title">📩 Vásárlás jóváhagyása</div>
+                <div class="admin-approve-row">
+                    <input class="admin-approve-input" id="adminApproveInput" placeholder="Item ID (pl: fire, golden, rainbow…)">
+                    <button class="admin-approve-btn" id="adminApproveBtn">Kód ▶</button>
+                </div>
+                <div class="admin-approve-result" id="adminApproveResult">Írd be az item ID-t → generál egy kódot amit a játékos bevált</div>
             </div>
             <div class="admin-stats" id="adminStats"></div>
             <div class="admin-list" id="adminList"></div>
@@ -8801,6 +8927,17 @@
                 <button class="admin-btn admin-btn-export" id="adminExport">📤 Export CSV</button>
                 <button class="admin-btn admin-btn-clear" id="adminClear">🗑️ Mind törlése</button>
             </div>
+        </div>
+    </div>
+
+    <!-- VIP kérelem modal -->
+    <div id="vipModal" class="vip-modal">
+        <div class="vip-modal-card">
+            <div class="vip-modal-title">📩 Kérelem küldése</div>
+            <div class="vip-modal-item" id="vipModalItem"></div>
+            <div class="vip-modal-code" id="vipModalCode"></div>
+            <div class="vip-modal-hint">Másold ki ezt a kódot és küldd el Kovratnak (adminnak).<br>Ő generál egy jóváhagyó kódot amit a boltban váltasz be.</div>
+            <button class="vip-modal-close" id="vipModalClose">Bezárás</button>
         </div>
     </div>
 
