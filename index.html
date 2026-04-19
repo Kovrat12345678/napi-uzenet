@@ -2397,10 +2397,9 @@
         .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
 
         /* ============== ÚJABB POLISH ============== */
-        /* Shop háttér: lebegő blob-ok mint a Bot Pass-ban */
-        .skin-panel{position:relative;overflow-x:hidden}
-        .skin-panel::before{
-            content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+        /* Shop háttér: lebegő blob overlay (NEM bántja a panel position:fixed-et) */
+        .skin-panel.open::before{
+            content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
             background:
                 radial-gradient(circle at 20% 20%,rgba(167,139,250,.18),transparent 40%),
                 radial-gradient(circle at 80% 80%,rgba(236,72,153,.15),transparent 40%),
@@ -2408,7 +2407,6 @@
             animation:shopBgFlow 20s ease-in-out infinite;
         }
         @keyframes shopBgFlow{0%,100%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(40deg)}}
-        .skin-panel > *{position:relative;z-index:1}
         /* Shop greeting modernebb */
         .shop-greeting{padding:18px 22px 8px;font-size:15px;color:rgba(255,255,255,.9);font-weight:600;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.3)}
         /* Loot card modern hover & animation */
