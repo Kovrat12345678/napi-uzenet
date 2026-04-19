@@ -71,32 +71,55 @@
         .robot.golden .ear-l,.robot.golden .ear-r{background:#fbbf24!important}
         .robot.golden .foot{background:#b45309!important}
 
-        /* ULTRA BOT — egységes fehér test + függőleges pink neon AI csíkok */
-        /* MINDEN testrész fehér, hogy ne legyen patchwork */
-        .robot.ultra .head,.robot.ultra .torso{background:linear-gradient(165deg,#ffffff 0%,#f1f5f9 100%)!important;box-shadow:0 4px 14px rgba(236,72,153,.35),inset 0 2px 0 rgba(255,255,255,.9)!important;position:relative;overflow:hidden}
-        .robot.ultra .arm-l,.robot.ultra .arm-r,.robot.ultra .leg{background:linear-gradient(to bottom,#ffffff,#f1f5f9)!important;box-shadow:0 2px 8px rgba(236,72,153,.25)!important}
-        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{background:radial-gradient(circle at 30% 30%,#ffffff,#f1f5f9 80%)!important;box-shadow:0 2px 8px rgba(236,72,153,.3)!important}
-        .robot.ultra .neck{background:linear-gradient(to bottom,#ffffff,#f1f5f9)!important}
-        .robot.ultra .ear-l,.robot.ultra .ear-r{background:#f1f5f9!important;box-shadow:0 0 6px rgba(236,72,153,.3)!important}
-        .robot.ultra .foot{background:linear-gradient(135deg,#ffffff,#f1f5f9)!important;box-shadow:0 2px 6px rgba(236,72,153,.3)!important}
-        .robot.ultra .antenna-stick{background:linear-gradient(to bottom,#ffffff,#f1f5f9)!important}
-        /* Antenna ball pink — AI tech jelzés */
-        .robot.ultra .antenna-ball{background:radial-gradient(circle,#ffffff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 14px #ec4899,0 0 28px rgba(236,72,153,.5)!important}
-        /* Szem pink — AI fény */
+        /* ULTRA BLACK BOT — Plus jutalom: fekete test + pink neon csíkok */
+        .robot.ultra-black .head,.robot.ultra-black .torso{background:linear-gradient(165deg,#1a0f2e 0%,#0f0a1f 100%)!important;box-shadow:0 4px 14px rgba(236,72,153,.45),inset 0 2px 0 rgba(236,72,153,.35)!important;position:relative;overflow:hidden;border:1px solid rgba(236,72,153,.4)}
+        .robot.ultra-black .arm-l,.robot.ultra-black .arm-r,.robot.ultra-black .leg{background:linear-gradient(to bottom,#1a0f2e,#0f0a1f)!important;box-shadow:0 2px 8px rgba(236,72,153,.35)!important}
+        .robot.ultra-black .shoulder-l,.robot.ultra-black .shoulder-r{background:radial-gradient(circle at 30% 30%,#1a0f2e,#0f0a1f 80%)!important;box-shadow:0 2px 8px rgba(236,72,153,.4)!important;border:1px solid rgba(236,72,153,.4)}
+        .robot.ultra-black .neck{background:linear-gradient(to bottom,#1a0f2e,#0f0a1f)!important}
+        .robot.ultra-black .ear-l,.robot.ultra-black .ear-r{background:#0f0a1f!important;box-shadow:0 0 6px rgba(236,72,153,.4)!important}
+        .robot.ultra-black .foot{background:linear-gradient(135deg,#1a0f2e,#0f0a1f)!important;box-shadow:0 2px 6px rgba(236,72,153,.4)!important}
+        .robot.ultra-black .antenna-stick{background:linear-gradient(to bottom,#1a0f2e,#0f0a1f)!important}
+        .robot.ultra-black .antenna-ball{background:radial-gradient(circle,#fff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 18px #ec4899,0 0 36px rgba(236,72,153,.7)!important}
+        .robot.ultra-black .eye{background:radial-gradient(circle,#fff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 10px #ec4899,0 0 20px rgba(236,72,153,.6)!important}
+        .robot.ultra-black .mouth{background:#ec4899!important;box-shadow:0 0 8px #ec4899!important}
+        .robot.ultra-black .torso::before{content:'';position:absolute;left:8%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 22px rgba(236,72,153,.7);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
+        .robot.ultra-black .torso::after{content:'';position:absolute;right:8%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 10px #ec4899,0 0 22px rgba(236,72,153,.7);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite .5s}
+        .robot.ultra-black .chest-dot{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
+        .robot.ultra-black::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.3),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(10px)}
+
+        /* ULTRA BOT — minden testrész tiszta fehér, csak a törzsön függőleges neon csíkok */
+        .robot.ultra .head,
+        .robot.ultra .torso,
+        .robot.ultra .arm-l,
+        .robot.ultra .arm-r,
+        .robot.ultra .leg,
+        .robot.ultra .neck,
+        .robot.ultra .shoulder-l,
+        .robot.ultra .shoulder-r,
+        .robot.ultra .ear-l,
+        .robot.ultra .ear-r,
+        .robot.ultra .foot,
+        .robot.ultra .antenna-stick{
+            background:linear-gradient(165deg,#ffffff 0%,#f1f5f9 100%)!important;
+            background-image:linear-gradient(165deg,#ffffff 0%,#f1f5f9 100%)!important;
+        }
+        .robot.ultra .head,.robot.ultra .torso{box-shadow:0 4px 14px rgba(236,72,153,.3),inset 0 2px 0 rgba(255,255,255,.95)!important;position:relative}
+        .robot.ultra .arm-l,.robot.ultra .arm-r,.robot.ultra .leg{box-shadow:0 2px 6px rgba(236,72,153,.2)!important}
+        .robot.ultra .shoulder-l,.robot.ultra .shoulder-r{box-shadow:0 2px 6px rgba(236,72,153,.25)!important}
+        .robot.ultra .ear-l,.robot.ultra .ear-r{box-shadow:0 0 5px rgba(236,72,153,.25)!important}
+        .robot.ultra .foot{box-shadow:0 2px 5px rgba(236,72,153,.25)!important}
+        /* Pink AI accent: szem, antenna, száj, chest */
+        .robot.ultra .antenna-ball{background:radial-gradient(circle,#ffffff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 14px #ec4899,0 0 26px rgba(236,72,153,.5)!important}
         .robot.ultra .eye{background:radial-gradient(circle,#ffffff,#f9a8d4 60%,#ec4899)!important;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.5)!important}
         .robot.ultra .mouth{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
-        /* Fej: 2 függőleges pink neon csík oldalt */
-        .robot.ultra .head::before{content:'';position:absolute;left:18%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2s ease-in-out infinite}
-        .robot.ultra .head::after{content:'';position:absolute;right:18%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 16px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2s ease-in-out infinite .4s}
-        @keyframes ultraNeonPulse{0%,100%{opacity:.7;filter:brightness(1)}50%{opacity:1;filter:brightness(1.5)}}
-        /* Törzs: 2 függőleges pink neon csík */
-        .robot.ultra .torso::before{content:'';position:absolute;left:22%;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 12%,#f9a8d4 50%,#ec4899 88%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2.2s ease-in-out infinite}
-        .robot.ultra .torso::after{content:'';position:absolute;right:22%;top:10%;bottom:10%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 12%,#f9a8d4 50%,#ec4899 88%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:3;animation:ultraNeonPulse 2.2s ease-in-out infinite .5s}
-        /* Pink chest accent */
-        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 6px #ec4899!important}
-        /* Halo aura — finom pink glow a robot körül */
-        .robot.ultra::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.22),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(8px)}
-        @keyframes ultraNeonGlow{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.85;transform:scale(1.1)}}
+        .robot.ultra .chest-dot{background:#ec4899!important;box-shadow:0 0 5px #ec4899!important}
+        /* CSAK a törzsön 2 függőleges pink neon csík — szélen, nem zavarja a chest-et */
+        .robot.ultra .torso::before{content:'';position:absolute;left:8%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite}
+        .robot.ultra .torso::after{content:'';position:absolute;right:8%;top:8%;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#ec4899 15%,#f9a8d4 50%,#ec4899 85%,transparent);border-radius:2px;box-shadow:0 0 8px #ec4899,0 0 18px rgba(236,72,153,.6);pointer-events:none;z-index:5;animation:ultraNeonPulse 2.2s ease-in-out infinite .5s}
+        @keyframes ultraNeonPulse{0%,100%{opacity:.75;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
+        /* Halo aura — finom pink glow */
+        .robot.ultra::after{content:'';position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.2),transparent 65%);pointer-events:none;z-index:-2;animation:ultraNeonGlow 2.4s ease-in-out infinite;filter:blur(8px)}
+        @keyframes ultraNeonGlow{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.1)}}
 
         /* SUPER BOT — high-tech harci robot, neon visor, arc reactor, energia köpeny */
         .robot.super .head{background:linear-gradient(165deg,#e2e8f0 0%,#cbd5e1 30%,#475569 70%,#1e293b 100%)!important;box-shadow:0 0 24px rgba(220,38,38,.45),inset 0 -6px 10px rgba(0,0,0,.4),inset 0 2px 0 rgba(255,255,255,.3)!important;border:1.5px solid rgba(220,38,38,.5)!important}
@@ -2527,6 +2550,17 @@
         .bp-title{font-size:26px!important;letter-spacing:1px!important}
         .bp-title::before{content:'';position:absolute;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.4),transparent 70%);left:-6px;top:50%;transform:translateY(-50%);animation:dcLegendaryPulse 2s ease-in-out infinite;filter:blur(8px);z-index:-1}
         .bp-header{position:relative;z-index:5}
+        /* SEASON SKIN — havi pass robot a panel tetején */
+        .bp-season-skin{position:relative;margin:8px 14px 6px;padding:14px 16px;background:linear-gradient(135deg,#0f0a1f 0%,#1e1b4b 50%,#3b0764 100%);border:1.5px solid rgba(236,72,153,.5);border-radius:18px;display:flex;align-items:center;gap:12px;overflow:hidden;z-index:2;box-shadow:0 8px 22px rgba(167,139,250,.3)}
+        .bp-season-skin::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(236,72,153,.25),transparent 50%);pointer-events:none}
+        .bp-season-skin-info{flex:1;min-width:0;z-index:1}
+        .bp-season-skin-label{font-size:9px;font-weight:900;color:#fbbf24;letter-spacing:2px;margin-bottom:4px}
+        .bp-season-skin-name{font-size:22px;font-weight:900;background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa,#fbbf24);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;letter-spacing:.4px;line-height:1.1;margin-bottom:3px}
+        .bp-season-skin-desc{font-size:11px;color:rgba(255,255,255,.7);font-weight:600;line-height:1.3}
+        .bp-season-skin-robot{position:relative;width:110px;height:140px;flex-shrink:0;z-index:1;display:flex;align-items:center;justify-content:center}
+        .bp-season-skin-robot .dc-mini-robot-frame{height:140px}
+        .bp-season-skin-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.5)}
+
         /* HERO szekció — kompakt szint + XP */
         .bp-hero{position:relative;margin:8px 14px;padding:14px 16px;background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(236,72,153,.1),rgba(167,139,250,.1));background-size:200% 200%;animation:bpClaimableBg 6s ease-in-out infinite;border:1.5px solid rgba(251,191,36,.4);border-radius:18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2;box-shadow:0 6px 18px rgba(251,191,36,.18)}
         .bp-hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -2548,6 +2582,21 @@
         .bp-mission-bonus.done{border-color:rgba(251,191,36,.6);background:rgba(251,191,36,.15)}
         .bp-mission-bonus .bp-mission-rew{color:#a78bfa}
         .bp-mission-bonus.done .bp-mission-rew{color:#fbbf24}
+
+        /* Plus jutalom alsó sor minden szinten */
+        .bp-lvl-plus-row{position:relative;margin-top:8px;padding:6px 8px;background:rgba(167,139,250,.12);border:1px dashed rgba(167,139,250,.4);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:9px;font-weight:800;color:rgba(255,255,255,.6);width:100%;box-sizing:border-box}
+        .bp-lvl-plus-row.locked{opacity:.45;filter:grayscale(.5)}
+        .bp-lvl-plus-row.active{border-style:solid;border-color:rgba(251,191,36,.55);background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(167,139,250,.12));color:#fff;box-shadow:0 2px 8px rgba(251,191,36,.2)}
+        .bp-lvl-plus-row.active.claimed{border-color:rgba(16,185,129,.55);background:rgba(16,185,129,.15);opacity:.7}
+        .bp-lvl-plus-tag{font-size:8px;font-weight:900;color:#fbbf24;background:rgba(0,0,0,.3);padding:2px 5px;border-radius:5px;letter-spacing:.5px}
+        .bp-lvl-plus-row.locked .bp-lvl-plus-tag{color:rgba(167,139,250,.7)}
+        .bp-lvl-plus-icon{font-size:14px}
+        .bp-lvl-plus-name{flex:1;text-align:left;line-height:1.2}
+        .bp-lvl-plus-check{font-size:11px;color:#10b981;font-weight:900}
+        /* Mini robot a 60. szinten */
+        .bp-lvl-robot{position:relative;width:80px;height:90px;display:flex;align-items:center;justify-content:center}
+        .bp-lvl-robot .dc-mini-robot-frame{height:90px}
+        .bp-lvl-robot .dc-mini-robot{transform:translate(-50%,-50%) scale(.32)}
 
         /* Track szekció — minimal head */
         .bp-track-section{margin-top:8px;position:relative;z-index:2}
@@ -4661,7 +4710,7 @@
             'tulip':100,'sakura':100,'graffiti':100,
             'stealth':200,'galaxy':200,'fire':200,'gamer':200,
             'golden':400,'diamond':400,'glass':400,'horse':400,
-            'rainbow':600,'super':700,'ultra':999,
+            'rainbow':600,'super':700,'ultra':999,'ultra-black':1500,
             // MYTHIC skinek
             'prism':800,'phoenix':900,'aurora':1000,
             // Hátterek
@@ -5834,8 +5883,41 @@
         };
         function botpassReward(lvl){
             if(BP_LEVEL_REWARDS[lvl]) return BP_LEVEL_REWARDS[lvl];
-            // Fallback (nem használt)
             return {type:'gems',amount:20,icon:'💎',name:'20 gem'};
+        }
+        // PLUS jutalmak — minden szint alatti bonus row
+        function botpassPlusReward(lvl){
+            // Speciális Plus jutalmak
+            if(lvl===60) return {type:'item_ultra',icon:'⚡',name:'Black Ultra Skin',itemId:'ultra-black'};
+            if(lvl===30) return {type:'gems',amount:300,icon:'💰',name:'+300 gem'};
+            if(lvl===45) return {type:'card_pack',boost:true,icon:'🎴',name:'+ Ritka pakk'};
+            if(lvl===55) return {type:'box_buy',tier:'mythic',icon:'💠',name:'+ Mythic Box'};
+            const base=botpassReward(lvl);
+            if(base.type==='gems') return {type:'gems',amount:base.amount,icon:'💎',name:'+'+base.amount+' gem'};
+            if(base.type==='box') return {type:'box',icon:'🎁',name:'+1 Box'};
+            if(base.type==='pouch') return {type:'pouch',icon:'👝',name:'+1 Pouch'};
+            if(base.type==='card_pack') return {type:'card_pack',boost:true,icon:'🎴',name:'+ Ritka pakk'};
+            if(base.type==='box_buy') return {type:'gems',amount:200,icon:'💎',name:'+200 gem'};
+            // item alapból: +100 gem bónusz
+            return {type:'gems',amount:100,icon:'💎',name:'+100 gem bónusz'};
+        }
+        function getBotpassPlusClaimed(){
+            ensureBotpassMonth();
+            try{return JSON.parse(localStorage.getItem('nu_botpass_plus_claimed_'+_monthKey())||'[]')}
+            catch(e){return []}
+        }
+        function saveBotpassPlusClaimed(arr){
+            localStorage.setItem('nu_botpass_plus_claimed_'+_monthKey(),JSON.stringify(arr));
+        }
+        function applyBotpassPlusReward(lvl){
+            const r=botpassPlusReward(lvl);
+            if(r.type==='gems') addGems(r.amount);
+            else if(r.type==='box') {const cur=boxesRemaining();localStorage.setItem('nu_box_count',String(cur+1))}
+            else if(r.type==='pouch') localStorage.setItem('nu_pouch_free','true');
+            else if(r.type==='card_pack') {if(typeof window.openRandomCardPack==='function') setTimeout(()=>window.openRandomCardPack(!!r.boost),300)}
+            else if(r.type==='box_buy') {if(typeof window.openDailyBox==='function') setTimeout(()=>window.openDailyBox(true,r.tier),300)}
+            else if(r.type==='item_rare'||r.type==='item_epic'||r.type==='item_ultra'){if(r.itemId)buyItem(r.itemId)}
+            return r;
         }
         function applyBotpassReward(lvl){
             const r=botpassReward(lvl);
@@ -6002,6 +6084,21 @@
                 }
             }catch(_){}
 
+            // Season skin robot — tetején
+            try{
+                const seasonSkinId=plus?'ultra-black':'ultra';
+                const seasonSkinName=plus?'Ultra Black':'Ultra Bot';
+                const seasonSkinDesc=plus?'PLUS exkluzív · fekete + pink neon':'Áprilisi szezon · fehér + pink neon AI';
+                const robotEl=document.getElementById('bpSeasonSkinRobot');
+                const nameEl=document.getElementById('bpSeasonSkinName');
+                const descEl=document.getElementById('bpSeasonSkinDesc');
+                if(robotEl && typeof buildMiniRobotHtml==='function'){
+                    robotEl.innerHTML=buildMiniRobotHtml(seasonSkinId,false);
+                }
+                if(nameEl) nameEl.textContent=seasonSkinName;
+                if(descEl) descEl.textContent=seasonSkinDesc;
+            }catch(_){}
+
             // Csillámok háttérben
             const sparkleLayer=document.getElementById('bpSparkleLayer');
             if(sparkleLayer && !sparkleLayer.dataset.filled){
@@ -6039,15 +6136,36 @@
                 else cls+=' locked';
                 if(isCurrent) cls+=' current';
                 row.className=cls;
+                // 60. szint: ne ikon, hanem mini robot Ultra (vagy Ultra-Black ha Plus)
+                const isLvl60=(i===60);
+                const lvl60Skin=plus?'ultra-black':'ultra';
+                const iconHtml=isLvl60
+                    ? `<div class="bp-lvl-robot">${typeof buildMiniRobotHtml==='function'?buildMiniRobotHtml(lvl60Skin,false):'⚡'}</div>`
+                    : `<span class="bp-lvl-icon">${r.icon}</span>`;
+                // Plus jutalom alsó sor (csak ha Plus vagy meg van mutatva mint zárolt)
+                const plusReward=botpassPlusReward(i);
+                const plusClaimedList=getBotpassPlusClaimed();
+                const isPlusClaimed=plusClaimedList.includes(i);
+                const showPlusRow=true; // mindig mutassuk a Plus rewardot
+                const plusUnlocked=plus && isClaimed; // csak ha Plus vétve ÉS sima kérve
+                let plusRowHtml='';
+                if(showPlusRow){
+                    const plusCls='bp-lvl-plus-row'+(plus?' active':' locked')+(isPlusClaimed?' claimed':'');
+                    plusRowHtml=`<div class="${plusCls}">
+                        <span class="bp-lvl-plus-tag">⭐ PLUS</span>
+                        <span class="bp-lvl-plus-icon">${plusReward.icon}</span>
+                        <span class="bp-lvl-plus-name">${plusReward.name}</span>
+                        ${isPlusClaimed?'<span class="bp-lvl-plus-check">✓</span>':''}
+                    </div>`;
+                }
                 row.innerHTML=`
                     <div class="bp-lvl-num">${i}</div>
                     <div class="bp-lvl-reward">
-                        <span class="bp-lvl-icon">${r.icon}</span>
+                        ${iconHtml}
                         <span class="bp-lvl-name">${r.name}</span>
-                        ${plus&&(r.type==='gems')?'<span class="bp-lvl-plus">×2</span>':''}
-                        ${plus&&(r.type==='item_rare'||r.type==='item_epic'||r.type==='item_ultra')?'<span class="bp-lvl-plus">+100💎</span>':''}
                     </div>
                     <button class="bp-lvl-btn${isClaimed?' claimed':''}" data-lvl="${i}" ${isClaimed||!reachable?'disabled':''}>${isClaimed?'✓ Kész':(reachable?'Igényelj':'🔒')}</button>
+                    ${plusRowHtml}
                 `;
                 levels.appendChild(row);
             }
@@ -6071,7 +6189,17 @@
             bpClaimCelebrate(btn);
             playSfx('bp-claim');
             const msg=applyBotpassReward(i);
-            setTimeout(()=>{alert('🎖️ '+i+'. szint megszerezve!\n'+msg);
+            // Plus aktív → plus jutalmat is jóváírjuk parallelen
+            let plusMsg='';
+            if(isBotpassPlus()){
+                const pcl=getBotpassPlusClaimed();
+                if(!pcl.includes(i)){
+                    pcl.push(i); saveBotpassPlusClaimed(pcl);
+                    const pr=applyBotpassPlusReward(i);
+                    plusMsg='\n⭐ Plus bónusz: '+pr.name;
+                }
+            }
+            setTimeout(()=>{alert('🎖️ '+i+'. szint megszerezve!\n'+msg+plusMsg);
                 openBotpassPanel();
                 updateLootBadges();
                 if(typeof renderShop==='function')renderShop();
@@ -6275,7 +6403,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -6339,7 +6467,7 @@
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black)\b/g,'').trim();
             r.classList.add('dragon-week');
 
             // --- Háttér felülírás ---
@@ -6536,6 +6664,7 @@
                 {id:'aurora',name:'Aurora',desc:'Sarki fény robot',icon:'🌠',cost:0,tier:'free'},
                 {id:'super',name:'Super',desc:'Köpenyes szuperhős robot',icon:'🦸',cost:0,tier:'free'},
                 {id:'ultra',name:'Ultra',desc:'Fehér + pink neon csíkok',icon:'⚡',cost:0,tier:'free'},
+                {id:'ultra-black',name:'Ultra Black',desc:'Plus exkluzív — fekete + pink neon',icon:'⚡',cost:0,tier:'free',hide:true},
                 {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true}
             ];
             const BGS=[
@@ -7340,33 +7469,21 @@
                 const bpP=document.getElementById('bpPlusBtn');
                 if(bpP&&!bpP._bound){bpP._bound=true;bpP.addEventListener('click',()=>{
                     if(isBotpassPlus())return;
-                    if(!confirm('Bot Pass Plus 999 gemért ('+getGems()+' gemed van).\n\n✨ Minden jutalom dupla + extra\n⚡ Azonnal MINDEN szintet megkapsz (1-60)\n\nMegveszed?'))return;
+                    if(!confirm('Bot Pass Plus 999 gemért ('+getGems()+' gemed van).\n\n⭐ Minden jutalom MELLETT egy bonus jár alul\n📦 A már begyűjtött szintekre azonnal kapod a Plus jutalmat\n🎯 Az ezután begyűjtöttek után jár a Plus is\n⚡ 60. szint: BLACK ULTRA BOT skin\n\nMegveszed?'))return;
                     if(!spendGems(999)){alert('Nincs elég gem!');return}
                     setBotpassPlus();
-                    // Auto-claim: szint 60-ra + minden szint claimed + rewardok alkalmazása
+                    // Retroaktív Plus claim: a már begyűjtött szintekre azonnal jár Plus
                     const claimed=getBotpassClaimed();
-                    let gained={gems:0,items:0,accessories:0,boxes:0,pouches:0};
-                    for(let i=1;i<=60;i++){
-                        if(claimed.includes(i)) continue;
-                        const r=botpassReward(i);
-                        const mult=2; // plus aktív
-                        if(r.type==='gems'){addGems(r.amount*mult);gained.gems+=r.amount*mult}
-                        else if(r.type==='box'){const cur=boxesRemaining();localStorage.setItem('nu_box_count',String(cur+2));gained.boxes+=2}
-                        else if(r.type==='pouch'){localStorage.setItem('nu_pouch_free','true');gained.pouches+=1}
-                        else if(r.type==='item_rare'||r.type==='item_epic'||r.type==='item_ultra'){if(r.itemId)buyItem(r.itemId);addGems(100);gained.items+=1;gained.gems+=100}
-                        else if(r.type==='card_pack'){
-                            // Plus aktív → 2 kártya minden pakk szintért
-                            for(let k=0;k<2;k++){
-                                const c=rollRandomCard(!!r.boost);
-                                awardCard(c.id);
-                            }
-                        }
-                        claimed.push(i);
+                    const pcl=getBotpassPlusClaimed();
+                    let gained={count:0};
+                    for(const i of claimed){
+                        if(pcl.includes(i)) continue;
+                        applyBotpassPlusReward(i);
+                        pcl.push(i);
+                        gained.count++;
                     }
-                    saveBotpassClaimed(claimed);
-                    localStorage.setItem('nu_botpass_level','60');
-                    localStorage.setItem('nu_botpass_xp',String(XP_PER_LEVEL));
-                    alert('🎉 Bot Pass Plus aktiválva!\n\n💎 '+gained.gems+' gem\n🎁 '+gained.boxes+' DailyBox\n👝 '+gained.pouches+' Pouch\n⭐ '+gained.items+' prémium tárgy');
+                    saveBotpassPlusClaimed(pcl);
+                    alert('⭐ Plus aktiválva!\n\n'+gained.count+' szintre azonnal jóváírva a Plus jutalom.\nAz új szintek után automatikusan jár a Plus is.');
                     updateGemUI();
                     updateLootBadges();
                     openBotpassPanel();
@@ -7624,6 +7741,16 @@
         <div class="bp-header">
             <div class="bp-title">🎖️ Bot Pass</div>
             <button class="shop-close-btn" id="bpClose">✕</button>
+        </div>
+
+        <!-- SEASON SKIN — havi exkluzív robot -->
+        <div class="bp-season-skin" id="bpSeasonSkin">
+            <div class="bp-season-skin-info">
+                <div class="bp-season-skin-label">FŐ JUTALOM · SZINT 60</div>
+                <div class="bp-season-skin-name" id="bpSeasonSkinName">Ultra Bot</div>
+                <div class="bp-season-skin-desc" id="bpSeasonSkinDesc">Áprilisi szezon · fehér + pink neon AI</div>
+            </div>
+            <div class="bp-season-skin-robot" id="bpSeasonSkinRobot"></div>
         </div>
 
         <!-- HERO: Szint + XP egyszerűsítve -->
