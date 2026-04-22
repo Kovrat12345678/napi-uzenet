@@ -1,9 +1,10 @@
-const CACHE_NAME = 'dailybot-v52';
+const CACHE_NAME = 'dailybot-v53';
 const ASSETS = [
     './',
     './index.html',
     './manifest.json',
-    './icon/dailybot-icon.png'
+    './icon/dailybot-icon.png',
+    './icon/dailybot-icon.svg'
 ];
 
 // Install — cache fájlok

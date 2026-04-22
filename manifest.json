@@ -5,12 +5,18 @@
     "start_url": ".",
     "scope": ".",
     "display": "standalone",
-    "background_color": "#38bdf8",
-    "theme_color": "#38bdf8",
+    "background_color": "#020710",
+    "theme_color": "#00d4ff",
     "orientation": "portrait",
     "lang": "hu",
     "categories": ["lifestyle", "entertainment"],
     "icons": [
+        {
+            "src": "icon/dailybot-icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
         {
             "src": "icon/dailybot-icon.png",
             "sizes": "512x512",
