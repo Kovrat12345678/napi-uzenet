@@ -3201,6 +3201,60 @@
         .db-overlay.tier-common .db-content{border-color:rgba(148,163,184,.5)!important}
         .db-overlay.tier-mythic .db-prompt{background:linear-gradient(90deg,#ec4899,#a78bfa,#22d3ee,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;font-weight:900}
 
+        /* ── ULTRA BOX KÁRTYA ── */
+        .box-tier-card.tier-ultra{border-color:transparent;background:linear-gradient(160deg,#fff5f9,#fff);box-shadow:0 14px 40px rgba(236,72,153,.5),0 0 40px rgba(255,255,255,.3);animation:ultraBoxFloat 3s ease-in-out infinite}
+        @keyframes ultraBoxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+        .box-tier-card.tier-ultra::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:conic-gradient(from var(--ang,0deg),#ec4899,#f9a8d4,#fff,#f9a8d4,#ec4899);animation:dcMythicSpin 4s linear infinite;z-index:0;opacity:.65;filter:blur(4px)}
+        .box-tier-card.tier-ultra::after{content:'';position:absolute;inset:1.5px;border-radius:18px;background:linear-gradient(160deg,#ffffff 0%,#fef2f8 100%);z-index:0}
+        .box-tier-card.tier-ultra>*{position:relative;z-index:2}
+        .tier-ultra-name{background:linear-gradient(90deg,#ec4899,#f9a8d4,#fff,#f9a8d4,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;font-size:15px;letter-spacing:.6px}
+        .tier-ultra-btn{background:linear-gradient(135deg,#ec4899 0%,#f9a8d4 50%,#ec4899 100%);background-size:200% 100%;animation:flowColor 3s linear infinite;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);box-shadow:0 8px 24px rgba(236,72,153,.5)}
+        /* Ultra gift box vizuál */
+        .tier-ultra-box .gift-body{background:linear-gradient(135deg,#ffffff 0%,#f1f5f9 60%,#e2e8f0 100%)!important;box-shadow:0 0 28px rgba(236,72,153,.5),inset 0 2px 8px rgba(255,255,255,.9)!important;position:relative}
+        .tier-ultra-box .gift-lid{background:linear-gradient(135deg,#fff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 16px rgba(236,72,153,.5)!important}
+        .tier-ultra-box .gift-ribbon-v,.tier-ultra-box .gift-ribbon-h{background:linear-gradient(135deg,#ec4899,#f9a8d4,#ec4899)!important;background-size:200% 100%!important;animation:flowColor 2s linear infinite}
+        .tier-ultra-box .bow-l,.tier-ultra-box .bow-r,.tier-ultra-box .bow-c{background:linear-gradient(135deg,#f9a8d4,#ec4899)!important;box-shadow:0 0 8px rgba(236,72,153,.4)!important}
+        /* Ultra box szem + száj */
+        .ultra-box-face{position:absolute;top:50%;left:50%;transform:translate(-50%,-30%);display:flex;flex-direction:column;align-items:center;gap:3px;pointer-events:none;z-index:3}
+        .ultra-box-eyes{display:flex;gap:8px}
+        .ultra-box-eye{width:9px;height:9px;background:radial-gradient(circle,#fff 30%,#f9a8d4 60%,#ec4899 100%);border-radius:50%;box-shadow:0 0 7px #ec4899,0 0 14px rgba(236,72,153,.6);animation:ultraEyeGlow 2s ease-in-out infinite}
+        .ultra-box-eye:nth-child(2){animation-delay:.5s}
+        @keyframes ultraEyeGlow{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+        .ultra-box-mouth{width:14px;height:5px;border-bottom:2.5px solid #ec4899;border-left:2px solid transparent;border-right:2px solid transparent;border-radius:0 0 8px 8px;box-shadow:0 3px 8px rgba(236,72,153,.4);margin-top:1px}
+
+        /* ── ULTRA BOX OVERLAY — 5 jutalom ── */
+        .ultra-box-overlay{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at center,#1a0f2e 0%,#000 80%);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;animation:dbFadeIn .4s ease;overflow:hidden}
+        .ultra-box-overlay.open{display:flex}
+        .ultra-box-overlay-bg{position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,rgba(236,72,153,.5),transparent),radial-gradient(1px 1px at 70% 60%,rgba(255,255,255,.4),transparent),radial-gradient(2px 2px at 50% 80%,rgba(236,72,153,.3),transparent),radial-gradient(1px 1px at 85% 20%,rgba(255,255,255,.3),transparent);background-size:400px 400px;animation:loadingStarsDrift 30s linear infinite;pointer-events:none}
+        .ultra-box-ol-title{font-size:20px;font-weight:900;background:linear-gradient(90deg,#ec4899,#f9a8d4,#fff,#f9a8d4,#ec4899);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 3s linear infinite;letter-spacing:1px;text-align:center;position:relative;z-index:1}
+        .ultra-prize-grid{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:360px;position:relative;z-index:1}
+        .ultra-prize-slot{width:96px;min-height:100px;background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(236,72,153,.06));border:1.5px solid rgba(236,72,153,.3);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px 6px;opacity:0;transform:scale(.7);transition:opacity .4s cubic-bezier(.34,1.56,.64,1),transform .4s cubic-bezier(.34,1.56,.64,1)}
+        .ultra-prize-slot.revealed{opacity:1;transform:scale(1)}
+        .ultra-prize-slot-icon{font-size:30px;line-height:1;filter:drop-shadow(0 3px 10px rgba(236,72,153,.5))}
+        .ultra-prize-slot-name{font-size:10px;font-weight:800;color:#fff;text-align:center;line-height:1.2}
+        .ultra-box-close-btn{padding:14px 36px;background:linear-gradient(135deg,#ec4899,#f9a8d4,#ec4899);background-size:200% 100%;animation:flowColor 3s linear infinite;color:#fff;font-weight:900;font-size:15px;border:none;border-radius:16px;cursor:pointer;box-shadow:0 8px 24px rgba(236,72,153,.5);position:relative;z-index:1;letter-spacing:.5px;display:none}
+        .ultra-box-close-btn:active{transform:scale(.95)}
+        .ultra-box-open-visual{font-size:72px;line-height:1;filter:drop-shadow(0 8px 30px rgba(236,72,153,.7));animation:ultraBoxOpenBounce 1s ease-in-out;position:relative;z-index:1;cursor:pointer;transition:transform .2s}
+        .ultra-box-open-visual:active{transform:scale(.9)}
+        @keyframes ultraBoxOpenBounce{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+        .ultra-box-hint{font-size:13px;color:rgba(255,255,255,.7);text-align:center;position:relative;z-index:1}
+
+        /* ── SHOP GRID (skin/háttér/aurák/kiegészítők rácsban) ── */
+        .shop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 16px 14px}
+        .shop-grid .shop-item{flex:none;width:auto;min-width:0;scroll-snap-align:none}
+
+        /* ── NÉV VÁLTOZTATÁS (matricák panelen belül) ── */
+        .sticker-name-section{border-top:1px solid rgba(255,255,255,.1);padding-top:10px;display:flex;flex-direction:column;gap:8px}
+        .sticker-name-row{display:flex;align-items:center;gap:10px}
+        .sticker-name-label{font-size:12px;color:rgba(255,255,255,.6);flex:1}
+        .sticker-name-val{font-weight:900;color:#a78bfa}
+        .sticker-name-change-btn{padding:7px 14px;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;font-weight:800;font-size:12px;border:none;border-radius:10px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+        .sticker-name-change-btn:active{transform:scale(.95)}
+        .sticker-color-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .sticker-color-label{font-size:11px;color:rgba(255,255,255,.55);margin-right:2px}
+        .name-color-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:transform .2s,border-color .2s;flex-shrink:0}
+        .name-color-dot.active{border-color:#fff;transform:scale(1.2)}
+
     </style>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -3346,7 +3400,6 @@
                     </div>
                 </div>
             </button>
-            <div class="game-toggle" id="gameToggle" title="Robot harc">⚔️ Harc</div>
         </div>
 
         <div class="next-msg" id="nextMsg"></div>
@@ -3566,6 +3619,32 @@
                     <div class="box-tier-sub">Legendary garantált · MYTHIC drop esély</div>
                     <button class="box-tier-btn tier-mythic-btn" data-buy-box="mythic">💎 800</button>
                 </div>
+                <!-- Ultra Box -->
+                <div class="box-tier-card tier-ultra" data-box="ultra">
+                    <div class="box-tier-glow"></div>
+                    <div class="box-tier-shine"></div>
+                    <div class="box-tier-icon-wrap">
+                        <div class="gift-box mini tier-ultra-box">
+                            <div class="gift-shine"></div>
+                            <div class="gift-body">
+                                <div class="ultra-box-face">
+                                    <div class="ultra-box-eyes">
+                                        <div class="ultra-box-eye"></div>
+                                        <div class="ultra-box-eye"></div>
+                                    </div>
+                                    <div class="ultra-box-mouth"></div>
+                                </div>
+                            </div>
+                            <div class="gift-lid"></div>
+                            <div class="gift-ribbon-v"></div>
+                            <div class="gift-ribbon-h"></div>
+                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
+                        </div>
+                    </div>
+                    <div class="box-tier-name tier-ultra-name">Ultra Box</div>
+                    <div class="box-tier-sub">5 garantált prémium jutalom</div>
+                    <button class="box-tier-btn tier-ultra-btn" data-buy-box="ultra">💎 2000</button>
+                </div>
             </div>
         </div>
 
@@ -3628,11 +3707,11 @@
 
         <div class="shop-section">
             <div class="shop-section-title">🤖 Skin választék</div>
-            <div class="shop-scroll" id="skinList"></div>
+            <div class="shop-grid" id="skinList"></div>
         </div>
         <div class="shop-section">
             <div class="shop-section-title">🖼️ Hátterek</div>
-            <div class="shop-scroll" id="bgList"></div>
+            <div class="shop-grid" id="bgList"></div>
         </div>
 
         <!-- Matricák gyűjtemény -->
@@ -5039,6 +5118,49 @@
             const p=document.getElementById('stickerPanel');
             if(!p) return;
             renderStickerPanel();
+            // Névváltoztatás UI
+            const nd=document.getElementById('stickerNameDisplay');
+            if(nd) nd.textContent=localStorage.getItem('nu_name')||'Barátom';
+            const cr=document.getElementById('stickerColorRow');
+            if(cr&&!cr._built){
+                cr._built=true;
+                const cols=[
+                    {id:'default',color:'#a78bfa',label:'Lila'},
+                    {id:'pink',color:'#f472b6',label:'Pink'},
+                    {id:'cyan',color:'#22d3ee',label:'Kék'},
+                    {id:'gold',color:'#fbbf24',label:'Arany'},
+                    {id:'green',color:'#34d399',label:'Zöld'},
+                    {id:'red',color:'#f87171',label:'Piros'},
+                    {id:'white',color:'#ffffff',label:'Fehér'}
+                ];
+                const active=localStorage.getItem('nu_name_color')||'default';
+                cols.forEach(c=>{
+                    const dot=document.createElement('div');
+                    dot.className='name-color-dot'+(c.id===active?' active':'');
+                    dot.style.background=c.color;
+                    dot.title=c.label;
+                    dot.dataset.colorId=c.id;
+                    cr.appendChild(dot);
+                });
+            }
+            // Névszín gomb kötés
+            const nb=document.getElementById('stickerNameChangeBtn');
+            if(nb&&!nb._bound){
+                nb._bound=true;
+                nb.addEventListener('click',()=>{
+                    if(!spendGems(60)){alert('Nincs elég gem! (60 gem kell)');return;}
+                    const cur=localStorage.getItem('nu_name')||'';
+                    const raw=prompt('Új becenév (max 12 karakter, szóköz nélkül):',cur);
+                    if(raw===null){addGems(60);return;}
+                    const clean=raw.trim().replace(/\s+/g,'').slice(0,12);
+                    if(!clean){addGems(60);return;}
+                    localStorage.setItem('nu_name',clean);
+                    const nd2=document.getElementById('stickerNameDisplay');
+                    if(nd2)nd2.textContent=clean;
+                    if(typeof renderShop==='function')renderShop();
+                    try{playSfx('gem-claim')}catch(_){}
+                });
+            }
             p.classList.add('open');
         }
         function closeStickerPanel(){
@@ -7303,6 +7425,7 @@
             function startTechMusic(){
                 try{
                     const ac=new(window.AudioContext||window.webkitAudioContext)();
+                    window._techEventAudioCtx=ac;
                     if(ac.state==='suspended') ac.resume();
                     fetch('event zene/DailyBot – Pulse Event Theme.mp3')
                         .then(r=>r.arrayBuffer())
@@ -7311,6 +7434,7 @@
                             const gain=ac.createGain();
                             gain.gain.value=0.12;
                             gain.connect(ac.destination);
+                            window._techEventGain=gain;
                             const src=ac.createBufferSource();
                             src.buffer=decoded;
                             src.loop=true;
@@ -7324,6 +7448,13 @@
             }
             document.addEventListener('click',startTechMusic,{once:true,passive:true});
             document.addEventListener('touchstart',startTechMusic,{once:true,passive:true});
+            // iOS: minden interakciókor resume (vásárlásnál sem tűnik el)
+            function _resumeTechAudio(){
+                if(window._techEventAudioCtx&&window._techEventAudioCtx.state==='suspended')
+                    window._techEventAudioCtx.resume();
+            }
+            document.addEventListener('click',_resumeTechAudio,{passive:true});
+            document.addEventListener('touchstart',_resumeTechAudio,{passive:true});
         })();
 
         // ========== APP AMBIENT ZENE — idő-alapú (reggel/este) ==========
@@ -7523,7 +7654,10 @@
 
             function renderShop(){
                 const name=localStorage.getItem('nu_name')||'Barátom';
-                greet.innerHTML=`Hello <span class="greet-name">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
+                const _nc=localStorage.getItem('nu_name_color');
+                const _ncMap={pink:'#f472b6',cyan:'#22d3ee',gold:'#fbbf24',green:'#34d399',red:'#f87171',white:'#ffffff'};
+                const _ncVal=_ncMap[_nc]||'#a78bfa';
+                greet.innerHTML=`Hello <span class="greet-name" style="color:${_ncVal}">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
                 const activeSkin=getActiveSkin();
                 const activeBg=getActiveBg();
                 const activeAura=getActiveAura();
@@ -7536,7 +7670,7 @@
                 if(!auraList){
                    const auraSection = document.createElement('div');
                    auraSection.className = 'shop-section';
-                   auraSection.innerHTML = `<div class="shop-section-title">🔮 Aurák</div><div class="shop-scroll" id="${auraListId}"></div>`;
+                   auraSection.innerHTML = `<div class="shop-section-title">🔮 Aurák</div><div class="shop-grid" id="${auraListId}"></div>`;
                    bgList.parentElement.insertAdjacentElement('afterend', auraSection);
                    auraList = document.getElementById(auraListId);
                 }
@@ -7548,7 +7682,7 @@
                 if(!accList){
                     const accSection=document.createElement('div');
                     accSection.className='shop-section';
-                    accSection.innerHTML=`<div class="shop-section-title">🎀 Kiegészítők <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból</span></div><div class="shop-scroll" id="${accListId}"></div>`;
+                    accSection.innerHTML=`<div class="shop-section-title">🎀 Kiegészítők <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból</span></div><div class="shop-grid" id="${accListId}"></div>`;
                     auraList.parentElement.insertAdjacentElement('afterend',accSection);
                     accList=document.getElementById(accListId);
                 }
@@ -7592,7 +7726,7 @@
                 if(!danceList){
                     const ds=document.createElement('div');
                     ds.className='shop-section';
-                    ds.innerHTML=`<div class="shop-section-title">💃 Bot Táncok <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból · Bot Pass</span></div><div class="shop-scroll" id="${danceListId}"></div>`;
+                    ds.innerHTML=`<div class="shop-section-title">💃 Bot Táncok <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból · Bot Pass</span></div><div class="shop-grid" id="${danceListId}"></div>`;
                     accList.parentElement.insertAdjacentElement('afterend',ds);
                     danceList=document.getElementById(danceListId);
                 }
@@ -8063,6 +8197,13 @@
             };
             // Vásárolt box-ok (Common/Legendary/Mythic)
             window.buyBox=function(tier){
+                if(tier==='ultra'){
+                    if(!confirm('Ultra Box 2000 gemért — 5 prémium jutalom egyszerre! Megveszed? ('+getGems()+' gemed van)'))return;
+                    if(!spendGems(2000)){alert('Nincs elég gem! (2000 gem kell)');return}
+                    if(typeof markMission==='function') markMission('box',20);
+                    openUltraBox();
+                    return;
+                }
                 const costs={common:100,legendary:300,mythic:800};
                 const cost=costs[tier]; if(!cost) return;
                 const names={common:'Common Box',legendary:'Legendary Box',mythic:'Mythic Box'};
@@ -8071,6 +8212,79 @@
                 if(typeof markMission==='function') markMission('box',20);
                 window.openDailyBox(true,tier);
             };
+
+            // ────── ULTRA BOX ──────
+            function rollUltraPrize(idx){
+                const owned=getOwned();
+                const allSkins=window.SKINS||[];
+                const premSkins=allSkins.filter(s=>s.id&&!s.hide&&!owned.includes(s.id)&&(ITEM_PRICES[s.id]||0)>=200);
+                const mythicSkins=allSkins.filter(s=>s.id&&!s.hide&&!owned.includes(s.id)&&(ITEM_PRICES[s.id]||0)>=800);
+                // Slot 0,4: nagy gem
+                if(idx===0||idx===4){
+                    const g=[400,500,600,700,800,1000][Math.floor(Math.random()*6)];
+                    return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
+                }
+                // Slot 2 (közép): mythic/legendary item garantált
+                if(idx===2){
+                    if(mythicSkins.length){const it=pickRandom(mythicSkins);return {type:'item',id:it.id,icon:'⭐',name:it.name};}
+                    const g=[700,800,900,1000][Math.floor(Math.random()*4)];
+                    return {type:'gems',gems:g,icon:'⭐',name:g+' gem (mythic)'};
+                }
+                // Slot 1,3: prémium item vagy gem
+                const r=Math.random();
+                if(r<0.45&&premSkins.length){const it=pickRandom(premSkins);return {type:'item',id:it.id,icon:'✨',name:it.name};}
+                const g=[250,300,350,400][Math.floor(Math.random()*4)];
+                return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
+            }
+            function openUltraBox(){
+                const ov=document.getElementById('ultraBoxOverlay');
+                const visual=document.getElementById('ultraBoxVisual');
+                const hint=document.getElementById('ultraBoxHint');
+                const grid=document.getElementById('ultraPrizeGrid');
+                const closeBtn=document.getElementById('ultraBoxCloseBtn');
+                if(!ov)return;
+                visual.style.display='block';
+                hint.style.display='block';
+                hint.textContent='Koppints a dobozra a nyitáshoz!';
+                grid.style.display='none';
+                grid.innerHTML='';
+                closeBtn.style.display='none';
+                ov.classList.add('open');
+                try{playSfx('box-open')}catch(_){}
+                const prizes=[0,1,2,3,4].map(i=>rollUltraPrize(i));
+                const doOpen=()=>{
+                    visual.style.display='none';
+                    hint.style.display='none';
+                    grid.style.display='flex';
+                    prizes.forEach((prize,i)=>{
+                        const slot=document.createElement('div');
+                        slot.className='ultra-prize-slot';
+                        slot.innerHTML=`<div class="ultra-prize-slot-icon">${prize.icon}</div><div class="ultra-prize-slot-name">${prize.name}</div>`;
+                        grid.appendChild(slot);
+                    });
+                    const slots=grid.querySelectorAll('.ultra-prize-slot');
+                    slots.forEach((slot,i)=>{
+                        setTimeout(()=>{
+                            slot.classList.add('revealed');
+                            try{playSfx(i===2?'zynox':i%2===0?'skin-equip':'gem-claim')}catch(_){}
+                            if(i===4)setTimeout(()=>{closeBtn.style.display='block'},400);
+                        },300+i*550);
+                    });
+                    prizes.forEach(p=>{
+                        if(p.type==='gems')addGems(p.gems);
+                        else if(p.type==='item'&&p.id)buyItem(p.id);
+                    });
+                };
+                visual.onclick=doOpen;
+                visual.style.cursor='pointer';
+                closeBtn.onclick=()=>{
+                    ov.classList.remove('open');
+                    updateGemUI();
+                    updateLootBadges();
+                    if(typeof renderShop==='function')renderShop();
+                };
+            }
+            window.openUltraBox=openUltraBox;
 
             function rollPouchItem(){
                 // Pouch: 20% sticker + 35% accessory + 20% dance + 15% kártya pakk + 10% kis gem (max 50)
@@ -8439,6 +8653,24 @@
                     }
                     return;
                 }
+                // Névszín dot koppintás
+                const colorDot=e.target.closest&&e.target.closest('.name-color-dot');
+                if(colorDot&&colorDot.dataset.colorId){
+                    document.querySelectorAll('.name-color-dot').forEach(d=>d.classList.remove('active'));
+                    colorDot.classList.add('active');
+                    localStorage.setItem('nu_name_color',colorDot.dataset.colorId);
+                    if(typeof renderShop==='function')renderShop();
+                    try{playSfx('gem-claim')}catch(_){}
+                    return;
+                }
+                // Ultra Box bezárás
+                if(closeId==='ultraBoxCloseBtn'){
+                    const uov=document.getElementById('ultraBoxOverlay');
+                    if(uov)uov.classList.remove('open');
+                    updateGemUI();updateLootBadges();
+                    if(typeof renderShop==='function')renderShop();
+                    return;
+                }
                 if(closeId==='dsContinueBtn' || (e.target&&e.target.closest&&e.target.closest('#dsContinueBtn'))){ dsContinue(); return; }
                 // Csillagra koppintás = Tovább lépés (vagy Begyűjtöm ha már nem lehet tovább)
                 const starTap=e.target.closest&&e.target.closest('#dsStarBig');
@@ -8686,70 +8918,28 @@
         </div>
     </div>
 
-    <!-- ROBOT HARC játék panel -->
-    <div id="gamePanel" class="game-panel">
-        <!-- Lobby: skin választás + multiplayer kód -->
-        <div class="game-lobby" id="gameLobby">
-            <div class="game-lobby-head">
-                <div class="game-lobby-title">⚔️ Robot Harc</div>
-                <button class="shop-close-btn" id="gameClose">✕</button>
-            </div>
-            <div class="game-lobby-info">3 élet · golyók kilövése · ability gomb · győztes kap 100 gem (napi 1× max)</div>
-            <div class="game-skin-section">
-                <div class="game-section-title">Válassz skint</div>
-                <div class="game-skin-list" id="gameSkinList"></div>
-            </div>
-            <div class="game-mode-section">
-                <button class="game-mode-btn" id="gameStartAi">🤖 Egyedül AI ellen</button>
-                <div class="game-multiplayer">
-                    <div class="game-section-title">vagy 2 játékos kóddal</div>
-                    <div class="game-code-row">
-                        <input class="game-code-input" id="gameCodeInput" placeholder="Kód" maxlength="6">
-                        <button class="game-code-btn" id="gameJoinBtn">🎮 Csatlakozás</button>
+    <!-- Ultra Box overlay — 5 jutalom felfedés -->
+    <div id="ultraBoxOverlay" class="ultra-box-overlay">
+        <div class="ultra-box-overlay-bg"></div>
+        <div class="ultra-box-ol-title">✨ Ultra Box</div>
+        <div class="ultra-box-open-visual" id="ultraBoxVisual">
+            <div class="gift-box" style="width:110px;height:100px;animation:giftBob 2s ease-in-out infinite;filter:drop-shadow(0 8px 30px rgba(236,72,153,.8))">
+                <div class="gift-shine"></div>
+                <div class="gift-body tier-ultra-box" style="background:linear-gradient(135deg,#fff,#f1f5f9,#e2e8f0)!important;box-shadow:0 0 30px rgba(236,72,153,.6)!important;position:relative">
+                    <div class="ultra-box-face" style="top:50%;transform:translate(-50%,-35%)">
+                        <div class="ultra-box-eyes"><div class="ultra-box-eye"></div><div class="ultra-box-eye"></div></div>
+                        <div class="ultra-box-mouth"></div>
                     </div>
-                    <button class="game-mode-btn" id="gameCreateRoomBtn" style="margin-top:10px;background:linear-gradient(135deg,#a78bfa,#7c3aed)">🌐 Új szoba létrehozása</button>
-                    <div class="game-my-code" id="gameMyCodeRow" style="display:none">A te kódod: <strong id="gameMyCode">––––––</strong> · <span id="gameRoomStatus">várakozás</span></div>
                 </div>
+                <div class="gift-lid" style="background:linear-gradient(135deg,#fff,#f9a8d4 50%,#ec4899)!important;box-shadow:0 0 18px rgba(236,72,153,.6)!important"></div>
+                <div class="gift-ribbon-v" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)!important"></div>
+                <div class="gift-ribbon-h" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)!important"></div>
+                <div class="gift-bow"><span class="bow-l" style="background:linear-gradient(135deg,#f9a8d4,#ec4899)!important"></span><span class="bow-r" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)!important"></span><span class="bow-c" style="background:#f9a8d4!important"></span></div>
             </div>
         </div>
-
-        <!-- Aréna -->
-        <div class="game-arena" id="gameArena" style="display:none">
-            <div class="game-arena-bg"></div>
-            <div class="game-arena-head">
-                <div class="game-hp game-hp-p1">
-                    <span class="game-hp-name" id="gamePlayerName">Te</span>
-                    <span class="game-hp-hearts" id="gamePlayerHearts">❤️❤️❤️</span>
-                </div>
-                <div class="game-hp game-hp-p2">
-                    <span class="game-hp-hearts" id="gameAiHearts">❤️❤️❤️</span>
-                    <span class="game-hp-name" id="gameAiName">AI</span>
-                </div>
-            </div>
-            <div class="game-arena-zone" id="gameArenaZone">
-                <div class="game-robot game-robot-p1" id="gameRobotP1"></div>
-                <div class="game-robot game-robot-p2" id="gameRobotP2"></div>
-                <div class="game-projectiles" id="gameProjectiles"></div>
-                <div class="game-flash" id="gameFlash"></div>
-            </div>
-            <div class="game-controls">
-                <button class="game-btn game-btn-move" id="gameMoveLeftBtn">◄</button>
-                <button class="game-btn game-btn-fire" id="gameFireBtn">🔫 LÖVÉS</button>
-                <button class="game-btn game-btn-ability" id="gameAbilityBtn">⚡ Ability</button>
-                <button class="game-btn game-btn-move" id="gameMoveRightBtn">►</button>
-            </div>
-            <button class="game-arena-exit" id="gameArenaExit">✕ Kilép</button>
-        </div>
-
-        <!-- Game over -->
-        <div class="game-over" id="gameOver" style="display:none">
-            <div class="game-over-card">
-                <div class="game-over-emoji" id="gameOverEmoji">🏆</div>
-                <div class="game-over-title" id="gameOverTitle">GYŐZELEM!</div>
-                <div class="game-over-prize" id="gameOverPrize">+100 💎</div>
-                <button class="game-over-btn" id="gameOverBtn">Köszönöm!</button>
-            </div>
-        </div>
+        <div class="ultra-box-hint" id="ultraBoxHint">Koppints a dobozra a nyitáshoz!</div>
+        <div class="ultra-prize-grid" id="ultraPrizeGrid" style="display:none"></div>
+        <button class="ultra-box-close-btn" id="ultraBoxCloseBtn">💎 Begyűjtöm!</button>
     </div>
 
     <!-- Loot Info modal — minden box/pouch/super tartalom -->
@@ -8866,6 +9056,15 @@
             </div>
             <div class="sticker-info">A robot ezzel köszön a főképernyőn — koppints rá hogy beállítsd</div>
             <div class="sticker-source">📥 Hogyan szerezz újat: <strong>Pouch megnyitása (5% esély)</strong> · Daily Super</div>
+            <div class="sticker-name-section">
+                <div class="sticker-name-row">
+                    <div class="sticker-name-label">Becenéved: <span class="sticker-name-val" id="stickerNameDisplay">Barátom</span></div>
+                    <button class="sticker-name-change-btn" id="stickerNameChangeBtn">💎 60 · Átnevez</button>
+                </div>
+                <div class="sticker-color-row" id="stickerColorRow">
+                    <span class="sticker-color-label">Névszín:</span>
+                </div>
+            </div>
             <div class="sticker-grid" id="stickerGrid"></div>
         </div>
     </div>
