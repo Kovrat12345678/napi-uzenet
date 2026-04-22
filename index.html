@@ -680,6 +680,19 @@
         body.bg-tech-event{background:linear-gradient(135deg,#020710 0%,#050d1f 30%,#091528 60%,#050d1f 80%,#020710 100%)!important;background-attachment:fixed!important}
         .te-grid{position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(0,212,255,.13) 1px,transparent 1px) 0 0/42px 42px,linear-gradient(90deg,rgba(0,212,255,.13) 1px,transparent 1px) 0 0/42px 42px;animation:teGridPulse 4s ease-in-out infinite}
         .te-particle{position:fixed;bottom:-10px;pointer-events:none;z-index:1;font-size:var(--sz,10px);color:rgba(0,212,255,.85);font-family:monospace;font-weight:700;text-shadow:0 0 5px rgba(0,212,255,1);animation:teParticleRise var(--dur,4s) ease-out forwards}
+        /* Shop tech téma */
+        body.bg-tech-event .skin-panel{background:linear-gradient(135deg,#020c1f 0%,#041428 35%,#051c38 65%,#041428 85%,#020c1f 100%)!important;background-size:unset!important;animation:none!important}
+        body.bg-tech-event .shop-header{background:linear-gradient(180deg,rgba(2,8,28,.97) 0%,rgba(2,12,31,.82) 80%,transparent 100%)!important;border-bottom:1px solid rgba(0,212,255,.2)!important}
+        body.bg-tech-event .shop-title{color:#00d4ff!important;text-shadow:0 0 14px rgba(0,212,255,.75)!important}
+        body.bg-tech-event .shop-gems{color:#00d4ff!important;text-shadow:0 0 8px rgba(0,212,255,.6)!important}
+        body.bg-tech-event .shop-close-btn{background:rgba(0,212,255,.1)!important;border-color:rgba(0,212,255,.3)!important;color:#00d4ff!important}
+        body.bg-tech-event .shop-section-title{color:rgba(0,212,255,.75)!important;letter-spacing:1px!important}
+        body.bg-tech-event .shop-section-title::after{background:linear-gradient(90deg,rgba(0,212,255,.3),transparent)!important}
+        body.bg-tech-event .shop-item{background:linear-gradient(160deg,rgba(0,30,60,.55),rgba(0,12,30,.3))!important;border-color:rgba(0,212,255,.22)!important}
+        body.bg-tech-event .shop-item:active{border-color:rgba(0,212,255,.7)!important;box-shadow:0 0 14px rgba(0,212,255,.3)!important}
+        body.bg-tech-event .loot-card{background:linear-gradient(145deg,rgba(0,25,55,.8),rgba(0,15,40,.6))!important;border-color:rgba(0,212,255,.25)!important}
+        body.bg-tech-event .buy-tag{background:rgba(0,212,255,.18)!important;border:1px solid rgba(0,212,255,.4)!important;color:#00d4ff!important}
+        body.bg-tech-event .shop-greeting{color:rgba(0,212,255,.7)!important}
 
         /* ========== LOADING SCREEN ========== */
         .loading-screen{
@@ -7261,11 +7274,30 @@
             setInterval(spawnParticle,350);
             for(let i=0;i<12;i++) setTimeout(spawnParticle,i*80);
 
-            // Zene indítása első interakciónál
+            // Zene — Web Audio API (nem jelenik meg Dynamic Islandban)
             window._techEventActive=true;
             function startTechMusic(){
-                const a=document.getElementById('techEventAudio');
-                if(a){a.volume=0.35;a.play().catch(()=>{});}
+                try{
+                    const ac=new(window.AudioContext||window.webkitAudioContext)();
+                    if(ac.state==='suspended') ac.resume();
+                    fetch('event zene/DailyBot – Pulse Event Theme.mp3')
+                        .then(r=>r.arrayBuffer())
+                        .then(buf=>ac.decodeAudioData(buf))
+                        .then(decoded=>{
+                            const gain=ac.createGain();
+                            gain.gain.value=0.35;
+                            gain.connect(ac.destination);
+                            function loop(){
+                                const src=ac.createBufferSource();
+                                src.buffer=decoded;
+                                src.connect(gain);
+                                src.onended=loop;
+                                src.start(0);
+                                window._techEventSrc=src;
+                            }
+                            loop();
+                        }).catch(()=>{});
+                }catch(e){}
             }
             document.addEventListener('click',startTechMusic,{once:true,passive:true});
             document.addEventListener('touchstart',startTechMusic,{once:true,passive:true});
@@ -8914,6 +8946,5 @@
         <div class="dc-pack-dupe-info" id="dcPackDupeInfo">✨ Duplikát! +50 gem kompenzáció</div>
         <button class="dc-pack-close" id="dcPackClose">Köszönöm! ✨</button>
     </div>
-    <audio id="techEventAudio" src="event zene/DailyBot – Pulse Event Theme.mp3" loop preload="auto"></audio>
 </body>
 </html>
