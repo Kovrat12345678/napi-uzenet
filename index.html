@@ -2546,9 +2546,28 @@
         .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
 
         /* Shop csoport elválasztó */
-        .shop-group-divider{
-            margin:8px 20px 0;
-            border:none;border-top:1px solid rgba(255,255,255,.07);
+        .shop-group-divider{margin:8px 20px 0;border:none;border-top:1px solid rgba(255,255,255,.07)}
+
+        /* Napi jutalmak — kompakt sor */
+        .daily-trio-wrap{display:flex;gap:8px;padding:4px 20px 0}
+        .daily-trio-item{flex:1;min-width:0;padding:0!important}
+        .daily-trio-item .loot-card{
+            flex-direction:column;align-items:center;text-align:center;
+            padding:14px 6px 12px;gap:4px;height:100%;
+            justify-content:flex-start;
+        }
+        .daily-trio-item .loot-card-visual{
+            width:64px;height:64px;flex-shrink:0;
+            display:flex;align-items:center;justify-content:center;overflow:hidden;
+        }
+        .daily-trio-item .loot-card-visual>*{transform:scale(.68);transform-origin:center}
+        .daily-trio-item .loot-card-visual .gem-visual svg{width:64px;height:64px}
+        .daily-trio-item .loot-card-info{align-items:center;width:100%;gap:3px}
+        .daily-trio-item .loot-card-title{font-size:12px;letter-spacing:0}
+        .daily-trio-item .loot-card-count{font-size:10px;margin:0}
+        .daily-trio-item .loot-card-btn{
+            font-size:11px;padding:6px 4px;
+            align-self:stretch;text-align:center;margin-top:4px;
         }
         /* Loot card hover only (perf) */
         .loot-card{position:relative;overflow:hidden}
@@ -3380,10 +3399,10 @@
         </div>
         <div class="shop-greeting" id="shopGreeting"></div>
 
-        <!-- ── NAPI JUTALMAK ── -->
-        <!-- Daily Gem -->
-        <div class="shop-section">
-            <div class="loot-card-wrap">
+        <!-- ── NAPI JUTALMAK — kompakt sor ── -->
+        <div class="daily-trio-wrap">
+            <!-- Daily Gem -->
+            <div class="shop-section daily-trio-item">
                 <div class="loot-card gem-card" id="shopGemCard">
                     <div class="loot-card-visual">
                         <div class="gem-visual">
@@ -3409,11 +3428,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Daily Box (ingyen, 1/nap) -->
-        <div class="shop-section" id="shopDailyBoxSection">
-            <div class="loot-card-wrap">
+            <!-- Daily Box -->
+            <div class="shop-section daily-trio-item" id="shopDailyBoxSection">
                 <div class="loot-card box-card" id="shopBoxCard">
                     <div class="loot-card-visual">
                         <div class="gift-box tier-daily-box">
@@ -3436,11 +3452,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Daily Pouch szekció -->
-        <div class="shop-section" id="shopDailyPouchSection">
-            <div class="loot-card-wrap">
+            <!-- Daily Pouch -->
+            <div class="shop-section daily-trio-item" id="shopDailyPouchSection">
                 <div class="loot-card pouch-card" id="shopPouchCard">
                     <div class="loot-card-visual">
                         <div class="coin-pouch">
@@ -3454,10 +3467,8 @@
                     <div class="loot-card-info">
                         <div class="loot-card-title">Daily Pouch</div>
                         <div class="loot-card-count"><span id="shopPouchCount">1/1</span> ma</div>
-                        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-                            <button class="loot-card-btn free" id="shopPouchFreeBtn">Ingyen</button>
-                            <button class="loot-card-btn buy" id="shopPouchBuyBtn">💎 60</button>
-                        </div>
+                        <button class="loot-card-btn free" id="shopPouchFreeBtn" style="margin-top:6px">Ingyen</button>
+                        <button class="loot-card-btn buy" id="shopPouchBuyBtn">💎 60</button>
                     </div>
                 </div>
             </div>
