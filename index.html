@@ -7296,15 +7296,14 @@
                             const gain=ac.createGain();
                             gain.gain.value=0.35;
                             gain.connect(ac.destination);
-                            function loop(){
-                                const src=ac.createBufferSource();
-                                src.buffer=decoded;
-                                src.connect(gain);
-                                src.onended=loop;
-                                src.start(0);
-                                window._techEventSrc=src;
-                            }
-                            loop();
+                            const src=ac.createBufferSource();
+                            src.buffer=decoded;
+                            src.loop=true;
+                            src.loopStart=67;
+                            src.loopEnd=81;
+                            src.connect(gain);
+                            src.start(0);
+                            window._techEventSrc=src;
                         }).catch(()=>{});
                 }catch(e){}
             }
