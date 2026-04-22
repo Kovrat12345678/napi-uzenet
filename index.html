@@ -648,6 +648,39 @@
             animation:dwFog 12s ease-in-out infinite;
         }
 
+        /* ========== TECH EVENT (2026. ápr. 22–24. 20:00) ========== */
+        @keyframes techEventPulse{
+            0%,100%{filter:drop-shadow(0 0 14px rgba(0,212,255,.6))}
+            50%{filter:drop-shadow(0 0 30px rgba(0,212,255,.95)) brightness(1.06)}
+        }
+        @keyframes techEventFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+        @keyframes techEventScan{0%{transform:translateY(-100%);opacity:.6}100%{transform:translateY(200%);opacity:0}}
+        @keyframes techEventBlink{0%,88%,100%{opacity:1}93%{opacity:.05}}
+        @keyframes teGridPulse{0%,100%{opacity:.07}50%{opacity:.14}}
+        @keyframes teParticleRise{0%{opacity:0;transform:translateY(0)}8%{opacity:.95}90%{opacity:.4}100%{opacity:0;transform:translateY(-100vh)}}
+
+        .robot.tech-event{animation:techEventPulse 3s ease-in-out infinite,techEventFloat 2.5s ease-in-out infinite}
+        .robot.tech-event .head{background:linear-gradient(145deg,#0d1f3c,#162a4a)!important;border:1px solid rgba(0,212,255,.5)!important;box-shadow:0 0 16px rgba(0,212,255,.3),inset 0 0 20px rgba(0,40,100,.5)!important}
+        .robot.tech-event .antenna-stick{background:linear-gradient(to top,#00d4ff,#7c3aed)!important;box-shadow:0 0 8px rgba(0,212,255,.9)!important}
+        .robot.tech-event .antenna-ball{background:radial-gradient(circle,#fff,#00d4ff,#0055ff)!important;box-shadow:0 0 14px 5px rgba(0,212,255,1)!important;animation:techEventBlink 3.5s ease-in-out infinite!important}
+        .robot.tech-event .face-screen{background:linear-gradient(180deg,rgba(0,8,28,.9),rgba(0,18,55,.9))!important;border:1px solid rgba(0,212,255,.3)!important;overflow:hidden!important}
+        .robot.tech-event .face-screen::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 44%,rgba(0,212,255,.14) 50%,transparent 56%);animation:techEventScan 3s linear infinite;pointer-events:none}
+        .robot.tech-event .eye{background:radial-gradient(circle,#fff 15%,#00d4ff 55%,#0044bb)!important;box-shadow:0 0 10px 3px rgba(0,212,255,.95),inset 0 0 5px rgba(0,180,255,.5)!important;animation:techEventBlink 3.5s ease-in-out infinite!important}
+        .robot.tech-event .mouth{border-color:#00d4ff!important;box-shadow:0 0 9px rgba(0,212,255,.8)!important}
+        .robot.tech-event .torso{background:linear-gradient(145deg,#0a1628,#12243c)!important;border:1px solid rgba(0,212,255,.4)!important;box-shadow:0 0 14px rgba(0,212,255,.18),inset 0 0 28px rgba(0,25,75,.6)!important}
+        .robot.tech-event .chest{background:linear-gradient(90deg,rgba(0,212,255,.12) 1px,transparent 1px) 0 0/9px 9px,linear-gradient(0deg,rgba(0,212,255,.12) 1px,transparent 1px) 0 0/9px 9px,linear-gradient(145deg,#0a1628,#12243c)!important;border:1px solid rgba(0,212,255,.3)!important}
+        .robot.tech-event .chest-dot{background:radial-gradient(circle,#fff,#00d4ff)!important;box-shadow:0 0 14px 5px rgba(0,212,255,1)!important}
+        .robot.tech-event .heart-icon{filter:hue-rotate(180deg) brightness(2.2)!important}
+        .robot.tech-event .arm-l,.robot.tech-event .arm-r{background:linear-gradient(to bottom,#0d1f3c,#0a1628)!important;border:1px solid rgba(0,212,255,.35)!important}
+        .robot.tech-event .leg{background:linear-gradient(to bottom,#0d1f3c,#0a1628)!important;border:1px solid rgba(0,212,255,.35)!important}
+        .robot.tech-event .foot{background:#0a1628!important;border:1px solid rgba(0,212,255,.35)!important}
+        .robot.tech-event .shoulder-l,.robot.tech-event .shoulder-r{background:radial-gradient(circle,rgba(0,212,255,.45),rgba(0,25,80,.4))!important}
+        .robot.tech-event .neck{background:linear-gradient(to bottom,#0d1f3c,#0a1628)!important}
+        .robot.tech-event .ear-l,.robot.tech-event .ear-r{background:#0d1f3c!important;border:1px solid rgba(0,212,255,.4)!important}
+        body.bg-tech-event{background:linear-gradient(135deg,#020710 0%,#050d1f 30%,#091528 60%,#050d1f 80%,#020710 100%)!important;background-attachment:fixed!important}
+        .te-grid{position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(0,212,255,.13) 1px,transparent 1px) 0 0/42px 42px,linear-gradient(90deg,rgba(0,212,255,.13) 1px,transparent 1px) 0 0/42px 42px;animation:teGridPulse 4s ease-in-out infinite}
+        .te-particle{position:fixed;bottom:-10px;pointer-events:none;z-index:1;font-size:var(--sz,10px);color:rgba(0,212,255,.85);font-family:monospace;font-weight:700;text-shadow:0 0 5px rgba(0,212,255,1);animation:teParticleRise var(--dur,4s) ease-out forwards}
+
         /* ========== LOADING SCREEN ========== */
         .loading-screen{
             position:fixed;inset:0;z-index:9999;
@@ -7085,7 +7118,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -7149,7 +7182,7 @@
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event)\b/g,'').trim();
             r.classList.add('dragon-week');
 
             // --- Háttér felülírás ---
@@ -7184,6 +7217,58 @@
 
             // --- Tap = tűzokádás ---
             window._dragonWeekActive=true;
+        })();
+
+        // ========== TECH EVENT (2026. ápr. 22–24. 20:00) ==========
+        (function(){
+            const now=new Date();
+            const start=new Date(2026,3,22,0,0,0);
+            const end=new Date(2026,3,24,20,0,0);
+            if(now<start||now>=end) return;
+
+            // Robot skin
+            const r=document.getElementById('robot');
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event)\b/g,'').trim();
+            r.classList.add('tech-event');
+
+            // Háttér
+            document.body.style.background='';
+            document.body.style.backgroundAttachment='';
+            document.body.classList.remove('bg-galaxy','bg-gamer','bg-tulip','bg-glass','bg-graffiti','bg-dragon-week');
+            document.body.classList.add('bg-tech-event');
+
+            // Grid réteg
+            const grid=document.createElement('div');
+            grid.className='te-grid';
+            document.body.appendChild(grid);
+
+            // Esemény szöveg
+            const evtEl=document.getElementById('phEvent');
+            if(evtEl) evtEl.textContent='⚡ Tech Event! Április 22–24. 💻';
+
+            // Binary részecskék
+            const bits=['0','1','█','▒','░'];
+            function spawnParticle(){
+                const p=document.createElement('div');
+                p.className='te-particle';
+                p.style.left=Math.random()*100+'vw';
+                p.style.setProperty('--dur',(3+Math.random()*5)+'s');
+                p.style.setProperty('--sz',(8+Math.random()*6)+'px');
+                p.textContent=bits[Math.floor(Math.random()*bits.length)];
+                document.body.appendChild(p);
+                setTimeout(()=>p.remove(),8000);
+            }
+            setInterval(spawnParticle,350);
+            for(let i=0;i<12;i++) setTimeout(spawnParticle,i*80);
+
+            // Zene indítása első interakciónál
+            window._techEventActive=true;
+            function startTechMusic(){
+                const a=document.getElementById('techEventAudio');
+                if(a){a.volume=0.35;a.play().catch(()=>{});}
+            }
+            document.addEventListener('click',startTechMusic,{once:true,passive:true});
+            document.addEventListener('touchstart',startTechMusic,{once:true,passive:true});
         })();
 
         // ========== APP AMBIENT ZENE — idő-alapú (reggel/este) ==========
@@ -7303,6 +7388,7 @@
             }
 
             function initAppAmbient(){
+                if(window._techEventActive) return;
                 if(appAudioCtx) return;
                 try{ appAudioCtx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; }
                 if(appAudioCtx.state==='suspended') appAudioCtx.resume();
@@ -8828,5 +8914,6 @@
         <div class="dc-pack-dupe-info" id="dcPackDupeInfo">✨ Duplikát! +50 gem kompenzáció</div>
         <button class="dc-pack-close" id="dcPackClose">Köszönöm! ✨</button>
     </div>
+    <audio id="techEventAudio" src="event zene/DailyBot – Pulse Event Theme.mp3" loop preload="auto"></audio>
 </body>
 </html>
