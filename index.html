@@ -2545,61 +2545,11 @@
         .shop-greeting{padding:14px 22px 6px;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.5}
         .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
 
-        /* ========== SHOP REDESIGN — egyszerű, profi ========== */
-        /* Blob overlay ki — felesleges zaj */
-        .skin-panel.open::before{display:none!important}
-
-        /* Alap item kártya — tiszta, egységes */
-        .shop-item::before{display:none!important}
-        .shop-item{
-            background:rgba(255,255,255,.055)!important;
-            border:1px solid rgba(255,255,255,.09)!important;
-            border-radius:18px!important;
-            backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+        /* Shop csoport elválasztó */
+        .shop-group-divider{
+            margin:8px 20px 0;
+            border:none;border-top:1px solid rgba(255,255,255,.07);
         }
-        .shop-item:hover{transform:none!important;box-shadow:none!important}
-        .shop-item:active{transform:scale(.95)!important;box-shadow:none!important}
-
-        /* Rarity — csak szín, semmi extra */
-        .shop-item:has(.rarity-rare){background:rgba(96,165,250,.06)!important;border-color:rgba(96,165,250,.22)!important;box-shadow:none!important}
-        .shop-item:has(.rarity-epic){background:rgba(168,85,247,.07)!important;border-color:rgba(168,85,247,.25)!important;box-shadow:none!important}
-        .shop-item:has(.rarity-legendary){background:rgba(251,191,36,.07)!important;border-color:rgba(251,191,36,.28)!important;box-shadow:none!important}
-        .shop-item:has(.rarity-mythic){background:rgba(236,72,153,.07)!important;border-color:rgba(236,72,153,.32)!important;box-shadow:none!important;animation:shopItemIn .4s ease-out backwards!important}
-
-        /* Aktív item */
-        .shop-item.active{background:rgba(139,92,246,.14)!important;border-color:rgba(139,92,246,.5)!important;box-shadow:none!important}
-
-        /* Vásárlás gomb */
-        .shop-item-status .buy-tag{
-            background:rgba(251,191,36,.12)!important;border:1px solid rgba(251,191,36,.35)!important;
-            color:#fbbf24!important;border-radius:8px!important;padding:4px 10px!important;
-        }
-
-        /* Section fejléc — kis, letisztult */
-        .shop-section{padding:20px 0 6px!important}
-        .shop-section-title{
-            font-size:11px!important;font-weight:800!important;letter-spacing:1.8px!important;
-            text-transform:uppercase!important;color:rgba(255,255,255,.32)!important;padding:0 20px 10px!important;
-        }
-        .shop-section-title::after{background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)!important}
-
-        /* Shop header vékony elválasztó */
-        .shop-header{border-bottom:1px solid rgba(255,255,255,.07)!important}
-
-        /* Shine effektek eltávolítása — csak a fontos CTA-kon marad */
-        .shop-item-status .buy-tag::before,
-        .box-tier-btn::before,
-        .bp-plus-btn::before,
-        .bp-skip-btn::before,
-        .support-submit::before,
-        .update-claim-btn::before,
-        .gem-pack-btn::before,
-        .ds-card-btn::before,
-        .ds-claim-btn::before,.ds-continue-btn::before,
-        .bp-next-reward::before{display:none!important}
-
-        /* Shop greeting */
-        .shop-greeting{padding:16px 22px 4px;font-size:14px;color:rgba(255,255,255,.75);font-weight:500;line-height:1.5}
         /* Loot card hover only (perf) */
         .loot-card{position:relative;overflow:hidden}
         /* Box tier card animáció bekötése a robotnak: mythic boxnál energia ring */
@@ -3430,7 +3380,8 @@
         </div>
         <div class="shop-greeting" id="shopGreeting"></div>
 
-        <!-- Daily Gem — mindig látszik (a szerencsekerék helyett) -->
+        <!-- ── NAPI JUTALMAK ── -->
+        <!-- Daily Gem -->
         <div class="shop-section">
             <div class="loot-card-wrap">
                 <div class="loot-card gem-card" id="shopGemCard">
@@ -3460,7 +3411,7 @@
             </div>
         </div>
 
-        <!-- Daily Box (ingyen, 1/nap) — a többi daily mellett -->
+        <!-- Daily Box (ingyen, 1/nap) -->
         <div class="shop-section" id="shopDailyBoxSection">
             <div class="loot-card-wrap">
                 <div class="loot-card box-card" id="shopBoxCard">
@@ -3487,7 +3438,34 @@
             </div>
         </div>
 
-        <!-- Gem Shop — gem package vásárlás -->
+        <!-- Daily Pouch szekció -->
+        <div class="shop-section" id="shopDailyPouchSection">
+            <div class="loot-card-wrap">
+                <div class="loot-card pouch-card" id="shopPouchCard">
+                    <div class="loot-card-visual">
+                        <div class="coin-pouch">
+                            <div class="pouch-shine"></div>
+                            <div class="pouch-body"></div>
+                            <div class="pouch-neck"></div>
+                            <div class="pouch-string"></div>
+                            <div class="pouch-gem">💎</div>
+                        </div>
+                    </div>
+                    <div class="loot-card-info">
+                        <div class="loot-card-title">Daily Pouch</div>
+                        <div class="loot-card-count"><span id="shopPouchCount">1/1</span> ma</div>
+                        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                            <button class="loot-card-btn free" id="shopPouchFreeBtn">Ingyen</button>
+                            <button class="loot-card-btn buy" id="shopPouchBuyBtn">💎 60</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="shop-group-divider">
+
+        <!-- ── GEM VÁSÁRLÁS ── -->
         <div class="shop-section">
             <div class="gem-shop-row">
                 <div class="gem-pack tier-pack-small" data-gem-pack="small">
@@ -3580,49 +3558,9 @@
             </div>
         </div>
 
-        <!-- Matricák gyors-belépő (Loot Boxes után) -->
-        <div class="shop-section">
-            <div class="loot-card-wrap">
-                <div class="sticker-banner" id="stickerBanner">
-                    <div class="sticker-banner-glow"></div>
-                    <div class="sticker-banner-icon">💬</div>
-                    <div class="sticker-banner-info">
-                        <div class="sticker-banner-title">Köszönés matricák</div>
-                        <div class="sticker-banner-sub">Pouch-ból szerezhető · állítsd be a robot köszönését!</div>
-                        <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span id="stickerTotal">12</span> · most: <span id="stickerCurrent">Hello 👋</span></div>
-                    </div>
-                    <div class="sticker-banner-cta">→</div>
-                </div>
-            </div>
-        </div>
+        <hr class="shop-group-divider">
 
-        <!-- Daily Pouch szekció -->
-        <div class="shop-section" id="shopDailyPouchSection">
-            <div class="loot-card-wrap">
-                <div class="loot-card pouch-card" id="shopPouchCard">
-                    <div class="loot-card-visual">
-                        <div class="coin-pouch">
-                            <div class="pouch-shine"></div>
-                            <div class="pouch-body"></div>
-                            <div class="pouch-neck"></div>
-                            <div class="pouch-string"></div>
-                            <div class="pouch-gem">💎</div>
-                        </div>
-                    </div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title">Daily Pouch</div>
-                        <div class="loot-card-count"><span id="shopPouchCount">1/1</span> ma</div>
-                        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-                            <button class="loot-card-btn free" id="shopPouchFreeBtn">Ingyen</button>
-                            <button class="loot-card-btn buy" id="shopPouchBuyBtn">💎 60</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Bot Pass belépő — a Pouch után, a skin szekciók előtt -->
+        <!-- ── BOT PASS ── -->
         <div class="shop-section">
             <div class="loot-card-wrap">
                 <div class="bp-banner" id="botpassEnterBtn">
@@ -3645,6 +3583,10 @@
                 </div>
             </div>
         </div>
+
+        <hr class="shop-group-divider">
+
+        <!-- ── SKINEK & HÁTTÉREK ── -->
 
         <!-- DailyCard belépő banner — marquee carousel-lel -->
         <div class="shop-section">
@@ -3681,6 +3623,24 @@
             <div class="shop-section-title">🖼️ Hátterek</div>
             <div class="shop-scroll" id="bgList"></div>
         </div>
+
+        <!-- Matricák gyűjtemény -->
+        <div class="shop-section">
+            <div class="loot-card-wrap">
+                <div class="sticker-banner" id="stickerBanner">
+                    <div class="sticker-banner-glow"></div>
+                    <div class="sticker-banner-icon">💬</div>
+                    <div class="sticker-banner-info">
+                        <div class="sticker-banner-title">Köszönés matricák</div>
+                        <div class="sticker-banner-sub">Pouch-ból szerezhető · állítsd be a robot köszönését!</div>
+                        <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span id="stickerTotal">12</span> · most: <span id="stickerCurrent">Hello 👋</span></div>
+                    </div>
+                    <div class="sticker-banner-cta">→</div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="shop-group-divider">
 
         <!-- Daily Deal -->
         <div class="shop-section" id="dailyDealSection" style="display:none">
