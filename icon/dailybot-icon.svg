@@ -1,131 +1,187 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#38bdf8"/>
-      <stop offset="35%" style="stop-color:#818cf8"/>
-      <stop offset="60%" style="stop-color:#a855f7"/>
-      <stop offset="85%" style="stop-color:#ec4899"/>
-      <stop offset="100%" style="stop-color:#f97316"/>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#020710"/>
+      <stop offset="40%" style="stop-color:#050d1f"/>
+      <stop offset="70%" style="stop-color:#091528"/>
+      <stop offset="100%" style="stop-color:#020710"/>
     </linearGradient>
-    <linearGradient id="robot" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1f3c"/>
+      <stop offset="100%" style="stop-color:#091528"/>
+    </linearGradient>
+    <linearGradient id="antGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <radialGradient id="eyeGrad" cx="50%" cy="40%" r="55%">
       <stop offset="0%" style="stop-color:#ffffff"/>
-      <stop offset="100%" style="stop-color:#c7d2fe"/>
-    </linearGradient>
-    <linearGradient id="screen" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f172a"/>
-      <stop offset="100%" style="stop-color:#020617"/>
-    </linearGradient>
-    <radialGradient id="eye" cx="50%" cy="50%" r="50%">
+      <stop offset="25%" style="stop-color:#00d4ff"/>
+      <stop offset="70%" style="stop-color:#0055cc"/>
+      <stop offset="100%" style="stop-color:#003399"/>
+    </radialGradient>
+    <radialGradient id="antBallGrad" cx="40%" cy="35%" r="60%">
       <stop offset="0%" style="stop-color:#ffffff"/>
-      <stop offset="30%" style="stop-color:#67e8f9"/>
-      <stop offset="70%" style="stop-color:#06b6d4"/>
-      <stop offset="100%" style="stop-color:#0891b2"/>
+      <stop offset="40%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0066ff"/>
     </radialGradient>
-    <radialGradient id="antennaGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#fef08a"/>
-      <stop offset="50%" style="stop-color:#facc15"/>
-      <stop offset="100%" style="stop-color:#f59e0b"/>
-    </radialGradient>
-    <filter id="neonBlue" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feFlood flood-color="#22d3ee" flood-opacity="0.9" result="color"/>
+    <filter id="cyanGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feFlood flood-color="#00d4ff" flood-opacity="0.85" result="color"/>
       <feComposite in="color" in2="blur" operator="in" result="glow"/>
       <feMerge><feMergeNode in="glow"/><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="neonYellow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feFlood flood-color="#fde68a" flood-opacity="0.6" result="color"/>
+    <filter id="cyanGlowSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#00d4ff" flood-opacity="0.6" result="color"/>
       <feComposite in="color" in2="blur" operator="in" result="glow"/>
       <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="neonPink" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
-      <feFlood flood-color="#f472b6" flood-opacity="0.7" result="color"/>
-      <feComposite in="color" in2="blur" operator="in" result="glow"/>
-      <feMerge><feMergeNode in="glow"/><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="bodyGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#00d4ff" flood-opacity="0.3"/>
     </filter>
-    <filter id="bigShadow" x="-20%" y="-20%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#7c3aed" flood-opacity="0.4"/>
+    <filter id="purpleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feFlood flood-color="#7c3aed" flood-opacity="0.7" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
   <!-- Háttér -->
-  <rect width="512" height="512" rx="112" ry="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#bgGrad)"/>
 
-  <!-- Robot - NAGY, középen -->
-  <g filter="url(#bigShadow)" transform="translate(256,256) scale(1.05) translate(-256,-256)">
+  <!-- Circuit grid háttér -->
+  <g opacity="0.12" stroke="#00d4ff" stroke-width="1">
+    <line x1="0" y1="64"  x2="512" y2="64"/>
+    <line x1="0" y1="128" x2="512" y2="128"/>
+    <line x1="0" y1="192" x2="512" y2="192"/>
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <line x1="0" y1="320" x2="512" y2="320"/>
+    <line x1="0" y1="384" x2="512" y2="384"/>
+    <line x1="0" y1="448" x2="512" y2="448"/>
+    <line x1="64"  y1="0" x2="64"  y2="512"/>
+    <line x1="128" y1="0" x2="128" y2="512"/>
+    <line x1="192" y1="0" x2="192" y2="512"/>
+    <line x1="256" y1="0" x2="256" y2="512"/>
+    <line x1="320" y1="0" x2="320" y2="512"/>
+    <line x1="384" y1="0" x2="384" y2="512"/>
+    <line x1="448" y1="0" x2="448" y2="512"/>
+  </g>
+  <!-- Circuit sarok pontok -->
+  <g fill="#00d4ff" opacity="0.25">
+    <circle cx="64"  cy="64"  r="3"/>
+    <circle cx="128" cy="64"  r="3"/>
+    <circle cx="192" cy="64"  r="3"/>
+    <circle cx="320" cy="64"  r="3"/>
+    <circle cx="384" cy="64"  r="3"/>
+    <circle cx="448" cy="64"  r="3"/>
+    <circle cx="64"  cy="128" r="3"/>
+    <circle cx="448" cy="128" r="3"/>
+    <circle cx="64"  cy="448" r="3"/>
+    <circle cx="128" cy="448" r="3"/>
+    <circle cx="384" cy="448" r="3"/>
+    <circle cx="448" cy="448" r="3"/>
+  </g>
+
+  <!-- Robot egész -->
+  <g filter="url(#bodyGlow)">
+
     <!-- Antenna rúd -->
-    <rect x="250" y="68" width="8" height="44" rx="4" fill="#94a3b8"/>
+    <rect x="250" y="68" width="8" height="44" rx="4" fill="url(#antGrad)"/>
     <!-- Antenna gömb -->
-    <g filter="url(#neonYellow)">
-      <circle cx="254" cy="58" r="20" fill="url(#antennaGlow)"/>
+    <g filter="url(#cyanGlow)">
+      <circle cx="254" cy="58" r="18" fill="url(#antBallGrad)"/>
     </g>
 
     <!-- Fülek -->
-    <rect x="104" y="165" width="24" height="42" rx="12" fill="#e2e8f0" stroke="#22d3ee" stroke-width="2"/>
-    <circle cx="116" cy="186" r="6" fill="#22d3ee" opacity="0.8"/>
-    <rect x="380" y="165" width="24" height="42" rx="12" fill="#e2e8f0" stroke="#22d3ee" stroke-width="2"/>
-    <circle cx="392" cy="186" r="6" fill="#22d3ee" opacity="0.8"/>
+    <rect x="108" y="168" width="22" height="40" rx="11" fill="#0d1f3c" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="119" cy="188" r="5" fill="#00d4ff" opacity="0.9"/>
+    <rect x="378" y="168" width="22" height="40" rx="11" fill="#0d1f3c" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="389" cy="188" r="5" fill="#00d4ff" opacity="0.9"/>
 
     <!-- Fej -->
-    <rect x="126" y="108" width="256" height="148" rx="52" fill="url(#robot)" stroke="#a5b4fc" stroke-width="2.5"/>
+    <rect x="130" y="110" width="248" height="146" rx="50" fill="url(#bodyGrad)" stroke="#00d4ff" stroke-width="2.5" stroke-opacity="0.7"/>
 
     <!-- Arc kijelző -->
-    <rect x="154" y="132" width="200" height="104" rx="34" fill="url(#screen)" stroke="#334155" stroke-width="1.5"/>
+    <rect x="158" y="134" width="192" height="102" rx="32" fill="#020c1f" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.5"/>
+    <!-- Scan sor a kijelzőn -->
+    <rect x="158" y="178" width="192" height="2" rx="1" fill="#00d4ff" opacity="0.15"/>
 
     <!-- Szemek -->
-    <g filter="url(#neonBlue)">
-      <circle cx="216" cy="178" r="26" fill="url(#eye)"/>
-      <circle cx="292" cy="178" r="26" fill="url(#eye)"/>
+    <g filter="url(#cyanGlow)">
+      <circle cx="214" cy="178" r="25" fill="url(#eyeGrad)"/>
+      <circle cx="294" cy="178" r="25" fill="url(#eyeGrad)"/>
     </g>
-    <!-- Szem csillanás -->
-    <circle cx="206" cy="168" r="10" fill="rgba(255,255,255,0.85)"/>
-    <circle cx="282" cy="168" r="10" fill="rgba(255,255,255,0.85)"/>
-    <circle cx="224" cy="188" r="4" fill="rgba(255,255,255,0.4)"/>
-    <circle cx="300" cy="188" r="4" fill="rgba(255,255,255,0.4)"/>
+    <circle cx="205" cy="169" r="9" fill="rgba(255,255,255,0.85)"/>
+    <circle cx="285" cy="169" r="9" fill="rgba(255,255,255,0.85)"/>
 
     <!-- Mosoly -->
-    <g filter="url(#neonBlue)">
-      <path d="M222,216 Q254,244 286,216" stroke="#22d3ee" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g filter="url(#cyanGlowSoft)">
+      <path d="M222,214 Q254,240 286,214" stroke="#00d4ff" stroke-width="5" fill="none" stroke-linecap="round"/>
     </g>
 
     <!-- Nyak -->
-    <rect x="238" y="254" width="32" height="22" rx="6" fill="#cbd5e1"/>
+    <rect x="238" y="254" width="32" height="22" rx="6" fill="#0d1f3c" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.6"/>
 
     <!-- Vállak -->
-    <circle cx="154" cy="288" r="16" fill="#e2e8f0" stroke="#a5b4fc" stroke-width="2"/>
-    <circle cx="354" cy="288" r="16" fill="#e2e8f0" stroke="#a5b4fc" stroke-width="2"/>
+    <circle cx="158" cy="290" r="15" fill="#0d1f3c" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.7"/>
+    <circle cx="350" cy="290" r="15" fill="#0d1f3c" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.7"/>
 
-    <!-- Karok - integetős -->
-    <rect x="96" y="258" width="34" height="86" rx="17" fill="url(#robot)" stroke="#a5b4fc" stroke-width="2" transform="rotate(-25,113,258)"/>
-    <rect x="378" y="258" width="34" height="86" rx="17" fill="url(#robot)" stroke="#a5b4fc" stroke-width="2" transform="rotate(25,395,258)"/>
-    <!-- Kezek -->
-    <circle cx="78" cy="298" r="16" fill="#e2e8f0" stroke="#a5b4fc" stroke-width="2"/>
-    <circle cx="430" cy="298" r="16" fill="#e2e8f0" stroke="#a5b4fc" stroke-width="2"/>
+    <!-- Karok -->
+    <rect x="98"  y="260" width="32" height="82" rx="16" fill="url(#bodyGrad)" stroke="#00d4ff" stroke-width="1.8" stroke-opacity="0.6" transform="rotate(-22,114,260)"/>
+    <rect x="380" y="260" width="32" height="82" rx="16" fill="url(#bodyGrad)" stroke="#00d4ff" stroke-width="1.8" stroke-opacity="0.6" transform="rotate(22,396,260)"/>
+    <circle cx="82"  cy="300" r="14" fill="#0d1f3c" stroke="#00d4ff" stroke-width="1.8" stroke-opacity="0.6"/>
+    <circle cx="428" cy="300" r="14" fill="#0d1f3c" stroke="#00d4ff" stroke-width="1.8" stroke-opacity="0.6"/>
 
     <!-- Törzs -->
-    <rect x="148" y="274" width="212" height="116" rx="30" fill="url(#robot)" stroke="#a5b4fc" stroke-width="2.5"/>
+    <rect x="150" y="276" width="208" height="114" rx="28" fill="url(#bodyGrad)" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.6"/>
 
-    <!-- Mellkas panel -->
-    <rect x="218" y="294" width="72" height="72" rx="20" fill="url(#screen)" stroke="#22d3ee" stroke-width="2.5"/>
-
-    <!-- Szív -->
-    <g filter="url(#neonPink)">
-      <text x="254" y="344" text-anchor="middle" font-size="44">❤️</text>
+    <!-- Circuit minta mellkason -->
+    <g stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2" fill="none">
+      <line x1="162" y1="295" x2="200" y2="295"/>
+      <line x1="200" y1="295" x2="200" y2="310"/>
+      <line x1="310" y1="295" x2="348" y2="295"/>
+      <line x1="310" y1="295" x2="310" y2="310"/>
+      <line x1="162" y1="368" x2="195" y2="368"/>
+      <line x1="195" y1="368" x2="195" y2="355"/>
+      <line x1="317" y1="368" x2="348" y2="368"/>
+      <line x1="317" y1="368" x2="317" y2="355"/>
     </g>
 
+    <!-- Mellkas panel -->
+    <rect x="216" y="294" width="76" height="72" rx="18" fill="#020c1f" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.6"/>
+    <!-- Mellkas panel circuit sorok -->
+    <line x1="224" y1="316" x2="284" y2="316" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+    <line x1="224" y1="330" x2="284" y2="330" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+    <line x1="224" y1="344" x2="284" y2="344" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+
+    <!-- Mellkas pont (chest dot) -->
+    <g filter="url(#cyanGlow)">
+      <circle cx="254" cy="330" r="12" fill="#00d4ff"/>
+    </g>
+    <circle cx="254" cy="330" r="5" fill="white"/>
+
     <!-- LED-ek -->
-    <g filter="url(#neonBlue)">
-      <circle cx="232" cy="360" r="5" fill="#22d3ee"/>
-      <circle cx="254" cy="360" r="5" fill="#67e8f9"/>
-      <circle cx="276" cy="360" r="5" fill="#22d3ee"/>
+    <g filter="url(#cyanGlowSoft)">
+      <circle cx="228" cy="356" r="5" fill="#00d4ff"/>
+      <circle cx="254" cy="356" r="5" fill="#00ffcc"/>
+      <circle cx="280" cy="356" r="5" fill="#00d4ff"/>
     </g>
 
     <!-- Lábak -->
-    <rect x="194" y="388" width="40" height="50" rx="14" fill="#e2e8f0" stroke="#a5b4fc" stroke-width="2"/>
-    <rect x="278" y="388" width="40" height="50" rx="14" fill="#e2e8f0" stroke="#a5b4fc" stroke-width="2"/>
+    <rect x="192" y="388" width="40" height="50" rx="13" fill="url(#bodyGrad)" stroke="#00d4ff" stroke-width="1.8" stroke-opacity="0.6"/>
+    <rect x="278" y="388" width="40" height="50" rx="13" fill="url(#bodyGrad)" stroke="#00d4ff" stroke-width="1.8" stroke-opacity="0.6"/>
     <!-- Cipők -->
-    <rect x="184" y="430" width="56" height="18" rx="9" fill="#94a3b8" stroke="#a5b4fc" stroke-width="1.5"/>
-    <rect x="272" y="430" width="56" height="18" rx="9" fill="#94a3b8" stroke="#a5b4fc" stroke-width="1.5"/>
+    <rect x="182" y="430" width="56" height="16" rx="8" fill="#0d1f3c" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.6"/>
+    <rect x="270" y="430" width="56" height="16" rx="8" fill="#0d1f3c" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.6"/>
+  </g>
+
+  <!-- Sarki neon accent pontok -->
+  <g filter="url(#purpleGlow)" opacity="0.6">
+    <circle cx="80"  cy="80"  r="6" fill="#7c3aed"/>
+    <circle cx="432" cy="80"  r="6" fill="#7c3aed"/>
+    <circle cx="80"  cy="432" r="6" fill="#7c3aed"/>
+    <circle cx="432" cy="432" r="6" fill="#7c3aed"/>
   </g>
 </svg>

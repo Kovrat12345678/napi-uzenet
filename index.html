@@ -8,7 +8,8 @@
     <meta name="apple-mobile-web-app-title" content="DailyBot">
     <meta name="theme-color" content="#38bdf8" id="themeColor">
     <link rel="apple-touch-icon" id="appleIcon" href="icon/dailybot-icon.png">
-    <link rel="icon" id="favicon" type="image/png" href="icon/dailybot-icon.png">
+    <link rel="icon" id="favicon" type="image/svg+xml" href="icon/dailybot-icon.svg">
+    <link rel="icon" type="image/png" href="icon/dailybot-icon.png" sizes="512x512">
     <link rel="manifest" id="manifestLink" href="manifest.json?v=4">
     <script>
     </script>
@@ -7254,6 +7255,14 @@
             const grid=document.createElement('div');
             grid.className='te-grid';
             document.body.appendChild(grid);
+
+            // Ikon + theme color override
+            const tc=document.getElementById('themeColor');
+            if(tc) tc.setAttribute('content','#00d4ff');
+            const ai=document.getElementById('appleIcon');
+            if(ai) ai.setAttribute('href','icon/dailybot-icon.svg');
+            const fav=document.getElementById('favicon');
+            if(fav) fav.setAttribute('href','icon/dailybot-icon.svg');
 
             // Esemény szöveg
             const evtEl=document.getElementById('phEvent');
