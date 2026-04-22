@@ -2545,17 +2545,61 @@
         .shop-greeting{padding:14px 22px 6px;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.5}
         .greet-name{background:linear-gradient(90deg,#fbbf24,#ec4899,#a78bfa);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flowColor 4s linear infinite;font-weight:900}
 
-        /* ============== ÚJABB POLISH ============== */
-        /* Shop háttér: STATIKUS blob overlay (gpu-friendly, nincs filter animáció) */
-        .skin-panel.open::before{
-            content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-            background:
-                radial-gradient(circle at 20% 20%,rgba(167,139,250,.18),transparent 40%),
-                radial-gradient(circle at 80% 80%,rgba(236,72,153,.15),transparent 40%),
-                radial-gradient(circle at 50% 50%,rgba(251,191,36,.08),transparent 50%);
+        /* ========== SHOP REDESIGN — egyszerű, profi ========== */
+        /* Blob overlay ki — felesleges zaj */
+        .skin-panel.open::before{display:none!important}
+
+        /* Alap item kártya — tiszta, egységes */
+        .shop-item::before{display:none!important}
+        .shop-item{
+            background:rgba(255,255,255,.055)!important;
+            border:1px solid rgba(255,255,255,.09)!important;
+            border-radius:18px!important;
+            backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
         }
-        /* Shop greeting modernebb */
-        .shop-greeting{padding:18px 22px 8px;font-size:15px;color:rgba(255,255,255,.9);font-weight:600;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+        .shop-item:hover{transform:none!important;box-shadow:none!important}
+        .shop-item:active{transform:scale(.95)!important;box-shadow:none!important}
+
+        /* Rarity — csak szín, semmi extra */
+        .shop-item:has(.rarity-rare){background:rgba(96,165,250,.06)!important;border-color:rgba(96,165,250,.22)!important;box-shadow:none!important}
+        .shop-item:has(.rarity-epic){background:rgba(168,85,247,.07)!important;border-color:rgba(168,85,247,.25)!important;box-shadow:none!important}
+        .shop-item:has(.rarity-legendary){background:rgba(251,191,36,.07)!important;border-color:rgba(251,191,36,.28)!important;box-shadow:none!important}
+        .shop-item:has(.rarity-mythic){background:rgba(236,72,153,.07)!important;border-color:rgba(236,72,153,.32)!important;box-shadow:none!important;animation:shopItemIn .4s ease-out backwards!important}
+
+        /* Aktív item */
+        .shop-item.active{background:rgba(139,92,246,.14)!important;border-color:rgba(139,92,246,.5)!important;box-shadow:none!important}
+
+        /* Vásárlás gomb */
+        .shop-item-status .buy-tag{
+            background:rgba(251,191,36,.12)!important;border:1px solid rgba(251,191,36,.35)!important;
+            color:#fbbf24!important;border-radius:8px!important;padding:4px 10px!important;
+        }
+
+        /* Section fejléc — kis, letisztult */
+        .shop-section{padding:20px 0 6px!important}
+        .shop-section-title{
+            font-size:11px!important;font-weight:800!important;letter-spacing:1.8px!important;
+            text-transform:uppercase!important;color:rgba(255,255,255,.32)!important;padding:0 20px 10px!important;
+        }
+        .shop-section-title::after{background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)!important}
+
+        /* Shop header vékony elválasztó */
+        .shop-header{border-bottom:1px solid rgba(255,255,255,.07)!important}
+
+        /* Shine effektek eltávolítása — csak a fontos CTA-kon marad */
+        .shop-item-status .buy-tag::before,
+        .box-tier-btn::before,
+        .bp-plus-btn::before,
+        .bp-skip-btn::before,
+        .support-submit::before,
+        .update-claim-btn::before,
+        .gem-pack-btn::before,
+        .ds-card-btn::before,
+        .ds-claim-btn::before,.ds-continue-btn::before,
+        .bp-next-reward::before{display:none!important}
+
+        /* Shop greeting */
+        .shop-greeting{padding:16px 22px 4px;font-size:14px;color:rgba(255,255,255,.75);font-weight:500;line-height:1.5}
         /* Loot card hover only (perf) */
         .loot-card{position:relative;overflow:hidden}
         /* Box tier card animáció bekötése a robotnak: mythic boxnál energia ring */
@@ -7294,7 +7338,7 @@
                         .then(buf=>ac.decodeAudioData(buf))
                         .then(decoded=>{
                             const gain=ac.createGain();
-                            gain.gain.value=0.35;
+                            gain.gain.value=0.12;
                             gain.connect(ac.destination);
                             const src=ac.createBufferSource();
                             src.buffer=decoded;
