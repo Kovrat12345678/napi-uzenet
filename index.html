@@ -13,7 +13,8 @@
     <link rel="manifest" id="manifestLink" href="manifest.json?v=5">
     <script>
     </script>
-    <title>DailyBot 🤖</title>
+    <title>DailyBot 🤖 Comic Clash</title>
+
     <style>
         @property --dw-h{syntax:'<number>';inherits:true;initial-value:190}
         @property --dw-s{syntax:'<percentage>';inherits:true;initial-value:80%}
@@ -39,7 +40,7 @@
             width:100%;max-width:400px;
             height:100dvh;height:100vh;
             padding:16px 20px;
-            padding-top:calc(env(safe-area-inset-top, 20px) + 28px);
+            padding-top:calc(env(safe-area-inset-top, 20px) + 64px);
             padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 8px);
             justify-content:space-between;
         }
@@ -1099,7 +1100,10 @@
             border:1px solid rgba(255,255,255,.2);border-radius:50%;
             width:40px;height:40px;display:flex;align-items:center;justify-content:center;
             font-size:20px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+            transition: opacity 0.3s;
         }
+        .skin-toggle.hidden { opacity: 0; pointer-events: none; }
+
         .shop-new-badge{
             position:absolute;top:-6px;right:-10px;background:linear-gradient(135deg,#ef4444,#dc2626);
             color:#fff;font-size:9px;font-weight:900;letter-spacing:.5px;
@@ -1292,8 +1296,11 @@
             border:1px solid rgba(255,255,255,.2);border-radius:50%;
             width:40px;height:40px;display:none;align-items:center;justify-content:center;
             font-size:20px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+            transition: opacity 0.3s;
         }
+        .favs-toggle.hidden { opacity: 0!important; pointer-events: none; }
         .favs-toggle.has{display:flex}
+
         .favs-badge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:#ef4444;color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center}
 
         .favs-panel{
@@ -3255,6 +3262,166 @@
         .name-color-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:transform .2s,border-color .2s;flex-shrink:0}
         .name-color-dot.active{border-color:#fff;transform:scale(1.2)}
 
+        /* ============== COMIC CLASH EVENT ============== */
+        /* Comic háttér overlay — féltonális minta + akció vonalak (csak májusban) */
+        body.comic-event::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+            background:
+                radial-gradient(circle, rgba(0,0,0,.18) 1px, transparent 1px),
+                radial-gradient(circle, rgba(0,0,0,.12) 1px, transparent 1px);
+            background-size:8px 8px, 12px 12px;
+            background-position:0 0, 4px 4px;
+            opacity:.4;mix-blend-mode:multiply}
+        body.comic-event::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+            background:
+                repeating-conic-gradient(from 0deg at 50% 120%, transparent 0deg, transparent 8deg, rgba(255,255,0,.04) 8deg, rgba(255,255,0,.04) 9deg);
+            opacity:.5}
+        body.comic-event{background:linear-gradient(135deg,#1a0a2e 0%,#2d1052 20%,#e11d48 45%,#fbbf24 65%,#0ea5e9 85%,#1a0a2e 100%)!important;background-attachment:fixed!important}
+        .daily-box-img.big { width: 140px; height: 140px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); animation: giftBob 2s ease-in-out infinite; }
+
+        body.comic-event .app, body.comic-event .stars, body.comic-event #robot-container { position: relative; z-index: 1; }
+        body.comic-event .skin-panel, body.comic-event .favs-toggle, body.comic-event .skin-toggle, body.comic-event .sync-panel, body.comic-event .dc-panel, body.comic-event .news-panel { z-index: 1000; }
+        body.comic-event .stars{opacity:.3}
+
+        /* News Menu Styles */
+        .news-toggle {
+            position:fixed;top:calc(env(safe-area-inset-top,20px) + 12px);left:12px;z-index:50;
+            background:linear-gradient(135deg,#e11d48,#be123c);color:#fff;padding:8px 16px;border-radius:12px;
+            font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 4px 12px rgba(225,29,72,.4);
+            border:2px solid #000;letter-spacing:1px;transition:opacity 0.3s, transform 0.2s;
+        }
+        .news-toggle:active { transform: scale(0.95); }
+        .news-toggle.hidden { opacity: 0; pointer-events: none; }
+        .news-panel {
+            position:fixed;inset:0;z-index:1500;
+            background:linear-gradient(165deg,#0f172a 0%,#1e1b4b 40%,#312e81 100%);
+            display:none;flex-direction:column;
+        }
+        .news-panel.open { display: flex; }
+        .news-header { padding: calc(env(safe-area-inset-top,20px) + 16px) 20px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; background:#1a0a2e; }
+        .news-content { flex: 1; overflow-y: auto; padding: 20px; background: #0f172a; }
+        .news-tabs { display: flex; gap: 10px; margin: 20px 20px 10px; }
+        .news-tab { padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: #fff; font-weight: 900; cursor: pointer; flex: 1; text-align: center; border: 2px solid transparent; text-transform: uppercase; letter-spacing: 1px; }
+        .news-tab.active { background: #e11d48; border-color: #fbbf24; box-shadow: 0 4px 12px rgba(225,29,72,0.4); }
+        
+        .news-slider { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .news-slider::-webkit-scrollbar { height: 6px; }
+        .news-slider::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 3px; }
+        .news-video-card { flex: 0 0 85%; scroll-snap-align: center; border-radius: 16px; overflow: hidden; border: 3px solid #000; background: #000; position: relative; aspect-ratio: 16/9; }
+        .news-video-card video { width: 100%; height: 100%; object-fit: cover; }
+        .news-video-card::after { content:'PLAY'; position:absolute; bottom:10px; right:10px; background:#fbbf24; color:#000; padding:2px 8px; font-size:10px; font-weight:900; border-radius:4px; pointer-events:none; }
+        
+        .news-article { background: #1a0a2e; border-radius: 16px; padding: 20px; color: #fff; line-height: 1.6; border: 2px solid #334155; }
+        .news-article h2 { color: #fbbf24; margin-bottom: 10px; text-transform: uppercase; font-weight: 900; }
+
+        /* Maintenance Mode */
+        .maint-overlay { position: fixed; inset: 0; z-index: 9999; background: #000; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+        .maint-icon { font-size: 80px; margin-bottom: 20px; animation: giftBob 2s infinite; }
+        .maint-title { font-size: 32px; font-weight: 900; color: #fbbf24; margin-bottom: 10px; }
+        .maint-text { font-size: 16px; opacity: 0.8; max-width: 400px; }
+
+        /* Gem Reward Redesign */
+        .gem-visual { width: 60px; height: 60px; margin: 0 auto; filter: drop-shadow(0 0 15px rgba(251,191,36,0.6)); }
+        .gem-visual svg { width: 100%; height: 100%; }
+
+        /* Music Toggle */
+        .music-toggle { position: fixed; bottom: 16px; left: 16px; z-index: 50; width: 40px; height: 40px; background: rgba(0,0,0,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }
+
+
+        body.comic-event .stars{opacity:.3}
+
+        /* Comic Clash Shop Banner */
+        .cc-banner{position:relative;width:100%;padding:18px;border-radius:20px;overflow:hidden;cursor:pointer;
+            background:linear-gradient(135deg,#1a0a2e 0%,#e11d48 40%,#fbbf24 70%,#0ea5e9 100%);
+            background-size:300% 300%;animation:ccBannerFlow 8s ease-in-out infinite;
+            border:2.5px solid rgba(251,191,36,.7);box-shadow:0 8px 30px rgba(225,29,72,.5);
+            transition:transform .25s,box-shadow .25s}
+        .cc-banner:active{transform:scale(.98)}
+        .cc-banner:hover{box-shadow:0 14px 40px rgba(225,29,72,.6)}
+        @keyframes ccBannerFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .cc-banner-burst{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+        .cc-banner-burst::before{content:'';position:absolute;top:50%;left:50%;width:400px;height:400px;transform:translate(-50%,-50%);
+            background:repeating-conic-gradient(from 0deg,transparent 0deg 10deg,rgba(255,255,255,.08) 10deg 12deg);
+            animation:ccBurst 20s linear infinite}
+        @keyframes ccBurst{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+        .cc-banner-burst::after{content:'POW!';position:absolute;top:8px;right:14px;font-size:11px;font-weight:900;
+            color:#fbbf24;letter-spacing:2px;text-shadow:2px 2px 0 #000,-1px -1px 0 #000;
+            transform:rotate(8deg);animation:ccPow 2s ease-in-out infinite}
+        @keyframes ccPow{0%,100%{transform:rotate(8deg) scale(1)}50%{transform:rotate(12deg) scale(1.15)}}
+        .cc-banner-content{position:relative;z-index:2}
+        .cc-banner-tag{display:inline-block;font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+            background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a0a2e;padding:3px 10px;border-radius:8px;margin-bottom:8px}
+        .cc-banner-title{font-size:22px;font-weight:900;color:#fff;letter-spacing:1px;
+            text-shadow:3px 3px 0 #000,-1px -1px 0 rgba(225,29,72,.8);line-height:1.1;margin-bottom:4px}
+        .cc-banner-sub{font-size:12px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.3;margin-bottom:10px}
+        .cc-banner-rewards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+        .cc-reward-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;
+            background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.25);border-radius:10px;
+            font-size:11px;font-weight:800;color:#fff;backdrop-filter:blur(4px)}
+        .cc-reward-pill .cc-r-icon{font-size:14px}
+        .cc-banner-btn{padding:12px 24px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a0a2e;
+            font-weight:900;font-size:14px;border:none;border-radius:12px;cursor:pointer;
+            letter-spacing:1px;text-transform:uppercase;box-shadow:0 4px 18px rgba(251,191,36,.5);
+            position:relative;overflow:hidden;text-shadow:0 1px 0 rgba(255,255,255,.3);width:100%}
+        .cc-banner-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+            animation:bpShine 2.5s linear infinite;pointer-events:none}
+        .cc-banner-btn:active{transform:scale(.96)}
+        .cc-banner-btn:disabled{opacity:.5;cursor:default}
+        .cc-banner-bought{font-size:12px;font-weight:800;color:#10b981;
+            background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);
+            padding:8px 16px;border-radius:10px;text-align:center;width:100%;box-sizing:border-box}
+
+        /* Daily Box kép stílus */
+        .daily-box-img{width:64px;height:64px;object-fit:contain;
+            filter:drop-shadow(0 0 12px rgba(132,255,0,.6)) drop-shadow(0 0 24px rgba(132,255,0,.3));
+            animation:dailyBoxFloat 2.5s ease-in-out infinite}
+        @keyframes dailyBoxFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5px) rotate(3deg)}}
+
+        /* ── COMIC-HERO BOT SKIN ── */
+        .robot.comic-hero .head{background:linear-gradient(165deg,#e11d48 0%,#be123c 40%,#881337 100%)!important;box-shadow:0 4px 12px rgba(225,29,72,.5)!important;border:2px solid #000!important}
+        .robot.comic-hero .torso{background:linear-gradient(165deg,#1d4ed8 0%,#1e40af 50%,#1e3a8a 100%)!important;box-shadow:0 6px 16px rgba(30,64,175,.5),inset 0 1px 0 rgba(255,255,255,.2)!important;border:2px solid #000!important}
+        .robot.comic-hero .face-screen{background:#0f172a!important;border:1.5px solid #fbbf24!important;border-radius:8px!important}
+        .robot.comic-hero .eye{background:radial-gradient(circle,#fff 30%,#fbbf24 70%,#f59e0b 100%)!important;box-shadow:0 0 10px #fbbf24,0 0 20px rgba(251,191,36,.5)!important}
+        .robot.comic-hero .mouth{background:#fbbf24!important;width:16px!important;height:4px!important;border-radius:2px!important;box-shadow:0 0 6px rgba(251,191,36,.5)!important}
+        .robot.comic-hero .antenna-stick{background:linear-gradient(to bottom,#fbbf24,#f59e0b)!important;border:1px solid #000!important}
+        .robot.comic-hero .antenna-ball{background:radial-gradient(circle,#fef3c7,#fbbf24 60%,#d97706)!important;box-shadow:0 0 14px rgba(251,191,36,.8),0 0 28px rgba(251,191,36,.4)!important;border:1.5px solid #000!important}
+        .robot.comic-hero .arm-l,.robot.comic-hero .arm-r{background:linear-gradient(to bottom,#e11d48,#be123c,#881337)!important;border:1.5px solid #000!important;box-shadow:0 3px 8px rgba(225,29,72,.4)!important}
+        .robot.comic-hero .leg{background:linear-gradient(to bottom,#1d4ed8 0%,#1e40af 70%,#1e3a8a 100%)!important;border:1.5px solid #000!important;box-shadow:0 4px 10px rgba(30,64,175,.4)!important}
+        .robot.comic-hero .shoulder-l,.robot.comic-hero .shoulder-r{background:radial-gradient(circle at 30% 30%,#fbbf24,#f59e0b,#d97706)!important;border:1.5px solid #000!important;box-shadow:0 3px 8px rgba(251,191,36,.4)!important}
+        .robot.comic-hero .ear-l,.robot.comic-hero .ear-r{background:linear-gradient(to right,#e11d48,#be123c)!important;border:1px solid #000!important}
+        .robot.comic-hero .neck{background:linear-gradient(to bottom,#e11d48,#1d4ed8)!important;border:1px solid #000!important}
+        .robot.comic-hero .foot{background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 60%,#d97706 100%)!important;box-shadow:0 3px 8px rgba(251,191,36,.4)!important;border:1.5px solid #000!important}
+        .robot.comic-hero .chest{background:radial-gradient(circle at 50% 50%,#fbbf24 0%,#f59e0b 100%)!important;border:2px solid #000!important;box-shadow:0 0 16px rgba(251,191,36,.6)!important}
+        .robot.comic-hero .heart-icon{display:none!important}
+        .robot.comic-hero .chest::before{content:'⚡';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+        .robot.comic-hero .chest-dots{display:none!important}
+        /* Köpeny effekt */
+        .robot.comic-hero::before{content:'';position:absolute;top:44px;left:50%;transform:translateX(-50%);width:160px;height:200px;
+            background:linear-gradient(180deg,rgba(225,29,72,.9) 0%,rgba(225,29,72,.7) 40%,rgba(225,29,72,.3) 70%,transparent 100%);
+            clip-path:polygon(20% 0%,80% 0%,100% 100%,0% 100%);z-index:-1;
+            animation:comicCapeFlow 3s ease-in-out infinite;border:2px solid rgba(0,0,0,.3);border-top:none}
+        @keyframes comicCapeFlow{0%,100%{clip-path:polygon(20% 0%,80% 0%,100% 100%,0% 100%)}50%{clip-path:polygon(20% 0%,80% 0%,95% 100%,5% 100%)}}
+        /* Akció vonalak */
+        .robot.comic-hero::after{content:'';position:absolute;inset:-20px;
+            background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0deg 15deg,rgba(251,191,36,.08) 15deg 16deg);
+            animation:comicLines 15s linear infinite;pointer-events:none;z-index:-2;border-radius:50%}
+        @keyframes comicLines{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+        /* ── COMIC-VILLAIN BOT SKIN ── */
+        .robot.comic-villain .head{background:linear-gradient(165deg,#7e22ce 0%,#6b21a8 50%,#581c87 100%)!important;border:2px solid #000!important}
+        .robot.comic-villain .torso{background:linear-gradient(165deg,#16a34a 0%,#15803d 50%,#14532d 100%)!important;border:2px solid #000!important}
+        .robot.comic-villain .eye{background:radial-gradient(circle,#fff 10%,#bef264 60%,#84cc16 100%)!important;box-shadow:0 0 12px #bef264!important}
+        .robot.comic-villain .antenna-ball{background:radial-gradient(circle,#d8b4fe,#a855f7 70%,#7e22ce)!important;border:1.5px solid #000!important}
+        .robot.comic-villain .chest::before{content:'💀';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px;z-index:2}
+        .robot.comic-villain .shoulder-l,.robot.comic-villain .shoulder-r{background:#000!important;border:1.5px solid #bef264!important}
+        .robot.comic-villain .foot{background:#000!important;border:1.5px solid #7e22ce!important}
+        .robot.comic-villain::before{content:'';position:absolute;top:40px;left:50%;transform:translateX(-50%);width:180px;height:220px;
+            background:linear-gradient(180deg,rgba(126,34,206,.6) 0%,transparent 100%);clip-path:polygon(10% 0%,90% 0%,100% 100%,0% 100%);
+            z-index:-1;animation:comicCapeFlow 4s ease-in-out infinite alternate}
+        .robot.comic-villain::after{content:'';position:absolute;inset:-30px;
+            background:radial-gradient(circle at 50% 50%,rgba(190,242,100,.05) 0%,transparent 70%);animation:villainGlow 3s infinite alternate}
+        @keyframes villainGlow{from{opacity:.3}to{opacity:.7}}
+
     </style>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -3438,7 +3605,11 @@
     </div>
 
     <!-- Skin választó gomb -->
+    <!-- News gomb -->
+    <div class="news-toggle" id="newsToggle">⚡ NEWS</div>
+
     <div class="skin-toggle" id="skinToggle">🏪<span class="shop-new-badge" id="shopNewBadge" style="display:none">NEW</span></div>
+
 
     <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
@@ -3451,6 +3622,34 @@
             </div>
         </div>
         <div class="shop-greeting" id="shopGreeting"></div>
+
+        <!-- ── COMIC CLASH EVENT BANNER ── -->
+        <div class="shop-section" id="comicClashSection">
+            <div class="cc-banner" id="comicClashBanner">
+                <div class="cc-banner-burst"></div>
+                <div class="cc-banner-content">
+                    <div class="cc-banner-tag">⚡ LIMITÁLT EVENT</div>
+                    <div class="cc-banner-title">COMIC CLASH!</div>
+                    <div class="cc-banner-sub">Szerezd meg az exkluzív Comic Hero botot és 25 bonus gemet! Csak májusban elérhető.</div>
+                    <div class="cc-banner-rewards">
+                        <div class="cc-reward-pill"><span class="cc-r-icon">🦸</span> Comic Hero Bot</div>
+                        <div class="cc-reward-pill"><span class="cc-r-icon">💎</span> +25 Gem</div>
+                    </div>
+                    <button class="cc-banner-btn" id="ccBuyBtn">💎 200 — MEGVESZEM</button>
+                    <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">✅ Comic Clash Pass aktiválva!</div>
+                </div>
+            </div>
+            
+            <!-- Egyedi bot vásárlás (Passon kívül) -->
+            <div id="individualBotSales" style="padding: 10px 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #1a0a2e, #e11d48); border: 2px solid #fbbf24;" onclick="buyEventSkin('comic-hero')">🦸 Comic Hero (150 💎)</button>
+                <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #1a0a2e, #2d1052); border: 2px solid #fbbf24;" onclick="buyEventSkin('comic-villain')">🦹 Comic Villain (150 💎)</button>
+                <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #fbbf24, #b45309); border: 2px solid #fff;" onclick="buyEventSkin('comic-sidekick')">🐾 Sidekick (150 💎)</button>
+            </div>
+        </div>
+
+
+        <hr class="shop-group-divider">
 
         <!-- ── NAPI JUTALMAK — kompakt sor ── -->
         <div class="daily-trio-wrap">
@@ -3467,10 +3666,11 @@
                                         <stop offset="1" stop-color="#b45309"/>
                                     </linearGradient>
                                 </defs>
-                                <path d="M40,6 L72,28 L60,72 L20,72 L8,28 Z" fill="url(#gemGradBig)" stroke="#92400e" stroke-width="1.5"/>
-                                <path d="M40,6 L72,28 L40,36 Z" fill="rgba(255,255,255,.4)"/>
-                                <path d="M8,28 L40,36 L40,6 Z" fill="rgba(255,255,255,.25)"/>
-                                <path d="M20,72 L40,36 L60,72 Z" fill="rgba(0,0,0,.15)"/>
+                                <path d="M40,10 L70,30 L60,70 L20,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#92400e" stroke-width="1.5"/>
+                                <path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.4)"/>
+                                <path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.25)"/>
+                                <path d="M20,70 L40,40 L60,70 Z" fill="rgba(0,0,0,.15)"/>
+
                             </svg>
                         </div>
                     </div>
@@ -3485,44 +3685,17 @@
             <div class="shop-section daily-trio-item" id="shopDailyBoxSection">
                 <div class="loot-card box-card" id="shopBoxCard">
                     <div class="loot-card-visual">
-                        <div class="gift-box tier-daily-box">
-                            <div class="gift-shine"></div>
-                            <div class="gift-body"></div>
-                            <div class="gift-lid"></div>
-                            <div class="gift-ribbon-v"></div>
-                            <div class="gift-ribbon-h"></div>
-                            <div class="gift-bow">
-                                <span class="bow-l"></span>
-                                <span class="bow-r"></span>
-                                <span class="bow-c"></span>
-                            </div>
-                        </div>
+                        <img src="box/box.png" alt="Daily Box" class="daily-box-img">
                     </div>
                     <div class="loot-card-info">
                         <div class="loot-card-title">Daily Box</div>
                         <div class="loot-card-count"><span id="shopBoxCount2">1/1</span> ma</div>
-                        <button class="loot-card-btn" id="shopBoxBtn2">Megnyit</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Daily Pouch -->
-            <div class="shop-section daily-trio-item" id="shopDailyPouchSection">
-                <div class="loot-card pouch-card" id="shopPouchCard">
-                    <div class="loot-card-visual">
-                        <div class="coin-pouch">
-                            <div class="pouch-shine"></div>
-                            <div class="pouch-body"></div>
-                            <div class="pouch-neck"></div>
-                            <div class="pouch-string"></div>
-                            <div class="pouch-gem">💎</div>
+                        <div style="display:flex; gap:6px;">
+                            <button class="loot-card-btn" id="shopBoxBtn2" style="flex:1">Megnyit</button>
+                            <button class="loot-card-btn buy-tag" id="buyBoxBtn" style="flex:1; background: #fbbf24; color: #1e1b4b; border: none; font-size: 11px;">67 💎 Vesz</button>
                         </div>
                     </div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title">Daily Pouch</div>
-                        <div class="loot-card-count"><span id="shopPouchCount">1/1</span> ma</div>
-                        <button class="loot-card-btn free" id="shopPouchFreeBtn" style="margin-top:6px">Ingyen</button>
-                        <button class="loot-card-btn buy" id="shopPouchBuyBtn">💎 60</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -3570,140 +3743,9 @@
             </div>
         </div>
 
-        <!-- Loot Boxes — 3 megvásárolható tier (Common/Legendary/Mythic) -->
-        <div class="shop-section">
-            <div class="box-tier-row">
-                <!-- Common -->
-                <div class="box-tier-card tier-common" data-box="common">
-                    <div class="box-tier-glow"></div>
-                    <div class="box-tier-shine"></div>
-                    <div class="box-tier-icon-wrap">
-                        <div class="gift-box mini tier-common-box">
-                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
-                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
-                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
-                        </div>
-                    </div>
-                    <div class="box-tier-name tier-common-name">Common Box</div>
-                    <div class="box-tier-sub">Korlátlan, item + gem</div>
-                    <button class="box-tier-btn tier-common-btn" data-buy-box="common">💎 100</button>
-                </div>
-                <!-- Legendary -->
-                <div class="box-tier-card tier-legendary" data-box="legendary">
-                    <div class="box-tier-glow"></div>
-                    <div class="box-tier-shine"></div>
-                    <div class="box-tier-icon-wrap">
-                        <div class="gift-box mini tier-legendary-box">
-                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
-                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
-                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
-                        </div>
-                    </div>
-                    <div class="box-tier-name tier-legendary-name">Legendary Box</div>
-                    <div class="box-tier-sub">Garantált rare+, eséllyel legendary</div>
-                    <button class="box-tier-btn tier-legendary-btn" data-buy-box="legendary">💎 300</button>
-                </div>
-                <!-- Mythic -->
-                <div class="box-tier-card tier-mythic" data-box="mythic">
-                    <div class="box-tier-glow"></div>
-                    <div class="box-tier-shine"></div>
-                    <div class="box-tier-mythic-orbit"><span></span><span></span><span></span></div>
-                    <div class="box-tier-icon-wrap">
-                        <div class="gift-box mini tier-mythic-box">
-                            <div class="gift-shine"></div><div class="gift-body"></div><div class="gift-lid"></div>
-                            <div class="gift-ribbon-v"></div><div class="gift-ribbon-h"></div>
-                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
-                        </div>
-                    </div>
-                    <div class="box-tier-name tier-mythic-name">Mythic Box</div>
-                    <div class="box-tier-sub">Legendary garantált · MYTHIC drop esély</div>
-                    <button class="box-tier-btn tier-mythic-btn" data-buy-box="mythic">💎 800</button>
-                </div>
-                <!-- Ultra Box -->
-                <div class="box-tier-card tier-ultra" data-box="ultra">
-                    <div class="box-tier-glow"></div>
-                    <div class="box-tier-shine"></div>
-                    <div class="box-tier-icon-wrap">
-                        <div class="gift-box mini tier-ultra-box">
-                            <div class="gift-shine"></div>
-                            <div class="gift-body">
-                                <div class="ultra-box-face">
-                                    <div class="ultra-box-eyes">
-                                        <div class="ultra-box-eye"></div>
-                                        <div class="ultra-box-eye"></div>
-                                    </div>
-                                    <div class="ultra-box-mouth"></div>
-                                </div>
-                            </div>
-                            <div class="gift-lid"></div>
-                            <div class="gift-ribbon-v"></div>
-                            <div class="gift-ribbon-h"></div>
-                            <div class="gift-bow"><span class="bow-l"></span><span class="bow-r"></span><span class="bow-c"></span></div>
-                        </div>
-                    </div>
-                    <div class="box-tier-name tier-ultra-name">Ultra Box</div>
-                    <div class="box-tier-sub">5 garantált prémium jutalom</div>
-                    <button class="box-tier-btn tier-ultra-btn" data-buy-box="ultra">💎 2000</button>
-                </div>
-            </div>
-        </div>
-
-        <hr class="shop-group-divider">
-
-        <!-- ── BOT PASS ── -->
-        <div class="shop-section">
-            <div class="loot-card-wrap">
-                <div class="bp-banner" id="botpassEnterBtn">
-                    <div class="bp-banner-glow"></div>
-                    <div class="bp-banner-star">🎖️</div>
-                    <div class="bp-banner-content">
-                        <div class="bp-banner-title">Bot Pass <span class="bp-banner-month" id="bpBannerMonth">Április</span></div>
-                        <div class="bp-banner-sub">Havi 60 szintes jutalomsor</div>
-                        <div class="bp-banner-row">
-                            <div class="bp-banner-level">Szint <span id="bpBannerLvl">0</span>/60</div>
-                            <div class="bp-banner-xp"><span id="bpBannerXp">0</span>/100 XP</div>
-                        </div>
-                        <div class="bp-banner-bar-wrap">
-                            <div class="bp-banner-bar" id="bpBannerBar"></div>
-                        </div>
-                        <div class="bp-banner-hint">4 napi küldetés · 60 💎 = szint skip</div>
-                        <div class="bp-banner-cta">Megnyitás →</div>
-                    </div>
-                    <div class="bp-banner-badge" id="bpBannerBadge" style="display:none">!</div>
-                </div>
-            </div>
-        </div>
-
         <hr class="shop-group-divider">
 
         <!-- ── SKINEK & HÁTTÉREK ── -->
-
-        <!-- DailyCard belépő banner — marquee carousel-lel -->
-        <div class="shop-section">
-            <div class="loot-card-wrap">
-                <div class="dc-shop-banner" id="dcShopBanner">
-                    <div class="dc-shop-banner-glow"></div>
-                    <div class="dc-shop-banner-content">
-                        <div class="dc-shop-banner-title">🎴 DailyCard gyűjtemény</div>
-                        <div class="dc-shop-banner-sub">Skin alapú robot kártyák — gyűjtsd be mind!</div>
-                        <div class="dc-shop-banner-row">
-                            <div class="dc-shop-banner-stat">Birtokolt <strong id="dcBannerOwn">0</strong> / <span id="dcBannerTotal">18</span></div>
-                            <div class="dc-shop-banner-stat">PWR <strong id="dcBannerPwr">0</strong></div>
-                        </div>
-                        <div class="dc-shop-banner-bar-wrap">
-                            <div class="dc-shop-banner-bar" id="dcBannerBar"></div>
-                        </div>
-                    </div>
-                    <!-- Marquee carousel -->
-                    <div class="dc-shop-marquee">
-                        <div class="dc-shop-marquee-track" id="dcShopMarqueeTrack"></div>
-                    </div>
-                    <div class="dc-shop-banner-hint">Hosszan nyomd a robotot · vagy koppints ide</div>
-                    <div class="dc-shop-banner-cta">Gyűjtemény megnyitása →</div>
-                    <div class="dc-shop-banner-badge" id="dcShopBadge" style="display:none">!</div>
-                </div>
-            </div>
-        </div>
 
         <div class="shop-section">
             <div class="shop-section-title">🤖 Skin választék</div>
@@ -3771,14 +3813,40 @@
     <!-- Kedvencek panel -->
     <div class="favs-panel" id="favsPanel">
         <div class="favs-card">
-            <div class="favs-title">❤️ Kedvenc üzenetek</div>
+            <div class="favs-title">❤️ Kedvencek</div>
             <div id="favsList"></div>
             <button class="favs-close" id="favsClose">Bezárás</button>
         </div>
     </div>
 
 
+    <!-- Hírek panel -->
+    <div class="news-panel" id="newsPanel">
+        <div class="news-header">
+            <div class="shop-title">⚡ NEWS</div>
+            <button class="shop-close-btn" id="newsClose">✕</button>
+        </div>
+        <div class="news-tabs">
+            <div class="news-tab active" data-tab="latest">Legfrissebb</div>
+            <div class="news-tab" data-tab="info">Daily Bot Info</div>
+        </div>
+        <div class="news-content" id="newsContent">
+            <!-- Tartalom JS-ből -->
+        </div>
+    </div>
+
+    <!-- Maintenance Overlay -->
+    <div id="maintOverlay" class="maint-overlay" style="display:none">
+        <div class="maint-icon">🛠️</div>
+        <div class="maint-title">FEJLESZTÉS ALATT</div>
+        <div class="maint-text">Az app jelenleg karbantartás alatt áll. Hamarosan visszatérünk új funkciókkal!</div>
+    </div>
+
+    <!-- Zene gomb (Hidden by user request, plays on interaction) -->
+    <div class="music-toggle" id="musicToggle" style="display:none">🔇</div>
+
     <div class="cfx" id="cfx"></div>
+
 
     <script>
         // ========== ONBOARDING ==========
@@ -3854,8 +3922,19 @@
         // ========== NAPSZAK HÁTTÉR (AUTOMATIKUS) ==========
         function applyTimeTheme() {
             const activeBg = localStorage.getItem('nu_active_bg') || '';
+            // Comic Clash event — május hónapban (month===4) comic háttér
+            const now = new Date();
+            const isComicEvent = now.getMonth() === 4; // Május = 4
+            document.body.classList.toggle('comic-event', isComicEvent && (activeBg === '' || activeBg === 'napszak'));
             if (activeBg !== '' && activeBg !== 'napszak') {
                 // Ha van egyedi háttér, ne írjuk felül az idővel
+                return;
+            }
+            if (isComicEvent) {
+                // Comic event háttér — a CSS kezeli a body.comic-event osztályon keresztül
+                const tc = document.getElementById('themeColor');
+                tc.content='#1a0a2e';
+                document.documentElement.style.backgroundColor='#1a0a2e';
                 return;
             }
 
@@ -4349,9 +4428,13 @@
         // ========== APP ==========
         const btn=document.getElementById('btn'),bubble=document.getElementById('bubble'),ph=document.getElementById('ph'),cfx=document.getElementById('cfx');
         let done=false;
-        // "Üzenet-nap" = reggel 6-tól számít (nem éjféltől)
-        function msgDay(){const n=new Date();if(n.getHours()<6)n.setDate(n.getDate()-1);n.setHours(6,0,0,0);return n}
+        // "Üzenet-nap" = reggel 5-től számít
+        function msgDay(){const n=new Date();if(n.getHours()<5)n.setDate(n.getDate()-1);n.setHours(5,0,0,0);return n}
+        // "Jutalom-nap" = reggel 8-tól számít
+        function rewardDay(){const n=new Date();if(n.getHours()<8)n.setDate(n.getDate()-1);n.setHours(8,0,0,0);return n}
         const td=()=>msgDay().toDateString();
+        const tr=()=>rewardDay().toDateString();
+
 
         // Egyedi user ID — minden felhasználó más üzenetet kap
         function getUid(){
@@ -4861,8 +4944,9 @@
             if(!seen()){nextMsgEl.textContent='';return}
             const now=new Date();
             const next6=new Date(now);
-            if(now.getHours()>=6)next6.setDate(next6.getDate()+1);
-            next6.setHours(6,0,0,0);
+            if(now.getHours()>=5)next6.setDate(next6.getDate()+1);
+            next6.setHours(5,0,0,0);
+
             const diff=next6-now;
             const h=Math.floor(diff/3600000);
             const m=Math.floor((diff%3600000)/60000);
@@ -5527,7 +5611,8 @@
             }
             return {type:'gems',gems:1500,icon:'💎',name:'1500 gem'};
         }
-        function dsAvailableToday(){return localStorage.getItem('nu_super_day')!==_today()}
+        function dsAvailableToday(){return localStorage.getItem('nu_super_day')!==tr()}
+
         function markDsDay(){localStorage.setItem('nu_super_day',_today())}
 
         // Eszkaláció állapot
@@ -6414,35 +6499,30 @@
             return true;
         }
         function spunToday_gem(){
-            return localStorage.getItem('nu_spin_day')===_today();
+            return localStorage.getItem('nu_spin_day')===tr();
         }
         function markSpunGem(){
-            localStorage.setItem('nu_spin_day',_today());
+            localStorage.setItem('nu_spin_day',tr());
         }
+
         function updateLootBadges(){
             // Shop kártyák
             const sbc=document.getElementById('shopBoxCount2');
             if(sbc)sbc.textContent=boxesRemaining()+'/1';
             const sbBtn=document.getElementById('shopBoxBtn2');
-            if(sbBtn){const left=boxesRemaining();sbBtn.disabled=left===0;sbBtn.textContent=left>0?'Megnyit':'Holnap 6-kor'}
-            const spc=document.getElementById('shopPouchCount');
-            if(spc)spc.textContent=(pouchFreeAvailable()?1:0)+'/1';
-            const spBtnF=document.getElementById('shopPouchFreeBtn');
-            if(spBtnF){const avail=pouchFreeAvailable();spBtnF.disabled=!avail;spBtnF.textContent=avail?'Ingyen':'Felhasználva'}
+            if(sbBtn){const left=boxesRemaining();sbBtn.disabled=left===0;sbBtn.textContent=left>0?'Megnyit':'Holnap 8:00'}
             // Daily Gem
             const sgc=document.getElementById('shopGemCount');
             if(sgc)sgc.textContent=(spunToday_gem()?0:1)+'/1';
             const sgBtn=document.getElementById('shopGemBtn');
-            if(sgBtn){const canClaim=!spunToday_gem();sgBtn.disabled=!canClaim;sgBtn.textContent=canClaim?'Megnyit':'Holnap 6-kor'}
+            if(sgBtn){const canClaim=!spunToday_gem();sgBtn.disabled=!canClaim;sgBtn.textContent=canClaim?'Megnyit':'Holnap 8:00'}
+
 
             // Daily kártyák eltüntetése amikor már nincs használható ma
             const dgSection=document.querySelector('#shopGemBtn')?.closest('.shop-section');
             if(dgSection) dgSection.style.display=spunToday_gem()?'none':'';
             const dbSection=document.getElementById('shopDailyBoxSection');
             if(dbSection) dbSection.style.display=boxesRemaining()<=0?'none':'';
-            // Pouch szekció MINDIG látszik — ha az ingyen elfogyott, még gemért vehető
-            const dpSection=document.getElementById('shopDailyPouchSection');
-            if(dpSection) dpSection.style.display='';
             const dsSection=document.getElementById('shopDailySuperSection');
             if(dsSection) dsSection.style.display=(typeof dsAvailableToday==='function' && !dsAvailableToday())?'none':'';
 
@@ -6450,22 +6530,36 @@
             const newBadge=document.getElementById('shopNewBadge');
             if(newBadge){
                 const dsAvail=(typeof dsAvailableToday==='function')?dsAvailableToday():false;
-                const hasNew=boxesRemaining()>0 || pouchFreeAvailable() || !spunToday_gem() || botpassHasClaimable() || dsAvail || (typeof getNewCardCount==='function' && getNewCardCount()>0);
+                const hasNew=boxesRemaining()>0 || !spunToday_gem() || botpassHasClaimable() || dsAvail;
                 newBadge.style.display=hasNew?'inline-block':'none';
             }
             // Daily Super card állapot
             const dsBtn=document.getElementById('dsCardBtn');
             if(dsBtn){
                 if(typeof dsAvailableToday==='function' && !dsAvailableToday()){
-                    dsBtn.disabled=true;dsBtn.textContent='Holnap 6-kor';
+                    dsBtn.disabled=true;dsBtn.textContent='Holnap 8:00';
                 } else {
+
                     dsBtn.disabled=false;dsBtn.textContent='Megnyit';
                 }
             }
 
+            // Comic Clash Pass állapot frissítése
+            const ccSection=document.getElementById('comicClashSection');
+            const ccBtn=document.getElementById('ccBuyBtn');
+            const ccBought=document.getElementById('ccBoughtLabel');
+            const isMay = new Date().getMonth() === 4;
+            
+            if(ccSection) ccSection.style.display = isMay ? '' : 'none';
+            
+            if(ccBtn && ccBought){
+                const hasCc=localStorage.getItem('nu_comic_clash_bought')==='1';
+                ccBtn.style.display=hasCc?'none':'block';
+                ccBought.style.display=hasCc?'block':'none';
+            }
+
             // Bot Pass banner frissítés
             if(typeof updateBotpassBanner==='function')updateBotpassBanner();
-            if(typeof updateDcNewBubble==='function')updateDcNewBubble();
             if(typeof updateStickerBanner==='function')updateStickerBanner();
         }
 
@@ -7134,7 +7228,8 @@
         setTimeout(checkKovratBonus, 2000);
         document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkKovratBonus,500)});
         // Update modal — verzió újdonságok + 100 gem
-        setTimeout(()=>{try{checkUpdateModal()}catch(_){}}, 1500);
+        // setTimeout(()=>{try{checkUpdateModal()}catch(_){}}, 1500);
+
 
         function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
@@ -7269,7 +7364,7 @@
         function setActiveAura(name){localStorage.setItem('nu_active_aura',name)}
         function applyRobotSkin(){
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain)\b/g,'').trim();
             const skin=getActiveSkin();
             if(skin&&owns(skin)) r.classList.add(skin);
         }
@@ -7333,7 +7428,7 @@
 
             // --- Robot skin felülírás ---
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain)\b/g,'').trim();
             r.classList.add('dragon-week');
 
             // --- Háttér felülírás ---
@@ -7379,7 +7474,7 @@
 
             // Robot skin
             const r=document.getElementById('robot');
-            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event)\b/g,'').trim();
+            r.className=r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero)\b/g,'').trim();
             r.classList.add('tech-event');
 
             // Háttér
@@ -7619,7 +7714,11 @@
                 {id:'super',name:'Super',desc:'Köpenyes szuperhős robot',icon:'🦸',cost:0,tier:'free'},
                 {id:'ultra',name:'Ultra',desc:'Fehér + pink neon csíkok',icon:'⚡',cost:0,tier:'free'},
                 {id:'ultra-black',name:'Ultra Black',desc:'Plus exkluzív — fekete + pink neon',icon:'⚡',cost:0,tier:'free',hide:true},
-                {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true}
+                {id:'dragon',name:'Sárkány',desc:'Jégszárnyas sárkány',icon:'🐉',cost:0,tier:'free',hide:true},
+                {id:'comic-hero',name:'Comic Hero',desc:'Képregényes szuperhős — Comic Clash exkluzív',icon:'🦸',cost:0,tier:'free',hide:true},
+                {id:'comic-villain',name:'Comic Villain',desc:'Gonosz képregénybot — Comic Clash exkluzív',icon:'🦹',cost:0,tier:'free',hide:true},
+                {id:'comic-sidekick',name:'Comic Sidekick',desc:'Hűséges segítőtárs — Comic Clash exkluzív',icon:'🐾',cost:0,tier:'free',hide:true}
+
             ];
             const BGS=[
                 {id:'',name:'Napszak',desc:'Automatikus háttér',icon:'🌅',cost:0,tier:'free'},
@@ -7676,87 +7775,6 @@
                 }
                 auraList.innerHTML = '';
 
-                // Accessory lista (kiegészítők)
-                const accListId='accList';
-                let accList=document.getElementById(accListId);
-                if(!accList){
-                    const accSection=document.createElement('div');
-                    accSection.className='shop-section';
-                    accSection.innerHTML=`<div class="shop-section-title">🎀 Kiegészítők <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból</span></div><div class="shop-grid" id="${accListId}"></div>`;
-                    auraList.parentElement.insertAdjacentElement('afterend',accSection);
-                    accList=document.getElementById(accListId);
-                }
-                accList.innerHTML='';
-                const activeAcc=getActiveAcc();
-                // "Nincs" kiegészítő opció
-                (function(){
-                    const el=document.createElement('div');
-                    const isActive=activeAcc==='';
-                    el.className='shop-item'+(isActive?' active':'');
-                    el.innerHTML=`<div class="shop-item-icon"><span style="font-size:42px">🚫</span></div><div class="shop-item-rarity-label rarity-label-none">NINCS</div><div class="shop-item-name">Nincs</div><div class="shop-item-desc">Vissza az alap robotra</div>${isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
-                    if(!isActive) el.addEventListener('click',()=>{
-                        setActiveAcc('');
-                        clearAcc();
-                        renderShop();
-                    });
-                    accList.appendChild(el);
-                })();
-                ACCESSORIES.slice().sort((a,b)=>(RARITY_ORDER[a.rarity]||0)-(RARITY_ORDER[b.rarity]||0)).forEach(a=>{
-                    const ownedAcc=owns(a.id);
-                    const isActive=activeAcc===a.id;
-                    const el=document.createElement('div');
-                    el.className='shop-item'+(isActive?' active':'')+(!ownedAcc?' locked':'');
-                    const status=isActive?'<div class="shop-item-status equipped">✔ Aktív</div>':ownedAcc?'<div class="shop-item-status owned">Választható</div>':'<div class="shop-item-status lock-tag">👝 Pouch</div>';
-                    const rarityLabel=`<div class="shop-item-rarity-label rarity-label-${a.rarity}">${a.rarity}</div>`;
-                    el.innerHTML=`<div class="shop-item-icon">${accessoryVisualHtml(a)}</div>${rarityLabel}<div class="shop-item-name">${a.name}</div><div class="shop-item-desc">${a.slot==='hat'?'Fejfedő':a.slot==='face'?'Arc kiegészítő':'Nyak kiegészítő'}</div>${status}`;
-                    if(ownedAcc&&!isActive){
-                        el.addEventListener('click',()=>{
-                            clearAcc();
-                            setActiveAcc(a.id);
-                            applyAcc();
-                            renderShop();
-                        });
-                    }
-                    accList.appendChild(el);
-                });
-
-                // Táncok szekció — ACCESSORY után
-                const danceListId='danceList';
-                let danceList=document.getElementById(danceListId);
-                if(!danceList){
-                    const ds=document.createElement('div');
-                    ds.className='shop-section';
-                    ds.innerHTML=`<div class="shop-section-title">💃 Bot Táncok <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:6px">Pouch-ból · Bot Pass</span></div><div class="shop-grid" id="${danceListId}"></div>`;
-                    accList.parentElement.insertAdjacentElement('afterend',ds);
-                    danceList=document.getElementById(danceListId);
-                }
-                danceList.innerHTML='';
-                const activeDance=getActiveDance();
-                // "Nincs" tánc
-                (function(){
-                    const el=document.createElement('div');
-                    const isA=activeDance==='';
-                    el.className='shop-item'+(isA?' active':'');
-                    el.innerHTML=`<div class="shop-item-icon"><span style="font-size:42px">🚫</span></div><div class="shop-item-rarity-label rarity-label-none">NINCS</div><div class="shop-item-name">Nincs</div><div class="shop-item-desc">Alap robot mozgás</div>${isA?'<div class="shop-item-status equipped">✔ Aktív</div>':'<div class="shop-item-status owned">Választható</div>'}`;
-                    if(!isA) el.addEventListener('click',()=>{setActiveDance('');applyDance();renderShop()});
-                    danceList.appendChild(el);
-                })();
-                DANCES.slice().sort((a,b)=>(RARITY_ORDER[a.rarity]||0)-(RARITY_ORDER[b.rarity]||0)).forEach(d=>{
-                    const ownedD=owns(d.id);
-                    const isA=activeDance===d.id;
-                    const el=document.createElement('div');
-                    el.className='shop-item'+(isA?' active':'')+(!ownedD?' locked':'');
-                    const status=isA?'<div class="shop-item-status equipped">✔ Aktív</div>':ownedD?'<div class="shop-item-status owned">Választható</div>':'<div class="shop-item-status lock-tag">👝 Pouch</div>';
-                    const rarityLabel=`<div class="shop-item-rarity-label rarity-label-${d.rarity}">${d.rarity}</div>`;
-                    el.innerHTML=`<div class="shop-item-icon"><span style="font-size:44px">${d.icon}</span></div>${rarityLabel}<div class="shop-item-name">${d.name}</div><div class="shop-item-desc">Robot tánc animáció</div>${status}`;
-                    if(ownedD&&!isA){
-                        el.addEventListener('click',()=>{setActiveDance(d.id);applyDance();renderShop()});
-                    }
-                    danceList.appendChild(el);
-                });
-
-
-
                 [ {id:'skinList',items:SKINS,list:skinList,active:activeSkin,setter:setActiveSkin,applier:applyRobotSkin},
                   {id:'bgList',items:BGS,list:bgList,active:activeBg,setter:setActiveBg,applier:applyCustomBg},
                   {id:'auraList',items:AURAS,list:auraList,active:activeAura,setter:setActiveAura,applier:applyAura}
@@ -7803,6 +7821,29 @@
                         cfg.list.appendChild(el);
                     });
                 });
+
+                // Comic Clash Pass & Individual Bots Logic
+                const isCcBought = localStorage.getItem('nu_comic_clash_bought') === '1';
+                const ccBtn = document.getElementById('ccBuyBtn');
+                const ccLabel = document.getElementById('ccBoughtLabel');
+                if (ccBtn && ccLabel) {
+                    ccBtn.style.display = isCcBought ? 'none' : 'block';
+                    ccLabel.style.display = isCcBought ? 'block' : 'none';
+                }
+                const individualSales = document.getElementById('individualBotSales');
+                if (individualSales) {
+                    const bots = individualSales.querySelectorAll('button');
+                    let allOwned = isCcBought;
+                    bots.forEach(btn => {
+                        const m = btn.getAttribute('onclick')?.match(/'([^']+)'/);
+                        if (m && m[1]) {
+                            const owned = (typeof getOwnedSkinIds === 'function') ? getOwnedSkinIds().includes(m[1]) : false;
+                            btn.style.display = (isCcBought || owned) ? 'none' : 'block';
+                            if (!owned) allOwned = false;
+                        }
+                    });
+                    individualSales.style.display = (isCcBought || allOwned) ? 'none' : 'flex';
+                }
             }
             window.renderShop=renderShop;
             // SKINS és owns globálisan elérhető — kell a játékhoz
@@ -8017,118 +8058,56 @@
                 const owned=getOwned();
                 return allBuyableItems().filter(s=>!owned.includes(s.id)&&ITEM_PRICES[s.id]>=minP&&ITEM_PRICES[s.id]<=maxP);
             }
+            // ====== ÚJ DAILY BOX LOOT RENDSZER ======
+            // 79% gem (5-10), 20% köszönés matrica, 1% bot skin
             function rollNormalPrize(){
-                const zynox=isZynoxActive();
                 const r=Math.random();
-                // Zynox: csökkentett gem tier, megnövelt item esély + nagyobb gemek
-                const gemThreshold=zynox?0.50:0.70;
-                const commonThreshold=zynox?0.85:0.95;
-                if(r<gemThreshold){
-                    const g=pickRandom(zynox?[20,40,60]:[10,20,30]);
+                // 1% bot — nagyon ritka!
+                if(r<0.01){
+                    const owned=getOwned();
+                    const allSkins=window.SKINS||[];
+                    const notOwnedSkins=allSkins.filter(s=>s.id&&!s.hide&&!owned.includes(s.id));
+                    if(notOwnedSkins.length){
+                        const sk=pickRandom(notOwnedSkins);
+                        return {type:'item',id:sk.id,icon:'🤖',name:sk.name+' (Bot!)'};
+                    }
+                    // Ha mindent birtokol, adj 50 gemet
+                    return {type:'gems',gems:50,icon:'💎',name:'50 gem (bot kompenzáció)'};
+                }
+                // 20% sticker (köszönés matrica)
+                if(r<0.21){
+                    if(typeof rollRandomSticker==='function'){
+                        const s=rollRandomSticker();
+                        if(s){
+                            awardSticker(s.id);
+                            return {type:'sticker',id:s.id,icon:s.emoji,name:'"'+s.text+'" matrica',_silent:true};
+                        }
+                    }
+                    // Ha nincs több matrica, adj gemet
+                    const g=pickRandom([8,9,10]);
                     return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
                 }
-                if(r<commonThreshold){
-                    const pool=notOwnedByTier(1,100);
-                    if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name}}
-                    return {type:'gems',gems:zynox?60:30,icon:'💎',name:(zynox?60:30)+' gem'};
-                }
-                const pool=notOwnedByTier(101,250);
-                if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}
-                return {type:'gems',gems:zynox?100:50,icon:'💎',name:(zynox?100:50)+' gem'};
-            }
-            function rollSuperPrize(){
-                const zynox=isZynoxActive();
-                if(Math.random()<(zynox?0.85:0.60)){
-                    const pool=notOwnedByTier(300,9999);
-                    if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}
-                }
-                const g=pickRandom(zynox?[300,500,800]:[150,200,300]);
+                // 79% gem (5-10)
+                const g=pickRandom([5,6,7,8,9,10]);
                 return {type:'gems',gems:g,icon:'💎',name:g+' gem'};
             }
-            // ====== ÚJ BOX LOOT ÚJRABALANSZ ======
-            // notOwnedCardsByRarity(rarity) — DAILY_CARDS pool ami nincs még meg
-            function notOwnedCardsByRarity(){
-                const rs=Array.from(arguments);
-                const owned=(typeof getOwnedCards==='function')?getOwnedCards():[];
-                return DAILY_CARDS.filter(c=>!owned.includes(c.id) && rs.includes(c.rarity));
-            }
-            function rollCardPrize(rs){
-                const pool=DAILY_CARDS.filter(c=>{
-                    const owned=(typeof getOwnedCards==='function')?getOwnedCards():[];
-                    return !owned.includes(c.id) && rs.includes(c.rarity);
-                });
-                if(!pool.length){
-                    // Ha minden kártya megvan ezen ritkaságon, adj duplikátot kompenzáció gemmel
-                    const allOfRarity=DAILY_CARDS.filter(c=>rs.includes(c.rarity));
-                    if(allOfRarity.length){
-                        const c=pickRandom(allOfRarity);
-                        return {type:'card',id:c.id,icon:c.icon,name:c.name+' (duplikát)',_dupe:true,_card:c};
-                    }
-                    return null;
-                }
-                const c=pickRandom(pool);
-                return {type:'card',id:c.id,icon:c.icon,name:c.name+' kártya',_card:c};
-            }
-            // Tier-alapú loot rendszer — gem + skin + bg + aura + card vegyesen
-            function rollTierPrize(tier){
-                const r=Math.random();
-                if(tier==='daily' || tier==='common'){
-                    // Daily/Common: 30% gem, 30% common item, 20% rare item, 15% common kártya, 5% rare kártya
-                    if(r<0.30){const g=pickRandom([10,20,30,40,50]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
-                    if(r<0.60){const pool=notOwnedByTier(1,100); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'✨',name:i.name}}}
-                    if(r<0.80){const pool=notOwnedByTier(101,200); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}}
-                    if(r<0.95){const c=rollCardPrize(['common']); if(c)return c;}
-                    const c=rollCardPrize(['rare']); if(c)return c;
-                    const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}
-                    return {type:'gems',gems:50,icon:'💎',name:'50 gem (kompenzáció)'};
-                }
-                if(tier==='legendary'){
-                    // Legendary: 5% gems, 25% rare item, 35% epic/legendary item, 25% legendary kártya, 10% rare kártya
-                    if(r<0.05){const g=pickRandom([100,150,200]);return {type:'gems',gems:g,icon:'💎',name:g+' gem'}}
-                    if(r<0.30){const pool=notOwnedByTier(101,250); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'⭐',name:i.name}}}
-                    if(r<0.65){const pool=notOwnedByTier(251,500); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🌟',name:i.name}}}
-                    if(r<0.90){const c=rollCardPrize(['legendary']); if(c)return c;}
-                    const c=rollCardPrize(['rare']); if(c)return c;
-                    const pool=notOwnedByTier(501,9999); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:i.name}}
-                    return {type:'gems',gems:200,icon:'💎',name:'200 gem (kompenzáció)'};
-                }
-                if(tier==='mythic'){
-                    // Mythic: 0% gems, 60% mythic skin/bg/aura, 35% mythic kártya, 5% legendary kártya
-                    if(r<0.60){
-                        const pool=notOwnedByTier(501,9999); // legendary+mythic items
-                        if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'💠',name:'⚡ '+i.name}}
-                    }
-                    if(r<0.95){const c=rollCardPrize(['mythic']); if(c){c.name='⚡ '+c.name;return c}}
-                    const c=rollCardPrize(['legendary']); if(c)return c;
-                    // Fallback: legendary item
-                    const pool=notOwnedByTier(401,700); if(pool.length){const i=pickRandom(pool);return {type:'item',id:i.id,icon:i.icon||'🏆',name:'⚡ '+i.name}}
-                    return {type:'gems',gems:500,icon:'💎',name:'500 gem (kompenzáció)'};
-                }
-                return rollNormalPrize();
-            }
+            // rollSuperPrize / rollTierPrize eltávolítva — csak Daily Box van
+            function rollSuperPrize(){ return rollNormalPrize(); }
+            function rollTierPrize(tier){ return rollNormalPrize(); }
+
             function applyPrize(p){
                 if(p.type==='gems') addGems(p.gems);
                 else if(p.type==='item') buyItem(p.id);
-                else if(p.type==='accessory') buyItem(p.id);
-                else if(p.type==='dance') buyItem(p.id);
-                else if(p.type==='card'){
-                    if(typeof awardCard==='function' && p.id){
-                        const res=awardCard(p.id);
-                        // Ha duplikát, a awardCard már jóváírta a kompenzáció gemet
-                        if(res && res.duplicate && res.gems){
-                            // jelöljük a name-en, hogy duplikát+gem
-                            p.name=p.name+' (+'+res.gems+' gem)';
-                        }
-                    }
-                }
+                else if(p.type==='sticker') { /* awardSticker már meghívva rollNormalPrize-ben */ }
             }
 
             window.openDailyBox=function(bypass,tier){
                 tier=tier||'daily';
                 if(!bypass){
                     if(tier==='daily'){
-                        if(!consumeBox()){alert('Ma már nincs több ingyen dobozod. Vegyél egy Common/Legendary/Mythic Box-ot, vagy gyere vissza holnap 6-kor!');return}
+                        if(!consumeBox()){alert('Ma már nincs több ingyen dobozod. Vegyél egyet 67 gemért, vagy gyere vissza holnap 8:00-kor!');return}
                     }
+
                     if(typeof markMission==='function') markMission('box',20);
                 }
                 playSfx('box-open');
@@ -8391,30 +8370,58 @@
             function bindShopLootCards(){
                 const box=document.getElementById('shopBoxBtn2');
                 if(box&&!box._bound){box._bound=true;box.addEventListener('click',()=>window.openDailyBox())}
-                const pf=document.getElementById('shopPouchFreeBtn');
-                if(pf&&!pf._bound){pf._bound=true;pf.addEventListener('click',()=>window.tryOpenFreePouch())}
-                const pb=document.getElementById('shopPouchBuyBtn');
-                if(pb&&!pb._bound){pb._bound=true;pb.addEventListener('click',()=>{if(confirm('Vásárolsz egy Pouch-ot 60 gemért?'))window.buyPouch()})}
                 const bp=document.getElementById('botpassEnterBtn');
                 if(bp&&!bp._bound){bp._bound=true;bp.addEventListener('click',()=>{
                     // Először zárjuk be a shopot, aztán nyissuk a Bot Pass panelt
                     document.getElementById('skinPanel')?.classList.remove('open');
                     setTimeout(()=>openBotpassPanel(),250);
                 })}
-                const dcB=document.getElementById('dcShopBanner');
-                if(dcB&&!dcB._bound){dcB._bound=true;dcB.addEventListener('click',()=>{
-                    document.getElementById('skinPanel')?.classList.remove('open');
-                    setTimeout(()=>openDcPanel(),250);
+                // Comic Clash Pass vásárlás
+                const ccBtn=document.getElementById('ccBuyBtn');
+                if(ccBtn&&!ccBtn._bound){ccBtn._bound=true;ccBtn.addEventListener('click',(e)=>{
+                    e.stopPropagation();
+                    if(localStorage.getItem('nu_comic_clash_bought')==='1'){return}
+                    if(!confirm('Comic Clash Pass megvétele 200 gemért?\n\n🦸 Comic Hero Bot\n💎 +25 Gem\n\nJelenlegi egyenleged: '+getGems()+' gem'))return;
+                    if(!spendGems(200)){alert('Nincs elég gem! (200 gem kell)');return}
+                    // 2 Comic bot unlock + 25 gem
+                    buyItem('comic-hero');
+                    buyItem('comic-villain');
+                    buyItem('comic-sidekick');
+
+                    addGems(25);
+                    localStorage.setItem('nu_comic_clash_bought','1');
+                    try{playSfx('zynox')}catch(_){}
+                    triggerSkinEquipEffect();
+                    alert('🦸 Comic Clash Pass aktiválva!\n\n✅ Comic Hero, Villain & Sidekick feloldva\n💎 +25 gem jóváírva\n\nKeresd meg a shopban a skineket!');
+                    updateGemUI();
+                    updateLootBadges();
+                    if(typeof renderShop==='function')renderShop();
                 })}
-                // Box vásárlások — delegation a [data-buy-box] gombokra
-                document.querySelectorAll('[data-buy-box]').forEach(btn=>{
-                    if(btn._bound) return; btn._bound=true;
-                    btn.addEventListener('click',(e)=>{
+                // Egyedi bot vásárlás
+                window.buyEventSkin = (skinId) => {
+                    const skin = SKINS.find(s=>s.id===skinId);
+                    if(!skin) return;
+                    if(getOwnedSkinIds().includes(skinId)){ alert('Már megvan ez a bot!'); return; }
+                    if(!confirm(skin.icon + ' ' + skin.name + ' megvétele 150 gemért?')) return;
+                    if(!spendGems(150)){ alert('Nincs elég gem! (150 kell)'); return; }
+                    buyItem(skinId);
+                    try{playSfx('skin-equip')}catch(_){}
+                    alert('✅ ' + skin.name + ' feloldva!');
+                    updateGemUI(); updateLootBadges();
+                    if(typeof renderShop==='function') renderShop();
+                };
+                // Daily Box vásárlás (67 gem)
+                const buyBoxBtn = document.getElementById('buyBoxBtn');
+                if(buyBoxBtn && !buyBoxBtn._bound){
+                    buyBoxBtn._bound=true;
+                    buyBoxBtn.addEventListener('click', (e)=>{
                         e.stopPropagation();
-                        const tier=btn.getAttribute('data-buy-box');
-                        if(typeof window.buyBox==='function') window.buyBox(tier);
+                        if(!confirm('Veszel egy Daily Boxot 67 gemért?')) return;
+                        if(!spendGems(67)){ alert('Nincs elég gem! (67 kell)'); return; }
+                        window.openDailyBox();
                     });
-                });
+                }
+
                 // Daily Super gomb
                 const dsBtn=document.getElementById('dsCardBtn');
                 const dsCard=document.getElementById('dsCard');
@@ -8475,8 +8482,9 @@
                     gemDisplay.addEventListener('touchcancel',cancelAdmin);
                 }
                 const bpC=document.getElementById('bpClose');
-                if(bpC&&!bpC._bound){bpC._bound=true;bpC.addEventListener('click',()=>{document.getElementById('botpassPanel').style.display='none';updateLootBadges();})}
+                if(bpC&&!bpC._bound){bpC._bound=true;bpC.addEventListener('click',()=>{document.getElementById('botpassPanel').style.display='none'; if(typeof toggleMainButtons==='function') toggleMainButtons(true); updateLootBadges();})}
                 const bpSkip=document.getElementById('bpSkipBtn');
+
                 if(bpSkip&&!bpSkip._bound){bpSkip._bound=true;bpSkip.addEventListener('click',()=>{playSfx('bp-skip');gemSkipLevel()})}
                 // ZYNOX támogatás input
                 const sInput=document.getElementById('supportInput');
@@ -8535,9 +8543,19 @@
             setTimeout(bindShopLootCards,1500);
         })();
 
-        // ========== BADGE INIT ==========
-        (function(){
-            setTimeout(()=>{updateGemUI();updateLootBadges();},100);
+            // Helper to hide toggles
+            window.toggleMainButtons = (show) => {
+                const ids = ['skinToggle', 'favsToggle', 'newsToggle'];
+                ids.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.toggle('hidden', !show);
+                });
+            };
+
+            // Badges Init
+            (function(){
+                setTimeout(()=>{updateGemUI();updateLootBadges();},100);
+
             setTimeout(()=>{updateGemUI();updateLootBadges();},1000);
             // Visibility change — ha visszaadod az appot frissítsük (új nap lehet)
             document.addEventListener('visibilitychange',()=>{
@@ -8547,6 +8565,27 @@
                     updateLootBadges();
                 }
             });
+        })();
+
+        // ========== NAPI LOGIN JUTALOM (1 Daily Box + 5 gem) ==========
+        (function(){
+            const today=tr();
+            if(localStorage.getItem('nu_daily_login_day')===today) return; // Már kapott ma
+
+            localStorage.setItem('nu_daily_login_day',today);
+            // +5 gem
+            addGems(5);
+            // Ha nincs box ma (első nyitás), adjunk 1 boxot
+            if(boxesRemaining()<=0){
+                localStorage.setItem('nu_box_count','1');
+            }
+            // Kis késleltetéssel üdvözlő popup
+            setTimeout(()=>{
+                try{playSfx('gem-claim')}catch(_){}
+                alert('🎁 Napi belépési jutalom!\n\n📦 1 Daily Box\n💎 +5 gem\n\nNyisd ki a shopban!');
+                updateGemUI();
+                updateLootBadges();
+            },1500);
         })();
 
         // ========== DAILYCARD: HOSSZÚ NYOMÁS A ROBOTRA + DELEGATED ZÁRÓ GOMBOK ==========
@@ -8566,7 +8605,7 @@
                     if(robot) robot.classList.add('robot-pressing');
                     setTimeout(()=>{ if(robot) robot.classList.remove('robot-pressing') },1200);
                     try{playSfx('skin-equip')}catch(_){}
-                    openDcPanel();
+                    // openDcPanel(); // Bug fix: user doesn't want this
                 },650);
             }
             function cancelPress(e){
@@ -8599,169 +8638,299 @@
                 },true);
             }
             // Document-level delegation: záró gombok + kollekció kártya tap + skin equip
-            document.addEventListener('click',(e)=>{
-                const closeId=e.target&&e.target.id;
-                if(closeId==='dcClose'){ closeDcPanel(); return; }
-                if(closeId==='dcPackClose'){
-                    const ov=document.getElementById('dcPackOverlay');
-                    if(ov) ov.classList.remove('open');
-                    if(typeof renderDcPanel==='function' && document.getElementById('dcPanel').classList.contains('open')) renderDcPanel();
+            // Document-level delegation: záró gombok + kollekció kártya tap + skin equip
+            document.addEventListener('click', (e) => {
+                const closeId = e.target && e.target.id;
+                const tab = e.target.closest('.news-tab');
+                if (tab) {
+                    document.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    if (typeof renderNews === 'function') renderNews(tab.dataset.tab);
                     return;
                 }
-                if(closeId==='dcDetailClose'){ closeCardDetail(); return; }
-                if(closeId==='adminClose'){ closeAdminPanel(); return; }
-                if(closeId==='dsClaimBtn'){ dsClaim(); return; }
-                if(closeId==='updateClaimBtn'){ claimUpdateGift(); return; }
+
+                if (closeId === 'dcClose') { closeDcPanel(); return; }
+                if (closeId === 'dcPackClose') {
+                    const ov = document.getElementById('dcPackOverlay');
+                    if (ov) ov.classList.remove('open');
+                    if (typeof renderDcPanel === 'function' && document.getElementById('dcPanel').classList.contains('open')) renderDcPanel();
+                    return;
+                }
+                if (closeId === 'dcDetailClose') { closeCardDetail(); return; }
+                if (closeId === 'adminClose') { closeAdminPanel(); return; }
+                if (closeId === 'newsClose') { document.getElementById('newsPanel').classList.remove('open'); if (typeof toggleMainButtons === 'function') toggleMainButtons(true); return; }
+                if (closeId === 'dsClaimBtn') { dsClaim(); return; }
+                if (closeId === 'updateClaimBtn') { claimUpdateGift(); return; }
+
                 // Robot harc játék
-                if(e.target.closest&&e.target.closest('#gameToggle')){ openGamePanel(); return; }
-                if(closeId==='gameClose' || closeId==='gameArenaExit'){ closeGamePanel(); return; }
-                if(closeId==='gameStartAi'){ startGameVsAi(); return; }
-                if(closeId==='gameCreateRoomBtn'){ createMpRoom(); return; }
-                if(closeId==='gameJoinBtn'){ joinMpRoom(); return; }
-                if(closeId==='gameFireBtn'){ fireAt(true); return; }
-                if(closeId==='gameMoveLeftBtn'){ moveGamePlayer(-1); return; }
-                if(closeId==='gameMoveRightBtn'){ moveGamePlayer(1); return; }
-                if(closeId==='gameAbilityBtn'){ useAbility(); return; }
-                if(closeId==='gameOverBtn'){
-                    document.getElementById('gameOver').style.display='none';
-                    document.getElementById('gameArena').style.display='none';
-                    document.getElementById('gameLobby').style.display='flex';
-                    if(typeof updateGemUI==='function') updateGemUI();
-                    if(typeof updateLootBadges==='function') updateLootBadges();
+                if (e.target.closest && e.target.closest('#gameToggle')) { openGamePanel(); return; }
+                if (closeId === 'gameClose' || closeId === 'gameArenaExit') { closeGamePanel(); return; }
+                if (closeId === 'gameStartAi') { startGameVsAi(); return; }
+                if (closeId === 'gameCreateRoomBtn') { createMpRoom(); return; }
+                if (closeId === 'gameJoinBtn') { joinMpRoom(); return; }
+                if (closeId === 'gameFireBtn') { fireAt(true); return; }
+                if (closeId === 'gameMoveLeftBtn') { moveGamePlayer(-1); return; }
+                if (closeId === 'gameMoveRightBtn') { moveGamePlayer(1); return; }
+                if (closeId === 'gameAbilityBtn') { useAbility(); return; }
+                if (closeId === 'gameOverBtn') {
+                    document.getElementById('gameOver').style.display = 'none';
+                    document.getElementById('gameArena').style.display = 'none';
+                    document.getElementById('gameLobby').style.display = 'flex';
+                    if (typeof updateGemUI === 'function') updateGemUI();
+                    if (typeof updateLootBadges === 'function') updateLootBadges();
                     return;
                 }
-                const skinTile=e.target.closest&&e.target.closest('.game-skin-tile');
-                if(skinTile){
-                    document.querySelectorAll('.game-skin-tile').forEach(t=>t.classList.remove('active'));
+                const skinTile = e.target.closest && e.target.closest('.game-skin-tile');
+                if (skinTile) {
+                    document.querySelectorAll('.game-skin-tile').forEach(t => t.classList.remove('active'));
                     skinTile.classList.add('active');
                     return;
                 }
-                if(closeId==='lootInfoBtn'){ const m=document.getElementById('lootInfoModal'); if(m) m.classList.add('open'); return; }
-                if(closeId==='lootInfoClose'){ const m=document.getElementById('lootInfoModal'); if(m) m.classList.remove('open'); return; }
-                if(closeId==='stickerClose'){ closeStickerPanel(); return; }
-                const stB=e.target.closest&&e.target.closest('#stickerBanner');
-                if(stB){ openStickerPanel(); return; }
-                const stItem=e.target.closest&&e.target.closest('.sticker-item');
-                if(stItem && !stItem.classList.contains('locked')){
-                    const sid=stItem.dataset.stickerId;
-                    if(sid){
+                if (closeId === 'lootInfoBtn') { const m = document.getElementById('lootInfoModal'); if (m) m.classList.add('open'); return; }
+                if (closeId === 'lootInfoClose') { const m = document.getElementById('lootInfoModal'); if (m) m.classList.remove('open'); return; }
+
+                if (closeId === 'newsToggle' || (e.target && e.target.closest && e.target.closest('#newsToggle'))) {
+                    document.getElementById('newsPanel').classList.add('open');
+                    if (typeof renderNews === 'function') renderNews('latest');
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+                    return;
+                }
+                if(closeId==='newsClose'){ 
+                    document.getElementById('newsPanel').classList.remove('open'); 
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(true); 
+                    return; 
+                }
+                if(closeId==='skinToggle' || (e.target && e.target.closest && e.target.closest('#skinToggle'))){
+                    document.getElementById('skinPanel').style.display='flex';
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+                    return;
+                }
+                if(closeId==='skinClose' || closeId==='skinPanel'){
+                    document.getElementById('skinPanel').style.display='none';
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                    return;
+                }
+                if(closeId==='favsToggle' || (e.target && e.target.closest && e.target.closest('#favsToggle'))){
+                    if(typeof openFavsPanel==='function') openFavsPanel();
+                    else document.getElementById('favsPanel').style.display='flex';
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+                    return;
+                }
+                if(closeId==='favsClose' || closeId==='favsPanel'){
+                    if(typeof closeFavsPanel==='function') closeFavsPanel();
+                    else document.getElementById('favsPanel').style.display='none';
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                    return;
+                }
+                if (closeId === 'stickerClose') { closeStickerPanel(); return; }
+
+                // RESTORED LOGIC
+                const stB = e.target.closest && e.target.closest('#stickerBanner');
+                if (stB) { openStickerPanel(); return; }
+                const stItem = e.target.closest && e.target.closest('.sticker-item');
+                if (stItem && !stItem.classList.contains('locked')) {
+                    const sid = stItem.dataset.stickerId;
+                    if (sid) {
                         setActiveStickerId(sid);
                         renderStickerPanel();
                         refreshGreetingNow();
                         updateStickerBanner();
-                        try{playSfx('gem-claim')}catch(_){}
+                        try { playSfx('gem-claim') } catch (_) { }
                     }
                     return;
                 }
-                // Névszín dot koppintás
-                const colorDot=e.target.closest&&e.target.closest('.name-color-dot');
-                if(colorDot&&colorDot.dataset.colorId){
-                    document.querySelectorAll('.name-color-dot').forEach(d=>d.classList.remove('active'));
+                const colorDot = e.target.closest && e.target.closest('.name-color-dot');
+                if (colorDot && colorDot.dataset.colorId) {
+                    document.querySelectorAll('.name-color-dot').forEach(d => d.classList.remove('active'));
                     colorDot.classList.add('active');
-                    localStorage.setItem('nu_name_color',colorDot.dataset.colorId);
-                    if(typeof renderShop==='function')renderShop();
-                    try{playSfx('gem-claim')}catch(_){}
+                    localStorage.setItem('nu_name_color', colorDot.dataset.colorId);
+                    if (typeof renderShop === 'function') renderShop();
+                    try { playSfx('gem-claim') } catch (_) { }
                     return;
                 }
-                // Ultra Box bezárás
-                if(closeId==='ultraBoxCloseBtn'){
-                    const uov=document.getElementById('ultraBoxOverlay');
-                    if(uov)uov.classList.remove('open');
-                    updateGemUI();updateLootBadges();
-                    if(typeof renderShop==='function')renderShop();
+                if (closeId === 'ultraBoxCloseBtn') {
+                    const uov = document.getElementById('ultraBoxOverlay');
+                    if (uov) uov.classList.remove('open');
+                    updateGemUI(); updateLootBadges();
+                    if (typeof renderShop === 'function') renderShop();
                     return;
                 }
-                if(closeId==='dsContinueBtn' || (e.target&&e.target.closest&&e.target.closest('#dsContinueBtn'))){ dsContinue(); return; }
-                // Csillagra koppintás = Tovább lépés (vagy Begyűjtöm ha már nem lehet tovább)
-                const starTap=e.target.closest&&e.target.closest('#dsStarBig');
-                if(starTap && typeof _dsState!=='undefined'){
-                    if(_dsState.canContinue){ dsContinue(); return; }
-                    if(_dsState.pendingPrize){ dsClaim(); return; }
+                if (closeId === 'dsContinueBtn' || (e.target && e.target.closest && e.target.closest('#dsContinueBtn'))) { dsContinue(); return; }
+                const starTap = e.target.closest && e.target.closest('#dsStarBig');
+                if (starTap && typeof _dsState !== 'undefined') {
+                    if (_dsState.canContinue) { dsContinue(); return; }
+                    if (_dsState.pendingPrize) { dsClaim(); return; }
                 }
-                if(closeId==='dsCloseBtn' || (e.target&&e.target.closest&&e.target.closest('#dsCloseBtn'))){
-                    const ov=document.getElementById('dsOverlay');
-                    if(ov){ov.classList.remove('open');ov.style.display='none'}
-                    if(typeof updateLootBadges==='function') updateLootBadges();
-                    if(typeof renderShop==='function') renderShop();
+                if (closeId === 'dsCloseBtn' || (e.target && e.target.closest && e.target.closest('#dsCloseBtn'))) {
+                    const ov = document.getElementById('dsOverlay');
+                    if (ov) { ov.classList.remove('open'); ov.style.display = 'none' }
+                    if (typeof updateLootBadges === 'function') updateLootBadges();
+                    if (typeof renderShop === 'function') renderShop();
                     return;
                 }
-                if(closeId==='adminClear'){
-                    if(confirm('Biztosan törlöd az összes vásárlási logot?')){
+                if (closeId === 'adminClear') {
+                    if (confirm('Biztosan törlöd az összes vásárlási logot?')) {
                         savePurchaseLog([]);
                         renderAdminPanel();
                     }
                     return;
                 }
-                if(closeId==='adminExport'){
-                    const log=getPurchaseLog();
-                    const csv=['Datum,Felhasznalo,UID,Csomag,Gem,Ar,Fizetve'];
-                    log.forEach(r=>{csv.push([new Date(r.ts).toISOString(),r.user,r.uid,r.pack,r.gems,r.price,r.paid?'igen':'nem'].join(','))});
-                    const text=csv.join('\n');
-                    if(navigator.clipboard) navigator.clipboard.writeText(text).then(()=>alert('CSV vágólapra másolva ('+log.length+' sor)'));
+                if (closeId === 'adminExport') {
+                    const log = getPurchaseLog();
+                    const csv = ['Datum,Felhasznalo,UID,Csomag,Gem,Ar,Fizetve'];
+                    log.forEach(r => { csv.push([new Date(r.ts).toISOString(), r.user, r.uid, r.pack, r.gems, r.price, r.paid ? 'igen' : 'nem'].join(',')) });
+                    const text = csv.join('\n');
+                    if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => alert('CSV vágólapra másolva (' + log.length + ' sor)'));
                     else alert(text);
                     return;
                 }
-                const tgl=e.target.closest&&e.target.closest('[data-admin-toggle]');
-                if(tgl){
-                    const i=parseInt(tgl.getAttribute('data-admin-toggle'),10);
-                    const log=getPurchaseLog();
-                    if(log[i]){
-                        const wasPaid=log[i].paid;
-                        log[i].paid=!wasPaid;
-                        // Ha most lett fizetve és még nem írtuk jóvá → hozzáadjuk a gemet
-                        if(!wasPaid && !log[i].credited){
-                            if(typeof addGems==='function') addGems(log[i].gems||0);
-                            log[i].credited=true;
-                            log[i].creditedAt=Date.now();
-                            try{playSfx('gem-claim')}catch(_){}
-                            if(typeof showGemFlash==='function') showGemFlash(log[i].gems||0);
-                            if(typeof updateGemUI==='function') updateGemUI();
-                            if(typeof updateLootBadges==='function') updateLootBadges();
-                            alert('✅ Jóváhagyva — '+log[i].gems+' gem hozzáadva ('+log[i].user+').');
+                const tgl = e.target.closest && e.target.closest('[data-admin-toggle]');
+                if (tgl) {
+                    const i = parseInt(tgl.getAttribute('data-admin-toggle'), 10);
+                    const log = getPurchaseLog();
+                    if (log[i]) {
+                        const wasPaid = log[i].paid;
+                        log[i].paid = !wasPaid;
+                        if (!wasPaid && !log[i].credited) {
+                            if (typeof addGems === 'function') addGems(log[i].gems || 0);
+                            log[i].credited = true;
+                            log[i].creditedAt = Date.now();
+                            try { playSfx('gem-claim') } catch (_) { }
+                            if (typeof showGemFlash === 'function') showGemFlash(log[i].gems || 0);
+                            if (typeof updateGemUI === 'function') updateGemUI();
+                            if (typeof updateLootBadges === 'function') updateLootBadges();
+                            alert('✅ Jóváhagyva — ' + log[i].gems + ' gem hozzáadva (' + log[i].user + ').');
                         }
                         savePurchaseLog(log);
                         renderAdminPanel();
                     }
                     return;
                 }
-                const del=e.target.closest&&e.target.closest('[data-admin-del]');
-                if(del){
-                    const i=parseInt(del.getAttribute('data-admin-del'),10);
-                    if(confirm('Biztosan törlöd ezt a vásárlást?')){
-                        const log=getPurchaseLog();
-                        if(log[i]){log.splice(i,1);savePurchaseLog(log);renderAdminPanel()}
+                const del = e.target.closest && e.target.closest('[data-admin-del]');
+                if (del) {
+                    const i = parseInt(del.getAttribute('data-admin-del'), 10);
+                    if (confirm('Biztosan törlöd ezt a vásárlást?')) {
+                        const log = getPurchaseLog();
+                        if (log[i]) { log.splice(i, 1); savePurchaseLog(log); renderAdminPanel() }
                     }
                     return;
                 }
-                // Skin equip a részletek modalból
-                const equipBtn=e.target.closest&&e.target.closest('[data-equip-skin]');
-                if(equipBtn){
-                    const skin=equipBtn.getAttribute('data-equip-skin');
-                    if(typeof setActiveSkin==='function'){
-                        setActiveSkin(skin||'');
-                        if(typeof applyRobotSkin==='function') applyRobotSkin();
-                        if(typeof triggerSkinEquipEffect==='function') triggerSkinEquipEffect();
-                        if(typeof renderShop==='function') renderShop();
-                        try{playSfx('skin-equip')}catch(_){}
+                const equipBtn = e.target.closest && e.target.closest('[data-equip-skin]');
+                if (equipBtn) {
+                    const skin = equipBtn.getAttribute('data-equip-skin');
+                    if (typeof setActiveSkin === 'function') {
+                        setActiveSkin(skin || '');
+                        if (typeof applyRobotSkin === 'function') applyRobotSkin();
+                        if (typeof triggerSkinEquipEffect === 'function') triggerSkinEquipEffect();
+                        if (typeof renderShop === 'function') renderShop();
+                        try { playSfx('skin-equip') } catch (_) { }
                         closeCardDetail();
                         closeDcPanel();
                     }
                     return;
                 }
-                // Kollekció gridben kártyára tap → részletek
-                const inGrid=e.target.closest&&e.target.closest('#dcGrid .dc-card');
-                if(inGrid && inGrid.dataset.cardId){
+                const inGrid = e.target.closest && e.target.closest('#dcGrid .dc-card');
+                if (inGrid && inGrid.dataset.cardId) {
                     openCardDetail(inGrid.dataset.cardId);
                     return;
                 }
-                // Detail overlay háttér tap (a kártyán/info kártyán kívül) bezárja
-                if(e.target&&e.target.id==='dcDetailOverlay'){ closeCardDetail(); }
+                if (e.target && e.target.id === 'dcDetailOverlay') { closeCardDetail(); }
             });
+
+            window.renderNews = function (tab) {
+                const newsContent = document.getElementById('newsContent');
+                if (!newsContent) return;
+                if (tab === 'latest') {
+                    newsContent.innerHTML = `
+                        <div class="news-slider">
+                            <div class="news-video-card">
+                                <video src="video/event1.mp4" poster="icon/event1.png" loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                            </div>
+                            <div class="news-video-card">
+                                <video src="video/event2.mp4" poster="icon/event2.png" loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                            </div>
+                            <div class="news-video-card">
+                                <video src="video/event3.mp4" poster="icon/event3.png" loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                            </div>
+                        </div>
+                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1e1b4b, #e11d48); border:3px solid #fbbf24;">
+                            <h2 style="font-size:28px; margin-bottom:5px;">🔥 NAGY ESEMÉNY!</h2>
+                            <div id="eventTimer" style="font-size:42px; font-weight:900; color:#fff; text-shadow:0 0 20px #fbbf24; margin:10px 0;">00:00:00</div>
+                            <p style="font-weight:800;">Készülj fel, 21:30-kor indul a Comic Clash finálé!</p>
+                        </div>
+                        <script>
+                            (function(){
+                                function upTimer(){
+                                    const now = new Date();
+                                    const target = new Date();
+                                    target.setHours(21, 30, 0, 0);
+                                    let diff = target - now;
+                                    if(diff < 0) {
+                                        document.getElementById('eventTimer').textContent = "EVENT STARTED!";
+                                        return;
+                                    }
+                                    const h = Math.floor(diff/3600000).toString().padStart(2,'0');
+                                    const m = Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
+                                    const s = Math.floor((diff%60000)/1000).toString().padStart(2,'0');
+                                    document.getElementById('eventTimer').textContent = `${h}:${m}:${s}`;
+                                }
+                                setInterval(upTimer, 1000); upTimer();
+                            })();
+                        <\/script>
+                    `;
+                } else {
+                    newsContent.innerHTML = `
+                        <div class="news-article">
+                            <h2>🤖 Mi az a Daily Bot?</h2>
+                            <p>A Daily Bot az életed napi asszisztense és barátja. Minden nap egy új, motiváló üzenettel köszönt, és segít a pozitív gondolkodásban.</p>
+                            <p>Gyűjts gemeket, nyiss dobozokat, és tedd egyedivé a saját robotodat!</p>
+                        </div>
+                    `;
+                }
+            };
+
+            // Maintenance Mode Check
+            if (localStorage.getItem('nu_maintenance') === '1') {
+                const mo = document.getElementById('maintOverlay');
+                if (mo) mo.style.display = 'flex';
+            }
+
+            // Music Logic
+            const musicToggle = document.getElementById('musicToggle');
+            let musicPlayer = window._musicPlayer;
+            if (!musicPlayer) {
+                musicPlayer = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3');
+                musicPlayer.loop = true;
+                window._musicPlayer = musicPlayer;
+            }
+            
+            // Start music on first interaction
+            const startMusicOnce = () => {
+                if(musicPlayer.paused) {
+                    musicPlayer.play().catch(_=>{});
+                }
+                document.removeEventListener('click', startMusicOnce);
+                document.removeEventListener('touchstart', startMusicOnce);
+            };
+            document.addEventListener('click', startMusicOnce);
+            document.addEventListener('touchstart', startMusicOnce);
+
+            if (musicToggle) {
+                musicToggle.onclick = () => {
+                    if (musicPlayer.paused) {
+                        musicPlayer.play().catch(_ => { }); musicToggle.textContent = '🔊';
+                    } else {
+                        musicPlayer.pause(); musicToggle.textContent = '🔇';
+                    }
+                };
+            }
+
             // Új kártya buborék frissítés
-            setTimeout(updateDcNewBubble,300);
-            setTimeout(updateDcNewBubble,1500);
-            document.addEventListener('visibilitychange',()=>{if(!document.hidden) setTimeout(updateDcNewBubble,200)});
+            setTimeout(() => { if (typeof updateDcNewBubble === 'function') updateDcNewBubble(); }, 300);
+            setTimeout(() => { if (typeof updateDcNewBubble === 'function') updateDcNewBubble(); }, 1500);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden && typeof updateDcNewBubble === 'function') setTimeout(updateDcNewBubble, 200) });
         })();
+
     </script>
 
     <!-- Daily Box overlay -->
@@ -8770,19 +8939,9 @@
         <div class="db-content">
             <div class="db-prompt" id="dbPrompt">Koppints a dobozra!</div>
             <div class="db-box" id="dbBox">
-                <div class="gift-box big">
-                    <div class="gift-shine"></div>
-                    <div class="gift-body"></div>
-                    <div class="gift-lid"></div>
-                    <div class="gift-ribbon-v"></div>
-                    <div class="gift-ribbon-h"></div>
-                    <div class="gift-bow">
-                        <span class="bow-l"></span>
-                        <span class="bow-r"></span>
-                        <span class="bow-c"></span>
-                    </div>
-                </div>
+                <img src="box/box.png" alt="Daily Box" class="daily-box-img big">
             </div>
+
             <div class="db-number" id="dbNumber">1</div>
             <div class="db-prize" id="dbPrize" style="display:none">
                 <div class="db-prize-icon" id="dbPrizeIcon"></div>
