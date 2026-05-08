@@ -1780,7 +1780,7 @@
         @keyframes fly{0%{opacity:1;transform:translate(0,0) rotate(0deg) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(0)}}
 
         /* ===== ONBOARDING ===== */
-        .onboarding{position:fixed;top:-50px;left:-50px;right:-50px;bottom:-50px;z-index:200;display:flex;align-items:center;justify-content:center;padding:70px 70px;background:linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%)}
+        .onboarding{position:fixed;top:-50px;left:-50px;right:-50px;bottom:-50px;z-index:200;display:flex;align-items:center;justify-content:center;padding:70px 70px;background:linear-gradient(135deg,#1a0a2e 0%,#2d1052 20%,#e11d48 45%,#fbbf24 65%,#0ea5e9 85%,#1a0a2e 100%)!important;}
         .onboarding.hidden{display:none}
         .app.pre-reg{display:none}
         .ob-card{
@@ -8858,19 +8858,19 @@
                     newsContent.innerHTML = `
                         <div class="news-slider">
                             <div class="news-video-card" style="pointer-events:none;">
-                                <video src="news videók/ScreenRecording_05-08-2026 18-19-34_1.mov" autoplay loop muted playsinline></video>
+                                <video src="news_videos/ScreenRecording_05-08-2026 18-19-34_1.mov" autoplay loop muted playsinline></video>
                             </div>
                             <div class="news-video-card" style="pointer-events:none;">
-                                <video src="news videók/ScreenRecording_05-08-2026 18-19-53_1.mov" autoplay loop muted playsinline></video>
+                                <video src="news_videos/ScreenRecording_05-08-2026 18-19-53_1.mov" autoplay loop muted playsinline></video>
                             </div>
                             <div class="news-video-card" style="pointer-events:none;">
-                                <video src="news videók/ScreenRecording_05-08-2026 18-20-23_1.mov" autoplay loop muted playsinline></video>
+                                <video src="news_videos/ScreenRecording_05-08-2026 18-20-23_1.mov" autoplay loop muted playsinline></video>
                             </div>
                         </div>
                         <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1e1b4b, #e11d48); border:3px solid #fbbf24;">
                             <h2 style="font-size:28px; margin-bottom:5px;">🔥 NAGY ESEMÉNY!</h2>
                             <div id="eventTimer" style="font-size:42px; font-weight:900; color:#fff; text-shadow:0 0 20px #fbbf24; margin:10px 0;">00:00:00</div>
-                            <p style="font-weight:800;">Készülj fel, 21:30-kor indul a Comic Clash finálé!</p>
+                            <p style="font-weight:800;">Készülj fel, 22:00-kor indul a Comic Clash finálé!</p>
                         </div>
                     `;
                 } else {
@@ -8951,7 +8951,7 @@
                 if (el) {
                     const now = new Date();
                     const target = new Date();
-                    target.setHours(21, 30, 0, 0);
+                    target.setHours(22, 0, 0, 0);
                     let diff = target - now;
                     if (diff < 0) {
                         el.textContent = "EVENT STARTED!";
@@ -8968,7 +8968,7 @@
             const checkEventGate = () => {
                 const now = new Date();
                 const target = new Date();
-                target.setHours(21, 30, 0, 0);
+                target.setHours(22, 0, 0, 0);
                 if (now < target) {
                     const np = document.getElementById('newsPanel');
                     const nc = document.getElementById('newsClose');
