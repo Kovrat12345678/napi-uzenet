@@ -3264,6 +3264,19 @@
 
         /* ============== COMIC CLASH EVENT ============== */
         /* Comic háttér overlay — féltonális minta + akció vonalak (csak májusban) */
+        body.comic-event{background:linear-gradient(135deg,#1a0a2e 0%,#2d1052 20%,#e11d48 45%,#fbbf24 65%,#0ea5e9 85%,#1a0a2e 100%)!important;background-attachment:fixed!important}
+        body.comic-event .stars{opacity:.3}
+        
+        /* Superhero Aura Style */
+        .aura-superhero::after {
+            content: ''; position: absolute; inset: -30px;
+            border-radius: 50%; border: 4px solid #fbbf24;
+            box-shadow: 0 0 40px #fbbf24, inset 0 0 40px #0ea5e9;
+            animation: auraPulse 1s ease-in-out infinite alternate;
+            z-index: -1; opacity: 0.8;
+        }
+        @keyframes auraPulse { from { transform: scale(0.9); opacity: 0.5; } to { transform: scale(1.1); opacity: 0.9; } }
+
         body.comic-event::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
             background:
                 radial-gradient(circle, rgba(0,0,0,.18) 1px, transparent 1px),
@@ -7748,7 +7761,8 @@
                 {id:'aura-diamond',name:'Gyémánt',desc:'Szikrázó jégkristály',icon:'💎',cost:0,tier:'free'},
                 {id:'aura-celestial',name:'Celestial',desc:'Égi szent ragyogás',icon:'⭐',cost:0,tier:'free'},
                 {id:'aura-cosmic',name:'Cosmic',desc:'Űri energia örvény',icon:'🌀',cost:0,tier:'free'},
-                {id:'aura-prism',name:'Prism',desc:'Prizma szivárvány',icon:'🔮',cost:0,tier:'free'}
+                {id:'aura-prism',name:'Prism',desc:'Prizma szivárvány',icon:'🔮',cost:0,tier:'free'},
+                {id:'aura-superhero',name:'Super Aura',desc:'Szuperhős energia',icon:'⚡',cost:0,tier:'event'}
             ];
 
             function renderShop(){
@@ -8387,6 +8401,7 @@
                     buyItem('comic-hero');
                     buyItem('comic-villain');
                     buyItem('comic-sidekick');
+                    buyItem('aura-superhero');
 
                     addGems(25);
                     localStorage.setItem('nu_comic_clash_bought','1');
@@ -8858,25 +8873,6 @@
                             <div id="eventTimer" style="font-size:42px; font-weight:900; color:#fff; text-shadow:0 0 20px #fbbf24; margin:10px 0;">00:00:00</div>
                             <p style="font-weight:800;">Készülj fel, 21:30-kor indul a Comic Clash finálé!</p>
                         </div>
-                        <script>
-                            (function(){
-                                function upTimer(){
-                                    const now = new Date();
-                                    const target = new Date();
-                                    target.setHours(21, 30, 0, 0);
-                                    let diff = target - now;
-                                    if(diff < 0) {
-                                        document.getElementById('eventTimer').textContent = "EVENT STARTED!";
-                                        return;
-                                    }
-                                    const h = Math.floor(diff/3600000).toString().padStart(2,'0');
-                                    const m = Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
-                                    const s = Math.floor((diff%60000)/1000).toString().padStart(2,'0');
-                                    document.getElementById('eventTimer').textContent = `${h}:${m}:${s}`;
-                                }
-                                setInterval(upTimer, 1000); upTimer();
-                            })();
-                        <\/script>
                     `;
                 } else {
                     newsContent.innerHTML = `
@@ -8929,6 +8925,48 @@
             setTimeout(() => { if (typeof updateDcNewBubble === 'function') updateDcNewBubble(); }, 300);
             setTimeout(() => { if (typeof updateDcNewBubble === 'function') updateDcNewBubble(); }, 1500);
             document.addEventListener('visibilitychange', () => { if (!document.hidden && typeof updateDcNewBubble === 'function') setTimeout(updateDcNewBubble, 200) });
+
+            // Global Event Timer for NEWS Panel
+            setInterval(() => {
+                const el = document.getElementById('eventTimer');
+                if (el) {
+                    const now = new Date();
+                    const target = new Date();
+                    target.setHours(21, 30, 0, 0);
+                    let diff = target - now;
+                    if (diff < 0) {
+                        el.textContent = "EVENT STARTED!";
+                    } else {
+                        const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+                        const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                        const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                        el.textContent = `${h}:${m}:${s}`;
+                    }
+                }
+            }, 1000);
+
+            // Gatekeeping Logic (Lock until 21:30)
+            const checkEventGate = () => {
+                const now = new Date();
+                const target = new Date();
+                target.setHours(21, 30, 0, 0);
+                if (now < target) {
+                    const np = document.getElementById('newsPanel');
+                    const nc = document.getElementById('newsClose');
+                    if (np) {
+                        np.classList.add('open');
+                        if (typeof renderNews === 'function') renderNews('latest');
+                    }
+                    if (nc) nc.style.display = 'none';
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+                    
+                    // Prevent closing via ESC or background
+                    window.openNewsPanel = () => { np.classList.add('open'); };
+                    window.closeNewsPanel = () => { }; 
+                }
+            };
+            setTimeout(checkEventGate, 500);
+            setInterval(checkEventGate, 30000); // Check every 30s
         })();
 
     </script>
