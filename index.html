@@ -8859,13 +8859,13 @@
                     newsContent.innerHTML = `
                         <div class="news-slider">
                             <div class="news-video-card">
-                                <video src="news videók/ScreenRecording_05-08-2026 18-19-34_1.mov" loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                                <video src="news videók/ScreenRecording_05-08-2026 18-19-34_1.mov" autoplay loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
                             </div>
                             <div class="news-video-card">
-                                <video src="news videók/ScreenRecording_05-08-2026 18-19-53_1.mov" loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                                <video src="news videók/ScreenRecording_05-08-2026 18-19-53_1.mov" autoplay loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
                             </div>
                             <div class="news-video-card">
-                                <video src="news videók/ScreenRecording_05-08-2026 18-20-23_1.mov" loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
+                                <video src="news videók/ScreenRecording_05-08-2026 18-20-23_1.mov" autoplay loop muted playsinline onclick="this.paused?this.play():this.pause()"></video>
                             </div>
                         </div>
                         <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1e1b4b, #e11d48); border:3px solid #fbbf24;">
@@ -8891,20 +8891,40 @@
                 if (mo) mo.style.display = 'flex';
             }
 
-            // Music Logic
-            const musicToggle = document.getElementById('musicToggle');
-            let musicPlayer = window._musicPlayer;
-            if (!musicPlayer) {
-                musicPlayer = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3');
-                musicPlayer.loop = true;
-                window._musicPlayer = musicPlayer;
+            // Music Logic with AudioContext (Avoids Dynamic Island on iOS)
+            let audioCtx = null;
+            let audioBuffer = null;
+            let audioSource = null;
+
+            async function initMusic() {
+                if (audioCtx) {
+                    if(audioCtx.state === 'suspended') audioCtx.resume();
+                    return;
+                }
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                audioCtx = new AudioContext();
+                try {
+                    const response = await fetch('event zene/DailyBot – Pulse Event Theme.mp3');
+                    const arrayBuffer = await response.arrayBuffer();
+                    audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                    startLoop();
+                } catch (e) { console.error("Music load error:", e); }
+            }
+
+            function startLoop() {
+                if (!audioBuffer || !audioCtx) return;
+                if (audioSource) try { audioSource.stop(); } catch(e) {}
+                audioSource = audioCtx.createBufferSource();
+                audioSource.buffer = audioBuffer;
+                audioSource.loop = true;
+                audioSource.connect(audioCtx.destination);
+                audioSource.start(0);
             }
             
             // Start music on first interaction
             const startMusicOnce = () => {
-                if(musicPlayer.paused) {
-                    musicPlayer.play().catch(_=>{});
-                }
+                initMusic();
                 document.removeEventListener('click', startMusicOnce);
                 document.removeEventListener('touchstart', startMusicOnce);
             };
