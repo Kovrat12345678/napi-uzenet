@@ -1,6 +1,6 @@
 # DailyBot — Napi Uzenet
 
-Napi gondolat alkalmazas — egy aranyos CSS robot minden nap mas, elmelkedo uzenetet kuld neked. TopJoy stilusu, rovid, koltoei gondolatok. Plusz: gem-gazdasag, loot box-ok, havi Bot Pass, jatek mod, es meg sok mas.
+Napi gondolat alkalmazas — egy aranyos CSS robot minden nap mas, elmelkedo uzenetet kuld neked. TopJoy stilusu, rovid, koltoei gondolatok. Plusz: gem-gazdasag, loot box-ok, havi Bot Pass, es meg sok mas.
 
 **Link**: https://kovrat12345678.github.io/napi-uzenet/
 
@@ -57,8 +57,11 @@ Az appban **gem** a penznem. 50 gemet kapsz az indulaskor.
 | 💎 **Daily Gem** | 1/nap | 10-150 gem (ritkan 150) |
 | 🎁 **DailyBox** | 1/nap | Random: gem vagy premium targy (skin/hatter/aura/card/sticker) |
 | 👝 **Daily Pouch** | 1 ingyen/nap + 60 gemert tobb | Random kiegeszito, tanc, sticker, kártya |
+| ✨ **Ultra Box** | Vasarlhato, 2000 gem | 5 garantalt premium jutalom egyszerre |
 
 **DailyBox "lucky" mechanika**: 25% esellyel a doboz aljan **2**-es szam jelenik meg → 1 normal + 1 SUPER nyeremeny (dragabb item vagy nagyobb gem).
+
+**Ultra Box**: Feher+pink Ultra-stilusu doboz szemekkel es szajjal. 5 nyeremenyt fed fel sorban — kozottuk garantalt mythic/legendary targy. A masodik es negyedik slot premium item vagy nagy gem.
 
 ### Shop vasarlas
 
@@ -130,6 +133,8 @@ Epic: Aloha, Ciao, Ola, Annyeong, Csokolom, Beep boop
 Legendas: Kon'nichiwa, Greetings, Udv kalandor, Az ero veled, Live long  
 Mitikus: Cosmic Hi, Galaxy salute, Quantum hello
 
+**Névváltoztatás és névszín** (matricapanelből): 💎 60 gemért megváltoztathatod a beceneved és 7 szín közül választhatsz a nevednek (lila, pink, cyan, arany, zöld, piros, fehér).
+
 ## DailyCard Gyujtemeny
 
 18 egyedi kártya, minden skinhez egy. **Hosszan nyomva** a robotot megnyilik a gyűjtemény.
@@ -193,32 +198,6 @@ Plus megvásárlásakor azonnal claim-elhető mind a 60 Plus szint.
 - Aktualis szint alatt "TE VAGY ITT" pulzalo marker
 - Claim-kor 18 konfetti reszecske szétrepül diadalmas C-E-G-C akkord hanggal
 
-## Robot Battle Jatek
-
-A robot alatt **⚔️ Harc** gomb (a fokepernyoen, a robot alatt kozvetlenul).
-
-### AI ellen
-
-- Valassz skint (csak amit te is bírsz)
-- Vertikalis arena: ellenfél felul, te alul
-- ◄ ► mozgas, lö gomb, kepesseg gomb (skin-specifikus, cooldown-nal)
-- HP rendszer: 3 elet
-- **Nehezsegi szint**: az AI gyorsul ahogy csokken az eleted / HP-ja
-- Minden skinnek van egyedi kepessege:
-  - Tulipan: pajzs 10 mp-ig · Sakura: gyogyitas · Diamond/Super: pajzs
-  - Fire/Graffiti: dupla lövés · Gamer/Ultra/Rainbow: harom lövés
-  - Phoenix: feleel halal utan · **Glass/Stealth: lathatatlanság** (MP-ban is valóban eltünsz)
-
-### Ket szemely (cross-device — backend nelkul!)
-
-**PeerJS WebRTC** alapu — nincs szuker, nincs deploy, azonnal mukodik.
-
-1. **1. szemely** → "Uj szoba letrehozasa" → kap egy 5-jegyu kodot
-2. **2. szemely** → beirja a kodot → "Csatlakozas"
-3. Kozvetlen P2P kapcsolat epul ki — jatek indul
-
-Nincs szukseg Vercel-re, adatbazisra vagy barmilyen szerverre.
-
 ## Hang rendszer
 
 Web Audio API szintetizalt hangok:
@@ -264,7 +243,6 @@ A bolt headerben a 🔄 gombbal exportalhatod az adataidat. Mindent tartalmaz: s
 4. Hasznaald a **Bot Pass**-t a gyüjteshez (napi 140 BP-vel haladsz)
 5. Gyüjts ossze skineket, hattereket, aurákat, kiegeszítőket, tancokat, matricakat, kártyákat
 6. A 🔄 gombbal szinkronizald mas eszkozre
-7. Az ⚔️ gombbal jatssz AI ellen vagy csatlakoztasd a barátod a kóddal
 
 ## Shop ikon piros NEW buborek
 
@@ -272,4 +250,4 @@ Ha napi loot elerheto (box, pouch, gem, vagy BP claim-re varo szint), a 🏪 gom
 
 ## Tech Stack
 
-Egyetlen `index.html` fajl, beagyazott CSS + vanilla JavaScript. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (**v52**) kezeli a cache-t es ertesiteseket. Automatikus frissites-detektaias: uj verzio elerheto segekór az app ujratolt.
+Egyetlen `index.html` fajl, beagyazott CSS + vanilla JavaScript. Nincsenek fuggosegek. PWA-kent mukodik offline is. Service Worker (**v54**) kezeli a cache-t es ertesiteseket. Automatikus frissites-detektaias: uj verzio elerheto segekór az app ujratolt. A shop 2 oszlopos grid elrendezest hasznal.

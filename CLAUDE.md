@@ -56,7 +56,8 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
 - `nu_botpass_plus_YYYY-MM` (Plus aktival adott honapra)
 - `nu_mission_open_day`, `nu_mission_box_day`, `nu_mission_pouch_day`, `nu_mission_gem_day`, `nu_mission_bonus_day` (napi kuldetesek teljesitese)
 
-**Jatek:**
+**Kinezet extras:**
+- `nu_name_color` — aktiv névszín ID (default/pink/cyan/gold/green/red/white)
 
 ### Onboarding (regisztracio)
 
@@ -91,6 +92,20 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
   - 2-es: 1 normal + 1 SUPER nyeremeny (dragabb item / sok gem)
 - Loot tablak: `rollNormalPrize()` / `rollSuperPrize()` (Zynox szorzokkal)
 
+### Ultra Box (2000 gem)
+
+- 5 garantalt premium jutalom egyszerre — `openUltraBox()` / `rollUltraPrize(idx)`
+- Doboz vizual: fehér+pink Ultra-stilusu, arca van (szemek + szaj CSS-bol)
+- Animalt kártyaborder: `conic-gradient` + `dcMythicSpin` animacio
+- Full-screen overlay (`#ultraBoxOverlay`): 5 `ultra-prize-slot` egyenkent felfedodik 550ms kihagyassal
+- Jutalmazas logika:
+  - Slot 0, 4: 400-1000 gem
+  - Slot 2: garantalt mythic/legendary item (ha nincs ilyen birtokban)
+  - Slot 1, 3: premium item (epic+) vagy 250-400 gem
+  - Fallback: gem, ha minden premium item mar megvan
+- SFX: slot 2-n `zynox`, paros slotokon `skin-equip`, tobbi `gem-claim`
+- `window.buyBox('ultra')` delegalja a `.box-tier-btn[data-buy-box="ultra"]` gomb kattintasat
+
 ### DailyPouch (napi 1 + 60 gemert)
 
 - `pouchFreeAvailable()` — mai ingyenes elerheto-e
@@ -106,6 +121,8 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
 
 ### Bolt (Skin Shop)
 
+- **Elrendezés**: 2 oszlopos CSS grid (`.shop-grid`) — `grid-template-columns: repeat(2, 1fr)`, 12px gap, nincs horizontal scroll
+  - Skinek, hátterek, aurák, kiegészítők, tancok, matricák mind grid-ben
 - **Tarsyra sorolas:**
   - SKINS, BGS, AURAS, ACCESSORIES, DANCES tombok
   - rarity rendszer: common / rare / epic / legendary / mythic (ar alapjan, `getRarity(id)`)
@@ -247,6 +264,13 @@ Mythic (3): Cosmic Hi, Galaxy salute, Quantum hello
 - `sticker-hello` mindig megvan (default)
 - Pouch-bol szerezhetok
 
+**Névváltoztatás a matricapanelből (60 gem):**
+- `openStickerPanel()` megjeleníti a `sticker-name-section`-t a panel tetején
+- "💎 60 · Átnevez" gomb → `prompt()` → `nu_name` felülírása, `renderShop()` újratölt
+- Ha a felhasználó megszakítja a `prompt()`-ot → gem visszatérítés (`addGems(60)`)
+- 7 választható névszín: default (lila), pink, cyan, gold, green, red, white → `nu_name_color` localStorage
+- Színpontok (`.name-color-dot`): aktív dot `border-color:#fff`, `transform:scale(1.2)`, kattintásra `renderShop()` frissít
+
 ### Daily Deal
 
 - Shop legaljan egy random item 25% kedvezmennyel
@@ -337,64 +361,6 @@ Elso user gesture (click/touch) utan indul. Nem kikapcsólhato. Master gain 0.04
 - Tap = tuzokadas (`window._dragonWeekActive`)
 - Ikon override es sarkany zene TOROLVE
 
-## Robot Battle jatek
-
-A robot alatt "⚔️ Harc" gomb (inline, `.game-toggle`, nem fixed pozicio) → `#gamePanel`.
-
-### AI mod
-
-- `startGameVsAi()` — skin valaszto, majd harc indul
-- Vertikalis arena: ellenfél felül, te alul
-- ◄ ► gombok mozgashoz (`GAME_PLAYER_STEP = 40px`)
-- HP rendszer: 3 elet mindket félnek
-- Lövedekek: CSS animacio, 700ms repulesi ido
-- **Adaptiv AI nehezseg** (`scheduleAiAction`): alap delay 1000-1800ms, gyorsul ha jatekos/AI HP csokkent; 72% lov, 20% mozog, 8% mozog+lov; alacsony HP-n dupla lövés
-- Kepesseg gomb: skin-specifikus különleges (cooldown-nal)
-
-### Képességek (GAME_ABILITIES)
-
-| Skin | Kepesseg | CD |
-|------|----------|----|
-| Tulipan | Tulipan pancel (10s, ved) | 14s |
-| Sakura | Cseresznye gyogyitas | 14s |
-| Graffiti | Spray sorozat (multi) | 8s |
-| Galaxy | Csillagrobbantas | 8s |
-| Stealth/Glass | Lathatatlanság (5s) | 10s |
-| Fire | Tuzgolyo 2x | 8s |
-| Gamer | Rapid fire 3x | 8s |
-| Golden | Arany csapas | 8s |
-| Diamond/Super | Jegpajzs/Hos pajzs (6s) | 12s |
-| Horse | Lopatko | 9s |
-| Rainbow | Szivarv any tuz 3x | 10s |
-| Ultra | EMP villam 3x | 10s |
-| Prism | Prizma sugar | 9s |
-| Phoenix | Ujjaszuletes (revive) | 18s |
-| Aurora | Aurora pajzs (7s) | 12s |
-| Alap | Energia lökes | 7s |
-
-### Multiplayer (cross-device)
-
-**PeerJS WebRTC alapu — nincs szerver, nincs deploy, azonnal mukodik.**
-
-PeerJS CDN betoltve a `<head>`-ben: `https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js`
-
-State vars: `let _gamePeer=null; let _mpConn=null;`
-
-**Hogyan jatszik ket szemely:**
-- **1. jatekos**: Skin valaszt → "Uj szoba letrehozasa" → kap egy 5-jegyű kodot
-- **2. jatekos**: Beirja a kodot → "🎮 Csatlakozas" gomb
-- Kozvetlen P2P kapcsolat epul ki (`new Peer(code)` + `peer.connect(code)`)
-
-**P2P esemeny protokoll** (`sendMpEvent` / `handleMpData`):
-- `_hostInfo` / `_guestInfo`: jatekos adatok cserete
-- `_start`: jatek inditas
-- `fire` / `move`: lovés / mozgas szinkron
-- `_hit`: jatekos jelenti a sajat találatát az ellenfélnek
-- `_win`: nyertes jelzi a vegeredmenyt
-- `_invisible` / `_visible`: Stealth/Glass lahatatlansag szinkron (ellenfélnél `opacity:0/1`)
-
-`stopGame()` hivja `_mpDestroyPeer()`-t a PeerJS cleanup-hoz.
-
 ## Főképernyő UI
 
 - **Robot** (kozepen)
@@ -403,23 +369,20 @@ State vars: `let _gamePeer=null; let _mpConn=null;`
   - **NEW piros buborek** (`shopNewBadge`) — ha bármelyik napi loot elérheto
 - **Kedvencek gomb** (❤️, bal felső)
 - **Szinkronizalas gomb** (🔄, shop headerben)
-- **Robot Harc gomb** (⚔️ Harc, inline pill gomb a robot alatt, `.game-toggle`, nem fixed pozicio)
 
 ## Shop szekciók sorrendje
 
-1. **💎 Daily Gem**
-2. **🎁 DailyBox** (card)
-3. **👝 Daily Pouch** (card)
-4. **🎖️ Bot Pass** (banner → BP panel)
-5. **🤖 Skin valasztek** (horizontal scroll, mini robot mutatva)
-6. **🖼️ Hátterek**
-7. **🔮 Aurak**
-8. **🎀 Kiegeszítők** (Pouch-bol szerezheto)
-9. **💃 Bot Táncok** (Pouch-bol + Bot Pass)
-10. **🎴 Matricak** (Pouch-bol szerezheto)
-11. **🃏 DailyCard gyujtemeny** (banner)
-12. **🔥 Mai akcio** (Daily Deal)
-13. **📮 Tamogatas** (ZYNOX input — LEGALUL)
+1. **💎 Daily Gem** + **🎁 DailyBox** + **👝 Daily Pouch** (3 kártya egy sorban)
+2. **🎖️ Bot Pass** (banner → BP panel)
+3. **🤖 Skin valasztek** (2 oszlopos grid, mini robot mutatva)
+4. **🖼️ Hátterek** (2 oszlopos grid)
+5. **🔮 Aurak** (2 oszlopos grid)
+6. **🎀 Kiegeszítők** (2 oszlopos grid, Pouch-bol szerezheto)
+7. **💃 Bot Táncok** (2 oszlopos grid, Pouch-bol + Bot Pass)
+8. **🎴 Matricak** (2 oszlopos grid, Pouch-bol szerezheto)
+9. **🃏 DailyCard gyujtemeny** (banner)
+10. **🔥 Mai akcio** (Daily Deal)
+11. **📮 Tamogatas** (ZYNOX input — LEGALUL)
 
 ## Szinkronizalas (export/import)
 
@@ -440,10 +403,14 @@ State vars: `let _gamePeer=null; let _mpConn=null;`
 
 ## Értesítések
 
-- **Service Worker** (`sw.js`, cache **v52**)
+- **Service Worker** (`sw.js`, cache **v54**)
 - SW ütemez ertesiteseket: reggel 6
 - `periodicSync` (Android Chrome): hatter emlekeztetok
 - SW frissites-detektales: `reg.update()` + `skipWaiting` + `controllerchange` → `location.reload()`
+
+## Alkalmazás háttérzene (iOS AudioContext fix)
+
+Az AudioContext (`window._techEventAudioCtx`) globálisan tárolva. iOS WebKit egyes UI-interakciók (pl. `confirm()`, `prompt()`, modal) közben suspendálja a contextet. Fix: `click` és `touchstart` eseményre perzisztens (nem `once:true`) listener hívja az `ac.resume()`-ot. Ez biztosítja, hogy vásárlás után sem marad el a zene.
 
 ## Eltávolított funkciók
 
@@ -451,13 +418,14 @@ State vars: `let _gamePeer=null; let _mpConn=null;`
 - ~~Loot Info gomb~~ — torolve a shopbol
 - ~~Sarkany zene~~ — lecserelve az app ambient zenere
 - ~~Dragon ikon override~~ — torolve
+- ~~Robot Battle jatek~~ — torolve (⚔️ Harc gomb, gamePanel, AI mod, PeerJS multiplayer, GAME_ABILITIES)
 
 ## File Structure
 
 ```
 index.html          — teljes alkalmazas (CSS + JS beagyazva)
 manifest.json       — PWA manifest (standalone)
-sw.js               — Service Worker (cache v52 + ertesitesek + skipWaiting)
+sw.js               — Service Worker (cache v54 + ertesitesek + skipWaiting)
 CLAUDE.md           — fejlesztoi utmutato Claude Code szamara
 README.md           — felhasználói dokumentacio
 bg-tulip.png        — Tavaszi Ret hatter kep

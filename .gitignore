@@ -1,0 +1,7 @@
+.playwright-mcp/
+.gemini/
+node_modules/
+xampp/
+php/
+apache/
+mysql/
