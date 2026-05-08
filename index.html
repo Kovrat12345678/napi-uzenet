@@ -8905,7 +8905,7 @@
                 if (!AudioContext) return;
                 audioCtx = new AudioContext();
                 try {
-                    const response = await fetch('event zene/DailyBot – Pulse Event Theme.mp3');
+                    const response = await fetch('event zene/comic_event_music.mp3');
                     const arrayBuffer = await response.arrayBuffer();
                     audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
                     startLoop();
