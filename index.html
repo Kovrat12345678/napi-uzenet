@@ -8869,8 +8869,7 @@
                         </div>
                         <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1e1b4b, #e11d48); border:3px solid #fbbf24;">
                             <h2 style="font-size:28px; margin-bottom:5px;">🔥 NAGY ESEMÉNY!</h2>
-                            <div id="eventTimer" style="font-size:42px; font-weight:900; color:#fff; text-shadow:0 0 20px #fbbf24; margin:10px 0;">00:00:00</div>
-                            <p style="font-weight:800;">Készülj fel, 22:00-kor indul a Comic Clash finálé!</p>
+                            <p style="font-weight:800; font-size:20px; margin-top:15px;">Comic Clash Finálé - Ma 22:00!</p>
                         </div>
                     `;
                 } else {
@@ -8945,24 +8944,7 @@
             setTimeout(() => { if (typeof updateDcNewBubble === 'function') updateDcNewBubble(); }, 1500);
             document.addEventListener('visibilitychange', () => { if (!document.hidden && typeof updateDcNewBubble === 'function') setTimeout(updateDcNewBubble, 200) });
 
-            // Global Event Timer for NEWS Panel
-            setInterval(() => {
-                const el = document.getElementById('eventTimer');
-                if (el) {
-                    const now = new Date();
-                    const target = new Date();
-                    target.setHours(22, 0, 0, 0);
-                    let diff = target - now;
-                    if (diff < 0) {
-                        el.textContent = "EVENT STARTED!";
-                    } else {
-                        const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
-                        const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-                        const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-                        el.textContent = `${h}:${m}:${s}`;
-                    }
-                }
-            }, 1000);
+            // Event timer removed
 
             // Gatekeeping Logic (Lock until 21:30)
             const checkEventGate = () => {
