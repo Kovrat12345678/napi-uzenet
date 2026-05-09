@@ -16791,6 +16791,29 @@
         }
 
         /* Daily Box kép stílus */
+        /* Super Daily Box stílus */
+        .super-box-text {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 40%, #0a0a0a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-size: 1.05em;
+            filter: drop-shadow(0 0 6px rgba(74,222,128,0.5));
+        }
+        
+        .gem-img {
+            display: inline-block;
+            width: 1.2em;
+            height: 1.2em;
+            vertical-align: middle;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23bae6fd"/><stop offset=".5" stop-color="%230ea5e9"/><stop offset="1" stop-color="%230369a1"/></linearGradient><path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(%23g)" stroke="%230284c7" stroke-width="1.5"/><path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)"/><path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)"/><path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)"/><path d="M10,30 L40,70 L40,40 Z" fill="rgba(0,0,0,.05)"/></svg>') center/contain no-repeat;
+            filter: drop-shadow(0 0 4px rgba(14,165,233,0.8));
+            margin-top: -2px;
+        }
+        
         .daily-box-img {
             width: 64px;
             height: 64px;
@@ -16810,6 +16833,7 @@
                 transform: translateY(-5px) rotate(3deg)
             }
         }
+
 
         /* ── COMIC-HERO BOT SKIN ── */
         .robot.comic-hero .head {
@@ -17060,7 +17084,7 @@
     <script>
         (function () {
             const li = document.getElementById('loadingIcon');
-            li.src = 'icon/dailybot-icon.png';
+            li.src = 'icon/app_icon_event.png';
             const bar = document.getElementById('loadingBar');
             const pct = document.getElementById('loadingPct');
             const sub = document.getElementById('loadingSub');
@@ -17248,7 +17272,7 @@
         <div class="shop-header">
             <div class="shop-title">🏪 Skin Shop</div>
             <div style="display:flex;gap:8px;align-items:center">
-                <div class="shop-gems">💎 <span data-gem-display>0</span></div>
+                <div class="shop-gems"><span class="gem-img"></span> <span data-gem-display>0</span></div>
                 <div class="sync-toggle" id="syncToggle">🔄</div>
                 <button class="shop-close-btn" id="skinClose">✕</button>
             </div>
@@ -17262,13 +17286,52 @@
                 <div class="cc-banner-content">
                     <div class="cc-banner-tag">⚡ LIMITÁLT EVENT</div>
                     <div class="cc-banner-title">COMIC CLASH!</div>
-                    <div class="cc-banner-sub">Szerezd meg az exkluzív Comic Hero botot és 25 bonus gemet! Csak májusban
-                        elérhető.</div>
-                    <div class="cc-banner-rewards">
-                        <div class="cc-reward-pill"><span class="cc-r-icon">🦸</span> Comic Hero Bot</div>
-                        <div class="cc-reward-pill"><span class="cc-r-icon">💎</span> +25 Gem</div>
+                    <div class="cc-banner-sub">Szerezd meg mindkét exkluzív botot, 25 bonus gemet, +2 Super Daily Boxot és a POW matricát!</div>
+                    <div class="cc-banner-rewards" style="align-items:stretch;">
+                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
+                                <div class="robot dc-mini-robot comic-hero" style="pointer-events:none;">
+                                    <div class="antenna-stick"></div><div class="antenna-ball"></div>
+                                    <div class="ear ear-l"></div><div class="ear ear-r"></div>
+                                    <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
+                                    <div class="neck"></div>
+                                    <div class="shoulder shoulder-l"></div><div class="shoulder shoulder-r"></div>
+                                    <div class="arm arm-l"></div><div class="arm arm-r"></div>
+                                    <div class="torso"><div class="chest"><span class="heart-icon">❤️</span></div></div>
+                                    <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
+                                </div>
+                            </div>
+                            <span style="font-size:10px;font-weight:800;">Comic Hero</span>
+                        </div>
+                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
+                                <div class="robot dc-mini-robot comic-villain" style="pointer-events:none;">
+                                    <div class="antenna-stick"></div><div class="antenna-ball"></div>
+                                    <div class="ear ear-l"></div><div class="ear ear-r"></div>
+                                    <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
+                                    <div class="neck"></div>
+                                    <div class="shoulder shoulder-l"></div><div class="shoulder shoulder-r"></div>
+                                    <div class="arm arm-l"></div><div class="arm arm-r"></div>
+                                    <div class="torso"><div class="chest"><span class="heart-icon">❤️</span></div></div>
+                                    <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
+                                </div>
+                            </div>
+                            <span style="font-size:10px;font-weight:800;">Comic Villain</span>
+                        </div>
+                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
+                            <span style="font-size:10px;font-weight:800;">+25 Gem</span>
+                        </div>
+                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <img src="box/box.png" alt="Super Daily Box" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
+                            <span style="font-size:10px;font-weight:800;">+2 Super Box</span>
+                        </div>
+                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <span style="font-size:20px;">💥</span>
+                            <span style="font-size:10px;font-weight:800;">POW! Matrica</span>
+                        </div>
                     </div>
-                    <button class="cc-banner-btn" id="ccBuyBtn">💎 200 — MEGVESZEM</button>
+                    <button class="cc-banner-btn" id="ccBuyBtn">💎 300 — MEGVESZEM</button>
                     <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">✅ Comic Clash Pass aktiválva!
                     </div>
                 </div>
@@ -17282,9 +17345,7 @@
                 <button class="shop-item buy-tag"
                     style="flex: 1; padding: 12px; background: linear-gradient(135deg, #1a0a2e, #2d1052); border: 2px solid #fbbf24;"
                     onclick="buyEventSkin('comic-villain')">🦹 Comic Villain (150 💎)</button>
-                <button class="shop-item buy-tag"
-                    style="flex: 1; padding: 12px; background: linear-gradient(135deg, #fbbf24, #b45309); border: 2px solid #fff;"
-                    onclick="buyEventSkin('comic-sidekick')">🐾 Sidekick (150 💎)</button>
+
             </div>
         </div>
 
@@ -17301,16 +17362,16 @@
                             <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
                                 <defs>
                                     <linearGradient id="gemGradBig" x1="0" y1="0" x2="1" y2="1">
-                                        <stop offset="0" stop-color="#fef3c7" />
-                                        <stop offset=".5" stop-color="#fbbf24" />
-                                        <stop offset="1" stop-color="#b45309" />
+                                        <stop offset="0" stop-color="#bae6fd" />
+                                        <stop offset=".5" stop-color="#0ea5e9" />
+                                        <stop offset="1" stop-color="#0369a1" />
                                     </linearGradient>
                                 </defs>
-                                <path d="M40,10 L70,30 L60,70 L20,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#92400e"
-                                    stroke-width="1.5" />
-                                <path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.4)" />
-                                <path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.25)" />
-                                <path d="M20,70 L40,40 L60,70 Z" fill="rgba(0,0,0,.15)" />
+                                <path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#0284c7" stroke-width="1.5" />
+                                <path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)" />
+                                <path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)" />
+                                <path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)" />
+                                <path d="M10,30 L40,70 L40,40 Z" fill="rgba(0,0,0,.05)" />
 
                             </svg>
                         </div>
@@ -17318,27 +17379,26 @@
                     <div class="loot-card-info">
                         <div class="loot-card-title">Daily Gem</div>
                         <div class="loot-card-count"><span id="shopGemCount">1/1</span> ma</div>
-                        <button class="loot-card-btn" id="shopGemBtn">Megnyit</button>
+                        <button class="loot-card-btn" id="shopGemBtn">Open</button>
                     </div>
                 </div>
             </div>
             <!-- Daily Box -->
-            <div class="shop-section daily-trio-item" id="shopDailyBoxSection">
-                <div class="loot-card box-card" id="shopBoxCard">
-                    <div class="loot-card-visual">
-                        <img src="box/box.png" alt="Daily Box" class="daily-box-img">
+            <div class="shop-section daily-trio-item" id="shopDailyBoxSection" style="background:none; border:none; box-shadow:none;">
+                <div id="shopBoxCard" style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: none; padding: 10px 0; text-align: center;">
+                    <div class="loot-card-visual" style="margin:0;">
+                        <img src="box/box.png" alt="Daily Box" class="daily-box-img" style="width: 80px; height: 80px; filter: drop-shadow(0 0 15px rgba(74,222,128,0.4));">
                     </div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title">Daily Box</div>
-                        <div class="loot-card-count"><span id="shopBoxCount2">1/1</span> ma</div>
-                        <div style="display:flex; gap:6px;">
-                            <button class="loot-card-btn" id="shopBoxBtn2" style="flex:1">Megnyit</button>
-                            <button class="loot-card-btn buy-tag" id="buyBoxBtn"
-                                style="flex:1; background: #fbbf24; color: #1e1b4b; border: none; font-size: 11px;">67
-                                💎 Vesz</button>
-                        </div>
-                    </div>
+                    <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0;">Super Daily Box</div>
+                    
+                    <button class="buy-tag" id="buyBoxBtn"
+                        style="background: #fbbf24; color: #1e1b4b; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3); transition: transform 0.2s;">
+                        67 <span class="gem-img" style="width:16px; height:16px;"></span> Buy
+                    </button>
 
+                    <!-- Logikai elemek elrejtve -->
+                    <div id="shopBoxCount2" style="display:none"></div>
+                    <button id="shopBoxBtn2" style="display:none"></button>
                 </div>
             </div>
         </div>
@@ -18176,7 +18236,7 @@
 
         // Hang effekt (iOS-en is működik, vibrate nem)
         let audioCtx = null;
-        function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)() }
+        function initAudio() { audioCtx = _sfxCtx() }
         function tickSound() {
             if (!audioCtx) return;
             const o = audioCtx.createOscillator(), g = audioCtx.createGain();
@@ -18678,8 +18738,19 @@
         function addGems(n) { setGems(getGems() + n) }
         function spendGems(n) { const c = getGems(); if (c < n) return false; setGems(c - n); return true }
         function initGems() { if (localStorage.getItem('nu_gems') === null) localStorage.setItem('nu_gems', '50') }
-        function updateGemUI() { document.querySelectorAll('[data-gem-display]').forEach(el => { el.textContent = getGems() }) }
+        function applyZerendBonus() {
+            if (localStorage.getItem('nu_name') && localStorage.getItem('nu_name').toLowerCase() === 'zerénd') {
+                if (!localStorage.getItem('nu_zerend_bonus')) {
+                    addGems(100);
+                    localStorage.setItem('nu_zerend_bonus', '1');
+                }
+            }
+        }
+        function updateGemUI() { 
+            document.querySelectorAll('[data-gem-display]').forEach(el => { el.textContent = getGems() });
+        }
         initGems();
+        applyZerendBonus();
 
         // ========== TÁRGY ÁRAK ==========
         const ITEM_PRICES = {
@@ -18764,6 +18835,7 @@
             { id: 'sticker-sup', text: 'Sup', emoji: '🔥', rarity: 'rare', desc: 'Mi újság?' },
             { id: 'sticker-wassup', text: 'Wassup', emoji: '😏', rarity: 'rare', desc: 'Street stílus' },
             { id: 'sticker-heya', text: 'Heya', emoji: '⭐', rarity: 'rare', desc: 'Üdv csillag' },
+            { id: 'sticker-pow', text: 'POW!', emoji: '💥', rarity: 'rare', desc: 'Comic üdvözlés' },
             { id: 'sticker-bonjour', text: 'Bonjour', emoji: '🥖', rarity: 'rare', desc: 'Francia köszönés' },
             { id: 'sticker-hola', text: 'Hola', emoji: '🌶️', rarity: 'rare', desc: 'Spanyol üdvözlés' },
             { id: 'sticker-hallo', text: 'Hallo', emoji: '🇩🇪', rarity: 'rare', desc: 'Német üdvözlés' },
@@ -20158,19 +20230,19 @@
             const sbc = document.getElementById('shopBoxCount2');
             if (sbc) sbc.textContent = boxesRemaining() + '/1';
             const sbBtn = document.getElementById('shopBoxBtn2');
-            if (sbBtn) { const left = boxesRemaining(); sbBtn.disabled = left === 0; sbBtn.textContent = left > 0 ? 'Megnyit' : 'Holnap 8:00' }
+            if (sbBtn) { const left = boxesRemaining(); sbBtn.disabled = left === 0; sbBtn.textContent = left > 0 ? 'Open' : 'Holnap 8:00' }
             // Daily Gem
             const sgc = document.getElementById('shopGemCount');
             if (sgc) sgc.textContent = (spunToday_gem() ? 0 : 1) + '/1';
             const sgBtn = document.getElementById('shopGemBtn');
-            if (sgBtn) { const canClaim = !spunToday_gem(); sgBtn.disabled = !canClaim; sgBtn.textContent = canClaim ? 'Megnyit' : 'Holnap 8:00' }
+            if (sgBtn) { const canClaim = !spunToday_gem(); sgBtn.disabled = !canClaim; sgBtn.textContent = canClaim ? 'Open' : 'Holnap 8:00' }
 
 
             // Daily kártyák eltüntetése amikor már nincs használható ma
             const dgSection = document.querySelector('#shopGemBtn')?.closest('.shop-section');
             if (dgSection) dgSection.style.display = spunToday_gem() ? 'none' : '';
             const dbSection = document.getElementById('shopDailyBoxSection');
-            if (dbSection) dbSection.style.display = boxesRemaining() <= 0 ? 'none' : '';
+            // if (dbSection) dbSection.style.display = boxesRemaining() <= 0 ? 'none' : '';
             const dsSection = document.getElementById('shopDailySuperSection');
             if (dsSection) dsSection.style.display = (typeof dsAvailableToday === 'function' && !dsAvailableToday()) ? 'none' : '';
 
@@ -20258,7 +20330,7 @@
             document.getElementById('dealNew').textContent = d.deal;
             const btn = document.getElementById('dealBuyBtn');
             btn.disabled = alreadyOwned;
-            btn.textContent = alreadyOwned ? 'Már megvan' : 'Megveszem';
+            btn.textContent = alreadyOwned ? 'Már megvan' : 'Buy';
             btn.onclick = () => {
                 if (alreadyOwned) return;
                 if (!confirm('Megveszed "' + meta.name + '"-t ' + d.deal + ' gemért? (eredeti: ' + d.full + ')')) return;
@@ -21168,7 +21240,8 @@
             window._techEventActive = true;
             function startTechMusic() {
                 try {
-                    const ac = new (window.AudioContext || window.webkitAudioContext)();
+                    const ac = _sfxCtx();
+                    if (!ac) return;
                     window._techEventAudioCtx = ac;
                     if (ac.state === 'suspended') ac.resume();
                     fetch('event zene/DailyBot – Pulse Event Theme.mp3')
@@ -21320,7 +21393,7 @@
             function initAppAmbient() {
                 if (window._techEventActive) return;
                 if (appAudioCtx) return;
-                try { appAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; }
+                try { appAudioCtx = _sfxCtx(); } catch (e) { return; }
                 if (appAudioCtx.state === 'suspended') appAudioCtx.resume();
                 startMood(getMood());
                 // Óránkénti ellenőrzés — ha változott a napszak, váltunk
@@ -21349,55 +21422,29 @@
                 { id: 'galaxy', name: 'Galaxy', desc: 'Kozmikus ragyogás', icon: '🌌', cost: 0, tier: 'free' },
                 { id: 'sakura', name: 'Sakura', desc: 'Cseresznyevirág', icon: '🌸', cost: 0, tier: 'free' },
                 { id: 'graffiti', name: 'Graffiti', desc: 'Utcai művész', icon: '🧱', cost: 0, tier: 'free' },
-                { id: 'stealth', name: 'Stealth', desc: 'High-tech ügynök', icon: '👤', cost: 0, tier: 'free' },
                 { id: 'fire', name: 'Fire', desc: 'Lángoló vörös izzás', icon: '🔥', cost: 0, tier: 'free' },
                 { id: 'golden', name: 'Golden', desc: 'Tiszta arany csillogás', icon: '✨', cost: 0, tier: 'free' },
                 { id: 'diamond', name: 'Diamond', desc: 'Jégkék drágakő test', icon: '💎', cost: 0, tier: 'free' },
-                { id: 'rainbow', name: 'Rainbow', desc: 'Szivárványos színváltó', icon: '🌈', cost: 0, tier: 'free' },
                 { id: 'gamer', name: 'Gamer', desc: 'Full RGB, pro külső', icon: '🎮', cost: 0, tier: 'free' },
                 { id: 'glass', name: 'Glass', desc: 'Átlátszó üveg robot', icon: '🪟', cost: 0, tier: 'free' },
-                { id: 'horse', name: 'Ló', desc: 'Lovas robot', icon: '🐴', cost: 0, tier: 'free' },
-                { id: 'prism', name: 'Prism', desc: 'Kristály fénytörés', icon: '🔷', cost: 0, tier: 'free' },
-                { id: 'phoenix', name: 'Phoenix', desc: 'Tüzes főnix szellem', icon: '🔥', cost: 0, tier: 'free' },
-                { id: 'aurora', name: 'Aurora', desc: 'Sarki fény robot', icon: '🌠', cost: 0, tier: 'free' },
-                { id: 'super', name: 'Super', desc: 'Köpenyes szuperhős robot', icon: '🦸', cost: 0, tier: 'free' },
                 { id: 'ultra', name: 'Ultra', desc: 'Fehér + pink neon csíkok', icon: '⚡', cost: 0, tier: 'free' },
                 { id: 'ultra-black', name: 'Ultra Black', desc: 'Plus exkluzív — fekete + pink neon', icon: '⚡', cost: 0, tier: 'free', hide: true },
                 { id: 'dragon', name: 'Sárkány', desc: 'Jégszárnyas sárkány', icon: '🐉', cost: 0, tier: 'free', hide: true },
                 { id: 'comic-hero', name: 'Comic Hero', desc: 'Képregényes szuperhős — Comic Clash exkluzív', icon: '🦸', cost: 0, tier: 'free', hide: true },
-                { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true },
-                { id: 'comic-sidekick', name: 'Comic Sidekick', desc: 'Hűséges segítőtárs — Comic Clash exkluzív', icon: '🐾', cost: 0, tier: 'free', hide: true }
+                { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true }
 
             ];
             const BGS = [
-                { id: '', name: 'Napszak', desc: 'Automatikus háttér', icon: '🌅', cost: 0, tier: 'free' },
-                { id: 'bg-tulip', name: 'Tavaszi Rét', desc: 'Tavaszi virágmező', icon: '🌷', cost: 0, tier: 'free' },
-                { id: 'bg-galaxy', name: 'Galaxy', desc: 'Csillagos égbolt', icon: '🌌', cost: 0, tier: 'free' },
-                { id: 'bg-sakura', name: 'Sakura', desc: 'Tavaszi szirmok', icon: '🌸', cost: 0, tier: 'free' },
-                { id: 'bg-graffiti', name: 'Graffiti', desc: 'Utcai falfestés', icon: '🧱', cost: 0, tier: 'free' },
-                { id: 'bg-stealth', name: 'Stealth', desc: 'Éjszakai sötét', icon: '🌑', cost: 0, tier: 'free' },
-                { id: 'bg-fire', name: 'Fire', desc: 'Pokoli lángok', icon: '🔥', cost: 0, tier: 'free' },
-                { id: 'bg-golden', name: 'Luxus Arany', desc: 'Arany fényár', icon: '✨', cost: 0, tier: 'free' },
-                { id: 'bg-diamond', name: 'Gyémánt', desc: 'Kristály tiszta', icon: '💎', cost: 0, tier: 'free' },
-                { id: 'bg-rainbow', name: 'Szivárvány', desc: 'Színkavalkád', icon: '🌈', cost: 0, tier: 'free' },
-                { id: 'bg-gamer', name: 'Gamer Room', desc: 'Neon RGB setup', icon: '🌃', cost: 0, tier: 'free' },
-                { id: 'bg-glass', name: 'Labor Glass', desc: 'Üveg labor világ', icon: '🧪', cost: 0, tier: 'free' },
-                { id: 'bg-nebula', name: 'Nebula', desc: 'Kozmikus köd', icon: '🪐', cost: 0, tier: 'free' },
-                { id: 'bg-aurora', name: 'Aurora', desc: 'Északi fények tánca', icon: '🌌', cost: 0, tier: 'free' },
-                { id: 'bg-infinity', name: 'Infinity', desc: 'Végtelen fraktál', icon: '♾️', cost: 0, tier: 'free' }
+                { id: '', name: 'Napszak', desc: 'Automatikus háttér', icon: '🌅', cost: 0, tier: 'free' }
             ];
             const AURAS = [
                 { id: '', name: 'Nincs Aura', desc: 'Vissza az alapokhoz', icon: '🚫', cost: 0, tier: 'free' },
                 { id: 'aura-tulip', name: 'Tulipán', desc: 'Tavaszi virágaura', icon: '🌷', cost: 0, tier: 'free' },
                 { id: 'aura-fire', name: 'Tűz', desc: 'Lángoló energia', icon: '🔥', cost: 0, tier: 'free' },
-                { id: 'aura-sakura', name: 'Sakura', desc: 'Hulló szirmok', icon: '🌸', cost: 0, tier: 'free' },
                 { id: 'aura-glitch', name: 'Glitch', desc: 'Digitális zavar', icon: '👾', cost: 0, tier: 'free' },
                 { id: 'aura-halo', name: 'Szent', desc: 'Égi ragyogás', icon: '😇', cost: 0, tier: 'free' },
                 { id: 'aura-rgb', name: 'RGB', desc: 'Gamer színek', icon: '🌈', cost: 0, tier: 'free' },
                 { id: 'aura-diamond', name: 'Gyémánt', desc: 'Szikrázó jégkristály', icon: '💎', cost: 0, tier: 'free' },
-                { id: 'aura-celestial', name: 'Celestial', desc: 'Égi szent ragyogás', icon: '⭐', cost: 0, tier: 'free' },
-                { id: 'aura-cosmic', name: 'Cosmic', desc: 'Űri energia örvény', icon: '🌀', cost: 0, tier: 'free' },
-                { id: 'aura-prism', name: 'Prism', desc: 'Prizma szivárvány', icon: '🔮', cost: 0, tier: 'free' },
                 { id: 'aura-superhero', name: 'Super Aura', desc: 'Szuperhős energia', icon: '⚡', cost: 0, tier: 'event' }
             ];
 
@@ -21514,6 +21561,7 @@
                 e.stopPropagation();
                 const id = btn.dataset.buy;
                 const price = parseInt(btn.dataset.price, 10);
+                
                 if (!confirm('Megveszed ezt ' + price + ' gémért? Jelenlegi egyenleged: ' + getGems() + ' gém.')) return;
                 if (!spendGems(price)) { alert('Nincs elég gém!'); return }
                 buyItem(id);
@@ -21681,7 +21729,7 @@
             if (!seen()) {
                 reg.showNotification('DailyBot 🤖', {
                     body: 'Ma is vár rád egy új gondolat! ✨',
-                    icon: './icon/dailybot-icon.png',
+                    icon: './icon/app_icon_event.png',
                     tag: 'open-' + td()
                 });
             }
@@ -21709,23 +21757,25 @@
                 return allBuyableItems().filter(s => !owned.includes(s.id) && ITEM_PRICES[s.id] >= minP && ITEM_PRICES[s.id] <= maxP);
             }
             // ====== ÚJ DAILY BOX LOOT RENDSZER ======
-            // 79% gem (5-10), 20% köszönés matrica, 1% bot skin
+            // 5% skin, 10% aura, 10% háttér, 25% sticker, 50% gem
             function rollNormalPrize() {
                 const r = Math.random();
-                // 1% bot — nagyon ritka!
-                if (r < 0.01) {
-                    const owned = getOwned();
-                    const allSkins = window.SKINS || [];
-                    const notOwnedSkins = allSkins.filter(s => s.id && !s.hide && !owned.includes(s.id));
-                    if (notOwnedSkins.length) {
-                        const sk = pickRandom(notOwnedSkins);
-                        return { type: 'item', id: sk.id, icon: '🤖', name: sk.name + ' (Bot!)' };
+                const owned = getOwned();
+
+                const rollCategory = (list, iconFallback, compensateGems) => {
+                    const notOwned = (list || []).filter(s => s.id && !s.hide && !owned.includes(s.id));
+                    if (notOwned.length) {
+                        const item = pickRandom(notOwned);
+                        return { type: 'item', id: item.id, icon: item.icon || '✨', name: item.name };
                     }
-                    // Ha mindent birtokol, adj 50 gemet
-                    return { type: 'gems', gems: 50, icon: '💎', name: '50 gem (bot kompenzáció)' };
-                }
-                // 20% sticker (köszönés matrica)
-                if (r < 0.21) {
+                    return { type: 'gems', gems: compensateGems, icon: '💎', name: compensateGems + ' gem' };
+                };
+
+                if (r < 0.05) return rollCategory(window.SKINS, '🤖', 50);
+                if (r < 0.15) return rollCategory(window.AURAS, '🌟', 30);
+                if (r < 0.25) return rollCategory(window.BGS, '🖼️', 30);
+                
+                if (r < 0.50) {
                     if (typeof rollRandomSticker === 'function') {
                         const s = rollRandomSticker();
                         if (s) {
@@ -21733,12 +21783,11 @@
                             return { type: 'sticker', id: s.id, icon: s.emoji, name: '"' + s.text + '" matrica', _silent: true };
                         }
                     }
-                    // Ha nincs több matrica, adj gemet
-                    const g = pickRandom([8, 9, 10]);
+                    const g = pickRandom([10, 12, 15]);
                     return { type: 'gems', gems: g, icon: '💎', name: g + ' gem' };
                 }
-                // 79% gem (5-10)
-                const g = pickRandom([5, 6, 7, 8, 9, 10]);
+                
+                const g = pickRandom([5, 8, 10, 12, 15, 20]);
                 return { type: 'gems', gems: g, icon: '💎', name: g + ' gem' };
             }
             // rollSuperPrize / rollTierPrize eltávolítva — csak Daily Box van
@@ -21768,41 +21817,37 @@
                 const closeBtn = document.getElementById('dbCloseBtn');
                 const promptEl = document.getElementById('dbPrompt');
 
-                // Tier color overlay
                 overlay.classList.remove('tier-daily', 'tier-common', 'tier-legendary', 'tier-mythic');
                 overlay.classList.add('tier-' + tier);
-                // Mini box CSS class az overlay nagy boxhoz
                 const giftEl = box.querySelector('.gift-box');
                 if (giftEl) {
                     giftEl.classList.remove('tier-daily-box', 'tier-common-box', 'tier-legendary-box', 'tier-mythic-box');
                     giftEl.classList.add('tier-' + tier + '-box');
                 }
 
-                // Csak daily-nél van Lucky 2-es; tier boxok mindig 1 prize-t adnak (de nagyobbat)
                 const isLucky = (tier === 'daily') && Math.random() < 0.25;
                 let remaining = isLucky ? 2 : 1;
 
                 box.className = 'db-box'; box.style.display = 'block';
                 numEl.textContent = String(remaining); numEl.className = 'db-number';
                 prizeEl.style.display = 'none'; closeBtn.style.display = 'none';
-                promptEl.textContent = tier === 'mythic' ? '⚡ MYTHIC pakk vár rád!' : tier === 'legendary' ? '🏆 Legendary doboz!' : 'Koppints a dobozra!';
+                promptEl.textContent = ''; // Removed text per user request
                 overlay.style.display = 'flex';
 
                 const onTap = () => {
-                    box.removeEventListener('click', onTap);
                     box.classList.add('opening');
                     setTimeout(() => {
                         box.style.display = 'none';
                         const isSuper = (isLucky && remaining === 1);
                         const prize = isSuper ? rollSuperPrize() : (tier === 'daily' ? rollNormalPrize() : rollTierPrize(tier));
                         applyPrize(prize);
-                        document.getElementById('dbPrizeIcon').textContent = prize.icon;
+                        document.getElementById('dbPrizeIcon').innerHTML = prize.icon === '💎' ? '<span class="gem-img"></span>' : prize.icon;
                         document.getElementById('dbPrizeName').textContent = prize.name;
                         prizeEl.style.display = 'flex';
                         remaining--;
                         if (remaining <= 0) {
-                            promptEl.textContent = tier === 'mythic' ? '⚡ MYTHIC! 💠' : tier === 'legendary' ? '🏆 Legendary szerzemény!' : isSuper ? 'Hatalmas nyeremény! 🌟' : 'Szuper! 🎉';
-                            closeBtn.style.display = 'inline-block';
+                            promptEl.textContent = ''; 
+                            setTimeout(() => closeBtn.click(), 2500); // Auto-close
                         } else {
                             setTimeout(() => {
                                 numEl.classList.add('switching');
@@ -21810,13 +21855,15 @@
                                 setTimeout(() => numEl.classList.remove('switching'), 600);
                                 prizeEl.style.display = 'none';
                                 box.style.display = 'block'; box.className = 'db-box';
-                                promptEl.textContent = 'Még egy vár rád! Koppints!';
-                                box.addEventListener('click', onTap);
+                                promptEl.textContent = '';
+                                setTimeout(onTap, 400); // Auto-open second box
                             }, 1800);
                         }
                     }, 600);
                 };
-                box.addEventListener('click', onTap);
+                
+                // Auto-open instead of waiting for click
+                setTimeout(onTap, 300);
 
                 closeBtn.onclick = () => {
                     overlay.style.display = 'none';
@@ -22034,19 +22081,20 @@
                     ccBtn._bound = true; ccBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         if (localStorage.getItem('nu_comic_clash_bought') === '1') { return }
-                        if (!confirm('Comic Clash Pass megvétele 200 gemért?\n\n🦸 Comic Hero Bot\n💎 +25 Gem\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
-                        if (!spendGems(200)) { alert('Nincs elég gem! (200 gem kell)'); return }
-                        // 2 Comic bot unlock + 25 gem
+                        if (!confirm('Comic Clash Pass megvétele 300 gemért?\n\n🦸 Comic Hero & Comic Villain Bot\n💎 +25 Gem\n📦 +2 Super Daily Box\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
+                        if (!spendGems(300)) { alert('Nincs elég gem! (300 gem kell)'); return }
+                        // 2 Comic bot unlock + 25 gem + 2 boxes + POW sticker
                         buyItem('comic-hero');
                         buyItem('comic-villain');
-                        buyItem('comic-sidekick');
                         buyItem('aura-superhero');
+                        if (typeof awardSticker === 'function') awardSticker('sticker-pow');
 
                         addGems(25);
+                        localStorage.setItem('nu_box_count', String(boxesRemaining() + 2));
                         localStorage.setItem('nu_comic_clash_bought', '1');
                         try { playSfx('zynox') } catch (_) { }
                         triggerSkinEquipEffect();
-                        alert('🦸 Comic Clash Pass aktiválva!\n\n✅ Comic Hero, Villain & Sidekick feloldva\n💎 +25 gem jóváírva\n\nKeresd meg a shopban a skineket!');
+                        alert('🦸 Comic Clash Pass aktiválva!\n\n✅ Comic Hero & Villain feloldva\n💎 +25 gem jóváírva\n📦 +2 Super Daily Box hozzáadva\n\nKeresd meg a shopban a jutalmakat!');
                         updateGemUI();
                         updateLootBadges();
                         if (typeof renderShop === 'function') renderShop();
@@ -22073,7 +22121,7 @@
                         e.stopPropagation();
                         if (!confirm('Veszel egy Daily Boxot 67 gemért?')) return;
                         if (!spendGems(67)) { alert('Nincs elég gem! (67 kell)'); return; }
-                        window.openDailyBox();
+                        window.openDailyBox(true, 'daily');
                     });
                 }
 
@@ -22510,11 +22558,28 @@
                                 <video src="news_videos/ScreenRecording_05-08-2026 18-20-23_1.mov" autoplay loop muted playsinline></video>
                             </div>
                         </div>
-                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1e1b4b, #e11d48); border:3px solid #fbbf24;">
-                            <h2 style="font-size:28px; margin-bottom:5px;">🔥 NAGY ESEMÉNY!</h2>
-                            <p style="font-weight:800; font-size:20px; margin-top:15px;">Comic Clash Event - Ma 22:00!</p>
+                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1a1a2e, #16213e); border:3px solid #0f3460;">
+                            <h2 style="font-size:24px; margin-bottom:10px; color:#fff;">NEXT EVENT IN:</h2>
+                            <div id="newsCountdown" style="font-size:32px; font-weight:900; letter-spacing:2px; font-family: monospace; color:#e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);">00d 00h 00m 00s</div>
+                            <p style="margin-top:10px; font-size:14px; opacity:0.8; color:#fff;">June 1st, 2026</p>
                         </div>
                     `;
+                    if (window._newsTimer) clearInterval(window._newsTimer);
+                    const target = new Date('2026-06-01T00:00:00').getTime();
+                    const updateNewsTimer = () => {
+                        const now = new Date().getTime();
+                        const diff = target - now;
+                        const el = document.getElementById('newsCountdown');
+                        if (!el) { clearInterval(window._newsTimer); return; }
+                        if (diff <= 0) { el.textContent = "EVENT STARTED!"; clearInterval(window._newsTimer); return; }
+                        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        const s = Math.floor((diff % (1000 * 60)) / 1000);
+                        el.textContent = `${d}d ${h.toString().padStart(2,'0')}h ${m.toString().padStart(2,'0')}m ${s.toString().padStart(2,'0')}s`;
+                    };
+                    updateNewsTimer();
+                    window._newsTimer = setInterval(updateNewsTimer, 1000);
                 } else {
                     newsContent.innerHTML = `
                         <div class="news-article">
@@ -22542,11 +22607,10 @@
                     if (audioCtx.state === 'suspended') audioCtx.resume();
                     return;
                 }
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContext) return;
-                audioCtx = new AudioContext();
+                audioCtx = _sfxCtx();
+                if (!audioCtx) return;
                 try {
-                    const response = await fetch('event zene/comic_event_music.mp3');
+                    const response = await fetch('anime zene/Super Robots!.mp3');
                     const arrayBuffer = await response.arrayBuffer();
                     audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
                     startLoop();
@@ -22574,10 +22638,12 @@
 
             if (musicToggle) {
                 musicToggle.onclick = () => {
-                    if (musicPlayer.paused) {
-                        musicPlayer.play().catch(_ => { }); musicToggle.textContent = '🔊';
-                    } else {
-                        musicPlayer.pause(); musicToggle.textContent = '🔇';
+                    if (audioCtx) {
+                        if (audioCtx.state === 'running') {
+                            audioCtx.suspend(); musicToggle.textContent = '🔇';
+                        } else {
+                            audioCtx.resume(); musicToggle.textContent = '🔊';
+                        }
                     }
                 };
             }
@@ -22589,28 +22655,8 @@
 
             // Event timer removed
 
-            // Gatekeeping Logic (Lock until 21:30)
-            const checkEventGate = () => {
-                const now = new Date();
-                const target = new Date();
-                target.setHours(22, 0, 0, 0);
-                if (now < target) {
-                    const np = document.getElementById('newsPanel');
-                    const nc = document.getElementById('newsClose');
-                    if (np) {
-                        np.classList.add('open');
-                        if (typeof renderNews === 'function') renderNews('latest');
-                    }
-                    if (nc) nc.style.display = 'none';
-                    if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+            // Gatekeeping Logic (Event started, gate removed)
 
-                    // Prevent closing via ESC or background
-                    window.openNewsPanel = () => { np.classList.add('open'); };
-                    window.closeNewsPanel = () => { };
-                }
-            };
-            setTimeout(checkEventGate, 500);
-            setInterval(checkEventGate, 30000); // Check every 30s
         })();
 
     </script>

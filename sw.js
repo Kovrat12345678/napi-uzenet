@@ -3,8 +3,7 @@ const ASSETS = [
     './',
     './index.html',
     './manifest.json',
-    './icon/app_icon_event.png',
-    './icon/dailybot-icon.svg'
+    './icon/app_icon_event.png'
 ];
 
 // Install — cache fájlok

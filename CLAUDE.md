@@ -67,7 +67,7 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
 
 ### Loading Screen
 
-- Lekerekitett ikon (`dailybot-icon.png`) + progress bar + szazalek
+- Lekerekitett ikon (`app_icon_event.png`) + progress bar + szazalek
 - ~2 mp alatt tolt be, fade out
 
 ### Robot
@@ -448,7 +448,8 @@ docs/superpowers/
 
 ## App Icon
 
-- `icon/dailybot-icon.png` — alap ikon, mindig ez van hasznalva
+- `icon/app_icon_event.png` — aktualis esemeny ikon (Comic Clash)
+- `icon/dailybot-icon.png` — alap ikon (tartalek)
 - (A Sarkany Het alatt NINCS ikon override — regi funkció eltavolitva.)
 
 ## Social

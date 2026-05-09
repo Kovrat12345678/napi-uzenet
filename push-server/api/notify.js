@@ -33,8 +33,8 @@ module.exports = async function handler(req, res) {
     const payload = JSON.stringify({
       title: 'DailyBot 🤖',
       body: msg,
-      icon: '/icon/dailybot-icon.png',
-      badge: '/icon/dailybot-icon.png',
+      icon: '/icon/app_icon_event.png',
+      badge: '/icon/app_icon_event.png',
       tag: 'daily-' + new Date().toISOString().slice(0, 10),
     });
 
