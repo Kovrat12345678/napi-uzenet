@@ -17360,8 +17360,14 @@
             box-shadow: 0 0 24px rgba(251, 191, 36, 0.35), inset 0 0 20px rgba(251, 191, 36, 0.15) !important;
         }
         body.summer-event .daily-box-img {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="80" font-size="80">🍦</text></svg>') !important;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.7)) drop-shadow(0 0 25px rgba(249, 115, 22, 0.4)) !important;
+            filter: hue-rotate(320deg) saturate(1.8) brightness(1.1) drop-shadow(0 0 12px rgba(244, 114, 182, 0.7)) !important;
+        }
+        body.summer-event .super-box-text {
+            background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 40%, #fbbf24 80%, #f97316 100%) !important;
+            filter: drop-shadow(0 0 6px rgba(244, 114, 182, 0.5)) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
         }
 
         /* Summer Event News Panel Overrides */
