@@ -18150,7 +18150,8 @@
             <div class="shop-section-title">🤖 Skin választék</div>
             <div class="shop-grid" id="skinList"></div>
         </div>
-        <div class="shop-section">
+        <!-- Hátterek menü elrejtve a felhasználó kérésére (mindig az event háttér aktív) -->
+        <div class="shop-section" style="display: none !important;">
             <div class="shop-section-title">🖼️ Hátterek</div>
             <div class="shop-grid" id="bgList"></div>
         </div>
@@ -18332,16 +18333,18 @@
                 ((now.getMonth() === 5 && now.getDate() >= 10) ||
                     (now.getMonth() === 6) ||
                     (now.getMonth() === 7 && now.getDate() <= 10)));
-            document.body.classList.toggle('summer-event', isSummerEvent && (activeBg === '' || activeBg === 'napszak'));
-            if (activeBg !== '' && activeBg !== 'napszak') {
-                // Ha van egyedi háttér, ne írjuk felül az idővel
-                return;
-            }
+            
+            document.body.classList.toggle('summer-event', isSummerEvent);
             if (isSummerEvent) {
                 // Summer event háttér — a CSS kezeli a body.summer-event osztályon keresztül
                 const tc = document.getElementById('themeColor');
                 tc.content = '#0ea5e9';
                 document.documentElement.style.backgroundColor = '#fbbf24';
+                return;
+            }
+
+            if (activeBg !== '' && activeBg !== 'napszak') {
+                // Ha van egyedi háttér, ne írjuk felül az idővel
                 return;
             }
 
@@ -21810,12 +21813,23 @@
             'bg-gamer': 'linear-gradient(165deg,#020617 0%,#0f172a 30%,#1e1b4b 60%,#020617 100%)'
         };
         function applyCustomBg() {
-            const bg = getActiveBg();
+            // Summer Chill event — június 10. és augusztus 10. között (2 hónap)
+            const now = new Date();
+            const isSummerEvent = (now.getFullYear() === 2026 &&
+                ((now.getMonth() === 5 && now.getDate() >= 10) ||
+                    (now.getMonth() === 6) ||
+                    (now.getMonth() === 7 && now.getDate() <= 10)));
 
             document.body.style.background = '';
             document.body.style.backgroundAttachment = '';
             document.body.classList.remove('bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
 
+            if (isSummerEvent) {
+                applyTimeTheme();
+                return;
+            }
+
+            const bg = getActiveBg();
             if (!bg || bg === 'napszak' || !owns(bg)) {
                 applyTimeTheme();
                 return;
