@@ -24209,8 +24209,9 @@
             }, true);
         }
         
-        // Image zoom lightbox handler
+        // Image zoom lightbox handler (unified event delegator)
         document.addEventListener('click', function (e) {
+            // Open zoom
             const img = e.target.closest('.news-image-card img, .news-article img');
             if (img) {
                 const zoomOverlay = document.getElementById('imgZoomOverlay');
@@ -24222,18 +24223,20 @@
                     void zoomOverlay.offsetWidth;
                     zoomOverlay.classList.add('show');
                 }
+                return;
+            }
+
+            // Close zoom if clicked on the overlay, close button, or zoomed image
+            const zoomOverlay = document.getElementById('imgZoomOverlay');
+            if (zoomOverlay && zoomOverlay.classList.contains('show')) {
+                if (e.target.closest('#imgZoomOverlay')) {
+                    zoomOverlay.classList.remove('show');
+                    setTimeout(() => {
+                        zoomOverlay.style.display = 'none';
+                    }, 300);
+                }
             }
         });
-
-        const zoomOverlay = document.getElementById('imgZoomOverlay');
-        if (zoomOverlay) {
-            zoomOverlay.addEventListener('click', function () {
-                zoomOverlay.classList.remove('show');
-                setTimeout(() => {
-                    zoomOverlay.style.display = 'none';
-                }, 300);
-            });
-        }
     })();
     </script>
 
