@@ -17333,6 +17333,36 @@
             border-bottom: 2px solid rgba(251, 191, 36, 0.25) !important;
             backdrop-filter: blur(10px);
         }
+        /* Summer Event Shop Inner styling overrides */
+        body.summer-event .shop-section-title {
+            color: #fde68a !important; /* Golden/yellow headers */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        body.summer-event .shop-group-divider {
+            border-top: 2px solid rgba(251, 191, 36, 0.25) !important;
+            opacity: 0.6;
+        }
+        body.summer-event .shop-item,
+        body.summer-event .gem-pack,
+        body.summer-event .loot-card-wrap {
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)) !important;
+            border: 1.5px solid rgba(251, 191, 36, 0.2) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        body.summer-event .shop-item:hover,
+        body.summer-event .gem-pack:hover {
+            border-color: #fbbf24 !important;
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.2) !important;
+        }
+        body.summer-event .shop-item.active {
+            border-color: #fbbf24 !important;
+            background: linear-gradient(160deg, rgba(251, 191, 36, 0.25), rgba(249, 115, 22, 0.15)) !important;
+            box-shadow: 0 0 24px rgba(251, 191, 36, 0.35), inset 0 0 20px rgba(251, 191, 36, 0.15) !important;
+        }
+        body.summer-event .daily-box-img {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="80" font-size="80">🍦</text></svg>') !important;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.7)) drop-shadow(0 0 25px rgba(249, 115, 22, 0.4)) !important;
+        }
 
         /* Summer Event News Panel Overrides */
         body.summer-event .news-toggle {
@@ -17964,7 +17994,7 @@
     <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
         <div class="shop-header">
-            <div class="shop-title">🏪 Skin Shop</div>
+            <div class="shop-title">🏪 SHOP</div>
             <div style="display:flex;gap:8px;align-items:center">
                 <div class="shop-gems"><span class="gem-img"></span> <span data-gem-display>0</span></div>
                 <div class="sync-toggle" id="syncToggle">🔄</div>
@@ -17985,7 +18015,7 @@
                     </div>
                     <div class="cc-banner-title"
                         style="text-shadow: 3px 3px 0 #ca8a04, -1px -1px 0 rgba(219, 39, 119, .8);">SUMMER CHILL!</div>
-                    <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, 30 bonus gemet, +3 Super Daily
+                    <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, 30 bonus gemet, +3 Fagyi
                         Boxot és a Chill matricát! 🎮 Vagy nyomj hosszan a robotra és kapd el 50× a fagyit — INGYEN tiéd a skin!</div>
                     <div class="cc-banner-rewards" style="align-items:stretch;">
                         <div class="cc-reward-pill"
@@ -18033,9 +18063,9 @@
                         </div>
                         <div class="cc-reward-pill"
                             style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <img src="box/box.png" alt="Super Daily Box"
+                            <img src="box/box.png" alt="Fagyi Box"
                                 style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
-                            <span style="font-size:10px;font-weight:800;">+3 Super Box</span>
+                            <span style="font-size:10px;font-weight:800;">+3 Fagyi Box</span>
                         </div>
                         <div class="cc-reward-pill"
                             style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
@@ -18098,10 +18128,10 @@
                 <div id="shopBoxCard"
                     style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: none; padding: 10px 0; text-align: center;">
                     <div class="loot-card-visual" style="margin:0;">
-                        <img src="box/box.png" alt="Daily Box" class="daily-box-img"
+                        <img src="box/box.png" alt="Fagyi Box" class="daily-box-img"
                             style="width: 80px; height: 80px; filter: drop-shadow(0 0 15px rgba(74,222,128,0.4));">
                     </div>
-                    <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0;">Super Daily Box
+                    <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0;">Fagyi Box 🍦
                     </div>
 
                     <button class="buy-tag" id="buyBoxBtn"
@@ -22517,7 +22547,7 @@
                 tier = tier || 'daily';
                 if (!bypass) {
                     if (tier === 'daily') {
-                        if (!consumeBox()) { alert('Ma már nincs több ingyen dobozod. Vegyél egyet 67 gemért, vagy gyere vissza holnap 8:00-kor!'); return }
+                        if (!consumeBox()) { alert('Ma már nincs több ingyenes Fagyi Boxod. Vegyél egyet 67 gemért, vagy gyere vissza holnap hajnali 5:00-kor!'); return }
                     }
 
                     if (typeof markMission === 'function') markMission('box', 20);
@@ -22794,7 +22824,7 @@
                     ccBtn._bound = true; ccBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         if (localStorage.getItem('nu_summer_pass_bought') === '1') { return }
-                        if (!confirm('🍦 Summer Chill Pass megvétele 300 gemért?\n\n🍦 Ice Cream Bot skin\n💎 +30 Gem\n📦 +3 Super Daily Box\n🍦 Ice cream! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
+                        if (!confirm('🍦 Summer Chill Pass megvétele 300 gemért?\n\n🍦 Ice Cream Bot skin\n💎 +30 Gem\n📦 +3 Fagyi Box\n🍦 Ice cream! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
                         if (!spendGems(300)) { alert('Nincs elég gem! (300 gem kell)'); return }
                         // Ice Cream bot unlock + 30 gem + 3 boxes + Ice Cream sticker
                         buyItem('ice-cream');
@@ -22805,7 +22835,7 @@
                         localStorage.setItem('nu_summer_pass_bought', '1');
                         try { playSfx('zynox') } catch (_) { }
                         triggerSkinEquipEffect();
-                        alert('🍦 Summer Chill Pass aktiválva!\n\n✅ Ice Cream Bot feloldva\n💎 +30 gem jóváírva\n📦 +3 Super Daily Box hozzáadva\n🍦 Ice cream! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
+                        alert('🍦 Summer Chill Pass aktiválva!\n\n✅ Ice Cream Bot feloldva\n💎 +30 gem jóváírva\n📦 +3 Fagyi Box hozzáadva\n🍦 Ice cream! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
                         updateGemUI();
                         updateLootBadges();
                         if (typeof renderShop === 'function') renderShop();
@@ -22833,7 +22863,7 @@
                     buyBoxBtn._bound = true;
                     buyBoxBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        if (!confirm('Veszel egy Daily Boxot 67 gemért?')) return;
+                        if (!confirm('Veszel egy Fagyi Boxot 67 gemért?')) return;
                         if (!spendGems(67)) { alert('Nincs elég gem! (67 kell)'); return; }
                         window.openDailyBox(true, 'daily');
                     });
@@ -22998,10 +23028,9 @@
             if (boxesRemaining() <= 0) {
                 localStorage.setItem('nu_box_count', '1');
             }
-            // Kis késleltetéssel üdvözlő popup
+            // Kis késleltetéssel üdvözlő hang és UI frissítés
             setTimeout(() => {
                 try { playSfx('gem-claim') } catch (_) { }
-                alert('🎁 Napi belépési jutalom!\n\n📦 1 Daily Box\n💎 +5 gem\n\nNyisd ki a shopban!');
                 updateGemUI();
                 updateLootBadges();
             }, 1500);
@@ -23359,9 +23388,9 @@
     <div id="dailyBoxOverlay" class="db-overlay" style="display:none">
         <div class="db-bg"></div>
         <div class="db-content">
-            <div class="db-prompt" id="dbPrompt">Koppints a dobozra!</div>
+            <div class="db-prompt" id="dbPrompt">Koppints a fagyira!</div>
             <div class="db-box" id="dbBox">
-                <img src="box/box.png" alt="Daily Box" class="daily-box-img big">
+                <img src="box/box.png" alt="Fagyi Box" class="daily-box-img big">
             </div>
 
             <div class="db-number" id="dbNumber">1</div>
@@ -23545,7 +23574,7 @@
             </div>
             <div class="loot-info-scroll">
                 <div class="loot-info-section">
-                    <div class="loot-info-section-title">🎁 Daily Box <span class="loot-info-tag tag-daily">INGYEN ·
+                    <div class="loot-info-section-title">🎁 Fagyi Box <span class="loot-info-tag tag-daily">INGYEN ·
                             1/nap</span></div>
                     <ul class="loot-info-list">
                         <li><span>30%</span> 10–50 gem</li>
@@ -23559,7 +23588,7 @@
                     <div class="loot-info-section-title">📦 Common Box <span class="loot-info-tag tag-common">💎 100 ·
                             korlátlan</span></div>
                     <ul class="loot-info-list">
-                        <li>Ugyanaz mint Daily Box, de korlátlanul vehető gemmel</li>
+                        <li>Ugyanaz mint Fagyi Box, de korlátlanul vehető gemmel</li>
                     </ul>
                 </div>
                 <div class="loot-info-section">
