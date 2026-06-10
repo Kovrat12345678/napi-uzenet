@@ -448,7 +448,7 @@ docs/superpowers/
 
 ## App Icon
 
-- `icon/app_icon_event.png` — aktualis esemeny ikon (Comic Clash)
+- `icon/app_icon_event.png` — aktualis esemeny ikon (Summer Chill)
 - `icon/dailybot-icon.png` — alap ikon (tartalek)
 - (A Sarkany Het alatt NINCS ikon override — regi funkció eltavolitva.)
 

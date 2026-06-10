@@ -14,9 +14,11 @@
     <link rel="manifest" id="manifestLink" href="manifest.json?v=5">
     <script>
     </script>
-    <title>DailyBot 🤖 Comic Clash</title>
+    <title>DailyBot 🍦 Summer Chill</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap');
+
         @property --dw-h {
             syntax: '<number>';
             inherits: true;
@@ -1380,6 +1382,44 @@
             50% {
                 transform: translateX(-50%) translateY(-12px) rotate(5deg);
                 opacity: 1
+        }
+
+        /* Ice Cream Aura */
+        .robot.aura-icecream::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            height: 130%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.45), rgba(219, 39, 119, 0.35), transparent 70%);
+            animation: auraFloat 3s ease-in-out infinite;
+            filter: blur(15px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .robot.aura-icecream::after {
+            content: '🍦';
+            position: absolute;
+            top: -30px;
+            left: 20%;
+            font-size: 18px;
+            animation: icecreamFloat 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 20px rgba(219, 39, 119, 0.5);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @keyframes icecreamFloat {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-12px) scale(1.1) rotate(15deg);
+                opacity: 1;
             }
         }
 
@@ -2583,219 +2623,145 @@
             color: rgba(0, 212, 255, .7) !important
         }
 
-        /* ========== LOADING SCREEN ========== */
+        /* ========== LOADING SCREEN (ZYNOX STUDIO INTRO) ========== */
         .loading-screen {
             position: fixed;
             inset: 0;
             z-index: 9999;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 24px;
-            background: linear-gradient(135deg, #0f0a1f 0%, #1e1b4b 25%, #3b0764 50%, #581c87 75%, #0f0a1f 100%);
-            background-size: 300% 300%;
-            animation: loadingBgFlow 14s ease infinite;
-            transition: opacity .55s ease, transform .55s ease;
+            background: #000000 !important;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             overflow: hidden;
-            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
-        }
-
-        @keyframes loadingBgFlow {
-
-            0%,
-            100% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
+            font-family: 'Outfit', 'SF Pro Display', system-ui, sans-serif;
         }
 
         .loading-screen.fade-out {
             opacity: 0;
-            transform: scale(1.05);
-            pointer-events: none
-        }
-
-        /* Csillagok háttér */
-        .loading-screen::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, .6), transparent),
-                radial-gradient(2px 2px at 70% 80%, rgba(251, 191, 36, .5), transparent),
-                radial-gradient(1px 1px at 35% 70%, rgba(255, 255, 255, .5), transparent),
-                radial-gradient(2px 2px at 85% 25%, rgba(236, 72, 153, .4), transparent),
-                radial-gradient(1px 1px at 50% 50%, rgba(167, 139, 250, .5), transparent),
-                radial-gradient(2px 2px at 15% 85%, rgba(255, 255, 255, .4), transparent),
-                radial-gradient(1px 1px at 60% 15%, rgba(34, 211, 238, .5), transparent),
-                radial-gradient(2px 2px at 90% 60%, rgba(255, 255, 255, .3), transparent);
-            background-size: 800px 800px;
-            animation: loadingStarsDrift 60s linear infinite;
-            opacity: .7;
-        }
-
-        @keyframes loadingStarsDrift {
-            from {
-                transform: translateY(0)
-            }
-
-            to {
-                transform: translateY(-800px)
-            }
-        }
-
-        /* Áramló konikus gyűrű az ikon körül */
-        .loading-icon-frame {
-            position: relative;
-            width: 128px;
-            height: 128px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: loadingIconBob 3s ease-in-out infinite;
-        }
-
-        @keyframes loadingIconBob {
-
-            0%,
-            100% {
-                transform: translateY(0)
-            }
-
-            50% {
-                transform: translateY(-8px)
-            }
-        }
-
-        .loading-icon-frame::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            background: conic-gradient(from var(--ang, 0deg), #fbbf24, #ec4899, #a78bfa, #22d3ee, #10b981, #fbbf24);
-            animation: dcMythicSpin 4s linear infinite;
-            filter: blur(8px);
-            opacity: .8;
-        }
-
-        .loading-icon-frame::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 30px;
-            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, .3), transparent 50%);
+            transform: scale(1.08);
             pointer-events: none;
         }
 
-        .loading-icon {
-            width: 108px;
-            height: 108px;
-            border-radius: 28px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, .4), 0 0 30px rgba(167, 139, 250, .4), inset 0 1px 0 rgba(255, 255, 255, .2);
-            object-fit: cover;
+        .zynox-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            animation: zynoxLogoEntrance 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             position: relative;
-            z-index: 2;
-            border: 2px solid rgba(255, 255, 255, .1);
         }
 
-        .loading-title {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #fbbf24, #ec4899, #a78bfa, #22d3ee, #fbbf24);
-            background-size: 300% 100%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: flowColor 3.5s linear infinite;
-            text-align: center;
-            text-shadow: 0 0 30px rgba(167, 139, 250, .4);
-            position: relative;
-            z-index: 2;
-        }
-
-        .loading-sub {
-            font-size: 11px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, .6);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: -14px;
-            position: relative;
-            z-index: 2;
-            animation: loadingSubFade 2s ease-in-out infinite;
-        }
-
-        @keyframes loadingSubFade {
-
-            0%,
-            100% {
-                opacity: .5
-            }
-
-            50% {
-                opacity: 1
-            }
-        }
-
-        .loading-bar-wrap {
-            width: 200px;
-            height: 8px;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, .4);
-            border: 1.5px solid rgba(255, 255, 255, .15);
-            overflow: hidden;
-            position: relative;
-            z-index: 2;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, .5), 0 0 20px rgba(167, 139, 250, .2);
-        }
-
-        .loading-bar {
-            height: 100%;
-            width: 0%;
-            border-radius: 6px;
-            background: linear-gradient(90deg, #fbbf24 0%, #ec4899 35%, #a78bfa 70%, #22d3ee 100%);
-            background-size: 200% 100%;
-            animation: bpXpFlow 2s linear infinite;
-            transition: width .35s cubic-bezier(.4, 1.4, .6, 1);
-            box-shadow: 0 0 12px rgba(251, 191, 36, .6), 0 0 24px rgba(236, 72, 153, .3);
-        }
-
-        .loading-bar::after {
+        /* Ambient soft white glow background */
+        .zynox-logo-container::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 20px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .6));
-            animation: loadingBarTip 1.4s ease-in-out infinite;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+            animation: zynoxGlowPulse 2s ease-in-out infinite alternate;
         }
 
-        @keyframes loadingBarTip {
-
-            0%,
-            100% {
-                opacity: .6
-            }
-
-            50% {
-                opacity: 1
-            }
-        }
-
-        .loading-pct {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 900;
-            letter-spacing: .5px;
-            position: relative;
+        .zynox-text-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             z-index: 2;
-            text-shadow: 0 0 8px rgba(167, 139, 250, .5);
+        }
+
+        .zynox-title {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, #ffffff 30%, #e5e5e5 50%, #ffffff 70%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: zynoxTextShine 3s linear infinite;
+        }
+
+        .zynox-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 8px;
+            margin-right: -12px; /* Offset spacing gap */
+            text-transform: uppercase;
+        }
+
+        /* Supercell-style logo symbol */
+        .zynox-symbol {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 8px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            animation: zynoxSymbolSpin 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .zynox-symbol::after {
+            content: 'Z';
+            font-size: 48px;
+            font-weight: 900;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes zynoxLogoEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.85);
+                filter: blur(15px);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1.02);
+                filter: blur(0);
+            }
+            85% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+            100% {
+                opacity: 0.95;
+                transform: scale(0.98);
+            }
+        }
+
+        @keyframes zynoxSymbolSpin {
+            0% {
+                transform: rotate(-90deg) scale(0.7);
+            }
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        @keyframes zynoxTextShine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes zynoxGlowPulse {
+            0% { opacity: 0.6; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.1); }
         }
 
         /* ========== DRAGON SPIN ========== */
@@ -16275,98 +16241,75 @@
             transform: scale(1.2)
         }
 
-        /* ============== COMIC CLASH EVENT ============== */
-        /* Comic háttér overlay — féltonális minta + akció vonalak (csak májusban) */
-        body.comic-event {
-            background: linear-gradient(135deg, #1a0a2e 0%, #2d1052 20%, #e11d48 45%, #fbbf24 65%, #0ea5e9 85%, #1a0a2e 100%) !important;
+        /* ============== SUMMER CHILL EVENT ============== */
+        /* Nyári fagylaltos háttér — napsütéses ég + meleg pasztell (június 10 – augusztus 10) */
+        body.summer-event {
+            background: linear-gradient(165deg, #0ea5e9 0%, #38bdf8 20%, #7dd3fc 40%, #fde68a 65%, #fbbf24 80%, #f97316 100%) !important;
             background-attachment: fixed !important
         }
 
-        body.comic-event .stars {
-            opacity: .3
+        body.summer-event .stars {
+            opacity: .15
         }
 
-        /* Superhero Aura Style */
-        .aura-superhero::after {
+        /* Nap sugarak (conic gradient) */
+        body.summer-event::before {
             content: '';
-            position: absolute;
-            inset: -30px;
+            position: fixed;
+            top: -30%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            z-index: 0;
+            pointer-events: none;
+            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg 12deg, rgba(255, 255, 255, .06) 12deg 14deg);
             border-radius: 50%;
-            border: 4px solid #fbbf24;
-            box-shadow: 0 0 40px #fbbf24, inset 0 0 40px #0ea5e9;
-            animation: auraPulse 1s ease-in-out infinite alternate;
-            z-index: -1;
-            opacity: 0.8;
+            animation: sunRays 30s linear infinite;
+            opacity: .8
         }
 
-        @keyframes auraPulse {
+        @keyframes sunRays {
             from {
-                transform: scale(0.9);
-                opacity: 0.5;
+                transform: rotate(0deg)
             }
 
             to {
-                transform: scale(1.1);
-                opacity: 0.9;
+                transform: rotate(360deg)
             }
         }
 
-        body.comic-event::before {
+        /* Halvány felhő / pára réteg */
+        body.summer-event::after {
             content: '';
             position: fixed;
-            inset: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
             z-index: 0;
             pointer-events: none;
-            background:
-                radial-gradient(circle, rgba(0, 0, 0, .18) 1px, transparent 1px),
-                radial-gradient(circle, rgba(0, 0, 0, .12) 1px, transparent 1px);
-            background-size: 8px 8px, 12px 12px;
-            background-position: 0 0, 4px 4px;
-            opacity: .4;
-            mix-blend-mode: multiply
+            background: linear-gradient(to top, rgba(255, 255, 255, .12), transparent);
+            opacity: .6
         }
 
-        body.comic-event::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            background:
-                repeating-conic-gradient(from 0deg at 50% 120%, transparent 0deg, transparent 8deg, rgba(255, 255, 0, .04) 8deg, rgba(255, 255, 0, .04) 9deg);
-            opacity: .5
-        }
-
-        body.comic-event {
-            background: linear-gradient(135deg, #1a0a2e 0%, #2d1052 20%, #e11d48 45%, #fbbf24 65%, #0ea5e9 85%, #1a0a2e 100%) !important;
-            background-attachment: fixed !important
-        }
-
-        .daily-box-img.big {
-            width: 140px;
-            height: 140px;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
-            animation: giftBob 2s ease-in-out infinite;
-        }
-
-        body.comic-event .app,
-        body.comic-event .stars,
-        body.comic-event #robot-container {
+        body.summer-event .app,
+        body.summer-event .stars,
+        body.summer-event #robot-container {
             position: relative;
             z-index: 1;
         }
 
-        body.comic-event .skin-panel,
-        body.comic-event .favs-toggle,
-        body.comic-event .skin-toggle,
-        body.comic-event .sync-panel,
-        body.comic-event .dc-panel,
-        body.comic-event .news-panel {
+        body.summer-event .skin-panel,
+        body.summer-event .favs-toggle,
+        body.summer-event .skin-toggle,
+        body.summer-event .sync-panel,
+        body.summer-event .dc-panel,
+        body.summer-event .news-panel {
             z-index: 1000;
         }
 
-        body.comic-event .stars {
-            opacity: .3
+        body.summer-event .stars {
+            opacity: .15
         }
 
         /* News Menu Styles */
@@ -16479,6 +16422,82 @@
             background: #000;
             position: relative;
             aspect-ratio: 16/9;
+        }
+
+        .news-image-card {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid #000;
+            background: transparent;
+            position: relative;
+            height: 160px;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .news-image-card:hover {
+            transform: scale(1.04);
+            border-color: #fbbf24;
+        }
+
+        .news-image-card img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Lightbox zoom overlay */
+        .zoom-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .zoom-overlay.show {
+            opacity: 1;
+        }
+
+        .zoom-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.85);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .zoom-overlay.show .zoom-content {
+            transform: scale(1);
+        }
+
+        .zoom-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 44px;
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .zoom-close-btn:hover {
+            color: #f43f5e;
+            transform: scale(1.1);
         }
 
         .news-video-card video {
@@ -16801,19 +16820,19 @@
             font-weight: 900;
             letter-spacing: 1px;
             font-size: 1.05em;
-            filter: drop-shadow(0 0 6px rgba(74,222,128,0.5));
+            filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.5));
         }
-        
+
         .gem-img {
             display: inline-block;
             width: 1.2em;
             height: 1.2em;
             vertical-align: middle;
             background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23bae6fd"/><stop offset=".5" stop-color="%230ea5e9"/><stop offset="1" stop-color="%230369a1"/></linearGradient><path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(%23g)" stroke="%230284c7" stroke-width="1.5"/><path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)"/><path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)"/><path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)"/><path d="M10,30 L40,70 L40,40 Z" fill="rgba(0,0,0,.05)"/></svg>') center/contain no-repeat;
-            filter: drop-shadow(0 0 4px rgba(14,165,233,0.8));
+            filter: drop-shadow(0 0 4px rgba(14, 165, 233, 0.8));
             margin-top: -2px;
         }
-        
+
         .daily-box-img {
             width: 64px;
             height: 64px;
@@ -17064,6 +17083,624 @@
                 opacity: .7
             }
         }
+
+        /* ── ICE CREAM BOT SKIN (SUMMER EXCLUSIVE) ── */
+        @keyframes iceCreamFloat {
+            0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 12px rgba(45, 212, 191, .3)) }
+            50% { transform: translateY(-4px); filter: drop-shadow(0 0 24px rgba(244, 114, 182, .5)) }
+        }
+        @keyframes chocoDrip {
+            0% { clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%) }
+            50% { clip-path: polygon(0% 0%, 100% 0%, 100% 65%, 85% 82%, 70% 72%, 55% 88%, 40% 76%, 25% 90%, 10% 75%, 0% 80%) }
+            100% { clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%) }
+        }
+        @keyframes cherryBob {
+            0%, 100% { transform: translateX(-50%) translateY(0) scale(1) }
+            50% { transform: translateX(-50%) translateY(-3px) scale(1.08) }
+        }
+        @keyframes cherryShine {
+            0%, 100% { box-shadow: 0 0 16px rgba(239, 68, 68, .7), 0 0 32px rgba(239, 68, 68, .3), inset -3px -3px 6px rgba(0,0,0,.2) }
+            50% { box-shadow: 0 0 24px rgba(239, 68, 68, .9), 0 0 48px rgba(239, 68, 68, .5), 0 0 60px rgba(251,191,36,.3), inset -3px -3px 6px rgba(0,0,0,.2) }
+        }
+        @keyframes iceChillGlow {
+            0% { transform: scale(0.92); opacity: 0.4 }
+            50% { transform: scale(1.08); opacity: 0.85 }
+            100% { transform: scale(0.92); opacity: 0.4 }
+        }
+        @keyframes iceCreamChestPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 4px rgba(219,39,119,.4)) }
+            50% { transform: translate(-50%, -50%) scale(1.15); filter: drop-shadow(0 0 12px rgba(219,39,119,.7)) }
+        }
+        @keyframes waffleConeShine {
+            0% { background-position: -100% 0 }
+            100% { background-position: 200% 0 }
+        }
+        @keyframes coneGlow {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 2px rgba(217, 119, 6, 0.4)); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 8px rgba(217, 119, 6, 0.85)); }
+        }
+        @keyframes sprinkleSparkle {
+            0%, 100% { opacity: 0.65; }
+            50% { opacity: 1; filter: brightness(1.3); }
+        }
+
+        .robot.ice-cream {
+            animation: iceCreamFloat 3s ease-in-out infinite;
+        }
+
+        .robot.ice-cream .head {
+            background: linear-gradient(165deg, #fffbeb 0%, #fef9c3 25%, #fef08a 50%, #fde047 100%) !important;
+            box-shadow: 0 4px 16px rgba(253, 224, 71, .5), inset 0 -6px 10px rgba(202, 138, 4, .15), inset 0 2px 0 rgba(255,255,255,.6) !important;
+            border: 2px solid #ca8a04 !important;
+            overflow: visible !important
+        }
+
+        /* Whipped cream top — a fejen */
+        .robot.ice-cream .head::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 15%;
+            right: 15%;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(254,249,195,.6));
+            border-radius: 8px 8px 4px 4px;
+            z-index: 5;
+            box-shadow: 0 -2px 8px rgba(255,255,255,.5);
+            pointer-events: none
+        }
+
+        .robot.ice-cream .torso {
+            background: linear-gradient(165deg, #fce7f3 0%, #fbcfe8 25%, #f472b6 55%, #db2777 100%) !important;
+            box-shadow: 0 6px 20px rgba(219, 39, 119, .45), inset 0 2px 0 rgba(255, 255, 255, .4) !important;
+            border: 2px solid #9d174d !important;
+            position: relative;
+            overflow: visible !important
+        }
+
+        /* Csokoládé öntet animált lefolyás */
+        .robot.ice-cream .torso::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 5%;
+            right: 5%;
+            height: 50%;
+            background: linear-gradient(to bottom, #5b2c0e, #78350f 40%, #92400e 70%, #a16207);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%);
+            animation: chocoDrip 4s ease-in-out infinite;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, .4);
+            z-index: 5;
+            pointer-events: none;
+            border-radius: 0 0 6px 6px
+        }
+
+        /* Szórás (sprinkles) a törzsön */
+        .robot.ice-cream .torso::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12%;
+            right: 12%;
+            height: 28%;
+            background:
+                radial-gradient(circle 2px at 20% 30%, #ef4444, transparent),
+                radial-gradient(circle 2px at 50% 20%, #fbbf24, transparent),
+                radial-gradient(circle 2px at 75% 50%, #22d3ee, transparent),
+                radial-gradient(circle 2px at 35% 60%, #a855f7, transparent),
+                radial-gradient(circle 2px at 60% 70%, #4ade80, transparent),
+                radial-gradient(circle 2px at 85% 25%, #f472b6, transparent),
+                radial-gradient(circle 2px at 15% 75%, #fbbf24, transparent);
+            z-index: 6;
+            pointer-events: none;
+            opacity: .85;
+            animation: sprinkleSparkle 2s ease-in-out infinite;
+        }
+
+        .robot.ice-cream .face-screen {
+            background: linear-gradient(180deg, #0f3a37, #134e4a) !important;
+            border: 1.5px solid #2dd4bf !important;
+            border-radius: 10px !important;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,.3), 0 0 8px rgba(45,212,191,.15) !important
+        }
+
+        .robot.ice-cream .eye {
+            background: radial-gradient(circle, #fff 15%, #5eead4 50%, #2dd4bf 75%, #0d9488 100%) !important;
+            box-shadow: 0 0 12px #2dd4bf, 0 0 24px rgba(45, 212, 191, .7), inset 0 0 4px rgba(255,255,255,.5) !important
+        }
+
+        .robot.ice-cream .mouth {
+            background: linear-gradient(90deg, #14b8a6, #2dd4bf, #14b8a6) !important;
+            width: 16px !important;
+            height: 4px !important;
+            border-radius: 0 0 8px 8px !important;
+            box-shadow: 0 0 8px rgba(45, 212, 191, .7) !important
+        }
+
+        .robot.ice-cream .antenna-stick {
+            background: linear-gradient(to bottom, #fbbf24, #f59e0b, #ca8a04) !important;
+            border: 1px solid #78350f !important;
+            box-shadow: 0 0 6px rgba(245,158,11,.3) !important
+        }
+
+        /* Cseresznye — nagyobb, fényesebb, csillogó highlight */
+        .robot.ice-cream .antenna-ball {
+            background: radial-gradient(circle at 35% 30%, #fecaca, #fca5a5 30%, #ef4444 60%, #b91c1c 90%) !important;
+            box-shadow: 0 0 16px rgba(239, 68, 68, .7), 0 0 32px rgba(239, 68, 68, .3), inset -3px -3px 6px rgba(0,0,0,.2) !important;
+            border: 1.5px solid #78350f !important;
+            animation: cherryBob 2s ease-in-out infinite, cherryShine 3s ease-in-out infinite !important
+        }
+
+        .robot.ice-cream .arm-l,
+        .robot.ice-cream .arm-r {
+            background: linear-gradient(to bottom, #fef08a, #fde047, #eab308, #ca8a04) !important;
+            border: 1.5px solid #ca8a04 !important;
+            box-shadow: 0 3px 10px rgba(202, 138, 4, .35), inset 0 1px 0 rgba(255,255,255,.4) !important
+        }
+
+        /* Waffle cone textúra a lábakon */
+        .robot.ice-cream .leg {
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(120,53,15,.15) 3px, rgba(120,53,15,.15) 4px),
+                repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(120,53,15,.15) 3px, rgba(120,53,15,.15) 4px),
+                linear-gradient(to bottom, #d97706 0%, #b45309 50%, #92400e 100%) !important;
+            border: 1.5px solid #78350f !important;
+            box-shadow: 0 4px 12px rgba(120, 53, 15, .35) !important;
+            animation: coneGlow 2.5s ease-in-out infinite;
+        }
+
+        .robot.ice-cream .shoulder-l,
+        .robot.ice-cream .shoulder-r {
+            background: radial-gradient(circle at 30% 30%, #fef9c3, #fef08a 40%, #ca8a04) !important;
+            border: 1.5px solid #ca8a04 !important;
+            box-shadow: 0 0 8px rgba(253,224,71,.3) !important
+        }
+
+        .robot.ice-cream .ear-l,
+        .robot.ice-cream .ear-r {
+            background: linear-gradient(to right, #fbcfe8, #f472b6, #db2777) !important;
+            border: 1px solid #9d174d !important;
+            box-shadow: 0 0 6px rgba(244,114,182,.3) !important
+        }
+
+        .robot.ice-cream .neck {
+            background: linear-gradient(to bottom, #fde047, #eab308, #ca8a04) !important;
+            border: 1px solid #78350f !important
+        }
+
+        .robot.ice-cream .foot {
+            background: linear-gradient(135deg, #b45309 0%, #92400e 40%, #78350f 70%, #451a03 100%) !important;
+            border: 1.5px solid #451a03 !important;
+            box-shadow: 0 3px 8px rgba(69,26,3,.4) !important
+        }
+
+        .robot.ice-cream .chest {
+            background: radial-gradient(circle at 50% 50%, #fff 0%, #fce7f3 50%, #fbcfe8 100%) !important;
+            border: 2.5px solid #db2777 !important;
+            box-shadow: 0 0 18px rgba(219, 39, 119, .5), inset 0 0 8px rgba(255,255,255,.4) !important
+        }
+
+        .robot.ice-cream .heart-icon {
+            display: none !important
+        }
+
+        /* Fagyi emoji — pulzáló */
+        .robot.ice-cream .chest::before {
+            content: '🍦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            z-index: 2;
+            animation: iceCreamChestPulse 2.5s ease-in-out infinite
+        }
+
+        .robot.ice-cream .chest-dots {
+            display: none !important
+        }
+
+        /* Hűvös fagyi aura — erősebb, színesebb */
+        .robot.ice-cream::after {
+            content: '';
+            position: absolute;
+            inset: -28px;
+            background: radial-gradient(circle at 50% 50%,
+                rgba(45, 212, 191, .2) 0%,
+                rgba(244, 114, 182, .12) 35%,
+                rgba(251, 191, 36, .06) 55%,
+                transparent 70%);
+            animation: iceChillGlow 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -2;
+            border-radius: 50%;
+            filter: blur(2px)
+        }
+        /* Summer Event News Panel Overrides */
+        body.summer-event .news-toggle {
+            background: linear-gradient(135deg, #0ea5e9, #db2777) !important;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.45) !important;
+            border: 2px solid #fff !important;
+            color: #fff !important;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important;
+        }
+        body.summer-event .news-panel {
+            background: linear-gradient(165deg, #022c43 0%, #053f5e 35%, #115173 70%, #0d2c54 100%) !important;
+        }
+        body.summer-event .news-header {
+            background: rgba(2, 44, 67, 0.85) !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
+            backdrop-filter: blur(10px);
+        }
+        body.summer-event .news-content {
+            background: transparent !important;
+        }
+        body.summer-event .news-tab {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 2px solid rgba(255, 255, 255, 0.1) !important;
+            color: rgba(255, 255, 255, 0.75) !important;
+        }
+        body.summer-event .news-tab.active {
+            background: linear-gradient(135deg, #db2777, #f43f5e) !important;
+            border-color: #fde68a !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.35) !important;
+        }
+        body.summer-event .news-article {
+            background: rgba(255, 255, 255, 0.07) !important;
+            border: 2px solid rgba(255, 255, 255, 0.12) !important;
+            color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+            backdrop-filter: blur(6px) !important;
+        }
+        body.summer-event .news-article h2 {
+            color: #fde68a !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+        body.summer-event .news-image-card {
+            border: 3px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        /* ============== ICE CREAM CATCH MINI-GAME ============== */
+        .ic-game-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: linear-gradient(165deg, #0ea5e9 0%, #38bdf8 25%, #7dd3fc 45%, #fde68a 65%, #f472b6 85%, #db2777 100%);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: calc(env(safe-area-inset-top, 20px) + 16px) 20px 20px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            opacity: 0;
+            transition: opacity .4s ease;
+        }
+        .ic-game-overlay.open {
+            display: flex;
+        }
+        .ic-game-overlay.visible {
+            opacity: 1;
+        }
+
+        /* Háttér dekoráció — lebegő fagyik */
+        .ic-game-overlay::before {
+            content: '🍦🍨🍧🍦🍨🍧🍦🍨';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            font-size: 40px;
+            line-height: 120px;
+            letter-spacing: 60px;
+            text-align: center;
+            opacity: .06;
+            pointer-events: none;
+            overflow: hidden;
+            word-break: break-all;
+        }
+
+        .ic-game-header {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 12px;
+        }
+        .ic-game-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 3px 12px rgba(0,0,0,.3), 0 0 30px rgba(251,191,36,.4);
+            letter-spacing: 1px;
+        }
+        .ic-game-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,.85);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Timer bar */
+        .ic-timer-wrap {
+            width: 100%;
+            max-width: 340px;
+            height: 10px;
+            border-radius: 10px;
+            background: rgba(0,0,0,.25);
+            overflow: hidden;
+            margin: 8px 0 12px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,.2);
+        }
+        .ic-timer-bar {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #4ade80, #fbbf24, #ef4444);
+            transition: width .1s linear;
+            box-shadow: 0 0 10px rgba(74,222,128,.5);
+        }
+
+        /* Score display */
+        .ic-score-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .ic-score-item {
+            background: rgba(255,255,255,.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 14px;
+            padding: 6px 16px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
+            text-shadow: 0 1px 4px rgba(0,0,0,.2);
+        }
+        .ic-score-item span {
+            font-size: 18px;
+        }
+
+        /* Játéktér */
+        .ic-game-area {
+            flex: 1;
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            z-index: 2;
+            border-radius: 24px;
+            background: rgba(255,255,255,.08);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,.15);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        /* A bot target */
+        .ic-target {
+            position: absolute;
+            width: 120px;
+            height: 145px;
+            cursor: pointer;
+            transition: opacity .15s, transform .15s;
+            z-index: 5;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ic-target.hiding {
+            opacity: 0;
+            transform: scale(.5);
+            pointer-events: none;
+        }
+
+        /* Ice cream launcher at bottom center */
+        .ic-launcher {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 45px;
+            z-index: 6;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,.35));
+            animation: launcherBob 2s ease-in-out infinite;
+        }
+        @keyframes launcherBob {
+            0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+            50% { transform: translateX(-50%) translateY(-6px) scale(1.08); }
+        }
+
+        /* Thrown ice cream projectile */
+        .ic-projectile {
+            position: absolute;
+            font-size: 35px;
+            z-index: 12;
+            pointer-events: none;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,.35));
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translate(-50%, -50%);
+        }
+
+        /* Tap feedback */
+        @keyframes icTapBurst {
+            0% { transform: translate(-50%,-50%) scale(.5); opacity: 1 }
+            100% { transform: translate(-50%,-50%) scale(2); opacity: 0 }
+        }
+        .ic-tap-burst {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251,191,36,.7), rgba(244,114,182,.4), transparent);
+            animation: icTapBurst .5s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Ice cream splash particles */
+        @keyframes icParticleFly {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.3) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+        .ic-particle {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 11;
+            animation: icParticleFly 0.6s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+            user-select: none;
+        }
+
+        /* Progress összesítés */
+        .ic-progress-wrap {
+            width: 100%;
+            max-width: 340px;
+            position: relative;
+            z-index: 2;
+        }
+        .ic-progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255,255,255,.85);
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .ic-progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            border-radius: 8px;
+            background: rgba(0,0,0,.25);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.15);
+        }
+        .ic-progress-bar {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #fbbf24, #f472b6, #a855f7);
+            transition: width .4s cubic-bezier(.4,1.4,.6,1);
+            box-shadow: 0 0 8px rgba(251,191,36,.5);
+        }
+
+        /* Bezáró gomb */
+        .ic-close-btn {
+            position: absolute;
+            top: calc(env(safe-area-inset-top, 20px) + 10px);
+            right: 14px;
+            z-index: 10;
+            background: rgba(0,0,0,.3);
+            border: 1px solid rgba(255,255,255,.2);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        /* Eredmény képernyő */
+        .ic-result {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            background: rgba(0,0,0,.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 30px;
+        }
+        .ic-result.show {
+            display: flex;
+        }
+        .ic-result-emoji {
+            font-size: 64px;
+            animation: iceCreamFloat 2s ease-in-out infinite;
+        }
+        .ic-result-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 3px 12px rgba(0,0,0,.3);
+            text-align: center;
+        }
+        .ic-result-sub {
+            font-size: 14px;
+            color: rgba(255,255,255,.85);
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .ic-result-btn {
+            margin-top: 8px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #78350f;
+            border: 2px solid #ca8a04;
+            border-radius: 16px;
+            padding: 12px 32px;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(251,191,36,.4);
+            transition: transform .2s;
+        }
+        .ic-result-btn:active {
+            transform: scale(.95);
+        }
+
+        /* Skin feloldás különleges animáció */
+        @keyframes icSkinUnlock {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0 }
+            60% { transform: scale(1.2) rotate(5deg); opacity: 1 }
+            100% { transform: scale(1) rotate(0); opacity: 1 }
+        }
+        .ic-unlock-anim {
+            animation: icSkinUnlock .8s cubic-bezier(.34,1.56,.64,1) forwards;
+        }
+
+        /* Napi limit info */
+        .ic-daily-info {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            background: rgba(0,0,0,.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 30px;
+        }
+        .ic-daily-info.show {
+            display: flex;
+        }
     </style>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -17071,48 +17708,87 @@
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-icon-frame">
-            <img class="loading-icon" id="loadingIcon" alt="DailyBot">
+        <div class="zynox-logo-container">
+            <div class="zynox-symbol"></div>
+            <div class="zynox-text-wrap">
+                <span class="zynox-title">ZYNOX</span>
+                <span class="zynox-subtitle">STUDIO</span>
+            </div>
         </div>
-        <div class="loading-title">DailyBot</div>
-        <div class="loading-sub" id="loadingSub">Felkészítés...</div>
-        <div class="loading-bar-wrap">
-            <div class="loading-bar" id="loadingBar"></div>
-        </div>
-        <div class="loading-pct" id="loadingPct">0%</div>
     </div>
     <script>
         (function () {
-            const li = document.getElementById('loadingIcon');
-            li.src = 'icon/app_icon_event.png';
-            const bar = document.getElementById('loadingBar');
-            const pct = document.getElementById('loadingPct');
-            const sub = document.getElementById('loadingSub');
+            let soundPlayed = false;
+            function playIntroSound() {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioContext) return;
+                    const ctx = new AudioContext();
+                    
+                    const runSound = () => {
+                        const now = ctx.currentTime;
+                        const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                        
+                        freqs.forEach((freq, idx) => {
+                            const osc = ctx.createOscillator();
+                            const gain = ctx.createGain();
+                            
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(freq, now);
+                            
+                            // Supercell-like slide up effect on highest note
+                            if (idx === freqs.length - 1) {
+                                osc.frequency.setValueAtTime(freq - 150, now);
+                                osc.frequency.exponentialRampToValueAtTime(freq, now + 0.15);
+                            }
+                            
+                            gain.gain.setValueAtTime(0, now);
+                            gain.gain.linearRampToValueAtTime(0.15, now + 0.05 + (idx * 0.02));
+                            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+                            
+                            osc.connect(gain);
+                            gain.connect(ctx.destination);
+                            
+                            osc.start(now + (idx * 0.02));
+                            osc.stop(now + 1.2);
+                        });
+                        soundPlayed = true;
+                    };
+
+                    if (ctx.state === 'suspended') {
+                        ctx.resume().then(() => {
+                            if (ctx.state === 'running' || ctx.state === 'interactive') {
+                                runSound();
+                            }
+                        }).catch(() => {});
+                    } else {
+                        runSound();
+                    }
+                } catch (err) {
+                    console.log("Audio autoplay blocked or unsupported:", err);
+                }
+            }
+
+            // Try playing immediately
+            playIntroSound();
+            
+            // Backup listener on user interaction to bypass browser autoplay blocks
+            function triggerSoundBackup() {
+                if (!soundPlayed) {
+                    playIntroSound();
+                }
+                document.removeEventListener('click', triggerSoundBackup);
+                document.removeEventListener('touchstart', triggerSoundBackup);
+            }
+            document.addEventListener('click', triggerSoundBackup);
+            document.addEventListener('touchstart', triggerSoundBackup);
+
             const screen = document.getElementById('loadingScreen');
-            const messages = ['Felkészítés...', 'DailyCard pakkok...', 'Bot Pass szezon...', 'Üdvözöllek!'];
-            let progress = 0;
-            const steps = [12, 25, 38, 50, 62, 75, 85, 92, 97, 100];
-            let i = 0;
-            const iv = setInterval(() => {
-                if (i < steps.length) { progress = steps[i]; i++; }
-                else { progress = 100; }
-                bar.style.width = progress + '%';
-                pct.textContent = progress + '%';
-                // Üzenetek váltása a progress-szel
-                if (sub) {
-                    if (progress >= 85) sub.textContent = messages[3];
-                    else if (progress >= 60) sub.textContent = messages[2];
-                    else if (progress >= 30) sub.textContent = messages[1];
-                    else sub.textContent = messages[0];
-                }
-                if (progress >= 100) {
-                    clearInterval(iv);
-                    setTimeout(() => {
-                        screen.classList.add('fade-out');
-                        setTimeout(() => screen.remove(), 600);
-                    }, 300);
-                }
-            }, 180);
+            // Wait for 2.4 seconds (entrance and shine finishes), then fade out
+            setTimeout(() => {
+                screen.classList.add('fade-out');
+                setTimeout(() => screen.remove(), 800);
+            }, 2400);
         })();
     </script>
 
@@ -17280,59 +17956,77 @@
         <div class="shop-greeting" id="shopGreeting"></div>
 
         <!-- ── COMIC CLASH EVENT BANNER ── -->
+        <!-- ── SUMMER CHILL EVENT BANNER ── -->
         <div class="shop-section" id="comicClashSection">
-            <div class="cc-banner" id="comicClashBanner">
-                <div class="cc-banner-burst"></div>
+            <div class="cc-banner" id="comicClashBanner"
+                style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 30%, #fde68a 60%, #fbcfe8 85%, #db2777 100%); border-color: #fde68a; box-shadow: 0 8px 30px rgba(244, 114, 182, .5);">
+                <div class="cc-banner-burst" style="opacity: 0.1"></div>
                 <div class="cc-banner-content">
-                    <div class="cc-banner-tag">⚡ LIMITÁLT EVENT</div>
-                    <div class="cc-banner-title">COMIC CLASH!</div>
-                    <div class="cc-banner-sub">Szerezd meg mindkét exkluzív botot, 25 bonus gemet, +2 Super Daily Boxot és a POW matricát!</div>
+                    <div class="cc-banner-tag"
+                        style="background: linear-gradient(135deg, #2dd4bf, #0ea5e9); color: #fff;">🍦 LIMITÁLT EVENT
+                    </div>
+                    <div class="cc-banner-title"
+                        style="text-shadow: 3px 3px 0 #ca8a04, -1px -1px 0 rgba(219, 39, 119, .8);">SUMMER CHILL!</div>
+                    <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, 30 bonus gemet, +3 Super Daily
+                        Boxot és a Chill matricát! 🎮 Vagy nyomj hosszan a robotra és kapd el 50× a fagyit — INGYEN tiéd a skin!</div>
                     <div class="cc-banner-rewards" style="align-items:stretch;">
-                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
-                                <div class="robot dc-mini-robot comic-hero" style="pointer-events:none;">
-                                    <div class="antenna-stick"></div><div class="antenna-ball"></div>
-                                    <div class="ear ear-l"></div><div class="ear ear-r"></div>
-                                    <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
+                        <div class="cc-reward-pill"
+                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <div
+                                style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
+                                <div class="robot dc-mini-robot ice-cream" style="pointer-events:none;">
+                                    <div class="antenna-stick"></div>
+                                    <div class="antenna-ball"></div>
+                                    <div class="ear ear-l"></div>
+                                    <div class="ear ear-r"></div>
+                                    <div class="head">
+                                        <div class="face-screen">
+                                            <div class="eyes">
+                                                <div class="eye"></div>
+                                                <div class="eye"></div>
+                                            </div>
+                                            <div class="mouth"></div>
+                                        </div>
+                                    </div>
                                     <div class="neck"></div>
-                                    <div class="shoulder shoulder-l"></div><div class="shoulder shoulder-r"></div>
-                                    <div class="arm arm-l"></div><div class="arm arm-r"></div>
-                                    <div class="torso"><div class="chest"><span class="heart-icon">❤️</span></div></div>
-                                    <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
+                                    <div class="shoulder shoulder-l"></div>
+                                    <div class="shoulder shoulder-r"></div>
+                                    <div class="arm arm-l"></div>
+                                    <div class="arm arm-r"></div>
+                                    <div class="torso">
+                                        <div class="chest"><span class="heart-icon">❤️</span></div>
+                                    </div>
+                                    <div class="legs">
+                                        <div class="leg">
+                                            <div class="foot"></div>
+                                        </div>
+                                        <div class="leg">
+                                            <div class="foot"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <span style="font-size:10px;font-weight:800;">Comic Hero</span>
+                            <span style="font-size:10px;font-weight:800;">Ice Cream Bot</span>
                         </div>
-                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
-                                <div class="robot dc-mini-robot comic-villain" style="pointer-events:none;">
-                                    <div class="antenna-stick"></div><div class="antenna-ball"></div>
-                                    <div class="ear ear-l"></div><div class="ear ear-r"></div>
-                                    <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
-                                    <div class="neck"></div>
-                                    <div class="shoulder shoulder-l"></div><div class="shoulder shoulder-r"></div>
-                                    <div class="arm arm-l"></div><div class="arm arm-r"></div>
-                                    <div class="torso"><div class="chest"><span class="heart-icon">❤️</span></div></div>
-                                    <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
-                                </div>
-                            </div>
-                            <span style="font-size:10px;font-weight:800;">Comic Villain</span>
-                        </div>
-                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                        <div class="cc-reward-pill"
+                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
                             <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
-                            <span style="font-size:10px;font-weight:800;">+25 Gem</span>
+                            <span style="font-size:10px;font-weight:800;">+30 Gem</span>
                         </div>
-                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <img src="box/box.png" alt="Super Daily Box" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
-                            <span style="font-size:10px;font-weight:800;">+2 Super Box</span>
+                        <div class="cc-reward-pill"
+                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <img src="box/box.png" alt="Super Daily Box"
+                                style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
+                            <span style="font-size:10px;font-weight:800;">+3 Super Box</span>
                         </div>
-                        <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <span style="font-size:20px;">💥</span>
-                            <span style="font-size:10px;font-weight:800;">POW! Matrica</span>
+                        <div class="cc-reward-pill"
+                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <span style="font-size:20px;">🍦</span>
+                            <span style="font-size:10px;font-weight:800;">CHILL! Matrica</span>
                         </div>
                     </div>
                     <button class="cc-banner-btn" id="ccBuyBtn">💎 300 — MEGVESZEM</button>
-                    <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">✅ Comic Clash Pass aktiválva!
+                    <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">✅ Summer Chill Pass aktiválva!
                     </div>
                 </div>
             </div>
@@ -17340,12 +18034,8 @@
             <!-- Egyedi bot vásárlás (Passon kívül) -->
             <div id="individualBotSales" style="padding: 10px 20px; display: flex; gap: 10px; flex-wrap: wrap;">
                 <button class="shop-item buy-tag"
-                    style="flex: 1; padding: 12px; background: linear-gradient(135deg, #1a0a2e, #e11d48); border: 2px solid #fbbf24;"
-                    onclick="buyEventSkin('comic-hero')">🦸 Comic Hero (150 💎)</button>
-                <button class="shop-item buy-tag"
-                    style="flex: 1; padding: 12px; background: linear-gradient(135deg, #1a0a2e, #2d1052); border: 2px solid #fbbf24;"
-                    onclick="buyEventSkin('comic-villain')">🦹 Comic Villain (150 💎)</button>
-
+                    style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ca8a04, #fbcfe8); border: 2px solid #db2777; color: #78350f; font-weight:900;"
+                    onclick="buyEventSkin('ice-cream')">🍦 Ice Cream Bot (150 💎)</button>
             </div>
         </div>
 
@@ -17367,7 +18057,8 @@
                                         <stop offset="1" stop-color="#0369a1" />
                                     </linearGradient>
                                 </defs>
-                                <path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#0284c7" stroke-width="1.5" />
+                                <path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#0284c7"
+                                    stroke-width="1.5" />
                                 <path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)" />
                                 <path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)" />
                                 <path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)" />
@@ -17384,13 +18075,17 @@
                 </div>
             </div>
             <!-- Daily Box -->
-            <div class="shop-section daily-trio-item" id="shopDailyBoxSection" style="background:none; border:none; box-shadow:none;">
-                <div id="shopBoxCard" style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: none; padding: 10px 0; text-align: center;">
+            <div class="shop-section daily-trio-item" id="shopDailyBoxSection"
+                style="background:none; border:none; box-shadow:none;">
+                <div id="shopBoxCard"
+                    style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: none; padding: 10px 0; text-align: center;">
                     <div class="loot-card-visual" style="margin:0;">
-                        <img src="box/box.png" alt="Daily Box" class="daily-box-img" style="width: 80px; height: 80px; filter: drop-shadow(0 0 15px rgba(74,222,128,0.4));">
+                        <img src="box/box.png" alt="Daily Box" class="daily-box-img"
+                            style="width: 80px; height: 80px; filter: drop-shadow(0 0 15px rgba(74,222,128,0.4));">
                     </div>
-                    <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0;">Super Daily Box</div>
-                    
+                    <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0;">Super Daily Box
+                    </div>
+
                     <button class="buy-tag" id="buyBoxBtn"
                         style="background: #fbbf24; color: #1e1b4b; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3); transition: transform 0.2s;">
                         67 <span class="gem-img" style="width:16px; height:16px;"></span> Buy
@@ -17630,19 +18325,22 @@
         // ========== NAPSZAK HÁTTÉR (AUTOMATIKUS) ==========
         function applyTimeTheme() {
             const activeBg = localStorage.getItem('nu_active_bg') || '';
-            // Comic Clash event — május hónapban (month===4) comic háttér
+            // Summer Chill event — június 10. és augusztus 10. között (2 hónap)
             const now = new Date();
-            const isComicEvent = now.getMonth() === 4; // Május = 4
-            document.body.classList.toggle('comic-event', isComicEvent && (activeBg === '' || activeBg === 'napszak'));
+            const isSummerEvent = (now.getFullYear() === 2026 &&
+                ((now.getMonth() === 5 && now.getDate() >= 10) ||
+                    (now.getMonth() === 6) ||
+                    (now.getMonth() === 7 && now.getDate() <= 10)));
+            document.body.classList.toggle('summer-event', isSummerEvent && (activeBg === '' || activeBg === 'napszak'));
             if (activeBg !== '' && activeBg !== 'napszak') {
                 // Ha van egyedi háttér, ne írjuk felül az idővel
                 return;
             }
-            if (isComicEvent) {
-                // Comic event háttér — a CSS kezeli a body.comic-event osztályon keresztül
+            if (isSummerEvent) {
+                // Summer event háttér — a CSS kezeli a body.summer-event osztályon keresztül
                 const tc = document.getElementById('themeColor');
-                tc.content = '#1a0a2e';
-                document.documentElement.style.backgroundColor = '#1a0a2e';
+                tc.content = '#0ea5e9';
+                document.documentElement.style.backgroundColor = '#fbbf24';
                 return;
             }
 
@@ -18746,7 +19444,7 @@
                 }
             }
         }
-        function updateGemUI() { 
+        function updateGemUI() {
             document.querySelectorAll('[data-gem-display]').forEach(el => { el.textContent = getGems() });
         }
         initGems();
@@ -18835,6 +19533,7 @@
             { id: 'sticker-sup', text: 'Sup', emoji: '🔥', rarity: 'rare', desc: 'Mi újság?' },
             { id: 'sticker-wassup', text: 'Wassup', emoji: '😏', rarity: 'rare', desc: 'Street stílus' },
             { id: 'sticker-heya', text: 'Heya', emoji: '⭐', rarity: 'rare', desc: 'Üdv csillag' },
+            { id: 'sticker-icecream', text: 'CHILL!', emoji: '🍦', rarity: 'rare', desc: 'Nyári hűsítő üdv' },
             { id: 'sticker-pow', text: 'POW!', emoji: '💥', rarity: 'rare', desc: 'Comic üdvözlés' },
             { id: 'sticker-bonjour', text: 'Bonjour', emoji: '🥖', rarity: 'rare', desc: 'Francia köszönés' },
             { id: 'sticker-hola', text: 'Hola', emoji: '🌶️', rarity: 'rare', desc: 'Spanyol üdvözlés' },
@@ -20264,16 +20963,20 @@
                 }
             }
 
-            // Comic Clash Pass állapot frissítése
+            // Summer Chill Pass állapot frissítése
             const ccSection = document.getElementById('comicClashSection');
             const ccBtn = document.getElementById('ccBuyBtn');
             const ccBought = document.getElementById('ccBoughtLabel');
-            const isMay = new Date().getMonth() === 4;
+            const now = new Date();
+            const isSummer = (now.getFullYear() === 2026 &&
+                ((now.getMonth() === 5 && now.getDate() >= 10) ||
+                    (now.getMonth() === 6) ||
+                    (now.getMonth() === 7 && now.getDate() <= 10)));
 
-            if (ccSection) ccSection.style.display = isMay ? '' : 'none';
+            if (ccSection) ccSection.style.display = isSummer ? '' : 'none';
 
             if (ccBtn && ccBought) {
-                const hasCc = localStorage.getItem('nu_comic_clash_bought') === '1';
+                const hasCc = localStorage.getItem('nu_summer_pass_bought') === '1';
                 ccBtn.style.display = hasCc ? 'none' : 'block';
                 ccBought.style.display = hasCc ? 'block' : 'none';
             }
@@ -21085,7 +21788,7 @@
         function setActiveAura(name) { localStorage.setItem('nu_active_aura', name) }
         function applyRobotSkin() {
             const r = document.getElementById('robot');
-            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain)\b/g, '').trim();
+            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream)\b/g, '').trim();
             const skin = getActiveSkin();
             if (skin && owns(skin)) r.classList.add(skin);
         }
@@ -21149,7 +21852,7 @@
 
             // --- Robot skin felülírás ---
             const r = document.getElementById('robot');
-            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain)\b/g, '').trim();
+            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream)\b/g, '').trim();
             r.classList.add('dragon-week');
 
             // --- Háttér felülírás ---
@@ -21195,7 +21898,7 @@
 
             // Robot skin
             const r = document.getElementById('robot');
-            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero)\b/g, '').trim();
+            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream)\b/g, '').trim();
             r.classList.add('tech-event');
 
             // Háttér
@@ -21236,35 +21939,11 @@
             setInterval(spawnParticle, 350);
             for (let i = 0; i < 12; i++) setTimeout(spawnParticle, i * 80);
 
-            // Zene — Web Audio API (nem jelenik meg Dynamic Islandban)
+            // Zene — Web Audio API (nem jelenik meg Dynamic Islandban) - Kikapcsolva a felhasználó kérésére
             window._techEventActive = true;
             function startTechMusic() {
-                try {
-                    const ac = _sfxCtx();
-                    if (!ac) return;
-                    window._techEventAudioCtx = ac;
-                    if (ac.state === 'suspended') ac.resume();
-                    fetch('event zene/DailyBot – Pulse Event Theme.mp3')
-                        .then(r => r.arrayBuffer())
-                        .then(buf => ac.decodeAudioData(buf))
-                        .then(decoded => {
-                            const gain = ac.createGain();
-                            gain.gain.value = 0.12;
-                            gain.connect(ac.destination);
-                            window._techEventGain = gain;
-                            const src = ac.createBufferSource();
-                            src.buffer = decoded;
-                            src.loop = true;
-                            src.loopStart = 67;
-                            src.loopEnd = 81;
-                            src.connect(gain);
-                            src.start(0, 67);
-                            window._techEventSrc = src;
-                        }).catch(() => { });
-                } catch (e) { }
+                // Kikapcsolva
             }
-            document.addEventListener('click', startTechMusic, { once: true, passive: true });
-            document.addEventListener('touchstart', startTechMusic, { once: true, passive: true });
             // iOS: minden interakciókor resume (vásárlásnál sem tűnik el)
             function _resumeTechAudio() {
                 if (window._techEventAudioCtx && window._techEventAudioCtx.state === 'suspended')
@@ -21431,7 +22110,8 @@
                 { id: 'ultra-black', name: 'Ultra Black', desc: 'Plus exkluzív — fekete + pink neon', icon: '⚡', cost: 0, tier: 'free', hide: true },
                 { id: 'dragon', name: 'Sárkány', desc: 'Jégszárnyas sárkány', icon: '🐉', cost: 0, tier: 'free', hide: true },
                 { id: 'comic-hero', name: 'Comic Hero', desc: 'Képregényes szuperhős — Comic Clash exkluzív', icon: '🦸', cost: 0, tier: 'free', hide: true },
-                { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true }
+                { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true },
+                { id: 'ice-cream', name: 'Ice Cream', desc: 'Nyári fagylaltos robot — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true }
 
             ];
             const BGS = [
@@ -21445,7 +22125,8 @@
                 { id: 'aura-halo', name: 'Szent', desc: 'Égi ragyogás', icon: '😇', cost: 0, tier: 'free' },
                 { id: 'aura-rgb', name: 'RGB', desc: 'Gamer színek', icon: '🌈', cost: 0, tier: 'free' },
                 { id: 'aura-diamond', name: 'Gyémánt', desc: 'Szikrázó jégkristály', icon: '💎', cost: 0, tier: 'free' },
-                { id: 'aura-superhero', name: 'Super Aura', desc: 'Szuperhős energia', icon: '⚡', cost: 0, tier: 'event' }
+                { id: 'aura-superhero', name: 'Super Aura', desc: 'Szuperhős energia', icon: '⚡', cost: 0, tier: 'event' },
+                { id: 'aura-icecream', name: 'Fagyi Aura', desc: 'Nyári hűsítő fagyik lebegnek körülötted — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true }
             ];
 
             function renderShop() {
@@ -21519,27 +22200,27 @@
                     });
                 });
 
-                // Comic Clash Pass & Individual Bots Logic
-                const isCcBought = localStorage.getItem('nu_comic_clash_bought') === '1';
+                // Summer Chill Pass & Individual Bots Logic
+                const isSummerPassBought = localStorage.getItem('nu_summer_pass_bought') === '1';
                 const ccBtn = document.getElementById('ccBuyBtn');
                 const ccLabel = document.getElementById('ccBoughtLabel');
                 if (ccBtn && ccLabel) {
-                    ccBtn.style.display = isCcBought ? 'none' : 'block';
-                    ccLabel.style.display = isCcBought ? 'block' : 'none';
+                    ccBtn.style.display = isSummerPassBought ? 'none' : 'block';
+                    ccLabel.style.display = isSummerPassBought ? 'block' : 'none';
                 }
                 const individualSales = document.getElementById('individualBotSales');
                 if (individualSales) {
                     const bots = individualSales.querySelectorAll('button');
-                    let allOwned = isCcBought;
+                    let allOwned = isSummerPassBought;
                     bots.forEach(btn => {
                         const m = btn.getAttribute('onclick')?.match(/'([^']+)'/);
                         if (m && m[1]) {
-                            const owned = (typeof getOwnedSkinIds === 'function') ? getOwnedSkinIds().includes(m[1]) : false;
-                            btn.style.display = (isCcBought || owned) ? 'none' : 'block';
+                            const owned = (typeof owns === 'function') ? owns(m[1]) : false;
+                            btn.style.display = (isSummerPassBought || owned) ? 'none' : 'block';
                             if (!owned) allOwned = false;
                         }
                     });
-                    individualSales.style.display = (isCcBought || allOwned) ? 'none' : 'flex';
+                    individualSales.style.display = (isSummerPassBought || allOwned) ? 'none' : 'flex';
                 }
             }
             window.renderShop = renderShop;
@@ -21561,7 +22242,7 @@
                 e.stopPropagation();
                 const id = btn.dataset.buy;
                 const price = parseInt(btn.dataset.price, 10);
-                
+
                 if (!confirm('Megveszed ezt ' + price + ' gémért? Jelenlegi egyenleged: ' + getGems() + ' gém.')) return;
                 if (!spendGems(price)) { alert('Nincs elég gém!'); return }
                 buyItem(id);
@@ -21611,7 +22292,7 @@
             syncClose.addEventListener('click', () => syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_bg', 'nu_active_aura', 'nu_favs', 'nu_s', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker'];
+            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_bg', 'nu_active_aura', 'nu_favs', 'nu_s', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
 
             exportBtn.addEventListener('click', () => {
                 const data = {};
@@ -21774,7 +22455,7 @@
                 if (r < 0.05) return rollCategory(window.SKINS, '🤖', 50);
                 if (r < 0.15) return rollCategory(window.AURAS, '🌟', 30);
                 if (r < 0.25) return rollCategory(window.BGS, '🖼️', 30);
-                
+
                 if (r < 0.50) {
                     if (typeof rollRandomSticker === 'function') {
                         const s = rollRandomSticker();
@@ -21786,7 +22467,7 @@
                     const g = pickRandom([10, 12, 15]);
                     return { type: 'gems', gems: g, icon: '💎', name: g + ' gem' };
                 }
-                
+
                 const g = pickRandom([5, 8, 10, 12, 15, 20]);
                 return { type: 'gems', gems: g, icon: '💎', name: g + ' gem' };
             }
@@ -21846,7 +22527,7 @@
                         prizeEl.style.display = 'flex';
                         remaining--;
                         if (remaining <= 0) {
-                            promptEl.textContent = ''; 
+                            promptEl.textContent = '';
                             setTimeout(() => closeBtn.click(), 2500); // Auto-close
                         } else {
                             setTimeout(() => {
@@ -21861,7 +22542,7 @@
                         }
                     }, 600);
                 };
-                
+
                 // Auto-open instead of waiting for click
                 setTimeout(onTap, 300);
 
@@ -22075,26 +22756,24 @@
                         setTimeout(() => openBotpassPanel(), 250);
                     })
                 }
-                // Comic Clash Pass vásárlás
+                // Summer Chill Pass vásárlás
                 const ccBtn = document.getElementById('ccBuyBtn');
                 if (ccBtn && !ccBtn._bound) {
                     ccBtn._bound = true; ccBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        if (localStorage.getItem('nu_comic_clash_bought') === '1') { return }
-                        if (!confirm('Comic Clash Pass megvétele 300 gemért?\n\n🦸 Comic Hero & Comic Villain Bot\n💎 +25 Gem\n📦 +2 Super Daily Box\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
+                        if (localStorage.getItem('nu_summer_pass_bought') === '1') { return }
+                        if (!confirm('🍦 Summer Chill Pass megvétele 300 gemért?\n\n🍦 Ice Cream Bot skin\n💎 +30 Gem\n📦 +3 Super Daily Box\n🍦 Ice cream! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
                         if (!spendGems(300)) { alert('Nincs elég gem! (300 gem kell)'); return }
-                        // 2 Comic bot unlock + 25 gem + 2 boxes + POW sticker
-                        buyItem('comic-hero');
-                        buyItem('comic-villain');
-                        buyItem('aura-superhero');
-                        if (typeof awardSticker === 'function') awardSticker('sticker-pow');
+                        // Ice Cream bot unlock + 30 gem + 3 boxes + Ice Cream sticker
+                        buyItem('ice-cream');
+                        if (typeof awardSticker === 'function') awardSticker('sticker-icecream');
 
-                        addGems(25);
-                        localStorage.setItem('nu_box_count', String(boxesRemaining() + 2));
-                        localStorage.setItem('nu_comic_clash_bought', '1');
+                        addGems(30);
+                        localStorage.setItem('nu_box_count', String(boxesRemaining() + 3));
+                        localStorage.setItem('nu_summer_pass_bought', '1');
                         try { playSfx('zynox') } catch (_) { }
                         triggerSkinEquipEffect();
-                        alert('🦸 Comic Clash Pass aktiválva!\n\n✅ Comic Hero & Villain feloldva\n💎 +25 gem jóváírva\n📦 +2 Super Daily Box hozzáadva\n\nKeresd meg a shopban a jutalmakat!');
+                        alert('🍦 Summer Chill Pass aktiválva!\n\n✅ Ice Cream Bot feloldva\n💎 +30 gem jóváírva\n📦 +3 Super Daily Box hozzáadva\n🍦 Ice cream! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
                         updateGemUI();
                         updateLootBadges();
                         if (typeof renderShop === 'function') renderShop();
@@ -22108,6 +22787,9 @@
                     if (!confirm(skin.icon + ' ' + skin.name + ' megvétele 150 gemért?')) return;
                     if (!spendGems(150)) { alert('Nincs elég gem! (150 kell)'); return; }
                     buyItem(skinId);
+                    if (skinId === 'ice-cream') {
+                        buyItem('aura-icecream');
+                    }
                     try { playSfx('skin-equip') } catch (_) { }
                     alert('✅ ' + skin.name + ' feloldva!');
                     updateGemUI(); updateLootBadges();
@@ -22548,43 +23230,49 @@
                 if (tab === 'latest') {
                     newsContent.innerHTML = `
                         <div class="news-slider">
-                            <div class="news-video-card" style="pointer-events:none;">
-                                <video src="news_videos/ScreenRecording_05-08-2026 18-19-34_1.mov" autoplay loop muted playsinline></video>
+                            <div class="news-image-card">
+                                <img src="news menü képek/ez a 3 videó helyére.jpeg" alt="Summer news 1">
                             </div>
-                            <div class="news-video-card" style="pointer-events:none;">
-                                <video src="news_videos/ScreenRecording_05-08-2026 18-19-53_1.mov" autoplay loop muted playsinline></video>
+                            <div class="news-image-card">
+                                <img src="news menü képek/ez 3 videoo helyére.jpeg" alt="Summer news 2">
                             </div>
-                            <div class="news-video-card" style="pointer-events:none;">
-                                <video src="news_videos/ScreenRecording_05-08-2026 18-20-23_1.mov" autoplay loop muted playsinline></video>
+                            <div class="news-image-card">
+                                <img src="news menü képek/ezis 3 videó helyére.jpeg" alt="Summer news 3">
                             </div>
                         </div>
-                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #1a1a2e, #16213e); border:3px solid #0f3460;">
-                            <h2 style="font-size:24px; margin-bottom:10px; color:#fff;">NEXT EVENT IN:</h2>
-                            <div id="newsCountdown" style="font-size:32px; font-weight:900; letter-spacing:2px; font-family: monospace; color:#e94560; text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);">00d 00h 00m 00s</div>
-                            <p style="margin-top:10px; font-size:14px; opacity:0.8; color:#fff;">June 1st, 2026</p>
+                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #0ea5e9, #db2777); border:3px solid #fde68a;">
+                            <h2 style="font-size:24px; margin-bottom:10px; color:#fff; text-shadow: 1px 1px 4px rgba(0,0,0,0.4);">🍦 SUMMER CHILL EVENT SZEZON!</h2>
+                            <div id="newsCountdown" style="font-size:32px; font-weight:900; letter-spacing:2px; font-family: monospace; color:#fef08a; text-shadow: 0 0 10px rgba(254, 240, 138, 0.7);">00d 00h 00m 00s</div>
+                            <p style="margin-top:10px; font-size:14px; opacity:0.9; color:#fff; font-weight:800;">Az esemény vége: 2026. augusztus 10.</p>
                         </div>
                     `;
                     if (window._newsTimer) clearInterval(window._newsTimer);
-                    const target = new Date('2026-06-01T00:00:00').getTime();
+                    const target = new Date('2026-08-10T23:59:59').getTime();
                     const updateNewsTimer = () => {
                         const now = new Date().getTime();
                         const diff = target - now;
                         const el = document.getElementById('newsCountdown');
                         if (!el) { clearInterval(window._newsTimer); return; }
-                        if (diff <= 0) { el.textContent = "EVENT STARTED!"; clearInterval(window._newsTimer); return; }
+                        if (diff <= 0) { el.textContent = "SZEZON VÉGE!"; clearInterval(window._newsTimer); return; }
                         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                         const s = Math.floor((diff % (1000 * 60)) / 1000);
-                        el.textContent = `${d}d ${h.toString().padStart(2,'0')}h ${m.toString().padStart(2,'0')}m ${s.toString().padStart(2,'0')}s`;
+                        el.textContent = `${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
                     };
                     updateNewsTimer();
                     window._newsTimer = setInterval(updateNewsTimer, 1000);
                 } else {
                     newsContent.innerHTML = `
-                        <div class="news-article">
+                        <div class="news-article" style="display: flex; flex-direction: column; gap: 15px;">
                             <h2>🤖 Mi az a Daily Bot?</h2>
+                            <div class="news-image-card" style="height: 180px; width: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.25);">
+                                <img src="news menü képek/ez a daily bot info.jpeg" alt="Daily Bot Info 1">
+                            </div>
                             <p>A Daily Bot az életed napi asszisztense és barátja. Minden nap egy új, motiváló üzenettel köszönt, és segít a pozitív gondolkodásban.</p>
+                            <div class="news-image-card" style="height: 180px; width: 100%; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.25);">
+                                <img src="news menü képek/ez is a daily bot info.jpeg" alt="Daily Bot Info 2">
+                            </div>
                             <p>Gyűjts gemeket, nyiss dobozokat, és tedd egyedivé a saját robotodat!</p>
                         </div>
                     `;
@@ -22597,44 +23285,18 @@
                 if (mo) mo.style.display = 'flex';
             }
 
-            // Music Logic with AudioContext (Avoids Dynamic Island on iOS)
+            // Music Logic with AudioContext (Avoids Dynamic Island on iOS) - Kikapcsolva a felhasználó kérésére
             let audioCtx = null;
             let audioBuffer = null;
             let audioSource = null;
 
             async function initMusic() {
-                if (audioCtx) {
-                    if (audioCtx.state === 'suspended') audioCtx.resume();
-                    return;
-                }
-                audioCtx = _sfxCtx();
-                if (!audioCtx) return;
-                try {
-                    const response = await fetch('anime zene/Super Robots!.mp3');
-                    const arrayBuffer = await response.arrayBuffer();
-                    audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-                    startLoop();
-                } catch (e) { console.error("Music load error:", e); }
+                // Kikapcsolva
             }
 
             function startLoop() {
-                if (!audioBuffer || !audioCtx) return;
-                if (audioSource) try { audioSource.stop(); } catch (e) { }
-                audioSource = audioCtx.createBufferSource();
-                audioSource.buffer = audioBuffer;
-                audioSource.loop = true;
-                audioSource.connect(audioCtx.destination);
-                audioSource.start(0);
+                // Kikapcsolva
             }
-
-            // Start music on first interaction
-            const startMusicOnce = () => {
-                initMusic();
-                document.removeEventListener('click', startMusicOnce);
-                document.removeEventListener('touchstart', startMusicOnce);
-            };
-            document.addEventListener('click', startMusicOnce);
-            document.addEventListener('touchstart', startMusicOnce);
 
             if (musicToggle) {
                 musicToggle.onclick = () => {
@@ -23085,6 +23747,501 @@
         <div class="dc-pack-dupe-info" id="dcPackDupeInfo">✨ Duplikát! +50 gem kompenzáció</div>
         <button class="dc-pack-close" id="dcPackClose">Köszönöm! ✨</button>
     </div>
+
+    <!-- ── ICE CREAM CATCH MINI-GAME ── -->
+    <div class="ic-game-overlay" id="icGameOverlay">
+        <button class="ic-close-btn" id="icCloseBtn">✕</button>
+        <div class="ic-game-header">
+            <div class="ic-game-title">🍦 Ice Cream Catch!</div>
+            <div class="ic-game-sub">Kapd el a fagyis botot! 10 mp van rá!</div>
+        </div>
+        <div class="ic-timer-wrap">
+            <div class="ic-timer-bar" id="icTimerBar"></div>
+        </div>
+        <div class="ic-score-row">
+            <div class="ic-score-item">🍦 Ma: <span id="icScoreToday">0</span></div>
+            <div class="ic-score-item">⭐ Össz: <span id="icScoreTotal">0</span>/50</div>
+        </div>
+        <div class="ic-game-area" id="icGameArea">
+            <div class="ic-target hiding" id="icTarget"></div>
+            <div class="ic-launcher" id="icLauncher">🍦</div>
+        </div>
+        <div class="ic-progress-wrap">
+            <div class="ic-progress-label">
+                <span>🍦 Haladás az ingyenes skinhez</span>
+                <span id="icProgressText">0/50</span>
+            </div>
+            <div class="ic-progress-bar-bg">
+                <div class="ic-progress-bar" id="icProgressBar" style="width:0%"></div>
+            </div>
+        </div>
+        <!-- Eredmény overlay -->
+        <div class="ic-result" id="icResult">
+            <div class="ic-result-emoji" id="icResultEmoji">🍦</div>
+            <div class="ic-result-title" id="icResultTitle">Szuper!</div>
+            <div class="ic-result-sub" id="icResultSub"></div>
+            <button class="ic-result-btn" id="icResultBtn">Köszi! 🍦</button>
+        </div>
+        <!-- Napi limit overlay -->
+        <div class="ic-daily-info" id="icDailyInfo">
+            <div class="ic-result-emoji">⏰</div>
+            <div class="ic-result-title">Ma már játszottál!</div>
+            <div class="ic-result-sub" id="icDailyInfoSub">Holnap újra próbálkozhatsz!</div>
+            <button class="ic-result-btn" id="icDailyInfoBtn">Oké! 👍</button>
+        </div>
+    </div>
+
+    <script>
+    // ========== ICE CREAM CATCH GAME ==========
+    (function() {
+        const overlay = document.getElementById('icGameOverlay');
+        const closeBtn = document.getElementById('icCloseBtn');
+        const timerBar = document.getElementById('icTimerBar');
+        const scoreToday = document.getElementById('icScoreToday');
+        const scoreTotal = document.getElementById('icScoreTotal');
+        const gameArea = document.getElementById('icGameArea');
+        const target = document.getElementById('icTarget');
+        const progressBar = document.getElementById('icProgressBar');
+        const progressText = document.getElementById('icProgressText');
+        const resultDiv = document.getElementById('icResult');
+        const resultEmoji = document.getElementById('icResultEmoji');
+        const resultTitle = document.getElementById('icResultTitle');
+        const resultSub = document.getElementById('icResultSub');
+        const resultBtn = document.getElementById('icResultBtn');
+        const dailyInfo = document.getElementById('icDailyInfo');
+        const dailyInfoSub = document.getElementById('icDailyInfoSub');
+        const dailyInfoBtn = document.getElementById('icDailyInfoBtn');
+
+        const GAME_DURATION = 10000; // 10 sec
+        const TARGET_NEEDED = 50;
+        const LS_TOTAL = 'nu_icecatch_total';
+        const LS_DAY = 'nu_icecatch_day';
+        const LS_TODAY_SCORE = 'nu_icecatch_today_score';
+
+        let gameActive = false;
+        let gameTimer = null;
+        let spawnTimer = null;
+        let tickTimer = null;
+        let todayScore = 0;
+        let startTime = 0;
+        let targetHittable = true;
+
+        function _today() {
+            const d = new Date();
+            // Shift back by 5 hours so the new day starts at 5:00 AM
+            d.setHours(d.getHours() - 5);
+            return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        }
+
+        function getTotal() { return parseInt(localStorage.getItem(LS_TOTAL) || '0', 10) }
+        function setTotal(n) { localStorage.setItem(LS_TOTAL, String(n)) }
+        function getLastDay() { return localStorage.getItem(LS_DAY) || '' }
+        function setLastDay(d) { localStorage.setItem(LS_DAY, d) }
+        function getTodayScore() { return parseInt(localStorage.getItem(LS_TODAY_SCORE) || '0', 10) }
+        function setTodayScore(n) { localStorage.setItem(LS_TODAY_SCORE, String(n)) }
+
+        function hasPlayedToday() { return getLastDay() === _today() }
+
+        function getRemainingTimeText() {
+            const now = new Date();
+            // Calculate next 5:00 AM reset
+            const nextReset = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 5, 0, 0, 0);
+            if (now >= nextReset) {
+                nextReset.setDate(nextReset.getDate() + 1);
+            }
+            const diffMs = nextReset - now;
+            const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (diffHrs === 0) {
+                return `${diffMins} perc`;
+            }
+            return `${diffHrs} óra és ${diffMins} perc`;
+        }
+
+        function updateUI() {
+            const total = Math.min(getTotal(), TARGET_NEEDED);
+            scoreToday.textContent = todayScore;
+            scoreTotal.textContent = total + '/50';
+            progressText.textContent = total + '/50';
+            progressBar.style.width = Math.min(100, (total / TARGET_NEEDED) * 100) + '%';
+        }
+
+        // Build mini Ice Cream robot for the target
+        function buildTargetBot() {
+            if (typeof buildMiniRobotHtml === 'function') {
+                target.innerHTML = buildMiniRobotHtml('ice-cream', false);
+                target.style.transform = 'scale(0.7)';
+                target.style.transformOrigin = 'center center';
+                target.style.width = '120px';
+                target.style.height = '145px';
+            } else {
+                target.innerHTML = '<div style="font-size:80px;text-align:center;line-height:145px">🍦</div>';
+            }
+        }
+
+        function showTarget() {
+            if (!gameActive) return;
+            targetHittable = true;
+            const area = gameArea.getBoundingClientRect();
+            const maxX = Math.max(0, area.width - 130);
+            const maxY = Math.max(0, area.height - 155);
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+            target.classList.remove('hiding');
+
+            // Auto-hide after random time (800-1400ms)
+            const hideDelay = 800 + Math.random() * 600;
+            spawnTimer = setTimeout(() => {
+                if (!gameActive) return;
+                target.classList.add('hiding');
+                targetHittable = false;
+                // Respawn after short delay
+                setTimeout(() => showTarget(), 200 + Math.random() * 300);
+            }, hideDelay);
+        }
+
+        function tapBurst(x, y) {
+            const burst = document.createElement('div');
+            burst.className = 'ic-tap-burst';
+            burst.style.left = x + 'px';
+            burst.style.top = y + 'px';
+            gameArea.appendChild(burst);
+            setTimeout(() => burst.remove(), 600);
+
+            // Spawn ice cream splat/sprinkle particles
+            const emojis = ['🍦', '🍧', '🍨', '✨', '🌸', '🍭'];
+            const count = 6;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.className = 'ic-particle';
+                p.textContent = emojis[i % emojis.length];
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 30 + Math.random() * 50;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+                const rot = Math.random() * 360;
+
+                p.style.setProperty('--tx', tx + 'px');
+                p.style.setProperty('--ty', ty + 'px');
+                p.style.setProperty('--rot', rot + 'deg');
+
+                gameArea.appendChild(p);
+                setTimeout(() => p.remove(), 600);
+            }
+        }
+
+        // Projectile throwing animation
+        function launchProjectile(destX, destY, isHit) {
+            const p = document.createElement('div');
+            p.className = 'ic-projectile';
+            p.textContent = '🍦';
+            
+            // Initial position (launcher at bottom center)
+            const areaWidth = gameArea.clientWidth;
+            const areaHeight = gameArea.clientHeight;
+            const startX = areaWidth / 2;
+            const startY = areaHeight - 40;
+
+            p.style.left = startX + 'px';
+            p.style.top = startY + 'px';
+            p.style.transform = 'translate(-50%, -50%) scale(0.3) rotate(0deg)';
+            gameArea.appendChild(p);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    p.style.left = destX + 'px';
+                    p.style.top = destY + 'px';
+                    p.style.transform = 'translate(-50%, -50%) scale(1.1) rotate(360deg)';
+                });
+            });
+
+            // Arrive after 300ms
+            setTimeout(() => {
+                p.remove();
+                tapBurst(destX, destY);
+
+                if (isHit && gameActive) {
+                    todayScore++;
+                    const newTotal = getTotal() + 1;
+                    setTotal(newTotal);
+                    setTodayScore(todayScore);
+
+                    if (navigator.vibrate) navigator.vibrate(30);
+
+                    updateUI();
+
+                    if (newTotal >= TARGET_NEEDED) {
+                        endGame(true);
+                        return;
+                    }
+
+                    target.classList.add('hiding');
+                    setTimeout(() => {
+                        targetHittable = true;
+                        showTarget();
+                    }, 150 + Math.random() * 250);
+                }
+            }, 300);
+        }
+
+        function onTargetTap(e) {
+            if (!gameActive || !targetHittable) return;
+            e.preventDefault();
+            e.stopPropagation();
+
+            targetHittable = false;
+            clearTimeout(spawnTimer);
+
+            const rect = target.getBoundingClientRect();
+            const areaRect = gameArea.getBoundingClientRect();
+            const destX = rect.left - areaRect.left + rect.width/2;
+            const destY = rect.top - areaRect.top + rect.height/2;
+
+            launchProjectile(destX, destY, true);
+        }
+
+        function startGame() {
+            if (hasPlayedToday()) {
+                const total = getTotal();
+                const timeStr = getRemainingTimeText();
+                let msg = '';
+                if (total >= TARGET_NEEDED && typeof owns === 'function' && owns('ice-cream')) {
+                    msg = `🍦 Már megvan az Ice Cream skin!<br>Újra játszhatsz <b>${timeStr}</b> múlva!`;
+                } else {
+                    msg = `⭐ Eddigi összpontszám: <b>${total}/50</b><br><br>Ma már játszottál. Újra próbálkozhatsz <b>${timeStr}</b> múlva!`;
+                }
+                dailyInfoSub.innerHTML = msg;
+                dailyInfo.classList.add('show');
+                return;
+            }
+
+            gameActive = true;
+            targetHittable = true;
+            todayScore = 0;
+            startTime = Date.now();
+            resultDiv.classList.remove('show');
+            dailyInfo.classList.remove('show');
+            target.classList.add('hiding');
+
+            updateUI();
+            buildTargetBot();
+
+            // Start spawning after short delay
+            setTimeout(() => showTarget(), 500);
+
+            // Timer tick
+            tickTimer = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(0, GAME_DURATION - elapsed);
+                const pct = (remaining / GAME_DURATION) * 100;
+                timerBar.style.width = pct + '%';
+
+                if (remaining <= 0) {
+                    endGame(false);
+                }
+            }, 50);
+        }
+
+        function endGame(skinUnlocked) {
+            gameActive = false;
+            clearTimeout(spawnTimer);
+            clearInterval(tickTimer);
+            target.classList.add('hiding');
+            timerBar.style.width = '0%';
+
+            // Save daily play
+            setLastDay(_today());
+            setTodayScore(todayScore);
+
+            const total = getTotal();
+
+            if (skinUnlocked && total >= TARGET_NEEDED) {
+                // Unlock the skin!
+                if (typeof buyItem === 'function') {
+                    buyItem('ice-cream');
+                    buyItem('aura-icecream');
+                }
+                if (typeof playSfx === 'function') try { playSfx('zynox') } catch(_){}
+                if (typeof triggerSkinEquipEffect === 'function') triggerSkinEquipEffect();
+
+                resultEmoji.textContent = '🎉';
+                resultEmoji.className = 'ic-result-emoji ic-unlock-anim';
+                resultTitle.textContent = '🍦 ICE CREAM SKIN & AURA FELOLDVA!';
+                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 fagyit!<br>Az Ice Cream bot és a Fagyi Aura most már a tiéd — INGYEN! 🍦✨<br><br>Keresd meg a Shopban!';
+            } else {
+                resultEmoji.textContent = '🍦';
+                resultEmoji.className = 'ic-result-emoji';
+                resultTitle.textContent = 'Idő lejárt!';
+                resultSub.innerHTML = '🍦 Ma elkapott: <b>' + todayScore + '</b><br>⭐ Összesen: <b>' + Math.min(total, TARGET_NEEDED) + '/50</b><br><br>' +
+                    (total >= TARGET_NEEDED ? '🎉 Már megvan mind az 50 — nyisd meg a shopot!' : 'Még <b>' + (TARGET_NEEDED - total) + '</b> kell az ingyenes skinhez!<br>Holnap újra játszhatsz! 💪');
+            }
+
+            updateUI();
+            resultDiv.classList.add('show');
+        }
+
+        function closeGame() {
+            gameActive = false;
+            clearTimeout(spawnTimer);
+            clearInterval(tickTimer);
+            overlay.classList.remove('visible');
+            setTimeout(() => {
+                overlay.classList.remove('open');
+                resultDiv.classList.remove('show');
+                dailyInfo.classList.remove('show');
+                timerBar.style.width = '100%';
+            }, 400);
+        }
+
+        function openGame() {
+            // Check if summer event is active
+            const now = new Date();
+            const isSummer = (now.getFullYear() === 2026 &&
+                ((now.getMonth() === 5 && now.getDate() >= 10) ||
+                    (now.getMonth() === 6) ||
+                    (now.getMonth() === 7 && now.getDate() <= 10)));
+            if (!isSummer) return;
+
+            overlay.classList.add('open');
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    overlay.classList.add('visible');
+                });
+            });
+            timerBar.style.width = '100%';
+            updateUI();
+            startGame();
+        }
+
+        // Event listeners
+        target.addEventListener('click', onTargetTap);
+        target.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            onTargetTap(e);
+        }, { passive: false });
+
+        // Visual feedback when clicking/tapping on the game area (splatting ice cream)
+        gameArea.addEventListener('click', (e) => {
+            if (!gameActive) return;
+            const rect = gameArea.getBoundingClientRect();
+            launchProjectile(e.clientX - rect.left, e.clientY - rect.top, false);
+        });
+        gameArea.addEventListener('touchstart', (e) => {
+            if (!gameActive) return;
+            e.preventDefault();
+            const rect = gameArea.getBoundingClientRect();
+            const touch = e.touches[0];
+            launchProjectile(touch.clientX - rect.left, touch.clientY - rect.top, false);
+        }, { passive: false });
+
+        closeBtn.addEventListener('click', closeGame);
+        resultBtn.addEventListener('click', closeGame);
+        dailyInfoBtn.addEventListener('click', closeGame);
+
+        // ========== LONG PRESS ON ROBOT BUTTON ==========
+        const robotBtn = document.getElementById('btn');
+        let longPressTimer = null;
+        let longPressTriggered = false;
+
+        function startLongPress() {
+            longPressTriggered = false;
+            longPressTimer = setTimeout(() => {
+                longPressTriggered = true;
+                // Vibrate
+                if (navigator.vibrate) navigator.vibrate(50);
+                openGame();
+            }, 800);
+        }
+
+        function cancelLongPress() {
+            if (longPressTimer) {
+                clearTimeout(longPressTimer);
+                longPressTimer = null;
+            }
+        }
+
+        if (robotBtn) {
+            robotBtn.addEventListener('touchstart', (e) => {
+                startLongPress();
+            }, { passive: true });
+
+            robotBtn.addEventListener('touchend', () => {
+                cancelLongPress();
+            }, { passive: true });
+
+            robotBtn.addEventListener('touchmove', () => {
+                cancelLongPress();
+            }, { passive: true });
+
+            robotBtn.addEventListener('touchcancel', () => {
+                cancelLongPress();
+            }, { passive: true });
+
+            // Mouse support
+            robotBtn.addEventListener('mousedown', (e) => {
+                startLongPress();
+            });
+
+            robotBtn.addEventListener('mouseup', () => {
+                cancelLongPress();
+            });
+
+            robotBtn.addEventListener('mouseleave', () => {
+                cancelLongPress();
+            });
+
+            // Prevent normal click if long press triggered
+            const origClick = robotBtn.onclick;
+            robotBtn.addEventListener('click', (e) => {
+                if (longPressTriggered) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    longPressTriggered = false;
+                }
+            }, true);
+        }
+        
+        // Image zoom lightbox handler
+        document.addEventListener('click', function (e) {
+            const img = e.target.closest('.news-image-card img, .news-article img');
+            if (img) {
+                const zoomOverlay = document.getElementById('imgZoomOverlay');
+                const zoomTarget = document.getElementById('imgZoomTarget');
+                if (zoomOverlay && zoomTarget) {
+                    zoomTarget.src = img.src;
+                    zoomOverlay.style.display = 'flex';
+                    // Trigger reflow for animation
+                    void zoomOverlay.offsetWidth;
+                    zoomOverlay.classList.add('show');
+                }
+            }
+        });
+
+        const zoomOverlay = document.getElementById('imgZoomOverlay');
+        if (zoomOverlay) {
+            zoomOverlay.addEventListener('click', function () {
+                zoomOverlay.classList.remove('show');
+                setTimeout(() => {
+                    zoomOverlay.style.display = 'none';
+                }, 300);
+            });
+        }
+    })();
+    </script>
+
+    <!-- Image Zoom Lightbox Overlay -->
+    <div id="imgZoomOverlay" class="zoom-overlay" style="display: none;">
+        <span class="zoom-close-btn">&times;</span>
+        <img class="zoom-content" id="imgZoomTarget" alt="Nagyított kép">
+    </div>
+
 </body>
 
 </html>
