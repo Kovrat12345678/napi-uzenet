@@ -1206,222 +1206,75 @@
             border-color: rgba(239, 68, 68, .15) !important
         }
 
-
-
-        /* AURAS */
-        @keyframes auraFloat {
-
-            0%,
-            100% {
-                transform: translate(-50%, -50%) scale(1)
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.05)
-            }
+        /* Plays Guitar Animation & Pose */
+        .robot.plays-guitar .arm-l {
+            transform: rotate(-45deg) translateY(-5px) !important;
+            transform-origin: top left !important;
+            z-index: 18 !important;
         }
 
-        @keyframes glitchAura {
+        .robot.plays-guitar .arm-r {
+            z-index: 18 !important;
+            transform-origin: top right !important;
+            animation: strumGuitar 0.35s ease-in-out infinite alternate !important;
+        }
+
+        @keyframes strumGuitar {
             0% {
-                opacity: .8;
-                transform: translate(-52%, -48%) skew(2deg)
+                transform: rotate(45deg) translateY(-2px);
             }
-
-            50% {
-                opacity: 1;
-                transform: translate(-48%, -52%) skew(-2deg)
-            }
-
             100% {
-                opacity: .8;
-                transform: translate(-50%, -50%) skew(0deg)
+                transform: rotate(55deg) translateY(4px);
             }
         }
 
-        .robot[class*="aura-"] {
-            position: relative;
+        .robot.plays-guitar .mouth {
+            animation: speak 0.3s ease infinite !important;
+            width: 14px !important;
+            height: 10px !important;
+            border-radius: 50% !important;
+            background: transparent !important;
+            border: 2px solid #2dd4bf !important;
+            box-shadow: 0 0 8px rgba(45, 212, 191, .8) !important;
         }
 
-        .robot[class*="aura-"]::before {
-            content: '';
+        /* Outfit hand layout */
+        .outfit-hand {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 140%;
-            height: 120%;
-            border-radius: 40% 60% 70% 30% / 50% 60% 30% 70%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.6;
-            filter: blur(25px);
-        }
-
-        .robot.aura-fire::before {
-            background: radial-gradient(circle, #f97316, #dc2626, transparent);
-            animation: auraFloat 2s ease-in-out infinite, flameFlicker 1.5s infinite;
-            filter: blur(20px);
-        }
-
-        .robot.aura-glitch::before {
-            background: repeating-linear-gradient(45deg, #22d3ee, #f472b6, #fbbf24 10%);
-            animation: glitchAura 0.2s infinite;
-            border-radius: 10px;
-            mix-blend-mode: color-dodge;
-        }
-
-        .robot.aura-halo::after {
-            content: '';
-            position: absolute;
-            top: -50px;
+            top: 130px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 25px;
-            border: 4px solid #fef3c7;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #fde68a, inset 0 0 10px #fde68a;
-            opacity: 0.8;
-            z-index: 5;
-            animation: auraFloat 3s ease-in-out infinite;
-        }
-
-        .robot.aura-rgb::before {
-            background: conic-gradient(from 0deg, #f87171, #fb923c, #fbbf24, #34d399, #38bdf8, #818cf8, #f87171);
-            animation: rotate 4s linear infinite;
-            width: 150%;
-            height: 130%;
-            opacity: 0.4;
-        }
-
-        @keyframes sakurafall {
-            0% {
-                transform: translate(-50%, -100%) rotate(0deg);
-                opacity: 0
-            }
-
-            20% {
-                opacity: 1
-            }
-
-            100% {
-                transform: translate(-50%, 150%) rotate(360deg);
-                opacity: 0
-            }
-        }
-
-        .robot.aura-sakura::before {
-            background: radial-gradient(circle, #f9a8d4, transparent);
-            box-shadow: 0 0 30px #f9a8d4, 0 0 60px rgba(249, 168, 212, 0.5);
-            animation: auraFloat 3s ease-in-out infinite;
-        }
-
-        .robot.aura-sakura::after {
-            content: '🌸';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            font-size: 14px;
-            animation: sakurafall 4s linear infinite;
-            text-shadow: 0 0 5px #fff;
-        }
-
-        .robot.aura-diamond::before {
-            background: radial-gradient(circle, #ecfeff, #06b6d4, transparent);
-            box-shadow: 0 0 40px #67e8f9;
-            animation: auraFloat 4s ease-in-out infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes shine {
-            0% {
-                filter: brightness(1)
-            }
-
-            50% {
-                filter: brightness(1.8)
-            }
-
-            100% {
-                filter: brightness(1)
-            }
-        }
-
-        .robot.aura-diamond {
-            animation: shine 2s ease-in-out infinite;
-        }
-
-        /* Tulipán aura */
-        .robot.aura-tulip::before {
-            background: radial-gradient(circle, #f9a8d4, #4ade80, transparent);
-            box-shadow: 0 0 35px rgba(74, 222, 128, .5);
-            animation: auraFloat 4s ease-in-out infinite;
-            opacity: 0.45;
-        }
-
-        .robot.aura-tulip::after {
-            content: '🌷';
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            animation: tulipFloat 3s ease-in-out infinite;
+            z-index: 17;
             pointer-events: none;
-            z-index: 10;
+            transition: all .3s;
         }
 
-        @keyframes tulipFloat {
-
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0) rotate(-5deg);
-                opacity: .7
-            }
-
-            50% {
-                transform: translateX(-50%) translateY(-12px) rotate(5deg);
-                opacity: 1;
-            }
+        .outfit-hand.outfit-acc-rendered {
+            font-size: 0;
+            top: 130px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 160px !important;
+            height: 100px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Ice Cream Aura */
-        .robot.aura-icecream::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150%;
-            height: 130%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.45), rgba(219, 39, 119, 0.35), transparent 70%);
-            animation: auraFloat 3s ease-in-out infinite;
-            filter: blur(15px);
-            z-index: -1;
-            pointer-events: none;
+        .outfit-hand.outfit-acc-rendered svg {
+            width: 160px;
+            height: 100px;
         }
-
-        .robot.aura-icecream::after {
-            content: '🍦';
-            position: absolute;
-            top: -30px;
-            left: 20%;
-            font-size: 18px;
-            animation: icecreamFloat 2s ease-in-out infinite alternate;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8), 0 0 20px rgba(219, 39, 119, 0.5);
-            z-index: 5;
-            pointer-events: none;
+        
+        .acc-shop-icon {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        @keyframes icecreamFloat {
-            0% {
-                transform: translateY(0) scale(1) rotate(0deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-12px) scale(1.1) rotate(15deg);
-                opacity: 1;
-            }
+        .acc-shop-icon svg {
+            width: 60px;
+            height: 60px;
         }
 
         /* GAMER SKIN */
@@ -8359,106 +8212,7 @@
             }
         }
 
-        /* ============= ÚJ MYTHIC AURÁK ============= */
-        .robot.aura-celestial::before {
-            content: '';
-            position: absolute;
-            inset: -30px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, .4) 0%, rgba(251, 191, 36, .3) 30%, transparent 65%);
-            animation: celestialPulse 3s ease-in-out infinite;
-            z-index: -1;
-            pointer-events: none
-        }
-
-        .robot.aura-celestial::after {
-            content: '✦ ✦ ✦';
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            color: #fde68a;
-            letter-spacing: 8px;
-            text-shadow: 0 0 12px rgba(251, 191, 36, .9);
-            animation: celestialHalo 4s linear infinite;
-            pointer-events: none
-        }
-
-        @keyframes celestialPulse {
-
-            0%,
-            100% {
-                opacity: .6;
-                transform: scale(.95)
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.1)
-            }
-        }
-
-        @keyframes celestialHalo {
-            0% {
-                transform: translateX(-50%) rotate(0deg);
-                opacity: .8
-            }
-
-            50% {
-                opacity: 1
-            }
-
-            100% {
-                transform: translateX(-50%) rotate(360deg);
-                opacity: .8
-            }
-        }
-
-        .robot.aura-cosmic::before {
-            content: '';
-            position: absolute;
-            inset: -35px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, rgba(236, 72, 153, .45), rgba(167, 139, 250, .45), rgba(59, 130, 246, .45), rgba(52, 211, 153, .45), rgba(251, 191, 36, .45), rgba(236, 72, 153, .45));
-            animation: cosmicRotate 6s linear infinite;
-            z-index: -1;
-            pointer-events: none;
-            filter: blur(6px)
-        }
-
-        @keyframes cosmicRotate {
-            0% {
-                transform: rotate(0deg)
-            }
-
-            100% {
-                transform: rotate(360deg)
-            }
-        }
-
-        .robot.aura-prism::before {
-            content: '';
-            position: absolute;
-            inset: -28px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(239, 68, 68, .3), rgba(251, 146, 60, .3), rgba(251, 191, 36, .3), rgba(74, 222, 128, .3), rgba(96, 165, 250, .3), rgba(167, 139, 250, .3), rgba(236, 72, 153, .3), rgba(239, 68, 68, .3));
-            background-size: 300% 300%;
-            animation: prismSweep 5s linear infinite;
-            z-index: -1;
-            pointer-events: none;
-            filter: blur(4px)
-        }
-
-        @keyframes prismSweep {
-            0% {
-                background-position: 0% 50%
-            }
-
-            100% {
-                background-position: 300% 50%
-            }
-        }
+        
 
         /* ============= BOT PASS PREMIUM REDESIGN ============= */
         .bp-panel {
@@ -17967,6 +17721,7 @@
                     <span class="outfit outfit-hat" id="outfitHat"></span>
                     <span class="outfit outfit-face" id="outfitFace"></span>
                     <span class="outfit outfit-neck" id="outfitNeck"></span>
+                    <span class="outfit outfit-hand" id="outfitHand"></span>
                     <!-- Antenna -->
                     <div class="antenna-stick"></div>
                     <div class="antenna-ball"></div>
@@ -19597,13 +19352,12 @@
             'bg-rainbow': 500, 'bg-gamer': 500,
             // MYTHIC hátterek
             'bg-nebula': 700, 'bg-aurora': 800, 'bg-infinity': 1200,
-            // Aurák
-            'aura-tulip': 50, 'aura-sakura': 50,
-            'aura-fire': 120, 'aura-glitch': 120,
-            'aura-halo': 250, 'aura-rgb': 250,
-            'aura-diamond': 400,
-            // MYTHIC aurák
-            'aura-celestial': 600, 'aura-cosmic': 800, 'aura-prism': 1000
+            // Kiegészítők
+            'acc-crown': 250, 'acc-tophat': 120, 'acc-cap': 50,
+            'acc-graduate': 120, 'acc-flower': 50, 'acc-pumpkin': 250,
+            'acc-shades': 120, 'acc-goggle': 50, 'acc-mask': 250,
+            'acc-ribbon': 50, 'acc-beads': 120, 'acc-gem': 400,
+            'acc-guitar': 350
         };
         function getPrice(id) { return ITEM_PRICES[id] || 0 }
 
@@ -20931,18 +20685,19 @@
         // ========== ROBOT KIEGÉSZÍTŐK ==========
         // Pouch-ból nyerhetőek. Slot: hat/face/neck. Ünnepi öltözék mindig felülírja.
         const ACCESSORIES = [
-            { id: 'acc-crown', name: 'Korona', icon: '👑', slot: 'hat', rarity: 'epic' },
-            { id: 'acc-tophat', name: 'Cilinder', icon: '🎩', slot: 'hat', rarity: 'rare' },
-            { id: 'acc-cap', name: 'Baseball', icon: '🧢', slot: 'hat', rarity: 'common' },
-            { id: 'acc-graduate', name: 'Diplomás', icon: '🎓', slot: 'hat', rarity: 'rare' },
-            { id: 'acc-flower', name: 'Virág', icon: '🌺', slot: 'hat', rarity: 'common' },
-            { id: 'acc-pumpkin', name: 'Tök', icon: '🎃', slot: 'hat', rarity: 'epic' },
-            { id: 'acc-shades', name: 'Napszemüveg', icon: '😎', slot: 'face', rarity: 'rare' },
-            { id: 'acc-goggle', name: 'Goggle', icon: '🥽', slot: 'face', rarity: 'common' },
-            { id: 'acc-mask', name: 'Álarc', icon: '🎭', slot: 'face', rarity: 'epic' },
-            { id: 'acc-ribbon', name: 'Masni', icon: '🎀', slot: 'neck', rarity: 'common' },
-            { id: 'acc-beads', name: 'Lánc', icon: '📿', slot: 'neck', rarity: 'rare' },
-            { id: 'acc-gem', name: 'Gyémánt Nyaklánc', icon: '💎', slot: 'neck', rarity: 'legendary' }
+            { id: 'acc-crown', name: 'Korona', desc: 'Méltóságteljes királyi korona', icon: '👑', slot: 'hat', rarity: 'epic' },
+            { id: 'acc-tophat', name: 'Cilinder', desc: 'Elegáns fekete cilinder', icon: '🎩', slot: 'hat', rarity: 'rare' },
+            { id: 'acc-cap', name: 'Baseball', desc: 'Laza mindennapi baseball sapka', icon: '🧢', slot: 'hat', rarity: 'common' },
+            { id: 'acc-graduate', name: 'Diplomás', desc: 'A sikeres tanulmányokért', icon: '🎓', slot: 'hat', rarity: 'rare' },
+            { id: 'acc-flower', name: 'Virág', desc: 'Tavaszi virágdísz', icon: '🌺', slot: 'hat', rarity: 'common' },
+            { id: 'acc-pumpkin', name: 'Tök', desc: 'Ijesztő halloweeni tök', icon: '🎃', slot: 'hat', rarity: 'epic' },
+            { id: 'acc-shades', name: 'Napszemüveg', desc: 'Menő sötét napszemüveg', icon: '😎', slot: 'face', rarity: 'rare' },
+            { id: 'acc-goggle', name: 'Goggle', desc: 'Futurisztikus védőszemüveg', icon: '🥽', slot: 'face', rarity: 'common' },
+            { id: 'acc-mask', name: 'Álarc', desc: 'Rejtélyes velencei álarc', icon: '🎭', slot: 'face', rarity: 'epic' },
+            { id: 'acc-ribbon', name: 'Masni', desc: 'Szép piros masni', icon: '🎀', slot: 'neck', rarity: 'common' },
+            { id: 'acc-beads', name: 'Lánc', desc: 'Díszes gyöngyös nyaklánc', icon: '📿', slot: 'neck', rarity: 'rare' },
+            { id: 'acc-gem', name: 'Gyémánt Nyaklánc', desc: 'Csillogó gyémánt nyaklánc', icon: '💎', slot: 'neck', rarity: 'legendary' },
+            { id: 'acc-guitar', name: 'CHILL gitár', desc: 'Dallamos CHILL gitár', icon: '🎸', slot: 'hand', rarity: 'legendary' }
         ];
         function getActiveAcc() { return localStorage.getItem('nu_active_acc') || '' }
         function setActiveAcc(id) { localStorage.setItem('nu_active_acc', id) }
@@ -20980,7 +20735,8 @@
             'acc-mask': '<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="maskG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#b91c1c"/></linearGradient></defs><path d="M5,8 Q30,0 55,8 Q55,28 48,32 Q30,36 12,32 Q5,28 5,8 Z" fill="url(#maskG)" stroke="#7f1d1d" stroke-width="1"/><ellipse cx="20" cy="17" rx="5" ry="4" fill="#000"/><ellipse cx="40" cy="17" rx="5" ry="4" fill="#000"/><circle cx="30" cy="5" r="2.5" fill="#ef4444"/></svg>',
             'acc-ribbon': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><polygon points="4,4 26,15 4,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><polygon points="56,4 34,15 56,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><rect x="24" y="9" width="12" height="12" fill="#991b1b" rx="2"/><ellipse cx="14" cy="15" rx="3" ry="5" fill="rgba(255,255,255,.25)"/></svg>',
             'acc-beads': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,32 52,5" stroke="#78350f" stroke-width="1" fill="none"/><circle cx="8" cy="5" r="2.8" fill="#d97706"/><circle cx="15" cy="13" r="2.8" fill="#f59e0b"/><circle cx="22" cy="19" r="2.8" fill="#d97706"/><circle cx="30" cy="23" r="3.5" fill="#fbbf24" stroke="#92400e" stroke-width=".8"/><circle cx="38" cy="19" r="2.8" fill="#d97706"/><circle cx="45" cy="13" r="2.8" fill="#f59e0b"/><circle cx="52" cy="5" r="2.8" fill="#d97706"/></svg>',
-            'acc-gem': '<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,28 52,5" stroke="#fbbf24" stroke-width="2" fill="none"/><path d="M22,18 L30,35 L38,18 L30,14 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/><path d="M22,18 L30,14 L30,35 Z" fill="#60a5fa"/><path d="M24,17 L30,15 L30,20 Z" fill="rgba(255,255,255,.6)"/></svg>'
+            'acc-gem': '<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,28 52,5" stroke="#fbbf24" stroke-width="2" fill="none"/><path d="M22,18 L30,35 L38,18 L30,14 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/><path d="M22,18 L30,14 L30,35 Z" fill="#60a5fa"/><path d="M24,17 L30,15 L30,20 Z" fill="rgba(255,255,255,.6)"/></svg>',
+            'acc-guitar': '<svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="guitarBodyG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4e50"/><stop offset="100%" stop-color="#f9d423"/></linearGradient></defs><line x1="30" y1="25" x2="105" y2="60" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/><path d="M18,17 L30,23 L25,33 L13,27 Z" fill="#3e2723" stroke="#212121" stroke-width="1" rx="1"/><circle cx="15" cy="22" r="1.5" fill="#eeeeee"/><circle cx="21" cy="25" r="1.5" fill="#eeeeee"/><circle cx="25" cy="19" r="1.5" fill="#eeeeee"/><circle cx="120" cy="68" r="22" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><circle cx="98" cy="58" r="17" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><path d="M 103,42 Q 109,56 122,48 L 138,72 Q 112,86 103,68 Z" fill="url(#guitarBodyG)"/><circle cx="106" cy="62" r="6.5" fill="#212121" stroke="#ffecb3" stroke-width="1.2"/><rect x="124" y="66" width="5" height="12" transform="rotate(-30, 126, 72)" fill="#3e2723" rx="1"/><line x1="25" y1="21" x2="125" y2="69" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/><line x1="26" y1="23" x2="126" y2="71" stroke="#ffffff" stroke-width="0.8" opacity="0.9"></svg>'
         };
         function getAccessorySvg(acc) { return ACCESSORY_SVG[acc.id] || '' }
         function accessoryVisualHtml(acc) {
@@ -20990,27 +20746,38 @@
         }
 
         function applyAcc() {
+            clearAcc();
+            const r = document.getElementById('robot');
+            if (r) {
+                const activeSkin = getActiveSkin();
+                const activeAcc = getActiveAcc();
+                if (activeSkin === 'ice-cream' && activeAcc === 'acc-guitar') {
+                    r.classList.add('plays-guitar');
+                } else {
+                    r.classList.remove('plays-guitar');
+                }
+            }
             const id = getActiveAcc();
             if (!id) return;
             const acc = ACCESSORIES.find(a => a.id === id);
             if (!acc) return;
-            const map = { hat: 'outfitHat', face: 'outfitFace', neck: 'outfitNeck' };
+            const map = { hat: 'outfitHat', face: 'outfitFace', neck: 'outfitNeck', hand: 'outfitHand' };
             const el = document.getElementById(map[acc.slot]);
             if (!el) return;
             // Csak akkor, ha az adott slot üres (nincs ünnepi outfit)
-            if (!el.textContent.trim() && !el.dataset.accActive) {
+            if (!el.textContent.trim() || el.dataset.accActive) {
                 const svg = getAccessorySvg(acc);
                 if (svg) {
                     el.innerHTML = svg;
                     el.classList.add('outfit-acc-rendered');
-                    el.dataset.accActive = '1';
                 } else {
                     el.textContent = acc.icon;
                 }
+                el.dataset.accActive = '1';
             }
         }
         function clearAcc() {
-            ['outfitHat', 'outfitFace', 'outfitNeck'].forEach(id => {
+            ['outfitHat', 'outfitFace', 'outfitNeck', 'outfitHand'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el && el.dataset.accActive) {
                     el.innerHTML = '';
@@ -21135,7 +20902,7 @@
         function findItemMeta(id) {
             if (typeof SKINS !== 'undefined') { const x = SKINS.find(s => s.id === id); if (x) return x }
             if (typeof BGS !== 'undefined') { const x = BGS.find(s => s.id === id); if (x) return x }
-            if (typeof AURAS !== 'undefined') { const x = AURAS.find(s => s.id === id); if (x) return x }
+            if (typeof ACCESSORIES !== 'undefined') { const x = ACCESSORIES.find(s => s.id === id); if (x) return x }
             return null;
         }
         function renderDailyDeal() {
@@ -21287,7 +21054,7 @@
             5: { type: 'dance', icon: '🎵', name: 'Bólogatás tánc', itemId: 'dance-bob' },
             6: { type: 'gems', amount: 25, icon: '💎', name: '25 gem' },
             7: { type: 'item_rare', icon: '🌷', name: 'Tavaszi Rét háttér', itemId: 'bg-tulip' },
-            8: { type: 'item_rare', icon: '🌷', name: 'Tulipán Aura', itemId: 'aura-tulip' },
+            8: { type: 'item_rare', icon: '🌸', name: 'Virág', itemId: 'acc-flower' },
             9: { type: 'gems', amount: 30, icon: '💎', name: '30 gem' },
             10: { type: 'gems', amount: 100, icon: '💰', name: '100 gem' },
             11: { type: 'card_pack', boost: false, icon: '🎴', name: 'DailyCard pakk' },
@@ -21295,7 +21062,7 @@
             13: { type: 'item_rare', icon: '🌸', name: 'Sakura háttér', itemId: 'bg-sakura' },
             14: { type: 'gems', amount: 40, icon: '💎', name: '40 gem' },
             15: { type: 'dance', icon: '💃', name: 'Rázás tánc', itemId: 'dance-shake' },
-            16: { type: 'item_rare', icon: '🔥', name: 'Tűz Aura', itemId: 'aura-fire' },
+            16: { type: 'item_rare', icon: '🕶️', name: 'Napszemüveg', itemId: 'acc-shades' },
             17: { type: 'item_rare', icon: '🔥', name: 'Fire háttér', itemId: 'bg-fire' },
             18: { type: 'gems', amount: 60, icon: '💎', name: '60 gem' },
             19: { type: 'box_buy', tier: 'common', icon: '📦', name: 'Common Box' },
@@ -21303,24 +21070,24 @@
             21: { type: 'gems', amount: 50, icon: '💎', name: '50 gem' },
             22: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             23: { type: 'card_pack', boost: false, icon: '🎴', name: 'DailyCard pakk' },
-            24: { type: 'item_rare', icon: '👾', name: 'Glitch Aura', itemId: 'aura-glitch' },
+            24: { type: 'item_rare', icon: '🎩', name: 'Cilinder', itemId: 'acc-tophat' },
             25: { type: 'dance', icon: '🌀', name: 'Csavar tánc', itemId: 'dance-twist' },
             26: { type: 'item_rare', icon: '🌌', name: 'Galaxy háttér', itemId: 'bg-galaxy' },
             27: { type: 'gems', amount: 80, icon: '💎', name: '80 gem' },
-            28: { type: 'item_epic', icon: '😇', name: 'Szent Aura', itemId: 'aura-halo' },
+            28: { type: 'item_epic', icon: '👑', name: 'Korona', itemId: 'acc-crown' },
             29: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             30: { type: 'gems', amount: 200, icon: '💰', name: '200 gem' },
             31: { type: 'card_pack', boost: false, icon: '🎴', name: 'DailyCard pakk' },
             32: { type: 'item_rare', icon: '🌑', name: 'Stealth háttér', itemId: 'bg-stealth' },
             33: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
-            34: { type: 'item_epic', icon: '🌈', name: 'RGB Aura', itemId: 'aura-rgb' },
+            34: { type: 'item_epic', icon: '🎭', name: 'Maszk', itemId: 'acc-mask' },
             35: { type: 'dance', icon: '🌊', name: 'Hullám tánc', itemId: 'dance-wobble' },
             36: { type: 'item_epic', icon: '✨', name: 'Luxus Arany háttér', itemId: 'bg-golden' },
             37: { type: 'gems', amount: 75, icon: '💎', name: '75 gem' },
             38: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             39: { type: 'box_buy', tier: 'legendary', icon: '🏆', name: 'Legendary Box' },
             40: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
-            41: { type: 'item_epic', icon: '💎', name: 'Gyémánt Aura', itemId: 'aura-diamond' },
+            41: { type: 'item_epic', icon: '🎃', name: 'Tök lámpás', itemId: 'acc-pumpkin' },
             42: { type: 'gems', amount: 100, icon: '💎', name: '100 gem' },
             43: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
             44: { type: 'item_epic', icon: '💎', name: 'Gyémánt háttér', itemId: 'bg-diamond' },
@@ -21328,14 +21095,14 @@
             46: { type: 'item_epic', icon: '🌈', name: 'Szivárvány háttér', itemId: 'bg-rainbow' },
             47: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             48: { type: 'gems', amount: 120, icon: '💎', name: '120 gem' },
-            49: { type: 'item_ultra', icon: '⭐', name: 'Celestial Aura', itemId: 'aura-celestial' },
+            49: { type: 'item_ultra', icon: '🎓', name: 'Diplomázó kalap', itemId: 'acc-graduate' },
             50: { type: 'box_buy', tier: 'mythic', icon: '💠', name: 'Mythic Box' },
             51: { type: 'item_epic', icon: '🌃', name: 'Gamer Room háttér', itemId: 'bg-gamer' },
             52: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             53: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
             54: { type: 'gems', amount: 150, icon: '💰', name: '150 gem' },
             55: { type: 'dance', icon: '🕺', name: 'Pörgés tánc', itemId: 'dance-spin' },
-            56: { type: 'item_ultra', icon: '🌀', name: 'Cosmic Aura', itemId: 'aura-cosmic' },
+            56: { type: 'item_ultra', icon: '💎', name: 'Drágakő', itemId: 'acc-gem' },
             57: { type: 'item_ultra', icon: '🪐', name: 'Nebula háttér', itemId: 'bg-nebula' },
             58: { type: 'box_buy', tier: 'mythic', icon: '💠', name: 'Mythic Box' },
             59: { type: 'item_ultra', icon: '🌌', name: 'Aurora háttér', itemId: 'bg-aurora' },
@@ -21913,19 +21680,12 @@
         function setActiveSkin(name) { localStorage.setItem('nu_active_skin', name) }
         function getActiveBg() { return localStorage.getItem('nu_active_bg') || '' }
         function setActiveBg(name) { localStorage.setItem('nu_active_bg', name) }
-        function getActiveAura() { return localStorage.getItem('nu_active_aura') || '' }
-        function setActiveAura(name) { localStorage.setItem('nu_active_aura', name) }
         function applyRobotSkin() {
             const r = document.getElementById('robot');
             r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream)\b/g, '').trim();
             const skin = getActiveSkin();
             if (skin && owns(skin)) r.classList.add(skin);
-        }
-        function applyAura() {
-            const r = document.getElementById('robot');
-            r.classList.forEach(c => { if (c.startsWith('aura-')) r.classList.remove(c); });
-            const aura = getActiveAura();
-            if (aura && owns(aura)) r.classList.add(aura);
+            if (typeof applyAcc === 'function') applyAcc();
         }
         const CUSTOM_BGS = {
             'bg-golden': 'linear-gradient(165deg,#fef3c7 0%,#fde68a 20%,#fbbf24 40%,#f59e0b 60%,#d97706 80%,#92400e 100%)',
@@ -21980,7 +21740,6 @@
 
             applyRobotSkin();
             applyCustomBg();
-            applyAura();
         })();
 
         // ========== SÁRKÁNY HÉT (2026. ápr. 11–17) ==========
@@ -22264,17 +22023,6 @@
             const BGS = [
                 { id: '', name: 'Napszak', desc: 'Automatikus háttér', icon: '🌅', cost: 0, tier: 'free' }
             ];
-            const AURAS = [
-                { id: '', name: 'Nincs Aura', desc: 'Vissza az alapokhoz', icon: '🚫', cost: 0, tier: 'free' },
-                { id: 'aura-tulip', name: 'Tulipán', desc: 'Tavaszi virágaura', icon: '🌷', cost: 0, tier: 'free' },
-                { id: 'aura-fire', name: 'Tűz', desc: 'Lángoló energia', icon: '🔥', cost: 0, tier: 'free' },
-                { id: 'aura-glitch', name: 'Glitch', desc: 'Digitális zavar', icon: '👾', cost: 0, tier: 'free' },
-                { id: 'aura-halo', name: 'Szent', desc: 'Égi ragyogás', icon: '😇', cost: 0, tier: 'free' },
-                { id: 'aura-rgb', name: 'RGB', desc: 'Gamer színek', icon: '🌈', cost: 0, tier: 'free' },
-                { id: 'aura-diamond', name: 'Gyémánt', desc: 'Szikrázó jégkristály', icon: '💎', cost: 0, tier: 'free' },
-                { id: 'aura-superhero', name: 'Super Aura', desc: 'Szuperhős energia', icon: '⚡', cost: 0, tier: 'event' },
-                { id: 'aura-icecream', name: 'Fagyi Aura', desc: 'Nyári hűsítő fagyik lebegnek körülötted — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true }
-            ];
 
             function renderShop() {
                 const name = localStorage.getItem('nu_name') || 'Barátom';
@@ -22284,25 +22032,25 @@
                 greet.innerHTML = `Hello <span class="greet-name" style="color:${_ncVal}">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
                 const activeSkin = getActiveSkin();
                 const activeBg = getActiveBg();
-                const activeAura = getActiveAura();
+                const activeAcc = getActiveAcc();
                 skinList.innerHTML = '';
                 bgList.innerHTML = '';
 
-                // Auralist elem
-                const auraListId = 'auraList';
-                let auraList = document.getElementById(auraListId);
-                if (!auraList) {
-                    const auraSection = document.createElement('div');
-                    auraSection.className = 'shop-section';
-                    auraSection.innerHTML = `<div class="shop-section-title">🔮 Aurák</div><div class="shop-grid" id="${auraListId}"></div>`;
-                    bgList.parentElement.insertAdjacentElement('afterend', auraSection);
-                    auraList = document.getElementById(auraListId);
+                // Kiegészítők list elem
+                const accListId = 'accList';
+                let accList = document.getElementById(accListId);
+                if (!accList) {
+                    const accSection = document.createElement('div');
+                    accSection.className = 'shop-section';
+                    accSection.innerHTML = `<div class="shop-section-title">👑 Kiegészítők</div><div class="shop-grid" id="${accListId}"></div>`;
+                    bgList.parentElement.insertAdjacentElement('afterend', accSection);
+                    accList = document.getElementById(accListId);
                 }
-                auraList.innerHTML = '';
+                accList.innerHTML = '';
 
                 [{ id: 'skinList', items: SKINS, list: skinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin },
                 { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg },
-                { id: 'auraList', items: AURAS, list: auraList, active: activeAura, setter: setActiveAura, applier: applyAura }
+                { id: 'accList', items: ACCESSORIES, list: accList, active: activeAcc, setter: setActiveAcc, applier: applyAcc }
                 ].forEach(cfg => {
                     // Rendezés: először ingyenes (id='') és birtokolt defaultok, aztán rarity szerint növekvő
                     const sorted = [...cfg.items].sort((a, b) => {
@@ -22337,12 +22085,39 @@
 
                         const rarityLabel = (rarity !== 'free') ? `<div class="shop-item-rarity-label rarity-label-${rarity}">${rarity}</div>` : '<div class="shop-item-rarity-label rarity-label-free">free</div>';
                         const isSkinList = cfg.id === 'skinList';
-                        const iconHtml = (isSkinList && typeof buildMiniRobotHtml === 'function')
-                            ? `<div class="shop-item-icon shop-item-robot">${buildMiniRobotHtml(s.id || '', false)}</div>`
-                            : `<div class="shop-item-icon">${s.icon}</div>`;
+                        const isAccList = cfg.id === 'accList';
+                        let iconHtml = '';
+                        if (isSkinList && typeof buildMiniRobotHtml === 'function') {
+                            iconHtml = `<div class="shop-item-icon shop-item-robot">${buildMiniRobotHtml(s.id || '', false)}</div>`;
+                        } else if (isAccList) {
+                            const svg = getAccessorySvg(s);
+                            iconHtml = svg
+                                ? `<div class="shop-item-icon acc-shop-icon">${svg}</div>`
+                                : `<div class="shop-item-icon">${s.icon}</div>`;
+                        } else {
+                            iconHtml = `<div class="shop-item-icon">${s.icon}</div>`;
+                        }
                         el.innerHTML = `${iconHtml}${rarityLabel}<div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
 
-                        if (ownedItem && !isActive) el.addEventListener('click', (e) => { if (e.target.closest('.buy-tag')) return; cfg.setter(s.id); cfg.applier(); playSfx('skin-equip'); triggerSkinEquipEffect(); renderShop() });
+                        if (ownedItem) {
+                            el.addEventListener('click', (e) => {
+                                if (e.target.closest('.buy-tag')) return;
+                                if (isActive) {
+                                    if (cfg.id === 'accList') {
+                                        cfg.setter('');
+                                        cfg.applier();
+                                        playSfx('skin-equip');
+                                        renderShop();
+                                    }
+                                } else {
+                                    cfg.setter(s.id);
+                                    cfg.applier();
+                                    playSfx('skin-equip');
+                                    triggerSkinEquipEffect();
+                                    renderShop();
+                                }
+                            });
+                        }
                         cfg.list.appendChild(el);
                     });
                 });
@@ -22373,6 +22148,7 @@
             window.renderShop = renderShop;
             // SKINS és owns globálisan elérhető — kell a játékhoz
             window.SKINS = SKINS;
+            window.ACCESSORIES = ACCESSORIES;
             if (typeof window.owns !== 'function') window.owns = owns;
             toggle.addEventListener('click', () => {
                 renderShop();
@@ -22577,7 +22353,7 @@
                 const all = [];
                 if (typeof SKINS !== 'undefined') SKINS.forEach(s => { if (s.id && ITEM_PRICES[s.id]) all.push(Object.assign({ _kind: 'skin' }, s)) });
                 if (typeof BGS !== 'undefined') BGS.forEach(s => { if (s.id && ITEM_PRICES[s.id]) all.push(Object.assign({ _kind: 'bg' }, s)) });
-                if (typeof AURAS !== 'undefined') AURAS.forEach(s => { if (s.id && ITEM_PRICES[s.id]) all.push(Object.assign({ _kind: 'aura' }, s)) });
+                if (typeof ACCESSORIES !== 'undefined') ACCESSORIES.forEach(s => { if (s.id && ITEM_PRICES[s.id]) all.push(Object.assign({ _kind: 'acc' }, s)) });
                 return all;
             }
             function notOwnedByTier(minP, maxP) {
@@ -22600,7 +22376,7 @@
                 };
 
                 if (r < 0.05) return rollCategory(window.SKINS, '🤖', 50);
-                if (r < 0.15) return rollCategory(window.AURAS, '🌟', 30);
+                if (r < 0.15) return rollCategory(window.ACCESSORIES, '👑', 30);
                 if (r < 0.25) return rollCategory(window.BGS, '🖼️', 30);
 
                 if (r < 0.50) {
@@ -22935,7 +22711,7 @@
                     if (!spendGems(150)) { alert('Nincs elég gem! (150 kell)'); return; }
                     buyItem(skinId);
                     if (skinId === 'ice-cream') {
-                        buyItem('aura-icecream');
+                        buyItem('acc-guitar');
                     }
                     try { playSfx('skin-equip') } catch (_) { }
                     alert('✅ ' + skin.name + ' feloldva!');
@@ -24260,15 +24036,15 @@
                 // Unlock the skin!
                 if (typeof buyItem === 'function') {
                     buyItem('ice-cream');
-                    buyItem('aura-icecream');
+                    buyItem('acc-guitar');
                 }
                 if (typeof playSfx === 'function') try { playSfx('zynox') } catch(_){}
                 if (typeof triggerSkinEquipEffect === 'function') triggerSkinEquipEffect();
 
                 resultEmoji.textContent = '🎉';
                 resultEmoji.className = 'ic-result-emoji ic-unlock-anim';
-                resultTitle.textContent = '🍦 ICE CREAM SKIN & AURA FELOLDVA!';
-                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 fagyit!<br>Az Ice Cream bot és a Fagyi Aura most már a tiéd — INGYEN! 🍦✨<br><br>Keresd meg a Shopban!';
+                resultTitle.textContent = '🍦 ICE CREAM SKIN & GITÁR FELOLDVA!';
+                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 fagyit!<br>Az Ice Cream bot és a CHILL gitár most már a tiéd — INGYEN! 🎸🍦✨<br><br>Keresd meg a Shopban!';
             } else {
                 resultEmoji.textContent = '🍦';
                 resultEmoji.className = 'ic-result-emoji';
