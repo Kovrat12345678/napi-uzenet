@@ -2650,7 +2650,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            animation: zynoxLogoEntrance 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: zynoxLogoEntrance 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             position: relative;
         }
 
@@ -2712,7 +2712,7 @@
             border-radius: 20px;
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.15);
             background: rgba(255, 255, 255, 0.03);
-            animation: zynoxSymbolSpin 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: zynoxSymbolSpin 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .zynox-symbol::after {
@@ -17824,11 +17824,11 @@
             document.addEventListener('touchstart', triggerSoundBackup);
 
             const screen = document.getElementById('loadingScreen');
-            // Wait for 2.4 seconds (entrance and shine finishes), then fade out
+            // Wait for 1.2 seconds (entrance and shine finishes), then fade out
             setTimeout(() => {
                 screen.classList.add('fade-out');
                 setTimeout(() => screen.remove(), 800);
-            }, 2400);
+            }, 1200);
         })();
     </script>
 
