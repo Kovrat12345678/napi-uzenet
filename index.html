@@ -2633,7 +2633,7 @@
             align-items: center;
             justify-content: center;
             background: #000000 !important;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             overflow: hidden;
             font-family: 'Outfit', 'SF Pro Display', system-ui, sans-serif;
         }
@@ -2650,7 +2650,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            animation: zynoxLogoEntrance 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: zynoxLogoEntrance 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             position: relative;
         }
 
@@ -2685,7 +2685,8 @@
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: zynoxTextShine 3s linear infinite;
+            opacity: 0;
+            animation: zynoxTextEntrance 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards, zynoxTextShine 3s linear infinite;
         }
 
         .zynox-subtitle {
@@ -2696,6 +2697,8 @@
             margin-top: 8px;
             margin-right: -12px; /* Offset spacing gap */
             text-transform: uppercase;
+            opacity: 0;
+            animation: zynoxSubtitleEntrance 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.1s forwards;
         }
 
         /* Supercell-style logo symbol */
@@ -2712,7 +2715,41 @@
             border-radius: 20px;
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.15);
             background: rgba(255, 255, 255, 0.03);
-            animation: zynoxSymbolSpin 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: zynoxSymbolSpin 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .zynox-loader-wrap {
+            position: absolute;
+            bottom: 64px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 220px;
+            z-index: 2;
+        }
+        .zynox-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .zynox-progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+            transition: width 0.08s linear;
+        }
+        .zynox-percentage {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         .zynox-symbol::after {
@@ -2763,6 +2800,34 @@
         @keyframes zynoxGlowPulse {
             0% { opacity: 0.6; transform: scale(0.9); }
             100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes zynoxTextEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+                letter-spacing: 0px;
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                letter-spacing: 6px;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes zynoxSubtitleEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(6px);
+                letter-spacing: 4px;
+            }
+            100% {
+                opacity: 0.7;
+                transform: translateY(0);
+                letter-spacing: 12px;
+            }
         }
 
         /* ========== DRAGON SPIN ========== */
@@ -17755,6 +17820,12 @@
                 <span class="zynox-subtitle">STUDIO</span>
             </div>
         </div>
+        <div class="zynox-loader-wrap">
+            <div class="zynox-progress-bar">
+                <div class="zynox-progress-fill" id="zynoxProgressFill"></div>
+            </div>
+            <div class="zynox-percentage" id="zynoxPercentage">0%</div>
+        </div>
     </div>
     <script>
         (function () {
@@ -17824,11 +17895,27 @@
             document.addEventListener('touchstart', triggerSoundBackup);
 
             const screen = document.getElementById('loadingScreen');
-            // Wait for 1.2 seconds (entrance and shine finishes), then fade out
-            setTimeout(() => {
-                screen.classList.add('fade-out');
-                setTimeout(() => screen.remove(), 800);
-            }, 1200);
+            const progressFill = document.getElementById('zynoxProgressFill');
+            const percentageText = document.getElementById('zynoxPercentage');
+            
+            let progress = 0;
+            const duration = 650; // loader duration in ms (snappy & premium)
+            const intervalTime = 16;
+            const step = (intervalTime / duration) * 100;
+            
+            const progressTimer = setInterval(() => {
+                progress += step;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressTimer);
+                    setTimeout(() => {
+                        screen.classList.add('fade-out');
+                        setTimeout(() => screen.remove(), 600);
+                    }, 120);
+                }
+                if (progressFill) progressFill.style.width = progress + '%';
+                if (percentageText) percentageText.textContent = Math.floor(progress) + '%';
+            }, intervalTime);
         })();
     </script>
 
