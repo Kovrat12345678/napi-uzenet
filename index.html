@@ -17849,7 +17849,7 @@
                     </div>
                     <div class="cc-banner-title"
                         style="text-shadow: 3px 3px 0 #ca8a04, -1px -1px 0 rgba(219, 39, 119, .8);">SUMMER CHILL!</div>
-                    <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, 30 bonus gemet, +3 Fagyi
+                    <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, a CHILL gitárt, 999 bonus gemet, +3 Fagyi
                         Boxot és a Chill matricát! 🎮 Vagy nyomj hosszan a robotra és kapd el 50× a fagyit — INGYEN tiéd a skin!</div>
                     <div class="cc-banner-rewards" style="align-items:stretch;">
                         <div class="cc-reward-pill"
@@ -17892,8 +17892,13 @@
                         </div>
                         <div class="cc-reward-pill"
                             style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                            <span style="font-size:20px;">🎸</span>
+                            <span style="font-size:10px;font-weight:800;">CHILL Gitár</span>
+                        </div>
+                        <div class="cc-reward-pill"
+                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
                             <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
-                            <span style="font-size:10px;font-weight:800;">+30 Gem</span>
+                            <span style="font-size:10px;font-weight:800;">+999 Gem</span>
                         </div>
                         <div class="cc-reward-pill"
                             style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
@@ -19353,10 +19358,6 @@
             // MYTHIC hátterek
             'bg-nebula': 700, 'bg-aurora': 800, 'bg-infinity': 1200,
             // Kiegészítők
-            'acc-crown': 250, 'acc-tophat': 120, 'acc-cap': 50,
-            'acc-graduate': 120, 'acc-flower': 50, 'acc-pumpkin': 250,
-            'acc-shades': 120, 'acc-goggle': 50, 'acc-mask': 250,
-            'acc-ribbon': 50, 'acc-beads': 120, 'acc-gem': 400,
             'acc-guitar': 350
         };
         function getPrice(id) { return ITEM_PRICES[id] || 0 }
@@ -20685,18 +20686,6 @@
         // ========== ROBOT KIEGÉSZÍTŐK ==========
         // Pouch-ból nyerhetőek. Slot: hat/face/neck. Ünnepi öltözék mindig felülírja.
         const ACCESSORIES = [
-            { id: 'acc-crown', name: 'Korona', desc: 'Méltóságteljes királyi korona', icon: '👑', slot: 'hat', rarity: 'epic' },
-            { id: 'acc-tophat', name: 'Cilinder', desc: 'Elegáns fekete cilinder', icon: '🎩', slot: 'hat', rarity: 'rare' },
-            { id: 'acc-cap', name: 'Baseball', desc: 'Laza mindennapi baseball sapka', icon: '🧢', slot: 'hat', rarity: 'common' },
-            { id: 'acc-graduate', name: 'Diplomás', desc: 'A sikeres tanulmányokért', icon: '🎓', slot: 'hat', rarity: 'rare' },
-            { id: 'acc-flower', name: 'Virág', desc: 'Tavaszi virágdísz', icon: '🌺', slot: 'hat', rarity: 'common' },
-            { id: 'acc-pumpkin', name: 'Tök', desc: 'Ijesztő halloweeni tök', icon: '🎃', slot: 'hat', rarity: 'epic' },
-            { id: 'acc-shades', name: 'Napszemüveg', desc: 'Menő sötét napszemüveg', icon: '😎', slot: 'face', rarity: 'rare' },
-            { id: 'acc-goggle', name: 'Goggle', desc: 'Futurisztikus védőszemüveg', icon: '🥽', slot: 'face', rarity: 'common' },
-            { id: 'acc-mask', name: 'Álarc', desc: 'Rejtélyes velencei álarc', icon: '🎭', slot: 'face', rarity: 'epic' },
-            { id: 'acc-ribbon', name: 'Masni', desc: 'Szép piros masni', icon: '🎀', slot: 'neck', rarity: 'common' },
-            { id: 'acc-beads', name: 'Lánc', desc: 'Díszes gyöngyös nyaklánc', icon: '📿', slot: 'neck', rarity: 'rare' },
-            { id: 'acc-gem', name: 'Gyémánt Nyaklánc', desc: 'Csillogó gyémánt nyaklánc', icon: '💎', slot: 'neck', rarity: 'legendary' },
             { id: 'acc-guitar', name: 'CHILL gitár', desc: 'Dallamos CHILL gitár', icon: '🎸', slot: 'hand', rarity: 'legendary' }
         ];
         function getActiveAcc() { return localStorage.getItem('nu_active_acc') || '' }
@@ -21054,7 +21043,7 @@
             5: { type: 'dance', icon: '🎵', name: 'Bólogatás tánc', itemId: 'dance-bob' },
             6: { type: 'gems', amount: 25, icon: '💎', name: '25 gem' },
             7: { type: 'item_rare', icon: '🌷', name: 'Tavaszi Rét háttér', itemId: 'bg-tulip' },
-            8: { type: 'item_rare', icon: '🌸', name: 'Virág', itemId: 'acc-flower' },
+            8: { type: 'gems', amount: 50, icon: '💎', name: '50 gem' },
             9: { type: 'gems', amount: 30, icon: '💎', name: '30 gem' },
             10: { type: 'gems', amount: 100, icon: '💰', name: '100 gem' },
             11: { type: 'card_pack', boost: false, icon: '🎴', name: 'DailyCard pakk' },
@@ -21062,7 +21051,7 @@
             13: { type: 'item_rare', icon: '🌸', name: 'Sakura háttér', itemId: 'bg-sakura' },
             14: { type: 'gems', amount: 40, icon: '💎', name: '40 gem' },
             15: { type: 'dance', icon: '💃', name: 'Rázás tánc', itemId: 'dance-shake' },
-            16: { type: 'item_rare', icon: '🕶️', name: 'Napszemüveg', itemId: 'acc-shades' },
+            16: { type: 'gems', amount: 80, icon: '💎', name: '80 gem' },
             17: { type: 'item_rare', icon: '🔥', name: 'Fire háttér', itemId: 'bg-fire' },
             18: { type: 'gems', amount: 60, icon: '💎', name: '60 gem' },
             19: { type: 'box_buy', tier: 'common', icon: '📦', name: 'Common Box' },
@@ -21070,24 +21059,24 @@
             21: { type: 'gems', amount: 50, icon: '💎', name: '50 gem' },
             22: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             23: { type: 'card_pack', boost: false, icon: '🎴', name: 'DailyCard pakk' },
-            24: { type: 'item_rare', icon: '🎩', name: 'Cilinder', itemId: 'acc-tophat' },
+            24: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             25: { type: 'dance', icon: '🌀', name: 'Csavar tánc', itemId: 'dance-twist' },
             26: { type: 'item_rare', icon: '🌌', name: 'Galaxy háttér', itemId: 'bg-galaxy' },
             27: { type: 'gems', amount: 80, icon: '💎', name: '80 gem' },
-            28: { type: 'item_epic', icon: '👑', name: 'Korona', itemId: 'acc-crown' },
+            28: { type: 'gems', amount: 150, icon: '💎', name: '150 gem' },
             29: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             30: { type: 'gems', amount: 200, icon: '💰', name: '200 gem' },
             31: { type: 'card_pack', boost: false, icon: '🎴', name: 'DailyCard pakk' },
             32: { type: 'item_rare', icon: '🌑', name: 'Stealth háttér', itemId: 'bg-stealth' },
             33: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
-            34: { type: 'item_epic', icon: '🎭', name: 'Maszk', itemId: 'acc-mask' },
+            34: { type: 'box', icon: '🎁', name: '1× DailyBox' },
             35: { type: 'dance', icon: '🌊', name: 'Hullám tánc', itemId: 'dance-wobble' },
             36: { type: 'item_epic', icon: '✨', name: 'Luxus Arany háttér', itemId: 'bg-golden' },
             37: { type: 'gems', amount: 75, icon: '💎', name: '75 gem' },
             38: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             39: { type: 'box_buy', tier: 'legendary', icon: '🏆', name: 'Legendary Box' },
             40: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
-            41: { type: 'item_epic', icon: '🎃', name: 'Tök lámpás', itemId: 'acc-pumpkin' },
+            41: { type: 'gems', amount: 200, icon: '💎', name: '200 gem' },
             42: { type: 'gems', amount: 100, icon: '💎', name: '100 gem' },
             43: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
             44: { type: 'item_epic', icon: '💎', name: 'Gyémánt háttér', itemId: 'bg-diamond' },
@@ -21095,14 +21084,14 @@
             46: { type: 'item_epic', icon: '🌈', name: 'Szivárvány háttér', itemId: 'bg-rainbow' },
             47: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             48: { type: 'gems', amount: 120, icon: '💎', name: '120 gem' },
-            49: { type: 'item_ultra', icon: '🎓', name: 'Diplomázó kalap', itemId: 'acc-graduate' },
+            49: { type: 'box_buy', tier: 'mythic', icon: '💠', name: 'Mythic Box' },
             50: { type: 'box_buy', tier: 'mythic', icon: '💠', name: 'Mythic Box' },
             51: { type: 'item_epic', icon: '🌃', name: 'Gamer Room háttér', itemId: 'bg-gamer' },
             52: { type: 'pouch', icon: '👝', name: '1× Pouch' },
             53: { type: 'card_pack', boost: true, icon: '🎴', name: 'Ritka DailyCard pakk' },
             54: { type: 'gems', amount: 150, icon: '💰', name: '150 gem' },
             55: { type: 'dance', icon: '🕺', name: 'Pörgés tánc', itemId: 'dance-spin' },
-            56: { type: 'item_ultra', icon: '💎', name: 'Drágakő', itemId: 'acc-gem' },
+            56: { type: 'gems', amount: 300, icon: '💎', name: '300 gem' },
             57: { type: 'item_ultra', icon: '🪐', name: 'Nebula háttér', itemId: 'bg-nebula' },
             58: { type: 'box_buy', tier: 'mythic', icon: '💠', name: 'Mythic Box' },
             59: { type: 'item_ultra', icon: '🌌', name: 'Aurora háttér', itemId: 'bg-aurora' },
@@ -22685,18 +22674,19 @@
                     ccBtn._bound = true; ccBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         if (localStorage.getItem('nu_summer_pass_bought') === '1') { return }
-                        if (!confirm('🍦 Summer Chill Pass megvétele 300 gemért?\n\n🍦 Ice Cream Bot skin\n💎 +30 Gem\n📦 +3 Fagyi Box\n🍦 Ice cream! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
+                        if (!confirm('🍦 Summer Chill Pass megvétele 300 gemért?\n\n🍦 Ice Cream Bot skin\n🎸 CHILL gitár\n💎 +999 Gem\n📦 +3 Fagyi Box\n🍦 Ice cream! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
                         if (!spendGems(300)) { alert('Nincs elég gem! (300 gem kell)'); return }
-                        // Ice Cream bot unlock + 30 gem + 3 boxes + Ice Cream sticker
+                        // Ice Cream bot unlock + CHILL guitar + 999 gem + 3 boxes + Ice Cream sticker
                         buyItem('ice-cream');
+                        buyItem('acc-guitar');
                         if (typeof awardSticker === 'function') awardSticker('sticker-icecream');
 
-                        addGems(30);
+                        addGems(999);
                         localStorage.setItem('nu_box_count', String(boxesRemaining() + 3));
                         localStorage.setItem('nu_summer_pass_bought', '1');
                         try { playSfx('zynox') } catch (_) { }
                         triggerSkinEquipEffect();
-                        alert('🍦 Summer Chill Pass aktiválva!\n\n✅ Ice Cream Bot feloldva\n💎 +30 gem jóváírva\n📦 +3 Fagyi Box hozzáadva\n🍦 Ice cream! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
+                        alert('🍦 Summer Chill Pass aktiválva!\n\n✅ Ice Cream Bot feloldva\n🎸 CHILL gitár feloldva\n💎 +999 gem jóváírva\n📦 +3 Fagyi Box hozzáadva\n🍦 Ice cream! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
                         updateGemUI();
                         updateLootBadges();
                         if (typeof renderShop === 'function') renderShop();
