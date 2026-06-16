@@ -22139,6 +22139,13 @@
             }
 
             function initAppAmbient() {
+                const now = new Date();
+                const isSummerEvent = (now.getFullYear() === 2026 &&
+                    ((now.getMonth() === 5 && now.getDate() >= 10) ||
+                        (now.getMonth() === 6) ||
+                        (now.getMonth() === 7 && now.getDate() <= 10)));
+                if (isSummerEvent) return;
+
                 if (window._techEventActive) return;
                 if (appAudioCtx) return;
                 try { appAudioCtx = _sfxCtx(); } catch (e) { return; }
@@ -23353,29 +23360,105 @@
                 if (mo) mo.style.display = 'flex';
             }
 
-            // Music Logic with AudioContext (Avoids Dynamic Island on iOS) - Kikapcsolva a felhasználó kérésére
+            // Music Logic with AudioContext (Avoids Dynamic Island on iOS)
             let audioCtx = null;
             let audioBuffer = null;
             let audioSource = null;
 
             async function initMusic() {
-                // Kikapcsolva
+                if (audioCtx) {
+                    if (audioCtx.state === 'suspended') {
+                        try {
+                            await audioCtx.resume();
+                        } catch(e) {}
+                    }
+                    return;
+                }
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                audioCtx = new AudioContext();
+                try {
+                    const response = await fetch('summer music/Summer Chill.mp3');
+                    const arrayBuffer = await response.arrayBuffer();
+                    audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                    startLoop();
+                    if (localStorage.getItem('nu_music_muted') === '1') {
+                        audioCtx.suspend();
+                        const musicToggle = document.getElementById('musicToggle');
+                        if (musicToggle) musicToggle.textContent = '🔇';
+                    }
+                } catch (e) {
+                    console.error("Music load error:", e);
+                }
             }
 
             function startLoop() {
-                // Kikapcsolva
+                if (!audioBuffer || !audioCtx) return;
+                if (audioSource) {
+                    try {
+                        audioSource.stop();
+                    } catch(e) {}
+                }
+                audioSource = audioCtx.createBufferSource();
+                audioSource.buffer = audioBuffer;
+                audioSource.loop = true;
+                audioSource.connect(audioCtx.destination);
+                audioSource.start(0);
             }
 
+            // Resume audio context on user gesture (iOS fix)
+            function _resumeTechAudio() {
+                if (audioCtx && audioCtx.state === 'suspended' && localStorage.getItem('nu_music_muted') !== '1') {
+                    audioCtx.resume();
+                }
+            }
+            document.addEventListener('click', _resumeTechAudio, { passive: true });
+            document.addEventListener('touchstart', _resumeTechAudio, { passive: true });
+
+            const musicToggle = document.getElementById('musicToggle');
             if (musicToggle) {
                 musicToggle.onclick = () => {
                     if (audioCtx) {
                         if (audioCtx.state === 'running') {
-                            audioCtx.suspend(); musicToggle.textContent = '🔇';
+                            audioCtx.suspend();
+                            musicToggle.textContent = '🔇';
+                            localStorage.setItem('nu_music_muted', '1');
                         } else {
-                            audioCtx.resume(); musicToggle.textContent = '🔊';
+                            audioCtx.resume();
+                            musicToggle.textContent = '🔊';
+                            localStorage.setItem('nu_music_muted', '0');
                         }
+                    } else {
+                        localStorage.setItem('nu_music_muted', '0');
+                        musicToggle.textContent = '🔊';
+                        initMusic();
                     }
                 };
+            }
+
+            const startMusicOnce = () => {
+                initMusic();
+                document.removeEventListener('click', startMusicOnce);
+                document.removeEventListener('touchstart', startMusicOnce);
+            };
+
+            const now = new Date();
+            const isSummerEvent = (now.getFullYear() === 2026 &&
+                ((now.getMonth() === 5 && now.getDate() >= 10) ||
+                    (now.getMonth() === 6) ||
+                    (now.getMonth() === 7 && now.getDate() <= 10)));
+
+            if (isSummerEvent) {
+                if (musicToggle) {
+                    musicToggle.style.display = 'flex';
+                    if (localStorage.getItem('nu_music_muted') === '1') {
+                        musicToggle.textContent = '🔇';
+                    } else {
+                        musicToggle.textContent = '🔊';
+                    }
+                }
+                document.addEventListener('click', startMusicOnce, { passive: true });
+                document.addEventListener('touchstart', startMusicOnce, { passive: true });
             }
 
             // Új kártya buborék frissítés
