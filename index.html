@@ -17560,11 +17560,256 @@
         .ic-daily-info.show {
             display: flex;
         }
+
+        /* ========== BEACH SKIN ========== */
+        .robot.beach .head { background: linear-gradient(145deg, #06b6d4, #0891b2) !important; box-shadow: 0 0 18px rgba(6,182,212,.4) !important }
+        .robot.beach .face-screen { background: linear-gradient(180deg, rgba(6,182,212,.15), rgba(14,116,144,.3)) !important; border-color: rgba(6,182,212,.6) !important }
+        .robot.beach .eye { background: #fbbf24 !important; box-shadow: 0 0 8px rgba(251,191,36,.8) !important }
+        .robot.beach .mouth { background: #fbbf24 !important }
+        .robot.beach .antenna-stick { background: #0891b2 !important }
+        .robot.beach .antenna-ball { background: #fbbf24 !important; box-shadow: 0 0 10px rgba(251,191,36,.6) !important }
+        .robot.beach .ear { background: linear-gradient(to bottom, #06b6d4, #0891b2) !important }
+        .robot.beach .neck { background: #0891b2 !important }
+        .robot.beach .shoulder { background: #06b6d4 !important }
+        .robot.beach .arm { background: linear-gradient(to bottom, #0891b2, #0e7490) !important; z-index: 30 !important }
+        .robot.beach .torso { background: linear-gradient(165deg, #06b6d4, #0891b2) !important }
+        .robot.beach .chest { background: radial-gradient(circle, #ecfeff, #67e8f9) !important; border: 2px solid #0891b2 !important }
+        .robot.beach .heart-icon { display: none !important }
+        .robot.beach .chest::before { content: '🏖️'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; z-index: 2 }
+        .robot.beach .chest-dots { display: none !important }
+        .robot.beach .leg { background: linear-gradient(to bottom, #0891b2, #0e7490) !important }
+        .robot.beach .foot { background: #06b6d4 !important }
+        .robot.beach::after { content: ''; position: absolute; inset: -24px; background: radial-gradient(circle, rgba(6,182,212,.2), rgba(251,191,36,.08), transparent 70%); pointer-events: none; z-index: -2; border-radius: 50%; filter: blur(2px); animation: iceChillGlow 4s ease-in-out infinite }
+
+        /* ========== SUNSET SKIN ========== */
+        .robot.sunset .head { background: linear-gradient(145deg, #f97316, #ea580c) !important; box-shadow: 0 0 18px rgba(249,115,22,.4) !important }
+        .robot.sunset .face-screen { background: linear-gradient(180deg, rgba(249,115,22,.15), rgba(147,51,234,.2)) !important; border-color: rgba(249,115,22,.6) !important }
+        .robot.sunset .eye { background: #c084fc !important; box-shadow: 0 0 8px rgba(192,132,252,.8) !important }
+        .robot.sunset .mouth { background: #c084fc !important }
+        .robot.sunset .antenna-stick { background: #ea580c !important }
+        .robot.sunset .antenna-ball { background: #c084fc !important; box-shadow: 0 0 10px rgba(192,132,252,.6) !important }
+        .robot.sunset .ear { background: linear-gradient(to bottom, #f97316, #ea580c) !important }
+        .robot.sunset .neck { background: #ea580c !important }
+        .robot.sunset .shoulder { background: #f97316 !important }
+        .robot.sunset .arm { background: linear-gradient(to bottom, #ea580c, #c2410c) !important }
+        .robot.sunset .torso { background: linear-gradient(165deg, #f97316, #9333ea) !important }
+        .robot.sunset .chest { background: radial-gradient(circle, #fed7aa, #fb923c, #a855f7) !important; border: 2px solid #ea580c !important }
+        .robot.sunset .heart-icon { display: none !important }
+        .robot.sunset .chest::before { content: '🌅'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; z-index: 2 }
+        .robot.sunset .chest-dots { display: none !important }
+        .robot.sunset .leg { background: linear-gradient(to bottom, #9333ea, #7e22ce) !important }
+        .robot.sunset .foot { background: #a855f7 !important }
+        .robot.sunset::after { content: ''; position: absolute; inset: -24px; background: radial-gradient(circle, rgba(249,115,22,.2), rgba(147,51,234,.1), transparent 70%); pointer-events: none; z-index: -2; border-radius: 50%; filter: blur(2px); animation: iceChillGlow 4s ease-in-out infinite }
+
+        /* ========== CONCERT OVERLAY ========== */
+        #concertOverlay { position: fixed; inset: 0; z-index: 99999; background: linear-gradient(180deg, #0a0a1a, #1a0a2e 50%, #0a0a1a); display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden }
+        #concertOverlay.active { display: flex; animation: concertFadeIn 1s ease }
+        @keyframes concertFadeIn { from { opacity: 0 } to { opacity: 1 } }
+        .concert-stage { display: flex; flex-direction: column; align-items: center; gap: 16px; transition: opacity .5s; position: relative }
+        .concert-title { font-family: 'Outfit', sans-serif; font-size: clamp(20px, 6vw, 28px); font-weight: 900; color: #fbbf24; text-shadow: 0 0 30px rgba(251,191,36,.6), 0 4px 8px rgba(0,0,0,.5); letter-spacing: 3px; animation: concertTitlePulse 2s ease-in-out infinite }
+        @keyframes concertTitlePulse { 0%, 100% { transform: scale(1) } 50% { transform: scale(1.05); text-shadow: 0 0 50px rgba(251,191,36,.9) } }
+        .concert-band { display: flex; gap: 0; align-items: flex-end; justify-content: center; padding: 20px 40px; position: relative; min-height: 380px }
+        .concert-member { display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 0.3s; position: relative }
+        .concert-member.drummer { transform: scale(0.75); margin-right: -45px; z-index: 10; transform-origin: bottom right }
+        .concert-member.guitarist { transform: scale(0.95); z-index: 20; transform-origin: bottom center }
+        .concert-member.singer { transform: scale(0.75); margin-left: -45px; z-index: 10; transform-origin: bottom left }
+        .concert-label { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 800; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.6); background: rgba(255,255,255,.1); padding: 3px 10px; border-radius: 20px; white-space: nowrap; z-index: 30 }
+        
+        /* Drummer adjustments and Drumsticks */
+        .robot.plays-drums .arm-l { animation: drumLeft 0.3s ease-in-out infinite !important; transform-origin: top center !important }
+        .robot.plays-drums .arm-r { animation: drumRight 0.3s ease-in-out infinite 0.15s !important; transform-origin: top center !important }
+        @keyframes drumLeft { 0%, 100% { transform: rotate(-25deg) } 50% { transform: rotate(-65deg) } }
+        @keyframes drumRight { 0%, 100% { transform: rotate(25deg) } 50% { transform: rotate(65deg) } }
+        .robot.plays-drums .arm-l::before {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            width: 4px;
+            height: 38px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            transform: translateX(-50%) rotate(-10deg);
+            transform-origin: top center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 1px solid #94a3b8;
+        }
+        .robot.plays-drums .arm-r::before {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            width: 4px;
+            height: 38px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            transform: translateX(-50%) rotate(10deg);
+            transform-origin: top center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 1px solid #94a3b8;
+        }
+        .concert-drums-wrap { position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); width: 180px; height: 135px; z-index: 25; pointer-events: none; filter: drop-shadow(0 6px 15px rgba(0,0,0,0.6)) }
+        
+        .robot.plays-drums .arm {
+            z-index: 30 !important;
+        }
+
+        /* Drum Kit visibility on main robot */
+        .robot .concert-drums-wrap {
+            display: none;
+        }
+        .robot.plays-drums .concert-drums-wrap {
+            display: block !important;
+        }
+        
+        /* Beach sunglasses visor */
+        .robot.beach .eyes::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 86px;
+            height: 24px;
+            background: linear-gradient(135deg, #facc15, #f97316, #ef4444);
+            clip-path: polygon(0 20%, 15% 0, 85% 0, 100% 20%, 90% 100%, 55% 100%, 50% 60%, 45% 100%, 10% 100%);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .robot.beach .eyes::after {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%) skewX(-20deg);
+            width: 70px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.75);
+            z-index: 11;
+            pointer-events: none;
+        }
+
+        /* Singer adjustments, headphones & star decal */
+        .concert-member.singer .robot { animation: singerSway 1.5s ease-in-out infinite !important }
+        @keyframes singerSway { 0%, 100% { transform: rotate(-3deg) } 50% { transform: rotate(3deg) } }
+        .concert-member.singer .mouth { animation: speak 0.3s ease infinite !important; width: 14px !important; height: 10px !important; border-radius: 50% !important; background: transparent !important; border: 2px solid #c084fc !important; box-shadow: 0 0 8px rgba(192,132,252,.8) !important }
+        .concert-mic-wrap { position: absolute; top: 25px; left: calc(50% + 55px); transform: translateX(-50%); width: 100px; height: 200px; z-index: 25; pointer-events: none; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6)) }
+        .concert-mic-stand { width: 100%; height: 100%; transform-origin: bottom center; animation: micBob 1.5s ease-in-out infinite }
+        @keyframes micBob { 0%, 100% { transform: rotate(-3deg) } 50% { transform: rotate(3deg) } }
+        
+        .robot.sunset::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 27px;
+            right: 27px;
+            height: 40px;
+            border: 6px solid #c084fc;
+            border-bottom: none;
+            border-radius: 60px 60px 0 0;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(192, 132, 252, 0.9);
+            pointer-events: none;
+        }
+        .robot.sunset .ear-l,
+        .robot.sunset .ear-r {
+            width: 16px !important;
+            height: 34px !important;
+            border-radius: 10px !important;
+            background: linear-gradient(to bottom, #a855f7, #db2777) !important;
+            border: 2px solid #f472b6 !important;
+            box-shadow: 0 0 18px rgba(219, 39, 119, 0.9) !important;
+            z-index: 10 !important;
+        }
+        .robot.sunset .face-screen::after {
+            content: '⭐';
+            position: absolute;
+            right: 14px;
+            top: 10px;
+            font-size: 14px;
+            color: #fbbf24;
+            text-shadow: 0 0 8px rgba(251, 191, 36, 0.9);
+            z-index: 12;
+        }
+
+        .concert-band.spotlight-l::before { content: ''; position: absolute; top: -200px; left: 10%; width: 80px; height: 400px; background: linear-gradient(180deg, rgba(251,191,36,.25), transparent); transform: rotate(-15deg); filter: blur(20px); animation: spotlightLeft 3s ease-in-out infinite }
+        .concert-band.spotlight-r::after { content: ''; position: absolute; top: -200px; right: 10%; width: 80px; height: 400px; background: linear-gradient(180deg, rgba(192,132,252,.25), transparent); transform: rotate(15deg); filter: blur(20px); animation: spotlightRight 3s ease-in-out infinite }
+        
+        /* Entrance Animations for bots */
+        .concert-member.guitarist.entrance {
+            animation: guitaristSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .concert-member.singer.entrance {
+            animation: singerSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes guitaristSlideIn {
+            0% {
+                transform: translateX(-200px) scale(0.4);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0) scale(0.95);
+                opacity: 1;
+            }
+        }
+        @keyframes singerSlideIn {
+            0% {
+                transform: translateX(200px) scale(0.4);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0) scale(0.75);
+                opacity: 1;
+            }
+        }
+        @keyframes spotlightLeft { 0%, 100% { transform: rotate(-15deg); opacity: .6 } 50% { transform: rotate(-5deg); opacity: 1 } }
+        @keyframes spotlightRight { 0%, 100% { transform: rotate(15deg); opacity: .6 } 50% { transform: rotate(5deg); opacity: 1 } }
+        .concert-timer-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 10px }
+        .concert-timer-bar { width: 240px; height: 5px; background: rgba(255,255,255,.15); border-radius: 3px; overflow: hidden }
+        .concert-timer-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #fbbf24, #f97316, #ec4899); border-radius: 3px; transition: width 1s linear }
+        .concert-timer-text { font-family: 'Outfit', sans-serif; font-size: 11px; color: rgba(255,255,255,.5) }
+        .concert-float-note { position: absolute; bottom: 20%; font-size: 22px; animation: noteFloat 3s ease-out forwards; pointer-events: none; opacity: .7 }
+        @keyframes noteFloat { 0% { transform: translateY(0) rotate(0); opacity: .7 } 100% { transform: translateY(-250px) rotate(15deg); opacity: 0 } }
+        #concertPromo { display: none; flex-direction: column; align-items: center; justify-content: center; animation: concertFadeIn .5s ease; position: absolute; inset: 0 }
+        .concert-promo-card { background: linear-gradient(165deg, #1e1b4b, #3b0764, #701a75); border: 2px solid rgba(251,191,36,.3); border-radius: 20px; padding: 28px; max-width: 340px; width: 90%; display: flex; flex-direction: column; align-items: center; gap: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.5) }
+        .concert-promo-title { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 900; color: #fbbf24; text-align: center; text-shadow: 0 0 20px rgba(251,191,36,.5) }
+        .concert-promo-sub { font-size: 13px; color: rgba(255,255,255,.7); text-align: center }
+        .concert-promo-items { display: flex; flex-direction: column; gap: 8px; width: 100% }
+        .concert-promo-btn { background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.05)); border: 1.5px solid rgba(251,191,36,.3); border-radius: 12px; padding: 11px 14px; color: #fff; font-weight: 800; font-size: 13px; cursor: pointer; transition: all .2s; text-align: center; font-family: 'Outfit', sans-serif }
+        .concert-promo-btn:hover { border-color: #fbbf24; background: rgba(251,191,36,.15) }
+        .concert-promo-btn.pass-btn { background: linear-gradient(135deg, #fbbf24, #f97316); color: #000; border-color: #fbbf24 }
+        .concert-promo-close { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 8px 20px; color: rgba(255,255,255,.7); font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 6px; font-family: 'Outfit', sans-serif }
+        .concert-promo-close:hover { background: rgba(255,255,255,.2) }
+
     </style>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 
 <body>
+    <!-- Global SVG Gradients for Drum Kit -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="drumShellG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#06b6d4"/>
+                <stop offset="100%" stop-color="#0891b2"/>
+            </linearGradient>
+            <linearGradient id="cymbalG" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fbbf24"/>
+                <stop offset="50%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#d97706"/>
+            </linearGradient>
+            <linearGradient id="chromeG" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#94a3b8"/>
+                <stop offset="50%" stop-color="#cbd5e1"/>
+                <stop offset="100%" stop-color="#64748b"/>
+            </linearGradient>
+            <linearGradient id="drumHeadG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f8fafc"/>
+                <stop offset="100%" stop-color="#e2e8f0"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="zynox-logo-container">
@@ -17772,6 +18017,59 @@
                         <div class="leg">
                             <div class="foot"></div>
                         </div>
+                    </div>
+                    <!-- Premium SVG Drum Kit -->
+                    <div class="concert-drums-wrap">
+                        <svg class="concert-drum-kit" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Stands / Hardware -->
+                            <line x1="30" y1="50" x2="30" y2="110" stroke="url(#chromeG)" stroke-width="3"/>
+                            <line x1="30" y1="110" x2="15" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+                            <line x1="30" y1="110" x2="45" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+                            
+                            <line x1="130" y1="40" x2="130" y2="110" stroke="url(#chromeG)" stroke-width="3"/>
+                            <line x1="130" y1="110" x2="115" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+                            <line x1="130" y1="110" x2="145" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+
+                            <!-- Bass Drum Stand Feet -->
+                            <line x1="50" y1="100" x2="40" y2="115" stroke="url(#chromeG)" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="110" y1="100" x2="120" y2="115" stroke="url(#chromeG)" stroke-width="4" stroke-linecap="round"/>
+
+                            <!-- Bass Drum (Center) -->
+                            <circle cx="80" cy="80" r="35" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="3"/>
+                            <circle cx="80" cy="80" r="32" fill="#111827"/>
+                            <!-- Bass Drum Front Head / Skin -->
+                            <circle cx="80" cy="80" r="30" fill="url(#drumHeadG)"/>
+                            <!-- Logo on Bass Drum -->
+                            <text x="80" y="83" font-family="'Outfit', sans-serif" font-size="7" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="1">SUMMER</text>
+                            <text x="80" y="90" font-family="'Outfit', sans-serif" font-size="4" font-weight="700" fill="#64748b" text-anchor="middle">BEATS</text>
+
+                            <!-- Tom-toms mounted on bass drum -->
+                            <rect x="52" y="32" width="22" height="15" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="1.5" rx="1"/>
+                            <ellipse cx="63" cy="32" rx="11" ry="3" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                            <rect x="86" y="32" width="22" height="15" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="1.5" rx="1"/>
+                            <ellipse cx="97" cy="32" rx="11" ry="3" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                            
+                            <!-- Snare Drum (Left) -->
+                            <g transform="rotate(-5, 30, 52)">
+                                <rect x="15" y="52" width="26" height="12" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="1.5" rx="1"/>
+                                <ellipse cx="28" cy="52" rx="13" ry="3.5" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                            </g>
+
+                            <!-- Floor Tom (Right) -->
+                            <rect x="115" y="65" width="30" height="25" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="2" rx="1"/>
+                            <ellipse cx="130" cy="65" rx="15" ry="4" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                            <line x1="116" y1="90" x2="110" y2="110" stroke="url(#chromeG)" stroke-width="2"/>
+                            <line x1="144" y1="90" x2="150" y2="110" stroke="url(#chromeG)" stroke-width="2"/>
+                            
+                            <!-- Cymbals -->
+                            <ellipse cx="30" cy="48" rx="14" ry="3.5" fill="url(#cymbalG)" stroke="#d97706" stroke-width="0.8"/>
+                            <ellipse cx="30" cy="46" rx="13.5" ry="3.2" fill="url(#cymbalG)" stroke="#d97706" stroke-width="0.8"/>
+                            
+                            <g transform="rotate(-10, 130, 36)">
+                                <ellipse cx="130" cy="36" rx="20" ry="4.5" fill="url(#cymbalG)" stroke="#d97706" stroke-width="1"/>
+                                <path d="M125,36 C125,34 135,34 135,36" fill="#fbbf24" stroke="#d97706" stroke-width="0.8"/>
+                            </g>
+                        </svg>
                     </div>
                 </div>
             </button>
@@ -19350,6 +19648,7 @@
             // MYTHIC skinek (601+)
             'super': 1000, 'glass': 1000, 'gamer': 1000, 'phoenix': 900,
             'ultra': 999, 'ultra-black': 1500,
+            'beach': 150, 'sunset': 150,
             // Hátterek
             'bg-tulip': 80, 'bg-sakura': 80, 'bg-graffiti': 80,
             'bg-galaxy': 150, 'bg-stealth': 150, 'bg-fire': 150,
@@ -19358,7 +19657,7 @@
             // MYTHIC hátterek
             'bg-nebula': 700, 'bg-aurora': 800, 'bg-infinity': 1200,
             // Kiegészítők
-            'acc-guitar': 350
+            'acc-guitar': 350, 'acc-drum': 350
         };
         function getPrice(id) { return ITEM_PRICES[id] || 0 }
 
@@ -20686,7 +20985,8 @@
         // ========== ROBOT KIEGÉSZÍTŐK ==========
         // Pouch-ból nyerhetőek. Slot: hat/face/neck. Ünnepi öltözék mindig felülírja.
         const ACCESSORIES = [
-            { id: 'acc-guitar', name: 'CHILL gitár', desc: 'Dallamos CHILL gitár', icon: '🎸', slot: 'hand', rarity: 'legendary' }
+            { id: 'acc-guitar', name: 'CHILL gitár', desc: 'Dallamos CHILL gitár', icon: '🎸', slot: 'hand', rarity: 'legendary' },
+            { id: 'acc-drum', name: 'Koncert dob', desc: 'Prémium dobfelszerelés', icon: '🥁', slot: 'hand', rarity: 'legendary' }
         ];
         function getActiveAcc() { return localStorage.getItem('nu_active_acc') || '' }
         function setActiveAcc(id) { localStorage.setItem('nu_active_acc', id) }
@@ -20725,7 +21025,8 @@
             'acc-ribbon': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><polygon points="4,4 26,15 4,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><polygon points="56,4 34,15 56,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><rect x="24" y="9" width="12" height="12" fill="#991b1b" rx="2"/><ellipse cx="14" cy="15" rx="3" ry="5" fill="rgba(255,255,255,.25)"/></svg>',
             'acc-beads': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,32 52,5" stroke="#78350f" stroke-width="1" fill="none"/><circle cx="8" cy="5" r="2.8" fill="#d97706"/><circle cx="15" cy="13" r="2.8" fill="#f59e0b"/><circle cx="22" cy="19" r="2.8" fill="#d97706"/><circle cx="30" cy="23" r="3.5" fill="#fbbf24" stroke="#92400e" stroke-width=".8"/><circle cx="38" cy="19" r="2.8" fill="#d97706"/><circle cx="45" cy="13" r="2.8" fill="#f59e0b"/><circle cx="52" cy="5" r="2.8" fill="#d97706"/></svg>',
             'acc-gem': '<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,28 52,5" stroke="#fbbf24" stroke-width="2" fill="none"/><path d="M22,18 L30,35 L38,18 L30,14 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/><path d="M22,18 L30,14 L30,35 Z" fill="#60a5fa"/><path d="M24,17 L30,15 L30,20 Z" fill="rgba(255,255,255,.6)"/></svg>',
-            'acc-guitar': '<svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="guitarBodyG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4e50"/><stop offset="100%" stop-color="#f9d423"/></linearGradient></defs><line x1="30" y1="25" x2="105" y2="60" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/><path d="M18,17 L30,23 L25,33 L13,27 Z" fill="#3e2723" stroke="#212121" stroke-width="1" rx="1"/><circle cx="15" cy="22" r="1.5" fill="#eeeeee"/><circle cx="21" cy="25" r="1.5" fill="#eeeeee"/><circle cx="25" cy="19" r="1.5" fill="#eeeeee"/><circle cx="120" cy="68" r="22" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><circle cx="98" cy="58" r="17" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><path d="M 103,42 Q 109,56 122,48 L 138,72 Q 112,86 103,68 Z" fill="url(#guitarBodyG)"/><circle cx="106" cy="62" r="6.5" fill="#212121" stroke="#ffecb3" stroke-width="1.2"/><rect x="124" y="66" width="5" height="12" transform="rotate(-30, 126, 72)" fill="#3e2723" rx="1"/><line x1="25" y1="21" x2="125" y2="69" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/><line x1="26" y1="23" x2="126" y2="71" stroke="#ffffff" stroke-width="0.8" opacity="0.9"></svg>'
+            'acc-guitar': '<svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="guitarBodyG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4e50"/><stop offset="100%" stop-color="#f9d423"/></linearGradient></defs><line x1="30" y1="25" x2="105" y2="60" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/><path d="M18,17 L30,23 L25,33 L13,27 Z" fill="#3e2723" stroke="#212121" stroke-width="1" rx="1"/><circle cx="15" cy="22" r="1.5" fill="#eeeeee"/><circle cx="21" cy="25" r="1.5" fill="#eeeeee"/><circle cx="25" cy="19" r="1.5" fill="#eeeeee"/><circle cx="120" cy="68" r="22" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><circle cx="98" cy="58" r="17" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><path d="M 103,42 Q 109,56 122,48 L 138,72 Q 112,86 103,68 Z" fill="url(#guitarBodyG)"/><circle cx="106" cy="62" r="6.5" fill="#212121" stroke="#ffecb3" stroke-width="1.2"/><rect x="124" y="66" width="5" height="12" transform="rotate(-30, 126, 72)" fill="#3e2723" rx="1"/><line x1="25" y1="21" x2="125" y2="69" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/><line x1="26" y1="23" x2="126" y2="71" stroke="#ffffff" stroke-width="0.8" opacity="0.9"></svg>',
+            'acc-drum': '<svg viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"></svg>'
         };
         function getAccessorySvg(acc) { return ACCESSORY_SVG[acc.id] || '' }
         function accessoryVisualHtml(acc) {
@@ -20744,6 +21045,12 @@
                     r.classList.add('plays-guitar');
                 } else {
                     r.classList.remove('plays-guitar');
+                }
+
+                if (activeSkin === 'beach' && activeAcc === 'acc-drum') {
+                    r.classList.add('plays-drums');
+                } else {
+                    r.classList.remove('plays-drums');
                 }
             }
             const id = getActiveAcc();
@@ -21671,7 +21978,7 @@
         function setActiveBg(name) { localStorage.setItem('nu_active_bg', name) }
         function applyRobotSkin() {
             const r = document.getElementById('robot');
-            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream)\b/g, '').trim();
+            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream|beach|sunset)\b/g, '').trim();
             const skin = getActiveSkin();
             if (skin && owns(skin)) r.classList.add(skin);
             if (typeof applyAcc === 'function') applyAcc();
@@ -22006,7 +22313,9 @@
                 { id: 'dragon', name: 'Sárkány', desc: 'Jégszárnyas sárkány', icon: '🐉', cost: 0, tier: 'free', hide: true },
                 { id: 'comic-hero', name: 'Comic Hero', desc: 'Képregényes szuperhős — Comic Clash exkluzív', icon: '🦸', cost: 0, tier: 'free', hide: true },
                 { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true },
-                { id: 'ice-cream', name: 'Ice Cream', desc: 'Nyári fagylaltos robot — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true }
+                { id: 'ice-cream', name: 'Ice Cream', desc: 'Nyári fagylaltos robot — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true },
+                { id: 'beach', name: 'Beach', desc: 'Türkiz nyári strandoló robot', icon: '🏖️', cost: 0, tier: 'free', hide: true },
+                { id: 'sunset', name: 'Sunset', desc: 'Narancs-lila naplementés robot', icon: '🌅', cost: 0, tier: 'free', hide: true }
 
             ];
             const BGS = [
@@ -22099,6 +22408,17 @@
                                         renderShop();
                                     }
                                 } else {
+                                    // Blokolás ha dobot választ beach bot nélkül
+                                    if (cfg.id === 'accList' && s.id === 'acc-drum' && getActiveSkin() !== 'beach') {
+                                        alert('A Koncert dob kiegészítő csak a Beach Bot skinnel használható!');
+                                        return;
+                                    }
+                                    
+                                    // Ha nem beach skinre vált és a dob be van készítve, szedje le a dobot
+                                    if (cfg.id === 'skinList' && s.id !== 'beach' && getActiveAcc() === 'acc-drum') {
+                                        setActiveAcc('');
+                                    }
+
                                     cfg.setter(s.id);
                                     cfg.applier();
                                     playSfx('skin-equip');
@@ -22702,6 +23022,9 @@
                     buyItem(skinId);
                     if (skinId === 'ice-cream') {
                         buyItem('acc-guitar');
+                    }
+                    if (skinId === 'beach') {
+                        buyItem('acc-drum');
                     }
                     try { playSfx('skin-equip') } catch (_) { }
                     alert('✅ ' + skin.name + ' feloldva!');
@@ -23427,6 +23750,239 @@
                 <div class="db-prize-name">10 000 gem!</div>
             </div>
             <button class="db-close-btn" id="kvClose" style="display:none">Köszönöm! 🎉</button>
+        </div>
+    </div>
+
+    <!-- Concert Stage Event Overlay -->
+    <div id="concertOverlay">
+        <div class="concert-stage" id="concertStage">
+            <h2 class="concert-title">🎸 SUMMER CHILL BAND 🎸</h2>
+            <div class="concert-band">
+                <!-- Drummer (Beach Bot) -->
+                <div class="concert-member drummer">
+                    <div class="concert-label">🥁 Beach Bot</div>
+                    <div style="position:relative;">
+                        <div class="robot beach plays-drums">
+                            <div class="antenna-stick"></div>
+                            <div class="antenna-ball"></div>
+                            <div class="ear ear-l"></div>
+                            <div class="ear ear-r"></div>
+                            <div class="head">
+                                <div class="face-screen">
+                                    <div class="eyes">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                            </div>
+                            <div class="neck"></div>
+                            <div class="shoulder shoulder-l"></div>
+                            <div class="shoulder shoulder-r"></div>
+                            <div class="arm arm-l"></div>
+                            <div class="arm arm-r"></div>
+                            <div class="torso">
+                                <div class="chest">
+                                    <span class="heart-icon">❤️</span>
+                                </div>
+                            </div>
+                            <div class="legs">
+                                <div class="leg"><div class="foot"></div></div>
+                                <div class="leg"><div class="foot"></div></div>
+                            </div>
+                            <!-- Premium SVG Drum Kit -->
+                            <div class="concert-drums-wrap">
+                                <svg class="concert-drum-kit" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Stands / Hardware -->
+                                    <line x1="30" y1="50" x2="30" y2="110" stroke="url(#chromeG)" stroke-width="3"/>
+                                    <line x1="30" y1="110" x2="15" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+                                    <line x1="30" y1="110" x2="45" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+                                    
+                                    <line x1="130" y1="40" x2="130" y2="110" stroke="url(#chromeG)" stroke-width="3"/>
+                                    <line x1="130" y1="110" x2="115" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+                                    <line x1="130" y1="110" x2="145" y2="120" stroke="url(#chromeG)" stroke-width="2.5"/>
+
+                                    <!-- Bass Drum Stand Feet -->
+                                    <line x1="50" y1="100" x2="40" y2="115" stroke="url(#chromeG)" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="110" y1="100" x2="120" y2="115" stroke="url(#chromeG)" stroke-width="4" stroke-linecap="round"/>
+
+                                    <!-- Bass Drum (Center) -->
+                                    <circle cx="80" cy="80" r="35" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="3"/>
+                                    <circle cx="80" cy="80" r="32" fill="#111827"/>
+                                    <!-- Bass Drum Front Head / Skin -->
+                                    <circle cx="80" cy="80" r="30" fill="url(#drumHeadG)"/>
+                                    <!-- Logo on Bass Drum -->
+                                    <text x="80" y="83" font-family="'Outfit', sans-serif" font-size="7" font-weight="900" fill="#0f172a" text-anchor="middle" letter-spacing="1">SUMMER</text>
+                                    <text x="80" y="90" font-family="'Outfit', sans-serif" font-size="4" font-weight="700" fill="#64748b" text-anchor="middle">BEATS</text>
+
+                                    <!-- Tom-toms mounted on bass drum -->
+                                    <rect x="52" y="32" width="22" height="15" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="1.5" rx="1"/>
+                                    <ellipse cx="63" cy="32" rx="11" ry="3" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                                    <rect x="86" y="32" width="22" height="15" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="1.5" rx="1"/>
+                                    <ellipse cx="97" cy="32" rx="11" ry="3" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                                    
+                                    <!-- Snare Drum (Left) -->
+                                    <g transform="rotate(-5, 30, 52)">
+                                        <rect x="15" y="52" width="26" height="12" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="1.5" rx="1"/>
+                                        <ellipse cx="28" cy="52" rx="13" ry="3.5" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                                    </g>
+
+                                    <!-- Floor Tom (Right) -->
+                                    <rect x="115" y="65" width="30" height="25" fill="url(#drumShellG)" stroke="url(#chromeG)" stroke-width="2" rx="1"/>
+                                    <ellipse cx="130" cy="65" rx="15" ry="4" fill="url(#drumHeadG)" stroke="url(#chromeG)" stroke-width="1"/>
+                                    <line x1="116" y1="90" x2="110" y2="110" stroke="url(#chromeG)" stroke-width="2"/>
+                                    <line x1="144" y1="90" x2="150" y2="110" stroke="url(#chromeG)" stroke-width="2"/>
+                                    
+                                    <!-- Cymbals -->
+                                    <ellipse cx="30" cy="48" rx="14" ry="3.5" fill="url(#cymbalG)" stroke="#d97706" stroke-width="0.8"/>
+                                    <ellipse cx="30" cy="46" rx="13.5" ry="3.2" fill="url(#cymbalG)" stroke="#d97706" stroke-width="0.8"/>
+                                    
+                                    <g transform="rotate(-10, 130, 36)">
+                                        <ellipse cx="130" cy="36" rx="20" ry="4.5" fill="url(#cymbalG)" stroke="#d97706" stroke-width="1"/>
+                                        <path d="M125,36 C125,34 135,34 135,36" fill="#fbbf24" stroke="#d97706" stroke-width="0.8"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guitarist (Ice Cream Bot) -->
+                <div class="concert-member guitarist">
+                    <div class="concert-label">🎸 Ice Cream Bot</div>
+                    <div style="position:relative;">
+                        <div class="robot ice-cream plays-guitar">
+                            <span class="outfit outfit-hand outfit-acc-rendered" data-acc-active="1">
+                                <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="guitarBodyG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4e50"/><stop offset="100%" stop-color="#f9d423"/></linearGradient></defs><line x1="30" y1="25" x2="105" y2="60" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/><path d="M18,17 L30,23 L25,33 L13,27 Z" fill="#3e2723" stroke="#212121" stroke-width="1" rx="1"/><circle cx="15" cy="22" r="1.5" fill="#eeeeee"/><circle cx="21" cy="25" r="1.5" fill="#eeeeee"/><circle cx="25" cy="19" r="1.5" fill="#eeeeee"/><circle cx="120" cy="68" r="22" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><circle cx="98" cy="58" r="17" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><path d="M 103,42 Q 109,56 122,48 L 138,72 Q 112,86 103,68 Z" fill="url(#guitarBodyG)"/><circle cx="106" cy="62" r="6.5" fill="#212121" stroke="#ffecb3" stroke-width="1.2"/><rect x="124" y="66" width="5" height="12" transform="rotate(-30, 126, 72)" fill="#3e2723" rx="1"/><line x1="25" y1="21" x2="125" y2="69" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/><line x1="26" y1="23" x2="126" y2="71" stroke="#ffffff" stroke-width="0.8" opacity="0.9"></svg>
+                            </span>
+                            <div class="antenna-stick"></div>
+                            <div class="antenna-ball"></div>
+                            <div class="ear ear-l"></div>
+                            <div class="ear ear-r"></div>
+                            <div class="head">
+                                <div class="face-screen">
+                                    <div class="eyes">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                            </div>
+                            <div class="neck"></div>
+                            <div class="shoulder shoulder-l"></div>
+                            <div class="shoulder shoulder-r"></div>
+                            <div class="arm arm-l"></div>
+                            <div class="arm arm-r"></div>
+                            <div class="torso">
+                                <div class="chest">
+                                    <span class="heart-icon">❤️</span>
+                                </div>
+                            </div>
+                            <div class="legs">
+                                <div class="leg"><div class="foot"></div></div>
+                                <div class="leg"><div class="foot"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Singer (Sunset Bot) -->
+                <div class="concert-member singer">
+                    <div class="concert-label">🎤 Sunset Bot</div>
+                    <div style="position:relative;">
+                        <div class="robot sunset">
+                            <div class="antenna-stick"></div>
+                            <div class="antenna-ball"></div>
+                            <div class="ear ear-l"></div>
+                            <div class="ear ear-r"></div>
+                            <div class="head">
+                                <div class="face-screen">
+                                    <div class="eyes">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                            </div>
+                            <div class="neck"></div>
+                            <div class="shoulder shoulder-l"></div>
+                            <div class="shoulder shoulder-r"></div>
+                            <div class="arm arm-l"></div>
+                            <div class="arm arm-r"></div>
+                            <div class="torso">
+                                <div class="chest">
+                                    <span class="heart-icon">❤️</span>
+                                </div>
+                            </div>
+                            <div class="legs">
+                                <div class="leg"><div class="foot"></div></div>
+                                <div class="leg"><div class="foot"></div></div>
+                            </div>
+                        </div>
+                        <!-- Premium SVG Microphone Stand -->
+                        <div class="concert-mic-wrap">
+                            <svg class="concert-mic-stand" viewBox="0 0 80 160" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="micChrome" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="#cbd5e1"/>
+                                        <stop offset="50%" stop-color="#94a3b8"/>
+                                        <stop offset="100%" stop-color="#475569"/>
+                                    </linearGradient>
+                                    <linearGradient id="micGold" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#a855f7"/>
+                                        <stop offset="100%" stop-color="#ec4899"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Base -->
+                                <ellipse cx="40" cy="150" rx="18" ry="6" fill="#1e1b4b" stroke="url(#micChrome)" stroke-width="2"/>
+                                <ellipse cx="40" cy="148" rx="12" ry="4" fill="#312e81"/>
+                                
+                                <!-- Vertical Pole -->
+                                <line x1="40" y1="148" x2="40" y2="70" stroke="url(#micChrome)" stroke-width="3"/>
+                                <!-- Adjustment clutch -->
+                                <rect x="37" y="85" width="6" height="8" fill="#1e293b" rx="1"/>
+                                
+                                <!-- Boom / Upper arm -->
+                                <g transform="rotate(-25, 40, 70)">
+                                    <line x1="40" y1="70" x2="-5" y2="70" stroke="url(#micChrome)" stroke-width="2"/>
+                                    <line x1="40" y1="70" x2="60" y2="70" stroke="url(#micChrome)" stroke-width="2"/>
+                                    <rect x="52" y="66" width="8" height="8" fill="#1e293b" rx="1"/>
+                                    
+                                    <g transform="translate(-5, 70) rotate(45)">
+                                        <circle cx="0" cy="0" r="3" fill="#475569"/>
+                                        <path d="M-4,-2 C-4,-6 4,-6 4,-2 L3,4 C3,6 -3,6 -3,4 Z" fill="#1e293b"/>
+                                        <rect x="-2.5" y="-12" width="5" height="14" fill="url(#micChrome)" rx="0.5"/>
+                                        <circle cx="0" cy="-15" r="4.5" fill="url(#micGold)" stroke="#f43f5e" stroke-width="0.5"/>
+                                        <circle cx="0" cy="-15" r="8" fill="none" stroke="#f43f5e" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.6"/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer countdown -->
+            <div class="concert-timer-wrap">
+                <div class="concert-timer-bar">
+                    <div class="concert-timer-fill" id="concertTimerFill"></div>
+                </div>
+                <div class="concert-timer-text" id="concertTimerText">A koncert vége: 60 mp</div>
+            </div>
+        </div>
+
+        <!-- Promo/overlay modal after concert ends -->
+        <div id="concertPromo">
+            <div class="concert-promo-card">
+                <div class="concert-promo-title">🍦 SUMMER BAND KONCERT! 🍦</div>
+                <div class="concert-promo-sub">Tetszett a koncert? Vedd meg a Summer Chill Passt és az új skineket, amíg tart a nyár!</div>
+                <div class="concert-promo-items">
+                    <button class="concert-promo-btn pass-btn" id="concertPromoBuyPassBtn">🍦 Summer Chill Pass (300 💎)</button>
+                    <button class="concert-promo-btn" id="concertPromoBuyBeachBtn">🏖️ Beach Bot skin (150 💎)</button>
+                    <button class="concert-promo-btn" id="concertPromoBuySunsetBtn">🌅 Sunset Bot skin (150 💎)</button>
+                </div>
+                <button class="concert-promo-close" id="concertPromoCloseBtn">Bezárás</button>
+            </div>
         </div>
     </div>
 
@@ -24196,6 +24752,354 @@
                 }
             }
         });
+
+        // ========== SUMMER BAND CONCERT ==========
+        (function () {
+            const CONCERT_DEMO_MODE = true; // Set to false after user review
+
+            let concertActive = false;
+            let concertTimer = null;
+            let noteTimer = null;
+            let countdown = 60;
+
+            function playDrumRollIntro() {
+                const ctx = _sfxCtx();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                const master = ctx.createGain();
+                master.gain.value = 0.08;
+                master.connect(ctx.destination);
+                
+                for (let i = 0; i < 12; i++) {
+                    const o = ctx.createOscillator();
+                    o.type = 'triangle';
+                    o.frequency.value = 120 + Math.random() * 40;
+                    const g = ctx.createGain();
+                    g.gain.setValueAtTime(0, now + i * 0.07);
+                    g.gain.linearRampToValueAtTime(0.2, now + i * 0.07 + 0.01);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.06);
+                    o.connect(g).connect(master);
+                    o.start(now + i * 0.07);
+                    o.stop(now + i * 0.07 + 0.07);
+                }
+                
+                const oCrash = ctx.createOscillator();
+                oCrash.type = 'sawtooth';
+                oCrash.frequency.setValueAtTime(300, now + 0.84);
+                oCrash.frequency.exponentialRampToValueAtTime(10, now + 1.84);
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'highpass';
+                filter.frequency.value = 1000;
+                const gCrash = ctx.createGain();
+                gCrash.gain.setValueAtTime(0, now + 0.84);
+                gCrash.gain.linearRampToValueAtTime(0.25, now + 0.85);
+                gCrash.gain.exponentialRampToValueAtTime(0.001, now + 1.84);
+                oCrash.connect(filter).connect(gCrash).connect(master);
+                oCrash.start(now + 0.84);
+                oCrash.stop(now + 1.9);
+            }
+
+            function playGuitarSlideSFX() {
+                const ctx = _sfxCtx();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                const master = ctx.createGain();
+                master.gain.value = 0.06;
+                master.connect(ctx.destination);
+                
+                const o = ctx.createOscillator();
+                o.type = 'sawtooth';
+                o.frequency.setValueAtTime(150, now);
+                o.frequency.exponentialRampToValueAtTime(600, now + 0.6);
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = 1000;
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(0, now);
+                g.gain.linearRampToValueAtTime(0.3, now + 0.1);
+                g.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                o.connect(filter).connect(g).connect(master);
+                o.start(now);
+                o.stop(now + 0.65);
+            }
+
+            function playSingerCheerSFX() {
+                const ctx = _sfxCtx();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                const master = ctx.createGain();
+                master.gain.value = 0.08;
+                master.connect(ctx.destination);
+                
+                const notes = [523.25, 659.25, 783.99, 1046.5];
+                notes.forEach((f, i) => {
+                    const o = ctx.createOscillator();
+                    o.type = 'sine';
+                    o.frequency.value = f;
+                    const g = ctx.createGain();
+                    g.gain.setValueAtTime(0, now + i * 0.08);
+                    g.gain.linearRampToValueAtTime(0.2, now + i * 0.08 + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.3);
+                    o.connect(g).connect(master);
+                    o.start(now + i * 0.08);
+                    o.stop(now + i * 0.08 + 0.35);
+                });
+            }
+
+            function startConcert() {
+                if (concertActive) return;
+                concertActive = true;
+                
+                const overlay = document.getElementById('concertOverlay');
+                const stage = document.getElementById('concertStage');
+                const promo = document.getElementById('concertPromo');
+                const fill = document.getElementById('concertTimerFill');
+                const text = document.getElementById('concertTimerText');
+                
+                if (!overlay) return;
+                
+                // Reset UI
+                overlay.style.display = 'flex';
+                overlay.classList.add('active');
+                if (stage) {
+                    stage.style.opacity = '1';
+                    stage.style.display = 'flex';
+                }
+                if (promo) promo.style.display = 'none';
+                if (fill) {
+                    fill.style.transition = 'none';
+                    fill.style.width = '100%';
+                }
+                
+                // Hide main app elements temporarily
+                const app = document.getElementById('appMain');
+                if (app) app.style.opacity = '0';
+                
+                // Reset elements opacity/transform state before starting
+                const guitarist = document.querySelector('.concert-member.guitarist');
+                const singer = document.querySelector('.concert-member.singer');
+                const band = document.querySelector('.concert-band');
+                
+                if (guitarist) {
+                    guitarist.style.opacity = '0';
+                    guitarist.classList.remove('entrance');
+                }
+                if (singer) {
+                    singer.style.opacity = '0';
+                    singer.classList.remove('entrance');
+                }
+                if (band) {
+                    band.classList.remove('spotlight-l', 'spotlight-r');
+                }
+                
+                countdown = 60;
+                if (text) text.textContent = `A koncert kezdődik...`;
+                
+                // 0ms: Drum roll starts
+                try {
+                    playDrumRollIntro();
+                } catch(e) {}
+                
+                // 800ms: Guitarist (Ice Cream Bot) slides in + Spotlight L
+                setTimeout(() => {
+                    if (band) band.classList.add('spotlight-l');
+                    if (guitarist) {
+                        guitarist.style.opacity = '1';
+                        guitarist.classList.add('entrance');
+                    }
+                    try { playGuitarSlideSFX(); } catch(e) {}
+                }, 800);
+                
+                // 1600ms: Singer (Sunset Bot) slides in + Spotlight R
+                setTimeout(() => {
+                    if (band) band.classList.add('spotlight-r');
+                    if (singer) {
+                        singer.style.opacity = '1';
+                        singer.classList.add('entrance');
+                    }
+                    try { playSingerCheerSFX(); } catch(e) {}
+                }, 1600);
+                
+                // 2500ms: Music starts, countdown starts
+                setTimeout(() => {
+                    noteTimer = setInterval(spawnFloatingNote, 600);
+                    
+                    try {
+                        playConcertMelody();
+                    } catch(e) {}
+                    
+                    if (fill) {
+                        fill.style.transition = 'width 57.5s linear';
+                        fill.style.width = '0%';
+                    }
+                    
+                    countdown = 58;
+                    if (text) text.textContent = `A koncert vége: ${countdown} mp`;
+                    
+                    concertTimer = setInterval(() => {
+                        countdown--;
+                        if (text) text.textContent = `A koncert vége: ${countdown} mp`;
+                        if (countdown <= 0) {
+                            endConcert();
+                        }
+                    }, 1000);
+                }, 2500);
+            }
+
+            function spawnFloatingNote() {
+                const overlay = document.getElementById('concertOverlay');
+                if (!overlay || !concertActive) return;
+                const notes = ['🎵', '🎶', '🎸', '🎹', '🥁', '✨', '🍦', '🏖️', '🌅'];
+                const note = document.createElement('div');
+                note.className = 'concert-float-note';
+                note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                note.style.left = (15 + Math.random() * 70) + '%';
+                const scale = 0.8 + Math.random() * 0.7;
+                const rot = (Math.random() - 0.5) * 40;
+                note.style.transform = `scale(${scale}) rotate(${rot}deg)`;
+                overlay.appendChild(note);
+                setTimeout(() => note.remove(), 3000);
+            }
+
+            let concertAudioTimer = null;
+            function playConcertMelody() {
+                const ctx = _sfxCtx();
+                if (!ctx) return;
+                let step = 0;
+                // Summer chord progression: C Major -> G Major -> A Minor -> F Major
+                const chords = [
+                    [261.63, 329.63, 392.00], // C4 E4 G4
+                    [392.00, 493.88, 587.33], // G4 B4 D5
+                    [440.00, 523.25, 659.25], // A4 C5 E5
+                    [349.23, 440.00, 523.25]  // F4 A4 C5
+                ];
+                const playStep = () => {
+                    if (!concertActive) return;
+                    const now = ctx.currentTime;
+                    const chord = chords[step % chords.length];
+                    chord.forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = idx === 0 ? 'triangle' : 'sine';
+                        osc.frequency.setValueAtTime(freq, now);
+                        
+                        const timeOffset = idx * 0.12;
+                        gain.gain.setValueAtTime(0, now + timeOffset);
+                        gain.gain.linearRampToValueAtTime(0.08, now + timeOffset + 0.05);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + timeOffset + 0.85);
+                        
+                        osc.connect(gain).connect(ctx.destination);
+                        osc.start(now + timeOffset);
+                        osc.stop(now + timeOffset + 0.9);
+                    });
+                    
+                    // Cute solo melody notes on top
+                    const melody = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
+                    const soloFreq = melody[Math.floor(Math.random() * melody.length)];
+                    const oscSolo = ctx.createOscillator();
+                    const gainSolo = ctx.createGain();
+                    oscSolo.type = 'sine';
+                    oscSolo.frequency.setValueAtTime(soloFreq, now + 0.45);
+                    gainSolo.gain.setValueAtTime(0, now + 0.45);
+                    gainSolo.gain.linearRampToValueAtTime(0.05, now + 0.5);
+                    gainSolo.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+                    
+                    oscSolo.connect(gainSolo).connect(ctx.destination);
+                    oscSolo.start(now + 0.45);
+                    oscSolo.stop(now + 0.95);
+
+                    step++;
+                    concertAudioTimer = setTimeout(playStep, 1000);
+                };
+                playStep();
+            }
+
+            function endConcert() {
+                clearInterval(concertTimer);
+                clearInterval(noteTimer);
+                clearTimeout(concertAudioTimer);
+                
+                const stage = document.getElementById('concertStage');
+                const promo = document.getElementById('concertPromo');
+                
+                if (stage) stage.style.display = 'none';
+                if (promo) promo.style.display = 'flex';
+            }
+
+            function closeConcert() {
+                concertActive = false;
+                clearInterval(concertTimer);
+                clearInterval(noteTimer);
+                clearTimeout(concertAudioTimer);
+                
+                const overlay = document.getElementById('concertOverlay');
+                if (overlay) {
+                    overlay.classList.remove('active');
+                    overlay.style.display = 'none';
+                }
+                
+                // Show main app back
+                const app = document.getElementById('appMain');
+                if (app) app.style.opacity = '1';
+                
+                localStorage.setItem('nu_concert_seen_2026', '1');
+            }
+
+            // Bind Promo Buttons
+            const bindPromoBtns = () => {
+                const buyPass = document.getElementById('concertPromoBuyPassBtn');
+                const buyBeach = document.getElementById('concertPromoBuyBeachBtn');
+                const buySunset = document.getElementById('concertPromoBuySunsetBtn');
+                const closeBtn = document.getElementById('concertPromoCloseBtn');
+
+                if (buyPass) {
+                    buyPass.onclick = () => {
+                        const ccBtn = document.getElementById('ccBuyBtn');
+                        if (ccBtn) ccBtn.click();
+                    };
+                }
+                if (buyBeach) {
+                    buyBeach.onclick = () => {
+                        if (typeof window.buyEventSkin === 'function') {
+                            window.buyEventSkin('beach');
+                        }
+                    };
+                }
+                if (buySunset) {
+                    buySunset.onclick = () => {
+                        if (typeof window.buyEventSkin === 'function') {
+                            window.buyEventSkin('sunset');
+                        }
+                    };
+                }
+                if (closeBtn) {
+                    closeBtn.onclick = closeConcert;
+                }
+            };
+
+            // Date checking trigger
+            function checkConcertTrigger() {
+                const now = new Date();
+                const isConcertTime = (
+                    now.getFullYear() === 2026 &&
+                    now.getMonth() === 5 && // June
+                    now.getDate() === 18 &&
+                    now.getHours() === 22 &&
+                    now.getMinutes() === 0
+                );
+                const seen = localStorage.getItem('nu_concert_seen_2026') === '1';
+
+                if (CONCERT_DEMO_MODE || (isConcertTime && !seen)) {
+                    setTimeout(startConcert, 1500);
+                }
+            }
+
+            // Run check on load
+            setTimeout(() => {
+                bindPromoBtns();
+                checkConcertTrigger();
+            }, 1000);
+        })();
     })();
     </script>
 
