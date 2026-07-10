@@ -17,6 +17,45 @@
     <title>DailyBot 🍦 Summer Chill</title>
 
     <style>
+        /* Custom Toast Notification */
+        .loot-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50px);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+            border: 2px solid rgba(251, 191, 36, 0.8);
+            border-radius: 24px;
+            padding: 16px 28px;
+            color: #fff;
+            z-index: 10000000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(251, 191, 36, 0.3);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            pointer-events: none;
+            min-width: 280px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .loot-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .loot-toast-title {
+            font-weight: 900;
+            font-size: 16px;
+            color: #fbbf24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+            margin: 0;
+        }
+        .loot-toast-body {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            margin: 3px 0 0 0;
+        }
+
         
         .six-seven-box {
             display: inline-block;
@@ -25396,7 +25435,7 @@
                         if(typeof showUnlockModal === 'function') {
                             showUnlockModal('🤖 Six-Seven Bot', 'Ritka Skin', 'six-seven');
                         } else {
-                            alert('Megkaptad a Six-Seven botot!');
+                            showLootToast('Six-Seven Bot!', 'Megkaptad a Six-Seven botot!', 'six%20seven%20box/image0%20(5).png');
                         }
                     } else {
                         // Gemet kap
@@ -25404,7 +25443,7 @@
                         let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                         localStorage.setItem('nu_gems', String(currentGems + gemReward));
                         if (typeof updateGemUI === 'function') updateGemUI();
-                        alert(`A ládából ${gemReward} Gemet nyitottál!`);
+                        showLootToast('Gemek!', `A ládából ${gemReward} Gemet nyitottál!`, '💎');
                     }
                 }, 1500);
             });
@@ -25471,7 +25510,7 @@
                         if(typeof showUnlockModal === 'function') {
                             showUnlockModal('🎁 Új Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', 'box');
                         } else {
-                            alert('Kinyitottad a ' + reward + ' matricát!');
+                            showLootToast('Új Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', '🎁');
                         }
                     } else {
                         // Gems
@@ -25479,7 +25518,7 @@
                         let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                         localStorage.setItem('nu_gems', String(currentGems + gemReward));
                         if (typeof updateGemUI === 'function') updateGemUI();
-                        alert(`Az Original Boxból ${gemReward} Gemet nyitottál!`);
+                        showLootToast('Gemek!', `Az Original Boxból ${gemReward} Gemet nyitottál!`, '💎');
                     }
                 } else {
                     // VIP Box (Skin 30%, Sticker 20%, Gems 50%)
@@ -25497,7 +25536,7 @@
                         if(typeof showUnlockModal === 'function') {
                             showUnlockModal('🤖 Új Bot/Skin!', 'VIP Nyitás: ' + reward, reward);
                         } else {
-                            alert('Kinyitottad: ' + reward + ' botot!');
+                            showLootToast('Új Bot/Skin!', 'VIP Nyitás: ' + reward, '🤖');
                         }
                     } else if (r < 0.5) {
                         // Rare Sticker
@@ -25512,7 +25551,7 @@
                         if(typeof showUnlockModal === 'function') {
                             showUnlockModal('💎 VIP Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', 'box');
                         } else {
-                            alert('VIP Matrica: ' + reward);
+                            showLootToast('VIP Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', '💎');
                         }
                     } else {
                         // Huge Gems
@@ -25520,17 +25559,56 @@
                         let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                         localStorage.setItem('nu_gems', String(currentGems + gemReward));
                         if (typeof updateGemUI === 'function') updateGemUI();
-                        alert(`A VIP Boxból Hatalmas nyeremény: ${gemReward} Gem!`);
+                        showLootToast('Hatalmas Nyeremény!', `A VIP Boxból ${gemReward} Gemet nyitottál!`, '💎');
                     }
                 }
             }, 1500);
         }
 
 
+        
+    window.showLootToast = function(title, body, imgPathOrIcon) {
+        // Remove existing toasts first to prevent stacking
+        const activeToasts = document.querySelectorAll('.loot-toast');
+        activeToasts.forEach(t => t.remove());
+
+        const toast = document.createElement('div');
+        toast.className = 'loot-toast';
+        
+        let imgHtml = '';
+        if (imgPathOrIcon) {
+            if (imgPathOrIcon.includes('.png') || imgPathOrIcon.includes('.jpeg') || imgPathOrIcon.includes('.jpg')) {
+                imgHtml = `<img src="${imgPathOrIcon}" style="width: 50px; height: 50px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">`;
+            } else {
+                imgHtml = `<div style="font-size: 40px; line-height: 1;">${imgPathOrIcon}</div>`;
+            }
+        }
+        
+        toast.innerHTML = `
+            ${imgHtml}
+            <div>
+                <h4 class="loot-toast-title">${title}</h4>
+                <p class="loot-toast-body">${body}</p>
+            </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Trigger reflow & show
+        void toast.offsetWidth;
+        toast.classList.add('show');
+        
+        // Auto remove after 3.5 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 500);
+        }, 3500);
+    };
+
         window.buyOriginalBox = function() {
             let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
             if (currentGems < 250) {
-                alert('Nincs elég Gemed az Original Box kinyitásához! (250 gem kell)');
+                showLootToast('Hiba!', 'Nincs elég Gemed az Original Boxhoz! (250 gem kell)', '❌');
                 if(typeof playSfx === 'function') playSfx('error');
                 return;
             }
@@ -25547,7 +25625,7 @@
             if (!hasFree) {
                 let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                 if (currentGems < 550) {
-                    alert('Nincs elég Gemed a VIP Box kinyitásához! (550 gem kell)');
+                    showLootToast('Hiba!', 'Nincs elég Gemed a VIP Boxhoz! (550 gem kell)', '❌');
                     if(typeof playSfx === 'function') playSfx('error');
                     return;
                 }
