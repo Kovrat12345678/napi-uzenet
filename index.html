@@ -25592,7 +25592,7 @@
                 let prize = {};
                 if (type === 'orig') {
                     if (Math.random() < 0.2) {
-                        const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave'];
+                        const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-hi', 'sticker-csa', 'sticker-csak'];
                         const reward = stickers[Math.floor(Math.random() * stickers.length)];
                         
                         let owned = [];
@@ -25601,7 +25601,7 @@
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if (typeof renderStickers === 'function') renderStickers();
+                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
                         
                         prize = { title: 'Új Matrica!', name: reward, isSticker: true };
                     } else {
@@ -25628,7 +25628,13 @@
                         
                         prize = { title: 'Új Bot / Skin!', name: reward, isSkin: true, skinId: reward };
                     } else if (r < 0.5) {
-                        const stickers = ['sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
+                        const stickers = [
+                            'sticker-yo', 'sticker-howdy', 'sticker-sup', 'sticker-wassup', 'sticker-heya', 'sticker-icecream', 'sticker-pow', 
+                            'sticker-bonjour', 'sticker-hola', 'sticker-hallo', 'sticker-salut', 'sticker-privet', 'sticker-hej', 
+                            'sticker-aloha', 'sticker-ciao', 'sticker-ola', 'sticker-anyong', 'sticker-csokol', 'sticker-beep', 
+                            'sticker-konnichi', 'sticker-magic', 'sticker-trav', 'sticker-force', 'sticker-vulcan', 'sticker-cosmic', 
+                            'sticker-galaxy', 'sticker-quantum'
+                        ];
                         const reward = stickers[Math.floor(Math.random() * stickers.length)];
                         
                         let owned = [];
@@ -25637,7 +25643,7 @@
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if (typeof renderStickers === 'function') renderStickers();
+                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
                         
                         prize = { title: 'VIP Matrica!', name: reward, isSticker: true };
                     } else {
@@ -25802,17 +25808,21 @@
         updateOriginalUI();
 
         function getStickerEmoji(id) {
+            let list = [];
+            try {
+                if (typeof STICKERS !== 'undefined') list = STICKERS;
+                else if (typeof window.STICKERS !== 'undefined') list = window.STICKERS;
+            } catch(e){}
+            const s = list.find(x => x.id === id);
+            if (s) return s.emoji;
+            
             const map = {
-                'sticker-hello': '👋',
-                'sticker-szia': '🇭🇺',
-                'sticker-hey': '🤙',
-                'sticker-sup': '👊',
-                'sticker-yoo': '🤟',
-                'sticker-wave': '🙋‍♂️',
-                'sticker-matrix': '👽',
-                'sticker-cyber': '🤖',
-                'sticker-quantum': '🌀',
-                'sticker-hacker': '💻'
+                'sticker-hello': '👋', 'sticker-szia': '🇭🇺', 'sticker-hey': '🤙', 'sticker-sup': '👊', 'sticker-yo': '😎',
+                'sticker-howdy': '🤠', 'sticker-wassup': '😜', 'sticker-heya': '⭐', 'sticker-icecream': '🍦', 'sticker-pow': '💥',
+                'sticker-bonjour': '🥖', 'sticker-hola': '🌮', 'sticker-hallo': '🍺', 'sticker-salut': '🍷', 'sticker-privet': '🇷🇺',
+                'sticker-hej': '🇸🇪', 'sticker-aloha': '🌺', 'sticker-ciao': '🍕', 'sticker-ola': '🇵🇹', 'sticker-anyong': '⛩️',
+                'sticker-csokol': '👵', 'sticker-beep': '🤖', 'sticker-konnichi': '🇯🇵', 'sticker-magic': '🔮', 'sticker-trav': '⚔️',
+                'sticker-force': '🌌', 'sticker-vulcan': '🖖', 'sticker-cosmic': '☄️', 'sticker-galaxy': '🌌', 'sticker-quantum': '🌀'
             };
             return map[id] || '🎁';
         }
@@ -25857,7 +25867,14 @@
                             prizes.push({ title: 'Skin', name: reward, isSkin: true, skinId: reward });
                         } else if (r < 0.5) {
                             // Stickers
-                            const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave', 'sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
+                            const stickers = [
+                                'sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-hi', 'sticker-csa', 'sticker-csak',
+                                'sticker-yo', 'sticker-howdy', 'sticker-sup', 'sticker-wassup', 'sticker-heya', 'sticker-icecream', 'sticker-pow', 
+                                'sticker-bonjour', 'sticker-hola', 'sticker-hallo', 'sticker-salut', 'sticker-privet', 'sticker-hej', 
+                                'sticker-aloha', 'sticker-ciao', 'sticker-ola', 'sticker-anyong', 'sticker-csokol', 'sticker-beep', 
+                                'sticker-konnichi', 'sticker-magic', 'sticker-trav', 'sticker-force', 'sticker-vulcan', 'sticker-cosmic', 
+                                'sticker-galaxy', 'sticker-quantum'
+                            ];
                             const reward = stickers[Math.floor(Math.random() * stickers.length)];
                             
                             let owned = [];
@@ -25877,7 +25894,7 @@
                     }
 
                     if (typeof renderShop === 'function') renderShop();
-                    if (typeof renderStickers === 'function') renderStickers();
+                    if (typeof renderStickerPanel === 'function') renderStickerPanel();
                     if (typeof updateGemUI === 'function') updateGemUI();
 
                     // Display grid of 5 slots
@@ -25950,7 +25967,7 @@
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if (typeof renderStickers === 'function') renderStickers();
+                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
                         
                         prize = { title: 'Új Matrica!', name: reward, isSticker: true };
                     } else {
@@ -25986,7 +26003,7 @@
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if (typeof renderStickers === 'function') renderStickers();
+                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
                         
                         prize = { title: 'VIP Matrica!', name: reward, isSticker: true };
                     } else {
