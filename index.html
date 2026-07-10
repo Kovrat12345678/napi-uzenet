@@ -18531,9 +18531,9 @@
                 </div>
                 <!-- CAT: GEMS -->
                 <div id="cat-gems" style="display: none;">
-                    <!-- Daily Gem Claim -->
-                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: center;">
-                        <div class="loot-card gem-card" id="shopGemCard" style="max-width: 320px; width: 100%;">
+                    <!-- Daily Gem Claim (Wide style, no border, minimal padding) -->
+                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 15px; display: flex; justify-content: center;">
+                        <div class="loot-card gem-card" id="shopGemCard" style="width: 100%;">
                             <div class="loot-card-visual">
                                 <div class="gem-visual">
                                     <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
@@ -18560,9 +18560,9 @@
                         </div>
                     </div>
 
-                    <!-- Gem Shop Packs -->
-                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
-                        <div class="gem-shop-row" style="margin: 0;">
+                    <!-- Gem Shop Packs (Wide style, no border, minimal padding) -->
+                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px;">
+                        <div class="gem-shop-row" style="padding: 5px 0 10px 0;">
                             <div class="gem-pack tier-pack-small" data-gem-pack="small">
                                 <div class="gem-pack-glow"></div>
                                 <div class="gem-pack-shine"></div>
@@ -18600,8 +18600,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <!-- Decorative bottom info card to fill blank empty space -->
+                    <div class="support-card" style="margin-top: 25px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(3, 105, 161, 0.03)); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: 20px; width: 100%;">
+                        <div class="support-inner" style="padding: 20px; text-align: center;">
+                            <div style="font-size: 36px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.6));">💎</div>
+                            <div style="font-weight: 800; font-size: 16px; color: #bae6fd; margin-bottom: 5px;">Mire használhatod a Gemeket?</div>
+                            <div style="font-size: 12px; color: rgba(224, 242, 254, 0.7); line-height: 1.6;">Nyiss Original, VIP vagy akár Mega Pack ládákat a "Box" kategóriában, hogy exkluzív robot skineket és matricákat gyűjts be a gyűjteményedbe!</div>
+                        </div>
+                    </div>
+                </div>
                 <!-- CAT: SKINS -->
                 <div id="cat-skins" style="display: none;">
                     <!-- Summer Chill Event Banner -->
@@ -18658,10 +18666,10 @@
                         </div>
                     </div>
 
-                    <!-- Skins Selection list -->
-                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
-                        <div class="shop-section-title" style="margin-bottom: 15px;">🤖 Skin választék</div>
-                        <div class="shop-grid" id="skinList"></div>
+                    <!-- Skins Selection list (No border, wide padding for stretching) -->
+                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 15px;">
+                        <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🤖 Skin választék</div>
+                        <div class="shop-grid" id="skinList" style="padding: 0;"></div>
                     </div>
 
                     <!-- Hidden Backgrounds -->
@@ -18670,8 +18678,8 @@
                         <div class="shop-grid" id="bgList"></div>
                     </div>
 
-                    <!-- Stickers collection banner -->
-                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
+                    <!-- Stickers collection banner (No border, wide padding for stretching) -->
+                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px;">
                         <div class="loot-card-wrap">
                             <div class="sticker-banner" id="stickerBanner" style="margin: 0;">
                                 <div class="sticker-banner-glow"></div>
@@ -18686,7 +18694,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- CAT: SUPPORT -->
                 <div id="cat-support" style="display: none;">
                     <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
