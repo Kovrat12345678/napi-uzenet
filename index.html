@@ -18477,58 +18477,58 @@
                 
                 <!-- CAT: BOXES -->
                 <div id="cat-boxes">
-                    <!-- Six-Seven Box -->
-                    <div class="shop-section" id="shopSixSevenBoxSection" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
-                        <div id="shopSixSevenCard" style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
-                            <div class="loot-card-visual" style="margin:0; overflow:visible;">
-                                <img src="six%20seven%20box/image0%20(5).png" class="six-seven-box" style="width: 100px; height: 100px; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); object-fit: contain;">
+                    <!-- Six-Seven Box (Horizontal) -->
+                    <div class="shop-section" id="shopSixSevenBoxSection" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 15px; margin-bottom: 15px;">
+                        <div id="shopSixSevenCard" style="display: flex; flex-direction: row; align-items: center; gap: 15px; text-align: left;">
+                            <div class="loot-card-visual" style="margin:0; overflow:visible; flex-shrink: 0;">
+                                <img src="six%20seven%20box/image0%20(5).png" class="six-seven-box" style="width: 80px; height: 80px; filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5)); object-fit: contain;">
                             </div>
-                            <div class="loot-card-title super-box-text" style="font-size: 18px; margin: 0; color: #60a5fa; text-shadow: 0 0 10px #3b82f6; font-weight:900;">Six-Seven Láda</div>
-                            <div style="font-size: 11px; color: rgba(59,130,246,0.8); font-weight: 700; background: rgba(59,130,246,0.1); padding: 4px 10px; border-radius: 10px;">🕒 Még 18 napig elérhető</div>
-                            
-                            <div id="sixSevenPityGrid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin: 5px 0;"></div>
-                            
-                            <button class="buy-tag" id="buySixSevenBtn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: transform 0.2s;">
-                                <span id="sixSevenPrice">Ingyen (Ma)</span>
-                            </button>
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                                <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0; color: #60a5fa; text-shadow: 0 0 8px #3b82f6; font-weight:900;">Six-Seven Láda</div>
+                                <div style="font-size: 9px; color: rgba(59,130,246,0.8); font-weight: 700; background: rgba(59,130,246,0.1); padding: 2px 8px; border-radius: 8px; width: fit-content;">🕒 Még 18 napig elérhető</div>
+                                <div id="sixSevenPityGrid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin: 4px 0; max-width: 140px;"></div>
+                                <button class="buy-tag" id="buySixSevenBtn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); width: fit-content;">
+                                    <span id="sixSevenPrice">Ingyen (Ma)</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Loot Boxes (Original & VIP in 2-column grid, Mega Box full-width below them) -->
-                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                            
-                            <!-- Original Box -->
-                            <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; text-align: center;">
-                                <img src="box/normal.png" style="width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 6px 20px rgba(255,255,255,0.25)); transition: transform 0.3s;" class="shop-box-img">
-                                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 10px;">Original Box</div>
-                                <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 15px; height: 36px;">Gemek és Üzenetek!</div>
-                                <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
-                            </div>
-
-                            <!-- VIP Box -->
-                            <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(251, 191, 36, 0.5); border-radius: 20px; position: relative; overflow: hidden; text-align: center;">
-                                <div style="position: absolute; top: -10px; right: -20px; background: #fbbf24; color: #000; font-size: 10px; font-weight: 900; padding: 20px 20px 5px; transform: rotate(45deg); width: 100px; text-align: center;">VIP</div>
-                                <img src="box/vip.png" style="width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.7)); transition: transform 0.3s;" class="shop-box-img">
-                                <div style="font-size: 16px; font-weight: 800; color: #fde68a; margin-top: 10px; text-shadow: 0 0 10px rgba(251,191,36,0.5);">VIP Box</div>
-                                <div style="font-size: 12px; color: rgba(253,230,138,0.8); margin-bottom: 15px; height: 36px;">Botok, Skinek, Minden!</div>
-                                <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
-                            </div>
-
-                        </div>
-
-                        <!-- Mega Pack Box (Full width under the two boxes) -->
-                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 20px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 20px;">
-                            <img src="box/mega.png" style="width: 100px; height: 100px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
-                                <div style="font-size: 18px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
-                                <div style="font-size: 12px; color: rgba(216, 180, 254, 0.8); margin-bottom: 5px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
-                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
+                    <!-- Loot Boxes (Original, VIP, Mega Pack - Stacking Vertically as Horizontal Rows) -->
+                    <div class="shop-section" style="display: flex; flex-direction: column; gap: 15px;">
+                        
+                        <!-- Original Box (Horizontal) -->
+                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; gap: 15px;">
+                            <img src="box/normal.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(255,255,255,0.25)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                                <div style="font-size: 16px; font-weight: 800; color: #fff; margin: 0;">Original Box</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 2px;">Gemek és Üzenetek!</div>
+                                <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); width: fit-content;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
                             </div>
                         </div>
+
+                        <!-- VIP Box (Horizontal) -->
+                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.04), rgba(245, 158, 11, 0.02)); border: 1px solid rgba(251, 191, 36, 0.25); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
+                            <img src="box/vip.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                                <div style="font-size: 16px; font-weight: 800; color: #fde68a; text-shadow: 0 0 10px rgba(251,191,36,0.3); margin: 0;">VIP Box</div>
+                                <div style="font-size: 11px; color: rgba(253,230,138,0.8); margin-bottom: 2px;">Botok, Skinek, Minden!</div>
+                                <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); width: fit-content;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Mega Pack Box (Horizontal) -->
+                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
+                            <img src="box/mega.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                                <div style="font-size: 16px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
+                                <div style="font-size: 11px; color: rgba(216, 180, 254, 0.8); margin-bottom: 2px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
+                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
                 <!-- CAT: GEMS -->
                 <div id="cat-gems" style="display: none;">
                     <!-- Daily Gem Claim -->
