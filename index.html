@@ -18364,10 +18364,13 @@
             <div class="shop-section daily-trio-item" id="shopSixSevenBoxSection" style="background:none; border:none; box-shadow:none;">
                 <div id="shopSixSevenCard" style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: none; padding: 10px 0; text-align: center;">
                     <div class="loot-card-visual" style="margin:0; overflow:visible;">
-                        <div class="six-seven-box" style="width: 80px; height: 80px; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); font-size: 60px; line-height: 80px;">📦</div>
+                        <img src="box/box.png" class="six-seven-box" style="width: 80px; height: 80px; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) hue-rotate(200deg) saturate(2); object-fit: contain;">
                     </div>
                     <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0; color: #60a5fa; text-shadow: 0 0 10px #3b82f6;">Six-Seven Láda</div>
-                    <div style="font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 700;">Nyitottál: <span id="sixSevenOpenedCount">0</span>/20</div>
+                    <div style="font-size: 11px; color: rgba(59,130,246,0.8); font-weight: 700; background: rgba(59,130,246,0.1); padding: 4px 10px; border-radius: 10px;">⏳ Még 18 napig elérhető</div>
+                    
+                    <div id="sixSevenPityGrid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin: 5px 0;"></div>
+                    
                     <button class="buy-tag" id="buySixSevenBtn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: transform 0.2s;">
                         <span id="sixSevenPrice">Ingyen (Ma)</span>
                     </button>
@@ -25203,6 +25206,7 @@
 
 
     <!-- ========== SIX-SEVEN BOX JS ========== -->
+    <!-- ========== SIX-SEVEN BOX JS ========== -->
     <script>
     (function() {
         const openedCountKey = 'nu_six_seven_boxes';
@@ -25211,19 +25215,30 @@
         let openedCount = parseInt(localStorage.getItem(openedCountKey) || '0', 10);
         
         const btn = document.getElementById('buySixSevenBtn');
-        const countSpan = document.getElementById('sixSevenOpenedCount');
+        const grid = document.getElementById('sixSevenPityGrid');
         const priceSpan = document.getElementById('sixSevenPrice');
         const gemCost = 67;
 
         function updateSixSevenUI() {
             if (!btn) return;
-            countSpan.textContent = openedCount;
+            
+            // Grid render
+            if (grid) {
+                let html = '';
+                for(let i=0; i<20; i++) {
+                    const isActive = i < openedCount;
+                    html += `<div style="aspect-ratio: 1; border-radius: 4px; background: ${isActive ? 'linear-gradient(135deg, #3b82f6, #60a5fa)' : '#1f2937'}; box-shadow: ${isActive ? '0 0 8px rgba(59,130,246,0.6)' : 'none'}; border: 1px solid ${isActive ? '#93c5fd' : '#374151'}; transition: all 0.3s;"></div>`;
+                }
+                grid.innerHTML = html;
+            }
             
             const lastClaim = localStorage.getItem(dailyClaimKey);
             const today = new Date().toDateString();
+            const userName = (localStorage.getItem('nu_name') || '').toLowerCase();
+            const isKovrat = (userName === 'kovrat');
             
-            if (lastClaim !== today) {
-                priceSpan.textContent = 'Ingyen (Ma)';
+            if (isKovrat || lastClaim !== today) {
+                priceSpan.textContent = isKovrat ? 'Ingyen (Kovrat VIP)' : 'Ingyen (Ma)';
             } else {
                 priceSpan.innerHTML = `${gemCost} <span class="gem-img" style="width:16px; height:16px;"></span> Buy`;
             }
@@ -25231,23 +25246,27 @@
 
         if (btn) {
             btn.addEventListener('click', () => {
+                const userName = (localStorage.getItem('nu_name') || '').toLowerCase();
+                const isKovrat = (userName === 'kovrat');
                 const lastClaim = localStorage.getItem(dailyClaimKey);
                 const today = new Date().toDateString();
-                const isFree = (lastClaim !== today);
+                const isFree = isKovrat || (lastClaim !== today);
 
                 if (!isFree) {
-                    if (getGems() < gemCost) {
+                    let currentGems = 0;
+                    try { currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10); } catch(e){}
+                    if (currentGems < gemCost) {
                         alert('Nincs elég Gemed a Six-Seven Láda kinyitásához!');
-                        playSfx('error');
+                        if(typeof playSfx === 'function') playSfx('error');
                         return;
                     }
-                    _origSetGems(getGems() - gemCost);
+                    localStorage.setItem('nu_gems', String(Math.max(0, currentGems - gemCost)));
                     if (typeof updateGemUI === 'function') updateGemUI();
-                } else {
+                } else if (!isKovrat) {
                     localStorage.setItem(dailyClaimKey, today);
                 }
 
-                playSfx('buy');
+                if(typeof playSfx === 'function') playSfx('buy');
                 openedCount++;
                 localStorage.setItem(openedCountKey, openedCount);
                 updateSixSevenUI();
@@ -25263,7 +25282,9 @@
                     setTimeout(() => overlay.remove(), 400);
 
                     // Sorsolás
-                    let ownsSixSeven = window.owns('six-seven');
+                    let ownsSixSeven = false;
+                    try { ownsSixSeven = JSON.parse(localStorage.getItem('nu_skins') || '[]').includes('six-seven'); } catch(e){}
+                    
                     let dropRate = 0.02; // 2%
                     if (openedCount >= 20 && !ownsSixSeven) {
                         dropRate = 1.0; // Pity timer garantált drop
@@ -25276,11 +25297,16 @@
                             skins.push('six-seven');
                             localStorage.setItem('nu_skins', JSON.stringify(skins));
                         }
-                        showUnlockModal('🤖 Six-Seven Bot', 'Ritka Skin', 'six-seven');
+                        if(typeof showUnlockModal === 'function') {
+                            showUnlockModal('🤖 Six-Seven Bot', 'Ritka Skin', 'six-seven');
+                        } else {
+                            alert('Megkaptad a Six-Seven botot!');
+                        }
                     } else {
                         // Gemet kap
                         const gemReward = Math.floor(Math.random() * 20) + 10; // 10-30 gem
-                        _origSetGems(getGems() + gemReward);
+                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
                         if (typeof updateGemUI === 'function') updateGemUI();
                         alert(`A ládából ${gemReward} Gemet nyitottál!`);
                     }
@@ -25292,6 +25318,4 @@
         setTimeout(updateSixSevenUI, 500);
     })();
     </script>
-</body>
-
 </html>
