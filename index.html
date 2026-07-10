@@ -17,6 +17,89 @@
     <title>DailyBot 🍦 Summer Chill</title>
 
     <style>
+        /* Shop Sidebar Layout Styles */
+        .shop-body-wrapper {
+            display: flex;
+            flex-direction: row;
+            height: calc(100% - 60px);
+            overflow: hidden;
+        }
+        .shop-sidebar {
+            width: 170px;
+            background: rgba(15, 23, 42, 0.45);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 12px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+        .shop-sidebar-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Outfit', sans-serif;
+            text-align: left;
+        }
+        .shop-sidebar-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(251, 191, 36, 0.4);
+            color: #fff;
+            transform: translateX(3px);
+        }
+        .shop-sidebar-btn.active {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.12));
+            border-color: #fbbf24;
+            color: #fde68a;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.15);
+        }
+        .shop-content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        .shop-group-divider {
+            display: none !important;
+        }
+        @media (max-width: 680px) {
+            .shop-body-wrapper {
+                flex-direction: column;
+            }
+            .shop-sidebar {
+                width: 100%;
+                flex-direction: row;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 10px;
+                overflow-x: auto;
+                white-space: nowrap;
+                gap: 8px;
+                height: 65px;
+            }
+            .shop-sidebar-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            .shop-sidebar-btn:hover {
+                transform: none;
+            }
+            .shop-content-area {
+                height: calc(100% - 65px);
+            }
+        }
+
         @keyframes prizePop {
             0% { transform: scale(0) rotate(-15deg); opacity: 0; }
             70% { transform: scale(1.25) rotate(5deg); opacity: 1; }
@@ -18344,291 +18427,242 @@
                 <button class="shop-close-btn" id="skinClose">✕</button>
             </div>
         </div>
-        <div class="shop-greeting" id="shopGreeting"></div>
+                <div class="shop-greeting" id="shopGreeting"></div>
 
-        <!-- ── COMIC CLASH EVENT BANNER ── -->
-        <!-- ── SUMMER CHILL EVENT BANNER ── -->
-        <div class="shop-section" id="comicClashSection">
-            <div class="cc-banner" id="comicClashBanner"
-                style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 30%, #fde68a 60%, #fbcfe8 85%, #db2777 100%); border-color: #fde68a; box-shadow: 0 8px 30px rgba(244, 114, 182, .5);">
-                <div class="cc-banner-burst" style="opacity: 0.1"></div>
-                <div class="cc-banner-content">
-                    <div class="cc-banner-tag"
-                        style="background: linear-gradient(135deg, #2dd4bf, #0ea5e9); color: #fff;">🍦 LIMITÁLT EVENT
+        <div class="shop-body-wrapper">
+            <!-- Sidebar -->
+            <div class="shop-sidebar">
+                <button class="shop-sidebar-btn active" data-target="boxes" onclick="switchShopCategory('boxes')">📦 Box</button>
+                <button class="shop-sidebar-btn" data-target="gems" onclick="switchShopCategory('gems')">💎 Gems</button>
+                <button class="shop-sidebar-btn" data-target="skins" onclick="switchShopCategory('skins')">🤖 Skin</button>
+                <button class="shop-sidebar-btn" data-target="support" onclick="switchShopCategory('support')">🔑 Support</button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="shop-content-area">
+                
+                <!-- CAT: BOXES -->
+                <div id="cat-boxes">
+                    <!-- Six-Seven Box -->
+                    <div class="shop-section" id="shopSixSevenBoxSection" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
+                        <div id="shopSixSevenCard" style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
+                            <div class="loot-card-visual" style="margin:0; overflow:visible;">
+                                <img src="six%20seven%20box/image0%20(5).png" class="six-seven-box" style="width: 100px; height: 100px; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); object-fit: contain;">
+                            </div>
+                            <div class="loot-card-title super-box-text" style="font-size: 18px; margin: 0; color: #60a5fa; text-shadow: 0 0 10px #3b82f6; font-weight:900;">Six-Seven Láda</div>
+                            <div style="font-size: 11px; color: rgba(59,130,246,0.8); font-weight: 700; background: rgba(59,130,246,0.1); padding: 4px 10px; border-radius: 10px;">🕒 Még 18 napig elérhető</div>
+                            
+                            <div id="sixSevenPityGrid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin: 5px 0;"></div>
+                            
+                            <button class="buy-tag" id="buySixSevenBtn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: transform 0.2s;">
+                                <span id="sixSevenPrice">Ingyen (Ma)</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="cc-banner-title"
-                        style="text-shadow: 3px 3px 0 #ca8a04, -1px -1px 0 rgba(219, 39, 119, .8);">SUMMER CHILL!</div>
-                    <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, a CHILL gitárt, 999 bonus gemet, +3 Fagyi
-                        Boxot és a Chill matricát! 🎮 Vagy nyomj hosszan a robotra és kapd el 50× a fagyit — INGYEN tiéd a skin!</div>
-                    <div class="cc-banner-rewards" style="align-items:stretch;">
-                        <div class="cc-reward-pill"
-                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <div
-                                style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
-                                <div class="robot dc-mini-robot ice-cream" style="pointer-events:none;">
-                                    <div class="antenna-stick"></div>
-                                    <div class="antenna-ball"></div>
-                                    <div class="ear ear-l"></div>
-                                    <div class="ear ear-r"></div>
-                                    <div class="head">
-                                        <div class="face-screen">
-                                            <div class="eyes">
-                                                <div class="eye"></div>
-                                                <div class="eye"></div>
-                                            </div>
-                                            <div class="mouth"></div>
-                                        </div>
-                                    </div>
-                                    <div class="neck"></div>
-                                    <div class="shoulder shoulder-l"></div>
-                                    <div class="shoulder shoulder-r"></div>
-                                    <div class="arm arm-l"></div>
-                                    <div class="arm arm-r"></div>
-                                    <div class="torso">
-                                        <div class="chest"><span class="heart-icon">❤️</span></div>
-                                    </div>
-                                    <div class="legs">
-                                        <div class="leg">
-                                            <div class="foot"></div>
-                                        </div>
-                                        <div class="leg">
-                                            <div class="foot"></div>
-                                        </div>
-                                    </div>
+
+                    <!-- Loot Boxes (Original & VIP) -->
+                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            
+                            <!-- Original Box -->
+                            <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;">
+                                <img src="box/normal.png" style="width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 6px 20px rgba(255,255,255,0.25)); transition: transform 0.3s;" class="shop-box-img">
+                                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 10px;">Original Box</div>
+                                <div style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 15px; height: 36px;">Gemek és Üzenetek!</div>
+                                <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
+                            </div>
+
+                            <!-- VIP Box -->
+                            <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(251, 191, 36, 0.5); border-radius: 20px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; top: -10px; right: -20px; background: #fbbf24; color: #000; font-size: 10px; font-weight: 900; padding: 20px 20px 5px; transform: rotate(45deg); width: 100px; text-align: center;">VIP</div>
+                                <img src="box/vip.png" style="width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.7)); transition: transform 0.3s;" class="shop-box-img">
+                                <div style="font-size: 16px; font-weight: 800; color: #fde68a; margin-top: 10px; text-shadow: 0 0 10px rgba(251,191,36,0.5);">VIP Box</div>
+                                <div style="font-size: 12px; color: rgba(253,230,138,0.8); text-align: center; margin-bottom: 15px; height: 36px;">Botok, Skinek, Minden!</div>
+                                <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAT: GEMS -->
+                <div id="cat-gems" style="display: none;">
+                    <!-- Daily Gem Claim -->
+                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: center;">
+                        <div class="loot-card gem-card" id="shopGemCard" style="max-width: 320px; width: 100%;">
+                            <div class="loot-card-visual">
+                                <div class="gem-visual">
+                                    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="gemGradBig" x1="0" y1="0" x2="1" y2="1">
+                                                <stop offset="0" stop-color="#bae6fd" />
+                                                <stop offset=".5" stop-color="#0ea5e9" />
+                                                <stop offset="1" stop-color="#0369a1" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#0284c7" stroke-width="1.5" />
+                                        <path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)" />
+                                        <path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)" />
+                                        <path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)" />
+                                        <path d="M10,30 L40,70 L40,40 Z" fill="rgba(0,0,0,.05)" />
+                                    </svg>
                                 </div>
                             </div>
-                            <span style="font-size:10px;font-weight:800;">Ice Cream Bot</span>
-                        </div>
-                        <div class="cc-reward-pill"
-                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <span style="font-size:20px;">🎸</span>
-                            <span style="font-size:10px;font-weight:800;">CHILL Gitár</span>
-                        </div>
-                        <div class="cc-reward-pill"
-                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
-                            <span style="font-size:10px;font-weight:800;">+999 Gem</span>
-                        </div>
-                        <div class="cc-reward-pill"
-                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <img src="box/box.png" alt="Fagyi Box"
-                                style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
-                            <span style="font-size:10px;font-weight:800;">+3 Fagyi Box</span>
-                        </div>
-                        <div class="cc-reward-pill"
-                            style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                            <span style="font-size:20px;">🍦</span>
-                            <span style="font-size:10px;font-weight:800;">CHILL! Matrica</span>
+                            <div class="loot-card-info">
+                                <div class="loot-card-title">Daily Gem</div>
+                                <div class="loot-card-count"><span id="shopGemCount">1/1</span> ma</div>
+                                <button class="loot-card-btn" id="shopGemBtn">Open</button>
+                            </div>
                         </div>
                     </div>
-                    <button class="cc-banner-btn" id="ccBuyBtn">💎 300 — MEGVESZEM</button>
-                    <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">✅ Summer Chill Pass aktiválva!
-                    </div>
-                </div>
-            </div>
 
-            <!-- Egyedi bot vásárlás (Passon kívül) -->
-            <div id="individualBotSales" style="padding: 10px 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="shop-item buy-tag"
-                    style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ca8a04, #fbcfe8); border: 2px solid #db2777; color: #78350f; font-weight:900;"
-                    onclick="buyEventSkin('ice-cream')">🍦 Ice Cream Bot (150 💎)</button>
-            </div>
-        </div>
-
-
-        <hr class="shop-group-divider">
-
-        <!-- ── NAPI JUTALMAK — kompakt sor ── -->
-        <div class="daily-trio-wrap">
-            <!-- Daily Gem -->
-            <div class="shop-section daily-trio-item">
-                <div class="loot-card gem-card" id="shopGemCard">
-                    <div class="loot-card-visual">
-                        <div class="gem-visual">
-                            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                <defs>
-                                    <linearGradient id="gemGradBig" x1="0" y1="0" x2="1" y2="1">
-                                        <stop offset="0" stop-color="#bae6fd" />
-                                        <stop offset=".5" stop-color="#0ea5e9" />
-                                        <stop offset="1" stop-color="#0369a1" />
-                                    </linearGradient>
-                                </defs>
-                                <path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(#gemGradBig)" stroke="#0284c7"
-                                    stroke-width="1.5" />
-                                <path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)" />
-                                <path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)" />
-                                <path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)" />
-                                <path d="M10,30 L40,70 L40,40 Z" fill="rgba(0,0,0,.05)" />
-
-                            </svg>
+                    <!-- Gem Shop Packs -->
+                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
+                        <div class="gem-shop-row" style="margin: 0;">
+                            <div class="gem-pack tier-pack-small" data-gem-pack="small">
+                                <div class="gem-pack-glow"></div>
+                                <div class="gem-pack-shine"></div>
+                                <div class="gem-pack-icon">💎</div>
+                                <div class="gem-pack-amount">100<span>gem</span></div>
+                                <div class="gem-pack-price">0,99 €</div>
+                                <button class="gem-pack-btn">Vásárlás</button>
+                            </div>
+                            <div class="gem-pack tier-pack-medium" data-gem-pack="medium">
+                                <div class="gem-pack-glow"></div>
+                                <div class="gem-pack-shine"></div>
+                                <div class="gem-pack-badge">+10%</div>
+                                <div class="gem-pack-icon">💎💎</div>
+                                <div class="gem-pack-amount">550<span>gem</span></div>
+                                <div class="gem-pack-price">3,99 €</div>
+                                <button class="gem-pack-btn">Vásárlás</button>
+                            </div>
+                            <div class="gem-pack tier-pack-large" data-gem-pack="large">
+                                <div class="gem-pack-glow"></div>
+                                <div class="gem-pack-shine"></div>
+                                <div class="gem-pack-badge">+30%</div>
+                                <div class="gem-pack-icon">💎💎💎</div>
+                                <div class="gem-pack-amount">1950<span>gem</span></div>
+                                <div class="gem-pack-price">9,99 €</div>
+                                <button class="gem-pack-btn">Vásárlás</button>
+                            </div>
+                            <div class="gem-pack tier-pack-mega" data-gem-pack="mega">
+                                <div class="gem-pack-glow"></div>
+                                <div class="gem-pack-shine"></div>
+                                <div class="gem-pack-badge">BEST 🌟 +60%</div>
+                                <div class="gem-pack-icon">💎💎💎💎</div>
+                                <div class="gem-pack-amount">8000<span>gem</span></div>
+                                <div class="gem-pack-price">29,99 €</div>
+                                <button class="gem-pack-btn">Vásárlás</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title">Daily Gem</div>
-                        <div class="loot-card-count"><span id="shopGemCount">1/1</span> ma</div>
-                        <button class="loot-card-btn" id="shopGemBtn">Open</button>
+                </div>
+
+                <!-- CAT: SKINS -->
+                <div id="cat-skins" style="display: none;">
+                    <!-- Summer Chill Event Banner -->
+                    <div class="shop-section" id="comicClashSection" style="margin-bottom: 20px; background: none; border: none; padding: 0;">
+                        <div class="cc-banner" id="comicClashBanner" style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 30%, #fde68a 60%, #fbcfe8 85%, #db2777 100%); border-color: #fde68a; box-shadow: 0 8px 30px rgba(244, 114, 182, .5);">
+                            <div class="cc-banner-burst" style="opacity: 0.1"></div>
+                            <div class="cc-banner-content">
+                                <div class="cc-banner-tag" style="background: linear-gradient(135deg, #2dd4bf, #0ea5e9); color: #fff;">🌟 LIMITÁLT EVENT</div>
+                                <div class="cc-banner-title" style="text-shadow: 3px 3px 0 #ca8a04, -1px -1px 0 rgba(219, 39, 119, .8);">SUMMER CHILL!</div>
+                                <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, a CHILL gitárt, 999 bonus gemet, +3 Fagyi Boxot és a Chill matricát! 🌟 Vagy nyomj hosszan a robotra és kapd el 50-szer a fagyit — INGYEN tiéd a skin!</div>
+                                <div class="cc-banner-rewards" style="align-items:stretch;">
+                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                                        <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
+                                            <div class="robot dc-mini-robot ice-cream" style="pointer-events:none;">
+                                                <div class="antenna-stick"></div>
+                                                <div class="antenna-ball"></div>
+                                                <div class="ear ear-l"></div>
+                                                <div class="ear ear-r"></div>
+                                                <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
+                                                <div class="neck"></div>
+                                                <div class="shoulder shoulder-l"></div>
+                                                <div class="shoulder shoulder-r"></div>
+                                                <div class="arm arm-l"></div>
+                                                <div class="arm arm-r"></div>
+                                                <div class="torso"><div class="chest"><span class="heart-icon">❤️</span></div></div>
+                                                <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
+                                            </div>
+                                        </div>
+                                        <span style="font-size:10px;font-weight:800;">Ice Cream Bot</span>
+                                    </div>
+                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                                        <span style="font-size:20px;">🎸</span>
+                                        <span style="font-size:10px;font-weight:800;">CHILL Gitár</span>
+                                    </div>
+                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                                        <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
+                                        <span style="font-size:10px;font-weight:800;">+999 Gem</span>
+                                    </div>
+                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                                        <img src="box/box.png" alt="Fagyi Box" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
+                                        <span style="font-size:10px;font-weight:800;">+3 Fagyi Box</span>
+                                    </div>
+                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
+                                        <span style="font-size:20px;">💬</span>
+                                        <span style="font-size:10px;font-weight:800;">CHILL! Matrica</span>
+                                    </div>
+                                </div>
+                                <button class="cc-banner-btn" id="ccBuyBtn">🪙 300 — MEGVESZEM</button>
+                                <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">🎉 Summer Chill Pass aktiválva!</div>
+                            </div>
+                        </div>
+                        <div id="individualBotSales" style="padding: 10px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ca8a04, #fbcfe8); border: 2px solid #db2777; color: #78350f; font-weight:900; border-radius:12px;" onclick="buyEventSkin('ice-cream')">🍦 Ice Cream Bot (150 🪙)</button>
+                        </div>
+                    </div>
+
+                    <!-- Skins Selection list -->
+                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
+                        <div class="shop-section-title" style="margin-bottom: 15px;">🤖 Skin választék</div>
+                        <div class="shop-grid" id="skinList"></div>
+                    </div>
+
+                    <!-- Hidden Backgrounds -->
+                    <div class="shop-section" style="display: none !important;">
+                        <div class="shop-section-title">🏞️ Hátterek</div>
+                        <div class="shop-grid" id="bgList"></div>
+                    </div>
+
+                    <!-- Stickers collection banner -->
+                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
+                        <div class="loot-card-wrap">
+                            <div class="sticker-banner" id="stickerBanner" style="margin: 0;">
+                                <div class="sticker-banner-glow"></div>
+                                <div class="sticker-banner-icon">💬</div>
+                                <div class="sticker-banner-info">
+                                    <div class="sticker-banner-title">Köszönés matricák</div>
+                                    <div class="sticker-banner-sub">Pouch-ból szerezhető — állítsd be a robot köszönését!</div>
+                                    <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span id="stickerTotal">12</span> — most: <span id="stickerCurrent">Hello 👋</span></div>
+                                </div>
+                                <div class="sticker-banner-cta">👉</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Daily Box -->
-            <div class="shop-section daily-trio-item" id="shopSixSevenBoxSection" style="background:none; border:none; box-shadow:none;">
-                <div id="shopSixSevenCard" style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: none; border: none; padding: 10px 0; text-align: center;">
-                    <div class="loot-card-visual" style="margin:0; overflow:visible;">
-                        <img src="six%20seven%20box/image0%20(5).png" class="six-seven-box" style="width: 80px; height: 80px; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)); object-fit: contain;">
-                    </div>
-                    <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0; color: #60a5fa; text-shadow: 0 0 10px #3b82f6;">Six-Seven Láda</div>
-                    <div style="font-size: 11px; color: rgba(59,130,246,0.8); font-weight: 700; background: rgba(59,130,246,0.1); padding: 4px 10px; border-radius: 10px;">⏳ Még 18 napig elérhető</div>
-                    
-                    <div id="sixSevenPityGrid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin: 5px 0;"></div>
-                    
-                    <button class="buy-tag" id="buySixSevenBtn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 24px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transition: transform 0.2s;">
-                        <span id="sixSevenPrice">Ingyen (Ma)</span>
-                    </button>
-                </div>
-            </div>
-        </div>
 
-        <hr class="shop-group-divider">
-
-        <!-- ── GEM VÁSÁRLÁS ── -->
-                <!-- 📦 LOOT BOXES 📦 -->
-        <div class="shop-section">
-            <div class="shop-section-title">📦 BOX</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
-                
-                <!-- Original Box -->
-                <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;">
-                    <img src="box/normal.png" style="width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 6px 20px rgba(255,255,255,0.25)); transition: transform 0.3s;" class="shop-box-img">
-                    <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 10px;">Original Box</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 15px; height: 36px;">Gemek és Üzenetek!</div>
-                    <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
-                </div>
-
-                <!-- VIP Box -->
-                <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(251, 191, 36, 0.5); border-radius: 20px; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; right: -20px; background: #fbbf24; color: #000; font-size: 10px; font-weight: 900; padding: 20px 20px 5px; transform: rotate(45deg); width: 100px; text-align: center;">VIP</div>
-                    <img src="box/vip.png" style="width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.7)); transition: transform 0.3s;" class="shop-box-img">
-                    <div style="font-size: 16px; font-weight: 800; color: #fde68a; margin-top: 10px; text-shadow: 0 0 10px rgba(251,191,36,0.5);">VIP Box</div>
-                    <div style="font-size: 12px; color: rgba(253,230,138,0.8); text-align: center; margin-bottom: 15px; height: 36px;">Botok, Skinek, Minden!</div>
-                    <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
-                </div>
-
-            </div>
-        </div>
-
-        <hr class="shop-group-divider">
-
-        <div class="shop-section">
-            <div class="gem-shop-row">
-                <div class="gem-pack tier-pack-small" data-gem-pack="small">
-                    <div class="gem-pack-glow"></div>
-                    <div class="gem-pack-shine"></div>
-                    <div class="gem-pack-icon">💎</div>
-                    <div class="gem-pack-amount">100<span>gem</span></div>
-                    <div class="gem-pack-price">0,99 €</div>
-                    <button class="gem-pack-btn">Vásárlás</button>
-                </div>
-                <div class="gem-pack tier-pack-medium" data-gem-pack="medium">
-                    <div class="gem-pack-glow"></div>
-                    <div class="gem-pack-shine"></div>
-                    <div class="gem-pack-badge">+10%</div>
-                    <div class="gem-pack-icon">💎💎</div>
-                    <div class="gem-pack-amount">550<span>gem</span></div>
-                    <div class="gem-pack-price">3,99 €</div>
-                    <button class="gem-pack-btn">Vásárlás</button>
-                </div>
-                <div class="gem-pack tier-pack-large" data-gem-pack="large">
-                    <div class="gem-pack-glow"></div>
-                    <div class="gem-pack-shine"></div>
-                    <div class="gem-pack-badge">+30%</div>
-                    <div class="gem-pack-icon">💎💎💎</div>
-                    <div class="gem-pack-amount">1950<span>gem</span></div>
-                    <div class="gem-pack-price">9,99 €</div>
-                    <button class="gem-pack-btn">Vásárlás</button>
-                </div>
-                <div class="gem-pack tier-pack-mega" data-gem-pack="mega">
-                    <div class="gem-pack-glow"></div>
-                    <div class="gem-pack-shine"></div>
-                    <div class="gem-pack-badge">BEST · +60%</div>
-                    <div class="gem-pack-icon">👑</div>
-                    <div class="gem-pack-amount">8000<span>gem</span></div>
-                    <div class="gem-pack-price">29,99 €</div>
-                    <button class="gem-pack-btn">Vásárlás</button>
-                </div>
-            </div>
-        </div>
-
-        <hr class="shop-group-divider">
-
-        <!-- ── SKINEK & HÁTTÉREK ── -->
-
-        <div class="shop-section">
-            <div class="shop-section-title">🤖 Skin választék</div>
-            <div class="shop-grid" id="skinList"></div>
-        </div>
-        <!-- Hátterek menü elrejtve a felhasználó kérésére (mindig az event háttér aktív) -->
-        <div class="shop-section" style="display: none !important;">
-            <div class="shop-section-title">🖼️ Hátterek</div>
-            <div class="shop-grid" id="bgList"></div>
-        </div>
-
-        <!-- Matricák gyűjtemény -->
-        <div class="shop-section">
-            <div class="loot-card-wrap">
-                <div class="sticker-banner" id="stickerBanner">
-                    <div class="sticker-banner-glow"></div>
-                    <div class="sticker-banner-icon">💬</div>
-                    <div class="sticker-banner-info">
-                        <div class="sticker-banner-title">Köszönés matricák</div>
-                        <div class="sticker-banner-sub">Pouch-ból szerezhető · állítsd be a robot köszönését!</div>
-                        <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span
-                                id="stickerTotal">12</span> · most: <span id="stickerCurrent">Hello 👋</span></div>
-                    </div>
-                    <div class="sticker-banner-cta">→</div>
-                </div>
-            </div>
-        </div>
-
-        <hr class="shop-group-divider">
-
-        <!-- Daily Deal -->
-        <div class="shop-section" id="dailyDealSection" style="display:none">
-            <div class="shop-section-title">🔥 Mai akció</div>
-            <div class="loot-card-wrap">
-                <div class="loot-card deal-card" id="dailyDealCard">
-                    <div class="loot-card-visual">
-                        <div class="deal-icon" id="dealIcon">✨</div>
-                    </div>
-                    <div class="loot-card-info">
-                        <div class="loot-card-title" id="dealName">–</div>
-                        <div class="loot-card-count"><span class="deal-old" id="dealOld">0</span> <span class="deal-new"
-                                id="dealNew">0</span> 💎</div>
-                        <button class="loot-card-btn" id="dealBuyBtn">Megveszem</button>
+                <!-- CAT: SUPPORT -->
+                <div id="cat-support" style="display: none;">
+                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
+                        <div class="shop-section-title" style="margin-bottom: 15px;">🔑 Support</div>
+                        <div class="support-card" id="supportCard" style="margin: 0; width: 100%;">
+                            <div class="support-inner">
+                                <div class="support-title"><span class="support-title-icon">💎</span>Support</div>
+                                <div class="support-sub">Van titkos kódod? Írd be alább és aktiváld a bónuszt.</div>
+                                <div class="support-row">
+                                    <input class="support-input" id="supportInput" placeholder="Írd be a kódot..." maxlength="16" autocomplete="off" autocapitalize="characters">
+                                    <button class="support-submit" id="supportSubmit">⚡ Aktiválom</button>
+                                </div>
+                                <div class="support-status" id="supportStatus">✅ Aktív bónusz: szerencsésebb nyeremények</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
-        <!-- Support / titkos kód szekció — LEGALUL -->
-        <div class="shop-section">
-            <div class="shop-section-title">📮 Support</div>
-            <div class="support-card" id="supportCard">
-                <div class="support-inner">
-                    <div class="support-title"><span class="support-title-icon">✨</span>Support</div>
-                    <div class="support-sub">Van titkos kódod? Írd be alább és aktiváld a bónuszt.</div>
-                    <div class="support-row">
-                        <input class="support-input" id="supportInput" placeholder="Írd be a kódot..." maxlength="16"
-                            autocomplete="off" autocapitalize="characters">
-                        <button class="support-submit" id="supportSubmit">⚡ Aktiválom</button>
-                    </div>
-                    <div class="support-status" id="supportStatus">✨ Aktív bónusz: szerencsésebb nyeremények</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Kedvencek gomb -->
     <div class="top-right-actions" id="topRightActions">
     <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🛍️</span> Shop<span class="shop-new-badge" id="shopNewBadge"
             style="display:none">NEW</span></div>
@@ -25654,6 +25688,61 @@
 
             }, 1500);
         }
+
+        
+        window.switchShopCategory = function(catId) {
+            const categories = ['boxes', 'gems', 'skins', 'support'];
+            categories.forEach(c => {
+                const el = document.getElementById('cat-' + c);
+                if (el) el.style.display = 'none';
+            });
+            
+            const targetEl = document.getElementById('cat-' + catId);
+            if (targetEl) targetEl.style.display = 'block';
+            
+            const btns = document.querySelectorAll('.shop-sidebar-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.target === catId) {
+                    btn.classList.add('active');
+                }
+            });
+        };
+
+        window.showLootToast = function(title, body, imgPathOrIcon) {
+            const activeToasts = document.querySelectorAll('.loot-toast');
+            activeToasts.forEach(t => t.remove());
+
+            const toast = document.createElement('div');
+            toast.className = 'loot-toast';
+            
+            let imgHtml = '';
+            if (imgPathOrIcon) {
+                if (imgPathOrIcon.includes('.png') || imgPathOrIcon.includes('.jpeg') || imgPathOrIcon.includes('.jpg')) {
+                    imgHtml = `<img src="${imgPathOrIcon}" style="width: 50px; height: 50px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">`;
+                } else {
+                    imgHtml = `<div style="font-size: 40px; line-height: 1;">${imgPathOrIcon}</div>`;
+                }
+            }
+            
+            toast.innerHTML = `
+                ${imgHtml}
+                <div>
+                    <h4 class="loot-toast-title">${title}</h4>
+                    <p class="loot-toast-body">${body}</p>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            void toast.offsetWidth;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 500);
+            }, 3500);
+        };
+
 
         window.buyOriginalBox = function() {
             let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
