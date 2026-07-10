@@ -18399,23 +18399,19 @@
                 
                 <!-- Original Box -->
                 <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;">
-                    <img src="new%20box/normal.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 15px rgba(255,255,255,0.2));">
+                    <img src="new box/normal.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 15px rgba(255,255,255,0.2));">
                     <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 10px;">Original Box</div>
                     <div style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 15px; height: 36px;">Gemek és Üzenetek!</div>
-                    <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;">
-                        <span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy
-                    </span> Buy</span></button>
+                    <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;"><span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
                 </div>
 
                 <!-- VIP Box -->
                 <div class="loot-card" style="display: flex; flex-direction: column; align-items: center; padding: 20px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(251, 191, 36, 0.5); border-radius: 20px; position: relative; overflow: hidden;">
                     <div style="position: absolute; top: -10px; right: -20px; background: #fbbf24; color: #000; font-size: 10px; font-weight: 900; padding: 20px 20px 5px; transform: rotate(45deg); width: 100px; text-align: center;">VIP</div>
-                    <img src="new%20box/vip.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));">
+                    <img src="new box/vip.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));">
                     <div style="font-size: 16px; font-weight: 800; color: #fde68a; margin-top: 10px; text-shadow: 0 0 10px rgba(251,191,36,0.5);">VIP Box</div>
                     <div style="font-size: 12px; color: rgba(253,230,138,0.8); text-align: center; margin-bottom: 15px; height: 36px;">Botok, Skinek, Minden!</div>
-                    <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;">
-                        <span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy
-                    </span> Buy</span></button>
+                    <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;"><span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
                 </div>
 
             </div>
@@ -25364,4 +25360,146 @@
         setTimeout(updateSixSevenUI, 500);
     })();
     </script>
+
+    <!-- ========== ORIGINAL & VIP BOX JS ========== -->
+    <script>
+    (function() {
+        const origBtn = document.getElementById('buyOriginalBoxBtn');
+        const vipBtn = document.getElementById('buyVipBoxBtn');
+
+        const vipPriceSpan = document.getElementById('vipBoxPrice');
+        function updateVipUI() {
+            if (!vipPriceSpan) return;
+            const hasFree = localStorage.getItem('nu_free_vip_received') !== 'true';
+            if (hasFree) {
+                vipPriceSpan.innerHTML = 'Ingyenes (1x)';
+            } else {
+                vipPriceSpan.innerHTML = '550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy';
+            }
+        }
+        updateVipUI();
+
+        function doNyitas(type) {
+            const overlay = document.createElement('div');
+            overlay.className = 'loot-unboxing-overlay';
+            overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${type === 'vip' ? '#f59e0b' : '#10b981'});"><img src="${type === 'vip' ? 'new box/vip.png' : 'new box/normal.png'}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
+            document.body.appendChild(overlay);
+
+            setTimeout(() => {
+                overlay.classList.add('fade-out');
+                setTimeout(() => overlay.remove(), 400);
+
+                if (type === 'orig') {
+                    // Original Box (Gems 80%, Sticker 20%)
+                    if (Math.random() < 0.2) {
+                        // Sticker
+                        const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave'];
+                        const reward = stickers[Math.floor(Math.random() * stickers.length)];
+                        let owned = [];
+                        try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
+                        if (!owned.includes(reward)) {
+                            owned.push(reward);
+                            localStorage.setItem('nu_stickers', JSON.stringify(owned));
+                        }
+                        if(typeof showUnlockModal === 'function') {
+                            showUnlockModal('🎁 Új Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', 'box');
+                        } else {
+                            alert('Kinyitottad a ' + reward + ' matricát!');
+                        }
+                    } else {
+                        // Gems
+                        const gemReward = Math.floor(Math.random() * 100) + 50; // 50-150
+                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
+                        if (typeof updateGemUI === 'function') updateGemUI();
+                        alert(`Az Original Boxból ${gemReward} Gemet nyitottál!`);
+                    }
+                } else {
+                    // VIP Box (Skin 30%, Sticker 20%, Gems 50%)
+                    const r = Math.random();
+                    if (r < 0.3) {
+                        // Skin
+                        const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti', 'six-seven'];
+                        const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
+                        let owned = [];
+                        try { owned = JSON.parse(localStorage.getItem('nu_skins') || '[]'); } catch(e){}
+                        if (!owned.includes(reward)) {
+                            owned.push(reward);
+                            localStorage.setItem('nu_skins', JSON.stringify(owned));
+                        }
+                        if(typeof showUnlockModal === 'function') {
+                            showUnlockModal('🤖 Új Bot/Skin!', 'VIP Nyitás: ' + reward, reward);
+                        } else {
+                            alert('Kinyitottad: ' + reward + ' botot!');
+                        }
+                    } else if (r < 0.5) {
+                        // Rare Sticker
+                        const stickers = ['sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
+                        const reward = stickers[Math.floor(Math.random() * stickers.length)];
+                        let owned = [];
+                        try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
+                        if (!owned.includes(reward)) {
+                            owned.push(reward);
+                            localStorage.setItem('nu_stickers', JSON.stringify(owned));
+                        }
+                        if(typeof showUnlockModal === 'function') {
+                            showUnlockModal('💎 VIP Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', 'box');
+                        } else {
+                            alert('VIP Matrica: ' + reward);
+                        }
+                    } else {
+                        // Huge Gems
+                        const gemReward = Math.floor(Math.random() * 500) + 300; // 300-800
+                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
+                        if (typeof updateGemUI === 'function') updateGemUI();
+                        alert(`A VIP Boxból Hatalmas nyeremény: ${gemReward} Gem!`);
+                    }
+                }
+            }, 1500);
+        }
+
+        if (origBtn) {
+            origBtn.addEventListener('click', () => {
+                let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                if (currentGems < 250) {
+                    alert('Nincs elég Gemed az Original Box kinyitásához! (250 gem kell)');
+                    if(typeof playSfx === 'function') playSfx('error');
+                    return;
+                }
+                localStorage.setItem('nu_gems', String(currentGems - 250));
+                if (typeof updateGemUI === 'function') updateGemUI();
+                if(typeof playSfx === 'function') playSfx('buy');
+                
+                doNyitas('orig');
+            });
+        }
+
+        if (vipBtn) {
+            vipBtn.addEventListener('click', () => {
+                const hasFree = localStorage.getItem('nu_free_vip_received') !== 'true';
+                
+                if (!hasFree) {
+                    let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                    if (currentGems < 550) {
+                        alert('Nincs elég Gemed a VIP Box kinyitásához! (550 gem kell)');
+                        if(typeof playSfx === 'function') playSfx('error');
+                        return;
+                    }
+                    localStorage.setItem('nu_gems', String(currentGems - 550));
+                    if (typeof updateGemUI === 'function') updateGemUI();
+                } else {
+                    localStorage.setItem('nu_free_vip_received', 'true');
+                    updateVipUI();
+                }
+                
+                if(typeof playSfx === 'function') playSfx('buy');
+                
+                doNyitas('vip');
+            });
+        }
+
+    })();
+    </script>
+
 </html>
