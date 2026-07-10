@@ -21,7 +21,7 @@
         .shop-body-wrapper {
             display: flex;
             flex-direction: row;
-            height: calc(100% - 60px);
+            flex: 1; /* Fill remaining vertical space */
             overflow: hidden;
         }
         .shop-sidebar {
@@ -39,7 +39,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: rgba(255, 255, 255, 0.7);
-            padding: 12px 14px;
+            padding: 14px 18px; /* More breathing room */
             border-radius: 16px;
             font-size: 14px;
             font-weight: 800;
@@ -66,9 +66,12 @@
         .shop-content-area {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 30px; /* Generous padding */
             box-sizing: border-box;
             scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between categories sections */
         }
         .shop-group-divider {
             display: none !important;
@@ -3809,8 +3812,7 @@
             background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
             display: none;
             flex-direction: column;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden !important;
         }
 
         .skin-panel.open {
@@ -9158,8 +9160,7 @@
 
         /* =========== BOT PASS — TELJES MODERN REDESIGN =========== */
         .bp-panel {
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden !important;
             position: fixed !important
         }
 
