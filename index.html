@@ -3564,24 +3564,25 @@
 
         /* SKIN/BOLT MENÜ — Egész képernyős */
         .skin-toggle {
-            position: fixed;
-            top: calc(env(safe-area-inset-top, 20px) + 12px);
-            right: 62px;
-            z-index: 50;
             background: rgba(255, 255, 255, .15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, .2);
-            border-radius: 50%;
-            width: 40px;
+            border-radius: 20px;
+            width: auto;
             height: 40px;
+            padding: 0 14px;
             display: flex;
+            gap: 6px;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: #fff;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         }
 
         .skin-toggle.hidden {
@@ -4273,24 +4274,25 @@
         }
 
         .favs-toggle {
-            position: fixed;
-            top: calc(env(safe-area-inset-top, 20px) + 12px);
-            right: 16px;
-            z-index: 50;
             background: rgba(255, 255, 255, .15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, .2);
-            border-radius: 50%;
-            width: 40px;
+            border-radius: 20px;
+            width: auto;
             height: 40px;
+            padding: 0 14px;
             display: none;
+            gap: 6px;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: #fff;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         }
 
         .favs-toggle.hidden {
@@ -17883,6 +17885,16 @@
             0% { transform: translateY(-40px) rotate(15deg) scale(1.2); }
             100% { transform: translateY(0) rotate(-15deg) scale(1); }
         }
+    
+        .top-right-actions {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 20px) + 12px);
+            right: 16px;
+            z-index: 50;
+            display: flex;
+            gap: 10px;
+        }
+
     </style>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -18220,8 +18232,7 @@
     <!-- News gomb -->
     <div class="news-toggle" id="newsToggle">⚡ NEWS</div>
 
-    <div class="skin-toggle" id="skinToggle">🏪<span class="shop-new-badge" id="shopNewBadge"
-            style="display:none">NEW</span></div>
+    
 
 
     <!-- Bolt panel -->
@@ -18492,7 +18503,11 @@
     </div>
 
     <!-- Kedvencek gomb -->
-    <div class="favs-toggle" id="favsToggle">❤️<span class="favs-badge" id="favsBadge">0</span></div>
+    <div class="top-right-actions" id="topRightActions">
+    <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🛍️</span> Shop<span class="shop-new-badge" id="shopNewBadge"
+            style="display:none">NEW</span></div>
+    <div class="favs-toggle" id="favsToggle"><span style="margin-right:6px">❤️</span> Üzenetek<span class="favs-badge" id="favsBadge">0</span></div>
+</div>
 
     <!-- Kedvencek panel -->
     <div class="favs-panel" id="favsPanel">
