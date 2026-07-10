@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-"Napi Uzenet" (DailyBot) — napi gondolat alkalmazas iPhone-ra es Androidra (PWA). Egy elethu CSS robot all a kepernyo kozepen animaciokkal (lebeges, pislogas, antenna pulzalas). Megnyomod → a robot "beszel" animacio, majd folotte szovegbuborekban gepeloeffekttel megjelenik a napi uzenet. Naponta 1 uzenet, TopJoy stilusu (csendes, koltoei, elmelkedo).
+"Napi Uzenet" (DailyBot) — napi gondolat alkalmazas iPhone-ra es Androidra (PWA). Egy elethu CSS robot all a kepernyo kozepen animaciokkal (lebeges, pislogas, antenna pulzalas). Megnyomod → a robot "beszel" animacio, majd folotte szovegbuborekban gepeloeffekttel megjelenik a napi uzenet. Naponta 1 uzenet, TopJoy stilusu (csendes, koltoei, elmelkedo). Studio branding: **HyperCode**.
 
 A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, Daily Gem, Bot Pass (havi 60 szint) + bolti vasarlasok. Kesobb App Store-ba es Play Aruhazba kerul (Capacitor).
 
@@ -46,7 +46,15 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
 - `nu_spin_day` (Daily Gem mai claim)
 - `nu_daily_deal_day`, `nu_daily_deal_item` (napi akcio)
 - `nu_kovrat_bonus` (Kovrat egyszeri 10000 gem flag)
-- `nu_zynox_lucky` (ZYNOX kod aktivalt szerencse bonusz)
+- `nu_zynox_lucky` (HYPERCODE kod aktivalt szerencse bonusz)
+
+**Level rendszer:**
+- `nu_s` (level szam = streak alapu, naponta +1, kihagyasnal reset 1-re)
+- `nu_l` (utolso latogatas datuma)
+
+**Barat rendszer:**
+- `nu_friend_id` (6 karakteres alfanumerikus felhasznaloi ID, pl. "HC7K2M")
+- `nu_friends` (JSON tomb barat ID-kkel)
 
 **Bot Pass:**
 - `nu_botpass_month` (aktualis honap YYYY-MM), `nu_botpass_level` (0-60), `nu_botpass_xp` (0-100)
@@ -67,7 +75,8 @@ A napi uzenet melle **gem-alapu gazdasag** is tartozik: DailyBox, Daily Pouch, D
 
 ### Loading Screen
 
-- Lekerekitett ikon (`app_icon_event.png`) + progress bar + szazalek
+- **HyperCode** branding (nem Zynox Studio)
+- HC logo (lekerekitett ikon keretben) + "HYPERCODE" szoveg + progress bar
 - ~2 mp alatt tolt be, fade out
 
 ### Robot
@@ -277,10 +286,10 @@ Mythic (3): Cosmic Hi, Galaxy salute, Quantum hello
 - `getDailyDeal()` — napi deterministic pick
 - Ha birtokolt → automatikusan uj deal-t sorsol
 
-### ZYNOX tamogatoi kod
+### HYPERCODE tamogatoi kod
 
 - Shop legaljan "Tamogatas" szekció, input + Aktival gomb
-- Helyes kod: **ZYNOX** → `nu_zynox_lucky = '1'`
+- Helyes kod: **HYPERCODE** → `nu_zynox_lucky = '1'` (localStorage kulcs backward-compat okokbol maradt zynox)
 - Aktiv allapotban: jobb loot tablak, Daily Gem 25-200 pool
 - Aktivacios animacio: flash + csillagok + misztikus harang akkord
 
@@ -364,11 +373,64 @@ Elso user gesture (click/touch) utan indul. Nem kikapcsólhato. Master gain 0.04
 ## Főképernyő UI
 
 - **Robot** (kozepen)
-- **Streak badge** (`#streak`): narancs→piros aramlo gradient ha aktiv
+- **Level badge** (`#streak`): lila-cyan aramlo gradient, "⚡ Level X" formatum, neon glow animacio
 - **Shop ikon** (🏪, jobb felső sarok): `.skin-toggle`
   - **NEW piros buborek** (`shopNewBadge`) — ha bármelyik napi loot elérheto
 - **Kedvencek gomb** (❤️, bal felső)
+- **Barátok gomb** (👥, bal felső mellé): `.friends-toggle` → Barátok panel
 - **Szinkronizalas gomb** (🔄, shop headerben)
+
+## Barát rendszer (Friends)
+
+### Felhasználói ID
+
+- 6 karakteres alfanumerikus ID (pl. "HC7K2M"), generálódik első használatkor
+- Karakterkészlet: `ABCDEFGHJKLMNPQRSTUVWXYZ23456789` (félreérthető karakterek nélkül: 0/O, 1/I)
+- localStorage: `nu_friend_id`
+- Másolható: ID badge-re koppintva vágólapra kerül
+
+### Barátok panel (#friendsPanel)
+
+- Teljes képernyős overlay (z-index: 300)
+- **Saját ID badge**: nagy, neon-bordered, kattintva másolja
+- **Barát hozzáadás**: input mező (6 karakter max) + gomb → API `add_friend`
+- **Barátlista**: glassmorphism kártyák, minden barát kártyán:
+  - Név, Level, Gem szám, Bot szám
+  - 💬 gomb → chat nézet
+  - ✕ gomb → barát eltávolítás
+  - Kártyára koppintás → profil modal
+
+### Barát profil modal (#friendProfileModal)
+
+- 3 stat kártya: Level, Gem, Bot
+- Aktív skin megjelenítés
+
+### Chat (#chatView)
+
+- Z-index: 350 (friends panel felett)
+- Buborékok: bejövő (bal, üveg), kimenő (jobb, lila gradient)
+- 200 karakter limit per üzenet
+- 🔄 Frissítés gombbal tölti újra (nem valós idejű)
+- Olvasatlan üzenetek: kék pont a barát avatárján, piros badge a 👥 gombon
+
+### Friends API (Vercel Serverless)
+
+Endpoint: `push-server/api/friends.js` — minden kérés POST, JSON body
+
+| action | Leírás |
+|--------|--------|
+| `register` | Profil regisztráció/frissítés |
+| `lookup` | Felhasználó keresése ID-vel |
+| `add_friend` | Kétirányú barát hozzáadás |
+| `remove_friend` | Barát eltávolítás (kétirányú) |
+| `get_friends` | Barátlista + profilok + olvasatlan üzenet számok |
+| `send_message` | Üzenet küldés barátnak (max 200 karakter) |
+| `get_messages` | Üzenetek lekérése egy baráttal |
+| `mark_read` | Üzenetek olvasottnak jelölése |
+
+Vercel KV kulcsok:
+- `user:{id}` → profil JSON
+- `msgs:{userId}:{friendId}` → üzenetek JSON tömb (max 50)
 
 ## Shop szekciók sorrendje
 
@@ -437,7 +499,8 @@ icon/
   dragon-icon.svg   — Sarkany Het ikon (jelenleg nincs hasznalva)
 push-server/
   api/
-    game.js         — Robot Battle multiplayer endpoint (Vercel KV)
+    friends.js      — Barát rendszer API (register, add/remove friend, messaging) (Vercel KV)
+    game.js         — Robot Battle multiplayer endpoint (Vercel KV) [INAKTIV]
     notify.js       — Push ertesites kuldő (Vercel Cron)
     subscribe.js    — Push feliratkozas tarolo
   vercel.json       — Vercel config (cron + CORS headers)

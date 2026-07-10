@@ -140,15 +140,23 @@
         .streak {
             display: none;
             margin-top: 8px;
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 100px;
-            background: rgba(255, 255, 255, .18);
+            background: linear-gradient(135deg, #7c3aed 0%, #6366f1 40%, #06b6d4 100%);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             color: #fff;
             font-size: 13px;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, .2)
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, .25);
+            box-shadow: 0 0 16px rgba(99, 102, 241, .5), 0 2px 8px rgba(0, 0, 0, .2);
+            animation: levelPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes levelPulse {
+            0%, 100% { box-shadow: 0 0 16px rgba(99, 102, 241, .5), 0 2px 8px rgba(0, 0, 0, .2) }
+            50% { box-shadow: 0 0 24px rgba(99, 102, 241, .7), 0 0 40px rgba(6, 182, 212, .3), 0 2px 8px rgba(0, 0, 0, .2) }
         }
 
         .streak.on {
@@ -2477,7 +2485,7 @@
             color: rgba(0, 212, 255, .7) !important
         }
 
-        /* ========== LOADING SCREEN (ZYNOX STUDIO INTRO) ========== */
+        /* ========== LOADING SCREEN (HYPERCODE INTRO) ========== */
         .loading-screen {
             position: fixed;
             inset: 0;
@@ -2527,9 +2535,9 @@
         }
 
         .zynox-title {
-            font-size: 56px;
+            font-size: 38px;
             font-weight: 900;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             color: #ffffff;
             margin: 0;
             line-height: 1;
@@ -2606,12 +2614,13 @@
         }
 
         .zynox-symbol::after {
-            content: 'Z';
-            font-size: 48px;
+            content: 'HC';
+            font-size: 34px;
             font-weight: 900;
             color: #ffffff;
             font-family: 'Outfit', sans-serif;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
         }
 
         @keyframes zynoxLogoEntrance {
@@ -2665,7 +2674,7 @@
             100% {
                 opacity: 1;
                 transform: translateY(0);
-                letter-spacing: 6px;
+                letter-spacing: 4px;
                 filter: blur(0);
             }
         }
@@ -2682,6 +2691,562 @@
                 letter-spacing: 12px;
             }
         }
+
+        /* ========== FRIENDS SYSTEM ========== */
+        .friends-toggle {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 20px) + 12px);
+            left: 60px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, .22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform .2s, background .2s;
+        }
+        .friends-toggle:active { transform: scale(.9) }
+        .friends-toggle .friends-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, .5);
+        }
+        .friends-toggle .friends-badge.has { display: flex }
+
+        .friends-panel {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 35%, #312e81 65%, #1e1b4b 100%);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: 'Outfit', -apple-system, system-ui, sans-serif;
+        }
+        .friends-panel.open { display: flex }
+
+        .friends-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            padding-top: calc(env(safe-area-inset-top, 20px) + 12px);
+            background: rgba(0, 0, 0, .3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            flex-shrink: 0;
+        }
+        .friends-header-title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .friends-close-btn {
+            background: rgba(255, 255, 255, .12);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .friends-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* My ID Badge */
+        .my-id-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .my-id-label {
+            color: rgba(255, 255, 255, .6);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .my-id-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, .3), rgba(6, 182, 212, .3));
+            border: 2px solid rgba(99, 102, 241, .5);
+            box-shadow: 0 0 20px rgba(99, 102, 241, .3), inset 0 0 15px rgba(99, 102, 241, .1);
+            cursor: pointer;
+            transition: transform .15s;
+        }
+        .my-id-badge:active { transform: scale(.95) }
+        .my-id-code {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 4px;
+            font-family: 'Outfit', monospace;
+            text-shadow: 0 0 12px rgba(99, 102, 241, .6);
+        }
+        .my-id-copy {
+            font-size: 18px;
+            opacity: .7;
+        }
+        .my-id-copied {
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 6px;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .my-id-copied.show { opacity: 1 }
+
+        /* Add Friend */
+        .add-friend-section {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .add-friend-input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Outfit', monospace;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color .2s;
+            text-align: center;
+        }
+        .add-friend-input::placeholder {
+            color: rgba(255, 255, 255, .3);
+            letter-spacing: 1px;
+            text-transform: none;
+        }
+        .add-friend-input:focus { border-color: rgba(99, 102, 241, .6) }
+        .add-friend-btn {
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: transform .15s, box-shadow .2s;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, .4);
+        }
+        .add-friend-btn:active { transform: scale(.93) }
+
+        /* Friend Cards */
+        .friends-list-title {
+            color: rgba(255, 255, 255, .5);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .friends-empty {
+            text-align: center;
+            padding: 30px 20px;
+            color: rgba(255, 255, 255, .35);
+            font-size: 14px;
+        }
+        .friends-empty-icon { font-size: 40px; margin-bottom: 10px; display: block }
+
+        .friend-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .07);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, .1);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform .15s, background .2s;
+            position: relative;
+        }
+        .friend-card:active { transform: scale(.97); background: rgba(255, 255, 255, .12) }
+
+        .friend-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #6366f1, #a78bfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .friend-avatar .friend-unread-dot {
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 2px solid #1e1b4b;
+            display: none;
+        }
+        .friend-avatar .friend-unread-dot.show { display: block }
+
+        .friend-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .friend-name {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .friend-stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 3px;
+        }
+        .friend-stat {
+            color: rgba(255, 255, 255, .5);
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .friend-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .friend-action-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 255, 255, .1);
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, transform .15s;
+        }
+        .friend-action-btn:active { transform: scale(.88) }
+        .friend-action-btn.msg-btn { background: rgba(59, 130, 246, .25) }
+        .friend-action-btn.remove-btn { background: rgba(239, 68, 68, .2) }
+        .friend-action-btn.remove-btn:active { background: rgba(239, 68, 68, .5) }
+
+        /* Friend Profile Modal */
+        .friend-profile-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .friend-profile-modal.open { display: flex }
+        .friend-profile-card {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 24px;
+            background: linear-gradient(165deg, #1e1b4b, #312e81);
+            border: 1px solid rgba(255, 255, 255, .15);
+            padding: 28px 22px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+            animation: profileIn .3s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        @keyframes profileIn {
+            from { opacity: 0; transform: scale(.85) translateY(20px) }
+            to { opacity: 1; transform: scale(1) translateY(0) }
+        }
+        .profile-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, .1);
+            border: none;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #6366f1, #a78bfa);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, .4);
+        }
+        .profile-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .profile-id {
+            color: rgba(255, 255, 255, .4);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .profile-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .profile-stat-card {
+            padding: 12px 8px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+        .profile-stat-value {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+        .profile-stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .45);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        .profile-skin-label {
+            color: rgba(255, 255, 255, .5);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .profile-skin-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+        .profile-skin-name {
+            color: #a78bfa;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* Chat View */
+        .chat-view {
+            position: fixed;
+            inset: 0;
+            z-index: 350;
+            background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            display: none;
+            flex-direction: column;
+        }
+        .chat-view.open { display: flex }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            padding-top: calc(env(safe-area-inset-top, 20px) + 12px);
+            background: rgba(0, 0, 0, .3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            flex-shrink: 0;
+        }
+        .chat-back-btn {
+            background: rgba(255, 255, 255, .1);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-name {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            flex: 1;
+        }
+        .chat-refresh-btn {
+            background: rgba(255, 255, 255, .1);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .chat-msg {
+            max-width: 78%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            animation: msgIn .25s ease-out;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(8px) }
+            to { opacity: 1; transform: translateY(0) }
+        }
+        .chat-msg.incoming {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, .1);
+            color: #fff;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg.outgoing {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg-time {
+            font-size: 10px;
+            color: rgba(255, 255, 255, .4);
+            margin-top: 4px;
+        }
+        .chat-msg.outgoing .chat-msg-time { text-align: right }
+        .chat-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, .3);
+            font-size: 14px;
+            gap: 8px;
+        }
+        .chat-empty-icon { font-size: 36px }
+
+        .chat-input-bar {
+            display: flex;
+            gap: 8px;
+            padding: 10px 16px;
+            padding-bottom: calc(env(safe-area-inset-bottom, 8px) + 10px);
+            background: rgba(0, 0, 0, .3);
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            flex-shrink: 0;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: 1.5px solid rgba(255, 255, 255, .12);
+            background: rgba(255, 255, 255, .07);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            outline: none;
+            font-family: inherit;
+        }
+        .chat-input::placeholder { color: rgba(255, 255, 255, .3) }
+        .chat-input:focus { border-color: rgba(99, 102, 241, .5) }
+        .chat-send-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .15s;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, .4);
+        }
+        .chat-send-btn:active { transform: scale(.88) }
 
         /* ========== DRAGON SPIN ========== */
         .dragon-spin-section {
@@ -3544,6 +4109,11 @@
         }
 
         .skin-toggle.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .friends-toggle.hidden {
             opacity: 0;
             pointer-events: none;
         }
@@ -17815,8 +18385,7 @@
         <div class="zynox-logo-container">
             <div class="zynox-symbol"></div>
             <div class="zynox-text-wrap">
-                <span class="zynox-title">ZYNOX</span>
-                <span class="zynox-subtitle">STUDIO</span>
+                <span class="zynox-title">HYPERCODE</span>
             </div>
         </div>
         <div class="zynox-loader-wrap">
@@ -17938,7 +18507,7 @@
         <div class="top">
             <h1 id="greeting">✨ DailyBot ✨</h1>
             <div class="date" id="date"></div>
-            <div class="streak" id="streak">🔥 <span id="sn"></span> napos sorozat</div>
+            <div class="streak" id="streak">⚡ Level <span id="sn"></span></div>
         </div>
 
         <div class="bubble-wrap">
@@ -18408,6 +18977,77 @@
         </div>
     </div>
 
+    <!-- Barátok gomb -->
+    <div class="friends-toggle" id="friendsToggle">👥<span class="friends-badge" id="friendsBadge">0</span></div>
+
+    <!-- Barátok panel -->
+    <div class="friends-panel" id="friendsPanel">
+        <div class="friends-header">
+            <div class="friends-header-title">👥 BARÁTOK</div>
+            <button class="friends-close-btn" id="friendsClose">✕</button>
+        </div>
+        <div class="friends-body">
+            <div class="my-id-section">
+                <div class="my-id-label">A te azonosítód</div>
+                <div class="my-id-badge" id="myIdBadge">
+                    <span class="my-id-code" id="myIdCode">------</span>
+                    <span class="my-id-copy">📋</span>
+                </div>
+                <div class="my-id-copied" id="myIdCopied">✓ Másolva!</div>
+            </div>
+
+            <div class="add-friend-section">
+                <input class="add-friend-input" id="addFriendInput" placeholder="Barát ID-je..." maxlength="6" autocomplete="off" autocapitalize="characters">
+                <button class="add-friend-btn" id="addFriendBtn">+ Hozzáad</button>
+            </div>
+
+            <div class="friends-list-title">BARÁTLISTA</div>
+            <div id="friendsList"></div>
+        </div>
+    </div>
+
+    <!-- Chat nézet -->
+    <div class="chat-view" id="chatView">
+        <div class="chat-header">
+            <button class="chat-back-btn" id="chatBackBtn">←</button>
+            <div class="chat-name" id="chatName">Barát</div>
+            <button class="chat-refresh-btn" id="chatRefreshBtn">🔄</button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-bar">
+            <input class="chat-input" id="chatInput" placeholder="Írj üzenetet..." maxlength="200" autocomplete="off">
+            <button class="chat-send-btn" id="chatSendBtn">➤</button>
+        </div>
+    </div>
+
+    <!-- Barát profil modal -->
+    <div class="friend-profile-modal" id="friendProfileModal">
+        <div class="friend-profile-card">
+            <button class="profile-close" id="profileClose">✕</button>
+            <div class="profile-avatar" id="profileAvatar">🤖</div>
+            <div class="profile-name" id="profileName">Név</div>
+            <div class="profile-id" id="profileId">ID: ------</div>
+            <div class="profile-stats-grid">
+                <div class="profile-stat-card">
+                    <div class="profile-stat-value" id="profileLevel">1</div>
+                    <div class="profile-stat-label">Level</div>
+                </div>
+                <div class="profile-stat-card">
+                    <div class="profile-stat-value" id="profileGems">0</div>
+                    <div class="profile-stat-label">Gem</div>
+                </div>
+                <div class="profile-stat-card">
+                    <div class="profile-stat-value" id="profileBots">0</div>
+                    <div class="profile-stat-label">Bot</div>
+                </div>
+            </div>
+            <div class="profile-skin-label">AKTÍV SKIN</div>
+            <div class="profile-skin-display">
+                <span>🤖</span>
+                <span class="profile-skin-name" id="profileSkin">Alap</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Hírek panel -->
     <div class="news-panel" id="newsPanel">
@@ -19113,8 +19753,8 @@
             }
         })();
 
-        // Streak
-        (function () { const t = td(), l = localStorage.getItem('nu_l'); let s = parseInt(localStorage.getItem('nu_s') || '0'); if (l !== t) { const y = msgDay(); y.setDate(y.getDate() - 1); s = l === y.toDateString() ? s + 1 : 1; localStorage.setItem('nu_l', t); localStorage.setItem('nu_s', s.toString()) } if (s > 1) { document.getElementById('streak').classList.add('on'); document.getElementById('sn').textContent = s } })();
+        // Level (streak-alapú)
+        (function () { const t = td(), l = localStorage.getItem('nu_l'); let s = parseInt(localStorage.getItem('nu_s') || '0'); if (l !== t) { const y = msgDay(); y.setDate(y.getDate() - 1); s = l === y.toDateString() ? s + 1 : 1; localStorage.setItem('nu_l', t); localStorage.setItem('nu_s', s.toString()) } if (s >= 1) { document.getElementById('streak').classList.add('on'); document.getElementById('sn').textContent = s } })();
 
         function seen() { return localStorage.getItem('nu_d') === td() }
         function mark() { localStorage.setItem('nu_d', td()) }
@@ -21936,7 +22576,7 @@
         // Biztosítani, hogy első interakció után a hang ctx életre keljen
         ['click', 'touchstart'].forEach(ev => document.addEventListener(ev, _sfxCtx, { once: true, passive: true }));
 
-        // ========== ZYNOX TITKOS TÁMOGATÁS KÓD ==========
+        // ========== HYPERCODE TITKOS TÁMOGATÁS KÓD ==========
         function isZynoxActive() { return localStorage.getItem('nu_zynox_lucky') === '1' }
 
         // ========== SKIN EQUIP EFFECT ==========
@@ -23107,7 +23747,7 @@
                 const bpSkip = document.getElementById('bpSkipBtn');
 
                 if (bpSkip && !bpSkip._bound) { bpSkip._bound = true; bpSkip.addEventListener('click', () => { playSfx('bp-skip'); gemSkipLevel() }) }
-                // ZYNOX támogatás input
+                // HYPERCODE támogatás input
                 const sInput = document.getElementById('supportInput');
                 const sSubmit = document.getElementById('supportSubmit');
                 const sStatus = document.getElementById('supportStatus');
@@ -23120,7 +23760,7 @@
                 }
                 function trySupport() {
                     const val = (sInput.value || '').trim().toUpperCase();
-                    if (val === 'ZYNOX') {
+                    if (val === 'HYPERCODE') {
                         localStorage.setItem('nu_zynox_lucky', '1');
                         playSfx('zynox');
                         sCard.classList.add('lucky');
@@ -23168,7 +23808,7 @@
 
         // Helper to hide toggles
         window.toggleMainButtons = (show) => {
-            const ids = ['skinToggle', 'favsToggle', 'newsToggle'];
+            const ids = ['skinToggle', 'favsToggle', 'newsToggle', 'friendsToggle'];
             ids.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.toggle('hidden', !show);
@@ -25108,6 +25748,446 @@
         <span class="zoom-close-btn">&times;</span>
         <img class="zoom-content" id="imgZoomTarget" alt="Nagyított kép">
     </div>
+
+    <!-- ========== FRIENDS SYSTEM JS ========== -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ========== CONFIG ==========
+        const FRIENDS_API = 'https://napi-uzenet-push.vercel.app/api/friends';
+        // Fallback for local dev
+        // const FRIENDS_API = '/push-server/api/friends';
+
+        // ========== FRIEND ID ==========
+        function getFriendId() {
+            let id = localStorage.getItem('nu_friend_id');
+            if (!id) {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                id = '';
+                for (let i = 0; i < 6; i++) id += chars[Math.floor(Math.random() * chars.length)];
+                localStorage.setItem('nu_friend_id', id);
+            }
+            return id;
+        }
+
+        function getMyLevel() {
+            return parseInt(localStorage.getItem('nu_s') || '1', 10) || 1;
+        }
+        function getMyGems() {
+            return parseInt(localStorage.getItem('nu_gems') || '0', 10) || 0;
+        }
+        function getMyBots() {
+            try {
+                const owned = JSON.parse(localStorage.getItem('nu_owned') || '[]');
+                // Count skins only (not bg-, aura-, acc-, dance-)
+                return owned.filter(id => id && !id.startsWith('bg-') && !id.startsWith('aura-') && !id.startsWith('acc-') && !id.startsWith('dance-')).length + 1; // +1 for default bot
+            } catch(e) { return 1; }
+        }
+        function getMyActiveSkin() {
+            return localStorage.getItem('nu_active_skin') || 'Alap';
+        }
+        function getMyName() {
+            return localStorage.getItem('nu_name') || 'Ismeretlen';
+        }
+        function getMyNameColor() {
+            return localStorage.getItem('nu_name_color') || 'default';
+        }
+
+        // ========== LOCAL FRIENDS STORAGE ==========
+        function getLocalFriends() {
+            try { return JSON.parse(localStorage.getItem('nu_friends') || '[]'); }
+            catch(e) { return []; }
+        }
+        function saveLocalFriends(arr) {
+            localStorage.setItem('nu_friends', JSON.stringify(arr));
+        }
+
+        // ========== API HELPERS ==========
+        async function friendsApi(body) {
+            try {
+                const resp = await fetch(FRIENDS_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                return await resp.json();
+            } catch(err) {
+                console.warn('Friends API error:', err);
+                return { error: 'network_error' };
+            }
+        }
+
+        // ========== SYNC PROFILE ==========
+        let _lastProfileSync = 0;
+        async function syncMyProfile() {
+            if (Date.now() - _lastProfileSync < 30000) return; // Max once per 30s
+            _lastProfileSync = Date.now();
+            const id = getFriendId();
+            const name = getMyName();
+            if (!name || name === 'Ismeretlen') return;
+
+            await friendsApi({
+                action: 'register',
+                id, name,
+                level: getMyLevel(),
+                gems: getMyGems(),
+                bots: getMyBots(),
+                activeSkin: getMyActiveSkin(),
+                nameColor: getMyNameColor()
+            });
+        }
+
+        // ========== UI ELEMENTS ==========
+        const friendsToggle = document.getElementById('friendsToggle');
+        const friendsBadge = document.getElementById('friendsBadge');
+        const friendsPanel = document.getElementById('friendsPanel');
+        const friendsClose = document.getElementById('friendsClose');
+        const myIdCode = document.getElementById('myIdCode');
+        const myIdBadge = document.getElementById('myIdBadge');
+        const myIdCopied = document.getElementById('myIdCopied');
+        const addFriendInput = document.getElementById('addFriendInput');
+        const addFriendBtn = document.getElementById('addFriendBtn');
+        const friendsList = document.getElementById('friendsList');
+        const chatView = document.getElementById('chatView');
+        const chatBackBtn = document.getElementById('chatBackBtn');
+        const chatName = document.getElementById('chatName');
+        const chatRefreshBtn = document.getElementById('chatRefreshBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        const friendProfileModal = document.getElementById('friendProfileModal');
+        const profileClose = document.getElementById('profileClose');
+
+        let currentChatFriend = null;
+        let cachedFriends = [];
+
+        // ========== INIT ==========
+        function initFriendId() {
+            const id = getFriendId();
+            if (myIdCode) myIdCode.textContent = id;
+        }
+
+        // ========== COPY ID ==========
+        if (myIdBadge) {
+            myIdBadge.addEventListener('click', () => {
+                const id = getFriendId();
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(id).then(() => showCopied()).catch(() => fallbackCopy(id));
+                } else {
+                    fallbackCopy(id);
+                }
+            });
+        }
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); showCopied(); } catch(e) {}
+            document.body.removeChild(ta);
+        }
+        function showCopied() {
+            if (myIdCopied) {
+                myIdCopied.classList.add('show');
+                setTimeout(() => myIdCopied.classList.remove('show'), 2000);
+            }
+        }
+
+        // ========== OPEN/CLOSE FRIENDS PANEL ==========
+        if (friendsToggle) {
+            friendsToggle.addEventListener('click', async () => {
+                friendsPanel.classList.add('open');
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+                await syncMyProfile();
+                await loadFriendsList();
+            });
+        }
+        if (friendsClose) {
+            friendsClose.addEventListener('click', () => {
+                friendsPanel.classList.remove('open');
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+            });
+        }
+
+        // ========== ADD FRIEND ==========
+        if (addFriendBtn) {
+            addFriendBtn.addEventListener('click', addFriend);
+        }
+        if (addFriendInput) {
+            addFriendInput.addEventListener('keydown', e => { if (e.key === 'Enter') addFriend(); });
+        }
+
+        async function addFriend() {
+            const friendId = (addFriendInput.value || '').trim().toUpperCase();
+            if (!friendId || friendId.length < 4) {
+                alert('Adj meg egy érvényes barát ID-t!');
+                return;
+            }
+            if (friendId === getFriendId()) {
+                alert('Nem adhatod hozzá magadat! 😄');
+                return;
+            }
+            const locals = getLocalFriends();
+            if (locals.includes(friendId)) {
+                alert('Ez a barát már a listádon van!');
+                return;
+            }
+
+            addFriendBtn.textContent = '...';
+            addFriendBtn.disabled = true;
+
+            const res = await friendsApi({ action: 'add_friend', myId: getFriendId(), friendId });
+
+            addFriendBtn.textContent = '+ Hozzáad';
+            addFriendBtn.disabled = false;
+
+            if (res.error === 'friend_not_found') {
+                alert('Nincs ilyen ID-jű felhasználó. Ellenőrizd a kódot!');
+                return;
+            }
+            if (res.error) {
+                alert('Hiba történt. Próbáld újra!');
+                return;
+            }
+
+            locals.push(friendId);
+            saveLocalFriends(locals);
+            addFriendInput.value = '';
+
+            if (typeof playSfx === 'function') try { playSfx('bp-claim') } catch(_){}
+            await loadFriendsList();
+        }
+
+        // ========== LOAD FRIENDS LIST ==========
+        async function loadFriendsList() {
+            if (!friendsList) return;
+            friendsList.innerHTML = '<div style="text-align:center;color:rgba(255,255,255,.4);padding:12px;">Betöltés...</div>';
+
+            const res = await friendsApi({ action: 'get_friends', myId: getFriendId() });
+
+            if (res.error || !res.friends) {
+                // Fallback: show local friends without details
+                const locals = getLocalFriends();
+                if (locals.length === 0) {
+                    friendsList.innerHTML = '<div class="friends-empty"><span class="friends-empty-icon">🤝</span>Még nincsenek barátaid.<br>Oszd meg az ID-det barátaiddal!</div>';
+                } else {
+                    friendsList.innerHTML = '<div class="friends-empty"><span class="friends-empty-icon">📡</span>Nem sikerült betölteni. Ellenőrizd a netet!</div>';
+                }
+                return;
+            }
+
+            cachedFriends = res.friends;
+            let totalUnread = 0;
+
+            if (res.friends.length === 0) {
+                friendsList.innerHTML = '<div class="friends-empty"><span class="friends-empty-icon">🤝</span>Még nincsenek barátaid.<br>Oszd meg az ID-det barátaiddal!</div>';
+                updateFriendsBadge(0);
+                return;
+            }
+
+            let html = '';
+            res.friends.forEach(f => {
+                totalUnread += (f.unread || 0);
+                const skinLabel = f.activeSkin ? (f.activeSkin.charAt(0).toUpperCase() + f.activeSkin.slice(1)) : 'Alap';
+                html += `
+                <div class="friend-card" data-fid="${f.id}">
+                    <div class="friend-avatar">
+                        🤖
+                        <div class="friend-unread-dot ${f.unread > 0 ? 'show' : ''}"></div>
+                    </div>
+                    <div class="friend-info" data-fid="${f.id}" data-action="profile">
+                        <div class="friend-name">${escHtml(f.name)}</div>
+                        <div class="friend-stats">
+                            <span class="friend-stat">⚡ Lv.${f.level || 1}</span>
+                            <span class="friend-stat">💎 ${f.gems || 0}</span>
+                            <span class="friend-stat">🤖 ${f.bots || 0}</span>
+                        </div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="friend-action-btn msg-btn" data-fid="${f.id}" data-fname="${escAttr(f.name)}" data-action="chat" title="Üzenet">💬</button>
+                        <button class="friend-action-btn remove-btn" data-fid="${f.id}" data-action="remove" title="Eltávolítás">✕</button>
+                    </div>
+                </div>`;
+            });
+            friendsList.innerHTML = html;
+            updateFriendsBadge(totalUnread);
+
+            // Bind friend card events
+            friendsList.querySelectorAll('[data-action="profile"]').forEach(el => {
+                el.addEventListener('click', () => openProfile(el.dataset.fid));
+            });
+            friendsList.querySelectorAll('[data-action="chat"]').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    openChat(btn.dataset.fid, btn.dataset.fname);
+                });
+            });
+            friendsList.querySelectorAll('[data-action="remove"]').forEach(btn => {
+                btn.addEventListener('click', async e => {
+                    e.stopPropagation();
+                    if (!confirm('Biztosan eltávolítod ezt a barátot?')) return;
+                    await friendsApi({ action: 'remove_friend', myId: getFriendId(), friendId: btn.dataset.fid });
+                    const locals = getLocalFriends().filter(id => id !== btn.dataset.fid);
+                    saveLocalFriends(locals);
+                    await loadFriendsList();
+                });
+            });
+        }
+
+        function updateFriendsBadge(count) {
+            if (!friendsBadge) return;
+            if (count > 0) {
+                friendsBadge.textContent = count;
+                friendsBadge.classList.add('has');
+            } else {
+                friendsBadge.classList.remove('has');
+            }
+        }
+
+        // ========== PROFILE MODAL ==========
+        function openProfile(fid) {
+            const friend = cachedFriends.find(f => f.id === fid);
+            if (!friend) return;
+
+            document.getElementById('profileName').textContent = friend.name;
+            document.getElementById('profileId').textContent = 'ID: ' + friend.id;
+            document.getElementById('profileLevel').textContent = friend.level || 1;
+            document.getElementById('profileGems').textContent = friend.gems || 0;
+            document.getElementById('profileBots').textContent = friend.bots || 0;
+            const skinName = friend.activeSkin ? (friend.activeSkin.charAt(0).toUpperCase() + friend.activeSkin.slice(1)) : 'Alap';
+            document.getElementById('profileSkin').textContent = skinName;
+
+            friendProfileModal.classList.add('open');
+        }
+        if (profileClose) {
+            profileClose.addEventListener('click', () => friendProfileModal.classList.remove('open'));
+        }
+        if (friendProfileModal) {
+            friendProfileModal.addEventListener('click', e => {
+                if (e.target === friendProfileModal) friendProfileModal.classList.remove('open');
+            });
+        }
+
+        // ========== CHAT ==========
+        function openChat(fid, fname) {
+            currentChatFriend = fid;
+            chatName.textContent = fname || 'Barát';
+            chatView.classList.add('open');
+            loadMessages(fid);
+            // Mark read
+            friendsApi({ action: 'mark_read', myId: getFriendId(), friendId: fid });
+        }
+
+        if (chatBackBtn) {
+            chatBackBtn.addEventListener('click', () => {
+                chatView.classList.remove('open');
+                currentChatFriend = null;
+                loadFriendsList(); // Refresh unread counts
+            });
+        }
+
+        if (chatRefreshBtn) {
+            chatRefreshBtn.addEventListener('click', () => {
+                if (currentChatFriend) loadMessages(currentChatFriend);
+            });
+        }
+
+        if (chatSendBtn) {
+            chatSendBtn.addEventListener('click', sendMessage);
+        }
+        if (chatInput) {
+            chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+        }
+
+        async function sendMessage() {
+            const text = (chatInput.value || '').trim();
+            if (!text || !currentChatFriend) return;
+
+            chatInput.value = '';
+            chatSendBtn.disabled = true;
+
+            const res = await friendsApi({
+                action: 'send_message',
+                from: getFriendId(),
+                to: currentChatFriend,
+                fromName: getMyName(),
+                text
+            });
+
+            chatSendBtn.disabled = false;
+
+            if (res.error) {
+                alert('Nem sikerült elküldeni az üzenetet.');
+                return;
+            }
+
+            if (typeof playSfx === 'function') try { playSfx('gem-claim') } catch(_){}
+            await loadMessages(currentChatFriend);
+        }
+
+        async function loadMessages(fid) {
+            if (!chatMessages) return;
+            chatMessages.innerHTML = '';
+
+            const res = await friendsApi({ action: 'get_messages', myId: getFriendId(), friendId: fid });
+
+            if (res.error || !res.messages || res.messages.length === 0) {
+                chatMessages.innerHTML = '<div class="chat-empty"><span class="chat-empty-icon">💬</span>Még nincs üzenet.<br>Kezdj el beszélgetni!</div>';
+                return;
+            }
+
+            const myId = getFriendId();
+            let html = '';
+            res.messages.forEach(msg => {
+                const isMe = msg.from === myId;
+                const time = new Date(msg.timestamp);
+                const timeStr = time.toLocaleDateString('hu-HU', { month: 'short', day: 'numeric' }) + ' ' + time.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' });
+                html += `
+                <div class="chat-msg ${isMe ? 'outgoing' : 'incoming'}">
+                    ${escHtml(msg.text)}
+                    <div class="chat-msg-time">${timeStr}</div>
+                </div>`;
+            });
+            chatMessages.innerHTML = html;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // ========== HELPERS ==========
+        function escHtml(str) {
+            const d = document.createElement('div');
+            d.textContent = str || '';
+            return d.innerHTML;
+        }
+        function escAttr(str) {
+            return (str || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        // ========== INIT ==========
+        if (localStorage.getItem('nu_reg') === '1') {
+            initFriendId();
+            // Auto-sync profile on load
+            setTimeout(() => syncMyProfile(), 2000);
+        }
+
+        // ========== AUTO UPDATE PROFILE ON CHANGES ==========
+        // Wrap setGems to also sync profile
+        const _origSetGems = window.setGems;
+        if (typeof _origSetGems === 'function') {
+            window.setGems = function(n) {
+                _origSetGems(n);
+                syncMyProfile();
+            };
+        }
+
+        // Include friends toggle in the toggle system
+        const _origIds = ['skinToggle', 'favsToggle', 'newsToggle', 'friendsToggle'];
+        // Handled by existing toggleMainButtons if available
+
+    })();
+    </script>
 
 </body>
 
