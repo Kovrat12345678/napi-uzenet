@@ -17,8 +17,26 @@
     <title>DailyBot 🍦 Summer Chill</title>
 
     <style>
+        
+        .six-seven-box {
+            animation: boxFloat 3.5s ease-in-out infinite;
+        }
+        .six-seven-box:hover {
+            transform: scale(1.1) rotate(-3deg);
+            animation-play-state: paused;
+        }
+
+        .shop-box-img {
+            animation: boxFloat 3s ease-in-out infinite;
+        }
         .shop-box-img:hover {
             transform: scale(1.1) rotate(3deg);
+            animation-play-state: paused;
+        }
+        @keyframes boxFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
         
         /* Loot Unboxing Animation Styles */
