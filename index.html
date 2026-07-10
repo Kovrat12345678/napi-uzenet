@@ -18402,7 +18402,7 @@
                     <img src="new box/normal.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 15px rgba(255,255,255,0.2));">
                     <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 10px;">Original Box</div>
                     <div style="font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 15px; height: 36px;">Gemek és Üzenetek!</div>
-                    <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;"><span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
+                    <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); width: 100%; justify-content: center;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
                 </div>
 
                 <!-- VIP Box -->
@@ -18411,7 +18411,7 @@
                     <img src="new box/vip.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));">
                     <div style="font-size: 16px; font-weight: 800; color: #fde68a; margin-top: 10px; text-shadow: 0 0 10px rgba(251,191,36,0.5);">VIP Box</div>
                     <div style="font-size: 12px; color: rgba(253,230,138,0.8); text-align: center; margin-bottom: 15px; height: 36px;">Botok, Skinek, Minden!</div>
-                    <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;"><span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
+                    <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 14px; font-weight: 900; padding: 10px 20px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); width: 100%; justify-content: center;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:16px; height:16px;"></span> Buy</span></button>
                 </div>
 
             </div>
@@ -25459,45 +25459,43 @@
             }, 1500);
         }
 
-        if (origBtn) {
-            origBtn.addEventListener('click', () => {
+
+        window.buyOriginalBox = function() {
+            let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+            if (currentGems < 250) {
+                alert('Nincs elég Gemed az Original Box kinyitásához! (250 gem kell)');
+                if(typeof playSfx === 'function') playSfx('error');
+                return;
+            }
+            localStorage.setItem('nu_gems', String(currentGems - 250));
+            if (typeof updateGemUI === 'function') updateGemUI();
+            if(typeof playSfx === 'function') playSfx('buy');
+            
+            doNyitas('orig');
+        };
+
+        window.buyVipBox = function() {
+            const hasFree = localStorage.getItem('nu_free_vip_received') !== 'true';
+            
+            if (!hasFree) {
                 let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                if (currentGems < 250) {
-                    alert('Nincs elég Gemed az Original Box kinyitásához! (250 gem kell)');
+                if (currentGems < 550) {
+                    alert('Nincs elég Gemed a VIP Box kinyitásához! (550 gem kell)');
                     if(typeof playSfx === 'function') playSfx('error');
                     return;
                 }
-                localStorage.setItem('nu_gems', String(currentGems - 250));
+                localStorage.setItem('nu_gems', String(currentGems - 550));
                 if (typeof updateGemUI === 'function') updateGemUI();
-                if(typeof playSfx === 'function') playSfx('buy');
-                
-                doNyitas('orig');
-            });
-        }
+            } else {
+                localStorage.setItem('nu_free_vip_received', 'true');
+                updateVipUI();
+            }
+            
+            if(typeof playSfx === 'function') playSfx('buy');
+            
+            doNyitas('vip');
+        };
 
-        if (vipBtn) {
-            vipBtn.addEventListener('click', () => {
-                const hasFree = localStorage.getItem('nu_free_vip_received') !== 'true';
-                
-                if (!hasFree) {
-                    let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                    if (currentGems < 550) {
-                        alert('Nincs elég Gemed a VIP Box kinyitásához! (550 gem kell)');
-                        if(typeof playSfx === 'function') playSfx('error');
-                        return;
-                    }
-                    localStorage.setItem('nu_gems', String(currentGems - 550));
-                    if (typeof updateGemUI === 'function') updateGemUI();
-                } else {
-                    localStorage.setItem('nu_free_vip_received', 'true');
-                    updateVipUI();
-                }
-                
-                if(typeof playSfx === 'function') playSfx('buy');
-                
-                doNyitas('vip');
-            });
-        }
 
     })();
     </script>
