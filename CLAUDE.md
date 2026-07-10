@@ -380,57 +380,6 @@ Elso user gesture (click/touch) utan indul. Nem kikapcsólhato. Master gain 0.04
 - **Barátok gomb** (👥, bal felső mellé): `.friends-toggle` → Barátok panel
 - **Szinkronizalas gomb** (🔄, shop headerben)
 
-## Barát rendszer (Friends)
-
-### Felhasználói ID
-
-- 6 karakteres alfanumerikus ID (pl. "HC7K2M"), generálódik első használatkor
-- Karakterkészlet: `ABCDEFGHJKLMNPQRSTUVWXYZ23456789` (félreérthető karakterek nélkül: 0/O, 1/I)
-- localStorage: `nu_friend_id`
-- Másolható: ID badge-re koppintva vágólapra kerül
-
-### Barátok panel (#friendsPanel)
-
-- Teljes képernyős overlay (z-index: 300)
-- **Saját ID badge**: nagy, neon-bordered, kattintva másolja
-- **Barát hozzáadás**: input mező (6 karakter max) + gomb → API `add_friend`
-- **Barátlista**: glassmorphism kártyák, minden barát kártyán:
-  - Név, Level, Gem szám, Bot szám
-  - 💬 gomb → chat nézet
-  - ✕ gomb → barát eltávolítás
-  - Kártyára koppintás → profil modal
-
-### Barát profil modal (#friendProfileModal)
-
-- 3 stat kártya: Level, Gem, Bot
-- Aktív skin megjelenítés
-
-### Chat (#chatView)
-
-- Z-index: 350 (friends panel felett)
-- Buborékok: bejövő (bal, üveg), kimenő (jobb, lila gradient)
-- 200 karakter limit per üzenet
-- 🔄 Frissítés gombbal tölti újra (nem valós idejű)
-- Olvasatlan üzenetek: kék pont a barát avatárján, piros badge a 👥 gombon
-
-### Friends API (Vercel Serverless)
-
-Endpoint: `push-server/api/friends.js` — minden kérés POST, JSON body
-
-| action | Leírás |
-|--------|--------|
-| `register` | Profil regisztráció/frissítés |
-| `lookup` | Felhasználó keresése ID-vel |
-| `add_friend` | Kétirányú barát hozzáadás |
-| `remove_friend` | Barát eltávolítás (kétirányú) |
-| `get_friends` | Barátlista + profilok + olvasatlan üzenet számok |
-| `send_message` | Üzenet küldés barátnak (max 200 karakter) |
-| `get_messages` | Üzenetek lekérése egy baráttal |
-| `mark_read` | Üzenetek olvasottnak jelölése |
-
-Vercel KV kulcsok:
-- `user:{id}` → profil JSON
-- `msgs:{userId}:{friendId}` → üzenetek JSON tömb (max 50)
 
 ## Shop szekciók sorrendje
 
@@ -499,7 +448,6 @@ icon/
   dragon-icon.svg   — Sarkany Het ikon (jelenleg nincs hasznalva)
 push-server/
   api/
-    friends.js      — Barát rendszer API (register, add/remove friend, messaging) (Vercel KV)
     game.js         — Robot Battle multiplayer endpoint (Vercel KV) [INAKTIV]
     notify.js       — Push ertesites kuldő (Vercel Cron)
     subscribe.js    — Push feliratkozas tarolo
