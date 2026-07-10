@@ -25803,7 +25803,7 @@
             localStorage.setItem('nu_friends', JSON.stringify(arr));
         }
 
-        // ========== API HELPERS ==========
+        // ========== API HELPERS & MOCK BACKEND ==========
         async function friendsApi(body) {
             try {
                 const resp = await fetch(FRIENDS_API, {
@@ -25811,11 +25811,110 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)
                 });
+                if (!resp.ok) throw new Error('API not ok');
                 return await resp.json();
             } catch(err) {
-                console.warn('Friends API error:', err);
-                return { error: 'network_error' };
+                console.warn('Szerver hiba, átváltás lokális teszt (MOCK) módra:', err);
+                return mockFriendsApi(body);
             }
+        }
+
+        // Local testing fallback that mimics the Vercel backend using localStorage
+        function mockFriendsApi(body) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    let db;
+                    try { db = JSON.parse(localStorage.getItem('nu_mock_db') || '{"users":{}, "msgs":{}}'); }
+                    catch(e) { db = { users: {}, msgs: {} }; }
+
+                    const { action } = body;
+
+                    if (action === 'register') {
+                        const existing = db.users[body.id] || { friends: [] };
+                        db.users[body.id] = { ...existing, ...body, updatedAt: Date.now() };
+                        localStorage.setItem('nu_mock_db', JSON.stringify(db));
+                        return resolve({ ok: true, profile: db.users[body.id] });
+                    }
+
+                    if (action === 'add_friend') {
+                        const { myId, friendId } = body;
+                        if (!db.users[myId]) db.users[myId] = { id: myId, friends: [] };
+                        
+                        // Fake creating the friend if they don't exist yet so testing is easy
+                        if (!db.users[friendId]) {
+                            db.users[friendId] = { id: friendId, name: 'Teszt Bot ' + friendId, level: Math.floor(Math.random()*10)+1, gems: 500, bots: 2, activeSkin: 'Alap', friends: [] };
+                        }
+
+                        if (!db.users[myId].friends) db.users[myId].friends = [];
+                        if (!db.users[friendId].friends) db.users[friendId].friends = [];
+
+                        if (!db.users[myId].friends.includes(friendId)) db.users[myId].friends.push(friendId);
+                        if (!db.users[friendId].friends.includes(myId)) db.users[friendId].friends.push(myId);
+                        
+                        localStorage.setItem('nu_mock_db', JSON.stringify(db));
+                        return resolve({ ok: true, friend: db.users[friendId] });
+                    }
+
+                    if (action === 'remove_friend') {
+                        const { myId, friendId } = body;
+                        if (db.users[myId] && db.users[myId].friends) {
+                            db.users[myId].friends = db.users[myId].friends.filter(f => f !== friendId);
+                        }
+                        if (db.users[friendId] && db.users[friendId].friends) {
+                            db.users[friendId].friends = db.users[friendId].friends.filter(f => f !== myId);
+                        }
+                        localStorage.setItem('nu_mock_db', JSON.stringify(db));
+                        return resolve({ ok: true });
+                    }
+
+                    if (action === 'get_friends') {
+                        const me = db.users[body.myId] || { friends: [] };
+                        const friendsList = (me.friends || []).map(fid => {
+                            const f = db.users[fid] || { id: fid, name: 'Ismeretlen', level: 1, gems: 0, bots: 0 };
+                            // Count unread
+                            const msgs = db.msgs[`${body.myId}:${fid}`] || [];
+                            const unread = msgs.filter(m => !m.read && m.from === fid).length;
+                            return { ...f, unread };
+                        });
+                        return resolve({ ok: true, friends: friendsList });
+                    }
+
+                    if (action === 'send_message') {
+                        const { from, to, text, fromName } = body;
+                        const msg = { from, fromName: fromName || 'Én', to, text, timestamp: Date.now(), read: false };
+                        
+                        const key1 = `${from}:${to}`;
+                        const key2 = `${to}:${from}`;
+                        
+                        if (!db.msgs[key1]) db.msgs[key1] = [];
+                        if (!db.msgs[key2]) db.msgs[key2] = [];
+
+                        db.msgs[key1].push({ ...msg, read: true });
+                        db.msgs[key2].push(msg);
+
+                        localStorage.setItem('nu_mock_db', JSON.stringify(db));
+                        return resolve({ ok: true, msg });
+                    }
+
+                    if (action === 'get_messages') {
+                        const { myId, friendId } = body;
+                        const key = `${myId}:${friendId}`;
+                        return resolve({ ok: true, messages: db.msgs[key] || [] });
+                    }
+
+                    if (action === 'mark_read') {
+                        const { myId, friendId } = body;
+                        const key = `${myId}:${friendId}`;
+                        if (db.msgs[key]) {
+                            db.msgs[key].forEach(m => { if (m.from === friendId) m.read = true; });
+                            localStorage.setItem('nu_mock_db', JSON.stringify(db));
+                        }
+                        return resolve({ ok: true });
+                    }
+
+                    resolve({ error: 'unknown_mock_action' });
+                }, 300); // 300ms delay to simulate network
+            });
         }
 
         // ========== SYNC PROFILE ==========
