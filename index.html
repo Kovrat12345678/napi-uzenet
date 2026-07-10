@@ -17,6 +17,12 @@
     <title>DailyBot 🍦 Summer Chill</title>
 
     <style>
+        @keyframes prizePop {
+            0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+            70% { transform: scale(1.25) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
         /* Custom Toast Notification */
         .loot-toast {
             position: fixed;
@@ -25477,7 +25483,7 @@
             const hasFree = localStorage.getItem('nu_free_vip_received') !== 'true';
             if (hasFree) {
                 // Show a nice introductory alert or welcome message first
-                alert('Üdvözlünk! Kaptál 1 db ingyenes VIP Boxot! Élvezd a nyitást! 🎁');
+                showLootToast('Ajándék!', 'Kaptál 1 db ingyenes VIP Boxot!', '🎁');
                 if (typeof window.buyVipBox === 'function') {
                     window.buyVipBox();
                 }
@@ -25488,122 +25494,166 @@
         function doNyitas(type) {
             const overlay = document.createElement('div');
             overlay.className = 'loot-unboxing-overlay';
-            overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${type === 'vip' ? '#f59e0b' : '#10b981'});"><img src="${type === 'vip' ? 'box/vip.png' : 'box/normal.png'}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
+            // Start with shaking box
+            let boxImg = 'box/normal.png';
+            let glowColor = '#10b981';
+            if (type === 'vip') {
+                boxImg = 'box/vip.png';
+                glowColor = '#f59e0b';
+            } else if (type === 'six-seven') {
+                boxImg = 'six%20seven%20box/image0%20(5).png';
+                glowColor = '#3b82f6';
+            }
+
+            overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${glowColor});"><img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
             document.body.appendChild(overlay);
 
             setTimeout(() => {
-                overlay.classList.add('fade-out');
-                setTimeout(() => overlay.remove(), 400);
-
+                // Determine prize
+                let prize = {};
                 if (type === 'orig') {
-                    // Original Box (Gems 80%, Sticker 20%)
                     if (Math.random() < 0.2) {
-                        // Sticker
                         const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave'];
                         const reward = stickers[Math.floor(Math.random() * stickers.length)];
+                        
                         let owned = [];
                         try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
                         if (!owned.includes(reward)) {
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if(typeof showUnlockModal === 'function') {
-                            showUnlockModal('🎁 Új Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', 'box');
-                        } else {
-                            showLootToast('Új Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', '🎁');
-                        }
+                        if (typeof renderStickers === 'function') renderStickers();
+                        
+                        prize = { title: 'Új Matrica!', name: reward, isSticker: true };
                     } else {
-                        // Gems
-                        const gemReward = Math.floor(Math.random() * 100) + 50; // 50-150
+                        const gemReward = Math.floor(Math.random() * 100) + 50;
                         let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                         localStorage.setItem('nu_gems', String(currentGems + gemReward));
                         if (typeof updateGemUI === 'function') updateGemUI();
-                        showLootToast('Gemek!', `Az Original Boxból ${gemReward} Gemet nyitottál!`, '💎');
+                        
+                        prize = { title: 'Gemek!', name: gemReward + ' Gem', isGems: true };
                     }
-                } else {
-                    // VIP Box (Skin 30%, Sticker 20%, Gems 50%)
+                } else if (type === 'vip') {
                     const r = Math.random();
                     if (r < 0.3) {
-                        // Skin
                         const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti', 'six-seven'];
                         const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
+                        
                         let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_skins') || '[]'); } catch(e){}
+                        try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
                         if (!owned.includes(reward)) {
                             owned.push(reward);
-                            localStorage.setItem('nu_skins', JSON.stringify(owned));
+                            localStorage.setItem('nu_owned', JSON.stringify(owned));
                         }
-                        if(typeof showUnlockModal === 'function') {
-                            showUnlockModal('🤖 Új Bot/Skin!', 'VIP Nyitás: ' + reward, reward);
-                        } else {
-                            showLootToast('Új Bot/Skin!', 'VIP Nyitás: ' + reward, '🤖');
-                        }
+                        if (typeof renderShop === 'function') renderShop();
+                        
+                        prize = { title: 'Új Bot / Skin!', name: reward, isSkin: true, skinId: reward };
                     } else if (r < 0.5) {
-                        // Rare Sticker
                         const stickers = ['sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
                         const reward = stickers[Math.floor(Math.random() * stickers.length)];
+                        
                         let owned = [];
                         try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
                         if (!owned.includes(reward)) {
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if(typeof showUnlockModal === 'function') {
-                            showUnlockModal('💎 VIP Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', 'box');
-                        } else {
-                            showLootToast('VIP Matrica!', 'Kinyitottad a(z) ' + reward + ' matricát!', '💎');
-                        }
+                        if (typeof renderStickers === 'function') renderStickers();
+                        
+                        prize = { title: 'VIP Matrica!', name: reward, isSticker: true };
                     } else {
-                        // Huge Gems
-                        const gemReward = Math.floor(Math.random() * 500) + 300; // 300-800
+                        const gemReward = Math.floor(Math.random() * 500) + 300;
                         let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                         localStorage.setItem('nu_gems', String(currentGems + gemReward));
                         if (typeof updateGemUI === 'function') updateGemUI();
-                        showLootToast('Hatalmas Nyeremény!', `A VIP Boxból ${gemReward} Gemet nyitottál!`, '💎');
+                        
+                        prize = { title: 'Hatalmas Gem!', name: gemReward + ' Gem', isGems: true };
+                    }
+                } else if (type === 'six-seven') {
+                    let openedCount = parseInt(localStorage.getItem('nu_six_seven_boxes') || '0', 10);
+                    let ownsSixSeven = false;
+                    try { ownsSixSeven = JSON.parse(localStorage.getItem('nu_owned') || '[]').includes('six-seven'); } catch(e){}
+                    let dropRate = 0.02;
+                    if (openedCount >= 20 && !ownsSixSeven) dropRate = 1.0;
+                    
+                    if (!ownsSixSeven && Math.random() < dropRate) {
+                        let owned = [];
+                        try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
+                        if (!owned.includes('six-seven')) {
+                            owned.push('six-seven');
+                            localStorage.setItem('nu_owned', JSON.stringify(owned));
+                        }
+                        if (typeof renderShop === 'function') renderShop();
+                        prize = { title: 'Six-Seven Bot!', name: 'six-seven', isSkin: true, skinId: 'six-seven' };
+                    } else {
+                        const gemReward = Math.floor(Math.random() * 20) + 10;
+                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
+                        if (typeof updateGemUI === 'function') updateGemUI();
+                        prize = { title: 'Gemek!', name: gemReward + ' Gem', isGems: true };
                     }
                 }
+
+                function getStickerEmoji(id) {
+                    const map = {
+                        'sticker-hello': '👋',
+                        'sticker-szia': '🇭🇺',
+                        'sticker-hey': '🤙',
+                        'sticker-sup': '👊',
+                        'sticker-yoo': '🤟',
+                        'sticker-wave': '🙋‍♂️',
+                        'sticker-matrix': '👽',
+                        'sticker-cyber': '🤖',
+                        'sticker-quantum': '🌀',
+                        'sticker-hacker': '💻'
+                    };
+                    return map[id] || '🎁';
+                }
+
+                // Show what we got inside the overlay with a beautiful entry animation
+                let rewardHtml = '';
+                if (prize.isGems) {
+                    rewardHtml = `<div style="font-size: 100px; text-shadow: 0 0 40px rgba(56, 189, 248, 0.8); animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">💎</div>`;
+                } else if (prize.isSkin) {
+                    if (typeof window.buildMiniRobotHtml === 'function') {
+                        rewardHtml = `<div style="transform: scale(2.0); margin: 50px 0; height: 120px; display: flex; justify-content: center; align-items: center; animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${window.buildMiniRobotHtml(prize.skinId, false)}</div>`;
+                    } else {
+                        rewardHtml = `<div style="font-size: 100px; animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">🤖</div>`;
+                    }
+                } else if (prize.isSticker) {
+                    rewardHtml = `<div style="font-size: 100px; text-shadow: 0 0 40px rgba(167, 139, 250, 0.8); animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${getStickerEmoji(prize.name)}</div>`;
+                }
+
+                overlay.innerHTML = `
+                    <div style="text-align: center; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <h2 style="font-size: 32px; font-weight: 900; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.6); margin: 0 0 10px 0; animation: prizePop 0.4s ease-out;">${prize.title}</h2>
+                        <div style="margin: 20px 0;">
+                            ${rewardHtml}
+                        </div>
+                        <p style="font-size: 24px; font-weight: 900; color: #fff; margin: 10px 0 5px 0; text-transform: uppercase; animation: prizePop 0.5s ease-out;">${prize.name}</p>
+                        <p style="font-size: 13px; color: rgba(255,255,255,0.4); margin: 15px 0 0 0; animation: prizePop 0.6s ease-out;">Automatikusan bezáródik...</p>
+                    </div>
+                `;
+
+                // Play win sound
+                try {
+                    if (prize.isSkin) {
+                        playSfx('zynox');
+                    } else if (prize.isGems) {
+                        playSfx('gem-claim');
+                    } else {
+                        playSfx('skin-equip');
+                    }
+                } catch(e){}
+
+                // Auto remove overlay after 3.8 seconds
+                setTimeout(() => {
+                    overlay.classList.add('fade-out');
+                    setTimeout(() => overlay.remove(), 500);
+                }, 3800);
+
             }, 1500);
         }
-
-
-        
-    window.showLootToast = function(title, body, imgPathOrIcon) {
-        // Remove existing toasts first to prevent stacking
-        const activeToasts = document.querySelectorAll('.loot-toast');
-        activeToasts.forEach(t => t.remove());
-
-        const toast = document.createElement('div');
-        toast.className = 'loot-toast';
-        
-        let imgHtml = '';
-        if (imgPathOrIcon) {
-            if (imgPathOrIcon.includes('.png') || imgPathOrIcon.includes('.jpeg') || imgPathOrIcon.includes('.jpg')) {
-                imgHtml = `<img src="${imgPathOrIcon}" style="width: 50px; height: 50px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">`;
-            } else {
-                imgHtml = `<div style="font-size: 40px; line-height: 1;">${imgPathOrIcon}</div>`;
-            }
-        }
-        
-        toast.innerHTML = `
-            ${imgHtml}
-            <div>
-                <h4 class="loot-toast-title">${title}</h4>
-                <p class="loot-toast-body">${body}</p>
-            </div>
-        `;
-        
-        document.body.appendChild(toast);
-        
-        // Trigger reflow & show
-        void toast.offsetWidth;
-        toast.classList.add('show');
-        
-        // Auto remove after 3.5 seconds
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 500);
-        }, 3500);
-    };
 
         window.buyOriginalBox = function() {
             let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
@@ -25641,8 +25691,6 @@
             doNyitas('vip');
         };
 
-
     })();
     </script>
-
 </html>
