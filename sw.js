@@ -1,10 +1,10 @@
-const CACHE_NAME = 'dailybot-v57';
+const CACHE_NAME = 'dailybot-v59';
 const ASSETS = [
     './',
     './index.html',
     './manifest.json',
     './icon/app_icon_event.png',
-    './summer music/Summer Chill.mp3'
+
 ];
 
 // Install — cache fájlok

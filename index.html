@@ -14,74 +14,10 @@
     <link rel="manifest" id="manifestLink" href="manifest.json?v=5">
     <script>
     </script>
-    <title>DailyBot 🍦 Summer Chill</title>
+    <title>DailyBot 🏎️ Racing Event</title>
 
     <style>
-        /* Mega Pack unboxing grid */
-        .mega-prize-grid {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 15px;
-            flex-wrap: wrap;
-            max-width: 310px;
-        }
-        .mega-prize-slot {
-            width: 54px;
-            height: 75px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-sizing: border-box;
-        }
-        .mega-prize-slot.revealed {
-            opacity: 1;
-            transform: scale(1);
-            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(139, 92, 246, 0.05));
-            border-color: #a78bfa;
-            box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
-        }
-
-        /* Mega Pack unboxing grid */
-        .mega-prize-grid {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 15px;
-            flex-wrap: wrap;
-            max-width: 310px;
-        }
-        .mega-prize-slot {
-            width: 54px;
-            height: 75px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-sizing: border-box;
-        }
-        .mega-prize-slot.revealed {
-            opacity: 1;
-            transform: scale(1);
-            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(139, 92, 246, 0.05));
-            border-color: #a78bfa;
-            box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
-        }
-
-        /* Shop Sidebar Layout Styles */
+/* Shop Sidebar Layout Styles */
         .shop-body-wrapper {
             display: flex;
             flex-direction: row;
@@ -16356,1172 +16292,346 @@
             transform: scale(1.2)
         }
 
-        /* ============== SUMMER CHILL EVENT ============== */
-        /* Nyári fagylaltos háttér — napsütéses ég + meleg pasztell (június 10 – augusztus 10) */
-        body.summer-event {
-            background: linear-gradient(165deg, #0ea5e9 0%, #38bdf8 20%, #7dd3fc 40%, #fde68a 65%, #fbbf24 80%, #f97316 100%) !important;
-            background-attachment: fixed !important
+        /* ============== RACING EVENT ============== */
+        body.racing-event {
+            background: radial-gradient(circle at center, #1e293b 0%, #0b0f19 100%) !important;
+            background-attachment: fixed !important;
         }
 
-        body.summer-event .stars {
-            opacity: .15
+        body.racing-event .stars {
+            opacity: .05
         }
 
-        /* Nap sugarak (conic gradient) */
-        body.summer-event::before {
+        /* Checkered flag overlay */
+        body.racing-event::before {
             content: '';
             position: fixed;
-            top: -30%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
-            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg 12deg, rgba(255, 255, 255, .06) 12deg 14deg);
-            border-radius: 50%;
-            animation: sunRays 30s linear infinite;
-            opacity: .8
+            background-image: 
+              linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
+              linear-gradient(-45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
+              linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.015) 75%), 
+              linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.015) 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+            opacity: 0.8;
         }
 
-        @keyframes sunRays {
-            from {
-                transform: rotate(0deg)
-            }
-
-            to {
-                transform: rotate(360deg)
-            }
-        }
-
-        /* Halvány felhő / pára réteg */
-        body.summer-event::after {
+        body.racing-event::after {
             content: '';
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 30%;
+            height: 25%;
             z-index: 0;
             pointer-events: none;
-            background: linear-gradient(to top, rgba(255, 255, 255, .12), transparent);
+            background: linear-gradient(to top, rgba(239, 68, 68, 0.04), transparent);
             opacity: .6
         }
 
-        body.summer-event .app,
-        body.summer-event .stars,
-        body.summer-event #robot-container {
+        body.racing-event .app,
+        body.racing-event .stars,
+        body.racing-event #robot-container {
             position: relative;
             z-index: 1;
         }
 
-        body.summer-event .skin-panel,
-        body.summer-event .favs-toggle,
-        body.summer-event .skin-toggle,
-        body.summer-event .sync-panel,
-        body.summer-event .dc-panel,
-        body.summer-event .news-panel {
+        body.racing-event .skin-panel,
+        body.racing-event .favs-toggle,
+        body.racing-event .skin-toggle,
+        body.racing-event .sync-panel,
+        body.racing-event .dc-panel,
+        body.racing-event .news-panel {
             z-index: 1000;
         }
 
-        body.summer-event .stars {
-            opacity: .15
+        /* ── RACING RED BOT SKIN ── */
+        .robot.racer-red .head {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;
+            border: 2.5px solid #7f1d1d !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4), inset 0 2px 0 rgba(255,255,255,0.4) !important;
         }
-
-        /* News Menu Styles */
-        .news-toggle {
-            position: fixed;
-            top: calc(env(safe-area-inset-top, 20px) + 12px);
-            left: 12px;
-            z-index: 50;
-            background: linear-gradient(135deg, #e11d48, #be123c);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, .4);
-            border: 2px solid #000;
-            letter-spacing: 1px;
-            transition: opacity 0.3s, transform 0.2s;
+        .robot.racer-red .torso {
+            background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%) !important;
+            border: 2.5px solid #450a0a !important;
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.4) !important;
         }
-
-        .news-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .news-toggle.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .news-panel {
-            position: fixed;
-            inset: 0;
-            z-index: 1500;
-            background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
-            display: none;
-            flex-direction: column;
-        }
-
-        .news-panel.open {
-            display: flex;
-        }
-
-        .news-header {
-            padding: calc(env(safe-area-inset-top, 20px) + 16px) 20px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #000;
-            background: #1a0a2e;
-        }
-
-        .news-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: #0f172a;
-        }
-
-        .news-tabs {
-            display: flex;
-            gap: 10px;
-            margin: 20px 20px 10px;
-        }
-
-        .news-tab {
-            padding: 12px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-weight: 900;
-            cursor: pointer;
-            flex: 1;
-            text-align: center;
-            border: 2px solid transparent;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .news-tab.active {
-            background: #e11d48;
-            border-color: #fbbf24;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);
-        }
-
-        .news-slider {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 15px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .news-slider::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .news-slider::-webkit-scrollbar-thumb {
-            background: rgba(251, 191, 36, 0.3);
-            border-radius: 3px;
-        }
-
-        .news-video-card {
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 3px solid #000;
-            background: #000;
+        .robot.racer-red .chest {
+            background: #ffffff !important;
+            border: 2px solid #1e293b !important;
             position: relative;
-            aspect-ratio: 16/9;
         }
-
-        .news-image-card {
-            flex: 0 0 auto;
-            scroll-snap-align: center;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 3px solid #000;
-            background: transparent;
-            position: relative;
-            height: 160px;
-            cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+        .robot.racer-red .chest::before {
+            content: '99' !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 900 !important;
+            color: #1e293b !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
         }
-
-        .news-image-card:hover {
-            transform: scale(1.04);
-            border-color: #fbbf24;
+        .robot.racer-red .arm-l, .robot.racer-red .arm-r {
+            background: linear-gradient(to bottom, #ef4444, #991b1b) !important;
+            border: 1.5px solid #7f1d1d !important;
         }
-
-        .news-image-card img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-            display: block;
+        .robot.racer-red .leg {
+            background: linear-gradient(to bottom, #1e293b, #0f172a) !important;
+            border: 1.5px solid #000 !important;
         }
-
-        /* Lightbox zoom overlay */
-        .zoom-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .zoom-overlay.show {
-            opacity: 1;
-        }
-
-        .zoom-content {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 12px;
-            border: 3px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.85);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .zoom-overlay.show .zoom-content {
-            transform: scale(1);
-        }
-
-        .zoom-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 44px;
-            font-weight: bold;
-            cursor: pointer;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-            transition: color 0.2s, transform 0.2s;
-        }
-
-        .zoom-close-btn:hover {
-            color: #f43f5e;
-            transform: scale(1.1);
-        }
-
-        .news-video-card video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .news-video-card::after {
-            content: 'PLAY';
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: #fbbf24;
-            color: #000;
-            padding: 2px 8px;
-            font-size: 10px;
-            font-weight: 900;
-            border-radius: 4px;
-            pointer-events: none;
-        }
-
-        .news-article {
-            background: #1a0a2e;
-            border-radius: 16px;
-            padding: 20px;
-            color: #fff;
-            line-height: 1.6;
-            border: 2px solid #334155;
-        }
-
-        .news-article h2 {
-            color: #fbbf24;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-
-        /* Maintenance Mode */
-        .maint-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .maint-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: giftBob 2s infinite;
-        }
-
-        .maint-title {
-            font-size: 32px;
-            font-weight: 900;
-            color: #fbbf24;
-            margin-bottom: 10px;
-        }
-
-        .maint-text {
-            font-size: 16px;
-            opacity: 0.8;
-            max-width: 400px;
-        }
-
-        /* Gem Reward Redesign */
-        .gem-visual {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6));
-        }
-
-        .gem-visual svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        
-
-
-        body.comic-event .stars {
-            opacity: .3
-        }
-
-        /* Comic Clash Shop Banner */
-        .cc-banner {
-            position: relative;
-            width: 100%;
-            padding: 18px;
-            border-radius: 20px;
-            overflow: hidden;
-            cursor: pointer;
-            background: linear-gradient(135deg, #1a0a2e 0%, #e11d48 40%, #fbbf24 70%, #0ea5e9 100%);
-            background-size: 300% 300%;
-            animation: ccBannerFlow 8s ease-in-out infinite;
-            border: 2.5px solid rgba(251, 191, 36, .7);
-            box-shadow: 0 8px 30px rgba(225, 29, 72, .5);
-            transition: transform .25s, box-shadow .25s
-        }
-
-        .cc-banner:active {
-            transform: scale(.98)
-        }
-
-        .cc-banner:hover {
-            box-shadow: 0 14px 40px rgba(225, 29, 72, .6)
-        }
-
-        @keyframes ccBannerFlow {
-
-            0%,
-            100% {
-                background-position: 0% 50%
-            }
-
-            50% {
-                background-position: 100% 50%
-            }
-        }
-
-        .cc-banner-burst {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden
-        }
-
-        .cc-banner-burst::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 400px;
-            height: 400px;
-            transform: translate(-50%, -50%);
-            background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255, 255, 255, .08) 10deg 12deg);
-            animation: ccBurst 20s linear infinite
-        }
-
-        @keyframes ccBurst {
-            from {
-                transform: translate(-50%, -50%) rotate(0deg)
-            }
-
-            to {
-                transform: translate(-50%, -50%) rotate(360deg)
-            }
-        }
-
-        .cc-banner-burst::after {
-            content: 'POW!';
-            position: absolute;
-            top: 8px;
-            right: 14px;
-            font-size: 11px;
-            font-weight: 900;
-            color: #fbbf24;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
-            transform: rotate(8deg);
-            animation: ccPow 2s ease-in-out infinite
-        }
-
-        @keyframes ccPow {
-
-            0%,
-            100% {
-                transform: rotate(8deg) scale(1)
-            }
-
-            50% {
-                transform: rotate(12deg) scale(1.15)
-            }
-        }
-
-        .cc-banner-content {
-            position: relative;
-            z-index: 2
-        }
-
-        .cc-banner-tag {
-            display: inline-block;
-            font-size: 9px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a0a2e;
-            padding: 3px 10px;
-            border-radius: 8px;
-            margin-bottom: 8px
-        }
-
-        .cc-banner-title {
-            font-size: 22px;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: 1px;
-            text-shadow: 3px 3px 0 #000, -1px -1px 0 rgba(225, 29, 72, .8);
-            line-height: 1.1;
-            margin-bottom: 4px
-        }
-
-        .cc-banner-sub {
-            font-size: 12px;
-            color: rgba(255, 255, 255, .85);
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 10px
-        }
-
-        .cc-banner-rewards {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 12px
-        }
-
-        .cc-reward-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 5px 10px;
-            background: rgba(0, 0, 0, .5);
-            border: 1px solid rgba(255, 255, 255, .25);
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 800;
-            color: #fff;
-            backdrop-filter: blur(4px)
-        }
-
-        .cc-reward-pill .cc-r-icon {
-            font-size: 14px
-        }
-
-        .cc-banner-btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a0a2e;
-            font-weight: 900;
-            font-size: 14px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 18px rgba(251, 191, 36, .5);
-            position: relative;
-            overflow: hidden;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, .3);
-            width: 100%
-        }
-
-        .cc-banner-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .5), transparent);
-            animation: bpShine 2.5s linear infinite;
-            pointer-events: none
-        }
-
-        .cc-banner-btn:active {
-            transform: scale(.96)
-        }
-
-        .cc-banner-btn:disabled {
-            opacity: .5;
-            cursor: default
-        }
-
-        .cc-banner-bought {
-            font-size: 12px;
-            font-weight: 800;
-            color: #10b981;
-            background: rgba(16, 185, 129, .15);
-            border: 1px solid rgba(16, 185, 129, .4);
-            padding: 8px 16px;
-            border-radius: 10px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box
-        }
-
-        /* Daily Box kép stílus */
-        /* Super Daily Box stílus */
-        .super-box-text {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 40%, #0a0a0a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-            font-weight: 900;
-            letter-spacing: 1px;
-            font-size: 1.05em;
-            filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.5));
-        }
-
-        .gem-img {
-            display: inline-block;
-            width: 1.2em;
-            height: 1.2em;
-            vertical-align: middle;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23bae6fd"/><stop offset=".5" stop-color="%230ea5e9"/><stop offset="1" stop-color="%230369a1"/></linearGradient><path d="M40,10 L70,30 L40,70 L10,30 Z" fill="url(%23g)" stroke="%230284c7" stroke-width="1.5"/><path d="M40,10 L70,30 L40,40 Z" fill="rgba(255,255,255,.5)"/><path d="M10,30 L40,40 L40,10 Z" fill="rgba(255,255,255,.3)"/><path d="M40,70 L40,40 L70,30 Z" fill="rgba(0,0,0,.15)"/><path d="M10,30 L40,70 L40,40 Z" fill="rgba(0,0,0,.05)"/></svg>') center/contain no-repeat;
-            filter: drop-shadow(0 0 4px rgba(14, 165, 233, 0.8));
-            margin-top: -2px;
-        }
-
-        .daily-box-img {
-            width: 64px;
-            height: 64px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 12px rgba(132, 255, 0, .6)) drop-shadow(0 0 24px rgba(132, 255, 0, .3));
-            animation: dailyBoxFloat 2.5s ease-in-out infinite
-        }
-
-        @keyframes dailyBoxFloat {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(-3deg)
-            }
-
-            50% {
-                transform: translateY(-5px) rotate(3deg)
-            }
-        }
-
-
-        /* ── COMIC-HERO BOT SKIN ── */
-        .robot.comic-hero .head {
-            background: linear-gradient(165deg, #e11d48 0%, #be123c 40%, #881337 100%) !important;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, .5) !important;
-            border: 2px solid #000 !important
-        }
-
-        .robot.comic-hero .torso {
-            background: linear-gradient(165deg, #1d4ed8 0%, #1e40af 50%, #1e3a8a 100%) !important;
-            box-shadow: 0 6px 16px rgba(30, 64, 175, .5), inset 0 1px 0 rgba(255, 255, 255, .2) !important;
-            border: 2px solid #000 !important
-        }
-
-        .robot.comic-hero .face-screen {
-            background: #0f172a !important;
-            border: 1.5px solid #fbbf24 !important;
-            border-radius: 8px !important
-        }
-
-        .robot.comic-hero .eye {
-            background: radial-gradient(circle, #fff 30%, #fbbf24 70%, #f59e0b 100%) !important;
-            box-shadow: 0 0 10px #fbbf24, 0 0 20px rgba(251, 191, 36, .5) !important
-        }
-
-        .robot.comic-hero .mouth {
+        .robot.racer-red .antenna-ball {
             background: #fbbf24 !important;
-            width: 16px !important;
-            height: 4px !important;
-            border-radius: 2px !important;
-            box-shadow: 0 0 6px rgba(251, 191, 36, .5) !important
+            box-shadow: 0 0 10px #fbbf24 !important;
         }
 
-        .robot.comic-hero .antenna-stick {
-            background: linear-gradient(to bottom, #fbbf24, #f59e0b) !important;
-            border: 1px solid #000 !important
+        /* ── RACING BLUE BOT SKIN ── */
+        .robot.racer-blue .head {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+            border: 2.5px solid #1e3a8a !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4), inset 0 2px 0 rgba(255,255,255,0.4) !important;
         }
-
-        .robot.comic-hero .antenna-ball {
-            background: radial-gradient(circle, #fef3c7, #fbbf24 60%, #d97706) !important;
-            box-shadow: 0 0 14px rgba(251, 191, 36, .8), 0 0 28px rgba(251, 191, 36, .4) !important;
-            border: 1.5px solid #000 !important
+        .robot.racer-blue .torso {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%) !important;
+            border: 2.5px solid #172554 !important;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4) !important;
         }
-
-        .robot.comic-hero .arm-l,
-        .robot.comic-hero .arm-r {
-            background: linear-gradient(to bottom, #e11d48, #be123c, #881337) !important;
-            border: 1.5px solid #000 !important;
-            box-shadow: 0 3px 8px rgba(225, 29, 72, .4) !important
-        }
-
-        .robot.comic-hero .leg {
-            background: linear-gradient(to bottom, #1d4ed8 0%, #1e40af 70%, #1e3a8a 100%) !important;
-            border: 1.5px solid #000 !important;
-            box-shadow: 0 4px 10px rgba(30, 64, 175, .4) !important
-        }
-
-        .robot.comic-hero .shoulder-l,
-        .robot.comic-hero .shoulder-r {
-            background: radial-gradient(circle at 30% 30%, #fbbf24, #f59e0b, #d97706) !important;
-            border: 1.5px solid #000 !important;
-            box-shadow: 0 3px 8px rgba(251, 191, 36, .4) !important
-        }
-
-        .robot.comic-hero .ear-l,
-        .robot.comic-hero .ear-r {
-            background: linear-gradient(to right, #e11d48, #be123c) !important;
-            border: 1px solid #000 !important
-        }
-
-        .robot.comic-hero .neck {
-            background: linear-gradient(to bottom, #e11d48, #1d4ed8) !important;
-            border: 1px solid #000 !important
-        }
-
-        .robot.comic-hero .foot {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 60%, #d97706 100%) !important;
-            box-shadow: 0 3px 8px rgba(251, 191, 36, .4) !important;
-            border: 1.5px solid #000 !important
-        }
-
-        .robot.comic-hero .chest {
-            background: radial-gradient(circle at 50% 50%, #fbbf24 0%, #f59e0b 100%) !important;
-            border: 2px solid #000 !important;
-            box-shadow: 0 0 16px rgba(251, 191, 36, .6) !important
-        }
-
-        .robot.comic-hero .heart-icon {
-            display: none !important
-        }
-
-        .robot.comic-hero .chest::before {
-            content: '⚡';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            z-index: 2;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .6))
-        }
-
-        .robot.comic-hero .chest-dots {
-            display: none !important
-        }
-
-        /* Köpeny effekt */
-        .robot.comic-hero::before {
-            content: '';
-            position: absolute;
-            top: 44px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 200px;
-            background: linear-gradient(180deg, rgba(225, 29, 72, .9) 0%, rgba(225, 29, 72, .7) 40%, rgba(225, 29, 72, .3) 70%, transparent 100%);
-            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-            z-index: -1;
-            animation: comicCapeFlow 3s ease-in-out infinite;
-            border: 2px solid rgba(0, 0, 0, .3);
-            border-top: none
-        }
-
-        @keyframes comicCapeFlow {
-
-            0%,
-            100% {
-                clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%)
-            }
-
-            50% {
-                clip-path: polygon(20% 0%, 80% 0%, 95% 100%, 5% 100%)
-            }
-        }
-
-        /* Akció vonalak */
-        .robot.comic-hero::after {
-            content: '';
-            position: absolute;
-            inset: -20px;
-            background: repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg 15deg, rgba(251, 191, 36, .08) 15deg 16deg);
-            animation: comicLines 15s linear infinite;
-            pointer-events: none;
-            z-index: -2;
-            border-radius: 50%
-        }
-
-        @keyframes comicLines {
-            from {
-                transform: rotate(0deg)
-            }
-
-            to {
-                transform: rotate(360deg)
-            }
-        }
-
-        /* ── COMIC-VILLAIN BOT SKIN ── */
-        .robot.comic-villain .head {
-            background: linear-gradient(165deg, #7e22ce 0%, #6b21a8 50%, #581c87 100%) !important;
-            border: 2px solid #000 !important
-        }
-
-        .robot.comic-villain .torso {
-            background: linear-gradient(165deg, #16a34a 0%, #15803d 50%, #14532d 100%) !important;
-            border: 2px solid #000 !important
-        }
-
-        .robot.comic-villain .eye {
-            background: radial-gradient(circle, #fff 10%, #bef264 60%, #84cc16 100%) !important;
-            box-shadow: 0 0 12px #bef264 !important
-        }
-
-        .robot.comic-villain .antenna-ball {
-            background: radial-gradient(circle, #d8b4fe, #a855f7 70%, #7e22ce) !important;
-            border: 1.5px solid #000 !important
-        }
-
-        .robot.comic-villain .chest::before {
-            content: '💀';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 16px;
-            z-index: 2
-        }
-
-        .robot.comic-villain .shoulder-l,
-        .robot.comic-villain .shoulder-r {
-            background: #000 !important;
-            border: 1.5px solid #bef264 !important
-        }
-
-        .robot.comic-villain .foot {
-            background: #000 !important;
-            border: 1.5px solid #7e22ce !important
-        }
-
-        .robot.comic-villain::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 220px;
-            background: linear-gradient(180deg, rgba(126, 34, 206, .6) 0%, transparent 100%);
-            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-            z-index: -1;
-            animation: comicCapeFlow 4s ease-in-out infinite alternate
-        }
-
-        .robot.comic-villain::after {
-            content: '';
-            position: absolute;
-            inset: -30px;
-            background: radial-gradient(circle at 50% 50%, rgba(190, 242, 100, .05) 0%, transparent 70%);
-            animation: villainGlow 3s infinite alternate
-        }
-
-        @keyframes villainGlow {
-            from {
-                opacity: .3
-            }
-
-            to {
-                opacity: .7
-            }
-        }
-
-        /* ── ICE CREAM BOT SKIN (SUMMER EXCLUSIVE) ── */
-        @keyframes iceCreamFloat {
-            0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 12px rgba(45, 212, 191, .3)) }
-            50% { transform: translateY(-4px); filter: drop-shadow(0 0 24px rgba(244, 114, 182, .5)) }
-        }
-        @keyframes chocoDrip {
-            0% { clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%) }
-            50% { clip-path: polygon(0% 0%, 100% 0%, 100% 65%, 85% 82%, 70% 72%, 55% 88%, 40% 76%, 25% 90%, 10% 75%, 0% 80%) }
-            100% { clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%) }
-        }
-        @keyframes cherryBob {
-            0%, 100% { transform: translateX(-50%) translateY(0) scale(1) }
-            50% { transform: translateX(-50%) translateY(-3px) scale(1.08) }
-        }
-        @keyframes cherryShine {
-            0%, 100% { box-shadow: 0 0 16px rgba(239, 68, 68, .7), 0 0 32px rgba(239, 68, 68, .3), inset -3px -3px 6px rgba(0,0,0,.2) }
-            50% { box-shadow: 0 0 24px rgba(239, 68, 68, .9), 0 0 48px rgba(239, 68, 68, .5), 0 0 60px rgba(251,191,36,.3), inset -3px -3px 6px rgba(0,0,0,.2) }
-        }
-        @keyframes iceChillGlow {
-            0% { transform: scale(0.92); opacity: 0.4 }
-            50% { transform: scale(1.08); opacity: 0.85 }
-            100% { transform: scale(0.92); opacity: 0.4 }
-        }
-        @keyframes iceCreamChestPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 4px rgba(219,39,119,.4)) }
-            50% { transform: translate(-50%, -50%) scale(1.15); filter: drop-shadow(0 0 12px rgba(219,39,119,.7)) }
-        }
-        @keyframes waffleConeShine {
-            0% { background-position: -100% 0 }
-            100% { background-position: 200% 0 }
-        }
-        @keyframes coneGlow {
-            0%, 100% { filter: brightness(1) drop-shadow(0 0 2px rgba(217, 119, 6, 0.4)); }
-            50% { filter: brightness(1.2) drop-shadow(0 0 8px rgba(217, 119, 6, 0.85)); }
-        }
-        @keyframes sprinkleSparkle {
-            0%, 100% { opacity: 0.65; }
-            50% { opacity: 1; filter: brightness(1.3); }
-        }
-
-        .robot.ice-cream {
-            animation: iceCreamFloat 3s ease-in-out infinite;
-        }
-
-        .robot.ice-cream .head {
-            background: linear-gradient(165deg, #fffbeb 0%, #fef9c3 25%, #fef08a 50%, #fde047 100%) !important;
-            box-shadow: 0 4px 16px rgba(253, 224, 71, .5), inset 0 -6px 10px rgba(202, 138, 4, .15), inset 0 2px 0 rgba(255,255,255,.6) !important;
-            border: 2px solid #ca8a04 !important;
-            overflow: visible !important
-        }
-
-        /* Whipped cream top — a fejen */
-        .robot.ice-cream .head::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: 15%;
-            right: 15%;
-            height: 10px;
-            background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(254,249,195,.6));
-            border-radius: 8px 8px 4px 4px;
-            z-index: 5;
-            box-shadow: 0 -2px 8px rgba(255,255,255,.5);
-            pointer-events: none
-        }
-
-        .robot.ice-cream .torso {
-            background: linear-gradient(165deg, #fce7f3 0%, #fbcfe8 25%, #f472b6 55%, #db2777 100%) !important;
-            box-shadow: 0 6px 20px rgba(219, 39, 119, .45), inset 0 2px 0 rgba(255, 255, 255, .4) !important;
-            border: 2px solid #9d174d !important;
+        .robot.racer-blue .chest {
+            background: #ffffff !important;
+            border: 2px solid #1e293b !important;
             position: relative;
-            overflow: visible !important
+        }
+        .robot.racer-blue .chest::before {
+            content: '01' !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 900 !important;
+            color: #1e293b !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+        .robot.racer-blue .arm-l, .robot.racer-blue .arm-r {
+            background: linear-gradient(to bottom, #3b82f6, #1d4ed8) !important;
+            border: 1.5px solid #1e3a8a !important;
+        }
+        .robot.racer-blue .leg {
+            background: linear-gradient(to bottom, #1e293b, #0f172a) !important;
+            border: 1.5px solid #000 !important;
+        }
+        .robot.racer-blue .antenna-ball {
+            background: #10b981 !important;
+            box-shadow: 0 0 10px #10b981 !important;
         }
 
-        /* Csokoládé öntet animált lefolyás */
-        .robot.ice-cream .torso::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 5%;
-            right: 5%;
-            height: 50%;
-            background: linear-gradient(to bottom, #5b2c0e, #78350f 40%, #92400e 70%, #a16207);
-            clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%);
-            animation: chocoDrip 4s ease-in-out infinite;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, .4);
-            z-index: 5;
-            pointer-events: none;
-            border-radius: 0 0 6px 6px
-        }
-
-        /* Szórás (sprinkles) a törzsön */
-        .robot.ice-cream .torso::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 12%;
-            right: 12%;
-            height: 28%;
-            background:
-                radial-gradient(circle 2px at 20% 30%, #ef4444, transparent),
-                radial-gradient(circle 2px at 50% 20%, #fbbf24, transparent),
-                radial-gradient(circle 2px at 75% 50%, #22d3ee, transparent),
-                radial-gradient(circle 2px at 35% 60%, #a855f7, transparent),
-                radial-gradient(circle 2px at 60% 70%, #4ade80, transparent),
-                radial-gradient(circle 2px at 85% 25%, #f472b6, transparent),
-                radial-gradient(circle 2px at 15% 75%, #fbbf24, transparent);
-            z-index: 6;
-            pointer-events: none;
-            opacity: .85;
-            animation: sprinkleSparkle 2s ease-in-out infinite;
-        }
-
-        .robot.ice-cream .face-screen {
-            background: linear-gradient(180deg, #0f3a37, #134e4a) !important;
-            border: 1.5px solid #2dd4bf !important;
-            border-radius: 10px !important;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,.3), 0 0 8px rgba(45,212,191,.15) !important
-        }
-
-        .robot.ice-cream .eye {
-            background: radial-gradient(circle, #fff 15%, #5eead4 50%, #2dd4bf 75%, #0d9488 100%) !important;
-            box-shadow: 0 0 12px #2dd4bf, 0 0 24px rgba(45, 212, 191, .7), inset 0 0 4px rgba(255,255,255,.5) !important
-        }
-
-        .robot.ice-cream .mouth {
-            background: linear-gradient(90deg, #14b8a6, #2dd4bf, #14b8a6) !important;
-            width: 16px !important;
-            height: 4px !important;
-            border-radius: 0 0 8px 8px !important;
-            box-shadow: 0 0 8px rgba(45, 212, 191, .7) !important
-        }
-
-        .robot.ice-cream .antenna-stick {
-            background: linear-gradient(to bottom, #fbbf24, #f59e0b, #ca8a04) !important;
-            border: 1px solid #78350f !important;
-            box-shadow: 0 0 6px rgba(245,158,11,.3) !important
-        }
-
-        /* Cseresznye — nagyobb, fényesebb, csillogó highlight */
-        .robot.ice-cream .antenna-ball {
-            background: radial-gradient(circle at 35% 30%, #fecaca, #fca5a5 30%, #ef4444 60%, #b91c1c 90%) !important;
-            box-shadow: 0 0 16px rgba(239, 68, 68, .7), 0 0 32px rgba(239, 68, 68, .3), inset -3px -3px 6px rgba(0,0,0,.2) !important;
-            border: 1.5px solid #78350f !important;
-            animation: cherryBob 2s ease-in-out infinite, cherryShine 3s ease-in-out infinite !important
-        }
-
-        .robot.ice-cream .arm-l,
-        .robot.ice-cream .arm-r {
-            background: linear-gradient(to bottom, #fef08a, #fde047, #eab308, #ca8a04) !important;
-            border: 1.5px solid #ca8a04 !important;
-            box-shadow: 0 3px 10px rgba(202, 138, 4, .35), inset 0 1px 0 rgba(255,255,255,.4) !important
-        }
-
-        /* Waffle cone textúra a lábakon */
-        .robot.ice-cream .leg {
-            background:
-                repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(120,53,15,.15) 3px, rgba(120,53,15,.15) 4px),
-                repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(120,53,15,.15) 3px, rgba(120,53,15,.15) 4px),
-                linear-gradient(to bottom, #d97706 0%, #b45309 50%, #92400e 100%) !important;
-            border: 1.5px solid #78350f !important;
-            box-shadow: 0 4px 12px rgba(120, 53, 15, .35) !important;
-            animation: coneGlow 2.5s ease-in-out infinite;
-        }
-
-        .robot.ice-cream .shoulder-l,
-        .robot.ice-cream .shoulder-r {
-            background: radial-gradient(circle at 30% 30%, #fef9c3, #fef08a 40%, #ca8a04) !important;
-            border: 1.5px solid #ca8a04 !important;
-            box-shadow: 0 0 8px rgba(253,224,71,.3) !important
-        }
-
-        .robot.ice-cream .ear-l,
-        .robot.ice-cream .ear-r {
-            background: linear-gradient(to right, #fbcfe8, #f472b6, #db2777) !important;
-            border: 1px solid #9d174d !important;
-            box-shadow: 0 0 6px rgba(244,114,182,.3) !important
-        }
-
-        .robot.ice-cream .neck {
-            background: linear-gradient(to bottom, #fde047, #eab308, #ca8a04) !important;
-            border: 1px solid #78350f !important
-        }
-
-        .robot.ice-cream .foot {
-            background: linear-gradient(135deg, #b45309 0%, #92400e 40%, #78350f 70%, #451a03 100%) !important;
-            border: 1.5px solid #451a03 !important;
-            box-shadow: 0 3px 8px rgba(69,26,3,.4) !important
-        }
-
-        .robot.ice-cream .chest {
-            background: radial-gradient(circle at 50% 50%, #fff 0%, #fce7f3 50%, #fbcfe8 100%) !important;
-            border: 2.5px solid #db2777 !important;
-            box-shadow: 0 0 18px rgba(219, 39, 119, .5), inset 0 0 8px rgba(255,255,255,.4) !important
-        }
-
-        .robot.ice-cream .heart-icon {
-            display: none !important
-        }
-
-        /* Fagyi emoji — pulzáló */
-        .robot.ice-cream .chest::before {
-            content: '🍦';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 20px;
-            z-index: 2;
-            animation: iceCreamChestPulse 2.5s ease-in-out infinite
-        }
-
-        .robot.ice-cream .chest-dots {
-            display: none !important
-        }
-
-        /* Hűvös fagyi aura — erősebb, színesebb */
-        .robot.ice-cream::after {
-            content: '';
-            position: absolute;
-            inset: -28px;
-            background: radial-gradient(circle at 50% 50%,
-                rgba(45, 212, 191, .2) 0%,
-                rgba(244, 114, 182, .12) 35%,
-                rgba(251, 191, 36, .06) 55%,
-                transparent 70%);
-            animation: iceChillGlow 4s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -2;
-            border-radius: 50%;
-            filter: blur(2px)
-        }
-        /* Summer Event Shop Panel Overrides */
-        body.summer-event .skin-toggle {
-            background: linear-gradient(135deg, #fbbf24, #f97316) !important;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.45) !important;
+        /* Racing Event Shop Panel Overrides */
+        body.racing-event .skin-toggle {
+            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.45) !important;
             border: 2px solid #fff !important;
             color: #fff !important;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important;
         }
-        body.summer-event .skin-panel {
-            background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 25%, #3b0764 55%, #701a75 80%, #9a3412 100%) !important;
+        body.racing-event .skin-panel {
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%) !important;
         }
-        body.summer-event .shop-header {
-            background: rgba(15, 23, 42, 0.75) !important;
-            border-bottom: 2px solid rgba(251, 191, 36, 0.25) !important;
+        body.racing-event .shop-header {
+            background: rgba(15, 23, 42, 0.85) !important;
+            border-bottom: 2px solid rgba(239, 68, 68, 0.3) !important;
             backdrop-filter: blur(10px);
         }
-        /* Summer Event Shop Inner styling overrides */
-        body.summer-event .shop-section-title {
-            color: #fde68a !important; /* Golden/yellow headers */
+        body.racing-event .shop-section-title {
+            color: #f87171 !important;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
         }
-        body.summer-event .shop-group-divider {
-            border-top: 2px solid rgba(251, 191, 36, 0.25) !important;
+        body.racing-event .shop-group-divider {
+            border-top: 2px solid rgba(239, 68, 68, 0.2) !important;
             opacity: 0.6;
         }
-        body.summer-event .shop-item,
-        body.summer-event .gem-pack,
-        body.summer-event .loot-card-wrap {
-            background: linear-gradient(160deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05)) !important;
-            border: 1.5px solid rgba(251, 191, 36, 0.2) !important;
+        body.racing-event .shop-item,
+        body.racing-event .gem-pack,
+        body.racing-event .loot-card-wrap {
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)) !important;
+            border: 1.5px solid rgba(239, 68, 68, 0.25) !important;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        body.summer-event .shop-item:hover,
-        body.summer-event .gem-pack:hover {
-            border-color: #fbbf24 !important;
-            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.2) !important;
+        body.racing-event .shop-item:hover,
+        body.racing-event .gem-pack:hover {
+            border-color: #ef4444 !important;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.2) !important;
         }
-        body.summer-event .shop-item.active {
-            border-color: #fbbf24 !important;
-            background: linear-gradient(160deg, rgba(251, 191, 36, 0.25), rgba(249, 115, 22, 0.15)) !important;
-            box-shadow: 0 0 24px rgba(251, 191, 36, 0.35), inset 0 0 20px rgba(251, 191, 36, 0.15) !important;
+        body.racing-event .shop-item.active {
+            border-color: #ef4444 !important;
+            background: linear-gradient(160deg, rgba(239, 68, 68, 0.2), rgba(30, 41, 59, 0.2)) !important;
+            box-shadow: 0 0 24px rgba(239, 68, 68, 0.35), inset 0 0 20px rgba(239, 68, 68, 0.1) !important;
         }
-        body.summer-event .daily-box-img {
-            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90"><ellipse cx="60" cy="82" rx="45" ry="8" fill="rgba(0,0,0,0.15)"/><rect x="15" y="45" width="90" height="32" rx="6" fill="%2338bdf8" stroke="%230284c7" stroke-width="2"/><rect x="25" y="45" width="10" height="32" fill="%23f472b6"/><rect x="85" y="45" width="10" height="32" fill="%23f472b6"/><path d="M 15 45 C 15 22, 105 22, 105 45 Z" fill="%23fde68a" stroke="%23fbbf24" stroke-width="2"/><path d="M 30 45 C 30 25, 40 25, 40 45" fill="none" stroke="%23f472b6" stroke-width="4"/><path d="M 80 45 C 80 25, 90 25, 90 45" fill="none" stroke="%23f472b6" stroke-width="4"/><rect x="15" y="67" width="10" height="10" rx="2" fill="%23fbbf24"/><rect x="95" y="67" width="10" height="10" rx="2" fill="%23fbbf24"/><rect x="12" y="41" width="96" height="5" rx="2.5" fill="%23f472b6" stroke="%23db2777" stroke-width="1"/><rect x="52" y="38" width="16" height="16" rx="4" fill="%23fbbf24" stroke="%23d97706" stroke-width="1.5"/><circle cx="60" cy="45" r="3" fill="%231e293b"/><path d="M 60 48 L 60 52" stroke="%231e293b" stroke-width="1.5" stroke-linecap="round"/><path d="M 55 38 C 55 32, 65 32, 65 38" fill="none" stroke="%23fbbf24" stroke-width="2"/></svg>') !important;
-            filter: drop-shadow(0 0 12px rgba(244, 114, 182, 0.7)) !important;
+        body.racing-event .daily-box-img {
+            filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.5)) !important;
         }
-        body.summer-event .super-box-text {
-            background: linear-gradient(135deg, #fbcfe8 0%, #f472b6 40%, #fbbf24 80%, #f97316 100%) !important;
-            filter: drop-shadow(0 0 6px rgba(244, 114, 182, 0.5)) !important;
+        body.racing-event .super-box-text {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 40%, #fbbf24 80%, #f97316 100%) !important;
+            filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.5)) !important;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
         }
-
-        /* Summer Event News Panel Overrides */
-        body.summer-event .news-toggle {
-            background: linear-gradient(135deg, #0ea5e9, #db2777) !important;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.45) !important;
+        body.racing-event .news-toggle {
+            background: linear-gradient(135deg, #ef4444, #991b1b) !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
             border: 2px solid #fff !important;
             color: #fff !important;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important;
         }
-        body.summer-event .news-panel {
-            background: linear-gradient(165deg, #022c43 0%, #053f5e 35%, #115173 70%, #0d2c54 100%) !important;
+        body.racing-event .news-panel {
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%) !important;
         }
-        body.summer-event .news-header {
-            background: rgba(2, 44, 67, 0.85) !important;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
-            backdrop-filter: blur(10px);
+        body.racing-event .news-header {
+            background: rgba(15, 23, 42, 0.85) !important;
+            border-bottom: 2px solid rgba(239, 68, 68, 0.3) !important;
         }
-        body.summer-event .news-content {
-            background: transparent !important;
+        body.racing-event .news-content {
+            background: rgba(15, 23, 42, 0.4) !important;
         }
-        body.summer-event .news-tab {
-            background: rgba(255, 255, 255, 0.08) !important;
-            border: 2px solid rgba(255, 255, 255, 0.1) !important;
-            color: rgba(255, 255, 255, 0.75) !important;
+        body.racing-event .news-tab {
+            color: rgba(255, 255, 255, 0.6) !important;
         }
-        body.summer-event .news-tab.active {
-            background: linear-gradient(135deg, #db2777, #f43f5e) !important;
-            border-color: #fde68a !important;
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.35) !important;
+        body.racing-event .news-tab.active {
+            color: #ef4444 !important;
+            border-bottom: 2px solid #ef4444 !important;
         }
-        body.summer-event .news-article {
-            background: rgba(255, 255, 255, 0.07) !important;
-            border: 2px solid rgba(255, 255, 255, 0.12) !important;
-            color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
-            backdrop-filter: blur(6px) !important;
+        body.racing-event .news-article {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
-        body.summer-event .news-article h2 {
-            color: #fde68a !important;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        body.racing-event .news-article h2 {
+            color: #f87171 !important;
         }
-        body.summer-event .news-image-card {
-            border: 3px solid rgba(255, 255, 255, 0.15) !important;
+        body.racing-event .news-image-card {
+            border: 3px solid rgba(239, 68, 68, 0.2) !important;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
         }
+        
+        /* upgraded greeting, stickers and changes */
+        .sticker-panel-card {
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            background: radial-gradient(circle at top left, #1e293b 0%, #0f172a 100%) !important;
+            border: 1.5px solid rgba(239, 68, 68, 0.3) !important;
+            border-radius: 24px !important;
+            padding: 22px !important;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
 
+        .sticker-title {
+            font-size: 20px !important;
+            font-weight: 900 !important;
+            background: linear-gradient(90deg, #f87171, #ef4444, #fbbf24, #f87171) !important;
+            background-size: 200% 100% !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            animation: flowColor 4s linear infinite !important;
+        }
+
+        .sticker-item {
+            position: relative;
+            padding: 18px 12px 12px !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.07) !important;
+            border-radius: 18px !important;
+            text-align: center;
+            cursor: pointer;
+            transition: all .25s cubic-bezier(.4, 1.6, .5, 1) !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px !important;
+            box-sizing: border-box;
+        }
+
+        .sticker-item:hover {
+            transform: translateY(-4px) !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .sticker-item.locked {
+            opacity: .35 !important;
+            background: rgba(0, 0, 0, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.03) !important;
+        }
+
+        .sticker-item.locked::before {
+            content: '🔒';
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .sticker-item.active {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.1) !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.25) !important;
+        }
+
+        .sticker-item.active::after {
+            content: '✓';
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            color: #ef4444 !important;
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        .sticker-name-section {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 16px !important;
+            padding: 12px 16px !important;
+        }
+
+        .sticker-name-change-btn {
+            background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3) !important;
+            border-radius: 12px !important;
+            padding: 8px 16px !important;
+            font-weight: 900 !important;
+        }
+
+        .shop-greeting {
+            margin: 12px 22px 0 !important;
+            padding: 18px !important;
+            border-radius: 20px !important;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .shop-greeting .greet-name {
+            font-size: 16px !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        
         /* ============== ICE CREAM CATCH MINI-GAME ============== */
         .ic-game-overlay {
             position: fixed;
             inset: 0;
             z-index: 9998;
-            background: linear-gradient(165deg, #0ea5e9 0%, #38bdf8 25%, #7dd3fc 45%, #fde68a 65%, #f472b6 85%, #db2777 100%);
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -18479,26 +17589,7 @@
                         </div>
 
                         <!-- Mega Pack Box (Horizontal) -->
-                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
-                            <img src="box/mega.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                                <div style="font-size: 16px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
-                                <div style="font-size: 11px; color: rgba(216, 180, 254, 0.8); margin-bottom: 2px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
-                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
-                            </div>
                         </div>
-
-                        <!-- Mega Pack Box (Horizontal) -->
-                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
-                            <img src="box/mega.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                                <div style="font-size: 16px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
-                                <div style="font-size: 11px; color: rgba(216, 180, 254, 0.8); margin-bottom: 2px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
-                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
                 <!-- CAT: GEMS -->
                 <div id="cat-gems" style="display: none;">
@@ -18583,18 +17674,18 @@
                 </div>
                 <!-- CAT: SKINS -->
                 <div id="cat-skins" style="display: none;">
-                    <!-- Summer Chill Event Banner -->
+                    <!-- Racing Event Banner -->
                     <div class="shop-section" id="comicClashSection" style="margin-bottom: 20px; background: none; border: none; padding: 0;">
-                        <div class="cc-banner" id="comicClashBanner" style="background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 30%, #fde68a 60%, #fbcfe8 85%, #db2777 100%); border-color: #fde68a; box-shadow: 0 8px 30px rgba(244, 114, 182, .5);">
-                            <div class="cc-banner-burst" style="opacity: 0.1"></div>
+                        <div class="cc-banner" id="comicClashBanner" style="background: linear-gradient(135deg, #1e293b 0%, #334155 40%, #ef4444 80%, #b91c1c 100%); border-color: #ef4444; box-shadow: 0 8px 30px rgba(239, 68, 68, .5);">
+                            <div class="cc-banner-burst" style="opacity: 0.05"></div>
                             <div class="cc-banner-content">
-                                <div class="cc-banner-tag" style="background: linear-gradient(135deg, #2dd4bf, #0ea5e9); color: #fff;">🌟 LIMITÁLT EVENT</div>
-                                <div class="cc-banner-title" style="text-shadow: 3px 3px 0 #ca8a04, -1px -1px 0 rgba(219, 39, 119, .8);">SUMMER CHILL!</div>
-                                <div class="cc-banner-sub">Szerezd meg az exkluzív Ice Cream botot, a CHILL gitárt, 999 bonus gemet, +3 Fagyi Boxot és a Chill matricát! 🌟 Vagy nyomj hosszan a robotra és kapd el 50-szer a fagyit — INGYEN tiéd a skin!</div>
+                                <div class="cc-banner-tag" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff;">🏎️ LIMITÁLT EVENT</div>
+                                <div class="cc-banner-title" style="text-shadow: 3px 3px 0 #7f1d1d, -1px -1px 0 rgba(0, 0, 0, .8);">RACING EVENT!</div>
+                                <div class="cc-banner-sub">Szerezd meg az exkluzív Racer Red botot, a Verseny sisakot, 999 bonus gemet, +3 Boxot és a Racer Red matricát! 🏁 Vagy nyomj hosszan a robotra és kapd el 50-szer a versenyautót — INGYEN tiéd a skin!</div>
                                 <div class="cc-banner-rewards" style="align-items:stretch;">
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
                                         <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
-                                            <div class="robot dc-mini-robot ice-cream" style="pointer-events:none;">
+                                            <div class="robot dc-mini-robot racer-red" style="pointer-events:none;">
                                                 <div class="antenna-stick"></div>
                                                 <div class="antenna-ball"></div>
                                                 <div class="ear ear-l"></div>
@@ -18605,38 +17696,39 @@
                                                 <div class="shoulder shoulder-r"></div>
                                                 <div class="arm arm-l"></div>
                                                 <div class="arm arm-r"></div>
-                                                <div class="torso"><div class="chest"><span class="heart-icon">❤️</span></div></div>
+                                                <div class="torso"><div class="chest"></div></div>
                                                 <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
                                             </div>
                                         </div>
-                                        <span style="font-size:10px;font-weight:800;">Ice Cream Bot</span>
+                                        <span style="font-size:10px;font-weight:800;">Racer Red Bot</span>
                                     </div>
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <span style="font-size:20px;">🎸</span>
-                                        <span style="font-size:10px;font-weight:800;">CHILL Gitár</span>
+                                        <span style="font-size:20px;">🪖</span>
+                                        <span style="font-size:10px;font-weight:800;">Verseny sisak</span>
                                     </div>
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
                                         <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
                                         <span style="font-size:10px;font-weight:800;">+999 Gem</span>
                                     </div>
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <img src="box/box.png" alt="Fagyi Box" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(74,222,128,0.5));">
-                                        <span style="font-size:10px;font-weight:800;">+3 Fagyi Box</span>
+                                        <img src="box/box.png" alt="Box" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(239,68,68,0.5));">
+                                        <span style="font-size:10px;font-weight:800;">+3 Box</span>
                                     </div>
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <span style="font-size:20px;">💬</span>
-                                        <span style="font-size:10px;font-weight:800;">CHILL! Matrica</span>
+                                        <span style="font-size:20px;">🏎️</span>
+                                        <span style="font-size:10px;font-weight:800;">Racer Red! Matrica</span>
                                     </div>
                                 </div>
                                 <button class="cc-banner-btn" id="ccBuyBtn">🪙 300 — MEGVESZEM</button>
-                                <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">🎉 Summer Chill Pass aktiválva!</div>
+                                <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">🎉 Racing Pass aktiválva!</div>
                             </div>
                         </div>
                         <div id="individualBotSales" style="padding: 10px 0; display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ca8a04, #fbcfe8); border: 2px solid #db2777; color: #78350f; font-weight:900; border-radius:12px;" onclick="buyEventSkin('ice-cream')">🍦 Ice Cream Bot (150 🪙)</button>
+                            <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ef4444, #1e293b); border: 2px solid #ef4444; color: #fff; font-weight:900; border-radius:12px;" onclick="buyEventSkin('racer-red')">🏎️ Racer Red Bot (150 💎)</button>
                         </div>
                     </div>
 
+                    
                     <!-- Skins Selection list (No border, wide padding for stretching) -->
                     <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 15px;">
                         <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🤖 Skin választék</div>
@@ -18804,14 +17896,14 @@
             const activeBg = localStorage.getItem('nu_active_bg') || '';
             // Summer Chill event — június 10. és augusztus 10. között (2 hónap)
             const now = new Date();
-            const isSummerEvent = (now.getFullYear() === 2026 &&
+            const isRacingEvent = (now.getFullYear() === 2026 &&
                 ((now.getMonth() === 5 && now.getDate() >= 10) ||
                     (now.getMonth() === 6) ||
                     (now.getMonth() === 7 && now.getDate() <= 10)));
             
-            document.body.classList.toggle('summer-event', isSummerEvent);
-            if (isSummerEvent) {
-                // Summer event háttér — a CSS kezeli a body.summer-event osztályon keresztül
+            document.body.classList.toggle('racing-event', isRacingEvent);
+            if (isRacingEvent) {
+                // Summer event háttér — a CSS kezeli a body.racing-event osztályon keresztül
                 const tc = document.getElementById('themeColor');
                 tc.content = '#0ea5e9';
                 document.documentElement.style.backgroundColor = '#fbbf24';
@@ -20008,7 +19100,7 @@
             { id: 'sticker-sup', text: 'Sup', emoji: '🔥', rarity: 'rare', desc: 'Mi újság?' },
             { id: 'sticker-wassup', text: 'Wassup', emoji: '😏', rarity: 'rare', desc: 'Street stílus' },
             { id: 'sticker-heya', text: 'Heya', emoji: '⭐', rarity: 'rare', desc: 'Üdv csillag' },
-            { id: 'sticker-icecream', text: 'CHILL!', emoji: '🍦', rarity: 'rare', desc: 'Nyári hűsítő üdv' },
+            { id: 'sticker-racerred', text: 'RACE ON!', emoji: '🏎️', rarity: 'rare', desc: 'Száguldó racing üdv' },
             { id: 'sticker-pow', text: 'POW!', emoji: '💥', rarity: 'rare', desc: 'Comic üdvözlés' },
             { id: 'sticker-bonjour', text: 'Bonjour', emoji: '🥖', rarity: 'rare', desc: 'Francia köszönés' },
             { id: 'sticker-hola', text: 'Hola', emoji: '🌶️', rarity: 'rare', desc: 'Spanyol üdvözlés' },
@@ -21278,7 +20370,8 @@
         // Pouch-ból nyerhetőek. Slot: hat/face/neck. Ünnepi öltözék mindig felülírja.
         const ACCESSORIES = [
             { id: 'acc-guitar', name: 'CHILL gitár', desc: 'Dallamos CHILL gitár', icon: '🎸', slot: 'hand', rarity: 'legendary' },
-            { id: 'acc-drum', name: 'Koncert dob', desc: 'Prémium dobfelszerelés', icon: '🥁', slot: 'hand', rarity: 'legendary' }
+            { id: 'acc-drum', name: 'Koncert dob', desc: 'Prémium dobfelszerelés', icon: '🥁', slot: 'hand', rarity: 'legendary' },
+            { id: 'acc-helmet', name: 'Verseny sisak', desc: 'Professzionális racing sisak', icon: '🪖', slot: 'hat', rarity: 'legendary' }
         ];
         function getActiveAcc() { return localStorage.getItem('nu_active_acc') || '' }
         function setActiveAcc(id) { localStorage.setItem('nu_active_acc', id) }
@@ -21317,6 +20410,7 @@
             'acc-ribbon': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><polygon points="4,4 26,15 4,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><polygon points="56,4 34,15 56,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><rect x="24" y="9" width="12" height="12" fill="#991b1b" rx="2"/><ellipse cx="14" cy="15" rx="3" ry="5" fill="rgba(255,255,255,.25)"/></svg>',
             'acc-beads': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,32 52,5" stroke="#78350f" stroke-width="1" fill="none"/><circle cx="8" cy="5" r="2.8" fill="#d97706"/><circle cx="15" cy="13" r="2.8" fill="#f59e0b"/><circle cx="22" cy="19" r="2.8" fill="#d97706"/><circle cx="30" cy="23" r="3.5" fill="#fbbf24" stroke="#92400e" stroke-width=".8"/><circle cx="38" cy="19" r="2.8" fill="#d97706"/><circle cx="45" cy="13" r="2.8" fill="#f59e0b"/><circle cx="52" cy="5" r="2.8" fill="#d97706"/></svg>',
             'acc-gem': '<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,28 52,5" stroke="#fbbf24" stroke-width="2" fill="none"/><path d="M22,18 L30,35 L38,18 L30,14 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/><path d="M22,18 L30,14 L30,35 Z" fill="#60a5fa"/><path d="M24,17 L30,15 L30,20 Z" fill="rgba(255,255,255,.6)"/></svg>',
+            'acc-helmet': '<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="helmG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="1" stop-color="#991b1b"/></linearGradient></defs><circle cx="30" cy="25" r="20" fill="url(#helmG)" stroke="#7f1d1d" stroke-width="1.5"/><path d="M12,25 A18,18 0 0,1 48,25 Z" fill="#1e293b" opacity="0.8"/><rect x="15" y="24" width="30" height="8" fill="#3b82f6" rx="2" stroke="#1d4ed8" stroke-width="1"/><rect x="25" y="6" width="10" height="3" fill="#ffffff" rx="1"/></svg>',
             'acc-guitar': '<svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="guitarBodyG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4e50"/><stop offset="100%" stop-color="#f9d423"/></linearGradient></defs><line x1="30" y1="25" x2="105" y2="60" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/><path d="M18,17 L30,23 L25,33 L13,27 Z" fill="#3e2723" stroke="#212121" stroke-width="1" rx="1"/><circle cx="15" cy="22" r="1.5" fill="#eeeeee"/><circle cx="21" cy="25" r="1.5" fill="#eeeeee"/><circle cx="25" cy="19" r="1.5" fill="#eeeeee"/><circle cx="120" cy="68" r="22" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><circle cx="98" cy="58" r="17" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><path d="M 103,42 Q 109,56 122,48 L 138,72 Q 112,86 103,68 Z" fill="url(#guitarBodyG)"/><circle cx="106" cy="62" r="6.5" fill="#212121" stroke="#ffecb3" stroke-width="1.2"/><rect x="124" y="66" width="5" height="12" transform="rotate(-30, 126, 72)" fill="#3e2723" rx="1"/><line x1="25" y1="21" x2="125" y2="69" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/><line x1="26" y1="23" x2="126" y2="71" stroke="#ffffff" stroke-width="0.8" opacity="0.9"></svg>',
             'acc-drum': '<svg viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"></svg>'
         };
@@ -21447,7 +20541,7 @@
                 }
             }
 
-            // Summer Chill Pass állapot frissítése
+            // Racing Pass állapot frissítése
             const ccSection = document.getElementById('comicClashSection');
             const ccBtn = document.getElementById('ccBuyBtn');
             const ccBought = document.getElementById('ccBoughtLabel');
@@ -21460,7 +20554,7 @@
             if (ccSection) ccSection.style.display = isSummer ? '' : 'none';
 
             if (ccBtn && ccBought) {
-                const hasCc = localStorage.getItem('nu_summer_pass_bought') === '1';
+                const hasCc = localStorage.getItem('nu_racing_pass_bought') === '1';
                 ccBtn.style.display = hasCc ? 'none' : 'block';
                 ccBought.style.display = hasCc ? 'block' : 'none';
             }
@@ -21694,7 +20788,7 @@
             57: { type: 'item_ultra', icon: '🪐', name: 'Nebula háttér', itemId: 'bg-nebula' },
             58: { type: 'box_buy', tier: 'mythic', icon: '💠', name: 'Mythic Box' },
             59: { type: 'item_ultra', icon: '🌌', name: 'Aurora háttér', itemId: 'bg-aurora' },
-            60: { type: 'item_ultra', icon: '⚡', name: 'Ultra Bot Skin', itemId: 'ultra' }
+            60: { type: 'item_ultra', icon: '🏎️', name: 'Racer Red Bot', itemId: 'racer-red' }
         };
         function botpassReward(lvl) {
             if (BP_LEVEL_REWARDS[lvl]) return BP_LEVEL_REWARDS[lvl];
@@ -21703,7 +20797,7 @@
         // PLUS jutalmak — minden szint alatti bonus row
         function botpassPlusReward(lvl) {
             // Speciális Plus jutalmak
-            if (lvl === 60) return { type: 'item_ultra', icon: '⚡', name: 'Black Ultra Skin', itemId: 'ultra-black' };
+            if (lvl === 60) return { type: 'item_ultra', icon: '🏎️', name: 'Racer Blue Bot', itemId: 'racer-blue' };
             if (lvl === 30) return { type: 'gems', amount: 300, icon: '💰', name: '+300 gem' };
             if (lvl === 45) return { type: 'card_pack', boost: true, icon: '🎴', name: '+ Ritka pakk' };
             if (lvl === 55) return { type: 'box_buy', tier: 'mythic', icon: '💠', name: '+ Mythic Box' };
@@ -21920,13 +21014,13 @@
 
             // Featured robot render (BP tetején a season skin)
             try {
-                const seasonSkinId = plus ? 'ultra-black' : 'ultra';
+                const seasonSkinId = plus ? 'racer-blue' : 'racer-red';
                 const featuredRobot = document.getElementById('bpFeaturedRobot');
                 const featuredName = document.getElementById('bpFeaturedName');
                 if (featuredRobot && typeof buildMiniRobotHtml === 'function') {
                     featuredRobot.innerHTML = buildMiniRobotHtml(seasonSkinId, false);
                 }
-                if (featuredName) featuredName.textContent = plus ? 'Ultra Black' : 'Ultra Bot';
+                if (featuredName) featuredName.textContent = plus ? 'Racer Blue Bot' : 'Racer Red Bot';
             } catch (_) { }
 
             // Új két-sávos render — try/catch hogy panel mindig megnyíljon
@@ -21959,7 +21053,7 @@
                         }
                         plusCell.innerHTML = `<div class="${plusCls}" data-bp-plus="${i}">
                             <span class="bp-tile-tag plus">PLUS</span>
-                            ${(i === 60 && typeof buildMiniRobotHtml === 'function') ? `<div class="bp-tile-robot">${buildMiniRobotHtml('ultra-black', false)}</div>` : `<span class="bp-tile-icon">${pr.icon || '💎'}</span>`}
+                            ${(i === 60 && typeof buildMiniRobotHtml === 'function') ? `<div class="bp-tile-robot">${buildMiniRobotHtml('racer-blue', false)}</div>` : `<span class="bp-tile-icon">${pr.icon || '💎'}</span>`}
                             <span class="bp-tile-name">${pr.name || ''}</span>
                         </div>`;
                         tracks.appendChild(plusCell);
@@ -21980,7 +21074,7 @@
                         else freeCls += ' locked';
                         freeCell.innerHTML = `<div class="${freeCls}" data-bp-free="${i}">
                             <span class="bp-tile-tag free">FREE</span>
-                            ${(i === 60 && typeof buildMiniRobotHtml === 'function') ? `<div class="bp-tile-robot">${buildMiniRobotHtml('ultra', false)}</div>` : `<span class="bp-tile-icon">${r.icon || '💎'}</span>`}
+                            ${(i === 60 && typeof buildMiniRobotHtml === 'function') ? `<div class="bp-tile-robot">${buildMiniRobotHtml('racer-red', false)}</div>` : `<span class="bp-tile-icon">${r.icon || '💎'}</span>`}
                             <span class="bp-tile-name">${r.name || ''}</span>
                         </div>`;
                         tracks.appendChild(freeCell);
@@ -22288,7 +21382,7 @@
         function applyCustomBg() {
             // Summer Chill event — június 10. és augusztus 10. között (2 hónap)
             const now = new Date();
-            const isSummerEvent = (now.getFullYear() === 2026 &&
+            const isRacingEvent = (now.getFullYear() === 2026 &&
                 ((now.getMonth() === 5 && now.getDate() >= 10) ||
                     (now.getMonth() === 6) ||
                     (now.getMonth() === 7 && now.getDate() <= 10)));
@@ -22297,7 +21391,7 @@
             document.body.style.backgroundAttachment = '';
             document.body.classList.remove('bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
 
-            if (isSummerEvent) {
+            if (isRacingEvent) {
                 applyTimeTheme();
                 return;
             }
@@ -22558,11 +21652,11 @@
 
             function initAppAmbient() {
                 const now = new Date();
-                const isSummerEvent = (now.getFullYear() === 2026 &&
+                const isRacingEvent = (now.getFullYear() === 2026 &&
                     ((now.getMonth() === 5 && now.getDate() >= 10) ||
                         (now.getMonth() === 6) ||
                         (now.getMonth() === 7 && now.getDate() <= 10)));
-                if (isSummerEvent) return;
+                if (isRacingEvent) return;
 
                 if (window._techEventActive) return;
                 if (appAudioCtx) return;
@@ -22607,7 +21701,9 @@
                 { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true },
                 { id: 'ice-cream', name: 'Ice Cream', desc: 'Nyári fagylaltos robot — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true },
                 { id: 'beach', name: 'Beach', desc: 'Türkiz nyári strandoló robot', icon: '🏖️', cost: 0, tier: 'free', hide: true },
-                { id: 'sunset', name: 'Sunset', desc: 'Narancs-lila naplementés robot', icon: '🌅', cost: 0, tier: 'free', hide: true }
+                { id: 'sunset', name: 'Sunset', desc: 'Narancs-lila naplementés robot', icon: '🌅', cost: 0, tier: 'free', hide: true },
+                { id: 'racer-red', name: 'Racer Red', desc: 'Vörös versenyautó ihlette száguldó robot', icon: '🏎️', cost: 0, tier: 'free', hide: true },
+                { id: 'racer-blue', name: 'Racer Blue', desc: 'Kék száguldó bajnok robot', icon: '🏁', cost: 0, tier: 'free', hide: true }
 
             ];
             const BGS = [
@@ -22638,9 +21734,12 @@
                 }
                 accList.innerHTML = '';
 
+                // Remove accessories category section container
+                if (accList && accList.parentElement) {
+                    accList.parentElement.style.display = 'none';
+                }
                 [{ id: 'skinList', items: SKINS, list: skinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin },
-                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg },
-                { id: 'accList', items: ACCESSORIES, list: accList, active: activeAcc, setter: setActiveAcc, applier: applyAcc }
+                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg }
                 ].forEach(cfg => {
                     // Rendezés: először ingyenes (id='') és birtokolt defaultok, aztán rarity szerint növekvő
                     const sorted = [...cfg.items].sort((a, b) => {
@@ -22723,8 +21822,8 @@
                     });
                 });
 
-                // Summer Chill Pass & Individual Bots Logic
-                const isSummerPassBought = localStorage.getItem('nu_summer_pass_bought') === '1';
+                // Racing Pass & Individual Bots Logic
+                const isSummerPassBought = localStorage.getItem('nu_racing_pass_bought') === '1';
                 const ccBtn = document.getElementById('ccBuyBtn');
                 const ccLabel = document.getElementById('ccBoughtLabel');
                 if (ccBtn && ccLabel) {
@@ -23280,25 +22379,25 @@
                         setTimeout(() => openBotpassPanel(), 250);
                     })
                 }
-                // Summer Chill Pass vásárlás
+                // Racing Pass vásárlás
                 const ccBtn = document.getElementById('ccBuyBtn');
                 if (ccBtn && !ccBtn._bound) {
                     ccBtn._bound = true; ccBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        if (localStorage.getItem('nu_summer_pass_bought') === '1') { return }
-                        if (!confirm('🍦 Summer Chill Pass megvétele 300 gemért?\n\n🍦 Ice Cream Bot skin\n🎸 CHILL gitár\n💎 +999 Gem\n📦 +3 Fagyi Box\n🍦 Ice cream! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
+                        if (localStorage.getItem('nu_racing_pass_bought') === '1') { return }
+                        if (!confirm('🏎️ Racing Pass megvétele 300 gemért?\n\n🏎️ Racer Red Bot skin\n🪖 Verseny sisak\n💎 +999 Gem\n📦 +3 Box\n🏎️ Racer Red! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
                         if (!spendGems(300)) { alert('Nincs elég gem! (300 gem kell)'); return }
                         // Ice Cream bot unlock + CHILL guitar + 999 gem + 3 boxes + Ice Cream sticker
-                        buyItem('ice-cream');
-                        buyItem('acc-guitar');
-                        if (typeof awardSticker === 'function') awardSticker('sticker-icecream');
+                        buyItem('racer-red');
+                        buyItem('acc-helmet');
+                        if (typeof awardSticker === 'function') awardSticker('sticker-racerred');
 
                         addGems(999);
                         localStorage.setItem('nu_box_count', String(boxesRemaining() + 3));
-                        localStorage.setItem('nu_summer_pass_bought', '1');
+                        localStorage.setItem('nu_racing_pass_bought', '1');
                         try { playSfx('zynox') } catch (_) { }
                         triggerSkinEquipEffect();
-                        alert('🍦 Summer Chill Pass aktiválva!\n\n✅ Ice Cream Bot feloldva\n🎸 CHILL gitár feloldva\n💎 +999 gem jóváírva\n📦 +3 Fagyi Box hozzáadva\n🍦 Ice cream! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
+                        alert('🏎️ Racing Pass aktiválva!\n\n✅ Racer Red Bot feloldva\n🪖 Verseny sisak feloldva\n💎 +999 gem jóváírva\n📦 +3 Box hozzáadva\n🏎️ Racer Red! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
                         updateGemUI();
                         updateLootBadges();
                         if (typeof renderShop === 'function') renderShop();
@@ -23312,11 +22411,8 @@
                     if (!confirm(skin.icon + ' ' + skin.name + ' megvétele 150 gemért?')) return;
                     if (!spendGems(150)) { alert('Nincs elég gem! (150 kell)'); return; }
                     buyItem(skinId);
-                    if (skinId === 'ice-cream') {
-                        buyItem('acc-guitar');
-                    }
-                    if (skinId === 'beach') {
-                        buyItem('acc-drum');
+                    if (skinId === 'racer-red') {
+                        buyItem('acc-helmet');
                     }
                     try { playSfx('skin-equip') } catch (_) { }
                     alert('✅ ' + skin.name + ' feloldva!');
@@ -23767,8 +22863,8 @@
                                 <img src="news menü képek/ezis 3 videó helyére.jpeg" alt="Summer news 3">
                             </div>
                         </div>
-                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #0ea5e9, #db2777); border:3px solid #fde68a;">
-                            <h2 style="font-size:24px; margin-bottom:10px; color:#fff; text-shadow: 1px 1px 4px rgba(0,0,0,0.4);">🍦 SUMMER CHILL EVENT SZEZON!</h2>
+                        <div class="news-article" style="text-align:center; background:linear-gradient(135deg, #ef4444, #1e293b); border:3px solid #ef4444;">
+                            <h2 style="font-size:24px; margin-bottom:10px; color:#fff; text-shadow: 1px 1px 4px rgba(0,0,0,0.4);">🏎️ RACING EVENT SZEZON!</h2>
                             <div id="newsCountdown" style="font-size:32px; font-weight:900; letter-spacing:2px; font-family: monospace; color:#fef08a; text-shadow: 0 0 10px rgba(254, 240, 138, 0.7);">00d 00h 00m 00s</div>
                             <p style="margin-top:10px; font-size:14px; opacity:0.9; color:#fff; font-weight:800;">Az esemény vége: 2026. augusztus 10.</p>
                         </div>
@@ -23830,7 +22926,9 @@
                 if (!AudioContext) return;
                 audioCtx = new AudioContext();
                 try {
-                    const response = await fetch('summer music/Summer Chill.mp3');
+                    // Summer event music disabled for Racing Event
+                    const response = { arrayBuffer: () => new ArrayBuffer(0) };
+                    return;
                     const arrayBuffer = await response.arrayBuffer();
                     audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
                     startLoop();
@@ -23875,12 +22973,12 @@
             };
 
             const now = new Date();
-            const isSummerEvent = (now.getFullYear() === 2026 &&
+            const isRacingEvent = (now.getFullYear() === 2026 &&
                 ((now.getMonth() === 5 && now.getDate() >= 10) ||
                     (now.getMonth() === 6) ||
                     (now.getMonth() === 7 && now.getDate() <= 10)));
 
-            if (isSummerEvent) {
+            if (isRacingEvent) {
                 document.addEventListener('click', startMusicOnce, { passive: true });
                 document.addEventListener('touchstart', startMusicOnce, { passive: true });
             }
@@ -24048,7 +23146,7 @@
     <!-- Concert Stage Event Overlay -->
     <div id="concertOverlay">
         <div class="concert-stage" id="concertStage">
-            <h2 class="concert-title">🎸 SUMMER CHILL BAND 🎸</h2>
+            <h2 class="concert-title">🏎️ SPEEDWAY BAND 🏁</h2>
             <div class="concert-band">
                 <!-- Drummer (Beach Bot) -->
                 <div class="concert-member drummer">
@@ -24266,12 +23364,12 @@
         <!-- Promo/overlay modal after concert ends -->
         <div id="concertPromo">
             <div class="concert-promo-card">
-                <div class="concert-promo-title">🍦 SUMMER BAND KONCERT! 🍦</div>
-                <div class="concert-promo-sub">Tetszett a koncert? Vedd meg a Summer Chill Passt és az új skineket, amíg tart a nyár!</div>
+                <div class="concert-promo-title">🏎️ SPEEDWAY BAND KONCERT! 🏁</div>
+                <div class="concert-promo-sub">Tetszett a koncert? Vedd meg a Racing Passt és a száguldó skineket!</div>
                 <div class="concert-promo-items">
-                    <button class="concert-promo-btn pass-btn" id="concertPromoBuyPassBtn">🍦 Summer Chill Pass (300 💎)</button>
-                    <button class="concert-promo-btn" id="concertPromoBuyBeachBtn">🏖️ Beach Bot skin (150 💎)</button>
-                    <button class="concert-promo-btn" id="concertPromoBuySunsetBtn">🌅 Sunset Bot skin (150 💎)</button>
+                    <button class="concert-promo-btn pass-btn" id="concertPromoBuyPassBtn">🏎️ Racing Pass (300 💎)</button>
+                    <button class="concert-promo-btn" id="concertPromoBuyBeachBtn">🏎️ Racer Red Bot (150 💎)</button>
+                    <button class="concert-promo-btn" id="concertPromoBuySunsetBtn">🏁 Racer Blue Bot (150 💎)</button>
                 </div>
                 <button class="concert-promo-close" id="concertPromoCloseBtn">Bezárás</button>
             </div>
@@ -24560,23 +23658,23 @@
     <div class="ic-game-overlay" id="icGameOverlay">
         <button class="ic-close-btn" id="icCloseBtn">✕</button>
         <div class="ic-game-header">
-            <div class="ic-game-title">🍦 Ice Cream Catch!</div>
-            <div class="ic-game-sub">Kapd el a fagyis botot! 10 mp van rá!</div>
+            <div class="ic-game-title">🏎️ Racing Speed Catch!</div>
+            <div class="ic-game-sub">Kapd el a száguldó versenyautót! 10 mp van rá!</div>
         </div>
         <div class="ic-timer-wrap">
             <div class="ic-timer-bar" id="icTimerBar"></div>
         </div>
         <div class="ic-score-row">
-            <div class="ic-score-item">🍦 Ma: <span id="icScoreToday">0</span></div>
-            <div class="ic-score-item">⭐ Össz: <span id="icScoreTotal">0</span>/50</div>
+            <div class="ic-score-item">🏎️ Ma: <span id="icScoreToday">0</span></div>
+            <div class="ic-score-item">🏁 Össz: <span id="icScoreTotal">0</span>/50</div>
         </div>
         <div class="ic-game-area" id="icGameArea">
             <div class="ic-target hiding" id="icTarget"></div>
-            <div class="ic-launcher" id="icLauncher">🍦</div>
+            <div class="ic-launcher" id="icLauncher">🏎️</div>
         </div>
         <div class="ic-progress-wrap">
             <div class="ic-progress-label">
-                <span>🍦 Haladás az ingyenes skinhez</span>
+                <span>🏎️ Haladás az ingyenes skinhez</span>
                 <span id="icProgressText">0/50</span>
             </div>
             <div class="ic-progress-bar-bg">
@@ -24585,10 +23683,10 @@
         </div>
         <!-- Eredmény overlay -->
         <div class="ic-result" id="icResult">
-            <div class="ic-result-emoji" id="icResultEmoji">🍦</div>
+            <div class="ic-result-emoji" id="icResultEmoji">🏎️</div>
             <div class="ic-result-title" id="icResultTitle">Szuper!</div>
             <div class="ic-result-sub" id="icResultSub"></div>
-            <button class="ic-result-btn" id="icResultBtn">Köszi! 🍦</button>
+            <button class="ic-result-btn" id="icResultBtn">Köszi! 🏎️</button>
         </div>
         <!-- Napi limit overlay -->
         <div class="ic-daily-info" id="icDailyInfo">
@@ -24678,13 +23776,13 @@
         // Build mini Ice Cream robot for the target
         function buildTargetBot() {
             if (typeof buildMiniRobotHtml === 'function') {
-                target.innerHTML = buildMiniRobotHtml('ice-cream', false);
+                target.innerHTML = buildMiniRobotHtml('racer-red', false);
                 target.style.transform = 'scale(0.7)';
                 target.style.transformOrigin = 'center center';
                 target.style.width = '120px';
                 target.style.height = '145px';
             } else {
-                target.innerHTML = '<div style="font-size:80px;text-align:center;line-height:145px">🍦</div>';
+                target.innerHTML = '<div style="font-size:80px;text-align:center;line-height:145px">🏎️</div>';
             }
         }
 
@@ -24720,7 +23818,7 @@
             setTimeout(() => burst.remove(), 600);
 
             // Spawn ice cream splat/sprinkle particles
-            const emojis = ['🍦', '🍧', '🍨', '✨', '🌸', '🍭'];
+            const emojis = ['🏎️', '🏁', '🔥', '⚡', '🏆', '💨'];
             const count = 6;
             for (let i = 0; i < count; i++) {
                 const p = document.createElement('div');
@@ -24748,7 +23846,7 @@
         function launchProjectile(destX, destY, isHit) {
             const p = document.createElement('div');
             p.className = 'ic-projectile';
-            p.textContent = '🍦';
+            p.textContent = '🏎️';
             
             // Initial position (launcher at bottom center)
             const areaWidth = gameArea.clientWidth;
@@ -24821,7 +23919,7 @@
                 const timeStr = getRemainingTimeText();
                 let msg = '';
                 if (total >= TARGET_NEEDED && typeof owns === 'function' && owns('ice-cream')) {
-                    msg = `🍦 Már megvan az Ice Cream skin!<br>Újra játszhatsz <b>${timeStr}</b> múlva!`;
+                    msg = `🏎️ Már megvan a Racer Red skin!<br>Újra játszhatsz <b>${timeStr}</b> múlva!`;
                 } else {
                     msg = `⭐ Eddigi összpontszám: <b>${total}/50</b><br><br>Ma már játszottál. Újra próbálkozhatsz <b>${timeStr}</b> múlva!`;
                 }
@@ -24873,21 +23971,21 @@
             if (skinUnlocked && total >= TARGET_NEEDED) {
                 // Unlock the skin!
                 if (typeof buyItem === 'function') {
-                    buyItem('ice-cream');
-                    buyItem('acc-guitar');
+                    buyItem('racer-red');
+                    buyItem('acc-helmet');
                 }
                 if (typeof playSfx === 'function') try { playSfx('zynox') } catch(_){}
                 if (typeof triggerSkinEquipEffect === 'function') triggerSkinEquipEffect();
 
                 resultEmoji.textContent = '🎉';
                 resultEmoji.className = 'ic-result-emoji ic-unlock-anim';
-                resultTitle.textContent = '🍦 ICE CREAM SKIN & GITÁR FELOLDVA!';
-                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 fagyit!<br>Az Ice Cream bot és a CHILL gitár most már a tiéd — INGYEN! 🎸🍦✨<br><br>Keresd meg a Shopban!';
+                resultTitle.textContent = '🏎️ RACER RED SKIN & VERSENY SISAK FELOLDVA!';
+                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 versenyautót!<br>A Racer Red bot és a Verseny sisak most már a tiéd — INGYEN! 🏎️🪖✨<br><br>Keresd meg a Shopban!';
             } else {
-                resultEmoji.textContent = '🍦';
+                resultEmoji.textContent = '🏎️';
                 resultEmoji.className = 'ic-result-emoji';
                 resultTitle.textContent = 'Idő lejárt!';
-                resultSub.innerHTML = '🍦 Ma elkapott: <b>' + todayScore + '</b><br>⭐ Összesen: <b>' + Math.min(total, TARGET_NEEDED) + '/50</b><br><br>' +
+                resultSub.innerHTML = '🏎️ Ma elkapott: <b>' + todayScore + '</b><br>🏁 Összesen: <b>' + Math.min(total, TARGET_NEEDED) + '/50</b><br><br>' +
                     (total >= TARGET_NEEDED ? '🎉 Már megvan mind az 50 — nyisd meg a shopot!' : 'Még <b>' + (TARGET_NEEDED - total) + '</b> kell az ingyenes skinhez!<br>Holnap újra játszhatsz! 💪');
             }
 
@@ -25353,14 +24451,14 @@
                 if (buyBeach) {
                     buyBeach.onclick = () => {
                         if (typeof window.buyEventSkin === 'function') {
-                            window.buyEventSkin('beach');
+                            window.buyEventSkin('racer-red');
                         }
                     };
                 }
                 if (buySunset) {
                     buySunset.onclick = () => {
                         if (typeof window.buyEventSkin === 'function') {
-                            window.buyEventSkin('sunset');
+                            window.buyEventSkin('racer-blue');
                         }
                     };
                 }
@@ -25782,19 +24880,7 @@
             doNyitas('vip');
         };
 
-        window.buyMegaBox = function() {
-            let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-            if (currentGems < 999) {
-                showLootToast('Hiba!', 'Nincs elég Gemed a Mega Pack Boxhoz! (999 gem kell)', '❌');
-                if(typeof playSfx === 'function') playSfx('error');
-                return;
-            }
-            localStorage.setItem('nu_gems', String(currentGems - 999));
-            if (typeof updateGemUI === 'function') updateGemUI();
-            if(typeof playSfx === 'function') playSfx('buy');
-            
-            doNyitas('mega');
-        };
+        // Mega Box removed
 
     })();
     </script>
