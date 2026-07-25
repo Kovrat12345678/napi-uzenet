@@ -17232,7 +17232,198 @@
             box-shadow: 0 0 10px #10b981 !important;
         }
 
-        
+        .robot.ice-cream {
+            animation: iceCreamFloat 3s ease-in-out infinite;
+        }
+
+        .robot.ice-cream .head {
+            background: linear-gradient(165deg, #fffbeb 0%, #fef9c3 25%, #fef08a 50%, #fde047 100%) !important;
+            box-shadow: 0 4px 16px rgba(253, 224, 71, .5), inset 0 -6px 10px rgba(202, 138, 4, .15), inset 0 2px 0 rgba(255,255,255,.6) !important;
+            border: 2px solid #ca8a04 !important;
+            overflow: visible !important
+        }
+
+        /* Whipped cream top — a fejen */
+        .robot.ice-cream .head::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 15%;
+            right: 15%;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(254,249,195,.6));
+            border-radius: 8px 8px 4px 4px;
+            z-index: 5;
+            box-shadow: 0 -2px 8px rgba(255,255,255,.5);
+            pointer-events: none
+        }
+
+        .robot.ice-cream .torso {
+            background: linear-gradient(165deg, #fce7f3 0%, #fbcfe8 25%, #f472b6 55%, #db2777 100%) !important;
+            box-shadow: 0 6px 20px rgba(219, 39, 119, .45), inset 0 2px 0 rgba(255, 255, 255, .4) !important;
+            border: 2px solid #9d174d !important;
+            position: relative;
+            overflow: visible !important
+        }
+
+        /* Csokoládé öntet animált lefolyás */
+        .robot.ice-cream .torso::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 5%;
+            right: 5%;
+            height: 50%;
+            background: linear-gradient(to bottom, #5b2c0e, #78350f 40%, #92400e 70%, #a16207);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 85% 75%, 70% 65%, 55% 80%, 40% 70%, 25% 82%, 10% 68%, 0% 72%);
+            animation: chocoDrip 4s ease-in-out infinite;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, .4);
+            z-index: 5;
+            pointer-events: none;
+            border-radius: 0 0 6px 6px
+        }
+
+        /* Szórás (sprinkles) a törzsön */
+        .robot.ice-cream .torso::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12%;
+            right: 12%;
+            height: 28%;
+            background:
+                radial-gradient(circle 2px at 20% 30%, #ef4444, transparent),
+                radial-gradient(circle 2px at 50% 20%, #fbbf24, transparent),
+                radial-gradient(circle 2px at 75% 50%, #22d3ee, transparent),
+                radial-gradient(circle 2px at 35% 60%, #a855f7, transparent),
+                radial-gradient(circle 2px at 60% 70%, #4ade80, transparent),
+                radial-gradient(circle 2px at 85% 25%, #f472b6, transparent),
+                radial-gradient(circle 2px at 15% 75%, #fbbf24, transparent);
+            z-index: 6;
+            pointer-events: none;
+            opacity: .85;
+            animation: sprinkleSparkle 2s ease-in-out infinite;
+        }
+
+        .robot.ice-cream .face-screen {
+            background: linear-gradient(180deg, #0f3a37, #134e4a) !important;
+            border: 1.5px solid #2dd4bf !important;
+            border-radius: 10px !important;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,.3), 0 0 8px rgba(45,212,191,.15) !important
+        }
+
+        .robot.ice-cream .eye {
+            background: radial-gradient(circle, #fff 15%, #5eead4 50%, #2dd4bf 75%, #0d9488 100%) !important;
+            box-shadow: 0 0 12px #2dd4bf, 0 0 24px rgba(45, 212, 191, .7), inset 0 0 4px rgba(255,255,255,.5) !important
+        }
+
+        .robot.ice-cream .mouth {
+            background: linear-gradient(90deg, #14b8a6, #2dd4bf, #14b8a6) !important;
+            width: 16px !important;
+            height: 4px !important;
+            border-radius: 0 0 8px 8px !important;
+            box-shadow: 0 0 8px rgba(45, 212, 191, .7) !important
+        }
+
+        .robot.ice-cream .antenna-stick {
+            background: linear-gradient(to bottom, #fbbf24, #f59e0b, #ca8a04) !important;
+            border: 1px solid #78350f !important;
+            box-shadow: 0 0 6px rgba(245,158,11,.3) !important
+        }
+
+        /* Cseresznye — nagyobb, fényesebb, csillogó highlight */
+        .robot.ice-cream .antenna-ball {
+            background: radial-gradient(circle at 35% 30%, #fecaca, #fca5a5 30%, #ef4444 60%, #b91c1c 90%) !important;
+            box-shadow: 0 0 16px rgba(239, 68, 68, .7), 0 0 32px rgba(239, 68, 68, .3), inset -3px -3px 6px rgba(0,0,0,.2) !important;
+            border: 1.5px solid #78350f !important;
+            animation: cherryBob 2s ease-in-out infinite, cherryShine 3s ease-in-out infinite !important
+        }
+
+        .robot.ice-cream .arm-l,
+        .robot.ice-cream .arm-r {
+            background: linear-gradient(to bottom, #fef08a, #fde047, #eab308, #ca8a04) !important;
+            border: 1.5px solid #ca8a04 !important;
+            box-shadow: 0 3px 10px rgba(202, 138, 4, .35), inset 0 1px 0 rgba(255,255,255,.4) !important
+        }
+
+        /* Waffle cone textúra a lábakon */
+        .robot.ice-cream .leg {
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(120,53,15,.15) 3px, rgba(120,53,15,.15) 4px),
+                repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(120,53,15,.15) 3px, rgba(120,53,15,.15) 4px),
+                linear-gradient(to bottom, #d97706 0%, #b45309 50%, #92400e 100%) !important;
+            border: 1.5px solid #78350f !important;
+            box-shadow: 0 4px 12px rgba(120, 53, 15, .35) !important;
+            animation: coneGlow 2.5s ease-in-out infinite;
+        }
+
+        .robot.ice-cream .shoulder-l,
+        .robot.ice-cream .shoulder-r {
+            background: radial-gradient(circle at 30% 30%, #fef9c3, #fef08a 40%, #ca8a04) !important;
+            border: 1.5px solid #ca8a04 !important;
+            box-shadow: 0 0 8px rgba(253,224,71,.3) !important
+        }
+
+        .robot.ice-cream .ear-l,
+        .robot.ice-cream .ear-r {
+            background: linear-gradient(to right, #fbcfe8, #f472b6, #db2777) !important;
+            border: 1px solid #9d174d !important;
+            box-shadow: 0 0 6px rgba(244,114,182,.3) !important
+        }
+
+        .robot.ice-cream .neck {
+            background: linear-gradient(to bottom, #fde047, #eab308, #ca8a04) !important;
+            border: 1px solid #78350f !important
+        }
+
+        .robot.ice-cream .foot {
+            background: linear-gradient(135deg, #b45309 0%, #92400e 40%, #78350f 70%, #451a03 100%) !important;
+            border: 1.5px solid #451a03 !important;
+            box-shadow: 0 3px 8px rgba(69,26,3,.4) !important
+        }
+
+        .robot.ice-cream .chest {
+            background: radial-gradient(circle at 50% 50%, #fff 0%, #fce7f3 50%, #fbcfe8 100%) !important;
+            border: 2.5px solid #db2777 !important;
+            box-shadow: 0 0 18px rgba(219, 39, 119, .5), inset 0 0 8px rgba(255,255,255,.4) !important
+        }
+
+        .robot.ice-cream .heart-icon {
+            display: none !important
+        }
+
+        /* Fagyi emoji — pulzáló */
+        .robot.ice-cream .chest::before {
+            content: '🍦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            z-index: 2;
+            animation: iceCreamChestPulse 2.5s ease-in-out infinite
+        }
+
+        .robot.ice-cream .chest-dots {
+            display: none !important
+        }
+
+        /* Hűvös fagyi aura — erősebb, színesebb */
+        .robot.ice-cream::after {
+            content: '';
+            position: absolute;
+            inset: -28px;
+            background: radial-gradient(circle at 50% 50%,
+                rgba(45, 212, 191, .2) 0%,
+                rgba(244, 114, 182, .12) 35%,
+                rgba(251, 191, 36, .06) 55%,
+                transparent 70%);
+            animation: iceChillGlow 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -2;
+            border-radius: 50%;
+            filter: blur(2px)
+        }
         /* Racing Event Shop Panel Overrides */
         body.racing-event .skin-toggle {
             background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
@@ -18505,7 +18696,7 @@
                             <div class="cc-banner-content">
                                 <div class="cc-banner-tag" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff;">🏎️ LIMITÁLT EVENT</div>
                                 <div class="cc-banner-title" style="text-shadow: 3px 3px 0 #7f1d1d, -1px -1px 0 rgba(0, 0, 0, .8);">RACING EVENT!</div>
-                                <div class="cc-banner-sub">Szerezd meg az exkluzív Racer Red botot, a Verseny sisakot, 999 bonus gemet, +3 Boxot és a Racer Red matricát! 🏁 Vagy nyomj hosszan a robotra és kapd el 50-szer a versenyautót — INGYEN tiéd a skin!</div>
+                                <div class="cc-banner-sub">Szerezd meg az exkluzív Racer Red botot és 150 bonus gemet! 🏁 Vagy nyomj hosszan a robotra és kapd el 50-szer a versenyautót — INGYEN tiéd a skin!</div>
                                 <div class="cc-banner-rewards" style="align-items:stretch;">
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
                                         <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
@@ -18527,20 +18718,8 @@
                                         <span style="font-size:10px;font-weight:800;">Racer Red Bot</span>
                                     </div>
                                     <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <span style="font-size:20px;">🪖</span>
-                                        <span style="font-size:10px;font-weight:800;">Verseny sisak</span>
-                                    </div>
-                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
                                         <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
-                                        <span style="font-size:10px;font-weight:800;">+999 Gem</span>
-                                    </div>
-                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <img src="box/box.png" alt="Box" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(239,68,68,0.5));">
-                                        <span style="font-size:10px;font-weight:800;">+3 Box</span>
-                                    </div>
-                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <span style="font-size:20px;">🏎️</span>
-                                        <span style="font-size:10px;font-weight:800;">Racer Red! Matrica</span>
+                                        <span style="font-size:10px;font-weight:800;">+150 Gem</span>
                                     </div>
                                 </div>
                                 <button class="cc-banner-btn" id="ccBuyBtn">🪙 300 — MEGVESZEM</button>
@@ -19924,7 +20103,7 @@
             { id: 'sticker-sup', text: 'Sup', emoji: '🔥', rarity: 'rare', desc: 'Mi újság?' },
             { id: 'sticker-wassup', text: 'Wassup', emoji: '😏', rarity: 'rare', desc: 'Street stílus' },
             { id: 'sticker-heya', text: 'Heya', emoji: '⭐', rarity: 'rare', desc: 'Üdv csillag' },
-            { id: 'sticker-racerred', text: 'RACE ON!', emoji: '🏎️', rarity: 'rare', desc: 'Száguldó racing üdv' },
+            { id: 'sticker-icecream', text: 'CHILL!', emoji: '🍦', rarity: 'rare', desc: 'Nyári hűsítő üdv' },
             { id: 'sticker-pow', text: 'POW!', emoji: '💥', rarity: 'rare', desc: 'Comic üdvözlés' },
             { id: 'sticker-bonjour', text: 'Bonjour', emoji: '🥖', rarity: 'rare', desc: 'Francia köszönés' },
             { id: 'sticker-hola', text: 'Hola', emoji: '🌶️', rarity: 'rare', desc: 'Spanyol üdvözlés' },
@@ -20615,7 +20794,7 @@
                 }
                 const owned = [];
                 const ownsFn = (typeof window.owns === 'function') ? window.owns : (typeof owns === 'function' ? owns : () => false);
-                skins.forEach(s => { if (!s.hide && (s.id === '' || s.id === 'tulip' || ownsFn(s.id))) owned.push(s) });
+                skins.forEach(s => { if (!s.hide || ownsFn(s.id)) owned.push(s) });
                 if (!owned.length) { owned.push({ id: '', name: 'Alap', icon: '🤖' }) }
                 return owned;
             } catch (_) { return [{ id: '', name: 'Alap', icon: '🤖' }] }
@@ -21233,7 +21412,6 @@
             'acc-ribbon': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><polygon points="4,4 26,15 4,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><polygon points="56,4 34,15 56,26" fill="#dc2626" stroke="#7f1d1d" stroke-width="1"/><rect x="24" y="9" width="12" height="12" fill="#991b1b" rx="2"/><ellipse cx="14" cy="15" rx="3" ry="5" fill="rgba(255,255,255,.25)"/></svg>',
             'acc-beads': '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,32 52,5" stroke="#78350f" stroke-width="1" fill="none"/><circle cx="8" cy="5" r="2.8" fill="#d97706"/><circle cx="15" cy="13" r="2.8" fill="#f59e0b"/><circle cx="22" cy="19" r="2.8" fill="#d97706"/><circle cx="30" cy="23" r="3.5" fill="#fbbf24" stroke="#92400e" stroke-width=".8"/><circle cx="38" cy="19" r="2.8" fill="#d97706"/><circle cx="45" cy="13" r="2.8" fill="#f59e0b"/><circle cx="52" cy="5" r="2.8" fill="#d97706"/></svg>',
             'acc-gem': '<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><path d="M8,5 Q30,28 52,5" stroke="#fbbf24" stroke-width="2" fill="none"/><path d="M22,18 L30,35 L38,18 L30,14 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/><path d="M22,18 L30,14 L30,35 Z" fill="#60a5fa"/><path d="M24,17 L30,15 L30,20 Z" fill="rgba(255,255,255,.6)"/></svg>',
-            'acc-helmet': '<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="helmG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="1" stop-color="#991b1b"/></linearGradient></defs><circle cx="30" cy="25" r="20" fill="url(#helmG)" stroke="#7f1d1d" stroke-width="1.5"/><path d="M12,25 A18,18 0 0,1 48,25 Z" fill="#1e293b" opacity="0.8"/><rect x="15" y="24" width="30" height="8" fill="#3b82f6" rx="2" stroke="#1d4ed8" stroke-width="1"/><rect x="25" y="6" width="10" height="3" fill="#ffffff" rx="1"/></svg>',
             'acc-guitar': '<svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="guitarBodyG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4e50"/><stop offset="100%" stop-color="#f9d423"/></linearGradient></defs><line x1="30" y1="25" x2="105" y2="60" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/><path d="M18,17 L30,23 L25,33 L13,27 Z" fill="#3e2723" stroke="#212121" stroke-width="1" rx="1"/><circle cx="15" cy="22" r="1.5" fill="#eeeeee"/><circle cx="21" cy="25" r="1.5" fill="#eeeeee"/><circle cx="25" cy="19" r="1.5" fill="#eeeeee"/><circle cx="120" cy="68" r="22" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><circle cx="98" cy="58" r="17" fill="url(#guitarBodyG)" stroke="#d84315" stroke-width="1.8"/><path d="M 103,42 Q 109,56 122,48 L 138,72 Q 112,86 103,68 Z" fill="url(#guitarBodyG)"/><circle cx="106" cy="62" r="6.5" fill="#212121" stroke="#ffecb3" stroke-width="1.2"/><rect x="124" y="66" width="5" height="12" transform="rotate(-30, 126, 72)" fill="#3e2723" rx="1"/><line x1="25" y1="21" x2="125" y2="69" stroke="#ffffff" stroke-width="0.8" opacity="0.9"/><line x1="26" y1="23" x2="126" y2="71" stroke="#ffffff" stroke-width="0.8" opacity="0.9"></svg>',
             'acc-drum': '<svg viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"></svg>'
         };
@@ -23205,19 +23383,19 @@
                     ccBtn._bound = true; ccBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         if (localStorage.getItem('nu_racing_pass_bought') === '1') { return }
-                        if (!confirm('🏎️ Racing Pass megvétele 300 gemért?\n\n🏎️ Racer Red Bot skin\n🪖 Verseny sisak\n💎 +999 Gem\n📦 +3 Box\n🏎️ Racer Red! matrica\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
+                        if (!confirm('🏎️ Racing Pass megvétele 300 gemért?\n\n🏎️ Racer Red Bot skin\n💎 +150 Gem\n\nJelenlegi egyenleged: ' + getGems() + ' gem')) return;
                         if (!spendGems(300)) { alert('Nincs elég gem! (300 gem kell)'); return }
                         // Ice Cream bot unlock + CHILL guitar + 999 gem + 3 boxes + Ice Cream sticker
                         buyItem('ice-cream');
                         buyItem('acc-guitar');
                         if (typeof awardSticker === 'function') awardSticker('sticker-icecream');
 
-                        addGems(999);
-                        localStorage.setItem('nu_box_count', String(boxesRemaining() + 3));
+                        // 150 gems added directly above
+                        // no box added
                         localStorage.setItem('nu_racing_pass_bought', '1');
                         try { playSfx('zynox') } catch (_) { }
                         triggerSkinEquipEffect();
-                        alert('🏎️ Racing Pass aktiválva!\n\n✅ Racer Red Bot feloldva\n🪖 Verseny sisak feloldva\n💎 +999 gem jóváírva\n📦 +3 Box hozzáadva\n🏎️ Racer Red! matrica megkapva!\n\nKeresd meg a shopban és a matrica panelen a jutalmakat!');
+                        alert('🏎️ Racing Pass aktiválva!\n\n✅ Racer Red Bot feloldva\n💎 +150 gem jóváírva!\n\nKeresd meg a shopban a jutalmadat!');
                         updateGemUI();
                         updateLootBadges();
                         if (typeof renderShop === 'function') renderShop();
@@ -23350,7 +23528,7 @@
                 if (bpP && !bpP._bound) {
                     bpP._bound = true; bpP.addEventListener('click', () => {
                         if (isBotpassPlus()) return;
-                        if (!confirm('Bot Pass Plus 999 gemért (' + getGems() + ' gemed van).\n\n⭐ Minden jutalom MELLETT egy bonus jár alul\n📦 A már begyűjtött szintekre azonnal kapod a Plus jutalmat\n🎯 Az ezután begyűjtöttek után jár a Plus is\n⚡ 60. szint: BLACK ULTRA BOT skin\n\nMegveszed?')) return;
+                        if (!confirm('Bot Pass Plus 999 gemért (' + getGems() + ' gemed van).\n\n⭐ Minden jutalom MELLETT egy bonus jár alul\n📦 A már begyűjtött szintekre azonnal kapod a Plus jutalmat\n🎯 Az ezután begyűjtöttek után jár a Plus is\n🏎️ 60. szint: Racer Blue Bot\n\nMegveszed?')) return;
                         if (!spendGems(999)) { alert('Nincs elég gem!'); return }
                         setBotpassPlus();
                         // Retroaktív Plus claim: a már begyűjtött szintekre azonnal jár Plus
@@ -24802,8 +24980,8 @@
 
                 resultEmoji.textContent = '🎉';
                 resultEmoji.className = 'ic-result-emoji ic-unlock-anim';
-                resultTitle.textContent = '🏎️ RACER RED SKIN & VERSENY SISAK FELOLDVA!';
-                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 versenyautót!<br>A Racer Red bot és a Verseny sisak most már a tiéd — INGYEN! 🏎️🪖✨<br><br>Keresd meg a Shopban!';
+                resultTitle.textContent = '🏎️ RACER RED SKIN FELOLDVA!';
+                resultSub.innerHTML = 'Gratulálunk! 🎊<br>Összegyűjtötted mind az 50 versenyautót!<br>A Racer Red bot most már a tiéd — INGYEN! 🏎️✨<br><br>Keresd meg a Shopban!';
             } else {
                 resultEmoji.textContent = '🏎️';
                 resultEmoji.className = 'ic-result-emoji';
