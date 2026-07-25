@@ -25527,7 +25527,7 @@
             } else if (type === 'mega') {
                 boxImg = 'box/mega.png';
                 glowColor = '#8b5cf6';
-
+            }
 
             overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${glowColor});"><img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
             document.body.appendChild(overlay);
@@ -25692,7 +25692,7 @@
                         
                         prize = { title: 'Hatalmas Gem!', name: gemReward + ' Gem', isGems: true };
                     }
-
+                }
 
                 // Show what we got inside the overlay with a beautiful entry animation
                 let rewardHtml = '';
