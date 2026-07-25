@@ -49,6 +49,38 @@
             box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
         }
 
+        /* Mega Pack unboxing grid */
+        .mega-prize-grid {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            max-width: 310px;
+        }
+        .mega-prize-slot {
+            width: 54px;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-sizing: border-box;
+        }
+        .mega-prize-slot.revealed {
+            opacity: 1;
+            transform: scale(1);
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(139, 92, 246, 0.05));
+            border-color: #a78bfa;
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+        }
+
         /* Shop Sidebar Layout Styles */
         .shop-body-wrapper {
             display: flex;
@@ -182,15 +214,7 @@
         }
 
         
-        .six-seven-box {
-            display: inline-block;
-            will-change: transform;
-            animation: boxFloat 3.5s ease-in-out infinite;
-        }
-        .six-seven-box:hover {
-            transform: scale(1.1) rotate(-3deg);
-            animation-play-state: paused;
-        }
+
 
         .shop-box-img {
             display: inline-block;
@@ -18052,55 +18076,7 @@
         .concert-promo-close { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 8px 20px; color: rgba(255,255,255,.7); font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 6px; font-family: 'Outfit', sans-serif }
         .concert-promo-close:hover { background: rgba(255,255,255,.2) }
 
-            /* ========== SIX-SEVEN BOT ========== */
-        .robot.six-seven {
-            filter: hue-rotate(200deg) saturate(1.8) brightness(1.2);
-            animation: float 3.2s ease-in-out infinite;
-        }
 
-        .robot.six-seven .mouth {
-            animation: botMouthTalk 0.15s infinite alternate;
-        }
-
-        @keyframes botMouthTalk {
-            0% { height: 2px; width: 10px; border-radius: 2px; }
-            100% { height: 10px; width: 14px; border-radius: 10px; }
-        }
-
-        .robot.six-seven::before,
-        .robot.six-seven::after {
-            position: absolute;
-            top: 40px;
-            font-size: 40px;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px #3b82f6;
-            z-index: 5;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .robot.six-seven::before {
-            content: '6';
-            left: -40px;
-            animation: sixSevenHandLeft 0.5s infinite alternate ease-in-out;
-        }
-
-        .robot.six-seven::after {
-            content: '7';
-            right: -40px;
-            animation: sixSevenHandRight 0.5s infinite alternate ease-in-out;
-            animation-delay: 0.5s;
-        }
-
-        @keyframes sixSevenHandLeft {
-            0% { transform: translateY(0) rotate(-15deg) scale(1); }
-            100% { transform: translateY(-40px) rotate(15deg) scale(1.2); }
-        }
-
-        @keyframes sixSevenHandRight {
-            0% { transform: translateY(-40px) rotate(15deg) scale(1.2); }
-            100% { transform: translateY(0) rotate(-15deg) scale(1); }
-        }
     
         .top-right-actions {
             position: fixed;
@@ -18477,22 +18453,7 @@
                 
                 <!-- CAT: BOXES -->
                 <div id="cat-boxes">
-                    <!-- Six-Seven Box (Horizontal) -->
-                    <div class="shop-section" id="shopSixSevenBoxSection" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 15px; margin-bottom: 15px;">
-                        <div id="shopSixSevenCard" style="display: flex; flex-direction: row; align-items: center; gap: 15px; text-align: left;">
-                            <div class="loot-card-visual" style="margin:0; overflow:visible; flex-shrink: 0;">
-                                <img src="six%20seven%20box/image0%20(5).png" class="six-seven-box" style="width: 80px; height: 80px; filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5)); object-fit: contain;">
-                            </div>
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                                <div class="loot-card-title super-box-text" style="font-size: 16px; margin: 0; color: #60a5fa; text-shadow: 0 0 8px #3b82f6; font-weight:900;">Six-Seven Láda</div>
-                                <div style="font-size: 9px; color: rgba(59,130,246,0.8); font-weight: 700; background: rgba(59,130,246,0.1); padding: 2px 8px; border-radius: 8px; width: fit-content;">🕒 Még 18 napig elérhető</div>
-                                <div id="sixSevenPityGrid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin: 4px 0; max-width: 140px;"></div>
-                                <button class="buy-tag" id="buySixSevenBtn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); width: fit-content;">
-                                    <span id="sixSevenPrice">Ingyen (Ma)</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!-- Loot Boxes (Original, VIP, Mega Pack - Stacking Vertically as Horizontal Rows) -->
                     <div class="shop-section" style="display: flex; flex-direction: column; gap: 15px;">
@@ -18514,6 +18475,16 @@
                                 <div style="font-size: 16px; font-weight: 800; color: #fde68a; text-shadow: 0 0 10px rgba(251,191,36,0.3); margin: 0;">VIP Box</div>
                                 <div style="font-size: 11px; color: rgba(253,230,138,0.8); margin-bottom: 2px;">Botok, Skinek, Minden!</div>
                                 <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); width: fit-content;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Mega Pack Box (Horizontal) -->
+                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
+                            <img src="box/mega.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                                <div style="font-size: 16px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
+                                <div style="font-size: 11px; color: rgba(216, 180, 254, 0.8); margin-bottom: 2px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
+                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
                             </div>
                         </div>
 
@@ -22636,8 +22607,7 @@
                 { id: 'comic-villain', name: 'Comic Villain', desc: 'Gonosz képregénybot — Comic Clash exkluzív', icon: '🦹', cost: 0, tier: 'free', hide: true },
                 { id: 'ice-cream', name: 'Ice Cream', desc: 'Nyári fagylaltos robot — Summer Chill exkluzív', icon: '🍦', cost: 0, tier: 'free', hide: true },
                 { id: 'beach', name: 'Beach', desc: 'Türkiz nyári strandoló robot', icon: '🏖️', cost: 0, tier: 'free', hide: true },
-                { id: 'sunset', name: 'Sunset', desc: 'Narancs-lila naplementés robot', icon: '🌅', cost: 0, tier: 'free', hide: true },
-                { id: 'six-seven', name: 'Six-Seven', desc: 'A legendás meme bot', icon: '🤖', cost: 0, tier: 'free', hide: true }
+                { id: 'sunset', name: 'Sunset', desc: 'Narancs-lila naplementés robot', icon: '🌅', cost: 0, tier: 'free', hide: true }
 
             ];
             const BGS = [
@@ -25432,120 +25402,6 @@
     </div>
 
 
-    <!-- ========== SIX-SEVEN BOX JS ========== -->
-    <!-- ========== SIX-SEVEN BOX JS ========== -->
-    <script>
-    (function() {
-        const openedCountKey = 'nu_six_seven_boxes';
-        const dailyClaimKey = 'nu_six_seven_daily';
-        
-        let openedCount = parseInt(localStorage.getItem(openedCountKey) || '0', 10);
-        
-        const btn = document.getElementById('buySixSevenBtn');
-        const grid = document.getElementById('sixSevenPityGrid');
-        const priceSpan = document.getElementById('sixSevenPrice');
-        const gemCost = 67;
-
-        function updateSixSevenUI() {
-            if (!btn) return;
-            
-            // Grid render
-            if (grid) {
-                let html = '';
-                for(let i=0; i<20; i++) {
-                    const isActive = i < openedCount;
-                    html += `<div style="aspect-ratio: 1; border-radius: 4px; background: ${isActive ? 'linear-gradient(135deg, #3b82f6, #60a5fa)' : '#1f2937'}; box-shadow: ${isActive ? '0 0 8px rgba(59,130,246,0.6)' : 'none'}; border: 1px solid ${isActive ? '#93c5fd' : '#374151'}; transition: all 0.3s;"></div>`;
-                }
-                grid.innerHTML = html;
-            }
-            
-            const lastClaim = localStorage.getItem(dailyClaimKey);
-            const today = new Date().toDateString();
-            const userName = (localStorage.getItem('nu_name') || '').toLowerCase();
-            const isKovrat = (userName === 'kovrat');
-            
-            if (isKovrat || lastClaim !== today) {
-                priceSpan.textContent = isKovrat ? 'Ingyen (Kovrat VIP)' : 'Ingyen (Ma)';
-            } else {
-                priceSpan.innerHTML = `${gemCost} <span class="gem-img" style="width:16px; height:16px;"></span> Buy`;
-            }
-        }
-
-        if (btn) {
-            btn.addEventListener('click', () => {
-                const userName = (localStorage.getItem('nu_name') || '').toLowerCase();
-                const isKovrat = (userName === 'kovrat');
-                const lastClaim = localStorage.getItem(dailyClaimKey);
-                const today = new Date().toDateString();
-                const isFree = isKovrat || (lastClaim !== today);
-
-                if (!isFree) {
-                    let currentGems = 0;
-                    try { currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10); } catch(e){}
-                    if (currentGems < gemCost) {
-                        alert('Nincs elég Gemed a Six-Seven Láda kinyitásához!');
-                        if(typeof playSfx === 'function') playSfx('error');
-                        return;
-                    }
-                    localStorage.setItem('nu_gems', String(Math.max(0, currentGems - gemCost)));
-                    if (typeof updateGemUI === 'function') updateGemUI();
-                } else if (!isKovrat) {
-                    localStorage.setItem(dailyClaimKey, today);
-                }
-
-                if(typeof playSfx === 'function') playSfx('buy');
-                openedCount++;
-                localStorage.setItem(openedCountKey, openedCount);
-                updateSixSevenUI();
-
-                // Nyitás Animáció
-                const overlay = document.createElement('div');
-                overlay.className = 'loot-unboxing-overlay';
-                overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px #3b82f6);"><img src="six%20seven%20box/image0%20(5).png" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
-                document.body.appendChild(overlay);
-
-                setTimeout(() => {
-                    overlay.classList.add('fade-out');
-                    setTimeout(() => overlay.remove(), 400);
-
-                    // Sorsolás
-                    let ownsSixSeven = false;
-                    try { ownsSixSeven = JSON.parse(localStorage.getItem('nu_skins') || '[]').includes('six-seven'); } catch(e){}
-                    
-                    let dropRate = 0.02; // 2%
-                    if (openedCount >= 20 && !ownsSixSeven) {
-                        dropRate = 1.0; // Pity timer garantált drop
-                    }
-
-                    if (!ownsSixSeven && Math.random() < dropRate) {
-                        // Kinyitotta a botot!
-                        const skins = JSON.parse(localStorage.getItem('nu_skins') || '[]');
-                        if (!skins.includes('six-seven')) {
-                            skins.push('six-seven');
-                            localStorage.setItem('nu_skins', JSON.stringify(skins));
-                        }
-                        if(typeof showUnlockModal === 'function') {
-                            showUnlockModal('🤖 Six-Seven Bot', 'Ritka Skin', 'six-seven');
-                        } else {
-                            showLootToast('Six-Seven Bot!', 'Megkaptad a Six-Seven botot!', 'six%20seven%20box/image0%20(5).png');
-                        }
-                    } else {
-                        // Gemet kap
-                        const gemReward = Math.floor(Math.random() * 20) + 10; // 10-30 gem
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        showLootToast('Gemek!', `A ládából ${gemReward} Gemet nyitottál!`, '💎');
-                    }
-                }, 1500);
-            });
-        }
-        
-        // Initial setup timeout to ensure UI functions are ready
-        setTimeout(updateSixSevenUI, 500);
-    })();
-    </script>
-
     <!-- ========== ORIGINAL & VIP BOX JS ========== -->
     <script>
     (function() {
@@ -25577,177 +25433,6 @@
         }, 1800);
 
 
-        function doNyitas(type) {
-            const overlay = document.createElement('div');
-            overlay.className = 'loot-unboxing-overlay';
-            // Start with shaking box
-            let boxImg = 'box/normal.png';
-            let glowColor = '#10b981';
-            if (type === 'vip') {
-                boxImg = 'box/vip.png';
-                glowColor = '#f59e0b';
-            } else if (type === 'six-seven') {
-                boxImg = 'six%20seven%20box/image0%20(5).png';
-                glowColor = '#3b82f6';
-            }
-
-            overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${glowColor});"><img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
-            document.body.appendChild(overlay);
-
-            setTimeout(() => {
-                // Determine prize
-                let prize = {};
-                if (type === 'orig') {
-                    if (Math.random() < 0.2) {
-                        const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-hi', 'sticker-csa', 'sticker-csak'];
-                        const reward = stickers[Math.floor(Math.random() * stickers.length)];
-                        
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
-                        if (!owned.includes(reward)) {
-                            owned.push(reward);
-                            localStorage.setItem('nu_stickers', JSON.stringify(owned));
-                        }
-                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
-                        
-                        prize = { title: 'Új Matrica!', name: reward, isSticker: true };
-                    } else {
-                        const gemReward = Math.floor(Math.random() * 100) + 50;
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        
-                        prize = { title: 'Gemek!', name: gemReward + ' Gem', isGems: true };
-                    }
-                } else if (type === 'vip') {
-                    const r = Math.random();
-                    if (r < 0.3) {
-                        const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti', 'six-seven'];
-                        const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
-                        
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
-                        if (!owned.includes(reward)) {
-                            owned.push(reward);
-                            localStorage.setItem('nu_owned', JSON.stringify(owned));
-                        }
-                        if (typeof renderShop === 'function') renderShop();
-                        
-                        prize = { title: 'Új Bot / Skin!', name: reward, isSkin: true, skinId: reward };
-                    } else if (r < 0.5) {
-                        const stickers = [
-                            'sticker-yo', 'sticker-howdy', 'sticker-sup', 'sticker-wassup', 'sticker-heya', 'sticker-icecream', 'sticker-pow', 
-                            'sticker-bonjour', 'sticker-hola', 'sticker-hallo', 'sticker-salut', 'sticker-privet', 'sticker-hej', 
-                            'sticker-aloha', 'sticker-ciao', 'sticker-ola', 'sticker-anyong', 'sticker-csokol', 'sticker-beep', 
-                            'sticker-konnichi', 'sticker-magic', 'sticker-trav', 'sticker-force', 'sticker-vulcan', 'sticker-cosmic', 
-                            'sticker-galaxy', 'sticker-quantum'
-                        ];
-                        const reward = stickers[Math.floor(Math.random() * stickers.length)];
-                        
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
-                        if (!owned.includes(reward)) {
-                            owned.push(reward);
-                            localStorage.setItem('nu_stickers', JSON.stringify(owned));
-                        }
-                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
-                        
-                        prize = { title: 'VIP Matrica!', name: reward, isSticker: true };
-                    } else {
-                        const gemReward = Math.floor(Math.random() * 500) + 300;
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        
-                        prize = { title: 'Hatalmas Gem!', name: gemReward + ' Gem', isGems: true };
-                    }
-                } else if (type === 'six-seven') {
-                    let openedCount = parseInt(localStorage.getItem('nu_six_seven_boxes') || '0', 10);
-                    let ownsSixSeven = false;
-                    try { ownsSixSeven = JSON.parse(localStorage.getItem('nu_owned') || '[]').includes('six-seven'); } catch(e){}
-                    let dropRate = 0.02;
-                    if (openedCount >= 20 && !ownsSixSeven) dropRate = 1.0;
-                    
-                    if (!ownsSixSeven && Math.random() < dropRate) {
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
-                        if (!owned.includes('six-seven')) {
-                            owned.push('six-seven');
-                            localStorage.setItem('nu_owned', JSON.stringify(owned));
-                        }
-                        if (typeof renderShop === 'function') renderShop();
-                        prize = { title: 'Six-Seven Bot!', name: 'six-seven', isSkin: true, skinId: 'six-seven' };
-                    } else {
-                        const gemReward = Math.floor(Math.random() * 20) + 10;
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        prize = { title: 'Gemek!', name: gemReward + ' Gem', isGems: true };
-                    }
-                }
-
-                function getStickerEmoji(id) {
-                    const map = {
-                        'sticker-hello': '👋',
-                        'sticker-szia': '🇭🇺',
-                        'sticker-hey': '🤙',
-                        'sticker-sup': '👊',
-                        'sticker-yoo': '🤟',
-                        'sticker-wave': '🙋‍♂️',
-                        'sticker-matrix': '👽',
-                        'sticker-cyber': '🤖',
-                        'sticker-quantum': '🌀',
-                        'sticker-hacker': '💻'
-                    };
-                    return map[id] || '🎁';
-                }
-
-                // Show what we got inside the overlay with a beautiful entry animation
-                let rewardHtml = '';
-                if (prize.isGems) {
-                    rewardHtml = `<div style="font-size: 100px; text-shadow: 0 0 40px rgba(56, 189, 248, 0.8); animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">💎</div>`;
-                } else if (prize.isSkin) {
-                    if (typeof window.buildMiniRobotHtml === 'function') {
-                        rewardHtml = `<div style="transform: scale(2.0); margin: 50px 0; height: 120px; display: flex; justify-content: center; align-items: center; animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${window.buildMiniRobotHtml(prize.skinId, false)}</div>`;
-                    } else {
-                        rewardHtml = `<div style="font-size: 100px; animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">🤖</div>`;
-                    }
-                } else if (prize.isSticker) {
-                    rewardHtml = `<div style="font-size: 100px; text-shadow: 0 0 40px rgba(167, 139, 250, 0.8); animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${getStickerEmoji(prize.name)}</div>`;
-                }
-
-                overlay.innerHTML = `
-                    <div style="text-align: center; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <h2 style="font-size: 32px; font-weight: 900; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.6); margin: 0 0 10px 0; animation: prizePop 0.4s ease-out;">${prize.title}</h2>
-                        <div style="margin: 20px 0;">
-                            ${rewardHtml}
-                        </div>
-                        <p style="font-size: 24px; font-weight: 900; color: #fff; margin: 10px 0 5px 0; text-transform: uppercase; animation: prizePop 0.5s ease-out;">${prize.name}</p>
-                        
-                    </div>
-                `;
-
-                // Play win sound
-                try {
-                    if (prize.isSkin) {
-                        playSfx('zynox');
-                    } else if (prize.isGems) {
-                        playSfx('gem-claim');
-                    } else {
-                        playSfx('skin-equip');
-                    }
-                } catch(e){}
-
-                // Auto remove overlay after 3.8 seconds
-                setTimeout(() => {
-                    overlay.classList.add('fade-out');
-                    setTimeout(() => overlay.remove(), 500);
-                }, 3800);
-
-            }, 1500);
-        }
-
-        
         window.switchShopCategory = function(catId) {
             const categories = ['boxes', 'gems', 'skins', 'support'];
             categories.forEach(c => {
@@ -25815,21 +25500,17 @@
         updateOriginalUI();
 
         function getStickerEmoji(id) {
-            let list = [];
-            try {
-                if (typeof STICKERS !== 'undefined') list = STICKERS;
-                else if (typeof window.STICKERS !== 'undefined') list = window.STICKERS;
-            } catch(e){}
-            const s = list.find(x => x.id === id);
-            if (s) return s.emoji;
-            
             const map = {
-                'sticker-hello': '👋', 'sticker-szia': '🇭🇺', 'sticker-hey': '🤙', 'sticker-sup': '👊', 'sticker-yo': '😎',
-                'sticker-howdy': '🤠', 'sticker-wassup': '😜', 'sticker-heya': '⭐', 'sticker-icecream': '🍦', 'sticker-pow': '💥',
-                'sticker-bonjour': '🥖', 'sticker-hola': '🌮', 'sticker-hallo': '🍺', 'sticker-salut': '🍷', 'sticker-privet': '🇷🇺',
-                'sticker-hej': '🇸🇪', 'sticker-aloha': '🌺', 'sticker-ciao': '🍕', 'sticker-ola': '🇵🇹', 'sticker-anyong': '⛩️',
-                'sticker-csokol': '👵', 'sticker-beep': '🤖', 'sticker-konnichi': '🇯🇵', 'sticker-magic': '🔮', 'sticker-trav': '⚔️',
-                'sticker-force': '🌌', 'sticker-vulcan': '🖖', 'sticker-cosmic': '☄️', 'sticker-galaxy': '🌌', 'sticker-quantum': '🌀'
+                'sticker-hello': '👋',
+                'sticker-szia': '🇭🇺',
+                'sticker-hey': '🤙',
+                'sticker-sup': '👊',
+                'sticker-yoo': '🤟',
+                'sticker-wave': '🙋‍♂️',
+                'sticker-matrix': '👽',
+                'sticker-cyber': '🤖',
+                'sticker-quantum': '🌀',
+                'sticker-hacker': '💻'
             };
             return map[id] || '🎁';
         }
@@ -25846,10 +25527,7 @@
             } else if (type === 'mega') {
                 boxImg = 'box/mega.png';
                 glowColor = '#8b5cf6';
-            } else if (type === 'six-seven') {
-                boxImg = 'six%20seven%20box/image0%20(5).png';
-                glowColor = '#3b82f6';
-            }
+
 
             overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${glowColor});"><img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
             document.body.appendChild(overlay);
@@ -25862,7 +25540,7 @@
                         const r = Math.random();
                         if (r < 0.25) {
                             // Skins/Bots
-                            const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti', 'six-seven'];
+                            const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti'];
                             const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
                             
                             let owned = [];
@@ -25874,14 +25552,7 @@
                             prizes.push({ title: 'Skin', name: reward, isSkin: true, skinId: reward });
                         } else if (r < 0.5) {
                             // Stickers
-                            const stickers = [
-                                'sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-hi', 'sticker-csa', 'sticker-csak',
-                                'sticker-yo', 'sticker-howdy', 'sticker-sup', 'sticker-wassup', 'sticker-heya', 'sticker-icecream', 'sticker-pow', 
-                                'sticker-bonjour', 'sticker-hola', 'sticker-hallo', 'sticker-salut', 'sticker-privet', 'sticker-hej', 
-                                'sticker-aloha', 'sticker-ciao', 'sticker-ola', 'sticker-anyong', 'sticker-csokol', 'sticker-beep', 
-                                'sticker-konnichi', 'sticker-magic', 'sticker-trav', 'sticker-force', 'sticker-vulcan', 'sticker-cosmic', 
-                                'sticker-galaxy', 'sticker-quantum'
-                            ];
+                            const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave', 'sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
                             const reward = stickers[Math.floor(Math.random() * stickers.length)];
                             
                             let owned = [];
@@ -25901,7 +25572,7 @@
                     }
 
                     if (typeof renderShop === 'function') renderShop();
-                    if (typeof renderStickerPanel === 'function') renderStickerPanel();
+                    if (typeof renderStickers === 'function') renderStickers();
                     if (typeof updateGemUI === 'function') updateGemUI();
 
                     // Display grid of 5 slots
@@ -25961,7 +25632,7 @@
                     return;
                 }
 
-                // Determine prize for single boxes (orig, vip, six-seven)
+                // Determine prize for single boxes (orig, vip)
                 let prize = {};
                 if (type === 'orig') {
                     if (Math.random() < 0.2) {
@@ -25974,7 +25645,7 @@
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
+                        if (typeof renderStickers === 'function') renderStickers();
                         
                         prize = { title: 'Új Matrica!', name: reward, isSticker: true };
                     } else {
@@ -25988,7 +25659,7 @@
                 } else if (type === 'vip') {
                     const r = Math.random();
                     if (r < 0.3) {
-                        const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti', 'six-seven'];
+                        const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti'];
                         const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
                         
                         let owned = [];
@@ -26010,7 +25681,7 @@
                             owned.push(reward);
                             localStorage.setItem('nu_stickers', JSON.stringify(owned));
                         }
-                        if (typeof renderStickerPanel === 'function') renderStickerPanel();
+                        if (typeof renderStickers === 'function') renderStickers();
                         
                         prize = { title: 'VIP Matrica!', name: reward, isSticker: true };
                     } else {
@@ -26021,30 +25692,7 @@
                         
                         prize = { title: 'Hatalmas Gem!', name: gemReward + ' Gem', isGems: true };
                     }
-                } else if (type === 'six-seven') {
-                    let openedCount = parseInt(localStorage.getItem('nu_six_seven_boxes') || '0', 10);
-                    let ownsSixSeven = false;
-                    try { ownsSixSeven = JSON.parse(localStorage.getItem('nu_owned') || '[]').includes('six-seven'); } catch(e){}
-                    let dropRate = 0.02;
-                    if (openedCount >= 20 && !ownsSixSeven) dropRate = 1.0;
-                    
-                    if (!ownsSixSeven && Math.random() < dropRate) {
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
-                        if (!owned.includes('six-seven')) {
-                            owned.push('six-seven');
-                            localStorage.setItem('nu_owned', JSON.stringify(owned));
-                        }
-                        if (typeof renderShop === 'function') renderShop();
-                        prize = { title: 'Six-Seven Bot!', name: 'six-seven', isSkin: true, skinId: 'six-seven' };
-                    } else {
-                        const gemReward = Math.floor(Math.random() * 20) + 10;
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        prize = { title: 'Gemek!', name: gemReward + ' Gem', isGems: true };
-                    }
-                }
+
 
                 // Show what we got inside the overlay with a beautiful entry animation
                 let rewardHtml = '';
