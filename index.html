@@ -20815,7 +20815,7 @@
             font-weight: 700;
         }
 
-        /* ========== SANTA'S VILLAGE (MIKULÁS FALVA — 3D WALK + WORKSHOP STAGE) ========== */
+        /* ========== SANTA'S VILLAGE (3D PANORAMIC EXPLORABLE WORLD + FACTORIES + REINDEER) ========== */
         .village-overlay {
             position: fixed;
             inset: 0;
@@ -20823,9 +20823,10 @@
             display: none;
             flex-direction: column;
             overflow: hidden;
-            background: linear-gradient(180deg, #020817 0%, #071b34 38%, #0f2c4c 68%, #172554 100%);
+            background: linear-gradient(180deg, #020614 0%, #06152d 35%, #0c2647 65%, #163a5f 100%);
             font-family: 'Outfit', sans-serif;
             color: #fff;
+            user-select: none;
         }
         .village-overlay.open {
             display: flex;
@@ -20835,7 +20836,7 @@
             inset: 0;
             pointer-events: none;
             overflow: hidden;
-            z-index: 8;
+            z-index: 15;
         }
         .village-flake {
             position: absolute;
@@ -20845,8 +20846,8 @@
             animation: villageSnowDrop var(--vd, 7s) linear infinite;
             animation-delay: var(--vdelay, 0s);
         }
-        .village-flake.far { opacity: 0.55; }
-        .village-flake.mid { opacity: 0.82; box-shadow: 0 0 6px rgba(224, 242, 254, 0.75); }
+        .village-flake.far { opacity: 0.5; }
+        .village-flake.mid { opacity: 0.8; box-shadow: 0 0 6px rgba(224, 242, 254, 0.75); }
         .village-flake.near { opacity: 0.95; box-shadow: 0 0 10px rgba(255, 255, 255, 0.9); }
         .village-blizzard-flake {
             position: absolute;
@@ -20867,7 +20868,7 @@
             100% { transform: translate3d(var(--bsx, 140px), 105vh, 0) scale(1.15); opacity: 0; }
         }
 
-        /* Stage 1: 3D North Pole Avenue Walk / Sleigh Approach */
+        /* Entry 3D Walk Scene */
         .village-walk-scene {
             position: relative;
             z-index: 2;
@@ -20879,16 +20880,14 @@
             overflow: hidden;
             padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 28px);
         }
-        .village-walk-scene.active {
-            display: flex;
-        }
+        .village-walk-scene.active { display: flex; }
         .village-aurora {
             position: absolute;
-            top: 3%;
-            left: -18%;
-            right: -18%;
+            top: 4%;
+            left: -15%;
+            right: -15%;
             height: 36%;
-            background: linear-gradient(115deg, rgba(16, 185, 129, 0.32) 0%, rgba(56, 189, 248, 0.32) 45%, rgba(168, 85, 247, 0.28) 85%, transparent 100%);
+            background: linear-gradient(115deg, rgba(16, 185, 129, 0.34) 0%, rgba(56, 189, 248, 0.34) 45%, rgba(168, 85, 247, 0.28) 85%, transparent 100%);
             filter: blur(24px);
             border-radius: 50%;
             animation: villageAurora 7s ease-in-out infinite alternate;
@@ -20920,27 +20919,27 @@
         }
         .village-distant-lodge {
             position: absolute;
-            top: 37%;
+            top: 36%;
             left: 50%;
-            width: 96px;
-            height: 70px;
-            margin-left: -48px;
+            width: 110px;
+            height: 74px;
+            margin-left: -55px;
             transform-origin: center bottom;
-            animation: boothApproach 2.35s cubic-bezier(0.25, 0.85, 0.35, 1) forwards;
+            animation: boothApproach 2.2s cubic-bezier(0.25, 0.85, 0.35, 1) forwards;
             z-index: 3;
         }
         .mini-lodge-roof {
             width: 0;
             height: 0;
             margin: 0 auto;
-            border-left: 48px solid transparent;
-            border-right: 48px solid transparent;
-            border-bottom: 28px solid #dc2626;
+            border-left: 52px solid transparent;
+            border-right: 52px solid transparent;
+            border-bottom: 30px solid #dc2626;
             filter: drop-shadow(0 -3px 0 #ffffff) drop-shadow(0 0 18px rgba(251, 191, 36, 0.7));
         }
         .mini-lodge-body {
-            width: 78px;
-            height: 40px;
+            width: 86px;
+            height: 42px;
             margin: 0 auto;
             background: linear-gradient(180deg, #78350f, #451a03);
             border: 1.5px solid #fbbf24;
@@ -20948,11 +20947,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            font-size: 17px;
+            gap: 4px;
+            font-size: 16px;
             box-shadow: 0 0 30px rgba(251, 191, 36, 0.65), inset 0 0 14px rgba(254, 240, 138, 0.45);
         }
-        /* Candy-cane North Pole street poles zooming past on left/right */
         .village-candy-pole {
             position: absolute;
             top: 45%;
@@ -20987,14 +20985,13 @@
             margin-left: -2.5px;
             border-radius: 3px;
             background: repeating-linear-gradient(135deg, #ef4444 0 5px, #ffffff 5px 10px);
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
         }
         .village-candy-pole.vp-l1 { animation: forestLanternPassL 1.3s linear 0s infinite; }
         .village-candy-pole.vp-l2 { animation: forestLanternPassL 1.3s linear -0.65s infinite; }
         .village-candy-pole.vp-r1 { animation: forestLanternPassR 1.3s linear -0.32s infinite; }
         .village-candy-pole.vp-r2 { animation: forestLanternPassR 1.3s linear -0.97s infinite; }
 
-        /* Stage 2: Interactive Santa's Workshop Plaza */
+        /* Stage 2: Huge 3D Panoramic Explorable Village World */
         .village-plaza-scene {
             position: relative;
             z-index: 2;
@@ -21002,18 +20999,21 @@
             display: none;
             flex-direction: column;
             min-height: 0;
-            animation: obIn 0.35s ease;
+            overflow: hidden;
         }
-        .village-plaza-scene.active {
-            display: flex;
-        }
+        .village-plaza-scene.active { display: flex; }
+
         .village-topbar {
+            position: relative;
+            z-index: 20;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 6px;
             padding: calc(env(safe-area-inset-top, 14px) + 8px) 12px 10px;
-            background: rgba(2, 8, 23, 0.65);
+            background: rgba(2, 8, 23, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(125, 211, 252, 0.25);
             flex-shrink: 0;
         }
@@ -21025,124 +21025,809 @@
             white-space: nowrap;
         }
 
-        .village-lodge-stage {
-            margin: 8px 12px 0;
-            border-radius: 22px;
+        /* 3D Camera Viewport */
+        .village-3d-viewport {
+            position: relative;
+            flex: 1;
+            min-height: 0;
             overflow: hidden;
-            position: relative;
-            border: 1.5px solid rgba(125, 211, 252, 0.48);
-            background: linear-gradient(180deg, #0b2447 0%, #19376d 55%, #1e293b 100%);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(56, 189, 248, 0.16);
-            flex-shrink: 0;
+            perspective: 950px;
+            cursor: grab;
+            touch-action: pan-y;
         }
-        .village-roof-snow {
-            height: 10px;
-            background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 75%, #bae6fd 100%);
-            box-shadow: 0 2px 8px rgba(224, 242, 254, 0.4);
+        .village-3d-viewport:active { cursor: grabbing; }
+
+        /* HUD Hint & Spirit Pill at top of 3D Viewport */
+        .village-hud-bar {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            right: 12px;
+            z-index: 18;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            pointer-events: none;
         }
-        .village-eaves {
-            position: relative;
-            height: 28px;
-            background: repeating-linear-gradient(90deg, #991b1b 0 22px, #14532d 22px 44px);
-            border-bottom: 2px solid rgba(251, 191, 36, 0.78);
+        .village-hud-pill {
+            pointer-events: auto;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(7, 16, 32, 0.82);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(125, 211, 252, 0.4);
+            color: #e0f2fe;
+            font-size: 11.5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        }
+        .village-bubble-banner {
+            position: absolute;
+            top: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 18;
+            padding: 6px 15px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.88);
+            border: 1.5px solid rgba(251, 191, 36, 0.65);
+            color: #fef08a;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+            max-width: 92%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+        .village-bubble-banner.pop {
+            animation: marketBubblePop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Left / Right Pan Arrows */
+        .village-pan-arrow {
+            position: absolute;
+            top: 52%;
+            transform: translateY(-50%);
+            z-index: 18;
+            width: 38px;
+            height: 54px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(186, 230, 253, 0.45);
+            background: rgba(7, 16, 32, 0.72);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            transition: transform 0.14s ease, background 0.2s ease;
         }
-        .village-sign {
-            padding: 2px 13px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, #1e3a8a, #0f172a);
-            border: 1px solid #7dd3fc;
-            color: #e0f2fe;
-            font-size: 10px;
-            font-weight: 900;
-            letter-spacing: 0.7px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+        .village-pan-arrow:active { transform: translateY(-50%) scale(0.9); }
+        .village-pan-arrow.left { left: 8px; }
+        .village-pan-arrow.right { right: 8px; }
+
+        /* Parallax Layer 0: Fixed Sky, Moon & Sleigh */
+        .v3d-sky {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
         }
-        .village-stage-interior {
-            position: relative;
-            height: 152px;
-            padding: 6px 18px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            overflow: hidden;
-            background:
-                radial-gradient(circle at 50% 24%, rgba(16, 185, 129, 0.24) 0%, rgba(56, 189, 248, 0.22) 42%, transparent 72%),
-                radial-gradient(circle at 50% 62%, rgba(251, 191, 36, 0.22) 0%, rgba(15, 23, 42, 0.92) 78%);
+        .v3d-moon {
+            position: absolute;
+            top: 12%;
+            right: 14%;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fef08a 58%, #f59e0b 100%);
+            box-shadow: 0 0 36px 12px rgba(254, 240, 138, 0.32), 0 0 80px 26px rgba(56, 189, 248, 0.18);
         }
         .village-sleigh {
             position: absolute;
-            top: 32px;
-            left: -150px;
-            font-size: 20px;
+            top: 17%;
+            left: -180px;
+            font-size: 26px;
             white-space: nowrap;
             z-index: 6;
-            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
+            filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.85));
             pointer-events: none;
             opacity: 0;
         }
         .village-sleigh.fly {
-            animation: villageSleighFly 3.6s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
+            animation: villageSleighFly 4.2s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
         }
         @keyframes villageSleighFly {
-            0% { transform: translate3d(-20px, 12px, 0) rotate(-5deg) scale(0.85); opacity: 0; }
+            0% { transform: translate3d(-30px, 24px, 0) rotate(-6deg) scale(0.85); opacity: 0; }
             14% { opacity: 1; }
-            50% { transform: translate3d(48vw, -8px, 0) rotate(2deg) scale(1.05); opacity: 1; }
+            50% { transform: translate3d(52vw, -14px, 0) rotate(2deg) scale(1.08); opacity: 1; }
             88% { opacity: 1; }
-            100% { transform: translate3d(calc(100vw + 160px), 8px, 0) rotate(5deg) scale(0.9); opacity: 0; }
+            100% { transform: translate3d(calc(100vw + 220px), 12px, 0) rotate(6deg) scale(0.9); opacity: 0; }
         }
-        .village-side-companion {
-            position: absolute;
-            bottom: 10px;
-            font-size: 30px;
-            line-height: 1;
-            z-index: 4;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
-            cursor: pointer;
-            transition: transform 0.16s ease;
-            user-select: none;
-        }
-        .village-side-companion:active { transform: scale(0.9); }
-        .village-side-companion.left { left: 22px; }
-        .village-side-companion.right { right: 22px; }
 
-        .village-robot-stage {
-            position: relative;
+        /* Parallax Layer 1: Distant 3D Snow Mountains (0.3x pan) */
+        .v3d-mountains {
+            position: absolute;
+            bottom: 33%;
+            left: 50%;
+            width: 2600px;
+            height: 220px;
+            margin-left: -1300px;
+            pointer-events: none;
+            z-index: 2;
+            will-change: transform;
+            background:
+                conic-gradient(from 135deg at 15% 15%, #1e3a5f 0 90deg, transparent 0) 0 100% / 380px 190px repeat-x,
+                conic-gradient(from 135deg at 50% 25%, #0f2942 0 90deg, transparent 0) 140px 100% / 440px 210px repeat-x;
+            filter: drop-shadow(0 -4px 14px rgba(186, 230, 253, 0.2));
+        }
+        .v3d-hills-mid {
+            position: absolute;
+            bottom: 24%;
+            left: 50%;
+            width: 2600px;
+            height: 150px;
+            margin-left: -1300px;
+            pointer-events: none;
+            z-index: 3;
+            will-change: transform;
+            background: radial-gradient(ellipse 460px 130px at 50% 100%, #cbd5e1 0%, #94a3b8 65%, transparent 70%) 0 100% / 520px 150px repeat-x;
+            opacity: 0.72;
+        }
+
+        /* Main 3D World Stage (2400px wide, pans with 3D perspective & camera yaw) */
+        .v3d-world {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 2400px;
+            height: 100%;
+            margin-left: -1200px;
+            transform-style: preserve-3d;
             z-index: 5;
-            width: 132px;
-            height: 122px;
+            will-change: transform;
+            transition: transform 0.08s linear;
+        }
+        .v3d-world.smooth-pan {
+            transition: transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* 3D Snowy Ground Plane & Cobblestone/Ice Road */
+        .v3d-snow-ground {
+            position: absolute;
+            left: -200px;
+            right: -200px;
+            bottom: -30px;
+            height: 44%;
+            background:
+                radial-gradient(ellipse at 50% 0%, #ffffff 0%, #e0f2fe 45%, #bae6fd 78%, #7dd3fc 100%);
+            border-top: 4px solid #ffffff;
+            box-shadow: 0 -14px 40px rgba(224, 242, 254, 0.65), inset 0 24px 48px rgba(255, 255, 255, 0.9);
+            transform: rotateX(22deg);
+            transform-origin: center bottom;
+        }
+        .v3d-snow-road {
+            position: absolute;
+            left: 120px;
+            right: 120px;
+            bottom: 11%;
+            height: 48px;
+            border-radius: 999px;
+            background:
+                repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.25) 0 26px, rgba(226, 232, 240, 0.45) 26px 52px),
+                linear-gradient(180deg, rgba(186, 230, 253, 0.65), rgba(255, 255, 255, 0.9));
+            border-top: 2px dashed rgba(56, 189, 248, 0.45);
+            border-bottom: 3px solid rgba(148, 163, 184, 0.45);
+            box-shadow: inset 0 4px 12px rgba(14, 116, 144, 0.18), 0 6px 16px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Background 3D Pine Trees along the road */
+        .v3d-bg-tree {
+            position: absolute;
+            bottom: 29%;
+            width: 56px;
+            height: 92px;
+            pointer-events: none;
+            filter: drop-shadow(0 8px 10px rgba(15, 23, 42, 0.32));
+        }
+        .v3d-bg-tree::before {
+            content: '🌲';
+            font-size: 56px;
+            line-height: 1;
+            display: block;
+            filter: drop-shadow(0 -2px 0 #fff);
+        }
+
+        /* Street Lamps along the Village Street */
+        .v3d-lamp {
+            position: absolute;
+            bottom: 26%;
+            width: 18px;
+            height: 74px;
+            pointer-events: none;
+            z-index: 6;
+        }
+        .v3d-lamp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 18px;
+            height: 18px;
+            margin-left: -9px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 58%, #d97706 100%);
+            box-shadow: 0 0 22px 10px rgba(251, 191, 36, 0.65);
+        }
+        .v3d-lamp::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            width: 6px;
+            height: 56px;
+            margin-left: -3px;
+            border-radius: 3px;
+            background: repeating-linear-gradient(135deg, #ef4444 0 6px, #ffffff 6px 12px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        /* 3D Buildings in the Village */
+        .v3d-building {
+            position: absolute;
+            bottom: 24%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease;
+            filter: drop-shadow(0 18px 24px rgba(15, 23, 42, 0.45));
+        }
+        .v3d-building:hover {
+            transform: translateX(-50%) translateY(-6px) scale(1.04);
+        }
+        .v3d-building:active {
+            transform: translateX(-50%) scale(0.96);
+        }
+        .v3d-b-badge {
+            margin-bottom: 8px;
+            padding: 5px 13px;
+            border-radius: 999px;
+            background: rgba(7, 16, 32, 0.88);
+            border: 1.5px solid #fbbf24;
+            color: #fef08a;
+            font-size: 12px;
+            font-weight: 900;
+            white-space: nowrap;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), 0 0 14px rgba(251, 191, 36, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            animation: badgeFloat 2.4s ease-in-out infinite;
+        }
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .v3d-b-enter-pill {
+            margin-top: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ef4444, #d97706);
+            border: 1px solid #fef08a;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.45);
+        }
+
+        /* 1. Candy Factory 3D Structure */
+        .b-candy-factory {
+            position: relative;
+            width: 210px;
+            height: 165px;
+        }
+        .cf-chimney {
+            position: absolute;
+            top: -8px;
+            width: 22px;
+            height: 46px;
+            border-radius: 5px 5px 0 0;
+            background: repeating-linear-gradient(135deg, #ec4899 0 7px, #ffffff 7px 14px);
+            border: 2px solid #831843;
+        }
+        .cf-chimney.c1 { left: 26px; }
+        .cf-chimney.c2 { right: 26px; }
+        .cf-steam {
+            position: absolute;
+            top: -16px;
+            left: 3px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(244, 114, 182, 0.78);
+            box-shadow: 0 0 10px #f472b6;
+            animation: chimneySmoke 2.4s ease-out infinite;
+        }
+        .cf-steam.s2 { animation-delay: 1.1s; }
+        .cf-roof {
+            position: absolute;
+            top: 26px;
+            left: 6px;
+            right: 6px;
+            height: 36px;
+            border-radius: 18px 18px 6px 6px;
+            background: repeating-linear-gradient(90deg, #db2777 0 18px, #fce7f3 18px 36px);
+            border: 2.5px solid #f472b6;
+            box-shadow: 0 -6px 0 #ffffff, 0 6px 14px rgba(0, 0, 0, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .cf-gear {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: conic-gradient(#ef4444 0 45deg, #fff 45deg 90deg, #ef4444 90deg 135deg, #fff 135deg 180deg, #ef4444 180deg 225deg, #fff 225deg 270deg, #ef4444 270deg 315deg, #fff 315deg 360deg);
+            border: 3px solid #fbbf24;
+            box-shadow: 0 0 14px rgba(244, 114, 182, 0.8);
+            animation: spinGear 4s linear infinite;
+        }
+        @keyframes spinGear { 100% { transform: rotate(360deg); } }
+        .cf-walls {
+            position: absolute;
+            top: 58px;
+            left: 14px;
+            right: 14px;
+            bottom: 0;
+            background: linear-gradient(180deg, #831843 0%, #500724 100%);
+            border: 2.5px solid #f9a8d4;
+            border-radius: 0 0 14px 14px;
+            box-shadow: inset -14px 0 0 rgba(0, 0, 0, 0.28), inset 0 8px 16px rgba(244, 114, 182, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 0;
+        }
+        .cf-window-belt {
+            width: 100%;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.85);
+            border: 2px solid #fbbf24;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 0 16px rgba(244, 114, 182, 0.55);
+        }
+        .cf-belt-strip {
+            display: flex;
+            gap: 14px;
+            font-size: 20px;
+            white-space: nowrap;
+            animation: beltScroll 3.2s linear infinite;
+        }
+        @keyframes beltScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-85px); }
+        }
+        .cf-door {
+            width: 48px;
+            height: 44px;
+            border-radius: 24px 24px 0 0;
+            background: linear-gradient(180deg, #f472b6, #db2777);
+            border: 2.5px solid #fef08a;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        /* 2. Toy Factory 3D Structure */
+        .b-toy-factory {
+            position: relative;
+            width: 220px;
+            height: 172px;
+        }
+        .tf-roof {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 46px;
+            background: linear-gradient(180deg, #b91c1c, #7f1d1d);
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            border-top: 6px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tf-clock-gear {
+            font-size: 26px;
+            animation: spinGear 6s linear infinite;
+            filter: drop-shadow(0 0 10px #fbbf24);
+        }
+        .tf-walls {
+            position: absolute;
+            top: 56px;
+            left: 12px;
+            right: 12px;
+            bottom: 0;
+            background: linear-gradient(180deg, #92400e 0%, #451a03 100%);
+            border: 2.5px solid #fbbf24;
+            border-radius: 0 0 14px 14px;
+            box-shadow: inset -16px 0 0 rgba(0, 0, 0, 0.32);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px 0;
+        }
+
+        /* 3. Giant 3D Christmas Tree & Village Square */
+        .b-village-tree {
+            position: relative;
+            width: 170px;
+            height: 205px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .v3d-tree-star {
+            font-size: 32px;
+            line-height: 1;
+            margin-bottom: -8px;
+            z-index: 4;
+            filter: drop-shadow(0 0 16px #fde047);
+            animation: badgeFloat 1.8s ease-in-out infinite;
+        }
+        .v3d-tree-cone {
+            width: 0;
+            height: 0;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-style: solid;
+            filter: drop-shadow(0 -3px 0 #ffffff) drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+        }
+        .v3d-tree-cone.c1 { border-width: 0 36px 50px 36px; border-bottom-color: #16a34a; z-index: 3; }
+        .v3d-tree-cone.c2 { border-width: 0 54px 64px 54px; border-bottom-color: #15803d; margin-top: -18px; z-index: 2; }
+        .v3d-tree-cone.c3 { border-width: 0 72px 76px 72px; border-bottom-color: #166534; margin-top: -22px; z-index: 1; }
+        .v3d-tree-trunk {
+            width: 26px;
+            height: 24px;
+            background: #451a03;
+            border-radius: 0 0 6px 6px;
+        }
+        .v3d-tree-orbs {
+            position: absolute;
+            inset: 34px 24px 28px;
+            z-index: 5;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: space-around;
+            pointer-events: none;
+        }
+        .v3d-orb {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fde047;
+            box-shadow: 0 0 12px #fde047;
+            animation: adventBulbGlow 1.3s ease-in-out infinite;
+        }
+        .v3d-orb:nth-child(3n+1) { background: #ef4444; box-shadow: 0 0 12px #ef4444; animation-delay: 0.3s; }
+        .v3d-orb:nth-child(3n+2) { background: #38bdf8; box-shadow: 0 0 12px #38bdf8; animation-delay: 0.7s; }
+
+        /* 4. Reindeer Stable & Snowy Coral 3D Structure */
+        .b-reindeer-stable {
+            position: relative;
+            width: 225px;
+            height: 158px;
+        }
+        .rs-barn-roof {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            right: 16px;
+            height: 42px;
+            background: linear-gradient(180deg, #991b1b, #7f1d1d);
+            clip-path: polygon(50% 0%, 100% 60%, 92% 100%, 8% 100%, 0% 60%);
+            border-top: 6px solid #ffffff;
+        }
+        .rs-barn-body {
+            position: absolute;
+            top: 46px;
+            left: 24px;
+            right: 24px;
+            bottom: 0;
+            background: linear-gradient(180deg, #78350f, #451a03);
+            border: 2.5px solid #d97706;
+            border-radius: 0 0 12px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 12px 10px 18px;
+        }
+        .rs-reindeer-actor {
+            font-size: 36px;
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.65));
+            animation: reindeerPrance 1.6s ease-in-out infinite;
+        }
+        .rs-reindeer-actor:nth-child(2) { animation-delay: 0.55s; }
+        .rs-reindeer-actor:nth-child(3) { animation-delay: 1.1s; }
+        @keyframes reindeerPrance {
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            50% { transform: translateY(-9px) rotate(6deg); }
+        }
+        .rs-fence {
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            bottom: 0;
+            height: 24px;
+            background:
+                repeating-linear-gradient(90deg, #b45309 0 10px, transparent 10px 24px),
+                linear-gradient(180deg, transparent 6px, #92400e 6px 12px, transparent 12px 16px, #92400e 16px 22px);
+            border-bottom: 3px solid #ffffff;
+        }
+
+        /* 5. Santa's Grand Mansion & Sleigh Pad */
+        .b-santa-house {
+            position: relative;
+            width: 215px;
+            height: 172px;
+        }
+        .sh-roof {
+            position: absolute;
+            top: 10px;
+            left: 8px;
+            right: 8px;
+            height: 50px;
+            background: linear-gradient(180deg, #dc2626, #991b1b);
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            filter: drop-shadow(0 -5px 0 #ffffff);
+        }
+        .sh-body {
+            position: absolute;
+            top: 56px;
+            left: 22px;
+            right: 22px;
+            bottom: 0;
+            background: linear-gradient(180deg, #7c2d12, #431407);
+            border: 2.5px solid #fbbf24;
+            border-radius: 0 0 14px 14px;
+            box-shadow: inset -14px 0 0 rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 12px 10px 0;
+        }
+        .sh-window {
+            width: 34px;
+            height: 34px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 70%, #d97706 100%);
+            border: 2px solid #fef3c7;
+            box-shadow: 0 0 18px rgba(251, 191, 36, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .sh-door {
+            width: 44px;
+            height: 56px;
+            border-radius: 22px 22px 0 0;
+            background: linear-gradient(180deg, #15803d, #14532d);
+            border: 2.5px solid #fbbf24;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        /* Walking Robot on the 3D Snowy Street */
+        .v3d-walker-bot {
+            position: absolute;
+            bottom: 12%;
+            left: 1200px;
+            width: 126px;
+            height: 120px;
+            transform: translateX(-50%);
+            z-index: 11;
+            transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s ease;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+            filter: drop-shadow(0 12px 14px rgba(15, 23, 42, 0.45));
         }
-        .village-robot-stage .dc-mini-robot-frame {
-            width: 132px;
-            height: 122px;
+        .v3d-walker-bot .dc-mini-robot-frame {
+            width: 126px;
+            height: 120px;
         }
-        .village-robot-stage .dc-mini-robot {
-            transform: translate(-50%, -50%) scale(0.46) !important;
-            animation: marketRobotIdle 3s ease-in-out infinite !important;
+        .v3d-walker-bot .dc-mini-robot {
+            transform: translate(-50%, -50%) scale(0.45) !important;
+            animation: marketRobotIdle 2.8s ease-in-out infinite !important;
         }
-        .village-robot-stage.crafting .dc-mini-robot {
-            animation: marketEatBounce 0.32s ease-in-out 4 !important;
+        .v3d-walker-bot.walking .dc-mini-robot {
+            animation: botSnowWalk 0.28s ease-in-out infinite !important;
         }
-        .village-robot-stage.cheering .dc-mini-robot {
-            animation: marketHappyHop 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) 2 !important;
-            filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.8));
+        .v3d-walker-bot.face-left {
+            transform: translateX(-50%) scaleX(-1);
+        }
+        @keyframes botSnowWalk {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.45) translateY(0) rotate(-4deg); }
+            50% { transform: translate(-50%, -56%) scale(0.46) translateY(-8px) rotate(5deg); }
+        }
+
+        /* Bottom 3D Compass Bar (Quick-Jump & Look Around) */
+        .village-compass-dock {
+            position: relative;
+            z-index: 20;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 6px;
+            padding: 9px 10px calc(env(safe-area-inset-bottom, 12px) + 10px);
+            background: rgba(2, 8, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(125, 211, 252, 0.25);
+            flex-shrink: 0;
+        }
+        .v-compass-btn {
+            padding: 8px 4px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(255, 255, 255, 0.14);
+            background: rgba(15, 23, 42, 0.72);
+            color: rgba(255, 255, 255, 0.82);
+            font-family: 'Outfit', sans-serif;
+            font-size: 10.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: transform 0.14s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+        .v-compass-btn .vc-ico { font-size: 18px; line-height: 1.1; }
+        .v-compass-btn:active { transform: scale(0.93); }
+        .v-compass-btn.active {
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.65), rgba(220, 38, 38, 0.55));
+            border-color: #fbbf24;
+            color: #fef08a;
+            box-shadow: 0 0 16px rgba(251, 191, 36, 0.28);
+        }
+
+        /* Interactive 3D Building Interior Modal Drawer (Candy Factory / Toy Factory / Reindeer Stable / Santa House) */
+        .village-interior-modal {
+            position: absolute;
+            inset: 0;
+            z-index: 30;
+            background: rgba(2, 8, 23, 0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            animation: obIn 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .village-interior-modal.open {
+            display: flex;
+        }
+        .v-interior-card {
+            width: 100%;
+            max-width: 390px;
+            max-height: 84vh;
+            overflow-y: auto;
+            border-radius: 26px;
+            background: linear-gradient(165deg, #0b1e38 0%, #0f172a 60%, #1e1b4b 100%);
+            border: 2px solid #fbbf24;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.75), 0 0 36px rgba(251, 191, 36, 0.24);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .v-interior-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .v-interior-title {
+            font-size: 17px;
+            font-weight: 900;
+            color: #fef08a;
+        }
+        /* Animated Factory Machine Stage inside Modal */
+        .v-machine-stage {
+            position: relative;
+            height: 150px;
+            border-radius: 18px;
+            background: radial-gradient(circle at 50% 45%, rgba(251, 191, 36, 0.24) 0%, rgba(15, 23, 42, 0.92) 78%);
+            border: 1.5px solid rgba(186, 230, 253, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 32px;
+        }
+        .v-conveyor-track {
+            position: absolute;
+            left: -10px;
+            right: -10px;
+            bottom: 0;
+            height: 28px;
+            background: repeating-linear-gradient(90deg, #334155 0 16px, #1e293b 16px 32px);
+            border-top: 3px solid #fbbf24;
+            animation: conveyorMove 0.9s linear infinite;
+        }
+        @keyframes conveyorMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 32px 0; }
+        }
+        .v-conveyor-items {
+            position: absolute;
+            bottom: 26px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            font-size: 28px;
+            pointer-events: none;
+        }
+        .v-stamper-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 44px;
+            background: linear-gradient(180deg, #dc2626, #991b1b);
+            border: 2px solid #fbbf24;
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+            transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 6;
+        }
+        .v-stamper-head.stamp {
+            transform: translateX(-50%) translateY(42px) scale(1.08);
         }
 
         .village-action-prop {
             position: absolute;
             left: 50%;
-            top: 52%;
+            top: 48%;
             transform: translate(-50%, -50%) scale(0);
-            font-size: 44px;
+            font-size: 46px;
             line-height: 1;
             z-index: 12;
             pointer-events: none;
@@ -21150,21 +21835,19 @@
             opacity: 0;
         }
         .village-action-prop.craft-anim {
-            animation: villageCraftSequence 1.4s ease-in-out forwards;
+            animation: villageCraftSequence 1.25s ease-in-out forwards;
         }
         @keyframes villageCraftSequence {
-            0% { transform: translate(-50%, 30px) scale(0.3) rotate(0deg); opacity: 0; }
-            20% { transform: translate(-50%, -12px) scale(1.15) rotate(-12deg); opacity: 1; }
-            42% { transform: translate(-50%, -16px) scale(0.95) rotate(14deg); opacity: 1; }
-            64% { transform: translate(-50%, -14px) scale(1.2) rotate(-8deg); opacity: 1; }
-            84% { transform: translate(-50%, -26px) scale(1.1) rotate(0deg); opacity: 1; }
-            100% { transform: translate(-50%, -54px) scale(0); opacity: 0; }
+            0% { transform: translate(-50%, 26px) scale(0.3) rotate(0deg); opacity: 0; }
+            22% { transform: translate(-50%, -8px) scale(1.2) rotate(-10deg); opacity: 1; }
+            55% { transform: translate(-50%, -14px) scale(1.05) rotate(10deg); opacity: 1; }
+            100% { transform: translate(-50%, -44px) scale(0); opacity: 0; }
         }
         .village-action-prop.feed-anim {
-            animation: treatEatSequence 1.35s ease-in-out forwards;
+            animation: treatEatSequence 1.3s ease-in-out forwards;
         }
         .village-action-prop.launch-anim {
-            animation: villageLaunchSequence 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: villageLaunchSequence 1.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         @keyframes villageLaunchSequence {
             0% { transform: translate(-50%, 10px) scale(0.5); opacity: 0; }
@@ -21172,57 +21855,15 @@
             100% { transform: translate(85px, -110px) scale(0.3) rotate(25deg); opacity: 0; }
         }
 
-        .village-magic-counter {
-            padding: 8px 14px;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.92) 0%, rgba(7, 16, 32, 0.98) 100%);
-            border-top: 1.5px solid rgba(125, 211, 252, 0.35);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .village-spirit-fill {
-            height: 100%;
-            width: 0%;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #38bdf8, #34d399, #fbbf24);
-            transition: width 0.3s ease;
-        }
-
-        .village-tabs {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 8px;
-            padding: 10px 12px 6px;
-            flex-shrink: 0;
-        }
-        .village-tab-btn {
-            padding: 9px 6px;
-            border-radius: 14px;
-            border: 1.5px solid rgba(255, 255, 255, 0.14);
-            background: rgba(15, 23, 42, 0.65);
-            color: rgba(255, 255, 255, 0.78);
-            font-family: 'Outfit', sans-serif;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
-        }
-        .village-tab-btn:active { transform: scale(0.95); }
-        .village-tab-btn.active {
-            background: linear-gradient(135deg, rgba(14, 116, 144, 0.62), rgba(79, 70, 229, 0.52));
-            border-color: #7dd3fc;
-            color: #e0f2fe;
-            box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
-        }
-
         .village-wish-list {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-top: 8px;
+            max-height: 120px;
+            overflow-y: auto;
         }
         .village-wish-item {
-            padding: 8px 11px;
+            padding: 7px 10px;
             border-radius: 12px;
             background: rgba(15, 23, 42, 0.65);
             border: 1px solid rgba(186, 230, 253, 0.18);
@@ -21885,18 +22526,18 @@
         </div>
     </div>
 
-    <!-- Santa's Village (Mikulás Falva — 3D Walk + Interactive Workshop Stage) -->
+    <!-- Santa's Village (Mikulás Falva — 3D Panoramic World + Factories + Reindeer) -->
     <div class="village-overlay" id="villageOverlay">
         <div class="village-snow-layer" id="villageSnowLayer" aria-hidden="true"></div>
 
-        <!-- Stage 1: Animated 3D North Pole Avenue Walk / Sleigh Ride -->
+        <!-- Stage 1: Animated 3D North Pole Avenue Approach -->
         <div class="village-walk-scene" id="villageWalkScene">
             <div class="forest-walker-stage">
                 <div class="forest-sky-stars"></div>
                 <div class="village-aurora"></div>
                 <div class="village-distant-lodge" id="villageDistantLodge">
                     <div class="mini-lodge-roof"></div>
-                    <div class="mini-lodge-body">🎅🎄</div>
+                    <div class="mini-lodge-body">🍬🧸🦌🎅</div>
                 </div>
                 <div class="village-trail-ground">
                     <div class="village-snow-avenue"></div>
@@ -21913,58 +22554,190 @@
                 <div class="village-candy-pole vp-r2"></div>
             </div>
             <div class="forest-walk-ui">
-                <div class="forest-walk-caption" id="villageWalkCaption">🛷 Gliding down North Pole Avenue...</div>
+                <div class="forest-walk-caption" id="villageWalkCaption">🛷 Entering 3D Santa's Village...</div>
                 <button type="button" class="forest-skip-btn" id="villageSkipWalkBtn">Skip →</button>
             </div>
         </div>
 
-        <!-- Stage 2: Interactive Santa's Workshop & Village Plaza -->
+        <!-- Stage 2: Huge 3D Panoramic Explorable Village World -->
         <div class="village-plaza-scene" id="villagePlazaScene">
             <div class="village-topbar">
                 <button type="button" class="market-home-btn" id="villageCloseBtn">← Home</button>
-                <div class="village-topbar-title">🎅 Santa's Village</div>
+                <div class="village-topbar-title">🎅 3D Santa's Village</div>
                 <div style="display:flex;align-items:center;gap:6px;">
                     <button type="button" class="market-home-btn" onclick="if(typeof openAdventMarket==='function')openAdventMarket()">🎪 Market</button>
                     <div class="shop-gems"><span class="gem-img"></span> <span data-gem-display>0</span></div>
                 </div>
             </div>
 
-            <div class="village-lodge-stage">
-                <div class="village-roof-snow" aria-hidden="true"></div>
-                <div class="village-eaves">
-                    <div class="village-sign">✨ SANTA'S WORKSHOP ✨</div>
-                    <div class="market-booth-lights" aria-hidden="true">
-                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
-                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
-                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
-                    </div>
+            <!-- 3D Drag/Pan Camera Viewport -->
+            <div class="village-3d-viewport" id="village3dViewport">
+                <!-- HUD Overlay -->
+                <div class="village-hud-bar">
+                    <div class="village-hud-pill">↔️ Drag / Pan to look around</div>
+                    <div class="village-hud-pill"><span id="villageSpiritLabel">⭐ 0 / 5</span> · <span style="color:#86efac;">+20 💎</span></div>
                 </div>
-                <div class="village-stage-interior" id="villageStageInterior">
-                    <div class="market-hang-lantern l" aria-hidden="true"></div>
-                    <div class="market-hang-lantern r" aria-hidden="true"></div>
-                    <div class="village-sleigh" id="villageSleigh" aria-hidden="true">🦌🦌🛷🎅✨</div>
-                    <div class="market-bubble" id="villageBubble">Welcome to Santa's Workshop! Craft toys or feed reindeer! 🎅</div>
-                    <div class="village-side-companion left" id="villageSantaCompanion" title="Tap Santa!">🎅</div>
-                    <div class="village-robot-stage" id="villageRobotStage" title="Tap to interact!">
+                <div class="village-bubble-banner" id="villageBubble">❄️ Swipe left/right to explore the 3D factories &amp; reindeer! ✨</div>
+
+                <button type="button" class="village-pan-arrow left" id="villagePanLeftBtn" aria-label="Look Left">◀</button>
+                <button type="button" class="village-pan-arrow right" id="villagePanRightBtn" aria-label="Look Right">▶</button>
+
+                <!-- Layer 0: Sky, Aurora, Moon & Flying Sleigh -->
+                <div class="v3d-sky">
+                    <div class="forest-sky-stars"></div>
+                    <div class="village-aurora"></div>
+                    <div class="v3d-moon"></div>
+                    <div class="village-sleigh" id="villageSleigh">🦌🦌🛷🎅✨</div>
+                </div>
+
+                <!-- Layer 1 & 2: Parallax 3D Mountains & Snowy Hills -->
+                <div class="v3d-mountains" id="villageMountainsLayer"></div>
+                <div class="v3d-hills-mid" id="villageHillsLayer"></div>
+
+                <!-- Layer 3: 2400px 3D Snowy Village World -->
+                <div class="v3d-world smooth-pan" id="village3dWorld">
+                    <div class="v3d-snow-ground"></div>
+                    <div class="v3d-snow-road"></div>
+
+                    <!-- Snowy Background Pine Trees & Candy Streetlamps across the 2400px street -->
+                    <div class="v3d-bg-tree" style="left:160px;"></div>
+                    <div class="v3d-bg-tree" style="left:580px;"></div>
+                    <div class="v3d-bg-tree" style="left:990px;"></div>
+                    <div class="v3d-bg-tree" style="left:1410px;"></div>
+                    <div class="v3d-bg-tree" style="left:1830px;"></div>
+                    <div class="v3d-bg-tree" style="left:2240px;"></div>
+
+                    <div class="v3d-lamp" style="left:210px;"></div>
+                    <div class="v3d-lamp" style="left:620px;"></div>
+                    <div class="v3d-lamp" style="left:1020px;"></div>
+                    <div class="v3d-lamp" style="left:1380px;"></div>
+                    <div class="v3d-lamp" style="left:1790px;"></div>
+                    <div class="v3d-lamp" style="left:2190px;"></div>
+
+                    <!-- ZONE 1 (x=390px): Giant 3D Candy Factory (Cukorgyár) -->
+                    <div class="v3d-building" style="left:390px;" onclick="focusVillageZone('candy', true)">
+                        <div class="v3d-b-badge">🍬 Candy Factory</div>
+                        <div class="b-candy-factory">
+                            <div class="cf-chimney c1"><span class="cf-steam"></span><span class="cf-steam s2"></span></div>
+                            <div class="cf-chimney c2"><span class="cf-steam"></span><span class="cf-steam s2"></span></div>
+                            <div class="cf-roof"><div class="cf-gear"></div></div>
+                            <div class="cf-walls">
+                                <div class="cf-window-belt">
+                                    <div class="cf-belt-strip">🍬 🍭 🍫 🧁 🍬 🍭 🍫 🧁</div>
+                                </div>
+                                <div class="cf-door">🍭</div>
+                            </div>
+                        </div>
+                        <div class="v3d-b-enter-pill">ENTER FACTORY ▶</div>
+                    </div>
+
+                    <!-- ZONE 2 (x=810px): Santa's 3D Toy Factory (Játékgyár) -->
+                    <div class="v3d-building" style="left:810px;" onclick="focusVillageZone('toy', true)">
+                        <div class="v3d-b-badge">🧸 Toy Factory</div>
+                        <div class="b-toy-factory">
+                            <div class="cf-chimney c1"><span class="cf-steam" style="background:rgba(255,255,255,0.85);box-shadow:none;"></span></div>
+                            <div class="cf-chimney c2"><span class="cf-steam" style="background:rgba(255,255,255,0.85);box-shadow:none;"></span></div>
+                            <div class="tf-roof"><span class="tf-clock-gear">⚙️</span></div>
+                            <div class="tf-walls">
+                                <div class="cf-window-belt">
+                                    <div class="cf-belt-strip">🧸 🚂 🤖 🎁 🧸 🚂 🤖 🎁</div>
+                                </div>
+                                <div class="cf-door" style="background:linear-gradient(180deg,#dc2626,#991b1b);">🎁</div>
+                            </div>
+                        </div>
+                        <div class="v3d-b-enter-pill">ENTER FACTORY ▶</div>
+                    </div>
+
+                    <!-- ZONE 3 (x=1200px): Central Snowy Plaza & Giant 3D Christmas Tree -->
+                    <div class="v3d-building" style="left:1200px;" onclick="focusVillageZone('plaza', true)">
+                        <div class="v3d-b-badge">🎄 Village Plaza &amp; Wishes</div>
+                        <div class="b-village-tree">
+                            <div class="v3d-tree-star">⭐</div>
+                            <div class="v3d-tree-cone c1"></div>
+                            <div class="v3d-tree-cone c2"></div>
+                            <div class="v3d-tree-cone c3"></div>
+                            <div class="v3d-tree-trunk"></div>
+                            <div class="v3d-tree-orbs">
+                                <span class="v3d-orb"></span><span class="v3d-orb"></span><span class="v3d-orb"></span>
+                                <span class="v3d-orb"></span><span class="v3d-orb"></span><span class="v3d-orb"></span>
+                                <span class="v3d-orb"></span><span class="v3d-orb"></span><span class="v3d-orb"></span>
+                            </div>
+                        </div>
+                        <div class="v3d-b-enter-pill">OPEN PLAZA ▶</div>
+                    </div>
+
+                    <!-- ZONE 4 (x=1590px): 3D Reindeer Stable & Snowy Paddock (Rénszarvas Karám) -->
+                    <div class="v3d-building" style="left:1590px;" onclick="focusVillageZone('reindeer', true)">
+                        <div class="v3d-b-badge">🦌 Reindeer Ranch</div>
+                        <div class="b-reindeer-stable">
+                            <div class="rs-barn-roof"></div>
+                            <div class="rs-barn-body">
+                                <span class="rs-reindeer-actor">🦌</span>
+                                <span class="rs-reindeer-actor">🦌</span>
+                                <span class="rs-reindeer-actor">🦌</span>
+                            </div>
+                            <div class="rs-fence"></div>
+                        </div>
+                        <div class="v3d-b-enter-pill">FEED REINDEER ▶</div>
+                    </div>
+
+                    <!-- ZONE 5 (x=2010px): Santa's Grand Mansion & Sleigh Launchpad -->
+                    <div class="v3d-building" style="left:2010px;" onclick="focusVillageZone('santa', true)">
+                        <div class="v3d-b-badge">🎅 Santa's Mansion</div>
+                        <div class="b-santa-house">
+                            <div class="cf-chimney c2" style="background:#991b1b;"><span class="cf-steam" style="background:rgba(255,255,255,0.85);"></span></div>
+                            <div class="sh-roof"></div>
+                            <div class="sh-body">
+                                <div class="sh-window">🕯️</div>
+                                <div class="sh-door">🎅</div>
+                                <div class="sh-window">🎄</div>
+                            </div>
+                        </div>
+                        <div class="v3d-b-enter-pill">VISIT SANTA ▶</div>
+                    </div>
+
+                    <!-- Player's Live Robot Walking in the 3D Snow Street -->
+                    <div class="v3d-walker-bot" id="villageRobotStage" onclick="openCurrentZoneModal()">
                         <div id="villageRobotMount"></div>
-                        <div class="village-action-prop" id="villageActionProp" aria-hidden="true"></div>
                     </div>
-                    <div class="village-side-companion right" id="villageReindeerCompanion" title="Tap Rudolph!">🦌</div>
-                </div>
-                <div class="village-magic-counter">
-                    <span class="market-cozy-label" id="villageSpiritLabel">⭐ 0 / 5</span>
-                    <div class="market-cozy-track"><div class="village-spirit-fill" id="villageSpiritFill"></div></div>
-                    <span class="market-cozy-reward">+20 💎</span>
                 </div>
             </div>
 
-            <div class="village-tabs">
-                <button type="button" class="village-tab-btn active" data-vtab="workshop" onclick="renderVillageTab('workshop')">🎁 Workshop</button>
-                <button type="button" class="village-tab-btn" data-vtab="reindeer" onclick="renderVillageTab('reindeer')">🦌 Reindeer &amp; Snow</button>
-                <button type="button" class="village-tab-btn" data-vtab="sleigh" id="villageSleighTabBtn" onclick="renderVillageTab('sleigh')">🛷 Sleigh &amp; Wishes</button>
+            <!-- Bottom 5-Zone 3D Compass Dock -->
+            <div class="village-compass-dock">
+                <button type="button" class="v-compass-btn" data-vzone="candy" onclick="focusVillageZone('candy', true)">
+                    <span class="vc-ico">🍬</span><span>Candy Fac.</span>
+                </button>
+                <button type="button" class="v-compass-btn" data-vzone="toy" onclick="focusVillageZone('toy', true)">
+                    <span class="vc-ico">🧸</span><span>Toy Fac.</span>
+                </button>
+                <button type="button" class="v-compass-btn active" data-vzone="plaza" onclick="focusVillageZone('plaza', false)">
+                    <span class="vc-ico">🎄</span><span>3D Plaza</span>
+                </button>
+                <button type="button" class="v-compass-btn" data-vzone="reindeer" onclick="focusVillageZone('reindeer', true)">
+                    <span class="vc-ico">🦌</span><span>Reindeer</span>
+                </button>
+                <button type="button" class="v-compass-btn" data-vzone="santa" onclick="focusVillageZone('santa', true)">
+                    <span class="vc-ico">🎅</span><span>Santa's</span>
+                </button>
             </div>
 
-            <div class="market-content" id="villageTabContent"></div>
+            <!-- Interactive 3D Building Interior Modal (Candy Factory / Toy Factory / Reindeer Stable / Plaza / Santa) -->
+            <div class="village-interior-modal" id="villageInteriorModal">
+                <div class="v-interior-card">
+                    <div class="v-interior-header">
+                        <div class="v-interior-title" id="vInteriorTitle">🍬 Candy Factory</div>
+                        <button type="button" class="shop-close-btn" style="width:32px;height:32px;font-size:14px;" onclick="closeVillageInterior()">✕</button>
+                    </div>
+                    <div class="v-machine-stage" id="vMachineStage">
+                        <div class="v-stamper-head" id="vStamperHead">⚙️</div>
+                        <div class="village-action-prop" id="villageActionProp"></div>
+                        <div class="v-conveyor-items" id="vConveyorItems">🍬 🍭 🍫 🧁</div>
+                        <div class="v-conveyor-track" id="vConveyorTrack"></div>
+                    </div>
+                    <div id="villageTabContent"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -31487,23 +32260,38 @@
             updateCozyUI();
         })();
 
-        // ========== SANTA'S VILLAGE (MIKULÁS FALVA — 3D WALK + WORKSHOP + REINDEER + SLEIGH) ==========
+        // ========== SANTA'S VILLAGE (3D PANORAMIC EXPLORABLE WORLD + FACTORIES + REINDEER) ==========
         (function () {
+            const ZONE_COORDS = {
+                candy:    { x: 390,  title: '🍬 Candy Factory (Cukorgyár)', stamper: '🍭', belt: '🍬 🍭 🍫 🧁 🍡' },
+                toy:      { x: 810,  title: '🧸 Santa’s Toy Factory (Játékgyár)', stamper: '🔨', belt: '🧸 🚂 🤖 🔮 🎁' },
+                plaza:    { x: 1200, title: '🎄 Village Plaza & Wish Postbox', stamper: '⭐', belt: '❄️ ⛄ 🎄 ⭐ 💌' },
+                reindeer: { x: 1590, title: '🦌 Royal Reindeer Ranch', stamper: '🥕', belt: '🦌 🥕 🍎 🦌 🔔' },
+                santa:    { x: 2010, title: '🎅 Santa’s Grand Mansion & Sleigh', stamper: '🎅', belt: '🎁 🛷 🦌 🎅 ✨' }
+            };
+
             const VILLAGE_ITEMS = [
-                { id: 'toy-bear', cat: 'workshop', icon: '🧸', name: 'Holiday Teddy Bear', price: 10, action: 'craft', verb: '🛷 Load Sleigh', react: 'Wrapped a cuddly Teddy Bear for Santa! 🧸🎁' },
-                { id: 'toy-train', cat: 'workshop', icon: '🚂', name: 'North Pole Express', price: 15, action: 'craft', verb: '🛷 Load Sleigh', react: 'Choo-choo! Wooden train packed on the sleigh! 🚂✨' },
-                { id: 'toy-bot', cat: 'workshop', icon: '🤖', name: 'Mini Bot Figurine', price: 20, action: 'craft', verb: '🛷 Load Sleigh', react: 'Beep-boop! Mini Bot wrapped with a golden bow! 🤖🎀' },
-                { id: 'toy-globe', cat: 'workshop', icon: '🔮', name: 'Magic Snow Globe', price: 20, action: 'craft', verb: '🛷 Load Sleigh', react: 'Sparkling Lapland snow globe ready for Christmas! ❄️✨' },
+                { id: 'candy-swirl', cat: 'candy', icon: '🍭', name: 'Giant Peppermint Swirl', price: 10, action: 'craft', verb: '⚙️ Stamp Candy', react: 'Candy machine stamped a Giant Peppermint Swirl! 🍭✨' },
+                { id: 'candy-truffle', cat: 'candy', icon: '🍫', name: 'Choco Factory Bar', price: 15, action: 'craft', verb: '⚙️ Pour Choco', react: 'Warm chocolate poured into golden wrappers! 🍫✨' },
+                { id: 'toy-bear', cat: 'workshop', icon: '🧸', name: 'Holiday Teddy Bear', price: 10, action: 'craft', verb: '🔨 Wrap Toy', react: 'Wrapped a cuddly Teddy Bear on the conveyor belt! 🧸🎁' },
+                { id: 'toy-train', cat: 'workshop', icon: '🚂', name: 'North Pole Express', price: 15, action: 'craft', verb: '🔨 Wrap Toy', react: 'Choo-choo! Wooden train packed for Santa’s sleigh! 🚂✨' },
+                { id: 'toy-bot', cat: 'workshop', icon: '🤖', name: 'Mini Bot Figurine', price: 20, action: 'craft', verb: '🔨 Wrap Toy', react: 'Beep-boop! Mini Bot wrapped with a golden bow! 🤖🎀' },
+                { id: 'toy-globe', cat: 'workshop', icon: '🔮', name: 'Magic Snow Globe', price: 20, action: 'craft', verb: '🔨 Wrap Toy', react: 'Sparkling Lapland snow globe ready for Christmas! ❄️✨' },
                 { id: 'rein-carrot', cat: 'reindeer', icon: '🥕', name: 'Magic Reindeer Carrot', price: 10, action: 'feed', verb: '🦌 Feed Rudolph', react: 'Crunch! Rudolph’s red nose is glowing bright! 🦌🥕✨' },
-                { id: 'rein-apple', cat: 'reindeer', icon: '🍎', name: 'Frosted Sugar Apple', price: 15, action: 'feed', verb: '🦌 Feed Dasher', react: 'Yum! Dasher did a happy reindeer leap! 🦌🍎❄️' },
-                { id: 'rein-cookie', cat: 'reindeer', icon: '🍪', name: 'Santa’s Milk & Cookie', price: 15, action: 'feed', verb: '🎅 Treat Santa', react: 'Ho Ho Ho! Santa loved the warm cookie! 🎅🍪❤️' },
-                { id: 'rein-bell', cat: 'reindeer', icon: '🔔', name: 'Golden Sleigh Bell', price: 20, action: 'craft', verb: '🔔 Ring Bell', react: 'Jingle-jingle! Magic sleigh bell powers the flight! 🔔✨' }
+                { id: 'rein-apple', cat: 'reindeer', icon: '🍎', name: 'Frosted Sugar Apple', price: 15, action: 'feed', verb: '🦌 Feed Dasher', react: 'Yum! Dasher did a happy reindeer leap in the snow! 🦌🍎❄️' }
             ];
             window.VILLAGE_ITEMS = VILLAGE_ITEMS;
 
-            let _activeVillageTab = 'workshop';
+            let _currentZone = 'plaza';
+            let _camX = 1200; // 350 .. 2050
+            let _botX = 1200;
+            let _isDragging = false;
+            let _dragStartX = 0;
+            let _dragStartCamX = 1200;
+            let _dragMoved = 0;
             let _vWalkTimers = [];
             let _vActionTimers = [];
+            let _botWalkTimer = null;
 
             function todayKey() {
                 return new Date().toDateString();
@@ -31567,9 +32355,7 @@
             function updateSpiritUI() {
                 const sp = getVillageSpirit();
                 const lbl = document.getElementById('villageSpiritLabel');
-                const fill = document.getElementById('villageSpiritFill');
                 if (lbl) lbl.textContent = `⭐ ${sp.progress} / 5`;
-                if (fill) fill.style.width = `${Math.round((sp.progress / 5) * 100)}%`;
             }
 
             window.updateVillageGiftBadge = function () {
@@ -31608,19 +32394,80 @@
                 b.classList.add('pop');
             }
 
-            function spawnVillageFloat(emojis) {
-                const interior = document.getElementById('villageStageInterior');
-                if (!interior) return;
-                emojis.forEach((em, idx) => {
-                    const el = document.createElement('div');
-                    el.className = 'market-float-fx';
-                    el.textContent = em;
-                    el.style.setProperty('--mfx', Math.round((idx - (emojis.length - 1) / 2) * 28 + (Math.random() - 0.5) * 14) + 'px');
-                    el.style.setProperty('--mfy', Math.round(-50 - Math.random() * 34) + 'px');
-                    interior.appendChild(el);
-                    setTimeout(() => el.remove(), 1100);
+            function apply3dCamera(x, smooth, tiltDeg) {
+                _camX = Math.max(320, Math.min(2080, x));
+                const offset = 1200 - _camX;
+                const world = document.getElementById('village3dWorld');
+                const mountains = document.getElementById('villageMountainsLayer');
+                const hills = document.getElementById('villageHillsLayer');
+                const yaw = typeof tiltDeg === 'number' ? tiltDeg : 0;
+                if (world) {
+                    world.classList.toggle('smooth-pan', !!smooth);
+                    world.style.transform = `translate3d(${offset}px, 0, 0) rotateY(${yaw}deg)`;
+                }
+                if (mountains) {
+                    mountains.style.transform = `translate3d(${Math.round(offset * 0.25)}px, 0, 0)`;
+                }
+                if (hills) {
+                    hills.style.transform = `translate3d(${Math.round(offset * 0.52)}px, 0, 0)`;
+                }
+
+                // Highlight nearest zone button
+                let nearest = 'plaza';
+                let bestDist = 99999;
+                Object.keys(ZONE_COORDS).forEach(k => {
+                    const d = Math.abs(ZONE_COORDS[k].x - _camX);
+                    if (d < bestDist) { bestDist = d; nearest = k; }
+                });
+                _currentZone = nearest;
+                document.querySelectorAll('.v-compass-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.vzone === nearest);
                 });
             }
+
+            function walkRobotTo(targetX) {
+                const bot = document.getElementById('villageRobotStage');
+                if (!bot) return;
+                const clamped = Math.max(340, Math.min(2060, targetX));
+                const dx = clamped - _botX;
+                if (Math.abs(dx) < 8) return;
+                bot.classList.toggle('face-left', dx < 0);
+                bot.classList.add('walking');
+                _botX = clamped;
+                bot.style.left = clamped + 'px';
+                playVillageSfx('step');
+                if (_botWalkTimer) clearTimeout(_botWalkTimer);
+                _botWalkTimer = setTimeout(() => {
+                    bot.classList.remove('walking');
+                }, 660);
+            }
+
+            window.focusVillageZone = function (zoneKey, openModal) {
+                if (_dragMoved > 12) return;
+                const z = ZONE_COORDS[zoneKey] || ZONE_COORDS.plaza;
+                _currentZone = zoneKey;
+                if (typeof hapticTap === 'function') hapticTap(10);
+                apply3dCamera(z.x, true, 0);
+                walkRobotTo(z.x);
+                setVillageBubble('📍 ' + z.title);
+                if (openModal) {
+                    setTimeout(() => {
+                        window.renderVillageTab(zoneKey);
+                        const modal = document.getElementById('villageInteriorModal');
+                        if (modal) modal.classList.add('open');
+                    }, 340);
+                }
+            };
+
+            window.openCurrentZoneModal = function () {
+                if (_dragMoved > 12) return;
+                window.focusVillageZone(_currentZone, true);
+            };
+
+            window.closeVillageInterior = function () {
+                const modal = document.getElementById('villageInteriorModal');
+                if (modal) modal.classList.remove('open');
+            };
 
             function ensureVillageSnow() {
                 const layer = document.getElementById('villageSnowLayer');
@@ -31658,7 +32505,6 @@
                 const now = ctx.currentTime;
 
                 if (kind === 'step') {
-                    // Sleigh jingle + snow crunch
                     const len = Math.floor(ctx.sampleRate * 0.07);
                     const buf = ctx.createBuffer(1, len, ctx.sampleRate);
                     const ch = buf.getChannelData(0);
@@ -31673,29 +32519,19 @@
                     g.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
                     ns.connect(bp).connect(g).connect(ctx.destination);
                     ns.start(now);
-
-                    const bell = ctx.createOscillator();
-                    const bg = ctx.createGain();
-                    bell.type = 'sine';
-                    bell.frequency.value = 1567.98;
-                    bg.gain.setValueAtTime(0.03, now);
-                    bg.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
-                    bell.connect(bg).connect(ctx.destination);
-                    bell.start(now);
-                    bell.stop(now + 0.12);
                 } else if (kind === 'craft') {
                     [587.33, 783.99, 1046.5, 1318.51].forEach((f, idx) => {
                         const o = ctx.createOscillator();
                         const g = ctx.createGain();
                         o.type = 'triangle';
                         o.frequency.value = f;
-                        const st = now + idx * 0.09;
+                        const st = now + idx * 0.08;
                         g.gain.setValueAtTime(0.001, st);
                         g.gain.linearRampToValueAtTime(0.07, st + 0.015);
-                        g.gain.exponentialRampToValueAtTime(0.001, st + 0.28);
+                        g.gain.exponentialRampToValueAtTime(0.001, st + 0.26);
                         o.connect(g).connect(ctx.destination);
                         o.start(st);
-                        o.stop(st + 0.3);
+                        o.stop(st + 0.28);
                     });
                 } else if (kind === 'feed') {
                     [0, 0.14, 0.28].forEach((off, idx) => {
@@ -31717,9 +32553,7 @@
                 } else {
                     const notes = kind === 'sleigh'
                         ? [659.25, 659.25, 659.25, 783.99, 1046.5]
-                        : kind === 'blizzard'
-                            ? [1046.5, 1318.51, 1567.98, 2093]
-                            : [783.99, 987.77, 1174.66];
+                        : [1046.5, 1318.51, 1567.98, 2093];
                     notes.forEach((f, idx) => {
                         const o = ctx.createOscillator();
                         const g = ctx.createGain();
@@ -31743,7 +32577,7 @@
                 if (sp.progress >= 5) {
                     sp.progress = 0;
                     addVillageGems(20);
-                    showLootToast('Christmas Spirit Bonus!', '+20 Gems for spreading North Pole joy! ⭐', '🎅');
+                    showLootToast('Christmas Spirit Bonus!', '+20 Gems for exploring Santa’s 3D Village! ⭐', '🎅');
                     if (typeof playSfx === 'function') playSfx('gem-claim');
                 }
                 saveVillageSpirit(sp);
@@ -31751,41 +32585,62 @@
                 syncVillageGems();
             }
 
-            function playStageSequence(icon, animCls, robotCls, bursts, finalMsg) {
+            function spawnMachineFloat(emojis) {
+                const st = document.getElementById('vMachineStage');
+                if (!st) return;
+                emojis.forEach((em, idx) => {
+                    const el = document.createElement('div');
+                    el.className = 'market-float-fx';
+                    el.textContent = em;
+                    el.style.setProperty('--mfx', Math.round((idx - (emojis.length - 1) / 2) * 32) + 'px');
+                    el.style.setProperty('--mfy', Math.round(-52 - Math.random() * 28) + 'px');
+                    st.appendChild(el);
+                    setTimeout(() => el.remove(), 1100);
+                });
+            }
+
+            function triggerMachineStamp(icon, animCls, bursts, msg) {
                 clearVillageActionTimers();
-                const stage = document.getElementById('villageRobotStage');
+                const stamper = document.getElementById('vStamperHead');
                 const prop = document.getElementById('villageActionProp');
+                if (stamper) {
+                    stamper.classList.add('stamp');
+                    setTimeout(() => stamper.classList.remove('stamp'), 320);
+                }
                 if (prop) {
                     prop.classList.remove('craft-anim', 'feed-anim', 'launch-anim');
                     prop.textContent = icon;
                     void prop.offsetWidth;
                     prop.classList.add(animCls);
                 }
-                if (stage) {
-                    stage.classList.remove('crafting', 'cheering');
-                    void stage.offsetWidth;
-                    stage.classList.add(robotCls);
-                }
-                setVillageBubble(finalMsg);
-
+                setVillageBubble(msg);
                 bursts.forEach(b => {
-                    _vActionTimers.push(setTimeout(() => spawnVillageFloat(b.icons), b.ms));
+                    _vActionTimers.push(setTimeout(() => spawnMachineFloat(b.icons), b.ms));
                 });
                 _vActionTimers.push(setTimeout(() => {
-                    if (stage) {
-                        stage.classList.remove('crafting');
-                        stage.classList.add('cheering');
-                    }
-                    spawnVillageFloat(['✨', '⭐', '🎅']);
-                }, 1100));
-                _vActionTimers.push(setTimeout(() => {
-                    if (stage) stage.classList.remove('crafting', 'cheering');
                     if (prop) {
                         prop.classList.remove('craft-anim', 'feed-anim', 'launch-anim');
                         prop.textContent = '';
                     }
-                }, 2000));
+                }, 1450));
             }
+
+            window.crankFactoryMachine = function (zoneKey) {
+                if (typeof hapticTap === 'function') hapticTap(12);
+                if (zoneKey === 'candy') {
+                    playVillageSfx('craft');
+                    triggerMachineStamp('🍭', 'craft-anim', [{ ms: 160, icons: ['🍬', '🍭', '✨'] }, { ms: 520, icons: ['🍫', '💖'] }], '🍬 Candy Machine stamped fresh holiday sweets! ✨');
+                } else if (zoneKey === 'toy') {
+                    playVillageSfx('craft');
+                    triggerMachineStamp('🎁', 'craft-anim', [{ ms: 160, icons: ['🧸', '🔨', '✨'] }, { ms: 520, icons: ['🎁', '🎀'] }], '🧸 Toy Press wrapped a Christmas present! 🎁');
+                } else if (zoneKey === 'reindeer') {
+                    playVillageSfx('feed');
+                    triggerMachineStamp('🥕', 'feed-anim', [{ ms: 160, icons: ['🦌', '🥕', '✨'] }, { ms: 520, icons: ['❤️', '❄️'] }], '🦌 Rudolph munched a crunchy North Pole carrot! 🥕');
+                } else {
+                    playVillageSfx('sleigh');
+                    triggerMachineStamp('⭐', 'launch-anim', [{ ms: 160, icons: ['❄️', '⛄', '✨'] }], '🎄 Christmas magic sparkles over the 3D Village! ✨');
+                }
+            };
 
             function finishVillageWalk() {
                 clearVillageWalkTimers();
@@ -31797,7 +32652,10 @@
                 syncVillageGems();
                 updateSpiritUI();
                 window.updateVillageGiftBadge();
-                window.renderVillageTab(_activeVillageTab || 'workshop');
+                _botX = 1200;
+                const bot = document.getElementById('villageRobotStage');
+                if (bot) bot.style.left = '1200px';
+                apply3dCamera(1200, true, 0);
                 window.triggerVillageSleigh();
             }
 
@@ -31816,28 +32674,22 @@
                 ensureVillageSnow();
                 clearVillageWalkTimers();
                 clearVillageActionTimers();
+                window.closeVillageInterior();
                 syncVillageGems();
                 updateSpiritUI();
                 window.updateVillageGiftBadge();
 
-                const stage = document.getElementById('villageRobotStage');
                 const mount = document.getElementById('villageRobotMount');
-                const prop = document.getElementById('villageActionProp');
                 const skinId = localStorage.getItem('nu_active_skin') || '';
-                if (stage) stage.classList.remove('crafting', 'cheering');
-                if (prop) {
-                    prop.classList.remove('craft-anim', 'feed-anim', 'launch-anim');
-                    prop.textContent = '';
-                }
                 if (mount) {
                     mount.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:48px">🤖</div>';
                 }
-                setVillageBubble("Welcome to Santa's Workshop! Craft toys or feed reindeer! 🎅");
+                setVillageBubble('❄️ Drag left/right or tap any 3D factory & reindeer stable to enter! ✨');
 
                 const walkScene = document.getElementById('villageWalkScene');
                 const plazaScene = document.getElementById('villagePlazaScene');
                 const caption = document.getElementById('villageWalkCaption');
-                if (caption) caption.textContent = '🛷 Gliding down North Pole Avenue...';
+                if (caption) caption.textContent = "🛷 Entering 3D Santa's Village...";
                 if (plazaScene) plazaScene.classList.remove('active');
                 if (walkScene) walkScene.classList.add('active');
 
@@ -31854,24 +32706,18 @@
                     _vWalkTimers.push(setTimeout(() => playVillageSfx('step'), ms));
                 });
                 _vWalkTimers.push(setTimeout(() => {
-                    if (caption) caption.textContent = "🎅 Arriving at Santa's Village!";
-                }, 1180));
-                _vWalkTimers.push(setTimeout(finishVillageWalk, 2350));
+                    if (caption) caption.textContent = '🎅 Welcome to 3D North Pole Village!';
+                }, 1150));
+                _vWalkTimers.push(setTimeout(finishVillageWalk, 2200));
             };
 
             window.closeSantasVillage = function (silent) {
                 clearVillageWalkTimers();
                 clearVillageActionTimers();
+                window.closeVillageInterior();
                 const ov = document.getElementById('villageOverlay');
                 const walkScene = document.getElementById('villageWalkScene');
                 const plazaScene = document.getElementById('villagePlazaScene');
-                const stage = document.getElementById('villageRobotStage');
-                const prop = document.getElementById('villageActionProp');
-                if (stage) stage.classList.remove('crafting', 'cheering');
-                if (prop) {
-                    prop.classList.remove('craft-anim', 'feed-anim', 'launch-anim');
-                    prop.textContent = '';
-                }
                 if (walkScene) walkScene.classList.remove('active');
                 if (plazaScene) plazaScene.classList.remove('active');
                 if (ov) ov.classList.remove('open');
@@ -31892,8 +32738,8 @@
                 bag[item.id] = (parseInt(bag[item.id], 10) || 0) + 1;
                 saveVillageBag(bag);
                 playVillageSfx('craft');
-                setVillageBubble(`Got ${item.name}! Tap "${item.verb}"! 🎄`);
-                window.renderVillageTab(_activeVillageTab);
+                triggerMachineStamp(item.icon, 'craft-anim', [{ ms: 160, icons: [item.icon, '✨'] }], `Produced ${item.name}! Tap "${item.verb}"!`);
+                window.renderVillageTab(_currentZone);
             };
 
             window.useVillageItem = function (itemId) {
@@ -31917,18 +32763,17 @@
                     saveVillageSpirit(sp);
                 }
 
-                playStageSequence(
+                triggerMachineStamp(
                     item.icon,
                     isFeed ? 'feed-anim' : 'craft-anim',
-                    'crafting',
                     isFeed
-                        ? [{ ms: 260, icons: [item.icon, '🦌'] }, { ms: 620, icons: ['😋', '✨'] }, { ms: 960, icons: ['❤️', '❄️'] }]
-                        : [{ ms: 260, icons: [item.icon, '🔨'] }, { ms: 620, icons: ['🎁', '🎀'] }, { ms: 960, icons: ['🛷', '✨'] }],
+                        ? [{ ms: 180, icons: [item.icon, '🦌', '😋'] }, { ms: 560, icons: ['❤️', '✨'] }]
+                        : [{ ms: 180, icons: [item.icon, '🎁', '🎀'] }, { ms: 560, icons: ['🛷', '⭐'] }],
                     item.react
                 );
 
                 addSpiritPoint();
-                window.renderVillageTab(_activeVillageTab);
+                window.renderVillageTab(_currentZone);
             };
 
             window.claimVillageDailyGift = function () {
@@ -31942,26 +32787,14 @@
                 if (typeof playSfx === 'function') playSfx('gem-claim');
                 window.updateVillageGiftBadge();
                 showLootToast("Santa's Workshop Gift!", '+25 Gems from Santa! 🎅', '🎁');
-                playStageSequence(
-                    '🎁',
-                    'craft-anim',
-                    'cheering',
-                    [{ ms: 250, icons: ['🎁', '💎'] }, { ms: 650, icons: ['🎅', '✨'] }],
-                    '🎅 Ho Ho Ho! Here is your daily +25 💎 Workshop Gift! 🎁'
-                );
-                window.renderVillageTab(_activeVillageTab);
+                triggerMachineStamp('🎁', 'craft-anim', [{ ms: 180, icons: ['🎁', '💎', '🎅'] }], '🎅 Ho Ho Ho! Claimed +25 💎 Daily Gift!');
+                window.renderVillageTab(_currentZone);
             };
 
             window.triggerVillageSnowballPlay = function () {
                 if (typeof hapticTap === 'function') hapticTap(10);
                 playVillageSfx('blizzard');
-                playStageSequence(
-                    '❄️',
-                    'launch-anim',
-                    'crafting',
-                    [{ ms: 220, icons: ['❄️', '⚪'] }, { ms: 550, icons: ['⛄', '✨'] }],
-                    'Whoosh! Snowball fight with Rudolph & Santa! ❄️⛄'
-                );
+                triggerMachineStamp('❄️', 'launch-anim', [{ ms: 160, icons: ['❄️', '⚪', '⛄'] }], 'Whoosh! Snowball fight in the 3D Village! ❄️⛄');
             };
 
             window.triggerVillageSleigh = function () {
@@ -31972,13 +32805,7 @@
                     sleigh.classList.add('fly');
                 }
                 playVillageSfx('sleigh');
-                playStageSequence(
-                    '🛷',
-                    'launch-anim',
-                    'cheering',
-                    [{ ms: 240, icons: ['🦌', '🛷'] }, { ms: 640, icons: ['🎁', '🌟'] }],
-                    '🛷 Santa’s Sleigh is soaring across the Northern Lights! ✨'
-                );
+                triggerMachineStamp('🛷', 'launch-anim', [{ ms: 180, icons: ['🦌', '🛷', '🌟'] }], '🛷 Santa’s Sleigh is flying over the 3D Village! ✨');
             };
 
             window.triggerVillageBlizzard = function () {
@@ -31986,7 +32813,7 @@
                 const layer = document.getElementById('villageSnowLayer');
                 if (!layer) return;
                 playVillageSfx('blizzard');
-                setVillageBubble('🌨️ Magical Lapland Snow Blizzard!! ❄️✨');
+                setVillageBubble('🌨️ Magical 3D Lapland Snow Blizzard!! ❄️✨');
                 for (let i = 0; i < 38; i++) {
                     const bf = document.createElement('div');
                     bf.className = 'village-blizzard-flake';
@@ -32022,43 +32849,54 @@
                 inp.value = '';
                 if (typeof hapticTap === 'function') hapticTap(10);
                 playVillageSfx('sleigh');
-                playStageSequence(
-                    '💌',
-                    'launch-anim',
-                    'cheering',
-                    [{ ms: 240, icons: ['💌', '✨'] }, { ms: 620, icons: ['🎅', '⭐'] }],
-                    '📮 Your Christmas wish flew straight to Santa! 💌✨'
-                );
+                triggerMachineStamp('💌', 'launch-anim', [{ ms: 180, icons: ['💌', '✨', '🎅'] }], '📮 Your Christmas wish flew straight to Santa! 💌');
                 addSpiritPoint();
-                window.renderVillageTab('sleigh');
+                window.renderVillageTab(_currentZone);
             };
 
             window.toggleVillageWishDrawer = function () {
-                window.renderVillageTab('sleigh');
+                window.focusVillageZone('plaza', true);
             };
 
-            window.renderVillageTab = function (tabId) {
-                _activeVillageTab = tabId || 'workshop';
-                document.querySelectorAll('.village-tab-btn').forEach(b => {
-                    b.classList.toggle('active', b.dataset.vtab === _activeVillageTab);
-                });
+            window.renderVillageTab = function (zoneKey) {
+                const zk = ZONE_COORDS[zoneKey] ? zoneKey : 'candy';
+                _currentZone = zk;
+                const zInfo = ZONE_COORDS[zk];
+                const titleEl = document.getElementById('vInteriorTitle');
+                const stamperEl = document.getElementById('vStamperHead');
+                const beltEl = document.getElementById('vConveyorItems');
+                if (titleEl) titleEl.textContent = zInfo.title;
+                if (stamperEl) stamperEl.textContent = zInfo.stamper;
+                if (beltEl) beltEl.textContent = zInfo.belt;
+
                 const container = document.getElementById('villageTabContent');
                 if (!container) return;
                 const bag = getVillageBag();
 
-                if (_activeVillageTab === 'workshop') {
-                    const giftReady = canClaimVillageGift();
+                if (zk === 'candy') {
                     let html = `
-                        <div class="market-cat-label">🎅 Santa's Daily Workshop Gift</div>
-                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(220,38,38,0.25), rgba(217,119,6,0.18));border-color:rgba(251,191,36,0.55);">
-                            <div style="font-size:44px;line-height:1;width:58px;text-align:center;flex-shrink:0;">🎁</div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#fef08a;">Daily North Pole Gift</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.78);margin:3px 0 8px;">Claim +25 free gems from Santa every day!</div>
-                                <button type="button" class="${giftReady ? 'market-item-buy' : 'market-item-use'}" style="width:auto;padding:7px 15px;" onclick="claimVillageDailyGift()">${giftReady ? '🎁 Claim +25 💎 FREE' : '✓ Claimed Today'}</button>
+                        <button type="button" class="market-item-use" style="width:100%;padding:10px;font-size:13px;margin-bottom:8px;" onclick="crankFactoryMachine('candy')">⚙️ Crank Candy Conveyor Belt! (Free)</button>
+                        <div class="market-items-grid">
+                    `;
+                    VILLAGE_ITEMS.filter(x => x.cat === 'candy').forEach(item => {
+                        const cnt = parseInt(bag[item.id], 10) || 0;
+                        html += `
+                            <div class="market-item-card">
+                                <div class="market-item-icon">${item.icon}</div>
+                                <div class="market-item-name">${item.name}</div>
+                                ${cnt > 0 ? `<div class="market-item-owned">Ready: ${cnt}</div>` : ''}
+                                <div class="market-item-actions">
+                                    <button type="button" class="market-item-buy" onclick="buyVillageItem('${item.id}')">${item.price} 💎</button>
+                                    ${cnt > 0 ? `<button type="button" class="market-item-use" onclick="useVillageItem('${item.id}')">${item.verb}</button>` : ''}
+                                </div>
                             </div>
-                        </div>
-                        <div class="market-cat-label">🧸 Craft &amp; Wrap Toys for Santa's Sleigh</div>
+                        `;
+                    });
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else if (zk === 'toy' || zk === 'workshop') {
+                    let html = `
+                        <button type="button" class="market-item-use" style="width:100%;padding:10px;font-size:13px;margin-bottom:8px;" onclick="crankFactoryMachine('toy')">🔨 Pull Gift-Wrapper Press! (Free)</button>
                         <div class="market-items-grid">
                     `;
                     VILLAGE_ITEMS.filter(x => x.cat === 'workshop').forEach(item => {
@@ -32067,9 +32905,9 @@
                             <div class="market-item-card">
                                 <div class="market-item-icon">${item.icon}</div>
                                 <div class="market-item-name">${item.name}</div>
-                                ${cnt > 0 ? `<div class="market-item-owned">Crafted: ${cnt}</div>` : ''}
+                                ${cnt > 0 ? `<div class="market-item-owned">Built: ${cnt}</div>` : ''}
                                 <div class="market-item-actions">
-                                    <button type="button" class="market-item-buy" onclick="buyVillageItem('${item.id}')">Craft · ${item.price} 💎</button>
+                                    <button type="button" class="market-item-buy" onclick="buyVillageItem('${item.id}')">${item.price} 💎</button>
                                     ${cnt > 0 ? `<button type="button" class="market-item-use" onclick="useVillageItem('${item.id}')">${item.verb}</button>` : ''}
                                 </div>
                             </div>
@@ -32077,8 +32915,11 @@
                     });
                     html += '</div>';
                     container.innerHTML = html;
-                } else if (_activeVillageTab === 'reindeer') {
-                    let html = '<div class="market-cat-label">🦌 Feed Santa’s Reindeer &amp; Treat Santa</div><div class="market-items-grid">';
+                } else if (zk === 'reindeer') {
+                    let html = `
+                        <button type="button" class="market-item-use" style="width:100%;padding:10px;font-size:13px;margin-bottom:8px;" onclick="crankFactoryMachine('reindeer')">🦌 Pet &amp; Jingle Rudolph's Harness! (Free)</button>
+                        <div class="market-items-grid">
+                    `;
                     VILLAGE_ITEMS.filter(x => x.cat === 'reindeer').forEach(item => {
                         const cnt = parseInt(bag[item.id], 10) || 0;
                         html += `
@@ -32093,104 +32934,139 @@
                             </div>
                         `;
                     });
-                    html += `
-                        </div>
-                        <div class="market-cat-label">❄️ Free North Pole Snow Activities</div>
-                        <div class="market-items-grid">
-                            <div class="market-item-card">
-                                <div class="market-item-icon">❄️</div>
-                                <div class="market-item-name">Snowball Toss</div>
-                                <div class="market-item-actions">
-                                    <button type="button" class="market-item-use" onclick="triggerVillageSnowballPlay()">Play Free ⛄</button>
-                                </div>
+                    html += '</div>';
+                    container.innerHTML = html;
+                } else if (zk === 'santa' || zk === 'sleigh') {
+                    const giftReady = canClaimVillageGift();
+                    const sp = getVillageSpirit();
+                    container.innerHTML = `
+                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(220,38,38,0.28), rgba(217,119,6,0.2));border-color:rgba(251,191,36,0.6);">
+                            <div style="font-size:42px;line-height:1;width:54px;text-align:center;flex-shrink:0;">🎁</div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:15px;font-weight:900;color:#fef08a;">Santa's Daily +25 💎 Gift</div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.78);margin:3px 0 8px;">Visit Santa's Mansion once a day for free gems!</div>
+                                <button type="button" class="${giftReady ? 'market-item-buy' : 'market-item-use'}" style="width:auto;padding:7px 15px;" onclick="claimVillageDailyGift()">${giftReady ? '🎁 Claim +25 💎 FREE' : '✓ Claimed Today'}</button>
                             </div>
-                            <div class="market-item-card">
-                                <div class="market-item-icon">🌨️</div>
-                                <div class="market-item-name">Lapland Blizzard</div>
-                                <div class="market-item-actions">
-                                    <button type="button" class="market-item-use" onclick="triggerVillageBlizzard()">Summon Snow ❄️</button>
-                                </div>
+                        </div>
+                        <div class="market-box-card">
+                            <div style="font-size:42px;line-height:1;width:54px;text-align:center;flex-shrink:0;">🛷</div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:15px;font-weight:900;color:#e0f2fe;">Santa's Sleigh · Toys Packed: ${sp.sleighLoaded || 0}</div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.78);margin:3px 0 8px;">Launch Santa &amp; Rudolph across the 3D Aurora sky!</div>
+                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 15px;" onclick="triggerVillageSleigh();closeVillageInterior();">🛷 Launch Sleigh in 3D Sky ✨</button>
                             </div>
                         </div>
                     `;
-                    container.innerHTML = html;
                 } else {
-                    const sp = getVillageSpirit();
                     const wishes = getSantaWishes();
                     let wishesHtml = '';
                     if (!wishes.length) {
-                        wishesHtml = '<div style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;padding:8px;">No wishes sent to Santa yet ✨</div>';
+                        wishesHtml = '<div style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;padding:6px;">No wishes sent to Santa yet ✨</div>';
                     } else {
-                        wishes.slice(-8).reverse().forEach(w => {
+                        wishes.slice(-6).reverse().forEach(w => {
                             const safeTxt = String(w.text || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
                             wishesHtml += `<div class="village-wish-item">🎅 ${safeTxt}</div>`;
                         });
                     }
                     container.innerHTML = `
-                        <div class="market-cat-label">🛷 Santa's Sleigh · Toys Loaded: ${sp.sleighLoaded || 0} 🎁</div>
-                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(14,116,144,0.32), rgba(79,70,229,0.24));border-color:rgba(125,211,252,0.5);">
-                            <div style="font-size:44px;line-height:1;width:58px;text-align:center;flex-shrink:0;">🛷</div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#e0f2fe;">Launch Santa's Sleigh</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.78);margin:3px 0 8px;">Fly Rudolph &amp; Santa across the Northern Lights!</div>
-                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 15px;" onclick="triggerVillageSleigh()">🛷 Fly Sleigh Now ✨</button>
+                        <div class="market-items-grid">
+                            <div class="market-item-card">
+                                <div class="market-item-icon">❄️</div>
+                                <div class="market-item-name">3D Snowball Fight</div>
+                                <button type="button" class="market-item-use" style="width:100%;" onclick="triggerVillageSnowballPlay()">Throw Snowball ⛄</button>
+                            </div>
+                            <div class="market-item-card">
+                                <div class="market-item-icon">🌨️</div>
+                                <div class="market-item-name">Lapland Blizzard</div>
+                                <button type="button" class="market-item-use" style="width:100%;" onclick="triggerVillageBlizzard();closeVillageInterior();">Summon Blizzard ❄️</button>
                             </div>
                         </div>
-
-                        <div class="market-cat-label">📮 North Pole Wish Postbox</div>
-                        <div class="market-box-card" style="flex-direction:column;align-items:stretch;gap:10px;">
+                        <div class="market-box-card" style="flex-direction:column;align-items:stretch;gap:8px;margin-bottom:0;">
+                            <div style="font-size:13px;font-weight:900;color:#fef08a;">📮 Send a Christmas Wish to Santa</div>
                             <div style="display:flex;gap:8px;">
-                                <input type="text" id="villageWishInput" maxlength="90" placeholder="Write your Christmas wish to Santa..." style="flex:1;padding:9px 12px;border-radius:12px;border:1px solid rgba(186,230,253,0.35);background:rgba(15,23,42,0.85);color:#fff;font-family:'Outfit',sans-serif;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sendSantaWish()">
+                                <input type="text" id="villageWishInput" maxlength="90" placeholder="Write your Christmas wish..." style="flex:1;padding:9px 12px;border-radius:12px;border:1px solid rgba(186,230,253,0.35);background:rgba(15,23,42,0.85);color:#fff;font-family:'Outfit',sans-serif;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')sendSantaWish()">
                                 <button type="button" class="market-item-buy" style="flex:none;padding:9px 14px;" onclick="sendSantaWish()">Send 💌</button>
                             </div>
                             <div class="village-wish-list" id="villageWishList">${wishesHtml}</div>
-                        </div>
-
-                        <div class="market-cat-label">🎄 North Pole Winter Box</div>
-                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(220,38,38,0.22), rgba(56,189,248,0.12));border-color:rgba(251,191,36,0.55);">
-                            <img src="box/winter.png" style="width:64px;height:64px;object-fit:contain;border-radius:12px;flex-shrink:0;" alt="Winter Box">
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#fef08a;">Winter Box ❄️</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">Rare winter skins, festive gems &amp; rewards!</div>
-                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="if(typeof buyWinterBox==='function')buyWinterBox()">Open · 350 💎</button>
-                            </div>
                         </div>
                     `;
                 }
             };
 
+            // 3D Viewport Drag / Swipe Panning & Arrow Controls
+            const viewport = document.getElementById('village3dViewport');
+            const panLeftBtn = document.getElementById('villagePanLeftBtn');
+            const panRightBtn = document.getElementById('villagePanRightBtn');
+
+            if (viewport) {
+                const onStart = (clientX) => {
+                    _isDragging = true;
+                    _dragStartX = clientX;
+                    _dragStartCamX = _camX;
+                    _dragMoved = 0;
+                };
+                const onMove = (clientX) => {
+                    if (!_isDragging) return;
+                    const dx = clientX - _dragStartX;
+                    _dragMoved = Math.max(_dragMoved, Math.abs(dx));
+                    const nextX = _dragStartCamX - dx * 1.35;
+                    const tilt = Math.max(-7, Math.min(7, dx * 0.04));
+                    apply3dCamera(nextX, false, tilt);
+                };
+                const onEnd = () => {
+                    if (!_isDragging) return;
+                    _isDragging = false;
+                    apply3dCamera(_camX, true, 0);
+                    walkRobotTo(_camX);
+                    setTimeout(() => { _dragMoved = 0; }, 60);
+                };
+
+                viewport.addEventListener('mousedown', e => {
+                    if (e.target.closest('button')) return;
+                    onStart(e.clientX);
+                });
+                window.addEventListener('mousemove', e => onMove(e.clientX));
+                window.addEventListener('mouseup', onEnd);
+
+                viewport.addEventListener('touchstart', e => {
+                    if (e.target.closest('button') || !e.touches[0]) return;
+                    onStart(e.touches[0].clientX);
+                }, { passive: true });
+                viewport.addEventListener('touchmove', e => {
+                    if (!e.touches[0]) return;
+                    onMove(e.touches[0].clientX);
+                }, { passive: true });
+                viewport.addEventListener('touchend', onEnd, { passive: true });
+            }
+
+            if (panLeftBtn) {
+                panLeftBtn.addEventListener('click', () => {
+                    if (typeof hapticTap === 'function') hapticTap(8);
+                    const nextX = Math.max(390, _camX - 380);
+                    apply3dCamera(nextX, true, 0);
+                    walkRobotTo(nextX);
+                });
+            }
+            if (panRightBtn) {
+                panRightBtn.addEventListener('click', () => {
+                    if (typeof hapticTap === 'function') hapticTap(8);
+                    const nextX = Math.min(2010, _camX + 380);
+                    apply3dCamera(nextX, true, 0);
+                    walkRobotTo(nextX);
+                });
+            }
+
             const vToggle = document.getElementById('villageToggle');
             const vClose = document.getElementById('villageCloseBtn');
             const vSkip = document.getElementById('villageSkipWalkBtn');
-            const vRobot = document.getElementById('villageRobotStage');
-            const vSanta = document.getElementById('villageSantaCompanion');
-            const vRein = document.getElementById('villageReindeerCompanion');
+            const vModal = document.getElementById('villageInteriorModal');
 
             if (vToggle) vToggle.addEventListener('click', window.openSantasVillage);
             if (vClose) vClose.addEventListener('click', () => window.closeSantasVillage(false));
             if (vSkip) vSkip.addEventListener('click', finishVillageWalk);
-            if (vSanta) vSanta.addEventListener('click', window.claimVillageDailyGift);
-            if (vRein) {
-                vRein.addEventListener('click', () => {
-                    const bag = getVillageBag();
-                    const feedItem = VILLAGE_ITEMS.find(x => x.cat === 'reindeer' && (parseInt(bag[x.id], 10) || 0) > 0);
-                    if (feedItem) window.useVillageItem(feedItem.id);
-                    else {
-                        playVillageSfx('sleigh');
-                        spawnVillageFloat(['🦌', '✨', '❄️']);
-                        setVillageBubble('🦌 Rudolph wants a Magic Carrot or Frosted Apple! 🥕🍎');
-                    }
-                });
-            }
-            if (vRobot) {
-                vRobot.addEventListener('click', () => {
-                    const bag = getVillageBag();
-                    const firstOwned = VILLAGE_ITEMS.find(item => (parseInt(bag[item.id], 10) || 0) > 0);
-                    if (firstOwned) {
-                        window.useVillageItem(firstOwned.id);
-                    } else {
-                        window.triggerVillageSnowballPlay();
-                    }
+            if (vModal) {
+                vModal.addEventListener('click', e => {
+                    if (e.target === vModal) window.closeVillageInterior();
                 });
             }
 

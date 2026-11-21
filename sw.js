@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v73';
+const CACHE_NAME = 'dailybot-v74';
 const ASSETS = [
     './',
     './index.html',
