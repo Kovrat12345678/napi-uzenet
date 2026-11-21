@@ -19996,6 +19996,665 @@
             filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85));
         }
 
+        /* ========== ADVENT MARKET (FOREST WALK + CHRISTMAS BOOTH) ========== */
+        .market-toggle {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 20px) + 60px);
+            left: 16px;
+            z-index: 50;
+            height: 36px;
+            padding: 0 13px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(6, 95, 70, 0.78), rgba(180, 83, 9, 0.62));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(251, 191, 36, 0.55);
+            box-shadow: 0 4px 16px rgba(6, 95, 70, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fef08a;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s ease, opacity 0.3s ease, box-shadow 0.25s ease;
+        }
+        .market-toggle:active {
+            transform: scale(0.94);
+        }
+        .market-toggle.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .market-bag-badge {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border: 1px solid rgba(254, 240, 138, 0.7);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 1px 6px;
+            border-radius: 999px;
+            line-height: 1.3;
+        }
+
+        .market-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            background: linear-gradient(180deg, #030917 0%, #0b1e38 48%, #12293e 100%);
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+        }
+        .market-overlay.open {
+            display: flex;
+        }
+
+        .market-snow-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .market-snow-dot {
+            position: absolute;
+            top: -12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 6px rgba(186, 230, 253, 0.7);
+            animation: marketSnowFall var(--msd, 6s) linear infinite;
+            animation-delay: var(--msdelay, 0s);
+        }
+        @keyframes marketSnowFall {
+            0% { transform: translate3d(0, -12px, 0); opacity: 0; }
+            12% { opacity: 0.9; }
+            90% { opacity: 0.85; }
+            100% { transform: translate3d(var(--mssx, 28px), 104vh, 0); opacity: 0; }
+        }
+
+        /* Forest Trail Walk Scene */
+        .market-walk-scene {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            overflow: hidden;
+            padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 28px);
+        }
+        .market-walk-scene.active {
+            display: flex;
+        }
+        .forest-walker-stage {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            animation: marketWalkBob 0.56s ease-in-out infinite;
+        }
+        @keyframes marketWalkBob {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-6px) rotate(-0.5deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-6px) rotate(0.5deg); }
+        }
+        .forest-sky-stars {
+            position: absolute;
+            inset: 0 0 46% 0;
+            background:
+                radial-gradient(2px 2px at 14% 18%, #fff, transparent),
+                radial-gradient(2px 2px at 28% 36%, #e0f2fe, transparent),
+                radial-gradient(2.5px 2.5px at 52% 14%, #fef08a, transparent),
+                radial-gradient(2px 2px at 72% 24%, #fff, transparent),
+                radial-gradient(2px 2px at 86% 12%, #e0f2fe, transparent),
+                radial-gradient(1.5px 1.5px at 40% 28%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 64% 34%, #fef08a, transparent),
+                radial-gradient(circle at 50% 96%, rgba(251, 191, 36, 0.34) 0%, rgba(239, 68, 68, 0.12) 28%, transparent 64%);
+        }
+        .forest-trail-ground {
+            position: absolute;
+            left: -8%;
+            right: -8%;
+            top: 47%;
+            bottom: -10%;
+            background: linear-gradient(180deg, #061826 0%, #092434 38%, #0f3042 100%);
+            border-top: 2px solid rgba(186, 230, 253, 0.25);
+        }
+        .forest-snow-path {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            transform: translateX(-50%);
+            background: linear-gradient(180deg, rgba(254, 240, 138, 0.48) 0%, rgba(224, 242, 254, 0.72) 32%, rgba(248, 250, 252, 0.92) 100%);
+            clip-path: polygon(45% 0%, 55% 0%, 86% 100%, 14% 100%);
+            box-shadow: 0 0 36px rgba(186, 230, 253, 0.45);
+        }
+        .forest-distant-booth {
+            position: absolute;
+            top: 39%;
+            left: 50%;
+            width: 82px;
+            height: 62px;
+            margin-left: -41px;
+            transform-origin: center bottom;
+            animation: boothApproach 2.35s cubic-bezier(0.25, 0.85, 0.35, 1) forwards;
+            z-index: 3;
+        }
+        @keyframes boothApproach {
+            0% { transform: scale(0.42); opacity: 0.72; }
+            70% { transform: scale(0.95); opacity: 1; }
+            100% { transform: scale(1.24); opacity: 1; }
+        }
+        .mini-booth-roof {
+            height: 22px;
+            border-radius: 8px 8px 3px 3px;
+            background: repeating-linear-gradient(90deg, #dc2626 0 11px, #fef3c7 11px 22px);
+            border: 1.5px solid #fbbf24;
+            box-shadow: 0 0 22px rgba(251, 191, 36, 0.75);
+        }
+        .mini-booth-body {
+            width: 68px;
+            height: 38px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #92400e, #451a03);
+            border: 1.5px solid #d97706;
+            border-radius: 0 0 6px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 0 28px rgba(251, 191, 36, 0.55), inset 0 0 14px rgba(254, 240, 138, 0.45);
+        }
+
+        .forest-tree {
+            position: absolute;
+            top: 43%;
+            left: 50%;
+            width: 66px;
+            height: 112px;
+            margin-left: -33px;
+            transform-origin: center bottom;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0;
+        }
+        .forest-tree .ft-top,
+        .forest-tree .ft-mid,
+        .forest-tree .ft-bot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-style: solid;
+        }
+        .forest-tree .ft-top {
+            top: 0;
+            border-width: 0 20px 38px 20px;
+            border-bottom-color: #166534;
+            filter: drop-shadow(0 -2px 0 #e2e8f0);
+        }
+        .forest-tree .ft-mid {
+            top: 24px;
+            border-width: 0 27px 44px 27px;
+            border-bottom-color: #14532d;
+            filter: drop-shadow(0 -2px 0 #cbd5e1);
+        }
+        .forest-tree .ft-bot {
+            top: 48px;
+            border-width: 0 33px 48px 33px;
+            border-bottom-color: #052e16;
+            filter: drop-shadow(0 -2px 0 #94a3b8);
+        }
+        .forest-tree .ft-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 12px;
+            height: 20px;
+            margin-left: -6px;
+            background: #451a03;
+            border-radius: 2px;
+        }
+        .forest-tree.ft-l1 { animation: forestTreePassL 1.5s linear 0s infinite; }
+        .forest-tree.ft-l2 { animation: forestTreePassL 1.5s linear -0.5s infinite; }
+        .forest-tree.ft-l3 { animation: forestTreePassL 1.5s linear -1.0s infinite; }
+        .forest-tree.ft-r1 { animation: forestTreePassR 1.5s linear -0.25s infinite; }
+        .forest-tree.ft-r2 { animation: forestTreePassR 1.5s linear -0.75s infinite; }
+        .forest-tree.ft-r3 { animation: forestTreePassR 1.5s linear -1.25s infinite; }
+
+        @keyframes forestTreePassL {
+            0% { transform: translate(-38px, -16px) scale(0.32); opacity: 0; }
+            18% { opacity: 0.95; }
+            88% { opacity: 1; }
+            100% { transform: translate(-255px, 165px) scale(2.25); opacity: 0; }
+        }
+        @keyframes forestTreePassR {
+            0% { transform: translate(38px, -16px) scale(0.32); opacity: 0; }
+            18% { opacity: 0.95; }
+            88% { opacity: 1; }
+            100% { transform: translate(255px, 165px) scale(2.25); opacity: 0; }
+        }
+
+        .forest-lantern {
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            width: 18px;
+            height: 54px;
+            margin-left: -9px;
+            transform-origin: center bottom;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+        }
+        .forest-lantern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 14px;
+            height: 16px;
+            margin-left: -7px;
+            border-radius: 4px;
+            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 55%, #d97706 100%);
+            box-shadow: 0 0 18px 8px rgba(251, 191, 36, 0.65);
+        }
+        .forest-lantern::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            width: 4px;
+            height: 38px;
+            margin-left: -2px;
+            background: #78350f;
+            border-radius: 2px;
+        }
+        .forest-lantern.fl-l1 { animation: forestLanternPassL 1.3s linear 0s infinite; }
+        .forest-lantern.fl-l2 { animation: forestLanternPassL 1.3s linear -0.65s infinite; }
+        .forest-lantern.fl-r1 { animation: forestLanternPassR 1.3s linear -0.32s infinite; }
+        .forest-lantern.fl-r2 { animation: forestLanternPassR 1.3s linear -0.97s infinite; }
+        @keyframes forestLanternPassL {
+            0% { transform: translate(-24px, -6px) scale(0.38); opacity: 0; }
+            20% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-175px, 170px) scale(1.9); opacity: 0; }
+        }
+        @keyframes forestLanternPassR {
+            0% { transform: translate(24px, -6px) scale(0.38); opacity: 0; }
+            20% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(175px, 170px) scale(1.9); opacity: 0; }
+        }
+
+        .forest-walk-ui {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+        }
+        .forest-walk-caption {
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(7, 16, 24, 0.78);
+            border: 1.5px solid rgba(251, 191, 36, 0.55);
+            color: #fef08a;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+            text-align: center;
+        }
+        .forest-skip-btn {
+            padding: 7px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(15, 23, 42, 0.72);
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* Christmas Market Booth Scene */
+        .market-booth-scene {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            min-height: 0;
+            animation: obIn 0.35s ease;
+        }
+        .market-booth-scene.active {
+            display: flex;
+        }
+        .market-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: calc(env(safe-area-inset-top, 14px) + 8px) 14px 10px;
+            background: rgba(7, 16, 24, 0.65);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.25);
+        }
+        .market-home-btn {
+            padding: 7px 13px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .market-topbar-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #fef08a;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+        }
+
+        .market-stall-stage {
+            margin: 10px 12px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(251, 191, 36, 0.55);
+            background: linear-gradient(180deg, #3b1708 0%, #241007 65%, #170a05 100%);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(251, 191, 36, 0.16);
+            flex-shrink: 0;
+        }
+        .market-awning {
+            position: relative;
+            height: 28px;
+            background: repeating-linear-gradient(90deg, #dc2626 0 22px, #fef3c7 22px 44px);
+            border-bottom: 3px solid #fbbf24;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .market-sign {
+            padding: 2px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #78350f, #451a03);
+            border: 1.5px solid #fbbf24;
+            color: #fef08a;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.7px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+        }
+        .market-stall-interior {
+            position: relative;
+            min-height: 122px;
+            padding: 10px 14px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            background: radial-gradient(circle at 50% 42%, rgba(251, 191, 36, 0.22) 0%, rgba(120, 53, 15, 0.28) 55%, rgba(23, 10, 5, 0.85) 100%);
+        }
+        .market-shelf-props {
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            opacity: 0.82;
+            pointer-events: none;
+        }
+        .market-bubble {
+            position: relative;
+            z-index: 4;
+            margin-bottom: 6px;
+            padding: 5px 12px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.88);
+            border: 1px solid rgba(251, 191, 36, 0.55);
+            color: #fef08a;
+            font-size: 12px;
+            font-weight: 800;
+            max-width: 92%;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+        .market-robot-stage {
+            position: relative;
+            z-index: 3;
+            width: 96px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .market-robot-stage .robot {
+            transform: scale(0.72);
+            transform-origin: center bottom;
+        }
+        .market-robot-stage.eating .robot {
+            animation: marketEatBounce 0.34s ease-in-out 4 !important;
+        }
+        .market-robot-stage.eating .mouth {
+            width: 20px !important;
+            height: 14px !important;
+            border-radius: 50% !important;
+            animation: marketChomp 0.22s ease-in-out 6 !important;
+        }
+        @keyframes marketEatBounce {
+            0%, 100% { transform: scale(0.72) translateY(0); }
+            50% { transform: scale(0.75) translateY(-8px) rotate(-3deg); }
+        }
+        @keyframes marketChomp {
+            0%, 100% { transform: scaleY(0.45); }
+            50% { transform: scaleY(1.25); }
+        }
+        .market-robot-stage.drinking .robot {
+            animation: marketSipSway 0.65s ease-in-out 2 !important;
+        }
+        .market-robot-stage.drinking .mouth {
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 50% !important;
+        }
+        @keyframes marketSipSway {
+            0%, 100% { transform: scale(0.72) rotate(0deg); }
+            45% { transform: scale(0.74) rotate(-8deg) translateY(-4px); }
+        }
+        .market-float-fx {
+            position: absolute;
+            left: 50%;
+            top: 44%;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 10;
+            animation: marketFloatUp 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes marketFloatUp {
+            0% { transform: translate(-50%, 0) scale(0.6); opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--mfx, 0px)), var(--mfy, -58px)) scale(1.25); opacity: 0; }
+        }
+
+        .market-wooden-counter {
+            padding: 8px 14px;
+            background: linear-gradient(180deg, #92400e 0%, #78350f 65%, #451a03 100%);
+            border-top: 2px solid #d97706;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .market-cozy-label {
+            font-size: 11px;
+            font-weight: 900;
+            color: #fef08a;
+            white-space: nowrap;
+        }
+        .market-cozy-track {
+            flex: 1;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            overflow: hidden;
+        }
+        .market-cozy-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ef4444, #fbbf24, #22c55e);
+            transition: width 0.3s ease;
+        }
+        .market-cozy-reward {
+            font-size: 10px;
+            font-weight: 900;
+            color: #a7f3d0;
+            white-space: nowrap;
+        }
+
+        .market-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            padding: 10px 12px 6px;
+            flex-shrink: 0;
+        }
+        .market-tab-btn {
+            padding: 9px 6px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(255, 255, 255, 0.14);
+            background: rgba(15, 23, 42, 0.65);
+            color: rgba(255, 255, 255, 0.78);
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+        .market-tab-btn:active {
+            transform: scale(0.95);
+        }
+        .market-tab-btn.active {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.52), rgba(217, 119, 6, 0.45));
+            border-color: #fbbf24;
+            color: #fef08a;
+            box-shadow: 0 0 16px rgba(251, 191, 36, 0.22);
+        }
+
+        .market-content {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 12px calc(env(safe-area-inset-bottom, 16px) + 22px);
+        }
+        .market-cat-label {
+            font-size: 13px;
+            font-weight: 900;
+            color: #fde68a;
+            margin: 10px 2px 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .market-items-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .market-item-card {
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(15, 23, 42, 0.75));
+            border: 1.5px solid rgba(251, 191, 36, 0.24);
+            border-radius: 18px;
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 6px;
+        }
+        .market-item-icon {
+            font-size: 34px;
+            line-height: 1.05;
+        }
+        .market-item-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .market-item-owned {
+            font-size: 11px;
+            font-weight: 800;
+            color: #86efac;
+        }
+        .market-item-actions {
+            width: 100%;
+            display: flex;
+            gap: 6px;
+            margin-top: 2px;
+        }
+        .market-item-buy,
+        .market-item-use {
+            flex: 1;
+            padding: 7px 6px;
+            border-radius: 11px;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        .market-item-buy {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e1b4b;
+        }
+        .market-item-use {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+        }
+        .market-item-buy:active,
+        .market-item-use:active {
+            transform: scale(0.94);
+        }
+        .market-box-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(15, 23, 42, 0.8));
+            border: 1.5px solid rgba(251, 191, 36, 0.35);
+        }
+        .market-empty {
+            text-align: center;
+            padding: 30px 18px;
+            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px dashed rgba(251, 191, 36, 0.35);
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
     </style>
 </head>
 
@@ -20357,6 +21016,7 @@
     <div class="news-toggle" id="newsToggle" style="display:none !important">⚡ NEWS</div>
     <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🎄</span> Shop<span class="shop-new-badge" id="shopNewBadge"
             style="display:none">NEW</span></div>
+    <button type="button" class="market-toggle" id="marketToggle"><span>🎪</span><span>Market</span><span class="market-bag-badge" id="marketBagBadge" style="display:none">0</span></button>
 
     
 
@@ -20564,6 +21224,73 @@
             </div>
         </div>
     </div>
+
+    <!-- Advent Market (Forest Trail Walk + Christmas Wooden Booth) -->
+    <div class="market-overlay" id="marketOverlay">
+        <div class="market-snow-layer" id="marketSnowLayer" aria-hidden="true"></div>
+
+        <!-- Animated Snowy Forest Trail Walk -->
+        <div class="market-walk-scene" id="marketWalkScene">
+            <div class="forest-walker-stage">
+                <div class="forest-sky-stars"></div>
+                <div class="forest-distant-booth">
+                    <div class="mini-booth-roof"></div>
+                    <div class="mini-booth-body">🎄</div>
+                </div>
+                <div class="forest-trail-ground">
+                    <div class="forest-snow-path"></div>
+                </div>
+                <div class="forest-tree ft-l1"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
+                <div class="forest-tree ft-l2"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
+                <div class="forest-tree ft-l3"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
+                <div class="forest-tree ft-r1"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
+                <div class="forest-tree ft-r2"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
+                <div class="forest-tree ft-r3"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
+                <div class="forest-lantern fl-l1"></div>
+                <div class="forest-lantern fl-l2"></div>
+                <div class="forest-lantern fl-r1"></div>
+                <div class="forest-lantern fl-r2"></div>
+            </div>
+            <div class="forest-walk-ui">
+                <div class="forest-walk-caption" id="marketWalkCaption">🌲 Walking down the snowy forest trail...</div>
+                <button type="button" class="forest-skip-btn" id="marketSkipWalkBtn">Skip →</button>
+            </div>
+        </div>
+
+        <!-- Christmas Wooden Booth Plaza -->
+        <div class="market-booth-scene" id="marketBoothScene">
+            <div class="market-topbar">
+                <button type="button" class="market-home-btn" id="marketCloseBtn">← Home</button>
+                <div class="market-topbar-title">🎄 Advent Market</div>
+                <div class="shop-gems"><span class="gem-img"></span> <span id="marketGemDisplay" data-gem-display>0</span></div>
+            </div>
+
+            <div class="market-stall-stage">
+                <div class="market-awning">
+                    <div class="market-sign">✨ WINTER MARKET ✨</div>
+                </div>
+                <div class="market-stall-interior" id="marketStallInterior">
+                    <div class="market-shelf-props" aria-hidden="true"><span>🫖 🍪</span><span>🕯️ 🍬</span></div>
+                    <div class="market-bubble" id="marketBubble">Welcome! Pick cookies, hot tea, cocoa or boxes! 🎄</div>
+                    <div class="market-robot-stage" id="marketRobotStage"></div>
+                </div>
+                <div class="market-wooden-counter">
+                    <span class="market-cozy-label" id="marketCozyLabel">❤️ 0 / 5</span>
+                    <div class="market-cozy-track"><div class="market-cozy-fill" id="marketCozyFill"></div></div>
+                    <span class="market-cozy-reward">+15 💎</span>
+                </div>
+            </div>
+
+            <div class="market-tabs">
+                <button type="button" class="market-tab-btn active" data-mtab="treats" onclick="renderMarketTab('treats')">🍪 Treats &amp; Tea</button>
+                <button type="button" class="market-tab-btn" data-mtab="boxes" onclick="renderMarketTab('boxes')">🎁 Boxes</button>
+                <button type="button" class="market-tab-btn" data-mtab="basket" id="marketBasketTabBtn" onclick="renderMarketTab('basket')">🧺 Basket</button>
+            </div>
+
+            <div class="market-content" id="marketTabContent"></div>
+        </div>
+    </div>
+
     <div class="top-right-actions" id="topRightActions">
     <div class="favs-toggle" id="favsToggle"><span style="margin-right:6px">❤️</span> Favorites<span class="favs-badge" id="favsBadge">0</span></div>
     <button type="button" class="settings-toggle" id="settingsToggle" aria-label="Settings">⚙️</button>
@@ -22547,8 +23274,8 @@
 
             function isBgTarget(target) {
                 if (!target || typeof target.closest !== 'function') return false;
-                if (target.closest('button, a, input, textarea, .robot-btn, .bubble, .skin-toggle, .favs-toggle, .settings-toggle, .streak')) return false;
-                const anyModal = document.querySelector('.skin-panel.open, .favs-panel.open, .sync-panel.open, .settings-panel.open, .streak-panel.open, .skin-preview-overlay.open, .gift-game-overlay.open');
+                if (target.closest('button, a, input, textarea, .robot-btn, .bubble, .skin-toggle, .market-toggle, .favs-toggle, .settings-toggle, .streak')) return false;
+                const anyModal = document.querySelector('.skin-panel.open, .market-overlay.open, .favs-panel.open, .sync-panel.open, .settings-panel.open, .streak-panel.open, .skin-preview-overlay.open, .gift-game-overlay.open');
                 if (anyModal) return false;
                 return true;
             }
@@ -25646,7 +26373,7 @@
             syncClose.addEventListener('click', () => syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_music', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
+            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_music', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_market_bag', 'nu_market_cozy', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
 
             exportBtn.addEventListener('click', () => {
                 const data = {};
@@ -26258,7 +26985,7 @@
 
         // Helper to hide toggles
         window.toggleMainButtons = (show) => {
-            const ids = ['skinToggle', 'favsToggle', 'settingsToggle', 'newsToggle'];
+            const ids = ['skinToggle', 'marketToggle', 'favsToggle', 'settingsToggle', 'newsToggle'];
             ids.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.toggle('hidden', !show);
@@ -29493,6 +30220,518 @@
             if (closeBtn) closeBtn.addEventListener('click', closeGiftOverlay);
             if (endCollect) endCollect.addEventListener('click', closeGiftOverlay);
             window.renderGiftGameCard();
+        })();
+
+        // ========== ADVENT MARKET (FOREST TRAIL + BOOTH + EAT/DRINK) ==========
+        (function () {
+            const MARKET_ITEMS = [
+                { id: 'gingerbread-cookie', cat: 'cookies', icon: '🍪', name: 'Gingerbread Cookie', price: 15, action: 'eat', react: 'Crunchy spiced gingerbread! 😋🍪' },
+                { id: 'snow-cupcake', cat: 'cookies', icon: '🧁', name: 'Snowflake Cupcake', price: 25, action: 'eat', react: 'Sweet frosted winter cupcake! 🧁✨' },
+                { id: 'cinnamon-pretzel', cat: 'cookies', icon: '🥨', name: 'Cinnamon Pretzel', price: 20, action: 'eat', react: 'Warm cinnamon sugar pretzel! 🥨💛' },
+                { id: 'yule-log', cat: 'cookies', icon: '🍰', name: 'Yule Log Cake', price: 35, action: 'eat', react: 'Rich chocolate holiday cake! 🍰🎄' },
+                { id: 'winter-tea', cat: 'drinks', icon: '🍵', name: 'Spiced Winter Tea', price: 15, action: 'drink', react: 'So warm and cozy! 🍵✨' },
+                { id: 'hot-cocoa', cat: 'drinks', icon: '☕', name: 'Hot Cocoa', price: 25, action: 'drink', react: 'Creamy cocoa & marshmallows! ☕❤️' },
+                { id: 'apple-cider', cat: 'drinks', icon: '🍎', name: 'Warm Apple Cider', price: 20, action: 'drink', react: 'Sweet cinnamon apple cider! 🍎🔥' },
+                { id: 'candy-cane', cat: 'candies', icon: '🍬', name: 'Candy Cane', price: 10, action: 'eat', react: 'Minty Christmas candy cane! 🍬❄️' },
+                { id: 'holiday-pop', cat: 'candies', icon: '🍭', name: 'Holiday Lollipop', price: 15, action: 'eat', react: 'Sweet berry frost lollipop! 🍭✨' },
+                { id: 'choco-truffle', cat: 'candies', icon: '🍫', name: 'Marshmallow Truffle', price: 25, action: 'eat', react: 'Melting chocolate bliss! 🍫💖' },
+                { id: 'sugar-plums', cat: 'candies', icon: '🍡', name: 'Sugar Plum Drops', price: 20, action: 'eat', react: 'Sparkling holiday candies! 🍡⭐' }
+            ];
+            window.MARKET_ITEMS = MARKET_ITEMS;
+
+            const CAT_TITLES = {
+                cookies: '🍪 Cookies & Bakery',
+                drinks: '🍵 Hot Tea & Drinks',
+                candies: '🍬 Candies & Sweets'
+            };
+
+            let _activeMarketTab = 'treats';
+            let _walkTimers = [];
+            let _consumeTimer = null;
+
+            function getMarketBag() {
+                try {
+                    const obj = JSON.parse(localStorage.getItem('nu_market_bag') || '{}');
+                    return (obj && typeof obj === 'object' && !Array.isArray(obj)) ? obj : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+            function saveMarketBag(bag) {
+                localStorage.setItem('nu_market_bag', JSON.stringify(bag));
+                updateMarketBagBadge();
+            }
+
+            function getMarketCozy() {
+                try {
+                    const obj = JSON.parse(localStorage.getItem('nu_market_cozy') || '{"progress":0,"total":0}');
+                    return {
+                        progress: Math.max(0, Math.min(4, parseInt(obj.progress, 10) || 0)),
+                        total: Math.max(0, parseInt(obj.total, 10) || 0)
+                    };
+                } catch (e) {
+                    return { progress: 0, total: 0 };
+                }
+            }
+            function saveMarketCozy(cozy) {
+                localStorage.setItem('nu_market_cozy', JSON.stringify(cozy));
+            }
+
+            function getBagTotal(bag) {
+                return Object.values(bag || getMarketBag()).reduce((sum, n) => sum + (parseInt(n, 10) || 0), 0);
+            }
+
+            function getMarketGems() {
+                const v = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                return isNaN(v) ? 0 : v;
+            }
+            function syncGemsUI() {
+                if (typeof updateGemUI === 'function') updateGemUI();
+                const g = getMarketGems();
+                document.querySelectorAll('[data-gem-display]').forEach(el => { el.textContent = g; });
+            }
+            function spendMarketGems(amount) {
+                if (typeof spendGems === 'function') return spendGems(amount);
+                const cur = getMarketGems();
+                if (cur < amount) return false;
+                localStorage.setItem('nu_gems', String(cur - amount));
+                syncGemsUI();
+                return true;
+            }
+            function addMarketGems(amount) {
+                if (typeof addGems === 'function') { addGems(amount); return; }
+                localStorage.setItem('nu_gems', String(getMarketGems() + amount));
+                syncGemsUI();
+            }
+
+            function updateMarketBagBadge() {
+                const total = getBagTotal();
+                const badge = document.getElementById('marketBagBadge');
+                if (badge) {
+                    badge.textContent = String(total);
+                    badge.style.display = total > 0 ? 'inline-block' : 'none';
+                }
+                const tabBtn = document.getElementById('marketBasketTabBtn');
+                if (tabBtn) {
+                    tabBtn.textContent = total > 0 ? ('🧺 Basket (' + total + ')') : '🧺 Basket';
+                }
+            }
+
+            function updateCozyUI() {
+                const cozy = getMarketCozy();
+                const lbl = document.getElementById('marketCozyLabel');
+                const fill = document.getElementById('marketCozyFill');
+                if (lbl) lbl.textContent = `❤️ ${cozy.progress} / 5`;
+                if (fill) fill.style.width = `${Math.round((cozy.progress / 5) * 100)}%`;
+            }
+
+            function playMarketSfx(type) {
+                if (window.isSfxMuted && window.isSfxMuted()) return;
+                const ctx = typeof _sfxCtx === 'function' ? _sfxCtx() : null;
+                if (!ctx) return;
+                if (ctx.state === 'suspended') {
+                    try { ctx.resume(); } catch (e) { }
+                }
+                const now = ctx.currentTime;
+
+                if (type === 'step') {
+                    const len = Math.floor(ctx.sampleRate * 0.08);
+                    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+                    const ch = buf.getChannelData(0);
+                    for (let i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / len);
+                    const ns = ctx.createBufferSource();
+                    ns.buffer = buf;
+                    const bp = ctx.createBiquadFilter();
+                    bp.type = 'bandpass';
+                    bp.frequency.value = 1150;
+                    bp.Q.value = 1.4;
+                    const g = ctx.createGain();
+                    g.gain.setValueAtTime(0.055, now);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    ns.connect(bp).connect(g).connect(ctx.destination);
+                    ns.start(now);
+                } else if (type === 'arrive') {
+                    [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.type = 'triangle';
+                        o.frequency.value = freq;
+                        const st = now + idx * 0.07;
+                        g.gain.setValueAtTime(0.001, st);
+                        g.gain.linearRampToValueAtTime(0.07, st + 0.015);
+                        g.gain.exponentialRampToValueAtTime(0.001, st + 0.35);
+                        o.connect(g).connect(ctx.destination);
+                        o.start(st);
+                        o.stop(st + 0.38);
+                    });
+                } else if (type === 'buy') {
+                    [880, 1174.66].forEach((freq, idx) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.type = 'sine';
+                        o.frequency.value = freq;
+                        const st = now + idx * 0.06;
+                        g.gain.setValueAtTime(0.001, st);
+                        g.gain.linearRampToValueAtTime(0.075, st + 0.01);
+                        g.gain.exponentialRampToValueAtTime(0.001, st + 0.24);
+                        o.connect(g).connect(ctx.destination);
+                        o.start(st);
+                        o.stop(st + 0.26);
+                    });
+                } else if (type === 'eat') {
+                    [0, 0.14, 0.28].forEach((off, idx) => {
+                        const len = Math.floor(ctx.sampleRate * 0.06);
+                        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+                        const ch = buf.getChannelData(0);
+                        for (let i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / len);
+                        const ns = ctx.createBufferSource();
+                        ns.buffer = buf;
+                        const hp = ctx.createBiquadFilter();
+                        hp.type = 'highpass';
+                        hp.frequency.value = 1800 + idx * 450;
+                        const ng = ctx.createGain();
+                        ng.gain.setValueAtTime(0.065, now + off);
+                        ng.gain.exponentialRampToValueAtTime(0.001, now + off + 0.06);
+                        ns.connect(hp).connect(ng).connect(ctx.destination);
+                        ns.start(now + off);
+                    });
+                    const o = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(659.25, now + 0.36);
+                    o.frequency.exponentialRampToValueAtTime(987.77, now + 0.5);
+                    g.gain.setValueAtTime(0.06, now + 0.36);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + 0.58);
+                    o.connect(g).connect(ctx.destination);
+                    o.start(now + 0.36);
+                    o.stop(now + 0.6);
+                } else if (type === 'drink') {
+                    const o = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(340, now);
+                    o.frequency.exponentialRampToValueAtTime(680, now + 0.28);
+                    o.frequency.exponentialRampToValueAtTime(880, now + 0.48);
+                    g.gain.setValueAtTime(0.001, now);
+                    g.gain.linearRampToValueAtTime(0.065, now + 0.08);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + 0.54);
+                    o.connect(g).connect(ctx.destination);
+                    o.start(now);
+                    o.stop(now + 0.56);
+                }
+            }
+
+            function spawnMarketFloat(emojis) {
+                const interior = document.getElementById('marketStallInterior');
+                if (!interior) return;
+                emojis.forEach((em, idx) => {
+                    const el = document.createElement('div');
+                    el.className = 'market-float-fx';
+                    el.textContent = em;
+                    el.style.setProperty('--mfx', Math.round((idx - (emojis.length - 1) / 2) * 26 + (Math.random() - 0.5) * 14) + 'px');
+                    el.style.setProperty('--mfy', Math.round(-48 - Math.random() * 34) + 'px');
+                    interior.appendChild(el);
+                    setTimeout(() => el.remove(), 1100);
+                });
+            }
+
+            function ensureMarketSnow() {
+                const layer = document.getElementById('marketSnowLayer');
+                if (!layer || layer.childElementCount > 0) return;
+                for (let i = 0; i < 24; i++) {
+                    const d = document.createElement('div');
+                    d.className = 'market-snow-dot';
+                    const sz = (2.5 + Math.random() * 4).toFixed(1);
+                    d.style.width = sz + 'px';
+                    d.style.height = sz + 'px';
+                    d.style.left = (Math.random() * 100).toFixed(1) + '%';
+                    d.style.setProperty('--msd', (4.5 + Math.random() * 4).toFixed(1) + 's');
+                    d.style.setProperty('--msdelay', (-Math.random() * 6).toFixed(1) + 's');
+                    d.style.setProperty('--mssx', Math.round((Math.random() - 0.5) * 60) + 'px');
+                    layer.appendChild(d);
+                }
+            }
+
+            function clearWalkTimers() {
+                _walkTimers.forEach(t => clearTimeout(t));
+                _walkTimers = [];
+            }
+
+            function finishForestWalk() {
+                clearWalkTimers();
+                const walkScene = document.getElementById('marketWalkScene');
+                const boothScene = document.getElementById('marketBoothScene');
+                if (walkScene) walkScene.classList.remove('active');
+                if (boothScene) boothScene.classList.add('active');
+                playMarketSfx('arrive');
+                syncGemsUI();
+                updateCozyUI();
+                updateMarketBagBadge();
+                window.renderMarketTab(_activeMarketTab || 'treats');
+            }
+
+            window.openAdventMarket = function() {
+                const ov = document.getElementById('marketOverlay');
+                if (!ov) return;
+                if (typeof hapticTap === 'function') hapticTap(10);
+                if (typeof window.cancelHomeSkinPreview === 'function') window.cancelHomeSkinPreview();
+                if (typeof window.stopRobotSong === 'function') window.stopRobotSong();
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+
+                ensureMarketSnow();
+                syncGemsUI();
+                updateCozyUI();
+                updateMarketBagBadge();
+
+                const stage = document.getElementById('marketRobotStage');
+                if (stage) {
+                    const skinId = localStorage.getItem('nu_active_skin') || '';
+                    stage.classList.remove('eating', 'drinking');
+                    stage.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:48px">🤖</div>';
+                }
+                const bubbleEl = document.getElementById('marketBubble');
+                if (bubbleEl) bubbleEl.textContent = 'Welcome! Pick cookies, hot tea, cocoa or boxes! 🎄';
+
+                const walkScene = document.getElementById('marketWalkScene');
+                const boothScene = document.getElementById('marketBoothScene');
+                const caption = document.getElementById('marketWalkCaption');
+                if (caption) caption.textContent = '🌲 Walking down the snowy forest trail...';
+                if (boothScene) boothScene.classList.remove('active');
+                if (walkScene) walkScene.classList.add('active');
+
+                const boothAnim = walkScene ? walkScene.querySelector('.forest-distant-booth') : null;
+                if (boothAnim) {
+                    boothAnim.style.animation = 'none';
+                    void boothAnim.offsetWidth;
+                    boothAnim.style.animation = '';
+                }
+
+                ov.classList.add('open');
+
+                clearWalkTimers();
+                [250, 700, 1150, 1600].forEach(ms => {
+                    _walkTimers.push(setTimeout(() => playMarketSfx('step'), ms));
+                });
+                _walkTimers.push(setTimeout(() => {
+                    if (caption) caption.textContent = '✨ Arriving at the Advent Market!';
+                }, 1200));
+                _walkTimers.push(setTimeout(finishForestWalk, 2350));
+            };
+
+            window.closeAdventMarket = function() {
+                clearWalkTimers();
+                if (_consumeTimer) { clearTimeout(_consumeTimer); _consumeTimer = null; }
+                const ov = document.getElementById('marketOverlay');
+                const walkScene = document.getElementById('marketWalkScene');
+                const boothScene = document.getElementById('marketBoothScene');
+                if (walkScene) walkScene.classList.remove('active');
+                if (boothScene) boothScene.classList.remove('active');
+                if (ov) ov.classList.remove('open');
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                updateMarketBagBadge();
+            };
+
+            window.buyMarketItem = function(itemId) {
+                const item = MARKET_ITEMS.find(x => x.id === itemId);
+                if (!item) return;
+                if (typeof hapticTap === 'function') hapticTap(10);
+                if (!spendMarketGems(item.price)) {
+                    showLootToast('Not Enough Gems', `You need ${item.price} 💎 for ${item.name}!`, '💎');
+                    if (typeof playSfx === 'function') playSfx('error');
+                    return;
+                }
+                const bag = getMarketBag();
+                bag[item.id] = (parseInt(bag[item.id], 10) || 0) + 1;
+                saveMarketBag(bag);
+                playMarketSfx('buy');
+                const verb = item.action === 'drink' ? 'Drink' : 'Eat';
+                const bubbleEl = document.getElementById('marketBubble');
+                if (bubbleEl) bubbleEl.textContent = `Got ${item.name}! Tap ${verb}! 🧺`;
+                window.renderMarketTab(_activeMarketTab);
+            };
+
+            window.buyCandyMysteryBag = function() {
+                if (typeof hapticTap === 'function') hapticTap(12);
+                if (!spendMarketGems(50)) {
+                    showLootToast('Not Enough Gems', 'You need 50 💎 for a Candy Mystery Bag!', '💎');
+                    if (typeof playSfx === 'function') playSfx('error');
+                    return;
+                }
+                const bag = getMarketBag();
+                const icons = [];
+                for (let i = 0; i < 3; i++) {
+                    const pick = MARKET_ITEMS[Math.floor(Math.random() * MARKET_ITEMS.length)];
+                    bag[pick.id] = (parseInt(bag[pick.id], 10) || 0) + 1;
+                    icons.push(pick.icon);
+                }
+                saveMarketBag(bag);
+                playMarketSfx('buy');
+                playMarketSfx('arrive');
+                showLootToast('Candy Mystery Bag!', 'Received ' + icons.join(' ') + ' in your Basket!', '🍬');
+                const bubbleEl = document.getElementById('marketBubble');
+                if (bubbleEl) bubbleEl.textContent = '3 surprise treats added: ' + icons.join(' ') + '!';
+                window.renderMarketTab(_activeMarketTab);
+            };
+
+            window.consumeMarketItem = function(itemId) {
+                const item = MARKET_ITEMS.find(x => x.id === itemId);
+                if (!item) return;
+                const bag = getMarketBag();
+                const count = parseInt(bag[item.id], 10) || 0;
+                if (count <= 0) return;
+
+                if (count === 1) delete bag[item.id];
+                else bag[item.id] = count - 1;
+                saveMarketBag(bag);
+
+                if (typeof hapticTap === 'function') hapticTap(12);
+                playMarketSfx(item.action);
+
+                const stage = document.getElementById('marketRobotStage');
+                if (stage) {
+                    if (_consumeTimer) { clearTimeout(_consumeTimer); _consumeTimer = null; }
+                    stage.classList.remove('eating', 'drinking');
+                    void stage.offsetWidth;
+                    stage.classList.add(item.action === 'drink' ? 'drinking' : 'eating');
+                    _consumeTimer = setTimeout(() => {
+                        stage.classList.remove('eating', 'drinking');
+                    }, 1350);
+                }
+
+                const bubbleEl = document.getElementById('marketBubble');
+                if (bubbleEl) bubbleEl.textContent = item.react;
+
+                const fxList = item.action === 'drink' ? [item.icon, '💨', '❤️', '✨'] : [item.icon, '😋', '✨', '❤️'];
+                spawnMarketFloat(fxList);
+
+                const cozy = getMarketCozy();
+                cozy.progress += 1;
+                cozy.total += 1;
+                if (cozy.progress >= 5) {
+                    cozy.progress = 0;
+                    addMarketGems(15);
+                    showLootToast('Cozy Bonus!', '+15 Gems for enjoying 5 market treats! ❤️', '🎄');
+                    if (typeof playSfx === 'function') playSfx('gem-claim');
+                }
+                saveMarketCozy(cozy);
+                updateCozyUI();
+                syncGemsUI();
+                window.renderMarketTab(_activeMarketTab);
+            };
+
+            window.renderMarketTab = function(tabId) {
+                _activeMarketTab = tabId || 'treats';
+                document.querySelectorAll('.market-tab-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.mtab === _activeMarketTab);
+                });
+                const container = document.getElementById('marketTabContent');
+                if (!container) return;
+                const bag = getMarketBag();
+
+                if (_activeMarketTab === 'treats') {
+                    let html = '';
+                    ['cookies', 'drinks', 'candies'].forEach(catKey => {
+                        html += `<div class="market-cat-label">${CAT_TITLES[catKey]}</div><div class="market-items-grid">`;
+                        MARKET_ITEMS.filter(x => x.cat === catKey).forEach(item => {
+                            const ownedCount = parseInt(bag[item.id], 10) || 0;
+                            const useLabel = item.action === 'drink' ? '☕ Drink' : '😋 Eat';
+                            html += `
+                                <div class="market-item-card">
+                                    <div class="market-item-icon">${item.icon}</div>
+                                    <div class="market-item-name">${item.name}</div>
+                                    ${ownedCount > 0 ? `<div class="market-item-owned">In Basket: ${ownedCount}</div>` : ''}
+                                    <div class="market-item-actions">
+                                        <button type="button" class="market-item-buy" onclick="buyMarketItem('${item.id}')">${item.price} 💎</button>
+                                        ${ownedCount > 0 ? `<button type="button" class="market-item-use" onclick="consumeMarketItem('${item.id}')">${useLabel}</button>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                    });
+                    container.innerHTML = html;
+                } else if (_activeMarketTab === 'boxes') {
+                    const today = new Date().toDateString();
+                    const origFree = localStorage.getItem('nu_orig_free_received_today') !== today;
+                    const vipFree = localStorage.getItem('nu_free_vip_received') !== 'true';
+                    container.innerHTML = `
+                        <div class="market-cat-label">🎁 Market Booth Boxes</div>
+                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(220,38,38,0.22), rgba(56,189,248,0.12));border-color:rgba(251,191,36,0.55);">
+                            <img src="box/winter.png" style="width:68px;height:68px;object-fit:contain;border-radius:12px;flex-shrink:0;" alt="Winter Box">
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:15px;font-weight:900;color:#fef08a;">Winter Box ❄️</div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">Festive gems, boxes &amp; rare winter skins!</div>
+                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="if(typeof buyWinterBox==='function'){buyWinterBox();setTimeout(()=>renderMarketTab('boxes'),350);}">Open · 350 💎</button>
+                            </div>
+                        </div>
+                        <div class="market-box-card">
+                            <img src="box/normal.png" style="width:64px;height:64px;object-fit:contain;flex-shrink:0;" alt="Original Box">
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:15px;font-weight:900;color:#fff;">Original Box 📦</div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">Classic skins, gems &amp; daily streak treats.</div>
+                                <button type="button" class="market-item-use" style="width:auto;padding:7px 14px;" onclick="if(typeof buyOriginalBox==='function'){buyOriginalBox();setTimeout(()=>renderMarketTab('boxes'),350);}">${origFree ? 'FREE Today! 🎁' : 'Open · 250 💎'}</button>
+                            </div>
+                        </div>
+                        <div class="market-box-card">
+                            <img src="box/vip.png" style="width:64px;height:64px;object-fit:contain;flex-shrink:0;" alt="VIP Box">
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:15px;font-weight:900;color:#fde68a;">VIP Box 👑</div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">High-tier epic &amp; legendary rewards!</div>
+                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="if(typeof buyVipBox==='function'){buyVipBox();setTimeout(()=>renderMarketTab('boxes'),350);}">${vipFree ? 'FREE! 👑' : 'Open · 550 💎'}</button>
+                            </div>
+                        </div>
+                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(168,85,247,0.22), rgba(236,72,153,0.16));border-color:rgba(244,114,182,0.5);">
+                            <div style="font-size:48px;line-height:1;width:64px;text-align:center;flex-shrink:0;">🍬</div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-size:15px;font-weight:900;color:#fbcfe8;">Candy Mystery Bag</div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.78);margin:3px 0 8px;">Get 3 random cookies, hot drinks or candies!</div>
+                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="buyCandyMysteryBag()">Buy 3 Treats · 50 💎</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const cozy = getMarketCozy();
+                    const ownedItems = MARKET_ITEMS.filter(item => (parseInt(bag[item.id], 10) || 0) > 0);
+                    let html = `<div class="market-cat-label">🧺 Your Basket · Enjoyed Total: ${cozy.total} ❤️</div>`;
+                    if (!ownedItems.length) {
+                        html += `
+                            <div class="market-empty">
+                                🧺 Your basket is empty!<br>
+                                <span style="font-size:12px;font-weight:600;opacity:0.8;">Buy cookies, hot tea, cocoa or candies at the stall!</span><br>
+                                <button type="button" class="market-item-buy" style="margin-top:12px;width:auto;padding:8px 18px;" onclick="renderMarketTab('treats')">Browse Treats 🍪</button>
+                            </div>
+                        `;
+                    } else {
+                        html += '<div class="market-items-grid">';
+                        ownedItems.forEach(item => {
+                            const cnt = parseInt(bag[item.id], 10) || 0;
+                            const useLabel = item.action === 'drink' ? '☕ Drink' : '😋 Eat';
+                            html += `
+                                <div class="market-item-card">
+                                    <div class="market-item-icon">${item.icon}</div>
+                                    <div class="market-item-name">${item.name}</div>
+                                    <div class="market-item-owned">Owned: ${cnt}</div>
+                                    <div class="market-item-actions">
+                                        <button type="button" class="market-item-use" onclick="consumeMarketItem('${item.id}')">${useLabel}</button>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                    }
+                    container.innerHTML = html;
+                }
+            };
+
+            const marketToggle = document.getElementById('marketToggle');
+            const marketCloseBtn = document.getElementById('marketCloseBtn');
+            const marketSkipWalkBtn = document.getElementById('marketSkipWalkBtn');
+            if (marketToggle) marketToggle.addEventListener('click', window.openAdventMarket);
+            if (marketCloseBtn) marketCloseBtn.addEventListener('click', window.closeAdventMarket);
+            if (marketSkipWalkBtn) marketSkipWalkBtn.addEventListener('click', finishForestWalk);
+
+            updateMarketBagBadge();
+            updateCozyUI();
         })();
 
         window.renderAdventCalendar();
