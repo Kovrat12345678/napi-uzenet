@@ -84,17 +84,18 @@
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.08);
                 padding: 10px;
-                overflow-x: auto;
-                white-space: nowrap;
                 gap: 8px;
                 height: 65px;
+                display: flex;
             }
             .shop-sidebar-btn {
                 padding: 10px 16px;
                 font-size: 13px;
                 height: auto;
-                width: auto;
                 display: inline-flex;
+                flex: 1;
+                justify-content: center;
+                align-items: center;
             }
             .shop-sidebar-btn:hover {
                 transform: none;
@@ -108,6 +109,12 @@
             0% { transform: scale(0) rotate(-15deg); opacity: 0; }
             70% { transform: scale(1.25) rotate(5deg); opacity: 1; }
             100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        @keyframes prizePopFast {
+            0% { transform: scale(0.25) translateY(24px); opacity: 0; }
+            65% { transform: scale(1.08) translateY(-4px); opacity: 1; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         /* Custom Toast Notification */
@@ -170,29 +177,155 @@
         /* Loot Unboxing Animation Styles */
         .loot-unboxing-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(10, 10, 18, 0.9);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(8, 10, 20, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             z-index: 999999;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 1;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.25s ease;
+            cursor: pointer;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
         }
         .loot-unboxing-overlay.fade-out {
             opacity: 0;
+            pointer-events: none;
+        }
+        .unbox-stage {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            width: 100%;
+            max-width: 380px;
+        }
+        .unbox-aura {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            filter: blur(28px);
+            opacity: 0.65;
+            pointer-events: none;
+            animation: unboxAuraGrow 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes unboxAuraGrow {
+            0% { transform: scale(0.35); opacity: 0.2; }
+            60% { transform: scale(1.05); opacity: 0.75; }
+            100% { transform: scale(1.35); opacity: 0.95; }
         }
         .loot-unboxing-box {
-            animation: unboxShake 0.6s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+            animation: unboxCharge 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+            will-change: transform;
         }
-        @keyframes unboxShake {
-            0% { transform: scale(0.9) rotate(-8deg); }
-            100% { transform: scale(1.15) rotate(8deg); }
+        @keyframes unboxCharge {
+            0% { transform: translateY(-45px) scale(0.55); opacity: 0; }
+            25% { transform: translateY(0) scale(1.06, 0.94); opacity: 1; }
+            42% { transform: scale(0.95, 1.06) rotate(-7deg); }
+            58% { transform: scale(1.08, 0.92) rotate(8deg); }
+            74% { transform: scale(0.92, 1.12) rotate(-9deg); }
+            88% { transform: scale(1.16, 0.86) rotate(5deg); }
+            100% { transform: scale(1.26) rotate(0deg); opacity: 1; }
+        }
+        .unbox-flash {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+            animation: unboxFlash 0.38s ease-out forwards;
+        }
+        @keyframes unboxFlash {
+            0% { opacity: 0.92; }
+            100% { opacity: 0; }
+        }
+        .unbox-shockwave {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid currentColor;
+            pointer-events: none;
+            z-index: 3;
+            animation: unboxShockwave 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes unboxShockwave {
+            0% { transform: scale(0.4); opacity: 0.95; border-width: 6px; }
+            100% { transform: scale(3.4); opacity: 0; border-width: 1px; }
+        }
+        .unbox-rays {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.16) 0deg 12deg, transparent 12deg 28deg);
+            -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 15%, transparent 70%);
+            mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 15%, transparent 70%);
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 1;
+            animation: unboxRaysSpin 10s linear infinite;
+        }
+        @keyframes unboxRaysSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .unbox-particle {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            pointer-events: none;
+            z-index: 5;
+            border-radius: 3px;
+            animation: unboxParticleFly 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes unboxParticleFly {
+            0% { transform: translate(-50%, -50%) scale(0.5) rotate(0deg); opacity: 1; }
+            75% { opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0) rotate(var(--rot)); opacity: 0; }
+        }
+        .unbox-reveal-wrap {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: prizePopFast 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .unbox-collect-btn {
+            margin-top: 18px;
+            padding: 11px 28px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .unbox-collect-btn:active {
+            transform: scale(0.95);
+        }
+        .unbox-tap-hint {
+            margin-top: 10px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.4px;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap');
@@ -238,6 +371,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
             background: linear-gradient(165deg, #38bdf8 0%, #818cf8 30%, #a855f7 55%, #ec4899 80%, #f97316 100%);
             background-attachment: fixed;
+            transition: background 1.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -248,7 +382,8 @@
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            overflow: hidden
+            overflow: hidden;
+            transition: opacity 1.2s ease;
         }
 
         .star {
@@ -336,11 +471,7 @@
         }
         
         .streak::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: streakSweep 3s infinite;
+            display: none;
         }
 
         @keyframes streakSweep {
@@ -2672,234 +2803,82 @@
         body.bg-tech-event .buy-tag {
             background: rgba(0, 212, 255, .18) !important;
             border: 1px solid rgba(0, 212, 255, .4) !important;
-            color: #00d4ff !important
-        }
-
-        body.bg-tech-event .shop-greeting {
-            color: rgba(0, 212, 255, .7) !important
+            color: #00d4ff !important        
         }
 
         /* ========== LOADING SCREEN (HYPERCODE INTRO) ========== */
         .loading-screen {
             position: fixed;
             inset: 0;
-            z-index: 9999;
+            z-index: 10000;
+            background: #000000 !important;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #000000 !important;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.8s ease, visibility 0.8s ease;
             overflow: hidden;
-            font-family: 'Outfit', 'SF Pro Display', system-ui, sans-serif;
         }
 
         .loading-screen.fade-out {
             opacity: 0;
-            transform: scale(1.08);
+            visibility: hidden;
             pointer-events: none;
         }
 
-        .zynox-logo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            animation: zynoxLogoEntrance 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        .intro-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            opacity: 0;
+            transform: scale(0.6);
+            animation: introReveal 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards;
             position: relative;
         }
 
-        /* Ambient soft white glow background */
-        .zynox-logo-container::before {
+        .intro-logo::after {
             content: '';
             position: absolute;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-            animation: zynoxGlowPulse 2s ease-in-out infinite alternate;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            animation: introLine 0.8s ease 1.2s forwards;
         }
 
-        .zynox-text-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 2;
-        }
-
-        .zynox-title {
-            font-size: 38px;
-            font-weight: 900;
+        .intro-sub {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
             letter-spacing: 4px;
-            color: #ffffff;
-            margin: 0;
-            line-height: 1;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
-            background: linear-gradient(135deg, #ffffff 20%, #888888 40%, #ffffff 60%, #888888 80%, #ffffff 100%);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 18px;
             opacity: 0;
-            animation: zynoxTextEntrance 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards, zynoxTextShine 2.5s linear infinite;
+            animation: introFadeIn 0.6s ease 1.5s forwards;
         }
 
-        .zynox-subtitle {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 12px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 8px;
-            margin-right: -12px; /* Offset spacing gap */
-            text-transform: uppercase;
-            opacity: 0;
-            animation: zynoxSubtitleEntrance 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.1s forwards;
+        @keyframes introReveal {
+            0% { opacity: 0; transform: scale(0.6); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
-        /* Supercell-style logo symbol */
-        .zynox-symbol {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            margin-bottom: 8px;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-            animation: zynoxSymbolSpin 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards, pulseSymbol 2s infinite alternate 0.8s;
-        }
-        
-        .zynox-symbol::after {
-            content: 'HC';
-            font-size: 32px;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(255,255,255,0.8);
-            letter-spacing: 2px;
+        @keyframes introLine {
+            0% { transform: translateX(-50%) scaleX(0); }
+            100% { transform: translateX(-50%) scaleX(1); }
         }
 
-        @keyframes pulseSymbol {
-            0% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2); }
-            100% { transform: scale(1.05); box-shadow: 0 0 45px rgba(255, 255, 255, 0.7), inset 0 0 25px rgba(255, 255, 255, 0.5); border-color: #f0f0f0; }
+        @keyframes introFadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        .zynox-loader-wrap {
-            position: absolute;
-            bottom: 64px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            width: 220px;
-            z-index: 2;
-        }
-        .zynox-progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .zynox-progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #ffffff, #a3e635, #ffffff);
-            background-size: 200% 100%;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 5px #a3e635;
-            border-radius: 3px;
-            transition: width 0.08s linear;
-            animation: flowColor 2s linear infinite;
-        }
-        .zynox-percentage {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            font-family: 'Outfit', sans-serif;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-
-        .zynox-symbol::after {
-            content: 'HC';
-            font-size: 34px;
-            font-weight: 900;
-            color: #ffffff;
-            font-family: 'Outfit', sans-serif;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
-        }
-
-        @keyframes zynoxLogoEntrance {
-            0% {
-                opacity: 0;
-                transform: scale(0.85);
-                filter: blur(15px);
-            }
-            15% {
-                opacity: 1;
-                transform: scale(1.02);
-                filter: blur(0);
-            }
-            85% {
-                opacity: 1;
-                transform: scale(1);
-                filter: blur(0);
-            }
-            100% {
-                opacity: 0.95;
-                transform: scale(0.98);
-            }
-        }
-
-        @keyframes zynoxSymbolSpin {
-            0% {
-                transform: rotate(-90deg) scale(0.7);
-            }
-            100% {
-                transform: rotate(0deg) scale(1);
-            }
-        }
-
-        @keyframes zynoxTextShine {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes zynoxGlowPulse {
-            0% { opacity: 0.6; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1.1); }
-        }
-
-        @keyframes zynoxTextEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-                letter-spacing: 0px;
-                filter: blur(4px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-                letter-spacing: 4px;
-                filter: blur(0);
-            }
-        }
-
-        @keyframes zynoxSubtitleEntrance {
-            0% {
-                opacity: 0;
-                transform: translateY(6px);
-                letter-spacing: 4px;
-            }
-            100% {
-                opacity: 0.7;
-                transform: translateY(0);
-                letter-spacing: 12px;
-            }
+        body.bg-tech-event .shop-greeting {
+            color: rgba(0, 212, 255, .7) !important
         }
 
         /* ========== DRAGON SPIN ========== */
@@ -3742,6 +3721,10 @@
 
         /* SKIN/BOLT MENÜ — Egész képernyős */
         .skin-toggle {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 20px) + 12px);
+            left: 16px;
+            z-index: 50;
             background: rgba(255, 255, 255, .15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -4156,7 +4139,14 @@
         .bubble.show {
             opacity: 1;
             transform: scale(1) translateY(0);
-            pointer-events: auto
+            pointer-events: auto;
+            animation: bubbleGlowPulse 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes bubbleGlowPulse {
+            0% { box-shadow: 0 10px 35px rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .3); }
+            50% { box-shadow: 0 15px 40px rgba(167, 139, 250, .35), inset 0 1px 0 rgba(255, 255, 255, .4), 0 0 20px rgba(236, 72, 153, .15); }
+            100% { box-shadow: 0 10px 35px rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .3); }
         }
 
         .bubble::after {
@@ -6375,57 +6365,196 @@
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            overflow: hidden
+            overflow: hidden;
+        }
+
+        .weather-scrim {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.24) 0%, transparent 34%, transparent 74%, rgba(15, 23, 42, 0.18) 100%);
+            pointer-events: none;
+        }
+
+        /* Nap */
+        .sky-sun {
+            position: absolute;
+            left: var(--sun-x, 78%);
+            top: var(--sun-y, 14%);
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, #fffbeb 0%, #fef08a 42%, #fbbf24 72%, rgba(251, 191, 36, 0) 100%);
+            box-shadow:
+                0 0 42px 14px rgba(253, 224, 71, 0.55),
+                0 0 100px 36px rgba(251, 191, 36, 0.28);
+            animation: skySunPulse 5.5s ease-in-out infinite;
+        }
+
+        @keyframes skySunPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.92; }
+            50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+        }
+
+        .sky-sun-beams {
+            position: absolute;
+            left: var(--sun-x, 78%);
+            top: var(--sun-y, 14%);
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        /* Hold */
+        .sky-moon {
+            position: absolute;
+            top: 11%;
+            right: 15%;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #e2e8f0 55%, #cbd5e1 100%);
+            box-shadow:
+                0 0 28px 8px rgba(226, 232, 240, 0.35),
+                0 0 70px 22px rgba(148, 163, 184, 0.18);
+            opacity: 0.9;
+        }
+
+        /* Felhők */
+        .sky-cloud {
+            position: absolute;
+            top: var(--cy, 12%);
+            left: -260px;
+            width: var(--cw, 180px);
+            height: var(--ch, 54px);
+            border-radius: 999px;
+            background: var(--cloud-bg, rgba(255, 255, 255, 0.38));
+            filter: blur(1px);
+            opacity: var(--co, 0.75);
+            animation: cloudDrift var(--cd, 42s) linear infinite;
+            animation-delay: var(--cdelay, 0s);
+        }
+
+        .sky-cloud::before,
+        .sky-cloud::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: inherit;
+        }
+
+        .sky-cloud::before {
+            width: 52%;
+            height: 135%;
+            top: -52%;
+            left: 16%;
+        }
+
+        .sky-cloud::after {
+            width: 42%;
+            height: 110%;
+            top: -36%;
+            right: 16%;
+        }
+
+        .sky-cloud.heavy {
+            background: var(--cloud-bg, rgba(71, 85, 105, 0.58));
+            filter: blur(2px);
+        }
+
+        @keyframes cloudDrift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 520px)); }
+        }
+
+        /* Köd */
+        .sky-fog-layer {
+            position: absolute;
+            left: -25%;
+            right: -25%;
+            height: 36vh;
+            top: var(--fy, 20%);
+            background: radial-gradient(ellipse at center, rgba(226, 232, 240, 0.24) 0%, rgba(203, 213, 225, 0.1) 55%, transparent 75%);
+            filter: blur(18px);
+            animation: fogDrift var(--fd, 18s) ease-in-out infinite alternate;
+        }
+
+        @keyframes fogDrift {
+            0% { transform: translateX(-6%) translateY(0); opacity: 0.55; }
+            100% { transform: translateX(6%) translateY(10px); opacity: 0.85; }
         }
 
         /* Eső */
         .raindrop {
             position: absolute;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, .4));
+            width: 1.5px;
+            background: linear-gradient(to bottom, transparent, rgba(224, 242, 254, .65));
             border-radius: 0 0 2px 2px;
-            animation: rain var(--d) linear infinite;
-            top: -20px
+            animation: rainSlant var(--d) linear infinite;
+            top: -30px;
         }
 
-        @keyframes rain {
+        .raindrop.heavy {
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, rgba(186, 230, 253, .8));
+        }
+
+        @keyframes rainSlant {
             0% {
-                transform: translateY(-20px);
-                opacity: 0
+                transform: translate3d(0, -30px, 0) rotate(9deg);
+                opacity: 0;
             }
-
             10% {
-                opacity: 1
+                opacity: 0.9;
             }
-
             100% {
-                transform: translateY(100vh);
-                opacity: .3
+                transform: translate3d(-45px, 106vh, 0) rotate(9deg);
+                opacity: .35;
             }
+        }
+
+        /* Villámlás */
+        .sky-lightning {
+            position: absolute;
+            inset: 0;
+            background: rgba(224, 242, 254, 0.55);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sky-lightning.flash {
+            animation: lightningStrike 0.45s ease-out;
+        }
+
+        @keyframes lightningStrike {
+            0% { opacity: 0; }
+            15% { opacity: 0.72; }
+            30% { opacity: 0.15; }
+            45% { opacity: 0.85; }
+            100% { opacity: 0; }
         }
 
         /* Hó */
         .snowflake {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .8);
+            background: rgba(255, 255, 255, .88);
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.45);
             animation: snow var(--d) linear infinite;
-            top: -10px
+            top: -12px;
         }
 
         @keyframes snow {
             0% {
                 transform: translateY(-10px) translateX(0) rotate(0deg);
-                opacity: 0
+                opacity: 0;
             }
-
             10% {
-                opacity: 1
+                opacity: 1;
             }
-
             100% {
-                transform: translateY(100vh) translateX(var(--sx)) rotate(360deg);
-                opacity: .4
+                transform: translateY(104vh) translateX(var(--sx)) rotate(360deg);
+                opacity: .45;
             }
         }
 
@@ -6433,29 +6562,28 @@
         .sunray {
             position: absolute;
             top: 0;
+            left: 0;
             width: 3px;
-            height: 160px;
-            background: linear-gradient(to bottom, rgba(255, 255, 0, .35), rgba(255, 255, 0, .08), transparent);
+            height: 150px;
+            background: linear-gradient(to bottom, rgba(254, 240, 138, .34), rgba(253, 224, 71, .08), transparent);
             -webkit-transform-origin: 50% 0;
             transform-origin: 50% 0;
-            -webkit-animation: sunray 4s ease-in-out infinite;
-            animation: sunray 4s ease-in-out infinite;
-            will-change: transform, opacity
+            -webkit-animation: sunray 4.5s ease-in-out infinite;
+            animation: sunray 4.5s ease-in-out infinite;
+            will-change: transform, opacity;
         }
 
         @keyframes sunray {
-
             0%,
             100% {
-                opacity: .15;
-                -webkit-transform: var(--rot) scaleY(.7);
-                transform: var(--rot) scaleY(.7)
+                opacity: .16;
+                -webkit-transform: var(--rot) scaleY(.75);
+                transform: var(--rot) scaleY(.75);
             }
-
             50% {
-                opacity: .5;
-                -webkit-transform: var(--rot) scaleY(1.2);
-                transform: var(--rot) scaleY(1.2)
+                opacity: .46;
+                -webkit-transform: var(--rot) scaleY(1.18);
+                transform: var(--rot) scaleY(1.18);
             }
         }
 
@@ -15389,6 +15517,11 @@
             box-shadow: 0 8px 18px rgba(0, 0, 0, .3)
         }
 
+        .sticker-item:active {
+            transform: scale(0.92) translateY(0px) !important;
+            transition: transform 0.1s ease !important;
+        }
+
         .sticker-item.locked {
             opacity: .5;
             cursor: default
@@ -15396,8 +15529,15 @@
 
         .sticker-item.active {
             border-color: #fbbf24;
-            background: linear-gradient(160deg, rgba(251, 191, 36, .18), rgba(167, 139, 250, .12));
-            box-shadow: 0 4px 16px rgba(251, 191, 36, .3)
+            background: linear-gradient(160deg, rgba(251, 191, 36, .22), rgba(236, 72, 153, .14));
+            box-shadow: 0 0 20px rgba(251, 191, 36, .35), 0 4px 16px rgba(236, 72, 153, .2);
+            animation: stickerSelectPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes stickerSelectPop {
+            0% { transform: scale(0.92); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
         }
 
         .sticker-item.active::after {
@@ -15407,7 +15547,8 @@
             right: 8px;
             color: #fbbf24;
             font-weight: 900;
-            font-size: 14px
+            font-size: 14px;
+            text-shadow: 0 0 6px rgba(251, 191, 36, .6);
         }
 
         .sticker-item-emoji {
@@ -16355,6 +16496,7 @@
         
         /* News Menu Styles */
         .news-toggle {
+            display: none !important;
             position: fixed;
             top: calc(env(safe-area-inset-top, 20px) + 12px);
             left: 12px;
@@ -16386,12 +16528,16 @@
             inset: 0;
             z-index: 1500;
             background: linear-gradient(165deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
-            display: none;
+            display: none !important;
             flex-direction: column;
         }
 
         .news-panel.open {
-            display: flex;
+            display: none !important;
+        }
+
+        #stickerPanel {
+            display: none !important;
         }
 
         .news-header {
@@ -18224,108 +18370,20 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <div class="zynox-logo-container">
-            <div class="zynox-symbol"></div>
-            <div class="zynox-text-wrap">
-                <span class="zynox-title">HYPERCODE</span>
-            </div>
-        </div>
-        <div class="zynox-loader-wrap">
-            <div class="zynox-progress-bar">
-                <div class="zynox-progress-fill" id="zynoxProgressFill"></div>
-            </div>
-            <div class="zynox-percentage" id="zynoxPercentage">0%</div>
-        </div>
+        <div class="intro-logo">Hypercode</div>
+        <div class="intro-sub">presents</div>
     </div>
     <script>
         (function () {
-            let soundPlayed = false;
-            function playIntroSound() {
-                try {
-                    const AudioContext = window.AudioContext || window.webkitAudioContext;
-                    if (!AudioContext) return;
-                    const ctx = new AudioContext();
-                    
-                    const runSound = () => {
-                        const now = ctx.currentTime;
-                        const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-                        
-                        freqs.forEach((freq, idx) => {
-                            const osc = ctx.createOscillator();
-                            const gain = ctx.createGain();
-                            
-                            osc.type = 'sine';
-                            osc.frequency.setValueAtTime(freq, now);
-                            
-                            // Supercell-like slide up effect on highest note
-                            if (idx === freqs.length - 1) {
-                                osc.frequency.setValueAtTime(freq - 150, now);
-                                osc.frequency.exponentialRampToValueAtTime(freq, now + 0.15);
-                            }
-                            
-                            gain.gain.setValueAtTime(0, now);
-                            gain.gain.linearRampToValueAtTime(0.15, now + 0.05 + (idx * 0.02));
-                            gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
-                            
-                            osc.connect(gain);
-                            gain.connect(ctx.destination);
-                            
-                            osc.start(now + (idx * 0.02));
-                            osc.stop(now + 1.2);
-                        });
-                        soundPlayed = true;
-                    };
-
-                    if (ctx.state === 'suspended') {
-                        ctx.resume().then(() => {
-                            if (ctx.state === 'running' || ctx.state === 'interactive') {
-                                runSound();
-                            }
-                        }).catch(() => {});
-                    } else {
-                        runSound();
-                    }
-                } catch (err) {
-                    console.log("Audio autoplay blocked or unsupported:", err);
-                }
-            }
-
-            // Try playing immediately
-            playIntroSound();
-            
-            // Backup listener on user interaction to bypass browser autoplay blocks
-            function triggerSoundBackup() {
-                if (!soundPlayed) {
-                    playIntroSound();
-                }
-                document.removeEventListener('click', triggerSoundBackup);
-                document.removeEventListener('touchstart', triggerSoundBackup);
-            }
-            document.addEventListener('click', triggerSoundBackup);
-            document.addEventListener('touchstart', triggerSoundBackup);
-
             const screen = document.getElementById('loadingScreen');
-            const progressFill = document.getElementById('zynoxProgressFill');
-            const percentageText = document.getElementById('zynoxPercentage');
-            
-            let progress = 0;
-            const duration = 650; // loader duration in ms (snappy & premium)
-            const intervalTime = 16;
-            const step = (intervalTime / duration) * 100;
-            
-            const progressTimer = setInterval(() => {
-                progress += step;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(progressTimer);
+            if (screen) {
+                setTimeout(() => {
+                    screen.classList.add('fade-out');
                     setTimeout(() => {
-                        screen.classList.add('fade-out');
-                        setTimeout(() => screen.remove(), 600);
-                    }, 120);
-                }
-                if (progressFill) progressFill.style.width = progress + '%';
-                if (percentageText) percentageText.textContent = Math.floor(progress) + '%';
-            }, intervalTime);
+                        screen.remove();
+                    }, 800);
+                }, 2600);
+            }
         })();
     </script>
 
@@ -18526,9 +18584,10 @@
         </div>
     </div>
 
-    <!-- Skin választó gomb -->
-    <!-- News gomb -->
-    <div class="news-toggle" id="newsToggle">⚡ NEWS</div>
+    <!-- Skin választó gomb (a régi News gomb helyén, bal felül) -->
+    <div class="news-toggle" id="newsToggle" style="display:none !important">⚡ NEWS</div>
+    <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🛍️</span> Shop<span class="shop-new-badge" id="shopNewBadge"
+            style="display:none">NEW</span></div>
 
     
 
@@ -18551,7 +18610,7 @@
                 <button class="shop-sidebar-btn active" data-target="boxes" onclick="switchShopCategory('boxes')">📦 Box</button>
                 <button class="shop-sidebar-btn" data-target="gems" onclick="switchShopCategory('gems')">💎 Gems</button>
                 <button class="shop-sidebar-btn" data-target="skins" onclick="switchShopCategory('skins')">🤖 Skin</button>
-                <button class="shop-sidebar-btn" data-target="support" onclick="switchShopCategory('support')">🔑 Support</button>
+
             </div>
 
             <!-- Content Area -->
@@ -18561,7 +18620,7 @@
                 <div id="cat-boxes">
 
 
-                    <!-- Loot Boxes (Original, VIP, Mega Pack - Stacking Vertically as Horizontal Rows) -->
+                    <!-- Loot Boxes (Original & VIP) -->
                     <div class="shop-section" style="display: flex; flex-direction: column; gap: 15px;">
                         
                         <!-- Original Box (Horizontal) -->
@@ -18569,7 +18628,7 @@
                             <img src="box/normal.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(255,255,255,0.25)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
                             <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
                                 <div style="font-size: 16px; font-weight: 800; color: #fff; margin: 0;">Original Box</div>
-                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 2px;">Gemek és Üzenetek!</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 2px;">Gemek és Skinek!</div>
                                 <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); width: fit-content;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
                             </div>
                         </div>
@@ -18579,28 +18638,8 @@
                             <img src="box/vip.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
                             <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
                                 <div style="font-size: 16px; font-weight: 800; color: #fde68a; text-shadow: 0 0 10px rgba(251,191,36,0.3); margin: 0;">VIP Box</div>
-                                <div style="font-size: 11px; color: rgba(253,230,138,0.8); margin-bottom: 2px;">Botok, Skinek, Minden!</div>
+                                <div style="font-size: 11px; color: rgba(253,230,138,0.8); margin-bottom: 2px;">Botok, Skinek, Gemek!</div>
                                 <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); width: fit-content;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
-                            </div>
-                        </div>
-
-                        <!-- Mega Pack Box (Horizontal) -->
-                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
-                            <img src="box/mega.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                                <div style="font-size: 16px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
-                                <div style="font-size: 11px; color: rgba(216, 180, 254, 0.8); margin-bottom: 2px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
-                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
-                            </div>
-                        </div>
-
-                        <!-- Mega Pack Box (Horizontal) -->
-                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.04)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
-                            <img src="box/mega.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 25px rgba(167, 139, 250, 0.5)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                                <div style="font-size: 16px; font-weight: 800; color: #c084fc; text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); margin: 0;">Mega Pack Box</div>
-                                <div style="font-size: 11px; color: rgba(216, 180, 254, 0.8); margin-bottom: 2px;">5x Nyeremény egyszerre! Skinek, Gemek és Matricák!</div>
-                                <button id="buyMegaBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); width: fit-content;" onclick="buyMegaBox()"><span id="megaBoxPrice">999 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
                             </div>
                         </div>
 
@@ -18677,15 +18716,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Decorative bottom info card to fill blank empty space -->
-                    <div class="support-card" style="margin-top: 25px; background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(3, 105, 161, 0.03)); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: 20px; width: 100%;">
-                        <div class="support-inner" style="padding: 20px; text-align: center;">
-                            <div style="font-size: 36px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.6));">💎</div>
-                            <div style="font-weight: 800; font-size: 16px; color: #bae6fd; margin-bottom: 5px;">Mire használhatod a Gemeket?</div>
-                            <div style="font-size: 12px; color: rgba(224, 242, 254, 0.7); line-height: 1.6;">Nyiss Original, VIP vagy akár Mega Pack ládákat a "Box" kategóriában, hogy exkluzív robot skineket és matricákat gyűjts be a gyűjteményedbe!</div>
-                        </div>
-                    </div>
                 </div>
                 <!-- CAT: SKINS -->
                 <div id="cat-skins" style="display: none;">
@@ -18743,47 +18773,13 @@
                         <div class="shop-section-title">🏞️ Hátterek</div>
                         <div class="shop-grid" id="bgList"></div>
                     </div>
+                </div>
 
-                    <!-- Stickers collection banner (No border, wide padding for stretching) -->
-                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px;">
-                        <div class="loot-card-wrap">
-                            <div class="sticker-banner" id="stickerBanner" style="margin: 0;">
-                                <div class="sticker-banner-glow"></div>
-                                <div class="sticker-banner-icon">💬</div>
-                                <div class="sticker-banner-info">
-                                    <div class="sticker-banner-title">Köszönés matricák</div>
-                                    <div class="sticker-banner-sub">Pouch-ból szerezhető — állítsd be a robot köszönését!</div>
-                                    <div class="sticker-banner-meta"><strong id="stickerOwn">1</strong>/<span id="stickerTotal">12</span> — most: <span id="stickerCurrent">Hello 👋</span></div>
-                                </div>
-                                <div class="sticker-banner-cta">👉</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- CAT: SUPPORT -->
-                <div id="cat-support" style="display: none;">
-                    <div class="shop-section" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 20px;">
-                        <div class="shop-section-title" style="margin-bottom: 15px;">🔑 Support</div>
-                        <div class="support-card" id="supportCard" style="margin: 0; width: 100%;">
-                            <div class="support-inner">
-                                <div class="support-title"><span class="support-title-icon">💎</span>Support</div>
-                                <div class="support-sub">Van titkos kódod? Írd be alább és aktiváld a bónuszt.</div>
-                                <div class="support-row">
-                                    <input class="support-input" id="supportInput" placeholder="Írd be a kódot..." maxlength="16" autocomplete="off" autocapitalize="characters">
-                                    <button class="support-submit" id="supportSubmit">⚡ Aktiválom</button>
-                                </div>
-                                <div class="support-status" id="supportStatus">✅ Aktív bónusz: szerencsésebb nyeremények</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
     </div>
     <div class="top-right-actions" id="topRightActions">
-    <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🛍️</span> Shop<span class="shop-new-badge" id="shopNewBadge"
-            style="display:none">NEW</span></div>
     <div class="favs-toggle" id="favsToggle"><span style="margin-right:6px">❤️</span> Üzenetek<span class="favs-badge" id="favsBadge">0</span></div>
 </div>
 
@@ -18797,7 +18793,7 @@
     </div>
 
     <!-- Hírek panel -->
-    <div class="news-panel" id="newsPanel">
+    <div class="news-panel" id="newsPanel" style="display:none !important">
         <div class="news-header">
             <div class="shop-title">⚡ NEWS</div>
             <button class="shop-close-btn" id="newsClose">✕</button>
@@ -18833,10 +18829,12 @@
             // Onboarding háttér napszak szerint
             const _h = new Date().getHours();
             let _bg;
-            if (_h >= 5 && _h < 6) _bg = 'linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)';
-            else if (_h >= 6 && _h < 17) _bg = 'linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)';
-            else if (_h >= 17 && _h < 20) _bg = 'linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)';
-            else _bg = 'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)';
+            if (_h >= 5 && _h < 8) _bg = 'linear-gradient(165deg,#3b4d8a 0%,#c06c84 40%,#f67280 75%,#f8b195 100%)';
+            else if (_h >= 8 && _h < 12) _bg = 'linear-gradient(165deg,#0284c7 0%,#0ea5e9 40%,#38bdf8 75%,#7dd3fc 100%)';
+            else if (_h >= 12 && _h < 17) _bg = 'linear-gradient(165deg,#0369a1 0%,#0284c7 35%,#2563eb 70%,#38bdf8 100%)';
+            else if (_h >= 17 && _h < 20) _bg = 'linear-gradient(165deg,#1e1b4b 0%,#6d28d9 30%,#db2777 60%,#f97316 85%,#fbbf24 100%)';
+            else if (_h >= 20 && _h < 22) _bg = 'linear-gradient(165deg,#090d1a 0%,#162044 40%,#1e293b 75%,#312e81 100%)';
+            else _bg = 'linear-gradient(165deg,#020617 0%,#0b1120 35%,#172554 70%,#1e1b4b 100%)';
             ob.style.background = _bg;
 
             let step = -1; // -1 = intro, 0 = név kérés
@@ -18894,43 +18892,262 @@
         // Csillagok
         (function () { const c = document.getElementById('stars'); for (let i = 0; i < 20; i++) { const s = document.createElement('span'); s.className = 'star'; s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--s:${Math.random() * 12 + 8}px;--d:${(Math.random() * 3 + 2).toFixed(1)}s`; c.appendChild(s) } })();
 
-        // ========== NAPSZAK HÁTTÉR (AUTOMATIKUS) ==========
-        function applyTimeTheme() {
-            const activeBg = localStorage.getItem('nu_active_bg') || '';
-            // Summer Chill event — június 10. és augusztus 10. között (2 hónap)
-            const now = new Date();
-            const isRacingEvent = (now.getFullYear() === 2026 &&
-                ((now.getMonth() === 5 && now.getDate() >= 10) ||
-                    (now.getMonth() === 6) ||
-                    (now.getMonth() === 7 && now.getDate() <= 10)));
-            
-            document.body.classList.toggle('racing-event', isRacingEvent);
-            if (isRacingEvent) {
-                // Summer event háttér — a CSS kezeli a body.racing-event osztályon keresztül
-                const tc = document.getElementById('themeColor');
-                tc.content = '#0ea5e9';
-                document.documentElement.style.backgroundColor = '#fbbf24';
-                return;
+        // ========== NAPSZAK + IDŐJÁRÁS HÁTTÉR (AUTOMATIKUS) ==========
+        function getDayPhase(h) {
+            if (h >= 5 && h < 8) return 'dawn';
+            if (h >= 8 && h < 12) return 'morning';
+            if (h >= 12 && h < 17) return 'day';
+            if (h >= 17 && h < 20) return 'sunset';
+            if (h >= 20 && h < 22) return 'evening';
+            return 'night';
+        }
+
+        function mapWmoToWeather(code) {
+            if (code === 95 || code === 96 || code === 99) return { type: 'storm', heavy: true };
+            if ((code >= 71 && code <= 77) || code === 85 || code === 86) return { type: 'snow', heavy: code === 75 || code === 86 };
+            if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return { type: 'rain', heavy: (code >= 63 && code <= 67) || code >= 81 };
+            if (code === 45 || code === 48) return { type: 'fog', heavy: false };
+            if (code === 3) return { type: 'cloudy', heavy: false };
+            if (code === 2) return { type: 'partly-cloudy', heavy: false };
+            return { type: 'clear', heavy: false };
+        }
+
+        const SKY_PALETTES = {
+            dawn: {
+                'clear': { bg: 'linear-gradient(165deg,#3b4d8a 0%,#c06c84 38%,#f67280 72%,#f8b195 100%)', theme: '#3b4d8a', bottomColor: '#f8b195' },
+                'partly-cloudy': { bg: 'linear-gradient(165deg,#334155 0%,#6d597a 38%,#b56576 72%,#e5989b 100%)', theme: '#334155', bottomColor: '#e5989b' },
+                'cloudy': { bg: 'linear-gradient(165deg,#334155 0%,#475569 45%,#64748b 80%,#94a3b8 100%)', theme: '#334155', bottomColor: '#94a3b8' },
+                'fog': { bg: 'linear-gradient(165deg,#475569 0%,#64748b 45%,#94a3b8 80%,#cbd5e1 100%)', theme: '#475569', bottomColor: '#cbd5e1' },
+                'rain': { bg: 'linear-gradient(165deg,#1e293b 0%,#334155 48%,#475569 100%)', theme: '#1e293b', bottomColor: '#475569' },
+                'snow': { bg: 'linear-gradient(165deg,#312e81 0%,#475569 48%,#94a3b8 100%)', theme: '#312e81', bottomColor: '#94a3b8' },
+                'storm': { bg: 'linear-gradient(165deg,#0f172a 0%,#1e293b 50%,#334155 100%)', theme: '#0f172a', bottomColor: '#334155' }
+            },
+            morning: {
+                'clear': { bg: 'linear-gradient(165deg,#0284c7 0%,#0ea5e9 38%,#38bdf8 72%,#7dd3fc 100%)', theme: '#0284c7', bottomColor: '#7dd3fc' },
+                'partly-cloudy': { bg: 'linear-gradient(165deg,#0369a1 0%,#0ea5e9 45%,#60a5fa 80%,#93c5fd 100%)', theme: '#0369a1', bottomColor: '#93c5fd' },
+                'cloudy': { bg: 'linear-gradient(165deg,#475569 0%,#64748b 50%,#94a3b8 100%)', theme: '#475569', bottomColor: '#94a3b8' },
+                'fog': { bg: 'linear-gradient(165deg,#64748b 0%,#94a3b8 55%,#cbd5e1 100%)', theme: '#64748b', bottomColor: '#cbd5e1' },
+                'rain': { bg: 'linear-gradient(165deg,#1e293b 0%,#334155 50%,#475569 100%)', theme: '#1e293b', bottomColor: '#475569' },
+                'snow': { bg: 'linear-gradient(165deg,#334155 0%,#64748b 50%,#94a3b8 100%)', theme: '#334155', bottomColor: '#94a3b8' },
+                'storm': { bg: 'linear-gradient(165deg,#0f172a 0%,#1e293b 52%,#334155 100%)', theme: '#0f172a', bottomColor: '#334155' }
+            },
+            day: {
+                'clear': { bg: 'linear-gradient(165deg,#0369a1 0%,#0284c7 35%,#2563eb 70%,#38bdf8 100%)', theme: '#0369a1', bottomColor: '#38bdf8' },
+                'partly-cloudy': { bg: 'linear-gradient(165deg,#0284c7 0%,#38bdf8 48%,#60a5fa 100%)', theme: '#0284c7', bottomColor: '#60a5fa' },
+                'cloudy': { bg: 'linear-gradient(165deg,#334155 0%,#475569 38%,#64748b 72%,#94a3b8 100%)', theme: '#334155', bottomColor: '#94a3b8' },
+                'fog': { bg: 'linear-gradient(165deg,#475569 0%,#64748b 50%,#cbd5e1 100%)', theme: '#475569', bottomColor: '#cbd5e1' },
+                'rain': { bg: 'linear-gradient(165deg,#1e293b 0%,#334155 50%,#475569 100%)', theme: '#1e293b', bottomColor: '#475569' },
+                'snow': { bg: 'linear-gradient(165deg,#334155 0%,#475569 50%,#94a3b8 100%)', theme: '#334155', bottomColor: '#94a3b8' },
+                'storm': { bg: 'linear-gradient(165deg,#090d16 0%,#1e293b 50%,#334155 100%)', theme: '#090d16', bottomColor: '#334155' }
+            },
+            sunset: {
+                'clear': { bg: 'linear-gradient(165deg,#1e1b4b 0%,#6d28d9 30%,#db2777 60%,#f97316 85%,#fbbf24 100%)', theme: '#1e1b4b', bottomColor: '#fbbf24' },
+                'partly-cloudy': { bg: 'linear-gradient(165deg,#1e1b4b 0%,#5b21b6 35%,#be185d 68%,#ea580c 100%)', theme: '#1e1b4b', bottomColor: '#ea580c' },
+                'cloudy': { bg: 'linear-gradient(165deg,#1e1b4b 0%,#4c1d95 45%,#64748b 100%)', theme: '#1e1b4b', bottomColor: '#64748b' },
+                'fog': { bg: 'linear-gradient(165deg,#312e81 0%,#64748b 50%,#94a3b8 100%)', theme: '#312e81', bottomColor: '#94a3b8' },
+                'rain': { bg: 'linear-gradient(165deg,#0f172a 0%,#1e293b 50%,#312e81 100%)', theme: '#0f172a', bottomColor: '#312e81' },
+                'snow': { bg: 'linear-gradient(165deg,#1e1b4b 0%,#334155 50%,#64748b 100%)', theme: '#1e1b4b', bottomColor: '#64748b' },
+                'storm': { bg: 'linear-gradient(165deg,#090d16 0%,#1e1b4b 50%,#312e81 100%)', theme: '#090d16', bottomColor: '#312e81' }
+            },
+            evening: {
+                'clear': { bg: 'linear-gradient(165deg,#090d1a 0%,#162044 38%,#1e293b 72%,#312e81 100%)', theme: '#090d1a', bottomColor: '#312e81' },
+                'partly-cloudy': { bg: 'linear-gradient(165deg,#090d1a 0%,#162044 48%,#334155 100%)', theme: '#090d1a', bottomColor: '#334155' },
+                'cloudy': { bg: 'linear-gradient(165deg,#0f172a 0%,#1e293b 50%,#334155 100%)', theme: '#0f172a', bottomColor: '#334155' },
+                'fog': { bg: 'linear-gradient(165deg,#0f172a 0%,#1e293b 50%,#475569 100%)', theme: '#0f172a', bottomColor: '#475569' },
+                'rain': { bg: 'linear-gradient(165deg,#020617 0%,#0f172a 50%,#1e293b 100%)', theme: '#020617', bottomColor: '#1e293b' },
+                'snow': { bg: 'linear-gradient(165deg,#0f172a 0%,#1e293b 50%,#334155 100%)', theme: '#0f172a', bottomColor: '#334155' },
+                'storm': { bg: 'linear-gradient(165deg,#020617 0%,#090d16 50%,#1e1b4b 100%)', theme: '#020617', bottomColor: '#1e1b4b' }
+            },
+            night: {
+                'clear': { bg: 'linear-gradient(165deg,#020617 0%,#0b1120 35%,#172554 70%,#1e1b4b 100%)', theme: '#020617', bottomColor: '#1e1b4b' },
+                'partly-cloudy': { bg: 'linear-gradient(165deg,#020617 0%,#0f172a 50%,#1e293b 100%)', theme: '#020617', bottomColor: '#1e293b' },
+                'cloudy': { bg: 'linear-gradient(165deg,#020617 0%,#0f172a 55%,#1e293b 100%)', theme: '#020617', bottomColor: '#1e293b' },
+                'fog': { bg: 'linear-gradient(165deg,#020617 0%,#0f172a 50%,#334155 100%)', theme: '#020617', bottomColor: '#334155' },
+                'rain': { bg: 'linear-gradient(165deg,#020617 0%,#0b1120 50%,#1e293b 100%)', theme: '#020617', bottomColor: '#1e293b' },
+                'snow': { bg: 'linear-gradient(165deg,#090d1a 0%,#1e293b 50%,#334155 100%)', theme: '#090d1a', bottomColor: '#334155' },
+                'storm': { bg: 'linear-gradient(165deg,#000000 0%,#090d16 50%,#1e1b4b 100%)', theme: '#000000', bottomColor: '#1e1b4b' }
+            }
+        };
+
+        function getSavedWeather() {
+            if (window._weatherPreview) {
+                return { type: window._weatherPreview.type || 'clear', heavy: !!window._weatherPreview.heavy };
+            }
+            if (window._liveWeather && window._liveWeather.type) return window._liveWeather;
+            try {
+                const cached = JSON.parse(localStorage.getItem('nu_last_weather') || 'null');
+                if (cached && cached.type && (Date.now() - (cached.ts || 0)) < 30 * 60 * 1000) {
+                    return { type: cached.type, heavy: !!cached.heavy };
+                }
+            } catch (e) { }
+            return { type: 'clear', heavy: false };
+        }
+
+        function renderWeatherLayer(phase, weatherType, heavy) {
+            if (window._lightningTimer) {
+                clearTimeout(window._lightningTimer);
+                window._lightningTimer = null;
+            }
+            const starsEl = document.getElementById('stars');
+            if (starsEl) {
+                let starOp = '0';
+                if (phase === 'night') {
+                    starOp = weatherType === 'clear' ? '1' : weatherType === 'partly-cloudy' ? '0.5' : (weatherType === 'cloudy' || weatherType === 'snow') ? '0.15' : '0';
+                } else if (phase === 'evening') {
+                    starOp = weatherType === 'clear' ? '0.65' : weatherType === 'partly-cloudy' ? '0.35' : '0';
+                } else if (phase === 'dawn' || phase === 'sunset') {
+                    starOp = weatherType === 'clear' ? '0.25' : '0';
+                }
+                starsEl.style.opacity = starOp;
             }
 
-            if (activeBg !== '' && activeBg !== 'napszak') {
-                // Ha van egyedi háttér, ne írjuk felül az idővel
-                return;
+            const wl = document.getElementById('weatherLayer');
+            if (!wl) return;
+            wl.innerHTML = '';
+
+            const isDaylight = phase === 'dawn' || phase === 'morning' || phase === 'day' || phase === 'sunset';
+            const isDark = phase === 'evening' || phase === 'night';
+
+            if ((phase === 'morning' || phase === 'day') && (weatherType === 'clear' || weatherType === 'partly-cloudy' || weatherType === 'fog' || weatherType === 'snow')) {
+                const scrim = document.createElement('div');
+                scrim.className = 'weather-scrim';
+                wl.appendChild(scrim);
             }
+
+            function addClouds(count, isHeavy, tint) {
+                for (let i = 0; i < count; i++) {
+                    const cl = document.createElement('div');
+                    cl.className = 'sky-cloud' + (isHeavy ? ' heavy' : '');
+                    const w = Math.round(130 + Math.random() * 140);
+                    const h = Math.round(38 + Math.random() * 26);
+                    const y = (4 + (i / count) * 26 + Math.random() * 6).toFixed(1);
+                    const dur = (34 + Math.random() * 28).toFixed(1);
+                    const delay = (-Math.random() * 45).toFixed(1);
+                    const op = isHeavy ? (0.55 + Math.random() * 0.25).toFixed(2) : (0.4 + Math.random() * 0.3).toFixed(2);
+                    cl.style.cssText = `--cw:${w}px;--ch:${h}px;--cy:${y}%;--cd:${dur}s;--cdelay:${delay}s;--co:${op};` + (tint ? `--cloud-bg:${tint};` : '');
+                    wl.appendChild(cl);
+                }
+            }
+
+            const cloudTint = isDark
+                ? 'rgba(30, 41, 59, 0.62)'
+                : (phase === 'dawn' || phase === 'sunset')
+                    ? 'rgba(253, 186, 116, 0.36)'
+                    : 'rgba(255, 255, 255, 0.42)';
+            const stormCloudTint = isDark ? 'rgba(15, 23, 42, 0.78)' : 'rgba(51, 65, 85, 0.65)';
+
+            if (weatherType === 'clear' || weatherType === 'partly-cloudy') {
+                if (isDaylight) {
+                    const sunPos = phase === 'dawn'
+                        ? { x: '20%', y: '26%' }
+                        : phase === 'morning'
+                            ? { x: '26%', y: '16%' }
+                            : phase === 'day'
+                                ? { x: '76%', y: '13%' }
+                                : { x: '80%', y: '25%' };
+
+                    const sun = document.createElement('div');
+                    sun.className = 'sky-sun';
+                    sun.style.setProperty('--sun-x', sunPos.x);
+                    sun.style.setProperty('--sun-y', sunPos.y);
+                    wl.appendChild(sun);
+
+                    const beams = document.createElement('div');
+                    beams.className = 'sky-sun-beams';
+                    beams.style.setProperty('--sun-x', sunPos.x);
+                    beams.style.setProperty('--sun-y', sunPos.y);
+                    const rayCount = weatherType === 'clear' ? 8 : 5;
+                    for (let i = 0; i < rayCount; i++) {
+                        const ray = document.createElement('div');
+                        ray.className = 'sunray';
+                        ray.style.cssText = `--rot:rotate(${i * (360 / rayCount)}deg);-webkit-animation-delay:${(i * 0.45).toFixed(1)}s;animation-delay:${(i * 0.45).toFixed(1)}s`;
+                        beams.appendChild(ray);
+                    }
+                    wl.appendChild(beams);
+                } else {
+                    const moon = document.createElement('div');
+                    moon.className = 'sky-moon';
+                    wl.appendChild(moon);
+                }
+                if (weatherType === 'partly-cloudy') {
+                    addClouds(4, false, cloudTint);
+                }
+            } else if (weatherType === 'cloudy') {
+                addClouds(7, false, cloudTint);
+            } else if (weatherType === 'fog') {
+                for (let i = 0; i < 3; i++) {
+                    const fog = document.createElement('div');
+                    fog.className = 'sky-fog-layer';
+                    fog.style.setProperty('--fy', (10 + i * 24) + '%');
+                    fog.style.setProperty('--fd', (15 + i * 4) + 's');
+                    wl.appendChild(fog);
+                }
+            } else if (weatherType === 'rain' || weatherType === 'storm') {
+                addClouds(weatherType === 'storm' ? 5 : 4, true, stormCloudTint);
+                const dropCount = weatherType === 'storm' ? 85 : (heavy ? 80 : 55);
+                for (let i = 0; i < dropCount; i++) {
+                    const drop = document.createElement('div');
+                    drop.className = 'raindrop' + ((weatherType === 'storm' || heavy) ? ' heavy' : '');
+                    const h = Math.round(Math.random() * 20 + 14);
+                    const dur = (weatherType === 'storm' || heavy) ? (Math.random() * 0.35 + 0.35) : (Math.random() * 0.45 + 0.45);
+                    drop.style.cssText = `left:${(Math.random() * 110 - 5).toFixed(1)}%;height:${h}px;--d:${dur.toFixed(2)}s;animation-delay:${(Math.random() * -2).toFixed(2)}s`;
+                    wl.appendChild(drop);
+                }
+                if (weatherType === 'storm') {
+                    const lightning = document.createElement('div');
+                    lightning.className = 'sky-lightning';
+                    wl.appendChild(lightning);
+                    const scheduleFlash = () => {
+                        window._lightningTimer = setTimeout(() => {
+                            if (!document.body.contains(lightning)) return;
+                            lightning.classList.remove('flash');
+                            void lightning.offsetWidth;
+                            lightning.classList.add('flash');
+                            scheduleFlash();
+                        }, 4500 + Math.random() * 4500);
+                    };
+                    scheduleFlash();
+                }
+            } else if (weatherType === 'snow') {
+                addClouds(3, false, cloudTint);
+                const flakeCount = heavy ? 65 : 45;
+                for (let i = 0; i < flakeCount; i++) {
+                    const flake = document.createElement('div');
+                    flake.className = 'snowflake';
+                    const sz = (Math.random() * 5 + 3).toFixed(1);
+                    flake.style.cssText = `left:${Math.random() * 100}%;width:${sz}px;height:${sz}px;--d:${(Math.random() * 3.2 + 3).toFixed(1)}s;--sx:${(Math.random() * 64 - 32).toFixed(0)}px;animation-delay:${(Math.random() * -5).toFixed(1)}s`;
+                    wl.appendChild(flake);
+                }
+            }
+        }
+
+        function applyTimeTheme() {
+            document.body.classList.remove('racing-event', 'bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
+            const preview = window._weatherPreview;
+            const hr = (preview && preview.hour != null) ? preview.hour : new Date().getHours();
+            const phase = (preview && preview.phase) ? preview.phase : getDayPhase(hr);
+            const weather = getSavedWeather();
+            const phasePalettes = SKY_PALETTES[phase] || SKY_PALETTES.day;
+            const pal = phasePalettes[weather.type] || phasePalettes.clear;
 
             const tc = document.getElementById('themeColor');
-            const h = new Date().getHours();
-            let bg, theme, bottomColor;
-            if (h >= 5 && h < 6) { bg = 'linear-gradient(165deg,#fed7aa 0%,#fdba74 20%,#fb923c 40%,#f97316 60%,#ea580c 80%,#c2410c 100%)'; theme = '#f97316'; bottomColor = '#c2410c'; }
-            else if (h >= 6 && h < 17) { bg = 'linear-gradient(165deg,#38bdf8 0%,#818cf8 30%,#a855f7 55%,#ec4899 80%,#f97316 100%)'; theme = '#38bdf8'; bottomColor = '#f97316'; }
-            else if (h >= 17 && h < 20) { bg = 'linear-gradient(165deg,#f97316 0%,#ec4899 25%,#a855f7 50%,#7c3aed 75%,#4c1d95 100%)'; theme = '#f97316'; bottomColor = '#4c1d95'; }
-            else { bg = 'linear-gradient(165deg,#0f172a 0%,#1e1b4b 30%,#312e81 55%,#1e1b4b 80%,#0f172a 100%)'; theme = '#0f172a'; bottomColor = '#0f172a'; }
-
-            document.documentElement.style.backgroundColor = bottomColor;
-            document.body.style.background = bg;
+            document.documentElement.style.backgroundColor = pal.bottomColor;
+            document.body.style.background = pal.bg;
             document.body.style.backgroundAttachment = 'fixed';
-            tc.content = theme;
+            if (tc) tc.content = pal.theme;
+            document.body.dataset.dayPhase = phase;
+            document.body.dataset.weather = weather.type;
+            renderWeatherLayer(phase, weather.type, weather.heavy);
         }
+
+        window.setWeatherPreview = function (phase, weatherType, heavy) {
+            window._weatherPreview = { phase: phase || 'day', type: weatherType || 'clear', heavy: !!heavy };
+            applyTimeTheme();
+        };
+        window.resetWeatherPreview = function () {
+            window._weatherPreview = null;
+            applyTimeTheme();
+        };
         applyTimeTheme();
 
         // ========== ROBOT ÖLTÖZÉKEK ==========
@@ -18976,53 +19193,64 @@
         })();
 
         // ========== IDŐJÁRÁS ==========
-        setTimeout(() => {
-            function showWeather(lat, lon) {
+        (function () {
+            function fetchWeatherForCoords(lat, lon) {
                 fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
-                    .then(r => r.json()).then(data => {
+                    .then(r => r.json())
+                    .then(data => {
+                        if (!data || !data.current_weather) return;
                         const code = data.current_weather.weathercode;
-                        const wl = document.getElementById('weatherLayer');
-                        if (code >= 51 && code <= 67 || code >= 95) {
-                            for (let i = 0; i < 40; i++) {
-                                const drop = document.createElement('div'); drop.className = 'raindrop';
-                                const h = Math.random() * 20 + 10;
-                                drop.style.cssText = `left:${Math.random() * 100}%;height:${h}px;--d:${(Math.random() * 0.5 + 0.4).toFixed(2)}s;animation-delay:${(Math.random() * -2).toFixed(2)}s`;
-                                wl.appendChild(drop);
-                            }
-                        } else if (code >= 71 && code <= 77) {
-                            for (let i = 0; i < 35; i++) {
-                                const flake = document.createElement('div'); flake.className = 'snowflake';
-                                const sz = Math.random() * 6 + 3;
-                                flake.style.cssText = `left:${Math.random() * 100}%;width:${sz}px;height:${sz}px;--d:${(Math.random() * 3 + 3).toFixed(1)}s;--sx:${(Math.random() * 60 - 30).toFixed(0)}px;animation-delay:${(Math.random() * -5).toFixed(1)}s`;
-                                wl.appendChild(flake);
-                            }
-                        } else if (code <= 1) {
-                            const hr = new Date().getHours();
-                            if (hr >= 6 && hr < 20) {
-                                for (let i = 0; i < 8; i++) {
-                                    const ray = document.createElement('div'); ray.className = 'sunray';
-                                    ray.style.cssText = `left:calc(50% - 1.5px);top:-10px;--rot:rotate(${i * 45}deg);-webkit-animation-delay:${(i * 0.5).toFixed(1)}s;animation-delay:${(i * 0.5).toFixed(1)}s`;
-                                    wl.appendChild(ray);
-                                }
-                            }
-                        }
-                    }).catch(() => { });
+                        const mapped = mapWmoToWeather(code);
+                        window._liveWeather = { type: mapped.type, heavy: mapped.heavy, code: code };
+                        try {
+                            localStorage.setItem('nu_last_weather', JSON.stringify({ type: mapped.type, heavy: mapped.heavy, ts: Date.now() }));
+                            localStorage.setItem('nu_last_coords', JSON.stringify({ lat: lat, lon: lon }));
+                        } catch (e) { }
+                        applyTimeTheme();
+                    })
+                    .catch(() => { });
             }
+
+            function fallbackCoordsWeather() {
+                try {
+                    const saved = JSON.parse(localStorage.getItem('nu_last_coords') || 'null');
+                    if (saved && saved.lat && saved.lon) {
+                        fetchWeatherForCoords(saved.lat, saved.lon);
+                        return;
+                    }
+                } catch (e) { }
+                fetchWeatherForCoords('47.50', '19.04');
+            }
+
             function fallbackLocation() {
-                fetch('https://get.geojs.io/v1/ip/geo.json').then(r => r.json()).then(d => {
-                    if (d.latitude && d.longitude) showWeather(parseFloat(d.latitude).toFixed(2), parseFloat(d.longitude).toFixed(2));
-                }).catch(() => { });
+                fetch('https://get.geojs.io/v1/ip/geo.json')
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d && d.latitude && d.longitude) {
+                            fetchWeatherForCoords(parseFloat(d.latitude).toFixed(2), parseFloat(d.longitude).toFixed(2));
+                        } else {
+                            fallbackCoordsWeather();
+                        }
+                    })
+                    .catch(() => fallbackCoordsWeather());
             }
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    pos => showWeather(pos.coords.latitude.toFixed(2), pos.coords.longitude.toFixed(2)),
-                    () => fallbackLocation(),
-                    { enableHighAccuracy: false, timeout: 5000 }
-                );
-            } else {
-                fallbackLocation();
+
+            function refreshWeather() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        pos => fetchWeatherForCoords(pos.coords.latitude.toFixed(2), pos.coords.longitude.toFixed(2)),
+                        () => fallbackLocation(),
+                        { enableHighAccuracy: false, timeout: 4000 }
+                    );
+                } else {
+                    fallbackLocation();
+                }
             }
-        }, 500);
+
+            setTimeout(refreshWeather, 100);
+            setInterval(applyTimeTheme, 5 * 60 * 1000);
+            setInterval(refreshWeather, 20 * 60 * 1000);
+        })();
 
         // ========== ÜZENETEK (365 db — TopJoy stílus) ==========
         const M = [
@@ -19852,16 +20080,20 @@
                 });
             }
 
-            // Buborékban "Hello!" megjelenik
+            // Buborékban az aktív sticker megjelenik
             const bE = document.getElementById('bE');
             const bT = document.getElementById('bT');
             const oldE = bE.textContent, oldT = bT.textContent;
-            bE.textContent = '👋';
+
+            const _activeStickerId = typeof getActiveStickerId === 'function' ? getActiveStickerId() : 'sticker-hello';
+            const _activeSticker = (typeof STICKERS !== 'undefined' && STICKERS.find(s => s.id === _activeStickerId)) || { emoji: '👋', text: 'Hello' };
+
+            bE.textContent = _activeSticker.emoji;
             bT.textContent = '';
             bubble.classList.add('show');
 
-            // "Hello!" gépelés
-            typeText(bT, 'Hello!', () => {
+            const _greetSuffix = /[!?.]$/.test(_activeSticker.text) ? '' : '!';
+            typeText(bT, _activeSticker.text + _greetSuffix, () => {
                 btn.classList.remove('talking');
                 // 1.5 mp múlva visszaáll az eredeti üzenetre
                 setTimeout(() => {
@@ -21426,37 +21658,7 @@
             clearAcc();
             const r = document.getElementById('robot');
             if (r) {
-                const activeSkin = getActiveSkin();
-                const activeAcc = getActiveAcc();
-                if (activeSkin === 'ice-cream' && activeAcc === 'acc-guitar') {
-                    r.classList.add('plays-guitar');
-                } else {
-                    r.classList.remove('plays-guitar');
-                }
-
-                if (activeSkin === 'beach' && activeAcc === 'acc-drum') {
-                    r.classList.add('plays-drums');
-                } else {
-                    r.classList.remove('plays-drums');
-                }
-            }
-            const id = getActiveAcc();
-            if (!id) return;
-            const acc = ACCESSORIES.find(a => a.id === id);
-            if (!acc) return;
-            const map = { hat: 'outfitHat', face: 'outfitFace', neck: 'outfitNeck', hand: 'outfitHand' };
-            const el = document.getElementById(map[acc.slot]);
-            if (!el) return;
-            // Csak akkor, ha az adott slot üres (nincs ünnepi outfit)
-            if (!el.textContent.trim() || el.dataset.accActive) {
-                const svg = getAccessorySvg(acc);
-                if (svg) {
-                    el.innerHTML = svg;
-                    el.classList.add('outfit-acc-rendered');
-                } else {
-                    el.textContent = acc.icon;
-                }
-                el.dataset.accActive = '1';
+                r.classList.remove('plays-guitar', 'plays-drums');
             }
         }
         function clearAcc() {
@@ -22381,35 +22583,10 @@
             'bg-gamer': 'linear-gradient(165deg,#020617 0%,#0f172a 30%,#1e1b4b 60%,#020617 100%)'
         };
         function applyCustomBg() {
-            // Summer Chill event — június 10. és augusztus 10. között (2 hónap)
-            const now = new Date();
-            const isRacingEvent = (now.getFullYear() === 2026 &&
-                ((now.getMonth() === 5 && now.getDate() >= 10) ||
-                    (now.getMonth() === 6) ||
-                    (now.getMonth() === 7 && now.getDate() <= 10)));
-
             document.body.style.background = '';
             document.body.style.backgroundAttachment = '';
-            document.body.classList.remove('bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
-
-            if (isRacingEvent) {
-                applyTimeTheme();
-                return;
-            }
-
-            const bg = getActiveBg();
-            if (!bg || bg === 'napszak' || !owns(bg)) {
-                applyTimeTheme();
-                return;
-            }
-
-            const CLASS_BGS = ['bg-gamer', 'bg-galaxy', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity'];
-            if (CLASS_BGS.includes(bg)) {
-                document.body.classList.add(bg);
-            } else if (CUSTOM_BGS[bg]) {
-                document.body.style.background = CUSTOM_BGS[bg];
-                document.body.style.backgroundAttachment = 'fixed';
-            }
+            document.body.classList.remove('racing-event', 'bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
+            applyTimeTheme();
         }
         // Minden ingyenes — nincs exkluzív logika
         function checkMasterUnlock() { }
@@ -22719,25 +22896,11 @@
                 greet.innerHTML = `Hello <span class="greet-name" style="color:${_ncVal}">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
                 const activeSkin = getActiveSkin();
                 const activeBg = getActiveBg();
-                const activeAcc = getActiveAcc();
                 skinList.innerHTML = '';
                 bgList.innerHTML = '';
 
-                // Kiegészítők list elem
-                const accListId = 'accList';
-                let accList = document.getElementById(accListId);
-                if (!accList) {
-                    const accSection = document.createElement('div');
-                    accSection.className = 'shop-section';
-                    accSection.innerHTML = `<div class="shop-section-title">👑 Kiegészítők</div><div class="shop-grid" id="${accListId}"></div>`;
-                    bgList.parentElement.insertAdjacentElement('afterend', accSection);
-                    accList = document.getElementById(accListId);
-                }
-                accList.innerHTML = '';
-
                 [{ id: 'skinList', items: SKINS, list: skinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin },
-                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg },
-                { id: 'accList', items: ACCESSORIES, list: accList, active: activeAcc, setter: setActiveAcc, applier: applyAcc }
+                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg }
                 ].forEach(cfg => {
                     // Rendezés: először ingyenes (id='') és birtokolt defaultok, aztán rarity szerint növekvő
                     const sorted = [...cfg.items].sort((a, b) => {
@@ -22772,15 +22935,9 @@
 
                         const rarityLabel = (rarity !== 'free') ? `<div class="shop-item-rarity-label rarity-label-${rarity}">${rarity}</div>` : '<div class="shop-item-rarity-label rarity-label-free">free</div>';
                         const isSkinList = cfg.id === 'skinList';
-                        const isAccList = cfg.id === 'accList';
                         let iconHtml = '';
                         if (isSkinList && typeof buildMiniRobotHtml === 'function') {
                             iconHtml = `<div class="shop-item-icon shop-item-robot">${buildMiniRobotHtml(s.id || '', false)}</div>`;
-                        } else if (isAccList) {
-                            const svg = getAccessorySvg(s);
-                            iconHtml = svg
-                                ? `<div class="shop-item-icon acc-shop-icon">${svg}</div>`
-                                : `<div class="shop-item-icon">${s.icon}</div>`;
                         } else {
                             iconHtml = `<div class="shop-item-icon">${s.icon}</div>`;
                         }
@@ -22789,25 +22946,7 @@
                         if (ownedItem) {
                             el.addEventListener('click', (e) => {
                                 if (e.target.closest('.buy-tag')) return;
-                                if (isActive) {
-                                    if (cfg.id === 'accList') {
-                                        cfg.setter('');
-                                        cfg.applier();
-                                        playSfx('skin-equip');
-                                        renderShop();
-                                    }
-                                } else {
-                                    // Blokolás ha dobot választ beach bot nélkül
-                                    if (cfg.id === 'accList' && s.id === 'acc-drum' && getActiveSkin() !== 'beach') {
-                                        alert('A Koncert dob kiegészítő csak a Beach Bot skinnel használható!');
-                                        return;
-                                    }
-                                    
-                                    // Ha nem beach skinre vált és a dob be van készítve, szedje le a dobot
-                                    if (cfg.id === 'skinList' && s.id !== 'beach' && getActiveAcc() === 'acc-drum') {
-                                        setActiveAcc('');
-                                    }
-
+                                if (!isActive) {
                                     cfg.setter(s.id);
                                     cfg.applier();
                                     playSfx('skin-equip');
@@ -23405,7 +23544,7 @@
                 window.buyEventSkin = (skinId) => {
                     const skin = SKINS.find(s => s.id === skinId);
                     if (!skin) return;
-                    if (getOwnedSkinIds().includes(skinId)) { alert('Már megvan ez a bot!'); return; }
+                    if (owns(skinId)) { alert('Már megvan ez a bot!'); return; }
                     if (!confirm(skin.icon + ' ' + skin.name + ' megvétele 150 gemért?')) return;
                     if (!spendGems(150)) { alert('Nincs elég gem! (150 kell)'); return; }
                     buyItem(skinId);
@@ -23496,34 +23635,6 @@
                 const bpSkip = document.getElementById('bpSkipBtn');
 
                 if (bpSkip && !bpSkip._bound) { bpSkip._bound = true; bpSkip.addEventListener('click', () => { playSfx('bp-skip'); gemSkipLevel() }) }
-                // HYPERCODE támogatás input
-                const sInput = document.getElementById('supportInput');
-                const sSubmit = document.getElementById('supportSubmit');
-                const sStatus = document.getElementById('supportStatus');
-                const sCard = document.getElementById('supportCard');
-                if (isZynoxActive()) {
-                    if (sStatus) sStatus.classList.add('active');
-                    if (sCard) sCard.classList.add('lucky');
-                    if (sInput) { sInput.value = '✨✨✨'; sInput.disabled = true }
-                    if (sSubmit) sSubmit.disabled = true;
-                }
-                function trySupport() {
-                    const val = (sInput.value || '').trim().toUpperCase();
-                    if (val === 'HYPERCODE') {
-                        localStorage.setItem('nu_zynox_lucky', '1');
-                        playSfx('zynox');
-                        sCard.classList.add('lucky');
-                        sStatus.classList.add('active');
-                        sInput.value = '✨✨✨'; sInput.disabled = true; sSubmit.disabled = true;
-                        triggerSkinEquipEffect(); // flash + csillagok
-                        alert('✨ Támogatói bónusz aktiválva! Szerencsésebb leszel minden nyereményben.');
-                    } else {
-                        playSfx('error');
-                        alert('Ismeretlen kód.');
-                    }
-                }
-                if (sSubmit && !sSubmit._bound) { sSubmit._bound = true; sSubmit.addEventListener('click', trySupport) }
-                if (sInput && !sInput._bound) { sInput._bound = true; sInput.addEventListener('keydown', e => { if (e.key === 'Enter') trySupport() }) }
                 const bpP = document.getElementById('bpPlusBtn');
                 if (bpP && !bpP._bound) {
                     bpP._bound = true; bpP.addEventListener('click', () => {
@@ -23701,9 +23812,6 @@
                 if (closeId === 'lootInfoClose') { const m = document.getElementById('lootInfoModal'); if (m) m.classList.remove('open'); return; }
 
                 if (closeId === 'newsToggle' || (e.target && e.target.closest && e.target.closest('#newsToggle'))) {
-                    document.getElementById('newsPanel').classList.add('open');
-                    if (typeof renderNews === 'function') renderNews('latest');
-                    if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
                     return;
                 }
                 if (closeId === 'newsClose') {
@@ -23735,9 +23843,8 @@
                 }
                 if (closeId === 'stickerClose') { closeStickerPanel(); return; }
 
-                // RESTORED LOGIC
                 const stB = e.target.closest && e.target.closest('#stickerBanner');
-                if (stB) { openStickerPanel(); return; }
+                if (stB) { return; }
                 const stItem = e.target.closest && e.target.closest('.sticker-item');
                 if (stItem && !stItem.classList.contains('locked')) {
                     const sid = stItem.dataset.stickerId;
@@ -24531,7 +24638,7 @@
     </div>
 
     <!-- Matricák panel -->
-    <div id="stickerPanel" class="sticker-panel">
+    <div id="stickerPanel" class="sticker-panel" style="display:none !important">
         <div class="sticker-panel-card">
             <div class="sticker-head">
                 <div class="sticker-title">💬 Köszönés matricák</div>
@@ -25533,7 +25640,7 @@
 
 
         window.switchShopCategory = function(catId) {
-            const categories = ['boxes', 'gems', 'skins', 'support'];
+            const categories = ['boxes', 'gems', 'skins'];
             categories.forEach(c => {
                 const el = document.getElementById('cat-' + c);
                 if (el) el.style.display = 'none';
@@ -25598,246 +25705,191 @@
         };
         updateOriginalUI();
 
-        function getStickerEmoji(id) {
-            const map = {
-                'sticker-hello': '👋',
-                'sticker-szia': '🇭🇺',
-                'sticker-hey': '🤙',
-                'sticker-sup': '👊',
-                'sticker-yoo': '🤟',
-                'sticker-wave': '🙋‍♂️',
-                'sticker-matrix': '👽',
-                'sticker-cyber': '🤖',
-                'sticker-quantum': '🌀',
-                'sticker-hacker': '💻'
+        let isUnboxing = false;
+
+        function getSkinDisplayName(id) {
+            if (Array.isArray(window.SKINS)) {
+                const found = window.SKINS.find(s => s.id === id);
+                if (found) return found.name + ' Bot';
+            }
+            return id;
+        }
+
+        function spawnUnboxBurst(overlay, colors) {
+            const flash = document.createElement('div');
+            flash.className = 'unbox-flash';
+            flash.style.background = `radial-gradient(circle, rgba(255,255,255,0.95) 0%, ${colors[0]}55 45%, transparent 80%)`;
+            overlay.appendChild(flash);
+            setTimeout(() => flash.remove(), 420);
+
+            const stage = overlay.querySelector('.unbox-stage');
+            if (!stage) return;
+
+            const ring = document.createElement('div');
+            ring.className = 'unbox-shockwave';
+            ring.style.color = colors[0];
+            stage.appendChild(ring);
+            setTimeout(() => ring.remove(), 600);
+
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'unbox-particle';
+                const angle = (i / 30) * Math.PI * 2 + (Math.random() - 0.5) * 0.25;
+                const dist = 95 + Math.random() * 145;
+                const size = 6 + Math.random() * 7;
+                p.style.width = size + 'px';
+                p.style.height = (Math.random() > 0.4 ? size : size * 1.6) + 'px';
+                p.style.background = colors[i % colors.length];
+                p.style.boxShadow = `0 0 8px ${colors[i % colors.length]}`;
+                p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+                p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+                p.style.setProperty('--rot', Math.round((Math.random() - 0.5) * 540) + 'deg');
+                stage.appendChild(p);
+                setTimeout(() => p.remove(), 800);
+            }
+        }
+
+        function rollBoxPrize(type) {
+            const isVip = type === 'vip';
+            const pool = isVip
+                ? ['tulip', 'galaxy', 'sakura', 'graffiti', 'fire', 'golden', 'diamond', 'gamer', 'glass', 'ultra', 'ultra-black', 'dragon', 'comic-hero', 'comic-villain', 'ice-cream', 'beach', 'sunset', 'racer-red', 'racer-blue']
+                : ['tulip', 'galaxy', 'sakura', 'graffiti', 'fire', 'stealth'];
+            const skinChance = isVip ? 0.45 : 0.15;
+
+            if (Math.random() < skinChance) {
+                let owned = [];
+                try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch (e) { }
+                const unowned = pool.filter(id => !owned.includes(id));
+                if (unowned.length > 0) {
+                    const reward = unowned[Math.floor(Math.random() * unowned.length)];
+                    owned.push(reward);
+                    localStorage.setItem('nu_owned', JSON.stringify(owned));
+                    if (typeof renderShop === 'function') renderShop();
+                    return {
+                        title: isVip ? 'VIP Skin!' : 'Új Skin!',
+                        name: getSkinDisplayName(reward),
+                        isSkin: true,
+                        skinId: reward
+                    };
+                }
+                const bonusGems = isVip
+                    ? (Math.floor(Math.random() * 251) + 400)
+                    : (Math.floor(Math.random() * 101) + 150);
+                const cur = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                localStorage.setItem('nu_gems', String(cur + bonusGems));
+                if (typeof updateGemUI === 'function') updateGemUI();
+                return {
+                    title: 'Minden skin megvan — Bónusz Gem!',
+                    name: bonusGems + ' Gem',
+                    isGems: true
+                };
+            }
+
+            const gemReward = isVip
+                ? (Math.floor(Math.random() * 281) + 220)
+                : (Math.floor(Math.random() * 121) + 60);
+            const currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+            localStorage.setItem('nu_gems', String(currentGems + gemReward));
+            if (typeof updateGemUI === 'function') updateGemUI();
+            return {
+                title: isVip ? 'VIP Gemek!' : 'Gemek!',
+                name: gemReward + ' Gem',
+                isGems: true
             };
-            return map[id] || '🎁';
         }
 
         function doNyitas(type) {
+            isUnboxing = true;
+            const isVip = type === 'vip';
+            const boxImg = isVip ? 'box/vip.png' : 'box/normal.png';
+            const glowColor = isVip ? '#f59e0b' : '#10b981';
+            const burstColors = isVip
+                ? ['#fbbf24', '#f59e0b', '#fef08a', '#f472b6', '#ffffff']
+                : ['#34d399', '#10b981', '#38bdf8', '#a7f3d0', '#ffffff'];
+
+            try { if (typeof playSfx === 'function') playSfx('box-open'); } catch (e) { }
+
             const overlay = document.createElement('div');
             overlay.className = 'loot-unboxing-overlay';
-            // Start with shaking box
-            let boxImg = 'box/normal.png';
-            let glowColor = '#10b981';
-            if (type === 'vip') {
-                boxImg = 'box/vip.png';
-                glowColor = '#f59e0b';
-            } else if (type === 'mega') {
-                boxImg = 'box/mega.png';
-                glowColor = '#8b5cf6';
-            }
-
-            overlay.innerHTML = `<div class="loot-unboxing-box" style="filter: drop-shadow(0 0 30px ${glowColor});"><img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;"></div>`;
+            overlay.innerHTML = `
+                <div class="unbox-stage">
+                    <div class="unbox-aura" style="background: radial-gradient(circle, ${glowColor}cc 0%, ${glowColor}33 55%, transparent 75%);"></div>
+                    <div class="loot-unboxing-box" style="filter: drop-shadow(0 0 28px ${glowColor});">
+                        <img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;">
+                    </div>
+                </div>
+            `;
             document.body.appendChild(overlay);
 
+            let closed = false;
+            let autoCloseTimer = null;
+            function closeOverlay() {
+                if (closed) return;
+                closed = true;
+                if (autoCloseTimer) clearTimeout(autoCloseTimer);
+                overlay.classList.add('fade-out');
+                setTimeout(() => {
+                    overlay.remove();
+                    isUnboxing = false;
+                }, 250);
+            }
+
             setTimeout(() => {
-                if (type === 'mega') {
-                    // Roll 5 prizes
-                    const prizes = [];
-                    for(let i=0; i<5; i++) {
-                        const r = Math.random();
-                        if (r < 0.25) {
-                            // Skins/Bots
-                            const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti'];
-                            const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
-                            
-                            let owned = [];
-                            try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
-                            if (!owned.includes(reward)) {
-                                owned.push(reward);
-                                localStorage.setItem('nu_owned', JSON.stringify(owned));
-                            }
-                            prizes.push({ title: 'Skin', name: reward, isSkin: true, skinId: reward });
-                        } else if (r < 0.5) {
-                            // Stickers
-                            const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave', 'sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
-                            const reward = stickers[Math.floor(Math.random() * stickers.length)];
-                            
-                            let owned = [];
-                            try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
-                            if (!owned.includes(reward)) {
-                                owned.push(reward);
-                                localStorage.setItem('nu_stickers', JSON.stringify(owned));
-                            }
-                            prizes.push({ title: 'Matrica', name: reward, isSticker: true });
-                        } else {
-                            // Gems
-                            const gemReward = Math.floor(Math.random() * 200) + 100; // 100-300
-                            let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                            localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                            prizes.push({ title: 'Gemek', name: gemReward + ' Gem', isGems: true });
-                        }
-                    }
-
-                    if (typeof renderShop === 'function') renderShop();
-                    if (typeof renderStickers === 'function') renderStickers();
-                    if (typeof updateGemUI === 'function') updateGemUI();
-
-                    // Display grid of 5 slots
-                    let slotsHtml = '';
-                    prizes.forEach((p, idx) => {
-                        let rewardInnerHtml = '';
-                        if (p.isGems) {
-                            rewardInnerHtml = `<div style="font-size: 24px;">💎</div>`;
-                        } else if (p.isSkin) {
-                            if (typeof window.buildMiniRobotHtml === 'function') {
-                                rewardInnerHtml = `<div style="transform: scale(0.6); width:50px; height:50px; display:flex; justify-content:center; align-items:center;">${window.buildMiniRobotHtml(p.skinId, false)}</div>`;
-                            } else {
-                                rewardInnerHtml = `<div style="font-size: 24px;">🤖</div>`;
-                            }
-                        } else if (p.isSticker) {
-                            rewardInnerHtml = `<div style="font-size: 24px;">${getStickerEmoji(p.name)}</div>`;
-                        }
-                        
-                        slotsHtml += `
-                            <div class="mega-prize-slot" id="mega-slot-${idx}">
-                                ${rewardInnerHtml}
-                                <div style="font-size: 8px; font-weight:900; color: #fff; margin-top: 4px; text-align:center; max-width:50px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${p.name}</div>
-                            </div>
-                        `;
-                    });
-
-                    overlay.innerHTML = `
-                        <div style="text-align: center; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <h2 style="font-size: 28px; font-weight: 900; color: #c084fc; text-shadow: 0 0 20px rgba(167, 139, 250, 0.6); margin: 0 0 10px 0; animation: prizePop 0.4s ease-out;">Mega Pack!</h2>
-                            <div class="mega-prize-grid">
-                                ${slotsHtml}
-                            </div>
-                        </div>
-                    `;
-
-                    // Reveal slots sequentially
-                    prizes.forEach((p, idx) => {
-                        setTimeout(() => {
-                            const slot = document.getElementById('mega-slot-' + idx);
-                            if (slot) {
-                                slot.classList.add('revealed');
-                                try {
-                                    if (p.isSkin) playSfx('zynox');
-                                    else if (p.isGems) playSfx('gem-claim');
-                                    else playSfx('skin-equip');
-                                } catch(e){}
-                            }
-                        }, 300 + idx * 500);
-                    });
-
-                    // Auto remove after all revealed
-                    setTimeout(() => {
-                        overlay.classList.add('fade-out');
-                        setTimeout(() => overlay.remove(), 500);
-                    }, 3500 + 5 * 500);
-
+                let prize;
+                try {
+                    prize = rollBoxPrize(type);
+                } catch (e) {
+                    closeOverlay();
                     return;
                 }
 
-                // Determine prize for single boxes (orig, vip)
-                let prize = {};
-                if (type === 'orig') {
-                    if (Math.random() < 0.2) {
-                        const stickers = ['sticker-hello', 'sticker-szia', 'sticker-hey', 'sticker-sup', 'sticker-yoo', 'sticker-wave'];
-                        const reward = stickers[Math.floor(Math.random() * stickers.length)];
-                        
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
-                        if (!owned.includes(reward)) {
-                            owned.push(reward);
-                            localStorage.setItem('nu_stickers', JSON.stringify(owned));
-                        }
-                        if (typeof renderStickers === 'function') renderStickers();
-                        
-                        prize = { title: 'Új Matrica!', name: reward, isSticker: true };
-                    } else {
-                        const gemReward = Math.floor(Math.random() * 100) + 50;
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        
-                        prize = { title: 'Gemek!', name: gemReward + ' Gem', isGems: true };
-                    }
-                } else if (type === 'vip') {
-                    const r = Math.random();
-                    if (r < 0.3) {
-                        const skinsList = ['szilard', 'boti', 'szofia', 'bende', 'szasz', 'nemeth', 'barnabas', 'zerend', 'viki', 'dorina', 'lazar', 'benji', 'zsofi', 'milan', 'tech-szilard', 'tech-boti', 'summer-szilard', 'summer-boti'];
-                        const reward = skinsList[Math.floor(Math.random() * skinsList.length)];
-                        
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch(e){}
-                        if (!owned.includes(reward)) {
-                            owned.push(reward);
-                            localStorage.setItem('nu_owned', JSON.stringify(owned));
-                        }
-                        if (typeof renderShop === 'function') renderShop();
-                        
-                        prize = { title: 'Új Bot / Skin!', name: reward, isSkin: true, skinId: reward };
-                    } else if (r < 0.5) {
-                        const stickers = ['sticker-matrix', 'sticker-cyber', 'sticker-quantum', 'sticker-hacker'];
-                        const reward = stickers[Math.floor(Math.random() * stickers.length)];
-                        
-                        let owned = [];
-                        try { owned = JSON.parse(localStorage.getItem('nu_stickers') || '[]'); } catch(e){}
-                        if (!owned.includes(reward)) {
-                            owned.push(reward);
-                            localStorage.setItem('nu_stickers', JSON.stringify(owned));
-                        }
-                        if (typeof renderStickers === 'function') renderStickers();
-                        
-                        prize = { title: 'VIP Matrica!', name: reward, isSticker: true };
-                    } else {
-                        const gemReward = Math.floor(Math.random() * 500) + 300;
-                        let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-                        localStorage.setItem('nu_gems', String(currentGems + gemReward));
-                        if (typeof updateGemUI === 'function') updateGemUI();
-                        
-                        prize = { title: 'Hatalmas Gem!', name: gemReward + ' Gem', isGems: true };
-                    }
+                const stage = overlay.querySelector('.unbox-stage');
+                if (!stage) {
+                    closeOverlay();
+                    return;
                 }
 
-                // Show what we got inside the overlay with a beautiful entry animation
                 let rewardHtml = '';
                 if (prize.isGems) {
-                    rewardHtml = `<div style="font-size: 100px; text-shadow: 0 0 40px rgba(56, 189, 248, 0.8); animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">💎</div>`;
+                    rewardHtml = `<div style="font-size: 92px; line-height: 1; filter: drop-shadow(0 0 32px rgba(56, 189, 248, 0.85));">💎</div>`;
                 } else if (prize.isSkin) {
                     if (typeof window.buildMiniRobotHtml === 'function') {
-                        rewardHtml = `<div style="transform: scale(2.0); margin: 50px 0; height: 120px; display: flex; justify-content: center; align-items: center; animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${window.buildMiniRobotHtml(prize.skinId, false)}</div>`;
+                        rewardHtml = `<div style="transform: scale(2.0); margin: 42px 0; height: 112px; display: flex; justify-content: center; align-items: center;">${window.buildMiniRobotHtml(prize.skinId, false)}</div>`;
                     } else {
-                        rewardHtml = `<div style="font-size: 100px; animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">🤖</div>`;
+                        rewardHtml = `<div style="font-size: 92px; line-height: 1;">🤖</div>`;
                     }
-                } else if (prize.isSticker) {
-                    rewardHtml = `<div style="font-size: 100px; text-shadow: 0 0 40px rgba(167, 139, 250, 0.8); animation: prizePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${getStickerEmoji(prize.name)}</div>`;
                 }
 
-                overlay.innerHTML = `
-                    <div style="text-align: center; font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <h2 style="font-size: 32px; font-weight: 900; color: #fbbf24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.6); margin: 0 0 10px 0; animation: prizePop 0.4s ease-out;">${prize.title}</h2>
-                        <div style="margin: 20px 0;">
-                            ${rewardHtml}
-                        </div>
-                        <p style="font-size: 24px; font-weight: 900; color: #fff; margin: 10px 0 5px 0; text-transform: uppercase; animation: prizePop 0.5s ease-out;">${prize.name}</p>
+                stage.innerHTML = `
+                    <div class="unbox-rays"></div>
+                    <div class="unbox-reveal-wrap">
+                        <h2 style="font-size: 30px; font-weight: 900; color: ${isVip ? '#fde68a' : '#6ee7b7'}; text-shadow: 0 0 22px ${glowColor}99; margin: 0 0 8px 0;">${prize.title}</h2>
+                        <div style="margin: 14px 0;">${rewardHtml}</div>
+                        <p style="font-size: 22px; font-weight: 900; color: #fff; margin: 8px 0 0 0; text-shadow: 0 2px 10px rgba(0,0,0,0.4);">${prize.name}</p>
+                        <button type="button" class="unbox-collect-btn">Begyűjtés ✓</button>
+                        <div class="unbox-tap-hint">Koppints bárhová a folytatáshoz</div>
                     </div>
                 `;
 
-                // Play win sound
+                spawnUnboxBurst(overlay, burstColors);
+
                 try {
-                    if (prize.isSkin) {
-                        playSfx('zynox');
-                    } else if (prize.isGems) {
-                        playSfx('gem-claim');
-                    } else {
-                        playSfx('skin-equip');
+                    if (typeof playSfx === 'function') {
+                        playSfx(prize.isSkin ? 'zynox' : 'gem-claim');
                     }
-                } catch(e){}
+                } catch (e) { }
 
-                // Auto remove overlay after 3.8 seconds
+                if (typeof updateLootBadges === 'function') updateLootBadges();
+
                 setTimeout(() => {
-                    overlay.classList.add('fade-out');
-                    setTimeout(() => overlay.remove(), 500);
-                }, 3800);
-
-            }, 1500);
+                    overlay.addEventListener('click', closeOverlay, { once: true });
+                }, 350);
+                autoCloseTimer = setTimeout(closeOverlay, 2200);
+            }, 650);
         }
 
         window.buyOriginalBox = function() {
+            if (isUnboxing) return;
             const today = new Date().toDateString();
             const hasFree = localStorage.getItem('nu_orig_free_received_today') !== today;
             
@@ -25845,7 +25897,7 @@
                 let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                 if (currentGems < 250) {
                     showLootToast('Hiba!', 'Nincs elég Gemed az Original Boxhoz! (250 gem kell)', '❌');
-                    if(typeof playSfx === 'function') playSfx('error');
+                    if (typeof playSfx === 'function') playSfx('error');
                     return;
                 }
                 localStorage.setItem('nu_gems', String(currentGems - 250));
@@ -25854,19 +25906,19 @@
                 localStorage.setItem('nu_orig_free_received_today', today);
                 updateOriginalUI();
             }
-            if(typeof playSfx === 'function') playSfx('buy');
             
             doNyitas('orig');
         };
 
         window.buyVipBox = function() {
+            if (isUnboxing) return;
             const hasFree = localStorage.getItem('nu_free_vip_received') !== 'true';
             
             if (!hasFree) {
                 let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                 if (currentGems < 550) {
                     showLootToast('Hiba!', 'Nincs elég Gemed a VIP Boxhoz! (550 gem kell)', '❌');
-                    if(typeof playSfx === 'function') playSfx('error');
+                    if (typeof playSfx === 'function') playSfx('error');
                     return;
                 }
                 localStorage.setItem('nu_gems', String(currentGems - 550));
@@ -25876,23 +25928,7 @@
                 updateVipUI();
             }
             
-            if(typeof playSfx === 'function') playSfx('buy');
-            
             doNyitas('vip');
-        };
-
-        window.buyMegaBox = function() {
-            let currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
-            if (currentGems < 999) {
-                showLootToast('Hiba!', 'Nincs elég Gemed a Mega Pack Boxhoz! (999 gem kell)', '❌');
-                if(typeof playSfx === 'function') playSfx('error');
-                return;
-            }
-            localStorage.setItem('nu_gems', String(currentGems - 999));
-            if (typeof updateGemUI === 'function') updateGemUI();
-            if(typeof playSfx === 'function') playSfx('buy');
-            
-            doNyitas('mega');
         };
 
     })();
