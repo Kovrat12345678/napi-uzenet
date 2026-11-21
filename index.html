@@ -14,12 +14,13 @@
     <link rel="manifest" id="manifestLink" href="manifest.json?v=5">
     <script>
     </script>
-    <title>DailyBot</title>
+    <title>DailyBot 🎄</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap">
     <link rel="preload" as="image" href="box/normal.png">
     <link rel="preload" as="image" href="box/vip.png">
+    <link rel="preload" as="image" href="box/winter.png">
 
     <style>
         /* Shop Sidebar Layout Styles */
@@ -88,14 +89,16 @@
                 flex-direction: row;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 10px;
-                gap: 8px;
-                height: 65px;
+                padding: 8px 6px;
+                gap: 6px;
+                height: 58px;
                 display: flex;
             }
             .shop-sidebar-btn {
-                padding: 10px 16px;
-                font-size: 13px;
+                padding: 8px 6px;
+                font-size: 12px;
+                gap: 4px;
+                white-space: nowrap;
                 height: auto;
                 display: inline-flex;
                 flex: 1;
@@ -106,7 +109,8 @@
                 transform: none;
             }
             .shop-content-area {
-                height: calc(100% - 65px);
+                height: calc(100% - 58px);
+                padding: 14px;
             }
         }
 
@@ -325,12 +329,6 @@
         }
         .unbox-collect-btn:active {
             transform: scale(0.95);
-        }
-        .unbox-tap-hint {
-            margin-top: 10px;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.55);
-            letter-spacing: 0.4px;
         }
 
         @property --dw-h {
@@ -18367,6 +18365,569 @@
             gap: 10px;
         }
 
+        /* ========== CHRISTMAS THEME & FESTIVE UI ========== */
+        #shopGreeting {
+            display: none !important;
+        }
+
+        .xmas-lights {
+            position: fixed;
+            top: 0;
+            left: -4px;
+            right: -4px;
+            height: 28px;
+            z-index: 40;
+            pointer-events: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            border-top: 2px solid rgba(15, 23, 42, 0.45);
+        }
+
+        .xmas-bulb {
+            width: 8px;
+            height: 12px;
+            border-radius: 50% 50% 60% 60%;
+            margin-top: 2px;
+            position: relative;
+            background: var(--bulb-col, #fbbf24);
+            box-shadow: 0 0 10px var(--bulb-col, #fbbf24), 0 0 20px var(--bulb-col, #fbbf24);
+            animation: xmasTwinkle var(--bulb-dur, 2.2s) ease-in-out infinite;
+            animation-delay: var(--bulb-delay, 0s);
+        }
+
+        .xmas-bulb::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 2px;
+            width: 4px;
+            height: 3px;
+            background: #334155;
+            border-radius: 1px;
+        }
+
+        @keyframes xmasTwinkle {
+            0%, 100% { opacity: 0.45; transform: scale(0.92); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .skin-panel {
+            background: linear-gradient(165deg, #07191f 0%, #0d2430 48%, #1e1028 100%) !important;
+        }
+
+        .shop-header {
+            border-bottom: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        .bubble {
+            border: 1.5px solid rgba(224, 242, 254, 0.35) !important;
+            box-shadow: 0 12px 38px rgba(14, 165, 233, 0.18), 0 0 24px rgba(251, 191, 36, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        }
+
+        .skin-toggle {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.45), rgba(217, 119, 6, 0.36)) !important;
+            border: 1.5px solid rgba(254, 240, 138, 0.45) !important;
+            box-shadow: 0 4px 18px rgba(220, 38, 38, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+        }
+
+        .snowflake.festive {
+            opacity: 0.55;
+            box-shadow: 0 0 8px rgba(224, 242, 254, 0.6);
+        }
+
+        .gem-boost-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            margin: 4px 0 6px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #fef08a;
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.35), rgba(239, 68, 68, 0.35));
+            border: 1px solid rgba(254, 240, 138, 0.55);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+        }
+
+        /* ========== ADVENT CALENDAR ========== */
+        .advent-header {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.18), rgba(16, 185, 129, 0.12));
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 18px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        .advent-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .advent-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            color: #fef08a;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .advent-counter {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .advent-progress-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.65);
+            overflow: hidden;
+        }
+
+        .advent-progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ef4444, #fbbf24, #22c55e);
+            transition: width 0.4s ease;
+        }
+
+        .advent-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding-bottom: 18px;
+        }
+
+        .advent-door {
+            position: relative;
+            aspect-ratio: 1 / 1.08;
+            border-radius: 16px;
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-family: 'Outfit', sans-serif;
+            cursor: default;
+            overflow: hidden;
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+        }
+
+        .advent-door-num {
+            font-size: 16px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .advent-door-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .advent-door-tag {
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: rgba(251, 191, 36, 0.9);
+            color: #1e293b;
+        }
+
+        .advent-door.available {
+            background: linear-gradient(145deg, rgba(220, 38, 38, 0.88), rgba(153, 27, 27, 0.92));
+            border-color: #fbbf24;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.45), 0 0 14px rgba(251, 191, 36, 0.35);
+            animation: adventPulse 2s ease-in-out infinite;
+        }
+
+        .advent-door.available:active {
+            transform: scale(0.93);
+        }
+
+        .advent-door.milestone {
+            border-width: 2px;
+            border-color: #fde047;
+        }
+
+        .advent-door.milestone::after {
+            content: '★';
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            font-size: 10px;
+            color: #fde047;
+        }
+
+        .advent-door.opened {
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.24), rgba(6, 78, 59, 0.42));
+            border-color: rgba(52, 211, 153, 0.45);
+            opacity: 0.78;
+        }
+
+        .advent-door.opened .advent-door-tag {
+            background: rgba(16, 185, 129, 0.85);
+            color: #fff;
+        }
+
+        .advent-door.locked {
+            background: rgba(15, 23, 42, 0.55);
+            border-color: rgba(255, 255, 255, 0.08);
+            opacity: 0.48;
+        }
+
+        @keyframes adventPulse {
+            0%, 100% { box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35), 0 0 10px rgba(251, 191, 36, 0.25); }
+            50% { box-shadow: 0 6px 22px rgba(220, 38, 38, 0.65), 0 0 22px rgba(251, 191, 36, 0.6); }
+        }
+
+        .advent-reveal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            background: rgba(7, 16, 24, 0.9);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: obIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .advent-reveal-card {
+            width: 100%;
+            max-width: 320px;
+            background: linear-gradient(160deg, rgba(127, 29, 29, 0.78), rgba(15, 23, 42, 0.92));
+            border: 2px solid #fbbf24;
+            border-radius: 26px;
+            padding: 28px 22px;
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(251, 191, 36, 0.28);
+        }
+
+        .advent-reveal-day {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(251, 191, 36, 0.2);
+            color: #fde68a;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 0.6px;
+            margin-bottom: 12px;
+        }
+
+        .advent-reveal-icon {
+            font-size: 72px;
+            line-height: 1.05;
+            margin: 8px 0 12px;
+            filter: drop-shadow(0 0 22px rgba(251, 191, 36, 0.45));
+        }
+
+        .advent-reveal-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .advent-reveal-sub {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fde68a;
+            margin-bottom: 16px;
+        }
+
+        /* ========== 4 NEW CHRISTMAS / WINTER SKINS ========== */
+        /* 1. MIKULÁS BOT (santa) */
+        .robot.santa .head {
+            background: linear-gradient(165deg, #ffffff 0%, #fee2e2 65%, #fca5a5 100%) !important;
+            border: 2px solid #dc2626 !important;
+            box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4) !important;
+            overflow: visible !important;
+        }
+        .robot.santa .head::before {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: 6%;
+            right: 6%;
+            height: 22px;
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            border-radius: 60% 60% 6px 6px;
+            border-bottom: 6px solid #ffffff;
+            box-shadow: 0 -2px 10px rgba(220, 38, 38, 0.4);
+            z-index: 7;
+            pointer-events: none;
+        }
+        .robot.santa .head::after {
+            content: '';
+            position: absolute;
+            top: -22px;
+            right: 2px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.85);
+            z-index: 8;
+            pointer-events: none;
+        }
+        .robot.santa .torso {
+            background: linear-gradient(165deg, #ef4444 0%, #dc2626 55%, #991b1b 100%) !important;
+            border: 2px solid #7f1d1d !important;
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.45) !important;
+            position: relative;
+        }
+        .robot.santa .torso::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            right: -1px;
+            bottom: 12px;
+            height: 9px;
+            background: #111827;
+            border-top: 1px solid #374151;
+            border-bottom: 1px solid #000;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .robot.santa .torso::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 13px;
+            border-radius: 3px;
+            border: 2.5px solid #fbbf24;
+            background: rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .robot.santa .face-screen {
+            background: linear-gradient(180deg, #06281e, #0c3b2e) !important;
+            border: 1.5px solid #fbbf24 !important;
+        }
+        .robot.santa .eye {
+            background: radial-gradient(circle, #fff 15%, #fde047 65%, #f59e0b 100%) !important;
+            box-shadow: 0 0 10px #fbbf24 !important;
+        }
+        .robot.santa .mouth {
+            background: #fde047 !important;
+            box-shadow: 0 0 6px #fbbf24 !important;
+        }
+        .robot.santa .antenna-stick {
+            background: repeating-linear-gradient(45deg, #ef4444 0 4px, #ffffff 4px 8px) !important;
+        }
+        .robot.santa .antenna-ball {
+            background: #fbbf24 !important;
+            box-shadow: 0 0 12px #fbbf24 !important;
+        }
+        .robot.santa .arm-l, .robot.santa .arm-r {
+            background: linear-gradient(to bottom, #ef4444, #b91c1c) !important;
+            border: 1.5px solid #991b1b !important;
+            border-bottom: 5px solid #ffffff !important;
+        }
+        .robot.santa .leg, .robot.santa .foot {
+            background: linear-gradient(to bottom, #1e293b, #0f172a) !important;
+        }
+
+        /* 2. JÉGKRISTÁLY BOT (frost) */
+        .robot.frost .head,
+        .robot.frost .torso {
+            background: linear-gradient(155deg, rgba(240, 249, 255, 0.96) 0%, rgba(125, 211, 252, 0.9) 55%, rgba(2, 132, 199, 0.92) 100%) !important;
+            border: 2px solid #e0f2fe !important;
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.55), inset 0 2px 6px rgba(255, 255, 255, 0.85) !important;
+        }
+        .robot.frost .face-screen {
+            background: linear-gradient(180deg, #082f49, #0c4a6e) !important;
+            border: 1.5px solid #7dd3fc !important;
+        }
+        .robot.frost .eye {
+            background: radial-gradient(circle, #ffffff 20%, #67e8f9 70%, #06b6d4 100%) !important;
+            box-shadow: 0 0 12px #67e8f9 !important;
+        }
+        .robot.frost .mouth {
+            background: #67e8f9 !important;
+            box-shadow: 0 0 8px #67e8f9 !important;
+        }
+        .robot.frost .arm-l, .robot.frost .arm-r, .robot.frost .leg, .robot.frost .foot, .robot.frost .ear-l, .robot.frost .ear-r {
+            background: linear-gradient(to bottom, #bae6fd, #0284c7) !important;
+            border: 1px solid #e0f2fe !important;
+        }
+        .robot.frost .antenna-ball {
+            background: #e0f2fe !important;
+            box-shadow: 0 0 14px #38bdf8 !important;
+        }
+
+        /* 3. MÉZESKALÁCS BOT (gingerbread) */
+        .robot.gingerbread .head,
+        .robot.gingerbread .torso {
+            background: linear-gradient(165deg, #d97706 0%, #b45309 55%, #78350f 100%) !important;
+            border: 2px solid #92400e !important;
+            border-top: 4px dashed #fffbeb !important;
+            box-shadow: 0 4px 16px rgba(180, 83, 9, 0.45) !important;
+        }
+        .robot.gingerbread .face-screen {
+            background: linear-gradient(180deg, #451a03, #291002) !important;
+            border: 1.5px solid #fef3c7 !important;
+        }
+        .robot.gingerbread .eye {
+            background: #fffbeb !important;
+            box-shadow: 0 0 10px rgba(254, 243, 199, 0.85) !important;
+        }
+        .robot.gingerbread .mouth {
+            background: #f472b6 !important;
+            box-shadow: 0 0 6px rgba(244, 114, 182, 0.7) !important;
+        }
+        .robot.gingerbread .chest-dot:nth-child(1) { background: #ef4444 !important; }
+        .robot.gingerbread .chest-dot:nth-child(2) { background: #22c55e !important; }
+        .robot.gingerbread .chest-dot:nth-child(3) { background: #fbbf24 !important; }
+        .robot.gingerbread .arm-l, .robot.gingerbread .arm-r, .robot.gingerbread .leg {
+            background: linear-gradient(to bottom, #d97706, #92400e) !important;
+            border-bottom: 4px solid #fffbeb !important;
+        }
+        .robot.gingerbread .antenna-ball {
+            background: #ef4444 !important;
+            box-shadow: 0 0 10px #ef4444 !important;
+        }
+
+        /* 4. KARÁCSONYFA BOT (xmas-tree) */
+        .robot.xmas-tree .head,
+        .robot.xmas-tree .torso {
+            background: linear-gradient(165deg, #22c55e 0%, #15803d 55%, #14532d 100%) !important;
+            border: 2px solid #4ade80 !important;
+            box-shadow: 0 4px 18px rgba(34, 197, 94, 0.45) !important;
+            position: relative;
+        }
+        .robot.xmas-tree .torso::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background:
+                radial-gradient(circle 3px at 22% 28%, #ef4444, transparent 70%),
+                radial-gradient(circle 3px at 78% 24%, #fbbf24, transparent 70%),
+                radial-gradient(circle 3px at 25% 74%, #38bdf8, transparent 70%),
+                radial-gradient(circle 3px at 76% 72%, #f472b6, transparent 70%);
+            pointer-events: none;
+            z-index: 6;
+            animation: xmasTwinkle 1.8s ease-in-out infinite;
+        }
+        .robot.xmas-tree .face-screen {
+            background: linear-gradient(180deg, #052e16, #064e3b) !important;
+            border: 1.5px solid #fbbf24 !important;
+        }
+        .robot.xmas-tree .eye {
+            background: #fde047 !important;
+            box-shadow: 0 0 12px #fbbf24 !important;
+        }
+        .robot.xmas-tree .mouth {
+            background: #ef4444 !important;
+        }
+        .robot.xmas-tree .arm-l, .robot.xmas-tree .arm-r {
+            background: linear-gradient(to bottom, #22c55e, #15803d) !important;
+        }
+        .robot.xmas-tree .leg, .robot.xmas-tree .foot {
+            background: linear-gradient(to bottom, #92400e, #78350f) !important;
+        }
+        .robot.xmas-tree .antenna-ball {
+            background: #fde047 !important;
+            box-shadow: 0 0 16px #fbbf24, 0 0 28px rgba(251, 191, 36, 0.7) !important;
+            transform: scale(1.25);
+        }
+
+        /* ========== WINTER ROBOT AURAS / EFFECTS ========== */
+        .robot-aura-fx {
+            position: absolute;
+            inset: -26px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .robot.aura-snowfall .robot-aura-fx {
+            opacity: 1;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.38) 0%, rgba(56, 189, 248, 0.16) 55%, transparent 72%);
+            box-shadow: 0 0 36px rgba(125, 211, 252, 0.55);
+            animation: auraBreath 2.6s ease-in-out infinite;
+        }
+
+        .robot.aura-xmas-lights .robot-aura-fx {
+            opacity: 0.92;
+            background: conic-gradient(from 0deg, rgba(239, 68, 68, 0.45), rgba(251, 191, 36, 0.45), rgba(34, 197, 94, 0.45), rgba(56, 189, 248, 0.45), rgba(239, 68, 68, 0.45));
+            filter: blur(18px);
+            animation: unboxRaysSpin 7s linear infinite;
+        }
+
+        .robot.aura-fireplace .robot-aura-fx {
+            opacity: 1;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.5) 0%, rgba(239, 68, 68, 0.25) 50%, transparent 74%);
+            box-shadow: 0 0 42px rgba(249, 115, 22, 0.6);
+            animation: auraBreath 1.8s ease-in-out infinite;
+        }
+
+        .robot.aura-aurora-ice .robot-aura-fx {
+            opacity: 0.95;
+            background: conic-gradient(from 90deg, rgba(52, 211, 153, 0.45), rgba(34, 211, 238, 0.45), rgba(167, 139, 250, 0.45), rgba(52, 211, 153, 0.45));
+            filter: blur(20px);
+            animation: unboxRaysSpin 9s linear infinite reverse;
+        }
+
+        @keyframes auraBreath {
+            0%, 100% { transform: scale(0.95); opacity: 0.78; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+
+        .aura-preview-orb {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin: 6px auto 4px;
+            border: 2px solid rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .aura-preview-orb.orb-snowfall {
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.55), rgba(14, 165, 233, 0.25));
+            box-shadow: 0 0 18px rgba(125, 211, 252, 0.6);
+        }
+        .aura-preview-orb.orb-xmas-lights {
+            background: conic-gradient(from 0deg, #ef4444aa, #fbbf24aa, #22c55eaa, #38bdf8aa, #ef4444aa);
+            box-shadow: 0 0 18px rgba(251, 191, 36, 0.55);
+        }
+        .aura-preview-orb.orb-fireplace {
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.65), rgba(220, 38, 38, 0.35));
+            box-shadow: 0 0 18px rgba(249, 115, 22, 0.65);
+        }
+        .aura-preview-orb.orb-aurora-ice {
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.6), rgba(34, 211, 238, 0.55), rgba(167, 139, 250, 0.6));
+            box-shadow: 0 0 18px rgba(52, 211, 153, 0.55);
+        }
+
     </style>
 </head>
 
@@ -18419,56 +18980,78 @@
                         introSoundPlayed = true;
                         const now = ctx.currentTime;
                         const master = ctx.createGain();
-                        master.gain.value = 0.14;
+                        master.gain.value = 0.16;
                         master.connect(ctx.destination);
 
-                        // Soft warm sub-swell
+                        // 1. Deep cinematic sub-bass drop
                         const sub = ctx.createOscillator();
                         const subGain = ctx.createGain();
-                        const subFilter = ctx.createBiquadFilter();
-                        sub.type = 'triangle';
-                        sub.frequency.setValueAtTime(110, now);
-                        sub.frequency.exponentialRampToValueAtTime(220, now + 0.42);
-                        subFilter.type = 'lowpass';
-                        subFilter.frequency.value = 520;
+                        sub.type = 'sine';
+                        sub.frequency.setValueAtTime(95, now);
+                        sub.frequency.exponentialRampToValueAtTime(42, now + 0.55);
                         subGain.gain.setValueAtTime(0.001, now);
-                        subGain.gain.linearRampToValueAtTime(0.5, now + 0.12);
-                        subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
-                        sub.connect(subFilter).connect(subGain).connect(master);
+                        subGain.gain.linearRampToValueAtTime(0.7, now + 0.04);
+                        subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.72);
+                        sub.connect(subGain).connect(master);
                         sub.start(now);
-                        sub.stop(now + 0.58);
+                        sub.stop(now + 0.75);
 
-                        // Crystalline rising chord + shimmer harmonic
-                        const notes = [523.25, 659.25, 783.99, 1046.50];
-                        notes.forEach((freq, idx) => {
-                            const start = now + idx * 0.045;
+                        // 2. Warm sweeping Dmaj7 synth pad chord
+                        const filter = ctx.createBiquadFilter();
+                        filter.type = 'lowpass';
+                        filter.Q.value = 1.6;
+                        filter.frequency.setValueAtTime(220, now);
+                        filter.frequency.exponentialRampToValueAtTime(2400, now + 0.28);
+                        filter.frequency.exponentialRampToValueAtTime(550, now + 1.0);
+                        filter.connect(master);
+
+                        [146.83, 220.00, 293.66, 369.99].forEach((freq, idx) => {
                             const osc = ctx.createOscillator();
                             const g = ctx.createGain();
-                            osc.type = 'sine';
-                            if (idx === notes.length - 1) {
-                                osc.frequency.setValueAtTime(freq * 0.9, start);
-                                osc.frequency.exponentialRampToValueAtTime(freq, start + 0.12);
-                            } else {
-                                osc.frequency.setValueAtTime(freq, start);
-                            }
-                            g.gain.setValueAtTime(0.001, start);
-                            g.gain.linearRampToValueAtTime(0.32, start + 0.03);
-                            g.gain.exponentialRampToValueAtTime(0.001, start + 0.78);
-                            osc.connect(g).connect(master);
-                            osc.start(start);
-                            osc.stop(start + 0.82);
+                            osc.type = idx % 2 === 0 ? 'sawtooth' : 'triangle';
+                            osc.frequency.setValueAtTime(freq, now);
+                            g.gain.setValueAtTime(0.001, now);
+                            g.gain.linearRampToValueAtTime(0.16, now + 0.14);
+                            g.gain.exponentialRampToValueAtTime(0.001, now + 1.02);
+                            osc.connect(g).connect(filter);
+                            osc.start(now);
+                            osc.stop(now + 1.06);
                         });
 
-                        const shimmer = ctx.createOscillator();
-                        const shimGain = ctx.createGain();
-                        shimmer.type = 'sine';
-                        shimmer.frequency.setValueAtTime(1567.98, now + 0.18);
-                        shimGain.gain.setValueAtTime(0.001, now + 0.18);
-                        shimGain.gain.linearRampToValueAtTime(0.16, now + 0.24);
-                        shimGain.gain.exponentialRampToValueAtTime(0.001, now + 0.95);
-                        shimmer.connect(shimGain).connect(master);
-                        shimmer.start(now + 0.18);
-                        shimmer.stop(now + 0.98);
+                        // 3. Soft filtered air whoosh
+                        const len = Math.floor(ctx.sampleRate * 0.25);
+                        const noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+                        const data = noiseBuf.getChannelData(0);
+                        for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1);
+                        const noise = ctx.createBufferSource();
+                        noise.buffer = noiseBuf;
+                        const nf = ctx.createBiquadFilter();
+                        nf.type = 'bandpass';
+                        nf.frequency.setValueAtTime(600, now);
+                        nf.frequency.exponentialRampToValueAtTime(2600, now + 0.22);
+                        nf.Q.value = 1.2;
+                        const ng = ctx.createGain();
+                        ng.gain.setValueAtTime(0.001, now);
+                        ng.gain.linearRampToValueAtTime(0.18, now + 0.08);
+                        ng.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                        noise.connect(nf).connect(ng).connect(master);
+                        noise.start(now);
+                        noise.stop(now + 0.26);
+
+                        // 4. Crisp high glass chime accent
+                        [739.99, 1108.73].forEach((freq, idx) => {
+                            const start = now + 0.18 + idx * 0.05;
+                            const chime = ctx.createOscillator();
+                            const cg = ctx.createGain();
+                            chime.type = 'sine';
+                            chime.frequency.setValueAtTime(freq, start);
+                            cg.gain.setValueAtTime(0.001, start);
+                            cg.gain.linearRampToValueAtTime(idx === 0 ? 0.22 : 0.14, start + 0.02);
+                            cg.gain.exponentialRampToValueAtTime(0.001, start + 0.85);
+                            chime.connect(cg).connect(master);
+                            chime.start(start);
+                            chime.stop(start + 0.88);
+                        });
                     };
 
                     if (ctx.state === 'suspended') {
@@ -18481,7 +19064,7 @@
                 } catch (_) { }
             }
 
-            setTimeout(playHypercodeIntroSfx, 100);
+            setTimeout(playHypercodeIntroSfx, 80);
             function unlockIntroSound() {
                 if (!introSoundPlayed) playHypercodeIntroSfx();
                 cleanupUnlock();
@@ -18494,7 +19077,7 @@
             document.addEventListener('pointerdown', unlockIntroSound, { passive: true });
             document.addEventListener('touchstart', unlockIntroSound, { passive: true });
             document.addEventListener('click', unlockIntroSound, { passive: true });
-            setTimeout(cleanupUnlock, 3500);
+            setTimeout(cleanupUnlock, 2200);
 
             const screen = document.getElementById('loadingScreen');
             if (screen) {
@@ -18526,6 +19109,7 @@
 
     <div class="stars" id="stars"></div>
     <div class="weather-layer" id="weatherLayer"></div>
+    <div class="xmas-lights" id="xmasLights" aria-hidden="true"></div>
 
 
     <div class="app pre-reg" id="appMain">
@@ -18537,7 +19121,7 @@
 
         <div class="bubble-wrap">
             <div class="ph" id="ph">
-                <p id="phText">Koppints a robotra!</p>
+                <p id="phText">Koppints!</p>
                 <p id="phEvent" style="font-size:14px;color:rgba(255,255,255,.85);margin-top:6px;font-weight:700"></p>
                 <span class="arr">👇</span>
             </div>
@@ -18555,6 +19139,7 @@
         <div class="robot-area" style="display:flex;flex-direction:column;align-items:center;gap:0">
             <button class="robot-btn" id="btn" aria-label="Napi üzenet">
                 <div class="robot" id="robot">
+                    <div class="robot-aura-fx" id="robotAuraFx"></div>
                     <!-- Öltözék -->
 
                     <span class="outfit outfit-hat" id="outfitHat"></span>
@@ -18687,31 +19272,23 @@
         </div>
 
         <div class="sync-card">
-            <h3>📤 Adatok exportálása</h3>
-            <p>Generálj egy kódot ami tartalmazza az összes adatodat (XP, skinek, kedvencek). Másold ki és küldd el a
-                másik eszközödre!</p>
+            <h3>📤 Export</h3>
             <button class="sync-btn sync-btn-export" id="syncExportBtn">Kód generálása</button>
             <div class="sync-code-box" id="syncCodeBox" style="display:none"></div>
             <div class="sync-result" id="syncExportResult"></div>
         </div>
 
         <div class="sync-card">
-            <h3>📥 Adatok importálása</h3>
-            <p>Illeszd be a másik eszközön generált kódot és az összes adatod betöltődik!</p>
-            <textarea class="sync-input" id="syncInput" rows="3" placeholder="Illeszd be a kódot ide..."></textarea>
+            <h3>📥 Import</h3>
+            <textarea class="sync-input" id="syncInput" rows="3" placeholder="Kód beillesztése..."></textarea>
             <button class="sync-btn sync-btn-import" id="syncImportBtn" style="margin-top:12px">Betöltés</button>
             <div class="sync-result" id="syncImportResult"></div>
-        </div>
-
-        <div class="sync-info">
-            <p>💡 Tipp: Az exportált kódot küldd el magadnak WhatsApp-on, Messengeren vagy bárhol — majd a másik
-                eszközön illeszd be ide!</p>
         </div>
     </div>
 
     <!-- Skin választó gomb (a régi News gomb helyén, bal felül) -->
     <div class="news-toggle" id="newsToggle" style="display:none !important">⚡ NEWS</div>
-    <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🛍️</span> Shop<span class="shop-new-badge" id="shopNewBadge"
+    <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🎄</span> Shop<span class="shop-new-badge" id="shopNewBadge"
             style="display:none">NEW</span></div>
 
     
@@ -18720,7 +19297,7 @@
     <!-- Bolt panel -->
     <div class="skin-panel" id="skinPanel">
         <div class="shop-header">
-            <div class="shop-title">🏪 SHOP</div>
+            <div class="shop-title">🎄 SHOP</div>
             <div style="display:flex;gap:8px;align-items:center">
                 <div class="shop-gems"><span class="gem-img"></span> <span data-gem-display>0</span></div>
                 <div class="sync-toggle" id="syncToggle">🔄</div>
@@ -18733,6 +19310,7 @@
             <!-- Sidebar -->
             <div class="shop-sidebar">
                 <button class="shop-sidebar-btn active" data-target="boxes" onclick="switchShopCategory('boxes')">📦 Box</button>
+                <button class="shop-sidebar-btn" data-target="advent" onclick="switchShopCategory('advent')">🎄 Advent</button>
                 <button class="shop-sidebar-btn" data-target="gems" onclick="switchShopCategory('gems')">💎 Gems</button>
                 <button class="shop-sidebar-btn" data-target="skins" onclick="switchShopCategory('skins')">🤖 Skin</button>
 
@@ -18745,15 +19323,26 @@
                 <div id="cat-boxes">
 
 
-                    <!-- Loot Boxes (Original & VIP) -->
+                    <!-- Loot Boxes (Winter, Original & VIP) -->
                     <div class="shop-section" style="display: flex; flex-direction: column; gap: 15px;">
+
+                        <!-- Winter Box (Horizontal) -->
+                        <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(220, 38, 38, 0.14), rgba(56, 189, 248, 0.08)); border: 1.5px solid rgba(251, 191, 36, 0.42); border-radius: 20px; position: relative; overflow: hidden; gap: 15px;">
+                            <img src="box/winter.png" style="width: 82px; height: 82px; object-fit: contain; border-radius: 14px; filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.45)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                    <div style="font-size: 16px; font-weight: 800; color: #fef08a; text-shadow: 0 0 10px rgba(239, 68, 68, 0.4); margin: 0;">Winter Box</div>
+                                    <span style="font-size: 9px; font-weight: 900; padding: 2px 7px; border-radius: 999px; background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; letter-spacing: 0.5px;">❄️ LIMITÁLT</span>
+                                </div>
+                                <button id="buyWinterBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; border: 1px solid rgba(254, 240, 138, 0.4); font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35); width: fit-content;" onclick="buyWinterBox()"><span id="winterBoxPrice">350 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
+                            </div>
+                        </div>
                         
                         <!-- Original Box (Horizontal) -->
                         <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; gap: 15px;">
                             <img src="box/normal.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(255,255,255,0.25)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
                                 <div style="font-size: 16px; font-weight: 800; color: #fff; margin: 0;">Original Box</div>
-                                <div style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 2px;">Gemek és Skinek!</div>
                                 <button id="buyOriginalBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); width: fit-content;" onclick="buyOriginalBox()"><span id="origBoxPrice">250 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
                             </div>
                         </div>
@@ -18761,14 +19350,26 @@
                         <!-- VIP Box (Horizontal) -->
                         <div class="loot-card" style="display: flex; flex-direction: row; align-items: center; padding: 15px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.04), rgba(245, 158, 11, 0.02)); border: 1px solid rgba(251, 191, 36, 0.25); border-radius: 20px; relative; overflow: hidden; gap: 15px;">
                             <img src="box/vip.png" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4)); transition: transform 0.3s; flex-shrink: 0;" class="shop-box-img">
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
                                 <div style="font-size: 16px; font-weight: 800; color: #fde68a; text-shadow: 0 0 10px rgba(251,191,36,0.3); margin: 0;">VIP Box</div>
-                                <div style="font-size: 11px; color: rgba(253,230,138,0.8); margin-bottom: 2px;">Botok, Skinek, Gemek!</div>
                                 <button id="buyVipBoxBtn" class="buy-tag" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; font-size: 12px; font-weight: 900; padding: 8px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); width: fit-content;" onclick="buyVipBox()"><span id="vipBoxPrice">550 <span class="gem-img" style="width:14px; height:14px;"></span> Buy</span></button>
                             </div>
                         </div>
 
                     </div>
+                </div>
+                <!-- CAT: ADVENT -->
+                <div id="cat-advent" style="display: none;">
+                    <div class="advent-header">
+                        <div class="advent-header-top">
+                            <span class="advent-title">🎄 Adventi Kalendárium</span>
+                            <span class="advent-counter" id="adventCounter">0 / 24</span>
+                        </div>
+                        <div class="advent-progress-track">
+                            <div class="advent-progress-fill" id="adventProgressFill" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="advent-grid" id="adventGrid"></div>
                 </div>
                 <!-- CAT: GEMS -->
                 <div id="cat-gems" style="display: none;">
@@ -18795,7 +19396,8 @@
                             </div>
                             <div class="loot-card-info">
                                 <div class="loot-card-title">Daily Gem</div>
-                                <div class="loot-card-count"><span id="shopGemCount">1/1</span> ma</div>
+                                <div class="loot-card-count" style="display:none"><span id="shopGemCount">1/1</span> ma</div>
+                                <div id="gemBoostBadge" class="gem-boost-badge" style="display:none">⚡ 2× AKTÍV</div>
                                 <button class="loot-card-btn" id="shopGemBtn">Open</button>
                             </div>
                         </div>
@@ -18844,53 +19446,16 @@
                 </div>
                 <!-- CAT: SKINS -->
                 <div id="cat-skins" style="display: none;">
-                    <!-- Racing Event Banner -->
-                    <div class="shop-section" id="comicClashSection" style="margin-bottom: 20px; background: none; border: none; padding: 0;">
-                        <div class="cc-banner" id="comicClashBanner" style="background: linear-gradient(135deg, #1e293b 0%, #334155 40%, #ef4444 80%, #b91c1c 100%); border-color: #ef4444; box-shadow: 0 8px 30px rgba(239, 68, 68, .5);">
-                            <div class="cc-banner-burst" style="opacity: 0.05"></div>
-                            <div class="cc-banner-content">
-                                <div class="cc-banner-tag" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff;">🏎️ LIMITÁLT EVENT</div>
-                                <div class="cc-banner-title" style="text-shadow: 3px 3px 0 #7f1d1d, -1px -1px 0 rgba(0, 0, 0, .8);">RACING EVENT!</div>
-                                <div class="cc-banner-sub">Szerezd meg az exkluzív Racer Red botot és 150 bonus gemet! 🏁 Vagy nyomj hosszan a robotra és kapd el 50-szer a versenyautót — INGYEN tiéd a skin!</div>
-                                <div class="cc-banner-rewards" style="align-items:stretch;">
-                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <div style="transform:scale(0.35);transform-origin:center;width:60px;height:70px;margin:-10px 0 -12px;">
-                                            <div class="robot dc-mini-robot racer-red" style="pointer-events:none;">
-                                                <div class="antenna-stick"></div>
-                                                <div class="antenna-ball"></div>
-                                                <div class="ear ear-l"></div>
-                                                <div class="ear ear-r"></div>
-                                                <div class="head"><div class="face-screen"><div class="eyes"><div class="eye"></div><div class="eye"></div></div><div class="mouth"></div></div></div>
-                                                <div class="neck"></div>
-                                                <div class="shoulder shoulder-l"></div>
-                                                <div class="shoulder shoulder-r"></div>
-                                                <div class="arm arm-l"></div>
-                                                <div class="arm arm-r"></div>
-                                                <div class="torso"><div class="chest"></div></div>
-                                                <div class="legs"><div class="leg"><div class="foot"></div></div><div class="leg"><div class="foot"></div></div></div>
-                                            </div>
-                                        </div>
-                                        <span style="font-size:10px;font-weight:800;">Racer Red Bot</span>
-                                    </div>
-                                    <div class="cc-reward-pill" style="flex-direction:column;align-items:center;padding:8px 12px;gap:6px;">
-                                        <span class="gem-img" style="width:24px;height:24px;font-size:24px;"></span>
-                                        <span style="font-size:10px;font-weight:800;">+150 Gem</span>
-                                    </div>
-                                </div>
-                                <button class="cc-banner-btn" id="ccBuyBtn">🪙 300 — MEGVESZEM</button>
-                                <div class="cc-banner-bought" id="ccBoughtLabel" style="display:none">🎉 Racing Pass aktiválva!</div>
-                            </div>
-                        </div>
-                        <div id="individualBotSales" style="padding: 10px 0; display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="shop-item buy-tag" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ef4444, #1e293b); border: 2px solid #ef4444; color: #fff; font-weight:900; border-radius:12px;" onclick="buyEventSkin('racer-red')">🏎️ Racer Red Bot (150 💎)</button>
-                        </div>
-                    </div>
-
-                    
                     <!-- Skins Selection list (No border, wide padding for stretching) -->
                     <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 15px;">
-                        <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🤖 Skin választék</div>
+                        <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🤖 Skinek</div>
                         <div class="shop-grid" id="skinList" style="padding: 0;"></div>
+                    </div>
+
+                    <!-- Winter Effects / Auras -->
+                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 15px;">
+                        <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">✨ Effektek</div>
+                        <div class="shop-grid" id="auraList" style="padding: 0;"></div>
                     </div>
 
                     <!-- Hidden Backgrounds -->
@@ -19244,7 +19809,31 @@
                     wl.appendChild(flake);
                 }
             }
+
+            if (weatherType !== 'rain' && weatherType !== 'storm' && weatherType !== 'snow') {
+                for (let i = 0; i < 22; i++) {
+                    const flake = document.createElement('div');
+                    flake.className = 'snowflake festive';
+                    const sz = (Math.random() * 4 + 2.5).toFixed(1);
+                    flake.style.cssText = `left:${Math.random() * 100}%;width:${sz}px;height:${sz}px;--d:${(Math.random() * 4 + 5).toFixed(1)}s;--sx:${(Math.random() * 48 - 24).toFixed(0)}px;animation-delay:${(Math.random() * -8).toFixed(1)}s`;
+                    wl.appendChild(flake);
+                }
+            }
         }
+
+        (function initXmasLights() {
+            const c = document.getElementById('xmasLights');
+            if (!c) return;
+            const colors = ['#ef4444', '#fbbf24', '#22c55e', '#38bdf8'];
+            for (let i = 0; i < 14; i++) {
+                const b = document.createElement('span');
+                b.className = 'xmas-bulb';
+                b.style.setProperty('--bulb-col', colors[i % colors.length]);
+                b.style.setProperty('--bulb-dur', (1.6 + (i % 4) * 0.45).toFixed(2) + 's');
+                b.style.setProperty('--bulb-delay', ((i % 5) * 0.35).toFixed(2) + 's');
+                c.appendChild(b);
+            }
+        })();
 
         function applyTimeTheme() {
             document.body.classList.remove('racing-event', 'bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
@@ -20403,13 +20992,16 @@
             // Skinek
             'tulip': 100, 'sakura': 100, 'graffiti': 100,
             'stealth': 200, 'galaxy': 200, 'fire': 200,
+            'gingerbread': 250, 'frost': 300, 'xmas-tree': 350,
             'golden': 400, 'diamond': 400, 'horse': 400,
-            'prism': 400, 'aurora': 500,
+            'prism': 400, 'santa': 450, 'aurora': 500,
             'rainbow': 600,
             // MYTHIC skinek (601+)
             'super': 1000, 'glass': 1000, 'gamer': 1000, 'phoenix': 900,
             'ultra': 999, 'ultra-black': 1500,
             'beach': 150, 'sunset': 150,
+            // Téli Effektek / Aurák
+            'aura-snowfall': 150, 'aura-xmas-lights': 200, 'aura-fireplace': 250, 'aura-aurora-ice': 300,
             // Hátterek
             'bg-tulip': 80, 'bg-sakura': 80, 'bg-graffiti': 80,
             'bg-galaxy': 150, 'bg-stealth': 150, 'bg-fire': 150,
@@ -21847,6 +22439,14 @@
             localStorage.setItem('nu_spin_day', tr());
         }
 
+        function getGemBoostCharges() {
+            const n = parseInt(localStorage.getItem('nu_gem_boost_charges') || '0', 10);
+            return isNaN(n) ? 0 : Math.max(0, n);
+        }
+        function addGemBoostCharges(n) {
+            localStorage.setItem('nu_gem_boost_charges', String(getGemBoostCharges() + (n || 1)));
+        }
+
         function updateLootBadges() {
             // Shop kártyák
             const sbc = document.getElementById('shopBoxCount2');
@@ -21858,6 +22458,12 @@
             if (sgc) sgc.textContent = (spunToday_gem() ? 0 : 1) + '/1';
             const sgBtn = document.getElementById('shopGemBtn');
             if (sgBtn) { const canClaim = !spunToday_gem(); sgBtn.disabled = !canClaim; sgBtn.textContent = canClaim ? 'Open' : 'Holnap 8:00' }
+            const boostBadge = document.getElementById('gemBoostBadge');
+            if (boostBadge) {
+                const charges = getGemBoostCharges();
+                boostBadge.style.display = charges > 0 ? 'inline-flex' : 'none';
+                if (charges > 0) boostBadge.textContent = charges > 1 ? `⚡ 2× AKTÍV (${charges} db)` : '⚡ 2× AKTÍV';
+            }
 
 
             // Daily kártyák eltüntetése amikor már nincs használható ma
@@ -21868,13 +22474,14 @@
             const dsSection = document.getElementById('shopDailySuperSection');
             if (dsSection) dsSection.style.display = (typeof dsAvailableToday === 'function' && !dsAvailableToday()) ? 'none' : '';
 
-            // Shop ikon NEW badge — akkor mutat, ha napi gem vagy ingyenes box elérhető
+            // Shop ikon NEW badge — napi gem, ingyenes box, vagy nyitható adventi ajtó
             const newBadge = document.getElementById('shopNewBadge');
             if (newBadge) {
                 const todayStr = new Date().toDateString();
                 const hasFreeOrig = localStorage.getItem('nu_orig_free_received_today') !== todayStr;
                 const hasFreeVip = localStorage.getItem('nu_free_vip_received') !== 'true';
-                const hasNew = !spunToday_gem() || hasFreeOrig || hasFreeVip;
+                const hasAdvent = (typeof window.hasAdventReady === 'function') ? window.hasAdventReady() : false;
+                const hasNew = !spunToday_gem() || hasFreeOrig || hasFreeVip || hasAdvent;
                 newBadge.style.display = hasNew ? 'inline-block' : 'none';
             }
             // Daily Super card állapot
@@ -22709,12 +23316,22 @@
         function setActiveSkin(name) { localStorage.setItem('nu_active_skin', name) }
         function getActiveBg() { return localStorage.getItem('nu_active_bg') || '' }
         function setActiveBg(name) { localStorage.setItem('nu_active_bg', name) }
+        function getActiveAura() { return localStorage.getItem('nu_active_aura') || '' }
+        function setActiveAura(id) { localStorage.setItem('nu_active_aura', id) }
+        function applyRobotAura() {
+            const r = document.getElementById('robot');
+            if (!r) return;
+            r.className = r.className.replace(/\b(aura-snowfall|aura-xmas-lights|aura-aurora-ice|aura-fireplace)\b/g, '').trim();
+            const aura = getActiveAura();
+            if (aura && owns(aura)) r.classList.add(aura);
+        }
         function applyRobotSkin() {
             const r = document.getElementById('robot');
-            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream|beach|sunset)\b/g, '').trim();
+            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream|beach|sunset|racer-red|racer-blue|santa|frost|gingerbread|xmas-tree)\b/g, '').trim();
             const skin = getActiveSkin();
             if (skin && owns(skin)) r.classList.add(skin);
             if (typeof applyAcc === 'function') applyAcc();
+            applyRobotAura();
         }
         const CUSTOM_BGS = {
             'bg-golden': 'linear-gradient(165deg,#fef3c7 0%,#fde68a 20%,#fbbf24 40%,#f59e0b 60%,#d97706 80%,#92400e 100%)',
@@ -23025,8 +23642,19 @@
                 { id: 'beach', name: 'Beach', desc: 'Türkiz nyári strandoló robot', icon: '🏖️', cost: 0, tier: 'free', hide: true },
                 { id: 'sunset', name: 'Sunset', desc: 'Narancs-lila naplementés robot', icon: '🌅', cost: 0, tier: 'free', hide: true },
                 { id: 'racer-red', name: 'Racer Red', desc: 'Vörös versenyautó ihlette száguldó robot', icon: '🏎️', cost: 0, tier: 'free', hide: true },
-                { id: 'racer-blue', name: 'Racer Blue', desc: 'Kék száguldó bajnok robot', icon: '🏁', cost: 0, tier: 'free', hide: true }
+                { id: 'racer-blue', name: 'Racer Blue', desc: 'Kék száguldó bajnok robot', icon: '🏁', cost: 0, tier: 'free', hide: true },
+                { id: 'santa', name: 'Mikulás', desc: 'Karácsonyi bot', icon: '🎅', cost: 450, tier: 'legendary' },
+                { id: 'xmas-tree', name: 'Karácsonyfa', desc: 'Ünnepi fenyőbot', icon: '🎄', cost: 350, tier: 'legendary' },
+                { id: 'frost', name: 'Jégkristály', desc: 'Téli fagyos bot', icon: '❄️', cost: 300, tier: 'epic' },
+                { id: 'gingerbread', name: 'Mézeskalács', desc: 'Ünnepi süti bot', icon: '🍪', cost: 250, tier: 'epic' }
 
+            ];
+            const WINTER_AURAS = [
+                { id: '', name: 'Nincs', icon: '⚪', orb: '' },
+                { id: 'aura-snowfall', name: 'Hópelyhek', icon: '❄️', orb: 'orb-snowfall' },
+                { id: 'aura-xmas-lights', name: 'Ünnepi Fény', icon: '🎄', orb: 'orb-xmas-lights' },
+                { id: 'aura-fireplace', name: 'Kandalló', icon: '🔥', orb: 'orb-fireplace' },
+                { id: 'aura-aurora-ice', name: 'Északi Fény', icon: '🌌', orb: 'orb-aurora-ice' }
             ];
             const BGS = [
                 { id: '', name: 'Napszak', desc: 'Automatikus háttér', icon: '🌅', cost: 0, tier: 'free' }
@@ -23040,11 +23668,15 @@
                 greet.innerHTML = `Hello <span class="greet-name" style="color:${_ncVal}">${name}</span>! <br>Üdv a <span style="color:#38bdf8">DailyBot</span> boltban!`;
                 const activeSkin = getActiveSkin();
                 const activeBg = getActiveBg();
+                const activeAura = getActiveAura();
+                const auraList = document.getElementById('auraList');
                 skinList.innerHTML = '';
                 bgList.innerHTML = '';
+                if (auraList) auraList.innerHTML = '';
 
                 [{ id: 'skinList', items: SKINS, list: skinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin },
-                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg }
+                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg },
+                ...(auraList ? [{ id: 'auraList', items: WINTER_AURAS, list: auraList, active: activeAura, setter: setActiveAura, applier: applyRobotAura }] : [])
                 ].forEach(cfg => {
                     // Rendezés: először ingyenes (id='') és birtokolt defaultok, aztán rarity szerint növekvő
                     const sorted = [...cfg.items].sort((a, b) => {
@@ -23079,13 +23711,16 @@
 
                         const rarityLabel = (rarity !== 'free') ? `<div class="shop-item-rarity-label rarity-label-${rarity}">${rarity}</div>` : '<div class="shop-item-rarity-label rarity-label-free">free</div>';
                         const isSkinList = cfg.id === 'skinList';
+                        const isAuraList = cfg.id === 'auraList';
                         let iconHtml = '';
                         if (isSkinList && typeof buildMiniRobotHtml === 'function') {
                             iconHtml = `<div class="shop-item-icon shop-item-robot">${buildMiniRobotHtml(s.id || '', false)}</div>`;
+                        } else if (isAuraList) {
+                            iconHtml = `<div class="aura-preview-orb ${s.orb || ''}">${s.icon}</div>`;
                         } else {
                             iconHtml = `<div class="shop-item-icon">${s.icon}</div>`;
                         }
-                        el.innerHTML = `${iconHtml}${rarityLabel}<div class="shop-item-name">${s.name}</div><div class="shop-item-desc">${s.desc}</div>${status}`;
+                        el.innerHTML = `${iconHtml}${rarityLabel}<div class="shop-item-name">${s.name}</div>${status}`;
 
                         if (ownedItem) {
                             el.addEventListener('click', (e) => {
@@ -23102,38 +23737,17 @@
                         cfg.list.appendChild(el);
                     });
                 });
-
-                // Racing Pass & Individual Bots Logic
-                const isSummerPassBought = localStorage.getItem('nu_racing_pass_bought') === '1';
-                const ccBtn = document.getElementById('ccBuyBtn');
-                const ccLabel = document.getElementById('ccBoughtLabel');
-                if (ccBtn && ccLabel) {
-                    ccBtn.style.display = isSummerPassBought ? 'none' : 'block';
-                    ccLabel.style.display = isSummerPassBought ? 'block' : 'none';
-                }
-                const individualSales = document.getElementById('individualBotSales');
-                if (individualSales) {
-                    const bots = individualSales.querySelectorAll('button');
-                    let allOwned = isSummerPassBought;
-                    bots.forEach(btn => {
-                        const m = btn.getAttribute('onclick')?.match(/'([^']+)'/);
-                        if (m && m[1]) {
-                            const owned = (typeof owns === 'function') ? owns(m[1]) : false;
-                            btn.style.display = (isSummerPassBought || owned) ? 'none' : 'block';
-                            if (!owned) allOwned = false;
-                        }
-                    });
-                    individualSales.style.display = (isSummerPassBought || allOwned) ? 'none' : 'flex';
-                }
             }
             window.renderShop = renderShop;
             // SKINS és owns globálisan elérhető — kell a játékhoz
             window.SKINS = SKINS;
+            window.WINTER_AURAS = WINTER_AURAS;
             window.ACCESSORIES = ACCESSORIES;
             if (typeof window.owns !== 'function') window.owns = owns;
             toggle.addEventListener('click', () => {
                 if (typeof hapticTap === 'function') hapticTap(10);
                 renderShop();
+                if (typeof renderAdventCalendar === 'function') renderAdventCalendar();
                 if (typeof updateLootBadges === 'function') updateLootBadges();
                 if (typeof renderDailyDeal === 'function') renderDailyDeal();
                 panel.classList.add('open');
@@ -23161,20 +23775,27 @@
                 btn.addEventListener('click', () => {
                     if (spunToday_gem()) { return }
                     const pool = isZynoxActive() ? [25, 30, 40, 50, 80, 100, 150, 200] : [10, 15, 20, 25, 30, 40, 50, 80, 150];
-                    const amount = pickRandom(pool);
+                    let amount = pickRandom(pool);
+                    let boosted = false;
+                    const charges = getGemBoostCharges();
+                    if (charges > 0) {
+                        amount *= 2;
+                        boosted = true;
+                        localStorage.setItem('nu_gem_boost_charges', String(charges - 1));
+                    }
                     addGems(amount);
                     markSpunGem();
                     if (typeof markMission === 'function') markMission('gem', 20);
                     playSfx('gem-claim');
                     // Vizuális visszajelzés: gem flying to balance
-                    showGemFlash(amount);
+                    showGemFlash(amount, boosted);
                     updateLootBadges();
                 });
             })();
-            function showGemFlash(amt) {
+            function showGemFlash(amt, boosted) {
                 const fl = document.createElement('div');
                 fl.className = 'gem-flash';
-                fl.innerHTML = '+💎 ' + amt;
+                fl.innerHTML = boosted ? ('+💎 ' + amt + ' (2×!)') : ('+💎 ' + amt);
                 document.body.appendChild(fl);
                 setTimeout(() => fl.remove(), 1500);
             }
@@ -25787,7 +26408,7 @@
 
 
         window.switchShopCategory = function(catId) {
-            const categories = ['boxes', 'gems', 'skins'];
+            const categories = ['boxes', 'advent', 'gems', 'skins'];
             categories.forEach(c => {
                 const el = document.getElementById('cat-' + c);
                 if (el) el.style.display = 'none';
@@ -25803,6 +26424,9 @@
                     btn.classList.add('active');
                 }
             });
+            if (catId === 'advent' && typeof renderAdventCalendar === 'function') {
+                renderAdventCalendar();
+            }
         };
 
         window.showLootToast = function(title, body, imgPathOrIcon) {
@@ -25862,6 +26486,22 @@
             return id;
         }
 
+        function getAuraDisplayName(id) {
+            if (Array.isArray(window.WINTER_AURAS)) {
+                const found = window.WINTER_AURAS.find(a => a.id === id);
+                if (found) return found.name + ' Effekt';
+            }
+            return id;
+        }
+
+        function getAuraIcon(id) {
+            if (Array.isArray(window.WINTER_AURAS)) {
+                const found = window.WINTER_AURAS.find(a => a.id === id);
+                if (found) return found.icon;
+            }
+            return '✨';
+        }
+
         function spawnUnboxBurst(overlay, colors) {
             const flash = document.createElement('div');
             flash.className = 'unbox-flash';
@@ -25897,9 +26537,59 @@
         }
 
         function rollBoxPrize(type) {
+            if (type === 'winter') {
+                let owned = [];
+                try { owned = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch (e) { }
+                const roll = Math.random();
+                if (roll < 0.50) {
+                    const primaryFestive = ['santa', 'frost', 'gingerbread', 'xmas-tree'];
+                    const secondaryWinter = ['aurora', 'diamond', 'glass'];
+                    const unownedPrimary = primaryFestive.filter(id => !owned.includes(id));
+                    const unownedAll = [...primaryFestive, ...secondaryWinter].filter(id => !owned.includes(id));
+                    const picks = unownedPrimary.length ? unownedPrimary : unownedAll;
+                    if (picks.length > 0) {
+                        const reward = picks[Math.floor(Math.random() * picks.length)];
+                        owned.push(reward);
+                        localStorage.setItem('nu_owned', JSON.stringify(owned));
+                        if (typeof renderShop === 'function') renderShop();
+                        return {
+                            title: 'Téli Skin!',
+                            name: getSkinDisplayName(reward),
+                            isSkin: true,
+                            skinId: reward
+                        };
+                    }
+                } else if (roll < 0.70) {
+                    const auras = ['aura-snowfall', 'aura-xmas-lights', 'aura-fireplace', 'aura-aurora-ice'];
+                    const unownedAuras = auras.filter(id => !owned.includes(id));
+                    if (unownedAuras.length > 0) {
+                        const reward = unownedAuras[Math.floor(Math.random() * unownedAuras.length)];
+                        owned.push(reward);
+                        localStorage.setItem('nu_owned', JSON.stringify(owned));
+                        if (typeof renderShop === 'function') renderShop();
+                        return {
+                            title: 'Téli Effekt!',
+                            name: getAuraDisplayName(reward),
+                            isAura: true,
+                            auraId: reward,
+                            icon: getAuraIcon(reward)
+                        };
+                    }
+                }
+                const winterGems = Math.floor(Math.random() * 241) + 180;
+                const cur = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                localStorage.setItem('nu_gems', String(cur + winterGems));
+                if (typeof updateGemUI === 'function') updateGemUI();
+                return {
+                    title: 'Téli Gemek!',
+                    name: winterGems + ' Gem',
+                    isGems: true
+                };
+            }
+
             const isVip = type === 'vip';
             const pool = isVip
-                ? ['tulip', 'galaxy', 'sakura', 'graffiti', 'fire', 'golden', 'diamond', 'gamer', 'glass', 'ultra', 'ultra-black', 'dragon', 'comic-hero', 'comic-villain', 'ice-cream', 'beach', 'sunset', 'racer-red', 'racer-blue']
+                ? ['tulip', 'galaxy', 'sakura', 'graffiti', 'fire', 'golden', 'diamond', 'gamer', 'glass', 'ultra', 'ultra-black', 'dragon', 'comic-hero', 'comic-villain', 'ice-cream', 'beach', 'sunset', 'racer-red', 'racer-blue', 'santa', 'frost', 'gingerbread', 'xmas-tree']
                 : ['tulip', 'galaxy', 'sakura', 'graffiti', 'fire', 'stealth'];
             const skinChance = isVip ? 0.45 : 0.15;
 
@@ -25926,7 +26616,7 @@
                 localStorage.setItem('nu_gems', String(cur + bonusGems));
                 if (typeof updateGemUI === 'function') updateGemUI();
                 return {
-                    title: 'Minden skin megvan — Bónusz Gem!',
+                    title: 'Bónusz Gem!',
                     name: bonusGems + ' Gem',
                     isGems: true
                 };
@@ -25948,11 +26638,15 @@
         function doNyitas(type) {
             isUnboxing = true;
             const isVip = type === 'vip';
-            const boxImg = isVip ? 'box/vip.png' : 'box/normal.png';
-            const glowColor = isVip ? '#f59e0b' : '#10b981';
-            const burstColors = isVip
-                ? ['#fbbf24', '#f59e0b', '#fef08a', '#f472b6', '#ffffff']
-                : ['#34d399', '#10b981', '#38bdf8', '#a7f3d0', '#ffffff'];
+            const isWinter = type === 'winter';
+            const boxImg = isWinter ? 'box/winter.png' : (isVip ? 'box/vip.png' : 'box/normal.png');
+            const glowColor = isWinter ? '#ef4444' : (isVip ? '#f59e0b' : '#10b981');
+            const titleColor = isWinter ? '#fecaca' : (isVip ? '#fde68a' : '#6ee7b7');
+            const burstColors = isWinter
+                ? ['#ef4444', '#fbbf24', '#38bdf8', '#ffffff', '#22c55e']
+                : isVip
+                    ? ['#fbbf24', '#f59e0b', '#fef08a', '#f472b6', '#ffffff']
+                    : ['#34d399', '#10b981', '#38bdf8', '#a7f3d0', '#ffffff'];
 
             try { if (typeof hapticTap === 'function') hapticTap(15); } catch (e) { }
             try { if (typeof playSfx === 'function') playSfx('box-open'); } catch (e) { }
@@ -25963,7 +26657,7 @@
                 <div class="unbox-stage">
                     <div class="unbox-aura" style="background: radial-gradient(circle, ${glowColor}cc 0%, ${glowColor}33 55%, transparent 75%);"></div>
                     <div class="loot-unboxing-box" style="filter: drop-shadow(0 0 28px ${glowColor});">
-                        <img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;">
+                        <img src="${boxImg}" style="width: 150px; height: 150px; object-fit: contain;${isWinter ? ' border-radius: 16px;' : ''}">
                     </div>
                 </div>
             `;
@@ -26000,6 +26694,8 @@
                 let rewardHtml = '';
                 if (prize.isGems) {
                     rewardHtml = `<div style="font-size: 92px; line-height: 1; filter: drop-shadow(0 0 32px rgba(56, 189, 248, 0.85));">💎</div>`;
+                } else if (prize.isAura) {
+                    rewardHtml = `<div style="font-size: 92px; line-height: 1; filter: drop-shadow(0 0 32px rgba(251, 191, 36, 0.85));">${prize.icon || '✨'}</div>`;
                 } else if (prize.isSkin) {
                     if (typeof window.buildMiniRobotHtml === 'function') {
                         rewardHtml = `<div style="transform: scale(2.0); margin: 42px 0; height: 112px; display: flex; justify-content: center; align-items: center;">${window.buildMiniRobotHtml(prize.skinId, false)}</div>`;
@@ -26011,11 +26707,10 @@
                 stage.innerHTML = `
                     <div class="unbox-rays"></div>
                     <div class="unbox-reveal-wrap">
-                        <h2 style="font-size: 30px; font-weight: 900; color: ${isVip ? '#fde68a' : '#6ee7b7'}; text-shadow: 0 0 22px ${glowColor}99; margin: 0 0 8px 0;">${prize.title}</h2>
+                        <h2 style="font-size: 30px; font-weight: 900; color: ${titleColor}; text-shadow: 0 0 22px ${glowColor}99; margin: 0 0 8px 0;">${prize.title}</h2>
                         <div style="margin: 14px 0;">${rewardHtml}</div>
                         <p style="font-size: 22px; font-weight: 900; color: #fff; margin: 8px 0 0 0; text-shadow: 0 2px 10px rgba(0,0,0,0.4);">${prize.name}</p>
                         <button type="button" class="unbox-collect-btn">Begyűjtés ✓</button>
-                        <div class="unbox-tap-hint">Koppints bárhová a folytatáshoz</div>
                     </div>
                 `;
 
@@ -26023,7 +26718,7 @@
 
                 try {
                     if (typeof playSfx === 'function') {
-                        playSfx(prize.isSkin ? 'zynox' : 'gem-claim');
+                        playSfx((prize.isSkin || prize.isAura) ? 'zynox' : 'gem-claim');
                     }
                 } catch (e) { }
 
@@ -26035,6 +26730,24 @@
                 autoCloseTimer = setTimeout(closeOverlay, 2200);
             }, 650);
         }
+
+        window.openFreeBox = function(type) {
+            if (isUnboxing) return;
+            doNyitas(type || 'orig');
+        };
+
+        window.buyWinterBox = function() {
+            if (isUnboxing) return;
+            const currentGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+            if (currentGems < 350) {
+                showLootToast('Hiba!', 'Nincs elég Gemed a Winter Boxhoz! (350 gem kell)', '❌');
+                if (typeof playSfx === 'function') playSfx('error');
+                return;
+            }
+            localStorage.setItem('nu_gems', String(currentGems - 350));
+            if (typeof updateGemUI === 'function') updateGemUI();
+            doNyitas('winter');
+        };
 
         window.buyOriginalBox = function() {
             if (isUnboxing) return;
@@ -26078,6 +26791,215 @@
             
             doNyitas('vip');
         };
+
+        // ========== ADVENTI KALENDÁRIUM (24 NAP) ==========
+        const ADVENT_REWARDS = {
+            1:  { type: 'gems',  amount: 75,  icon: '💎', label: '+75 Gem' },
+            2:  { type: 'box',   boxType: 'orig', icon: '🎁', label: 'Ingyen Original Box' },
+            3:  { type: 'boost', amount: 1,   icon: '⚡', label: '2× Daily Gem' },
+            4:  { type: 'gems',  amount: 100, icon: '💎', label: '+100 Gem' },
+            5:  { type: 'aura',  itemId: 'aura-snowfall', icon: '❄️', label: 'Hópelyhek Effekt' },
+            6:  { type: 'skin',  itemId: 'gingerbread', icon: '🍪', label: 'Mézeskalács Bot' },
+            7:  { type: 'gems',  amount: 120, icon: '💎', label: '+120 Gem' },
+            8:  { type: 'box',   boxType: 'winter', icon: '🎄', label: 'Ingyen Winter Box' },
+            9:  { type: 'level', amount: 1,   icon: '📈', label: '+1 Level' },
+            10: { type: 'gems',  amount: 150, icon: '💎', label: '+150 Gem' },
+            11: { type: 'boost', amount: 1,   icon: '⚡', label: '2× Daily Gem' },
+            12: { type: 'skin',  itemId: 'frost', icon: '❄️', label: 'Jégkristály Bot' },
+            13: { type: 'aura',  itemId: 'aura-fireplace', icon: '🔥', label: 'Kandalló Effekt' },
+            14: { type: 'box',   boxType: 'vip', icon: '👑', label: 'Ingyen VIP Box' },
+            15: { type: 'gems',  amount: 200, icon: '💎', label: '+200 Gem' },
+            16: { type: 'box',   boxType: 'winter', icon: '🎄', label: 'Ingyen Winter Box' },
+            17: { type: 'level', amount: 2,   icon: '📈', label: '+2 Level' },
+            18: { type: 'skin',  itemId: 'xmas-tree', icon: '🎄', label: 'Karácsonyfa Bot' },
+            19: { type: 'gems',  amount: 250, icon: '💎', label: '+250 Gem' },
+            20: { type: 'aura',  itemId: 'aura-xmas-lights', icon: '✨', label: 'Ünnepi Fény Effekt' },
+            21: { type: 'boost', amount: 2,   icon: '⚡', label: '2× Daily Gem (2 db)' },
+            22: { type: 'box',   boxType: 'winter', icon: '🎄', label: 'Ingyen Winter Box' },
+            23: { type: 'aura',  itemId: 'aura-aurora-ice', icon: '🌌', label: 'Északi Fény Effekt' },
+            24: { type: 'skin',  itemId: 'santa', bonusGems: 500, icon: '🎅', label: 'Mikulás Bot + 500 💎' }
+        };
+
+        function getAdventYear() {
+            return new Date().getFullYear();
+        }
+
+        function getAdventClaimed() {
+            try {
+                const raw = localStorage.getItem('nu_advent_claimed_' + getAdventYear());
+                const arr = JSON.parse(raw || '[]');
+                return Array.isArray(arr) ? arr : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveAdventClaimed(arr) {
+            localStorage.setItem('nu_advent_claimed_' + getAdventYear(), JSON.stringify(arr));
+        }
+
+        function getAdventUnlockedDay() {
+            const now = new Date();
+            if (now.getMonth() === 11) {
+                return Math.min(24, now.getDate());
+            }
+            const key = 'nu_advent_preview_start';
+            const todayAnchor = (typeof rewardDay === 'function') ? rewardDay() : new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            let startStr = localStorage.getItem(key);
+            if (!startStr) {
+                startStr = String(todayAnchor.getTime());
+                localStorage.setItem(key, startStr);
+            }
+            const startMs = parseInt(startStr, 10) || todayAnchor.getTime();
+            const diffDays = Math.floor((todayAnchor.getTime() - startMs) / 86400000);
+            return Math.max(1, Math.min(24, diffDays + 1));
+        }
+
+        window.hasAdventReady = function() {
+            const unlocked = getAdventUnlockedDay();
+            const claimed = getAdventClaimed();
+            for (let d = 1; d <= unlocked; d++) {
+                if (!claimed.includes(d)) return true;
+            }
+            return false;
+        };
+
+        function showAdventReveal(day, iconHtml, title, sub) {
+            const ov = document.createElement('div');
+            ov.className = 'advent-reveal-overlay';
+            ov.innerHTML = `
+                <div class="advent-reveal-card">
+                    <div class="advent-reveal-day">DECEMBER ${day}.</div>
+                    <div class="advent-reveal-icon">${iconHtml}</div>
+                    <div class="advent-reveal-title">${title}</div>
+                    <div class="advent-reveal-sub">${sub}</div>
+                    <button type="button" class="unbox-collect-btn">Begyűjtés ✓</button>
+                </div>
+            `;
+            document.body.appendChild(ov);
+            const close = () => {
+                ov.style.transition = 'opacity 0.2s ease';
+                ov.style.opacity = '0';
+                setTimeout(() => ov.remove(), 220);
+            };
+            ov.addEventListener('click', close, { once: true });
+            setTimeout(close, 3000);
+        }
+
+        window.openAdventDoor = function(day) {
+            const unlocked = getAdventUnlockedDay();
+            const claimed = getAdventClaimed();
+            if (day > unlocked || claimed.includes(day)) return;
+            const r = ADVENT_REWARDS[day];
+            if (!r) return;
+
+            claimed.push(day);
+            saveAdventClaimed(claimed);
+            try { if (typeof hapticTap === 'function') hapticTap(15); } catch (e) { }
+
+            if (r.type === 'box') {
+                window.renderAdventCalendar();
+                if (typeof updateLootBadges === 'function') updateLootBadges();
+                window.openFreeBox(r.boxType);
+                return;
+            }
+
+            let iconHtml = r.icon;
+            let title = r.label;
+            let sub = 'Adventi jutalom!';
+
+            if (r.type === 'gems') {
+                if (typeof addGems === 'function') addGems(r.amount);
+                else {
+                    const cur = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                    localStorage.setItem('nu_gems', String(cur + r.amount));
+                    if (typeof updateGemUI === 'function') updateGemUI();
+                }
+                try { if (typeof playSfx === 'function') playSfx('gem-claim'); } catch (e) { }
+            } else if (r.type === 'skin') {
+                const alreadyOwned = typeof owns === 'function' && owns(r.itemId);
+                if (!alreadyOwned && typeof buyItem === 'function') {
+                    buyItem(r.itemId);
+                } else if (alreadyOwned) {
+                    const fallbackGems = 200;
+                    if (typeof addGems === 'function') addGems(fallbackGems);
+                    title = `+${fallbackGems} Gem`;
+                    sub = 'Már megvolt a skin!';
+                }
+                if (r.bonusGems && typeof addGems === 'function') {
+                    addGems(r.bonusGems);
+                }
+                if (!alreadyOwned && typeof window.buildMiniRobotHtml === 'function') {
+                    iconHtml = `<div style="transform:scale(1.85);margin:32px 0;height:96px;display:flex;align-items:center;justify-content:center;">${window.buildMiniRobotHtml(r.itemId, false)}</div>`;
+                }
+                if (typeof renderShop === 'function') renderShop();
+                try { if (typeof playSfx === 'function') playSfx('zynox'); } catch (e) { }
+            } else if (r.type === 'aura') {
+                const alreadyOwned = typeof owns === 'function' && owns(r.itemId);
+                if (!alreadyOwned && typeof buyItem === 'function') {
+                    buyItem(r.itemId);
+                } else if (alreadyOwned) {
+                    const fallbackGems = 150;
+                    if (typeof addGems === 'function') addGems(fallbackGems);
+                    title = `+${fallbackGems} Gem`;
+                    sub = 'Már megvolt az effekt!';
+                }
+                if (typeof renderShop === 'function') renderShop();
+                try { if (typeof playSfx === 'function') playSfx('skin-equip'); } catch (e) { }
+            } else if (r.type === 'boost') {
+                if (typeof addGemBoostCharges === 'function') addGemBoostCharges(r.amount);
+                sub = 'A következő Daily Gem duplázva lesz!';
+                try { if (typeof playSfx === 'function') playSfx('bp-claim'); } catch (e) { }
+            } else if (r.type === 'level') {
+                const curS = parseInt(localStorage.getItem('nu_s') || '1', 10);
+                const nextS = curS + (r.amount || 1);
+                localStorage.setItem('nu_s', String(nextS));
+                const sn = document.getElementById('sn');
+                const streak = document.getElementById('streak');
+                if (sn) sn.textContent = nextS;
+                if (streak) streak.classList.add('on');
+                try { if (typeof playSfx === 'function') playSfx('bp-claim'); } catch (e) { }
+            }
+
+            window.renderAdventCalendar();
+            if (typeof updateLootBadges === 'function') updateLootBadges();
+            showAdventReveal(day, iconHtml, title, sub);
+        };
+
+        window.renderAdventCalendar = function() {
+            const grid = document.getElementById('adventGrid');
+            if (!grid) return;
+            const unlocked = getAdventUnlockedDay();
+            const claimed = getAdventClaimed();
+            const counter = document.getElementById('adventCounter');
+            const fill = document.getElementById('adventProgressFill');
+            if (counter) counter.textContent = `${claimed.length} / 24`;
+            if (fill) fill.style.width = `${Math.round((claimed.length / 24) * 100)}%`;
+
+            grid.innerHTML = '';
+            for (let day = 1; day <= 24; day++) {
+                const r = ADVENT_REWARDS[day];
+                const isOpened = claimed.includes(day);
+                const isAvail = day <= unlocked && !isOpened;
+                const isMilestone = day === 6 || day === 12 || day === 18 || day === 24;
+
+                const door = document.createElement('button');
+                door.type = 'button';
+                door.className = 'advent-door ' + (isOpened ? 'opened' : isAvail ? 'available' : 'locked') + (isMilestone ? ' milestone' : '');
+
+                const icon = isOpened ? (r ? r.icon : '✓') : isAvail ? '🎁' : '❄️';
+                const tag = isOpened ? '✓' : isAvail ? 'NYIT' : '🔒';
+                door.innerHTML = `<span class="advent-door-num">${day}</span><span class="advent-door-icon">${icon}</span><span class="advent-door-tag">${tag}</span>`;
+
+                if (isAvail) {
+                    door.addEventListener('click', () => window.openAdventDoor(day));
+                }
+                grid.appendChild(door);
+            }
+        };
+
+        window.renderAdventCalendar();
+        if (typeof updateLootBadges === 'function') updateLootBadges();
 
     })();
     </script>
