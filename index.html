@@ -20030,9 +20030,49 @@
         .market-toggle:active {
             transform: scale(0.94);
         }
-        .market-toggle.hidden {
+        .market-toggle.hidden,
+        .village-toggle.hidden {
             opacity: 0;
             pointer-events: none;
+        }
+        .home-winter-dock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+        .village-toggle {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.84), rgba(79, 70, 229, 0.74));
+            border: 1.5px solid rgba(186, 230, 253, 0.65);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 18px rgba(56, 189, 248, 0.22);
+            color: #e0f2fe;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.18s ease, opacity 0.25s ease;
+        }
+        .village-toggle:active {
+            transform: scale(0.94);
+        }
+        .village-gift-dot {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: #1e1b4b;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 1px 5px;
+            border-radius: 999px;
+            line-height: 1.3;
         }
         .market-bag-badge {
             background: linear-gradient(135deg, #ef4444, #dc2626);
@@ -20381,125 +20421,100 @@
             border-radius: 22px;
             overflow: hidden;
             position: relative;
-            border: 2px solid #d97706;
-            background: linear-gradient(180deg, #5c280e 0%, #3b1808 60%, #240e04 100%);
-            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), 0 0 28px rgba(251, 191, 36, 0.18);
+            border: 1.5px solid rgba(251, 191, 36, 0.45);
+            background: linear-gradient(180deg, #3f1a0a 0%, #281006 60%, #190903 100%);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 22px rgba(251, 191, 36, 0.12);
             flex-shrink: 0;
         }
         .market-roof-snow {
-            height: 11px;
-            background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 70%, #bae6fd 100%);
-            box-shadow: 0 3px 10px rgba(224, 242, 254, 0.45);
+            height: 10px;
+            background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 75%, #bae6fd 100%);
+            box-shadow: 0 2px 8px rgba(224, 242, 254, 0.35);
         }
         .market-awning {
             position: relative;
-            height: 32px;
-            background: repeating-linear-gradient(90deg, #dc2626 0 20px, #fef3c7 20px 40px);
-            border-bottom: 3px dashed #fbbf24;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            height: 28px;
+            background: repeating-linear-gradient(90deg, #b91c1c 0 22px, #fef3c7 22px 44px);
+            border-bottom: 2px solid rgba(251, 191, 36, 0.72);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .market-booth-lights {
             position: absolute;
-            bottom: -10px;
-            left: 14px;
-            right: 14px;
+            bottom: -8px;
+            left: 22px;
+            right: 22px;
             display: flex;
             justify-content: space-around;
             pointer-events: none;
             z-index: 6;
         }
         .market-booth-bulb {
-            width: 7px;
-            height: 9px;
+            width: 6px;
+            height: 8px;
             border-radius: 50% 50% 60% 60%;
-            animation: adventBulbGlow 1.7s ease-in-out infinite;
+            background: #fef08a;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.75);
+            animation: adventBulbGlow 2s ease-in-out infinite;
         }
-        .market-booth-bulb:nth-child(4n+1) { background: #ef4444; box-shadow: 0 0 8px #ef4444; animation-delay: 0s; }
-        .market-booth-bulb:nth-child(4n+2) { background: #fbbf24; box-shadow: 0 0 8px #fbbf24; animation-delay: 0.35s; }
-        .market-booth-bulb:nth-child(4n+3) { background: #22c55e; box-shadow: 0 0 8px #22c55e; animation-delay: 0.7s; }
-        .market-booth-bulb:nth-child(4n)   { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; animation-delay: 1.05s; }
+        .market-booth-bulb:nth-child(even) {
+            background: #fbbf24;
+            animation-delay: 0.9s;
+        }
         .market-sign {
-            padding: 3px 14px;
+            padding: 2px 13px;
             border-radius: 999px;
-            background: linear-gradient(135deg, #78350f, #451a03);
-            border: 1.5px solid #fbbf24;
+            background: linear-gradient(135deg, #6b2f0e, #3f1805);
+            border: 1px solid rgba(251, 191, 36, 0.78);
             color: #fef08a;
             font-size: 10px;
             font-weight: 900;
             letter-spacing: 0.7px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
         }
         .market-stall-interior {
             position: relative;
-            height: 158px;
-            padding: 6px 26px 0;
+            height: 150px;
+            padding: 6px 18px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
             overflow: hidden;
-            background:
-                radial-gradient(circle at 50% 56%, rgba(251, 191, 36, 0.34) 0%, rgba(180, 83, 9, 0.22) 48%, rgba(23, 10, 5, 0.9) 100%),
-                repeating-linear-gradient(90deg, rgba(120, 53, 15, 0.24) 0 28px, rgba(69, 26, 3, 0.28) 28px 30px);
+            background: radial-gradient(circle at 50% 56%, rgba(251, 191, 36, 0.25) 0%, rgba(120, 53, 15, 0.22) 52%, rgba(23, 10, 5, 0.92) 100%);
         }
-        .market-pillar-l,
-        .market-pillar-r {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 14px;
-            background: linear-gradient(90deg, #451a03, #92400e, #451a03);
-            border-left: 1px solid rgba(251, 191, 36, 0.25);
-            border-right: 1px solid rgba(251, 191, 36, 0.25);
-            z-index: 5;
-            pointer-events: none;
-        }
-        .market-pillar-l { left: 0; }
-        .market-pillar-r { right: 0; }
         .market-hang-lantern {
             position: absolute;
             top: 8px;
-            width: 16px;
-            height: 22px;
+            width: 13px;
+            height: 18px;
             border-radius: 5px;
-            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 60%, #b45309 100%);
-            border: 1.5px solid #451a03;
-            box-shadow: 0 0 18px 6px rgba(251, 191, 36, 0.55);
+            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 65%, #b45309 100%);
+            border: 1px solid rgba(69, 26, 3, 0.85);
+            box-shadow: 0 0 14px 4px rgba(251, 191, 36, 0.42);
             transform-origin: top center;
-            animation: lanternSwing 3.4s ease-in-out infinite;
+            animation: lanternSwing 3.6s ease-in-out infinite;
             z-index: 5;
             pointer-events: none;
+            opacity: 0.92;
         }
         .market-hang-lantern::before {
             content: '';
             position: absolute;
             top: -8px;
             left: 50%;
-            width: 2px;
+            width: 1.5px;
             height: 8px;
-            margin-left: -1px;
-            background: #78350f;
+            margin-left: -0.75px;
+            background: rgba(146, 64, 14, 0.85);
         }
-        .market-hang-lantern.l { left: 22px; }
-        .market-hang-lantern.r { right: 22px; animation-delay: -1.7s; }
+        .market-hang-lantern.l { left: 16px; }
+        .market-hang-lantern.r { right: 16px; animation-delay: -1.8s; }
         @keyframes lanternSwing {
-            0%, 100% { transform: rotate(-4deg); }
-            50% { transform: rotate(4deg); }
-        }
-        .market-shelf-props {
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 16px;
-            opacity: 0.9;
-            pointer-events: none;
-            z-index: 3;
+            0%, 100% { transform: rotate(-3.5deg); }
+            50% { transform: rotate(3.5deg); }
         }
         .market-bubble {
             position: absolute;
@@ -20637,8 +20652,8 @@
 
         .market-wooden-counter {
             padding: 8px 14px;
-            background: linear-gradient(180deg, rgba(224, 242, 254, 0.22) 0, rgba(224, 242, 254, 0.08) 3px, #b45309 4px, #92400e 45%, #451a03 100%);
-            border-top: 2px solid #d97706;
+            background: linear-gradient(180deg, rgba(146, 64, 14, 0.95) 0%, rgba(107, 47, 14, 0.96) 55%, rgba(69, 26, 3, 0.98) 100%);
+            border-top: 1.5px solid rgba(251, 191, 36, 0.45);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -20723,15 +20738,16 @@
             margin-bottom: 12px;
         }
         .market-item-card {
-            background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(15, 23, 42, 0.75));
-            border: 1.5px solid rgba(251, 191, 36, 0.24);
+            background: rgba(15, 23, 42, 0.56);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 18px;
-            padding: 12px 10px;
+            padding: 14px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 6px;
+            gap: 7px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
         }
         .market-item-icon {
             font-size: 34px;
@@ -20784,18 +20800,548 @@
             padding: 14px;
             margin-bottom: 12px;
             border-radius: 20px;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(15, 23, 42, 0.8));
-            border: 1.5px solid rgba(251, 191, 36, 0.35);
+            background: rgba(15, 23, 42, 0.56);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
         }
         .market-empty {
             text-align: center;
             padding: 30px 18px;
             border-radius: 20px;
-            background: rgba(15, 23, 42, 0.65);
-            border: 1px dashed rgba(251, 191, 36, 0.35);
+            background: rgba(15, 23, 42, 0.56);
+            border: 1px dashed rgba(255, 255, 255, 0.22);
             color: rgba(255, 255, 255, 0.78);
             font-size: 14px;
             font-weight: 700;
+        }
+
+        /* ========== SANTA'S VILLAGE (MIKULÁS FALVA) ========== */
+        .village-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 310;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            background: linear-gradient(180deg, #020817 0%, #071b34 38%, #0f2c4c 68%, #1e3a5f 100%);
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+        }
+        .village-overlay.open {
+            display: flex;
+        }
+        .village-snow-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 8;
+        }
+        .village-flake {
+            position: absolute;
+            top: -14px;
+            border-radius: 50%;
+            background: #fff;
+            animation: villageSnowDrop var(--vd, 7s) linear infinite;
+            animation-delay: var(--vdelay, 0s);
+        }
+        .village-flake.far {
+            opacity: 0.55;
+            box-shadow: none;
+        }
+        .village-flake.mid {
+            opacity: 0.82;
+            box-shadow: 0 0 6px rgba(224, 242, 254, 0.75);
+        }
+        .village-flake.near {
+            opacity: 0.95;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+        }
+        .village-blizzard-flake {
+            position: absolute;
+            top: -16px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(186, 230, 253, 0.95);
+            animation: villageBlizzard var(--bd, 2.3s) linear forwards;
+        }
+        @keyframes villageSnowDrop {
+            0% { transform: translate3d(0, -14px, 0); opacity: 0; }
+            10% { opacity: var(--vop, 0.85); }
+            90% { opacity: var(--vop, 0.85); }
+            100% { transform: translate3d(var(--vsx, 36px), 104vh, 0); opacity: 0; }
+        }
+        @keyframes villageBlizzard {
+            0% { transform: translate3d(0, -16px, 0) scale(0.8); opacity: 0.95; }
+            100% { transform: translate3d(var(--bsx, 120px), 105vh, 0) scale(1.1); opacity: 0; }
+        }
+
+        .village-topbar {
+            position: relative;
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: calc(env(safe-area-inset-top, 14px) + 8px) 12px 10px;
+            background: rgba(2, 8, 23, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(186, 230, 253, 0.18);
+            flex-shrink: 0;
+        }
+        .village-topbar-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: #e0f2fe;
+            text-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
+            white-space: nowrap;
+        }
+
+        .village-scene {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .village-stars {
+            position: absolute;
+            inset: 0 0 42% 0;
+            background:
+                radial-gradient(2px 2px at 12% 16%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 26% 30%, #e0f2fe, transparent),
+                radial-gradient(2.5px 2.5px at 44% 12%, #fef08a, transparent),
+                radial-gradient(2px 2px at 66% 24%, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 80% 10%, #e0f2fe, transparent),
+                radial-gradient(2px 2px at 90% 34%, #fef08a, transparent),
+                radial-gradient(1.5px 1.5px at 56% 36%, #fff, transparent);
+            pointer-events: none;
+        }
+        .village-aurora {
+            position: absolute;
+            top: 4%;
+            left: -18%;
+            right: -18%;
+            height: 36%;
+            background: linear-gradient(115deg, rgba(16, 185, 129, 0.24) 0%, rgba(56, 189, 248, 0.26) 42%, rgba(168, 85, 247, 0.22) 82%, transparent 100%);
+            filter: blur(26px);
+            border-radius: 50%;
+            animation: villageAurora 9s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes villageAurora {
+            0% { transform: translateX(-4%) skewY(-3deg) scaleY(1); opacity: 0.68; }
+            100% { transform: translateX(5%) skewY(3deg) scaleY(1.12); opacity: 0.92; }
+        }
+        .village-moon {
+            position: absolute;
+            top: 8%;
+            right: 11%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fffbeb 0%, #fef08a 58%, #fde047 100%);
+            box-shadow: 0 0 28px 10px rgba(254, 240, 138, 0.28), 0 0 65px 22px rgba(186, 230, 253, 0.16);
+            pointer-events: none;
+        }
+        .village-sleigh {
+            position: absolute;
+            top: 13%;
+            left: -160px;
+            font-size: 26px;
+            white-space: nowrap;
+            z-index: 4;
+            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.75));
+            pointer-events: none;
+            opacity: 0;
+        }
+        .village-sleigh.fly {
+            animation: villageSleighFly 4.2s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
+        }
+        @keyframes villageSleighFly {
+            0% { transform: translate3d(-40px, 28px, 0) rotate(-6deg) scale(0.85); opacity: 0; }
+            12% { opacity: 1; }
+            50% { transform: translate3d(52vw, -16px, 0) rotate(2deg) scale(1.05); opacity: 1; }
+            88% { opacity: 1; }
+            100% { transform: translate3d(calc(100vw + 220px), 14px, 0) rotate(6deg) scale(0.9); opacity: 0; }
+        }
+
+        .village-bubble {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            padding: 7px 14px;
+            border-radius: 16px;
+            background: rgba(7, 16, 32, 0.84);
+            border: 1px solid rgba(186, 230, 253, 0.45);
+            color: #e0f2fe;
+            font-size: 12.5px;
+            font-weight: 800;
+            max-width: 88%;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .village-hills-back {
+            position: absolute;
+            left: -12%;
+            right: -12%;
+            bottom: 24%;
+            height: 28%;
+            border-radius: 55% 45% 0 0;
+            background: linear-gradient(180deg, rgba(186, 230, 253, 0.34) 0%, rgba(148, 163, 184, 0.25) 100%);
+            pointer-events: none;
+        }
+        .village-hills-front {
+            position: absolute;
+            left: -15%;
+            right: -15%;
+            bottom: -4%;
+            height: 36%;
+            border-radius: 48% 52% 0 0;
+            background: linear-gradient(180deg, #f8fafc 0%, #e0f2fe 38%, #bae6fd 100%);
+            box-shadow: 0 -8px 34px rgba(224, 242, 254, 0.36);
+            pointer-events: none;
+        }
+
+        /* Village Landmarks */
+        .village-cabin {
+            position: absolute;
+            left: 5%;
+            bottom: 27%;
+            width: 118px;
+            cursor: pointer;
+            z-index: 5;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.16s ease;
+        }
+        .village-cabin:active { transform: scale(0.95); }
+        .vc-chimney {
+            position: absolute;
+            top: -12px;
+            right: 22px;
+            width: 16px;
+            height: 24px;
+            background: #991b1b;
+            border-radius: 3px 3px 0 0;
+            border: 1px solid #450a0a;
+        }
+        .chimney-puff {
+            position: absolute;
+            top: -12px;
+            left: 3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(241, 245, 249, 0.72);
+            animation: chimneySmoke 2.8s ease-out infinite;
+        }
+        .chimney-puff:nth-child(2) { animation-delay: 0.9s; }
+        .chimney-puff:nth-child(3) { animation-delay: 1.8s; }
+        @keyframes chimneySmoke {
+            0% { transform: translate(0, 0) scale(0.6); opacity: 0.85; }
+            100% { transform: translate(16px, -42px) scale(1.9); opacity: 0; }
+        }
+        .vc-roof {
+            position: relative;
+            width: 0;
+            height: 0;
+            margin: 0 auto;
+            border-left: 62px solid transparent;
+            border-right: 62px solid transparent;
+            border-bottom: 42px solid #991b1b;
+            filter: drop-shadow(0 -5px 0 #ffffff) drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+        }
+        .vc-body {
+            width: 98px;
+            height: 54px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #78350f, #451a03);
+            border: 1.5px solid #92400e;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 8px 8px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        }
+        .vc-win {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 70%, #d97706 100%);
+            border: 1.5px solid #fef3c7;
+            box-shadow: 0 0 14px rgba(251, 191, 36, 0.75);
+        }
+        .vc-door {
+            width: 24px;
+            height: 32px;
+            background: #dc2626;
+            border: 1.5px solid #fbbf24;
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+        }
+        .village-landmark-tag {
+            margin-top: 4px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fef08a;
+            font-size: 9.5px;
+            font-weight: 800;
+            text-align: center;
+            white-space: nowrap;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .village-tree {
+            position: absolute;
+            left: 50%;
+            bottom: 30%;
+            transform: translateX(-46%);
+            width: 94px;
+            cursor: pointer;
+            z-index: 5;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.16s ease;
+        }
+        .village-tree:active { transform: translateX(-46%) scale(0.95); }
+        .vt-star {
+            font-size: 22px;
+            line-height: 1;
+            margin-bottom: -4px;
+            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.9));
+        }
+        .vt-tier {
+            margin: 0 auto;
+            width: 0;
+            height: 0;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-style: solid;
+            position: relative;
+        }
+        .vt-t1 { border-width: 0 24px 36px 24px; border-bottom-color: #166534; filter: drop-shadow(0 -2px 0 #e0f2fe); }
+        .vt-t2 { border-width: 0 34px 44px 34px; border-bottom-color: #15803d; margin-top: -12px; filter: drop-shadow(0 -2px 0 #e0f2fe); }
+        .vt-t3 { border-width: 0 44px 50px 44px; border-bottom-color: #14532d; margin-top: -14px; filter: drop-shadow(0 -2px 0 #e0f2fe); }
+        .vt-trunk {
+            width: 16px;
+            height: 18px;
+            margin: -2px auto 0;
+            background: #451a03;
+            border-radius: 0 0 3px 3px;
+        }
+        .vt-lights {
+            position: absolute;
+            inset: 22px 10px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: space-around;
+            gap: 10px 14px;
+            pointer-events: none;
+        }
+        .vt-bulb {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #fde047;
+            box-shadow: 0 0 10px #fde047;
+            animation: adventBulbGlow 1.4s ease-in-out infinite;
+        }
+        .vt-bulb:nth-child(even) { animation-delay: 0.7s; }
+        .village-tree.theme-rainbow .vt-bulb:nth-child(3n+1) { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+        .village-tree.theme-rainbow .vt-bulb:nth-child(3n+2) { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+        .village-tree.theme-rainbow .vt-bulb:nth-child(3n)   { background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+        .village-tree.theme-frost .vt-bulb:nth-child(odd)  { background: #bae6fd; box-shadow: 0 0 10px #38bdf8; }
+        .village-tree.theme-frost .vt-bulb:nth-child(even) { background: #ffffff; box-shadow: 0 0 12px #ffffff; }
+
+        .village-postbox {
+            position: absolute;
+            right: 6%;
+            bottom: 31%;
+            cursor: pointer;
+            z-index: 6;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.16s ease;
+        }
+        .village-postbox:active { transform: scale(0.92); }
+        .village-postbox-ico {
+            font-size: 38px;
+            line-height: 1;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+        }
+
+        .village-snowman {
+            position: absolute;
+            left: 11%;
+            bottom: 11%;
+            cursor: pointer;
+            z-index: 6;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s ease;
+        }
+        .village-snowman-ico {
+            font-size: 46px;
+            line-height: 1;
+            filter: drop-shadow(0 6px 10px rgba(15, 23, 42, 0.35));
+        }
+        .village-snowman.wiggle {
+            animation: snowmanWiggle 0.55s ease;
+        }
+        @keyframes snowmanWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-12deg) translateY(-6px); }
+            75% { transform: rotate(12deg) translateY(-6px); }
+        }
+
+        .village-robot-stage {
+            position: absolute;
+            left: 52%;
+            bottom: 7%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 106px;
+            z-index: 7;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .village-robot-stage .dc-mini-robot-frame {
+            width: 110px;
+            height: 106px;
+        }
+        .village-robot-stage .dc-mini-robot {
+            transform: translate(-50%, -50%) scale(0.42) !important;
+            animation: villageRobotIdle 3s ease-in-out infinite !important;
+        }
+        @keyframes villageRobotIdle {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.42) translateY(0); }
+            50% { transform: translate(-50%, -50%) scale(0.42) translateY(-4px); }
+        }
+        .village-robot-stage.hop .dc-mini-robot {
+            animation: villageRobotHop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2 !important;
+        }
+        @keyframes villageRobotHop {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.42); }
+            50% { transform: translate(-50%, -62%) scale(0.47); }
+        }
+
+        .village-signpost {
+            position: absolute;
+            right: 6%;
+            bottom: 11%;
+            padding: 7px 11px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #78350f, #451a03);
+            border: 1.5px solid #fbbf24;
+            color: #fef08a;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            z-index: 7;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .village-signpost:active { transform: scale(0.94); }
+
+        .village-dock {
+            position: relative;
+            z-index: 12;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+            padding: 10px 12px calc(env(safe-area-inset-bottom, 14px) + 12px);
+            background: rgba(2, 8, 23, 0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(186, 230, 253, 0.22);
+            flex-shrink: 0;
+        }
+        .village-dock-btn {
+            padding: 9px 4px;
+            border-radius: 14px;
+            border: 1px solid rgba(186, 230, 253, 0.24);
+            background: rgba(15, 23, 42, 0.72);
+            color: #e0f2fe;
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            transition: transform 0.14s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+        .village-dock-btn:active { transform: scale(0.94); }
+        .village-dock-btn.gift-ready {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.55), rgba(217, 119, 6, 0.45));
+            border-color: #fbbf24;
+            color: #fef08a;
+            box-shadow: 0 0 16px rgba(251, 191, 36, 0.28);
+        }
+
+        .village-wish-drawer {
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 84px;
+            z-index: 20;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 22px;
+            background: rgba(7, 16, 32, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(251, 191, 36, 0.55);
+            box-shadow: 0 16px 42px rgba(0, 0, 0, 0.65);
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+        .village-wish-drawer.open {
+            display: flex;
+            animation: obIn 0.25s ease;
+        }
+        .village-wish-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 140px;
+            overflow-y: auto;
+        }
+        .village-wish-item {
+            padding: 7px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(186, 230, 253, 0.18);
+            font-size: 12px;
+            font-weight: 700;
+            color: #e0f2fe;
+        }
+        .village-letter-fly {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 32px;
+            pointer-events: none;
+            z-index: 25;
+            animation: letterFlyUp 1s ease-out forwards;
+        }
+        @keyframes letterFlyUp {
+            0% { transform: translate(-50%, 0) scale(0.8); opacity: 1; }
+            100% { transform: translate(40px, -180px) scale(1.3) rotate(16deg); opacity: 0; }
         }
 
     </style>
@@ -21125,7 +21671,10 @@
 
         <div class="home-bottom-area">
             <div class="next-msg" id="nextMsg"></div>
-            <button type="button" class="market-toggle" id="marketToggle"><span>🎪</span><span>Advent Market</span><span class="market-bag-badge" id="marketBagBadge" style="display:none">0</span></button>
+            <div class="home-winter-dock">
+                <button type="button" class="market-toggle" id="marketToggle"><span>🎪</span><span>Market</span><span class="market-bag-badge" id="marketBagBadge" style="display:none">0</span></button>
+                <button type="button" class="village-toggle" id="villageToggle"><span>🎅</span><span>Village</span><span class="village-gift-dot" id="villageGiftDot" style="display:none">🎁</span></button>
+            </div>
             <a class="tiktok-link" href="http://www.tiktok.com/@dailybot_dailymessage" target="_blank" rel="noopener">
                 <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -21407,34 +21956,32 @@
             <div class="market-topbar">
                 <button type="button" class="market-home-btn" id="marketCloseBtn">← Home</button>
                 <div class="market-topbar-title">🎄 Advent Market</div>
-                <div class="shop-gems"><span class="gem-img"></span> <span id="marketGemDisplay" data-gem-display>0</span></div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <button type="button" class="market-home-btn" onclick="if(typeof openSantasVillage==='function')openSantasVillage()">🎅 Village</button>
+                    <div class="shop-gems"><span class="gem-img"></span> <span id="marketGemDisplay" data-gem-display>0</span></div>
+                </div>
             </div>
 
             <div class="market-stall-stage">
                 <div class="market-roof-snow" aria-hidden="true"></div>
                 <div class="market-awning">
-                    <div class="market-sign">✨ CHRISTMAS BOOTH ✨</div>
+                    <div class="market-sign">✨ WINTER MARKET ✨</div>
                     <div class="market-booth-lights" aria-hidden="true">
-                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
                         <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
                         <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
                         <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
                     </div>
                 </div>
                 <div class="market-stall-interior" id="marketStallInterior">
-                    <div class="market-pillar-l" aria-hidden="true"></div>
-                    <div class="market-pillar-r" aria-hidden="true"></div>
                     <div class="market-hang-lantern l" aria-hidden="true"></div>
                     <div class="market-hang-lantern r" aria-hidden="true"></div>
-                    <div class="market-shelf-props" aria-hidden="true"><span>🍪🧁</span><span>🫖🍬</span></div>
-                    <div class="market-bubble" id="marketBubble">Welcome! Buy treats below to feed me! 🎄</div>
+                    <div class="market-bubble" id="marketBubble">Welcome! Pick cookies, hot tea, cocoa or boxes! 🎄</div>
                     <div class="market-robot-stage" id="marketRobotStage" title="Tap to enjoy a treat from your basket!">
                         <div id="marketRobotMount"></div>
                         <div class="market-treat-prop" id="marketTreatProp" aria-hidden="true"></div>
                     </div>
                 </div>
                 <div class="market-wooden-counter">
-                    <span style="font-size:13px;" aria-hidden="true">🍪☕</span>
                     <span class="market-cozy-label" id="marketCozyLabel">❤️ 0 / 5</span>
                     <div class="market-cozy-track"><div class="market-cozy-fill" id="marketCozyFill"></div></div>
                     <span class="market-cozy-reward">+15 💎</span>
@@ -21448,6 +21995,101 @@
             </div>
 
             <div class="market-content" id="marketTabContent"></div>
+        </div>
+    </div>
+
+    <!-- Santa's Village (Mikulás Falva) -->
+    <div class="village-overlay" id="villageOverlay">
+        <div class="village-snow-layer" id="villageSnowLayer" aria-hidden="true"></div>
+
+        <div class="village-topbar">
+            <button type="button" class="market-home-btn" id="villageCloseBtn">← Home</button>
+            <div class="village-topbar-title">🎅 Santa's Village</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+                <button type="button" class="market-home-btn" onclick="if(typeof openAdventMarket==='function')openAdventMarket()">🎪 Market</button>
+                <div class="shop-gems"><span class="gem-img"></span> <span data-gem-display>0</span></div>
+            </div>
+        </div>
+
+        <div class="village-scene" id="villageScene">
+            <div class="village-stars" aria-hidden="true"></div>
+            <div class="village-aurora" aria-hidden="true"></div>
+            <div class="village-moon" aria-hidden="true"></div>
+            <div class="village-sleigh" id="villageSleigh" aria-hidden="true">🦌🦌🛷🎅✨</div>
+
+            <div class="village-bubble" id="villageBubble">❄️ Welcome to Santa's Snowy Village! Tap around to explore! ✨</div>
+
+            <div class="village-hills-back" aria-hidden="true"></div>
+            <div class="village-hills-front" aria-hidden="true"></div>
+
+            <!-- 1. Santa's Cabin & Workshop -->
+            <div class="village-cabin" id="villageCabin" role="button" tabindex="0">
+                <div class="vc-chimney">
+                    <span class="chimney-puff"></span><span class="chimney-puff"></span><span class="chimney-puff"></span>
+                </div>
+                <div class="vc-roof"></div>
+                <div class="vc-body">
+                    <div class="vc-win"></div>
+                    <div class="vc-door"></div>
+                    <div class="vc-win"></div>
+                </div>
+                <div class="village-landmark-tag">🏠 Santa's Cabin</div>
+            </div>
+
+            <!-- 2. Giant Village Tree -->
+            <div class="village-tree" id="villageTree" role="button" tabindex="0">
+                <div class="vt-star">⭐</div>
+                <div class="vt-tier vt-t1"></div>
+                <div class="vt-tier vt-t2"></div>
+                <div class="vt-tier vt-t3"></div>
+                <div class="vt-trunk"></div>
+                <div class="vt-lights" aria-hidden="true">
+                    <span class="vt-bulb"></span><span class="vt-bulb"></span><span class="vt-bulb"></span>
+                    <span class="vt-bulb"></span><span class="vt-bulb"></span><span class="vt-bulb"></span>
+                    <span class="vt-bulb"></span><span class="vt-bulb"></span><span class="vt-bulb"></span>
+                </div>
+                <div class="village-landmark-tag">🎄 Tap Lights</div>
+            </div>
+
+            <!-- 3. North Pole Wish Postbox -->
+            <div class="village-postbox" id="villagePostbox" role="button" tabindex="0">
+                <div class="village-postbox-ico">📮</div>
+                <div class="village-landmark-tag">Wish Post</div>
+            </div>
+
+            <!-- 4. Snowman -->
+            <div class="village-snowman" id="villageSnowman" role="button" tabindex="0">
+                <div class="village-snowman-ico">⛄</div>
+                <div class="village-landmark-tag">Frosty</div>
+            </div>
+
+            <!-- 5. Player's Live Robot playing in the snow -->
+            <div class="village-robot-stage" id="villageRobotStage" role="button" tabindex="0" title="Tap to play in the snow!">
+                <div id="villageRobotMount"></div>
+            </div>
+
+            <!-- 6. Wooden Signpost to Market -->
+            <button type="button" class="village-signpost" onclick="if(typeof openAdventMarket==='function')openAdventMarket()">🎪 Market →</button>
+        </div>
+
+        <div class="village-dock">
+            <button type="button" class="village-dock-btn gift-ready" id="villageGiftBtn" onclick="claimVillageDailyGift()"><span>🎁</span><span>Daily Gift</span></button>
+            <button type="button" class="village-dock-btn" onclick="triggerVillageSleigh()"><span>🛷</span><span>Sleigh</span></button>
+            <button type="button" class="village-dock-btn" onclick="triggerVillageBlizzard()"><span>❄️</span><span>Blizzard</span></button>
+            <button type="button" class="village-dock-btn" onclick="toggleVillageWishDrawer()"><span>📮</span><span>Wishes</span></button>
+        </div>
+
+        <!-- Inline Santa Wish Drawer -->
+        <div class="village-wish-drawer" id="villageWishDrawer">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:15px;font-weight:900;color:#fef08a;">📮 Send a Wish to Santa</div>
+                <button type="button" class="shop-close-btn" style="width:30px;height:30px;font-size:14px;" onclick="toggleVillageWishDrawer(false)">✕</button>
+            </div>
+            <div style="display:flex;gap:8px;">
+                <input type="text" id="villageWishInput" maxlength="90" placeholder="Write your Christmas wish to Santa..." style="flex:1;padding:9px 12px;border-radius:12px;border:1px solid rgba(186,230,253,0.35);background:rgba(15,23,42,0.85);color:#fff;font-family:'Outfit',sans-serif;font-size:13px;outline:none;">
+                <button type="button" class="market-item-buy" style="flex:none;padding:9px 14px;" onclick="sendSantaWish()">Send 💌</button>
+            </div>
+            <div class="village-wish-list" id="villageWishList"></div>
         </div>
     </div>
 
@@ -22557,6 +23199,7 @@
                 if (typeof renderGiftGameCard === 'function') renderGiftGameCard();
                 if (typeof updateStreakBadge === 'function') updateStreakBadge();
                 if (typeof updateLootBadges === 'function') updateLootBadges();
+                if (typeof updateVillageGiftBadge === 'function') updateVillageGiftBadge();
 
                 // 3. Weather and time theme
                 applyTimeTheme();
@@ -23434,8 +24077,8 @@
 
             function isBgTarget(target) {
                 if (!target || typeof target.closest !== 'function') return false;
-                if (target.closest('button, a, input, textarea, .robot-btn, .bubble, .skin-toggle, .market-toggle, .favs-toggle, .settings-toggle, .streak')) return false;
-                const anyModal = document.querySelector('.skin-panel.open, .market-overlay.open, .favs-panel.open, .sync-panel.open, .settings-panel.open, .streak-panel.open, .skin-preview-overlay.open, .gift-game-overlay.open');
+                if (target.closest('button, a, input, textarea, .robot-btn, .bubble, .skin-toggle, .market-toggle, .village-toggle, .favs-toggle, .settings-toggle, .streak')) return false;
+                const anyModal = document.querySelector('.skin-panel.open, .market-overlay.open, .village-overlay.open, .favs-panel.open, .sync-panel.open, .settings-panel.open, .streak-panel.open, .skin-preview-overlay.open, .gift-game-overlay.open');
                 if (anyModal) return false;
                 return true;
             }
@@ -26533,7 +27176,7 @@
             syncClose.addEventListener('click', () => syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_music', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_market_bag', 'nu_market_cozy', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
+            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_music', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_market_bag', 'nu_market_cozy', 'nu_village_gift_day', 'nu_santa_wishes', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
 
             exportBtn.addEventListener('click', () => {
                 const data = {};
@@ -27145,7 +27788,7 @@
 
         // Helper to hide toggles
         window.toggleMainButtons = (show) => {
-            const ids = ['skinToggle', 'marketToggle', 'favsToggle', 'settingsToggle', 'newsToggle'];
+            const ids = ['skinToggle', 'marketToggle', 'villageToggle', 'favsToggle', 'settingsToggle', 'newsToggle'];
             ids.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.toggle('hidden', !show);
@@ -30652,6 +31295,10 @@
                 if (typeof hapticTap === 'function') hapticTap(10);
                 if (typeof window.cancelHomeSkinPreview === 'function') window.cancelHomeSkinPreview();
                 if (typeof window.stopRobotSong === 'function') window.stopRobotSong();
+                if (typeof window.closeSantasVillage === 'function') {
+                    const vOv = document.getElementById('villageOverlay');
+                    if (vOv && vOv.classList.contains('open')) window.closeSantasVillage(true);
+                }
                 if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
 
                 ensureMarketSnow();
@@ -30963,6 +31610,301 @@
 
             updateMarketBagBadge();
             updateCozyUI();
+        })();
+
+        // ========== SANTA'S VILLAGE (MIKULÁS FALVA) ==========
+        (function () {
+            const TREE_THEMES = ['', 'theme-rainbow', 'theme-frost'];
+            let _treeThemeIdx = 0;
+            let _hopTimer = null;
+
+            function todayKey() {
+                return new Date().toDateString();
+            }
+
+            function canClaimVillageGift() {
+                return localStorage.getItem('nu_village_gift_day') !== todayKey();
+            }
+
+            window.updateVillageGiftBadge = function () {
+                const ready = canClaimVillageGift();
+                const dot = document.getElementById('villageGiftDot');
+                const btn = document.getElementById('villageGiftBtn');
+                if (dot) dot.style.display = ready ? 'inline-block' : 'none';
+                if (btn) {
+                    btn.classList.toggle('gift-ready', ready);
+                    btn.innerHTML = ready
+                        ? '<span>🎁</span><span>Daily Gift</span>'
+                        : '<span>✓</span><span>Claimed</span>';
+                }
+            };
+
+            function ensureVillageSnow() {
+                const layer = document.getElementById('villageSnowLayer');
+                if (!layer || layer.childElementCount > 0) return;
+                const specs = [
+                    { cls: 'far', count: 18, minSz: 2, maxSz: 3.2, minDur: 9, maxDur: 13, op: 0.55 },
+                    { cls: 'mid', count: 18, minSz: 3.5, maxSz: 5, minDur: 6, maxDur: 8.5, op: 0.82 },
+                    { cls: 'near', count: 12, minSz: 5.5, maxSz: 7.5, minDur: 4, maxDur: 5.8, op: 0.95 }
+                ];
+                specs.forEach(sp => {
+                    for (let i = 0; i < sp.count; i++) {
+                        const fl = document.createElement('div');
+                        fl.className = 'village-flake ' + sp.cls;
+                        const sz = (sp.minSz + Math.random() * (sp.maxSz - sp.minSz)).toFixed(1);
+                        const dur = (sp.minDur + Math.random() * (sp.maxDur - sp.minDur)).toFixed(1);
+                        fl.style.width = sz + 'px';
+                        fl.style.height = sz + 'px';
+                        fl.style.left = (Math.random() * 100).toFixed(1) + '%';
+                        fl.style.setProperty('--vd', dur + 's');
+                        fl.style.setProperty('--vdelay', (-Math.random() * 10).toFixed(1) + 's');
+                        fl.style.setProperty('--vsx', Math.round((Math.random() - 0.5) * 90) + 'px');
+                        fl.style.setProperty('--vop', String(sp.op));
+                        layer.appendChild(fl);
+                    }
+                });
+            }
+
+            function playVillageChime(kind) {
+                if (window.isSfxMuted && window.isSfxMuted()) return;
+                const ctx = typeof _sfxCtx === 'function' ? _sfxCtx() : null;
+                if (!ctx) return;
+                if (ctx.state === 'suspended') {
+                    try { ctx.resume(); } catch (e) { }
+                }
+                const now = ctx.currentTime;
+                const notes = kind === 'sleigh'
+                    ? [659.25, 659.25, 659.25, 783.99, 1046.5]
+                    : kind === 'blizzard'
+                        ? [1046.5, 1318.51, 1567.98, 2093]
+                        : [783.99, 987.77, 1174.66];
+                notes.forEach((f, idx) => {
+                    const o = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    o.type = 'sine';
+                    o.frequency.value = f;
+                    const st = now + idx * 0.08;
+                    g.gain.setValueAtTime(0.001, st);
+                    g.gain.linearRampToValueAtTime(0.06, st + 0.015);
+                    g.gain.exponentialRampToValueAtTime(0.001, st + 0.36);
+                    o.connect(g).connect(ctx.destination);
+                    o.start(st);
+                    o.stop(st + 0.4);
+                });
+            }
+
+            function setVillageBubble(msg) {
+                const b = document.getElementById('villageBubble');
+                if (b) b.textContent = msg;
+            }
+
+            function getSantaWishes() {
+                try {
+                    const arr = JSON.parse(localStorage.getItem('nu_santa_wishes') || '[]');
+                    return Array.isArray(arr) ? arr : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+            function renderWishList() {
+                const list = document.getElementById('villageWishList');
+                if (!list) return;
+                const wishes = getSantaWishes();
+                if (!wishes.length) {
+                    list.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;padding:8px;">No wishes sent yet ✨</div>';
+                    return;
+                }
+                list.innerHTML = '';
+                wishes.slice(-10).reverse().forEach(w => {
+                    const el = document.createElement('div');
+                    el.className = 'village-wish-item';
+                    el.textContent = '🎅 ' + String(w.text || '');
+                    list.appendChild(el);
+                });
+            }
+
+            window.openSantasVillage = function () {
+                const ov = document.getElementById('villageOverlay');
+                if (!ov) return;
+                if (typeof hapticTap === 'function') hapticTap(10);
+                if (typeof window.cancelHomeSkinPreview === 'function') window.cancelHomeSkinPreview();
+                if (typeof window.stopRobotSong === 'function') window.stopRobotSong();
+                const mOv = document.getElementById('marketOverlay');
+                if (mOv && mOv.classList.contains('open')) {
+                    mOv.classList.remove('open');
+                    const ws = document.getElementById('marketWalkScene');
+                    const bs = document.getElementById('marketBoothScene');
+                    if (ws) ws.classList.remove('active');
+                    if (bs) bs.classList.remove('active');
+                }
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+
+                ensureVillageSnow();
+                window.updateVillageGiftBadge();
+                if (typeof updateGemUI === 'function') updateGemUI();
+                const g = parseInt(localStorage.getItem('nu_gems') || '0', 10) || 0;
+                document.querySelectorAll('[data-gem-display]').forEach(el => { el.textContent = g; });
+
+                const mount = document.getElementById('villageRobotMount');
+                if (mount) {
+                    const skinId = localStorage.getItem('nu_active_skin') || '';
+                    mount.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:42px">🤖</div>';
+                }
+                const drawer = document.getElementById('villageWishDrawer');
+                if (drawer) drawer.classList.remove('open');
+                renderWishList();
+                setVillageBubble("❄️ Welcome to Santa's Snowy Village! Tap around to explore! ✨");
+
+                ov.classList.add('open');
+                window.triggerVillageSleigh();
+            };
+
+            window.closeSantasVillage = function (silent) {
+                if (_hopTimer) { clearTimeout(_hopTimer); _hopTimer = null; }
+                const ov = document.getElementById('villageOverlay');
+                const drawer = document.getElementById('villageWishDrawer');
+                if (drawer) drawer.classList.remove('open');
+                if (ov) ov.classList.remove('open');
+                if (!silent && typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                window.updateVillageGiftBadge();
+            };
+
+            window.claimVillageDailyGift = function () {
+                if (typeof hapticTap === 'function') hapticTap(12);
+                if (!canClaimVillageGift()) {
+                    setVillageBubble("🎅 Ho Ho! Today's +25 💎 gift already claimed! Come back tomorrow!");
+                    return;
+                }
+                localStorage.setItem('nu_village_gift_day', todayKey());
+                if (typeof addGems === 'function') addGems(25);
+                else {
+                    const nextG = (parseInt(localStorage.getItem('nu_gems') || '0', 10) || 0) + 25;
+                    localStorage.setItem('nu_gems', String(nextG));
+                    document.querySelectorAll('[data-gem-display]').forEach(el => { el.textContent = nextG; });
+                }
+                if (typeof playSfx === 'function') playSfx('gem-claim');
+                window.updateVillageGiftBadge();
+                showLootToast("Santa's Village Gift!", '+25 Gems from Santa’s Workshop! 🎅', '🎁');
+                setVillageBubble('🎅 Ho Ho Ho! Here is +25 💎 from Santa’s Workshop! 🎁✨');
+            };
+
+            window.triggerVillageSleigh = function () {
+                const sleigh = document.getElementById('villageSleigh');
+                if (!sleigh) return;
+                sleigh.classList.remove('fly');
+                void sleigh.offsetWidth;
+                sleigh.classList.add('fly');
+                playVillageChime('sleigh');
+                setVillageBubble('🛷 Look up! Santa’s sleigh is flying across the aurora! ✨');
+            };
+
+            window.triggerVillageBlizzard = function () {
+                if (typeof hapticTap === 'function') hapticTap(14);
+                const layer = document.getElementById('villageSnowLayer');
+                if (!layer) return;
+                playVillageChime('blizzard');
+                setVillageBubble('❄️ Whoosh! Magical Lapland snow blizzard! 🌨️✨');
+                for (let i = 0; i < 35; i++) {
+                    const bf = document.createElement('div');
+                    bf.className = 'village-blizzard-flake';
+                    const sz = (3 + Math.random() * 6).toFixed(1);
+                    bf.style.width = sz + 'px';
+                    bf.style.height = sz + 'px';
+                    bf.style.left = (Math.random() * 100).toFixed(1) + '%';
+                    bf.style.setProperty('--bd', (1.4 + Math.random() * 1.4).toFixed(2) + 's');
+                    bf.style.setProperty('--bsx', Math.round((Math.random() - 0.3) * 200) + 'px');
+                    bf.style.animationDelay = (Math.random() * 0.4).toFixed(2) + 's';
+                    layer.appendChild(bf);
+                    setTimeout(() => bf.remove(), 3000);
+                }
+            };
+
+            window.toggleVillageWishDrawer = function (forceState) {
+                const drawer = document.getElementById('villageWishDrawer');
+                if (!drawer) return;
+                const open = typeof forceState === 'boolean' ? forceState : !drawer.classList.contains('open');
+                drawer.classList.toggle('open', open);
+                if (open) {
+                    renderWishList();
+                    const inp = document.getElementById('villageWishInput');
+                    if (inp) setTimeout(() => inp.focus(), 100);
+                }
+            };
+
+            window.sendSantaWish = function () {
+                const inp = document.getElementById('villageWishInput');
+                if (!inp) return;
+                const txt = inp.value.trim();
+                if (!txt) return;
+                const wishes = getSantaWishes();
+                wishes.push({ text: txt, ts: Date.now() });
+                localStorage.setItem('nu_santa_wishes', JSON.stringify(wishes.slice(-20)));
+                inp.value = '';
+                renderWishList();
+                playVillageChime('sleigh');
+                if (typeof hapticTap === 'function') hapticTap(10);
+
+                const scene = document.getElementById('villageScene');
+                if (scene) {
+                    const letter = document.createElement('div');
+                    letter.className = 'village-letter-fly';
+                    letter.textContent = '💌';
+                    scene.appendChild(letter);
+                    setTimeout(() => letter.remove(), 1100);
+                }
+                setVillageBubble('📮 Santa received your wish! 🎅✨');
+            };
+
+            const vToggle = document.getElementById('villageToggle');
+            const vClose = document.getElementById('villageCloseBtn');
+            const vCabin = document.getElementById('villageCabin');
+            const vTree = document.getElementById('villageTree');
+            const vPost = document.getElementById('villagePostbox');
+            const vSnowman = document.getElementById('villageSnowman');
+            const vRobot = document.getElementById('villageRobotStage');
+            const vWishInput = document.getElementById('villageWishInput');
+
+            if (vToggle) vToggle.addEventListener('click', window.openSantasVillage);
+            if (vClose) vClose.addEventListener('click', () => window.closeSantasVillage(false));
+            if (vCabin) vCabin.addEventListener('click', window.claimVillageDailyGift);
+            if (vTree) {
+                vTree.addEventListener('click', () => {
+                    _treeThemeIdx = (_treeThemeIdx + 1) % TREE_THEMES.length;
+                    vTree.classList.remove('theme-rainbow', 'theme-frost');
+                    if (TREE_THEMES[_treeThemeIdx]) vTree.classList.add(TREE_THEMES[_treeThemeIdx]);
+                    playVillageChime('tree');
+                    const names = ['Classic Gold ✨', 'Festive Rainbow 🌈', 'Ice Frost ❄️'];
+                    setVillageBubble('🎄 Village Tree lights: ' + names[_treeThemeIdx]);
+                });
+            }
+            if (vPost) vPost.addEventListener('click', () => window.toggleVillageWishDrawer());
+            if (vSnowman) {
+                vSnowman.addEventListener('click', () => {
+                    vSnowman.classList.remove('wiggle');
+                    void vSnowman.offsetWidth;
+                    vSnowman.classList.add('wiggle');
+                    playVillageChime('tree');
+                    setVillageBubble('Stay frosty! ⛄❄️');
+                });
+            }
+            if (vRobot) {
+                vRobot.addEventListener('click', () => {
+                    if (_hopTimer) clearTimeout(_hopTimer);
+                    vRobot.classList.remove('hop');
+                    void vRobot.offsetWidth;
+                    vRobot.classList.add('hop');
+                    _hopTimer = setTimeout(() => vRobot.classList.remove('hop'), 950);
+                    playVillageChime('blizzard');
+                    setVillageBubble('🤖 Playing in the fresh snow!! ❄️✨');
+                });
+            }
+            if (vWishInput) {
+                vWishInput.addEventListener('keydown', e => {
+                    if (e.key === 'Enter') window.sendSantaWish();
+                });
+            }
+
+            window.updateVillageGiftBadge();
         })();
 
         window.renderAdventCalendar();
