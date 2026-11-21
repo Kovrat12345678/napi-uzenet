@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v66';
+const CACHE_NAME = 'dailybot-v67';
 const ASSETS = [
     './',
     './index.html',
@@ -28,6 +28,7 @@ self.addEventListener('activate', e => {
 // Fetch — network first az index.html-hez, cache first a többihez
 self.addEventListener('fetch', e => {
     const url = new URL(e.request.url);
+    if (url.origin !== self.location.origin) return;
     if (url.pathname.endsWith('/') || url.pathname.endsWith('index.html') || url.pathname.endsWith('manifest.json')) {
         e.respondWith(
             fetch(e.request).then(r => {

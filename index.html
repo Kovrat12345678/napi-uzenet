@@ -20200,13 +20200,101 @@
         (function () { const c = document.getElementById('stars'); for (let i = 0; i < 20; i++) { const s = document.createElement('span'); s.className = 'star'; s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--s:${Math.random() * 12 + 8}px;--d:${(Math.random() * 3 + 2).toFixed(1)}s`; c.appendChild(s) } })();
 
         // ========== NAPSZAK + IDŐJÁRÁS HÁTTÉR (AUTOMATIKUS) ==========
-        function getDayPhase(h) {
-            if (h >= 5 && h < 8) return 'dawn';
-            if (h >= 8 && h < 12) return 'morning';
-            if (h >= 12 && h < 17) return 'day';
-            if (h >= 17 && h < 20) return 'sunset';
-            if (h >= 20 && h < 22) return 'evening';
-            return 'night';
+        function getSavedCoords() {
+            if (typeof window !== 'undefined' && window._liveCoords && typeof window._liveCoords.lat === 'number' && typeof window._liveCoords.lon === 'number') {
+                return window._liveCoords;
+            }
+            try {
+                const saved = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('nu_last_coords') || 'null') : null;
+                if (saved && saved.lat != null && saved.lon != null) {
+                    const lat = parseFloat(saved.lat);
+                    const lon = parseFloat(saved.lon);
+                    if (!isNaN(lat) && !isNaN(lon)) return { lat: lat, lon: lon };
+                }
+            } catch (e) { }
+            return { lat: 47.50, lon: 19.04 };
+        }
+
+        function getLocalDateKey(d) {
+            const dt = d instanceof Date ? d : new Date();
+            const m = String(dt.getMonth() + 1).padStart(2, '0');
+            const day = String(dt.getDate()).padStart(2, '0');
+            return `${dt.getFullYear()}-${m}-${day}`;
+        }
+
+        function parseIsoMinutes(isoStr) {
+            const match = typeof isoStr === 'string' && isoStr.match(/T(\d{2}):(\d{2})/);
+            if (!match) return null;
+            return parseInt(match[1], 10) * 60 + parseInt(match[2], 10);
+        }
+
+        function computeSunTimes(date, lat, lon) {
+            const d = date instanceof Date ? date : new Date();
+            const y = d.getFullYear();
+            const m = d.getMonth();
+            const day = d.getDate();
+            const dayOfYear = Math.floor((Date.UTC(y, m, day) - Date.UTC(y, 0, 0)) / 86400000);
+            const daysInYear = (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)) ? 366 : 365;
+            const tzMin = -d.getTimezoneOffset();
+            const safeLat = Math.max(-89.8, Math.min(89.8, Number(lat) || 47.50));
+            const rawLon = (typeof lon === 'number' && !isNaN(lon)) ? lon : 19.04;
+            const safeLon = Math.abs(rawLon - (tzMin / 4)) > 45 ? (tzMin / 4) : rawLon;
+            const gamma = (2 * Math.PI / daysInYear) * (dayOfYear - 1);
+            const eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(gamma) - 0.032077 * Math.sin(gamma) - 0.014615 * Math.cos(2 * gamma) - 0.040849 * Math.sin(2 * gamma));
+            const decl = 0.006918 - 0.399912 * Math.cos(gamma) + 0.070257 * Math.sin(gamma) - 0.006758 * Math.cos(2 * gamma) + 0.000907 * Math.sin(2 * gamma) - 0.002697 * Math.cos(3 * gamma) + 0.00148 * Math.sin(3 * gamma);
+            const latRad = safeLat * Math.PI / 180;
+            const zenith = 90.833 * Math.PI / 180;
+            const cosHA = (Math.cos(zenith) / (Math.cos(latRad) * Math.cos(decl))) - Math.tan(latRad) * Math.tan(decl);
+            const solarNoon = Math.round(720 - 4 * safeLon - eqtime + tzMin);
+            if (cosHA > 1) return { sunriseMin: null, sunsetMin: null, polar: 'night', solarNoon: solarNoon };
+            if (cosHA < -1) return { sunriseMin: null, sunsetMin: null, polar: 'day', solarNoon: solarNoon };
+            const haDeg = Math.acos(cosHA) * 180 / Math.PI;
+            const sunriseMin = Math.round(solarNoon - 4 * haDeg);
+            const sunsetMin = Math.round(solarNoon + 4 * haDeg);
+            return { sunriseMin: sunriseMin, sunsetMin: sunsetMin, polar: null, solarNoon: solarNoon };
+        }
+
+        function getSunTimesForDate(date) {
+            const d = date instanceof Date ? date : new Date();
+            const key = getLocalDateKey(d);
+            const w = getSavedWeather();
+            if (w && w.dateStr === key && typeof w.sunriseMin === 'number' && typeof w.sunsetMin === 'number') {
+                return { sunriseMin: w.sunriseMin, sunsetMin: w.sunsetMin, polar: null, solarNoon: Math.round((w.sunriseMin + w.sunsetMin) / 2) };
+            }
+            const coords = getSavedCoords();
+            return computeSunTimes(d, coords.lat, coords.lon);
+        }
+
+        function getDayPhase(dateOrHour) {
+            const isExplicitHour = typeof dateOrHour === 'number';
+            const now = isExplicitHour ? new Date() : (dateOrHour instanceof Date ? dateOrHour : new Date());
+            const nowMin = isExplicitHour ? (dateOrHour * 60) : (now.getHours() * 60 + now.getMinutes());
+            const sun = getSunTimesForDate(now);
+            let phase;
+            if (sun.polar === 'night') {
+                phase = 'night';
+            } else if (sun.polar === 'day') {
+                phase = 'day';
+            } else {
+                const sr = sun.sunriseMin;
+                const ss = sun.sunsetMin;
+                const dayLen = Math.max(120, ss - sr);
+                const morningEnd = sr + Math.round(dayLen * 0.35);
+                if (nowMin < sr - 35) phase = 'night';
+                else if (nowMin < sr + 40) phase = 'dawn';
+                else if (nowMin < morningEnd) phase = 'morning';
+                else if (nowMin < ss - 45) phase = 'day';
+                else if (nowMin < ss + 10) phase = 'sunset';
+                else if (nowMin < ss + 45) phase = 'evening';
+                else phase = 'night';
+            }
+            if (!isExplicitHour) {
+                const w = getSavedWeather();
+                if (w && w.isDay === 0 && (phase === 'morning' || phase === 'day')) {
+                    phase = 'evening';
+                }
+            }
+            return phase;
         }
 
         function mapWmoToWeather(code) {
@@ -20277,20 +20365,47 @@
         };
 
         function getSavedWeather() {
-            if (window._weatherPreview) {
-                return { type: window._weatherPreview.type || 'clear', heavy: !!window._weatherPreview.heavy };
+            const todayKey = getLocalDateKey(new Date());
+            const nowTs = Date.now();
+            if (typeof window !== 'undefined' && window._weatherPreview) {
+                return { type: window._weatherPreview.type || 'clear', heavy: !!window._weatherPreview.heavy, sunriseMin: null, sunsetMin: null, dateStr: null, isDay: null };
             }
-            if (window._liveWeather && window._liveWeather.type) return window._liveWeather;
+            if (typeof window !== 'undefined' && window._liveWeather && window._liveWeather.type) {
+                const lw = window._liveWeather;
+                const isToday = lw.dateStr === todayKey;
+                const freshIsDay = (lw.ts && (nowTs - lw.ts) < 20 * 60 * 1000 && typeof lw.isDay === 'number') ? lw.isDay : null;
+                return {
+                    type: lw.type,
+                    heavy: !!lw.heavy,
+                    sunriseMin: isToday && typeof lw.sunriseMin === 'number' ? lw.sunriseMin : null,
+                    sunsetMin: isToday && typeof lw.sunsetMin === 'number' ? lw.sunsetMin : null,
+                    dateStr: isToday ? lw.dateStr : null,
+                    isDay: freshIsDay
+                };
+            }
             try {
-                const cached = JSON.parse(localStorage.getItem('nu_last_weather') || 'null');
-                if (cached && cached.type && (Date.now() - (cached.ts || 0)) < 30 * 60 * 1000) {
-                    return { type: cached.type, heavy: !!cached.heavy };
+                const cached = typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('nu_last_weather') || 'null') : null;
+                if (cached && cached.type) {
+                    const age = nowTs - (cached.ts || 0);
+                    const isToday = cached.dateStr === todayKey;
+                    const freshType = age < 30 * 60 * 1000;
+                    const freshIsDay = (age < 20 * 60 * 1000 && typeof cached.isDay === 'number') ? cached.isDay : null;
+                    if (freshType || isToday) {
+                        return {
+                            type: freshType ? cached.type : 'clear',
+                            heavy: freshType ? !!cached.heavy : false,
+                            sunriseMin: isToday && typeof cached.sunriseMin === 'number' ? cached.sunriseMin : null,
+                            sunsetMin: isToday && typeof cached.sunsetMin === 'number' ? cached.sunsetMin : null,
+                            dateStr: isToday ? cached.dateStr : null,
+                            isDay: freshIsDay
+                        };
+                    }
                 }
             } catch (e) { }
-            return { type: 'clear', heavy: false };
+            return { type: 'clear', heavy: false, sunriseMin: null, sunsetMin: null, dateStr: null, isDay: null };
         }
 
-        function renderWeatherLayer(phase, weatherType, heavy) {
+        function renderWeatherLayer(phase, weatherType, heavy, showSun) {
             if (window._lightningTimer) {
                 clearTimeout(window._lightningTimer);
                 window._lightningTimer = null;
@@ -20314,6 +20429,7 @@
 
             const isDaylight = phase === 'dawn' || phase === 'morning' || phase === 'day' || phase === 'sunset';
             const isDark = phase === 'evening' || phase === 'night';
+            const canShowSun = (typeof showSun === 'boolean') ? showSun : isDaylight;
 
             if ((phase === 'morning' || phase === 'day') && (weatherType === 'clear' || weatherType === 'partly-cloudy' || weatherType === 'fog' || weatherType === 'snow')) {
                 const scrim = document.createElement('div');
@@ -20344,7 +20460,7 @@
             const stormCloudTint = isDark ? 'rgba(15, 23, 42, 0.78)' : 'rgba(51, 65, 85, 0.65)';
 
             if (weatherType === 'clear' || weatherType === 'partly-cloudy') {
-                if (isDaylight) {
+                if (canShowSun) {
                     const sunPos = phase === 'dawn'
                         ? { x: '20%', y: '26%' }
                         : phase === 'morning'
@@ -20371,7 +20487,8 @@
                         beams.appendChild(ray);
                     }
                     wl.appendChild(beams);
-                } else {
+                }
+                if (isDark) {
                     const moon = document.createElement('div');
                     moon.className = 'sky-moon';
                     wl.appendChild(moon);
@@ -20452,14 +20569,25 @@
             }
         })();
 
-        function applyTimeTheme() {
+        function applyTimeTheme(force) {
             document.body.classList.remove('racing-event', 'bg-galaxy', 'bg-gamer', 'bg-tulip', 'bg-glass', 'bg-graffiti', 'bg-nebula', 'bg-aurora', 'bg-infinity');
+            const now = new Date();
             const preview = window._weatherPreview;
-            const hr = (preview && preview.hour != null) ? preview.hour : new Date().getHours();
-            const phase = (preview && preview.phase) ? preview.phase : getDayPhase(hr);
+            const phase = (preview && preview.phase)
+                ? preview.phase
+                : (preview && preview.hour != null)
+                    ? getDayPhase(preview.hour)
+                    : getDayPhase(now);
             const weather = getSavedWeather();
             const phasePalettes = SKY_PALETTES[phase] || SKY_PALETTES.day;
             const pal = phasePalettes[weather.type] || phasePalettes.clear;
+
+            let showSun = (phase === 'dawn' || phase === 'morning' || phase === 'day' || phase === 'sunset');
+            if (!preview) {
+                const sun = getSunTimesForDate(now);
+                const nowMin = now.getHours() * 60 + now.getMinutes();
+                showSun = showSun && (sun.polar === 'day' || (sun.sunriseMin != null && nowMin >= sun.sunriseMin - 5 && nowMin <= sun.sunsetMin + 5));
+            }
 
             const tc = document.getElementById('themeColor');
             document.body.style.background = pal.bg;
@@ -20473,18 +20601,24 @@
             }
             document.body.dataset.dayPhase = phase;
             document.body.dataset.weather = weather.type;
-            renderWeatherLayer(phase, weather.type, weather.heavy);
+
+            const wlEl = document.getElementById('weatherLayer');
+            const skyKey = phase + '|' + weather.type + '|' + (weather.heavy ? 1 : 0) + '|' + (showSun ? 1 : 0);
+            if (force || window._lastSkyKey !== skyKey || !wlEl || !wlEl.childElementCount) {
+                window._lastSkyKey = skyKey;
+                renderWeatherLayer(phase, weather.type, weather.heavy, showSun);
+            }
         }
 
         window.setWeatherPreview = function (phase, weatherType, heavy) {
             window._weatherPreview = { phase: phase || 'day', type: weatherType || 'clear', heavy: !!heavy };
-            applyTimeTheme();
+            applyTimeTheme(true);
         };
         window.resetWeatherPreview = function () {
             window._weatherPreview = null;
-            applyTimeTheme();
+            applyTimeTheme(true);
         };
-        applyTimeTheme();
+        applyTimeTheme(true);
 
         // ========== ROBOT ÖLTÖZÉKEK ==========
         (function () {
@@ -20528,15 +20662,30 @@
         // ========== IDŐJÁRÁS ==========
         (function () {
             function fetchWeatherForCoords(lat, lon) {
-                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+                fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=sunrise,sunset&timezone=auto&forecast_days=1`)
                     .then(r => r.json())
                     .then(data => {
                         if (!data || !data.current_weather) return;
                         const code = data.current_weather.weathercode;
                         const mapped = mapWmoToWeather(code);
-                        window._liveWeather = { type: mapped.type, heavy: mapped.heavy, code: code };
+                        const now = new Date();
+                        const localTzMin = -now.getTimezoneOffset();
+                        const apiTzMin = (typeof data.utc_offset_seconds === 'number') ? (data.utc_offset_seconds / 60) : localTzMin;
+                        const sameTz = Math.abs(apiTzMin - localTzMin) <= 60;
+                        const sunriseIso = data.daily && data.daily.sunrise && data.daily.sunrise[0];
+                        const sunsetIso = data.daily && data.daily.sunset && data.daily.sunset[0];
+                        const sunriseMin = (sameTz && sunriseIso) ? parseIsoMinutes(sunriseIso) : null;
+                        const sunsetMin = (sameTz && sunsetIso) ? parseIsoMinutes(sunsetIso) : null;
+                        const isDay = (sameTz && typeof data.current_weather.is_day === 'number') ? data.current_weather.is_day : null;
+                        const dateStr = getLocalDateKey(now);
+                        const nowTs = Date.now();
+                        const numLat = parseFloat(lat);
+                        const numLon = parseFloat(lon);
+                        window._liveCoords = (!isNaN(numLat) && !isNaN(numLon)) ? { lat: numLat, lon: numLon } : window._liveCoords;
+                        window._liveWeather = { type: mapped.type, heavy: mapped.heavy, code: code, isDay: isDay, sunriseMin: sunriseMin, sunsetMin: sunsetMin, dateStr: dateStr, ts: nowTs };
+                        window._lastWeatherFetchTs = nowTs;
                         try {
-                            localStorage.setItem('nu_last_weather', JSON.stringify({ type: mapped.type, heavy: mapped.heavy, ts: Date.now() }));
+                            localStorage.setItem('nu_last_weather', JSON.stringify({ type: mapped.type, heavy: mapped.heavy, isDay: isDay, sunriseMin: sunriseMin, sunsetMin: sunsetMin, dateStr: dateStr, ts: nowTs }));
                             localStorage.setItem('nu_last_coords', JSON.stringify({ lat: lat, lon: lon }));
                         } catch (e) { }
                         applyTimeTheme();
@@ -20581,8 +20730,19 @@
             }
 
             setTimeout(refreshWeather, 100);
-            setInterval(applyTimeTheme, 5 * 60 * 1000);
+            setInterval(() => applyTimeTheme(), 60 * 1000);
             setInterval(refreshWeather, 20 * 60 * 1000);
+
+            function onAppReturn() {
+                applyTimeTheme();
+                if (Date.now() - (window._lastWeatherFetchTs || 0) > 15 * 60 * 1000) {
+                    refreshWeather();
+                }
+            }
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) onAppReturn();
+            });
+            window.addEventListener('focus', onAppReturn);
         })();
 
         // ========== ÜZENETEK (365 db) ==========
@@ -24234,10 +24394,10 @@
             let scheduleTimers = [];
 
             function getMood() {
-                const h = new Date().getHours();
-                if (h >= 6 && h < 12) return 'morning';       // fényes, vidám
-                if (h >= 12 && h < 18) return 'day';          // meleg C dúr
-                return 'evening';                         // lágy, mollos, ritka
+                const phase = (typeof getDayPhase === 'function') ? getDayPhase(new Date()) : 'day';
+                if (phase === 'dawn' || phase === 'morning') return 'morning'; // fényes, vidám
+                if (phase === 'day') return 'day';                              // meleg C dúr
+                return 'evening';                                               // lágy, mollos, ritka
             }
 
             function stopAllNodes() {
