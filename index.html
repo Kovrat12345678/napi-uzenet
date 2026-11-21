@@ -18822,9 +18822,13 @@
             z-index: 1;
         }
 
-        .advent-finale-bot .robot {
-            transform: scale(0.52);
-            transform-origin: center center;
+        .advent-finale-bot .dc-mini-robot-frame {
+            width: 52px;
+            height: 58px;
+        }
+        .advent-finale-bot .dc-mini-robot {
+            transform: translate(-50%, -50%) scale(0.24) !important;
+            animation: none !important;
         }
 
         .advent-finale-info {
@@ -19997,29 +20001,31 @@
         }
 
         /* ========== ADVENT MARKET (FOREST WALK + CHRISTMAS BOOTH) ========== */
-        .market-toggle {
-            position: fixed;
-            top: calc(env(safe-area-inset-top, 20px) + 60px);
-            left: 16px;
-            z-index: 50;
-            height: 36px;
-            padding: 0 13px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(6, 95, 70, 0.78), rgba(180, 83, 9, 0.62));
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1.5px solid rgba(251, 191, 36, 0.55);
-            box-shadow: 0 4px 16px rgba(6, 95, 70, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            display: inline-flex;
+        .home-bottom-area {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
+            width: 100%;
+        }
+        .market-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(6, 95, 70, 0.85), rgba(180, 83, 9, 0.72));
+            border: 1.5px solid rgba(251, 191, 36, 0.72);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 18px rgba(251, 191, 36, 0.2);
+            color: #fef08a;
             font-family: 'Outfit', sans-serif;
             font-size: 13px;
-            font-weight: 800;
-            color: #fef08a;
+            font-weight: 900;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
-            transition: transform 0.2s ease, opacity 0.3s ease, box-shadow 0.25s ease;
+            transition: transform 0.18s ease, opacity 0.25s ease;
         }
         .market-toggle:active {
             transform: scale(0.94);
@@ -20371,26 +20377,52 @@
         }
 
         .market-stall-stage {
-            margin: 10px 12px 0;
-            border-radius: 20px;
+            margin: 8px 12px 0;
+            border-radius: 22px;
             overflow: hidden;
-            border: 2px solid rgba(251, 191, 36, 0.55);
-            background: linear-gradient(180deg, #3b1708 0%, #241007 65%, #170a05 100%);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(251, 191, 36, 0.16);
+            position: relative;
+            border: 2px solid #d97706;
+            background: linear-gradient(180deg, #5c280e 0%, #3b1808 60%, #240e04 100%);
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), 0 0 28px rgba(251, 191, 36, 0.18);
             flex-shrink: 0;
+        }
+        .market-roof-snow {
+            height: 11px;
+            background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 70%, #bae6fd 100%);
+            box-shadow: 0 3px 10px rgba(224, 242, 254, 0.45);
         }
         .market-awning {
             position: relative;
-            height: 28px;
-            background: repeating-linear-gradient(90deg, #dc2626 0 22px, #fef3c7 22px 44px);
-            border-bottom: 3px solid #fbbf24;
+            height: 32px;
+            background: repeating-linear-gradient(90deg, #dc2626 0 20px, #fef3c7 20px 40px);
+            border-bottom: 3px dashed #fbbf24;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
         }
+        .market-booth-lights {
+            position: absolute;
+            bottom: -10px;
+            left: 14px;
+            right: 14px;
+            display: flex;
+            justify-content: space-around;
+            pointer-events: none;
+            z-index: 6;
+        }
+        .market-booth-bulb {
+            width: 7px;
+            height: 9px;
+            border-radius: 50% 50% 60% 60%;
+            animation: adventBulbGlow 1.7s ease-in-out infinite;
+        }
+        .market-booth-bulb:nth-child(4n+1) { background: #ef4444; box-shadow: 0 0 8px #ef4444; animation-delay: 0s; }
+        .market-booth-bulb:nth-child(4n+2) { background: #fbbf24; box-shadow: 0 0 8px #fbbf24; animation-delay: 0.35s; }
+        .market-booth-bulb:nth-child(4n+3) { background: #22c55e; box-shadow: 0 0 8px #22c55e; animation-delay: 0.7s; }
+        .market-booth-bulb:nth-child(4n)   { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; animation-delay: 1.05s; }
         .market-sign {
-            padding: 2px 12px;
+            padding: 3px 14px;
             border-radius: 999px;
             background: linear-gradient(135deg, #78350f, #451a03);
             border: 1.5px solid #fbbf24;
@@ -20398,93 +20430,204 @@
             font-size: 10px;
             font-weight: 900;
             letter-spacing: 0.7px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
         }
         .market-stall-interior {
             position: relative;
-            min-height: 122px;
-            padding: 10px 14px 4px;
+            height: 158px;
+            padding: 6px 26px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            background: radial-gradient(circle at 50% 42%, rgba(251, 191, 36, 0.22) 0%, rgba(120, 53, 15, 0.28) 55%, rgba(23, 10, 5, 0.85) 100%);
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 56%, rgba(251, 191, 36, 0.34) 0%, rgba(180, 83, 9, 0.22) 48%, rgba(23, 10, 5, 0.9) 100%),
+                repeating-linear-gradient(90deg, rgba(120, 53, 15, 0.24) 0 28px, rgba(69, 26, 3, 0.28) 28px 30px);
+        }
+        .market-pillar-l,
+        .market-pillar-r {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 14px;
+            background: linear-gradient(90deg, #451a03, #92400e, #451a03);
+            border-left: 1px solid rgba(251, 191, 36, 0.25);
+            border-right: 1px solid rgba(251, 191, 36, 0.25);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .market-pillar-l { left: 0; }
+        .market-pillar-r { right: 0; }
+        .market-hang-lantern {
+            position: absolute;
+            top: 8px;
+            width: 16px;
+            height: 22px;
+            border-radius: 5px;
+            background: radial-gradient(circle, #fffbeb 0%, #fbbf24 60%, #b45309 100%);
+            border: 1.5px solid #451a03;
+            box-shadow: 0 0 18px 6px rgba(251, 191, 36, 0.55);
+            transform-origin: top center;
+            animation: lanternSwing 3.4s ease-in-out infinite;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .market-hang-lantern::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            width: 2px;
+            height: 8px;
+            margin-left: -1px;
+            background: #78350f;
+        }
+        .market-hang-lantern.l { left: 22px; }
+        .market-hang-lantern.r { right: 22px; animation-delay: -1.7s; }
+        @keyframes lanternSwing {
+            0%, 100% { transform: rotate(-4deg); }
+            50% { transform: rotate(4deg); }
         }
         .market-shelf-props {
             position: absolute;
-            top: 8px;
-            left: 12px;
-            right: 12px;
+            bottom: 10px;
+            left: 20px;
+            right: 20px;
             display: flex;
             justify-content: space-between;
-            font-size: 18px;
-            opacity: 0.82;
+            font-size: 16px;
+            opacity: 0.9;
             pointer-events: none;
+            z-index: 3;
         }
         .market-bubble {
-            position: relative;
-            z-index: 4;
-            margin-bottom: 6px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
             padding: 5px 12px;
             border-radius: 14px;
-            background: rgba(15, 23, 42, 0.88);
-            border: 1px solid rgba(251, 191, 36, 0.55);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.65);
             color: #fef08a;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 800;
-            max-width: 92%;
+            max-width: 84%;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+        }
+        .market-bubble.pop {
+            animation: marketBubblePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes marketBubblePop {
+            0% { transform: translateX(-50%) scale(0.84); opacity: 0.7; }
+            100% { transform: translateX(-50%) scale(1); opacity: 1; }
         }
         .market-robot-stage {
             position: relative;
-            z-index: 3;
-            width: 96px;
-            height: 76px;
+            z-index: 4;
+            width: 132px;
+            height: 122px;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
-        .market-robot-stage .robot {
-            transform: scale(0.72);
-            transform-origin: center bottom;
+        .market-robot-stage .dc-mini-robot-frame {
+            width: 132px;
+            height: 122px;
         }
-        .market-robot-stage.eating .robot {
+        .market-robot-stage .dc-mini-robot {
+            transform: translate(-50%, -50%) scale(0.46) !important;
+            animation: marketRobotIdle 3s ease-in-out infinite !important;
+        }
+        @keyframes marketRobotIdle {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.46) translateY(0); }
+            50% { transform: translate(-50%, -50%) scale(0.46) translateY(-4px); }
+        }
+        .market-robot-stage.eating .dc-mini-robot {
             animation: marketEatBounce 0.34s ease-in-out 4 !important;
         }
         .market-robot-stage.eating .mouth {
-            width: 20px !important;
-            height: 14px !important;
+            width: 24px !important;
+            height: 18px !important;
             border-radius: 50% !important;
-            animation: marketChomp 0.22s ease-in-out 6 !important;
+            animation: marketChomp 0.24s ease-in-out 6 !important;
         }
         @keyframes marketEatBounce {
-            0%, 100% { transform: scale(0.72) translateY(0); }
-            50% { transform: scale(0.75) translateY(-8px) rotate(-3deg); }
+            0%, 100% { transform: translate(-50%, -50%) scale(0.46); }
+            50% { transform: translate(-50%, -54%) scale(0.49) rotate(-3deg); }
         }
         @keyframes marketChomp {
-            0%, 100% { transform: scaleY(0.45); }
+            0%, 100% { transform: scaleY(0.42); }
             50% { transform: scaleY(1.25); }
         }
-        .market-robot-stage.drinking .robot {
-            animation: marketSipSway 0.65s ease-in-out 2 !important;
+        .market-robot-stage.drinking .dc-mini-robot {
+            animation: marketSipSway 0.6s ease-in-out 2 !important;
         }
         .market-robot-stage.drinking .mouth {
-            width: 12px !important;
-            height: 12px !important;
+            width: 14px !important;
+            height: 14px !important;
             border-radius: 50% !important;
         }
         @keyframes marketSipSway {
-            0%, 100% { transform: scale(0.72) rotate(0deg); }
-            45% { transform: scale(0.74) rotate(-8deg) translateY(-4px); }
+            0%, 100% { transform: translate(-50%, -50%) scale(0.46) rotate(0deg); }
+            45% { transform: translate(-50%, -52%) scale(0.48) rotate(-7deg); }
+        }
+        .market-robot-stage.happy-fed .dc-mini-robot {
+            animation: marketHappyHop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 2 !important;
+            filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.7));
+        }
+        @keyframes marketHappyHop {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.46); }
+            45% { transform: translate(-50%, -58%) scale(0.5); }
+        }
+        .market-treat-prop {
+            position: absolute;
+            left: 50%;
+            top: 52%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 44px;
+            line-height: 1;
+            z-index: 12;
+            pointer-events: none;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+            opacity: 0;
+        }
+        .market-treat-prop.eat-anim {
+            animation: treatEatSequence 1.35s ease-in-out forwards;
+        }
+        @keyframes treatEatSequence {
+            0% { transform: translate(-50%, 34px) scale(0.4); opacity: 0; }
+            18% { transform: translate(-50%, -12px) scale(1.15) rotate(-8deg); opacity: 1; }
+            34% { transform: translate(-50%, -18px) scale(0.95) rotate(8deg); opacity: 1; }
+            52% { transform: translate(-50%, -18px) scale(0.75) rotate(-6deg); opacity: 1; }
+            72% { transform: translate(-50%, -20px) scale(0.48) rotate(8deg); opacity: 0.95; }
+            100% { transform: translate(-50%, -26px) scale(0); opacity: 0; }
+        }
+        .market-treat-prop.drink-anim {
+            animation: treatDrinkSequence 1.45s ease-in-out forwards;
+        }
+        @keyframes treatDrinkSequence {
+            0% { transform: translate(-50%, 36px) scale(0.45) rotate(0deg); opacity: 0; }
+            22% { transform: translate(-34%, -14px) scale(1.1) rotate(-22deg); opacity: 1; }
+            50% { transform: translate(-32%, -18px) scale(1.08) rotate(-36deg); opacity: 1; }
+            78% { transform: translate(-34%, -14px) scale(1.0) rotate(-24deg); opacity: 1; }
+            100% { transform: translate(-50%, 22px) scale(0.2) rotate(0deg); opacity: 0; }
         }
         .market-float-fx {
             position: absolute;
             left: 50%;
-            top: 44%;
+            top: 42%;
             font-size: 20px;
             pointer-events: none;
-            z-index: 10;
+            z-index: 14;
             animation: marketFloatUp 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         @keyframes marketFloatUp {
@@ -20494,7 +20637,7 @@
 
         .market-wooden-counter {
             padding: 8px 14px;
-            background: linear-gradient(180deg, #92400e 0%, #78350f 65%, #451a03 100%);
+            background: linear-gradient(180deg, rgba(224, 242, 254, 0.22) 0, rgba(224, 242, 254, 0.08) 3px, #b45309 4px, #92400e 45%, #451a03 100%);
             border-top: 2px solid #d97706;
             display: flex;
             align-items: center;
@@ -20980,14 +21123,17 @@
             </button>
         </div>
 
-        <div class="next-msg" id="nextMsg"></div>
-        <a class="tiktok-link" href="http://www.tiktok.com/@dailybot_dailymessage" target="_blank" rel="noopener">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M34.1 0h-8v32.4c0 3-2.4 5.5-5.4 5.5s-5.4-2.5-5.4-5.5 2.4-5.5 5.4-5.5c.6 0 1.1.1 1.6.3v-8.2c-.5-.1-1-.1-1.6-.1C13 18.9 7 24.9 7 32.4S13 46 20.7 46c7.6 0 13.7-6 13.7-13.6V15.7c2.9 2 6.4 3.2 10.2 3.2v-8c-5.6-.1-10.5-4.5-10.5-10.9z" />
-            </svg>
-            TikTok
-        </a>
+        <div class="home-bottom-area">
+            <div class="next-msg" id="nextMsg"></div>
+            <button type="button" class="market-toggle" id="marketToggle"><span>🎪</span><span>Advent Market</span><span class="market-bag-badge" id="marketBagBadge" style="display:none">0</span></button>
+            <a class="tiktok-link" href="http://www.tiktok.com/@dailybot_dailymessage" target="_blank" rel="noopener">
+                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M34.1 0h-8v32.4c0 3-2.4 5.5-5.4 5.5s-5.4-2.5-5.4-5.5 2.4-5.5 5.4-5.5c.6 0 1.1.1 1.6.3v-8.2c-.5-.1-1-.1-1.6-.1C13 18.9 7 24.9 7 32.4S13 46 20.7 46c7.6 0 13.7-6 13.7-13.6V15.7c2.9 2 6.4 3.2 10.2 3.2v-8c-5.6-.1-10.5-4.5-10.5-10.9z" />
+                </svg>
+                TikTok
+            </a>
+        </div>
     </div>
 
     <!-- Sync panel -->
@@ -21016,7 +21162,6 @@
     <div class="news-toggle" id="newsToggle" style="display:none !important">⚡ NEWS</div>
     <div class="skin-toggle" id="skinToggle"><span style="margin-right:6px">🎄</span> Shop<span class="shop-new-badge" id="shopNewBadge"
             style="display:none">NEW</span></div>
-    <button type="button" class="market-toggle" id="marketToggle"><span>🎪</span><span>Market</span><span class="market-bag-badge" id="marketBagBadge" style="display:none">0</span></button>
 
     
 
@@ -21266,15 +21411,30 @@
             </div>
 
             <div class="market-stall-stage">
+                <div class="market-roof-snow" aria-hidden="true"></div>
                 <div class="market-awning">
-                    <div class="market-sign">✨ WINTER MARKET ✨</div>
+                    <div class="market-sign">✨ CHRISTMAS BOOTH ✨</div>
+                    <div class="market-booth-lights" aria-hidden="true">
+                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
+                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
+                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
+                        <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
+                    </div>
                 </div>
                 <div class="market-stall-interior" id="marketStallInterior">
-                    <div class="market-shelf-props" aria-hidden="true"><span>🫖 🍪</span><span>🕯️ 🍬</span></div>
-                    <div class="market-bubble" id="marketBubble">Welcome! Pick cookies, hot tea, cocoa or boxes! 🎄</div>
-                    <div class="market-robot-stage" id="marketRobotStage"></div>
+                    <div class="market-pillar-l" aria-hidden="true"></div>
+                    <div class="market-pillar-r" aria-hidden="true"></div>
+                    <div class="market-hang-lantern l" aria-hidden="true"></div>
+                    <div class="market-hang-lantern r" aria-hidden="true"></div>
+                    <div class="market-shelf-props" aria-hidden="true"><span>🍪🧁</span><span>🫖🍬</span></div>
+                    <div class="market-bubble" id="marketBubble">Welcome! Buy treats below to feed me! 🎄</div>
+                    <div class="market-robot-stage" id="marketRobotStage" title="Tap to enjoy a treat from your basket!">
+                        <div id="marketRobotMount"></div>
+                        <div class="market-treat-prop" id="marketTreatProp" aria-hidden="true"></div>
+                    </div>
                 </div>
                 <div class="market-wooden-counter">
+                    <span style="font-size:13px;" aria-hidden="true">🍪☕</span>
                     <span class="market-cozy-label" id="marketCozyLabel">❤️ 0 / 5</span>
                     <div class="market-cozy-track"><div class="market-cozy-fill" id="marketCozyFill"></div></div>
                     <span class="market-cozy-reward">+15 💎</span>
@@ -30247,7 +30407,23 @@
 
             let _activeMarketTab = 'treats';
             let _walkTimers = [];
+            let _feedFxTimers = [];
             let _consumeTimer = null;
+
+            function clearFeedTimers() {
+                _feedFxTimers.forEach(t => clearTimeout(t));
+                _feedFxTimers = [];
+                if (_consumeTimer) { clearTimeout(_consumeTimer); _consumeTimer = null; }
+            }
+
+            function setMarketBubbleText(msg) {
+                const bubbleEl = document.getElementById('marketBubble');
+                if (!bubbleEl) return;
+                bubbleEl.textContent = msg;
+                bubbleEl.classList.remove('pop');
+                void bubbleEl.offsetWidth;
+                bubbleEl.classList.add('pop');
+            }
 
             function getMarketBag() {
                 try {
@@ -30483,14 +30659,20 @@
                 updateCozyUI();
                 updateMarketBagBadge();
 
+                clearFeedTimers();
                 const stage = document.getElementById('marketRobotStage');
-                if (stage) {
-                    const skinId = localStorage.getItem('nu_active_skin') || '';
-                    stage.classList.remove('eating', 'drinking');
-                    stage.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:48px">🤖</div>';
+                const mount = document.getElementById('marketRobotMount');
+                const prop = document.getElementById('marketTreatProp');
+                const skinId = localStorage.getItem('nu_active_skin') || '';
+                if (stage) stage.classList.remove('eating', 'drinking', 'happy-fed');
+                if (prop) {
+                    prop.classList.remove('eat-anim', 'drink-anim');
+                    prop.textContent = '';
                 }
-                const bubbleEl = document.getElementById('marketBubble');
-                if (bubbleEl) bubbleEl.textContent = 'Welcome! Pick cookies, hot tea, cocoa or boxes! 🎄';
+                if (mount) {
+                    mount.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:48px">🤖</div>';
+                }
+                setMarketBubbleText('Welcome! Buy treats below to feed me! 🎄');
 
                 const walkScene = document.getElementById('marketWalkScene');
                 const boothScene = document.getElementById('marketBoothScene');
@@ -30520,10 +30702,17 @@
 
             window.closeAdventMarket = function() {
                 clearWalkTimers();
-                if (_consumeTimer) { clearTimeout(_consumeTimer); _consumeTimer = null; }
+                clearFeedTimers();
                 const ov = document.getElementById('marketOverlay');
                 const walkScene = document.getElementById('marketWalkScene');
                 const boothScene = document.getElementById('marketBoothScene');
+                const stage = document.getElementById('marketRobotStage');
+                const prop = document.getElementById('marketTreatProp');
+                if (stage) stage.classList.remove('eating', 'drinking', 'happy-fed');
+                if (prop) {
+                    prop.classList.remove('eat-anim', 'drink-anim');
+                    prop.textContent = '';
+                }
                 if (walkScene) walkScene.classList.remove('active');
                 if (boothScene) boothScene.classList.remove('active');
                 if (ov) ov.classList.remove('open');
@@ -30545,8 +30734,7 @@
                 saveMarketBag(bag);
                 playMarketSfx('buy');
                 const verb = item.action === 'drink' ? 'Drink' : 'Eat';
-                const bubbleEl = document.getElementById('marketBubble');
-                if (bubbleEl) bubbleEl.textContent = `Got ${item.name}! Tap ${verb}! 🧺`;
+                setMarketBubbleText(`Got ${item.name}! Tap ${verb}! 🧺`);
                 window.renderMarketTab(_activeMarketTab);
             };
 
@@ -30568,8 +30756,7 @@
                 playMarketSfx('buy');
                 playMarketSfx('arrive');
                 showLootToast('Candy Mystery Bag!', 'Received ' + icons.join(' ') + ' in your Basket!', '🍬');
-                const bubbleEl = document.getElementById('marketBubble');
-                if (bubbleEl) bubbleEl.textContent = '3 surprise treats added: ' + icons.join(' ') + '!';
+                setMarketBubbleText('3 surprise treats added: ' + icons.join(' ') + '!');
                 window.renderMarketTab(_activeMarketTab);
             };
 
@@ -30586,23 +30773,48 @@
 
                 if (typeof hapticTap === 'function') hapticTap(12);
                 playMarketSfx(item.action);
+                clearFeedTimers();
 
+                const isDrink = item.action === 'drink';
                 const stage = document.getElementById('marketRobotStage');
+                const prop = document.getElementById('marketTreatProp');
+                if (prop) {
+                    prop.classList.remove('eat-anim', 'drink-anim');
+                    prop.textContent = item.icon;
+                    void prop.offsetWidth;
+                    prop.classList.add(isDrink ? 'drink-anim' : 'eat-anim');
+                }
                 if (stage) {
-                    if (_consumeTimer) { clearTimeout(_consumeTimer); _consumeTimer = null; }
-                    stage.classList.remove('eating', 'drinking');
+                    stage.classList.remove('eating', 'drinking', 'happy-fed');
                     void stage.offsetWidth;
-                    stage.classList.add(item.action === 'drink' ? 'drinking' : 'eating');
-                    _consumeTimer = setTimeout(() => {
+                    stage.classList.add(isDrink ? 'drinking' : 'eating');
+                    const fedDelay = isDrink ? 1200 : 1150;
+                    const endDelay = isDrink ? 2150 : 2100;
+                    _feedFxTimers.push(setTimeout(() => {
                         stage.classList.remove('eating', 'drinking');
-                    }, 1350);
+                        stage.classList.add('happy-fed');
+                        spawnMarketFloat(isDrink ? ['❤️', '✨', '☕'] : ['😋', '💖', '✨']);
+                    }, fedDelay));
+                    _consumeTimer = setTimeout(() => {
+                        stage.classList.remove('happy-fed');
+                        if (prop) {
+                            prop.classList.remove('eat-anim', 'drink-anim');
+                            prop.textContent = '';
+                        }
+                    }, endDelay);
                 }
 
-                const bubbleEl = document.getElementById('marketBubble');
-                if (bubbleEl) bubbleEl.textContent = item.react;
+                setMarketBubbleText(item.react);
 
-                const fxList = item.action === 'drink' ? [item.icon, '💨', '❤️', '✨'] : [item.icon, '😋', '✨', '❤️'];
-                spawnMarketFloat(fxList);
+                if (isDrink) {
+                    _feedFxTimers.push(setTimeout(() => spawnMarketFloat(['💨', '✨']), 220));
+                    _feedFxTimers.push(setTimeout(() => spawnMarketFloat(['💨', '💛']), 560));
+                    _feedFxTimers.push(setTimeout(() => spawnMarketFloat(['💨', '✨']), 920));
+                } else {
+                    _feedFxTimers.push(setTimeout(() => spawnMarketFloat([item.icon, '✨']), 280));
+                    _feedFxTimers.push(setTimeout(() => spawnMarketFloat(['😋', '✨']), 620));
+                    _feedFxTimers.push(setTimeout(() => spawnMarketFloat([item.icon, '💫']), 960));
+                }
 
                 const cozy = getMarketCozy();
                 cozy.progress += 1;
@@ -30726,9 +30938,28 @@
             const marketToggle = document.getElementById('marketToggle');
             const marketCloseBtn = document.getElementById('marketCloseBtn');
             const marketSkipWalkBtn = document.getElementById('marketSkipWalkBtn');
+            const marketStageBtn = document.getElementById('marketRobotStage');
             if (marketToggle) marketToggle.addEventListener('click', window.openAdventMarket);
             if (marketCloseBtn) marketCloseBtn.addEventListener('click', window.closeAdventMarket);
             if (marketSkipWalkBtn) marketSkipWalkBtn.addEventListener('click', finishForestWalk);
+            if (marketStageBtn) {
+                marketStageBtn.addEventListener('click', () => {
+                    const bag = getMarketBag();
+                    const firstOwned = MARKET_ITEMS.find(item => (parseInt(bag[item.id], 10) || 0) > 0);
+                    if (firstOwned) {
+                        window.consumeMarketItem(firstOwned.id);
+                    } else {
+                        if (typeof hapticTap === 'function') hapticTap(8);
+                        playMarketSfx('arrive');
+                        clearFeedTimers();
+                        marketStageBtn.classList.remove('eating', 'drinking', 'happy-fed');
+                        void marketStageBtn.offsetWidth;
+                        marketStageBtn.classList.add('happy-fed');
+                        _consumeTimer = setTimeout(() => marketStageBtn.classList.remove('happy-fed'), 950);
+                        setMarketBubbleText('Buy me a cookie or hot tea below! 🍪🍵');
+                    }
+                });
+            }
 
             updateMarketBagBadge();
             updateCozyUI();
