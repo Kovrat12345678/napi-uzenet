@@ -1,14 +1,14 @@
 {
-    "name": "DailyBot — Napi Üzenet",
+    "name": "DailyBot — Daily Message",
     "short_name": "DailyBot",
-    "description": "Napi gondolat egy aranyos robottól",
+    "description": "A daily thought from a cute robot",
     "start_url": ".",
     "scope": ".",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#000000",
     "orientation": "portrait",
-    "lang": "hu",
+    "lang": "en",
     "categories": ["lifestyle", "entertainment"],
     "icons": [
         {

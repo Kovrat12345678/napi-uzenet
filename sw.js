@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dailybot-v63';
+const CACHE_NAME = 'dailybot-v64';
 const ASSETS = [
     './',
     './index.html',
@@ -45,14 +45,14 @@ self.addEventListener('fetch', e => {
 
 // ========== ÉRTESÍTÉSEK ==========
 const NOTIF_MESSAGES = [
-    "Ma is vár a napi üzeneted! ✨",
-    "A robotod már izgatottan vár rád! 🤖",
-    "Nyisd meg és kapd meg a mai gondolatot! 💛",
-    "Egy kis inspiráció vár rád ma! 🌟",
-    "A mai üzeneted különleges — nézd meg! 🎁",
-    "Ne feledd megnézni a napi üzeneted! 🔥",
-    "A DailyBot robotod üzen neked! 💬",
-    "Ma is készült neked valami szép! 🌈",
+    "Your daily message is waiting! ✨",
+    "Your robot is excited to see you! 🤖",
+    "Open up for today's thought! 💛",
+    "A little inspiration awaits you today! 🌟",
+    "Today's message is special — check it out! 🎁",
+    "Don't forget to check your daily message! 🔥",
+    "Your DailyBot has a message for you! 💬",
+    "Something nice is ready for you today! 🌈",
 ];
 
 function getRandomNotifMsg() {
