@@ -9,8 +9,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="DailyBot">
     <meta name="theme-color" content="#000000" id="themeColor">
-    <link rel="apple-touch-icon" id="appleIcon" href="icon/app_icon_winter.png">
-    <link rel="icon" id="favicon" type="image/png" href="icon/app_icon_winter.png">
+    <link rel="apple-touch-icon" id="appleIcon" sizes="512x512" href="icon/app_icon_winter.png?v=6">
+    <link rel="icon" id="favicon" type="image/png" href="icon/app_icon_winter.png?v=6">
     <link rel="manifest" id="manifestLink" href="manifest.json?v=6">
     <script>
     </script>
@@ -80,6 +80,10 @@
         .shop-group-divider {
             display: none !important;
         }
+        .shop-sidebar-btn .tab-ico {
+            font-size: 16px;
+            line-height: 1;
+        }
         @media (max-width: 680px) {
             .shop-body-wrapper {
                 flex-direction: column;
@@ -89,27 +93,33 @@
                 flex-direction: row;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 8px 6px;
-                gap: 6px;
-                height: 58px;
+                padding: 6px;
+                gap: 4px;
+                height: 60px;
                 display: flex;
             }
             .shop-sidebar-btn {
-                padding: 8px 6px;
-                font-size: 12px;
-                gap: 4px;
+                padding: 5px 2px;
+                font-size: 10px;
+                flex-direction: column;
+                gap: 2px;
+                line-height: 1.1;
                 white-space: nowrap;
                 height: auto;
                 display: inline-flex;
                 flex: 1;
                 justify-content: center;
                 align-items: center;
+                border-radius: 12px;
+            }
+            .shop-sidebar-btn .tab-ico {
+                font-size: 17px;
             }
             .shop-sidebar-btn:hover {
                 transform: none;
             }
             .shop-content-area {
-                height: calc(100% - 58px);
+                height: calc(100% - 60px);
                 padding: 14px;
             }
         }
@@ -18830,6 +18840,703 @@
             box-shadow: 0 0 10px #ef4444 !important;
         }
 
+        /* 4. HÓEMBER BOT (snowman) */
+        .robot.snowman .head {
+            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f0f9ff 65%, #bae6fd 100%) !important;
+            border: 2px solid #e0f2fe !important;
+            box-shadow: 0 4px 16px rgba(186, 230, 253, 0.55), inset 0 -4px 8px rgba(56, 189, 248, 0.2) !important;
+            overflow: visible !important;
+        }
+        .robot.snowman .head::before {
+            content: '';
+            position: absolute;
+            top: -21px;
+            left: 22%;
+            right: 22%;
+            height: 20px;
+            background: linear-gradient(135deg, #334155, #0f172a);
+            border-radius: 5px 5px 2px 2px;
+            border-bottom: 5px solid #dc2626;
+            box-shadow: 0 -2px 8px rgba(15, 23, 42, 0.45);
+            z-index: 7;
+            pointer-events: none;
+        }
+        .robot.snowman .head::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 10%;
+            right: 10%;
+            height: 5px;
+            background: #0f172a;
+            border-radius: 999px;
+            z-index: 8;
+            pointer-events: none;
+        }
+        .robot.snowman .torso {
+            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f0f9ff 65%, #bae6fd 100%) !important;
+            border: 2px solid #e0f2fe !important;
+            box-shadow: 0 6px 18px rgba(125, 211, 252, 0.45) !important;
+            position: relative;
+        }
+        .robot.snowman .torso::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            right: -2px;
+            top: -3px;
+            height: 11px;
+            background: repeating-linear-gradient(90deg, #dc2626 0 10px, #f8fafc 10px 14px);
+            border-radius: 6px;
+            box-shadow: 0 3px 8px rgba(220, 38, 38, 0.35);
+            z-index: 6;
+            pointer-events: none;
+        }
+        .robot.snowman .face-screen {
+            background: linear-gradient(180deg, #0f172a, #1e293b) !important;
+            border: 1.5px solid #7dd3fc !important;
+        }
+        .robot.snowman .eye {
+            background: radial-gradient(circle, #ffffff 20%, #38bdf8 80%, #0284c7 100%) !important;
+            box-shadow: 0 0 10px #38bdf8 !important;
+        }
+        .robot.snowman .mouth {
+            background: linear-gradient(90deg, #fb923c, #f97316) !important;
+            box-shadow: 0 0 8px rgba(249, 115, 22, 0.8) !important;
+        }
+        .robot.snowman .chest-dot {
+            background: #1e293b !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+        }
+        .robot.snowman .arm-l, .robot.snowman .arm-r {
+            background: linear-gradient(to bottom, #92400e, #78350f) !important;
+            border: 1px solid #451a03 !important;
+        }
+        .robot.snowman .leg, .robot.snowman .foot {
+            background: linear-gradient(to bottom, #e0f2fe, #93c5fd) !important;
+        }
+        .robot.snowman .antenna-ball {
+            background: #f8fafc !important;
+            box-shadow: 0 0 12px #bae6fd !important;
+        }
+
+        /* 5. RÉNSZARVAS BOT (reindeer) */
+        .robot.reindeer .head {
+            background: linear-gradient(165deg, #c26d27 0%, #92400e 60%, #78350f 100%) !important;
+            border: 2px solid #b45309 !important;
+            box-shadow: 0 4px 16px rgba(180, 83, 9, 0.45) !important;
+            overflow: visible !important;
+        }
+        .robot.reindeer .ear-l, .robot.reindeer .ear-r {
+            background: linear-gradient(to top, #b45309, #fbbf24, #fde68a) !important;
+            border: 1.5px solid #fde047 !important;
+            height: 26px !important;
+            top: -12px !important;
+            border-radius: 6px 6px 2px 2px !important;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.55) !important;
+        }
+        .robot.reindeer .ear-l {
+            transform: rotate(-22deg) !important;
+        }
+        .robot.reindeer .ear-r {
+            transform: rotate(22deg) !important;
+        }
+        .robot.reindeer .torso {
+            background: linear-gradient(165deg, #b45309 0%, #78350f 60%, #451a03 100%) !important;
+            border: 2px solid #92400e !important;
+            box-shadow: 0 6px 18px rgba(120, 53, 15, 0.5) !important;
+            position: relative;
+        }
+        .robot.reindeer .torso::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            right: -2px;
+            top: -2px;
+            height: 10px;
+            background: linear-gradient(90deg, #15803d, #22c55e, #15803d);
+            border-bottom: 2px solid #fbbf24;
+            border-radius: 5px;
+            z-index: 6;
+            pointer-events: none;
+        }
+        .robot.reindeer .face-screen {
+            background: linear-gradient(180deg, #291002, #451a03) !important;
+            border: 1.5px solid #fbbf24 !important;
+        }
+        .robot.reindeer .eye {
+            background: #fde047 !important;
+            box-shadow: 0 0 10px #fbbf24 !important;
+        }
+        .robot.reindeer .mouth {
+            background: #fca5a5 !important;
+        }
+        .robot.reindeer .arm-l, .robot.reindeer .arm-r, .robot.reindeer .leg {
+            background: linear-gradient(to bottom, #b45309, #78350f) !important;
+        }
+        .robot.reindeer .foot {
+            background: #292524 !important;
+        }
+        .robot.reindeer .antenna-ball {
+            background: radial-gradient(circle, #fecaca 10%, #ef4444 65%, #b91c1c 100%) !important;
+            box-shadow: 0 0 18px #ef4444, 0 0 30px rgba(239, 68, 68, 0.75) !important;
+            transform: scale(1.25);
+        }
+
+        /* ========== SETTINGS BUTTON & PANEL ========== */
+        .settings-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            color: #fff;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.25s ease;
+        }
+        .settings-toggle:active { transform: scale(0.92); }
+        .settings-toggle.hidden {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .settings-panel, .streak-panel, .skin-preview-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99998;
+            background: rgba(6, 12, 22, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+        .settings-panel.open, .streak-panel.open, .skin-preview-overlay.open {
+            display: flex;
+            animation: obIn 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .settings-card, .streak-card, .skin-preview-card {
+            width: 100%;
+            max-width: 390px;
+            max-height: 86vh;
+            overflow-y: auto;
+            background: linear-gradient(165deg, rgba(16, 36, 32, 0.96), rgba(15, 23, 42, 0.98));
+            border: 1.5px solid rgba(251, 191, 36, 0.35);
+            border-radius: 24px;
+            padding: 20px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+        }
+        .modal-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .modal-card-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fef08a;
+        }
+        .settings-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .toggle-switch {
+            width: 48px;
+            height: 26px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            cursor: pointer;
+            transition: background 0.25s ease;
+            flex-shrink: 0;
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform 0.25s ease;
+        }
+        .toggle-switch.on {
+            background: linear-gradient(135deg, #22c55e, #10b981);
+        }
+        .toggle-switch.on::after {
+            transform: translateX(22px);
+        }
+        .settings-name-row {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0 14px;
+        }
+        .settings-name-input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(15, 23, 42, 0.7);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            outline: none;
+        }
+        .settings-name-save {
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1e293b;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        .settings-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .settings-stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 10px 12px;
+            text-align: center;
+        }
+        .settings-stat-val {
+            font-size: 18px;
+            font-weight: 900;
+            color: #fde68a;
+        }
+        .settings-stat-lbl {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 2px;
+        }
+        .settings-action-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .settings-action-btn {
+            padding: 11px 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* ========== STREAK MILESTONE REWARDS ========== */
+        .streak {
+            cursor: pointer;
+            user-select: none;
+        }
+        .streak-gift-dot {
+            margin-left: 6px;
+            display: inline-block;
+            animation: streakBounce 1s ease-in-out infinite;
+        }
+        @keyframes streakBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.18); }
+        }
+        .streak-summary {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 10px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #e2e8f0;
+        }
+        .streak-milestone-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .streak-milestone-row.ready {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.25), rgba(251, 191, 36, 0.15));
+            border-color: #fbbf24;
+        }
+        .streak-milestone-row.claimed {
+            opacity: 0.65;
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+        .streak-ms-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .streak-ms-ico {
+            font-size: 24px;
+            line-height: 1;
+        }
+        .streak-ms-lvl {
+            font-size: 11px;
+            font-weight: 800;
+            color: #fde68a;
+            text-transform: uppercase;
+        }
+        .streak-ms-label {
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .streak-claim-btn {
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+        }
+        .streak-tag-locked {
+            font-size: 11px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.55);
+        }
+        .streak-tag-done {
+            font-size: 11px;
+            font-weight: 900;
+            color: #34d399;
+        }
+
+        /* ========== GIFT CATCH MINI-GAME ========== */
+        .play-hero-card {
+            background: linear-gradient(155deg, rgba(220, 38, 38, 0.2), rgba(15, 23, 42, 0.8));
+            border: 1.5px solid rgba(251, 191, 36, 0.4);
+            border-radius: 22px;
+            padding: 20px 18px;
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .play-hero-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #fef08a;
+        }
+        .play-meta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .play-pill {
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .play-legend {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 14px;
+            border-radius: 12px;
+        }
+        .play-start-btn {
+            width: 100%;
+            max-width: 240px;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(34, 197, 94, 0.35);
+            margin-top: 4px;
+        }
+        .play-start-btn:disabled {
+            opacity: 0.45;
+            cursor: default;
+            box-shadow: none;
+        }
+        .gift-game-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            background: linear-gradient(180deg, #09152b 0%, #0f2942 55%, #12352c 100%);
+            display: none;
+            flex-direction: column;
+            font-family: 'Outfit', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+        .gift-game-overlay.open {
+            display: flex;
+        }
+        .gift-game-hud {
+            padding: calc(env(safe-area-inset-top, 14px) + 10px) 16px 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.28);
+        }
+        .gift-timer-track {
+            flex: 1;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            overflow: hidden;
+        }
+        .gift-timer-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #fbbf24, #22c55e);
+            transition: width 0.08s linear;
+        }
+        .gift-hud-pill {
+            padding: 5px 11px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+        .gift-game-arena {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            touch-action: none;
+        }
+        .gift-game-arena.shake {
+            animation: giftArenaShake 0.35s ease;
+        }
+        @keyframes giftArenaShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .gift-item {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            cursor: pointer;
+            touch-action: none;
+            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
+            will-change: transform, top, left;
+        }
+        .gift-pop {
+            position: absolute;
+            font-size: 18px;
+            font-weight: 900;
+            color: #fde047;
+            pointer-events: none;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            animation: giftPopUp 0.65s ease forwards;
+        }
+        .gift-pop.bad { color: #f87171; }
+        @keyframes giftPopUp {
+            0% { transform: translate(-50%, 0) scale(0.8); opacity: 1; }
+            100% { transform: translate(-50%, -44px) scale(1.15); opacity: 0; }
+        }
+        .gift-game-end {
+            position: absolute;
+            inset: 0;
+            background: rgba(6, 12, 22, 0.86);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .gift-game-end.show {
+            display: flex;
+        }
+        .gift-end-card {
+            width: 100%;
+            max-width: 310px;
+            background: linear-gradient(160deg, rgba(22, 48, 38, 0.96), rgba(15, 23, 42, 0.98));
+            border: 2px solid #fbbf24;
+            border-radius: 26px;
+            padding: 26px 20px;
+            text-align: center;
+            color: #fff;
+            animation: obIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ========== FESTIVE ROBOT INTERACTIONS & SNOWSTORM ========== */
+        .robot-btn.tap-snowball .robot {
+            animation: tapSnowballBounce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes tapSnowballBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            35% { transform: translateY(-16px) rotate(-8deg) scale(1.06); }
+            70% { transform: translateY(4px) rotate(6deg) scale(0.97); }
+        }
+        .robot-btn.tap-hearts .robot {
+            animation: tapHeartPop 0.7s ease;
+        }
+        @keyframes tapHeartPop {
+            0%, 100% { transform: scale(1); }
+            30% { transform: scale(1.1, 0.92); }
+            60% { transform: translateY(-10px) scale(1.06); }
+        }
+        .robot-btn.tap-jingle .robot {
+            animation: tapJingleDance 0.45s ease-in-out 2;
+        }
+        @keyframes tapJingleDance {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg) translateY(-6px); }
+            75% { transform: rotate(10deg) translateY(-6px); }
+        }
+        .robot-fx-particle {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            animation: robotFxFly 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes robotFxFly {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) rotate(var(--frot, 25deg)) scale(1.15); opacity: 0; }
+        }
+        .snowstorm-flake {
+            position: fixed;
+            top: -12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 8px rgba(186, 230, 253, 0.9);
+            pointer-events: none;
+            z-index: 80;
+            animation: snowstormDrop var(--sd, 1.9s) linear forwards;
+        }
+        @keyframes snowstormDrop {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0.95; }
+            100% { transform: translate(var(--sx, 40px), 105vh) scale(1.1); opacity: 0; }
+        }
+        .preview-banner-pill {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 16px) + 56px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(220, 38, 38, 0.85));
+            border: 1.5px solid #fbbf24;
+            color: #fef08a;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            white-space: nowrap;
+        }
+
+        /* ========== SKIN PREVIEW MODAL ========== */
+        .skin-preview-card {
+            text-align: center;
+        }
+        .skin-preview-stage {
+            width: 168px;
+            height: 168px;
+            margin: 6px auto 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.22), rgba(15, 23, 42, 0.5) 70%);
+            border: 1.5px solid rgba(251, 191, 36, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+        .skin-preview-sources {
+            margin: 12px 0 16px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            font-weight: 700;
+            color: #e2e8f0;
+            line-height: 1.45;
+        }
+        .skin-preview-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .skin-preview-try {
+            padding: 11px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .skin-preview-boxbtn {
+            padding: 11px 10px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 
@@ -18872,7 +19579,7 @@
 
             let introSoundPlayed = false;
             function playHypercodeIntroSfx() {
-                if (introSoundPlayed) return;
+                if (introSoundPlayed || localStorage.getItem('nu_sfx_muted') === '1') return;
                 try {
                     const AC = window.AudioContext || window.webkitAudioContext;
                     if (!AC) return;
@@ -19018,7 +19725,7 @@
         <div class="top">
             <h1 id="greeting">✨ DailyBot ✨</h1>
             <div class="date" id="date"></div>
-            <div class="streak" id="streak">⚡ Level <span id="sn"></span></div>
+            <div class="streak" id="streak" role="button" tabindex="0">⚡ Level <span id="sn"></span><span class="streak-gift-dot" id="streakGiftDot" style="display:none">🎁</span></div>
         </div>
 
         <div class="bubble-wrap">
@@ -19210,11 +19917,11 @@
         <div class="shop-body-wrapper">
             <!-- Sidebar -->
             <div class="shop-sidebar">
-                <button class="shop-sidebar-btn active" data-target="boxes" onclick="switchShopCategory('boxes')">📦 Boxes</button>
-                <button class="shop-sidebar-btn" data-target="advent" onclick="switchShopCategory('advent')">🎄 Advent</button>
-                <button class="shop-sidebar-btn" data-target="gems" onclick="switchShopCategory('gems')">💎 Gems</button>
-                <button class="shop-sidebar-btn" data-target="skins" onclick="switchShopCategory('skins')">🤖 Skins</button>
-
+                <button class="shop-sidebar-btn active" data-target="boxes" onclick="switchShopCategory('boxes')"><span class="tab-ico">📦</span><span>Boxes</span></button>
+                <button class="shop-sidebar-btn" data-target="advent" onclick="switchShopCategory('advent')"><span class="tab-ico">🎄</span><span>Advent</span></button>
+                <button class="shop-sidebar-btn" data-target="gems" onclick="switchShopCategory('gems')"><span class="tab-ico">💎</span><span>Gems</span></button>
+                <button class="shop-sidebar-btn" data-target="play" onclick="switchShopCategory('play')"><span class="tab-ico">🎮</span><span>Play</span></button>
+                <button class="shop-sidebar-btn" data-target="skins" onclick="switchShopCategory('skins')"><span class="tab-ico">🤖</span><span>Skins</span></button>
             </div>
 
             <!-- Content Area -->
@@ -19346,6 +20053,19 @@
                         </div>
                     </div>
                 </div>
+                <!-- CAT: PLAY -->
+                <div id="cat-play" style="display: none;">
+                    <div class="play-hero-card">
+                        <div style="font-size:48px;line-height:1;">🎁</div>
+                        <div class="play-hero-title">Gift Catch</div>
+                        <div class="play-meta-row">
+                            <span class="play-pill" id="giftPlaysLeft">🎮 2 / 2 left today</span>
+                            <span class="play-pill" id="giftBestScore">🏆 Best: 0</span>
+                        </div>
+                        <div class="play-legend">🎁 +5 · 🍬 +10 · ⭐ +15 · 💣 -10</div>
+                        <button type="button" class="play-start-btn" id="startGiftGameBtn">🎮 Play (15s)</button>
+                    </div>
+                </div>
                 <!-- CAT: SKINS -->
                 <div id="cat-skins" style="display: none;">
                     <!-- Skins Selection list (No border, wide padding for stretching) -->
@@ -19367,6 +20087,7 @@
     </div>
     <div class="top-right-actions" id="topRightActions">
     <div class="favs-toggle" id="favsToggle"><span style="margin-right:6px">❤️</span> Favorites<span class="favs-badge" id="favsBadge">0</span></div>
+    <button type="button" class="settings-toggle" id="settingsToggle" aria-label="Settings">⚙️</button>
 </div>
 
     <!-- Kedvencek panel -->
@@ -20307,6 +21028,8 @@
                 // 2. Refresh Shop, Advent Calendar & badges
                 if (typeof renderShop === 'function') renderShop();
                 if (typeof renderAdventCalendar === 'function') renderAdventCalendar();
+                if (typeof renderGiftGameCard === 'function') renderGiftGameCard();
+                if (typeof updateStreakBadge === 'function') updateStreakBadge();
                 if (typeof updateLootBadges === 'function') updateLootBadges();
 
                 // 3. Weather and time theme
@@ -20353,17 +21076,21 @@
             }
         })();
 
-        // Level (streak-alapú)
-        (function () { const t = td(), l = localStorage.getItem('nu_l'); let s = parseInt(localStorage.getItem('nu_s') || '0'); if (l !== t) { const y = msgDay(); y.setDate(y.getDate() - 1); s = l === y.toDateString() ? s + 1 : 1; localStorage.setItem('nu_l', t); localStorage.setItem('nu_s', s.toString()) } if (s >= 1) { document.getElementById('streak').classList.add('on'); document.getElementById('sn').textContent = s } })();
+        // Level (streak-based) + Best streak tracking
+        (function () { const t = td(), l = localStorage.getItem('nu_l'); let s = parseInt(localStorage.getItem('nu_s') || '0'); if (l !== t) { const y = msgDay(); y.setDate(y.getDate() - 1); s = l === y.toDateString() ? s + 1 : 1; localStorage.setItem('nu_l', t); localStorage.setItem('nu_s', s.toString()) } const best = Math.max(s || 0, parseInt(localStorage.getItem('nu_best_s') || '0', 10) || 0); if (best > 0) localStorage.setItem('nu_best_s', String(best)); if (s >= 1) { document.getElementById('streak').classList.add('on'); document.getElementById('sn').textContent = s } })();
 
         function seen() { return localStorage.getItem('nu_d') === td() }
         function mark() { localStorage.setItem('nu_d', td()) }
 
+        window.isSfxMuted = function () { return localStorage.getItem('nu_sfx_muted') === '1'; };
+        window.isMusicMuted = function () { return localStorage.getItem('nu_music_muted') === '1'; };
+        window.setSfxEnabled = function (enabled) { localStorage.setItem('nu_sfx_muted', enabled ? '0' : '1'); };
+
         // Hang effekt (iOS-en is működik, vibrate nem)
         let audioCtx = null;
-        function initAudio() { audioCtx = _sfxCtx() }
+        function initAudio() { if (window.isSfxMuted && window.isSfxMuted()) return; audioCtx = _sfxCtx() }
         function tickSound() {
-            if (!audioCtx) return;
+            if (!audioCtx || (window.isSfxMuted && window.isSfxMuted())) return;
             const o = audioCtx.createOscillator(), g = audioCtx.createGain();
             o.connect(g); g.connect(audioCtx.destination);
             o.frequency.value = 800 + Math.random() * 400;
@@ -20372,7 +21099,7 @@
             o.start(); o.stop(audioCtx.currentTime + 0.04);
         }
         function doneSound() {
-            if (!audioCtx) return;
+            if (!audioCtx || (window.isSfxMuted && window.isSfxMuted())) return;
             [0, 80, 160].forEach((delay, i) => {
                 setTimeout(() => {
                     const o = audioCtx.createOscillator(), g = audioCtx.createGain();
@@ -20633,8 +21360,8 @@
                     setTimeout(() => f.remove(), 700);
                 }, i * 80);
             }
-            // Tűz hang
-            if (audioCtx) {
+            // Fire SFX
+            if (audioCtx && !(window.isSfxMuted && window.isSfxMuted())) {
                 const noise = audioCtx.createBufferSource();
                 const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.6, audioCtx.sampleRate);
                 const data = buf.getChannelData(0);
@@ -20677,22 +21404,83 @@
                 return;
             }
 
-            robotBtn.classList.add('tap-wave');
-            robotBtn.classList.add('talking');
+            const modeIdx = (window._tapReactionIdx = ((window._tapReactionIdx || 0) + 1) % 4);
+            const modes = ['wave', 'snowball', 'hearts', 'jingle'];
+            const mode = modes[modeIdx];
+            const clsMap = { wave: 'tap-wave', snowball: 'tap-snowball', hearts: 'tap-hearts', jingle: 'tap-jingle' };
+            const activeCls = clsMap[mode] || 'tap-wave';
+            robotBtn.classList.add(activeCls, 'talking');
 
-            // Cuki robot hang — "bi-bu-bí-bú-bíp!"
-            if (audioCtx) {
-                const notes = [
-                    { f: 500, t: 0, d: .15, type: 'sine' },
-                    { f: 350, t: .16, d: .15, type: 'sine' },
-                    { f: 700, t: .32, d: .12, type: 'triangle' },
-                    { f: 450, t: .45, d: .1, type: 'sine' },
-                    { f: 900, t: .56, d: .2, type: 'triangle' },
-                    { f: 1100, t: .7, d: .12, type: 'sine' },
-                    { f: 800, t: .82, d: .25, type: 'triangle' },
-                ];
+            function spawnRobotFxParticles(emojis) {
+                const rect = robotBtn.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height * 0.38;
+                for (let i = 0; i < 7; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'robot-fx-particle';
+                    el.textContent = emojis[i % emojis.length];
+                    const ang = (-Math.PI * 0.85) + (i / 6) * (Math.PI * 0.7) + (Math.random() - 0.5) * 0.25;
+                    const dist = 65 + Math.random() * 65;
+                    el.style.left = cx + 'px';
+                    el.style.top = cy + 'px';
+                    el.style.fontSize = (18 + Math.random() * 10) + 'px';
+                    el.style.setProperty('--fx', Math.round(Math.cos(ang) * dist) + 'px');
+                    el.style.setProperty('--fy', Math.round(Math.sin(ang) * dist - 18) + 'px');
+                    el.style.setProperty('--frot', Math.round((Math.random() - 0.5) * 90) + 'deg');
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 1100);
+                }
+            }
+
+            if (mode === 'snowball') {
+                spawnRobotFxParticles(['❄️', '⚪', '⛄', '✨']);
+            } else if (mode === 'hearts') {
+                spawnRobotFxParticles(['❤️', '💛', '💖', '✨']);
+            } else if (mode === 'jingle') {
+                spawnRobotFxParticles(['🎵', '🎶', '🔔', '✨']);
+            }
+
+            const sfxAllowed = !(window.isSfxMuted && window.isSfxMuted());
+            if (audioCtx && sfxAllowed) {
+                let notes;
+                if (mode === 'jingle') {
+                    notes = [
+                        { f: 659.25, t: 0, d: .13, type: 'triangle' },
+                        { f: 659.25, t: .15, d: .13, type: 'triangle' },
+                        { f: 659.25, t: .30, d: .22, type: 'triangle' },
+                        { f: 659.25, t: .55, d: .13, type: 'triangle' },
+                        { f: 783.99, t: .70, d: .13, type: 'triangle' },
+                        { f: 523.25, t: .85, d: .13, type: 'triangle' },
+                        { f: 587.33, t: 1.00, d: .13, type: 'triangle' },
+                        { f: 659.25, t: 1.15, d: .28, type: 'triangle' }
+                    ];
+                } else if (mode === 'snowball') {
+                    notes = [
+                        { f: 880, t: 0, d: .12, type: 'sine' },
+                        { f: 1174.66, t: .09, d: .14, type: 'sine' },
+                        { f: 1567.98, t: .18, d: .25, type: 'sine' }
+                    ];
+                } else if (mode === 'hearts') {
+                    notes = [
+                        { f: 523.25, t: 0, d: .16, type: 'sine' },
+                        { f: 659.25, t: .1, d: .16, type: 'sine' },
+                        { f: 783.99, t: .2, d: .22, type: 'sine' },
+                        { f: 1046.5, t: .32, d: .3, type: 'triangle' }
+                    ];
+                } else {
+                    notes = [
+                        { f: 500, t: 0, d: .15, type: 'sine' },
+                        { f: 350, t: .16, d: .15, type: 'sine' },
+                        { f: 700, t: .32, d: .12, type: 'triangle' },
+                        { f: 450, t: .45, d: .1, type: 'sine' },
+                        { f: 900, t: .56, d: .2, type: 'triangle' },
+                        { f: 1100, t: .7, d: .12, type: 'sine' },
+                        { f: 800, t: .82, d: .25, type: 'triangle' }
+                    ];
+                }
                 notes.forEach(n => {
                     setTimeout(() => {
+                        if (window.isSfxMuted && window.isSfxMuted()) return;
                         const o = audioCtx.createOscillator(), g = audioCtx.createGain();
                         o.connect(g); g.connect(audioCtx.destination);
                         o.frequency.value = n.f;
@@ -20705,31 +21493,112 @@
                 });
             }
 
-            // Buborékban az aktív sticker megjelenik
             const bE = document.getElementById('bE');
             const bT = document.getElementById('bT');
             const oldE = bE.textContent, oldT = bT.textContent;
 
             const _activeStickerId = typeof getActiveStickerId === 'function' ? getActiveStickerId() : 'sticker-hello';
             const _activeSticker = (typeof STICKERS !== 'undefined' && STICKERS.find(s => s.id === _activeStickerId)) || { emoji: '👋', text: 'Hello' };
+            const _greetSuffix = /[!?.]$/.test(_activeSticker.text) ? '' : '!';
 
-            bE.textContent = _activeSticker.emoji;
+            const displayByMode = {
+                wave: { emoji: _activeSticker.emoji, text: _activeSticker.text + _greetSuffix },
+                snowball: { emoji: '❄️', text: 'Snowball!' },
+                hearts: { emoji: '💖', text: 'Happy Holidays!' },
+                jingle: { emoji: '🔔', text: 'Jingle!' }
+            };
+            const picked = displayByMode[mode] || displayByMode.wave;
+
+            bE.textContent = picked.emoji;
             bT.textContent = '';
             bubble.classList.add('show');
 
-            const _greetSuffix = /[!?.]$/.test(_activeSticker.text) ? '' : '!';
-            typeText(bT, _activeSticker.text + _greetSuffix, () => {
+            typeText(bT, picked.text, () => {
                 btn.classList.remove('talking');
-                // 1.5 mp múlva visszaáll az eredeti üzenetre
                 setTimeout(() => {
                     bE.textContent = oldE;
                     bT.textContent = oldT;
-                    btn.classList.remove('tap-wave');
+                    btn.classList.remove('tap-wave', 'tap-snowball', 'tap-hearts', 'tap-jingle');
                     tapBusy = false;
                 }, 1500);
             });
-
         }
+
+        // Background Double-Tap or Shake -> Winter Snow Flurry
+        (function () {
+            let lastFlurryAt = 0;
+            window.triggerSnowFlurry = function () {
+                const now = Date.now();
+                if (now - lastFlurryAt < 2500) return;
+                lastFlurryAt = now;
+                if (typeof hapticTap === 'function') hapticTap(18);
+                if (!(window.isSfxMuted && window.isSfxMuted())) {
+                    const ctx = (typeof _sfxCtx === 'function') ? _sfxCtx() : null;
+                    if (ctx) {
+                        [1046.5, 1318.51, 1567.98, 2093].forEach((freq, idx) => {
+                            const o = ctx.createOscillator(), g = ctx.createGain();
+                            o.type = 'sine';
+                            o.frequency.value = freq;
+                            const st = ctx.currentTime + idx * 0.06;
+                            g.gain.setValueAtTime(0.001, st);
+                            g.gain.linearRampToValueAtTime(0.06, st + 0.02);
+                            g.gain.exponentialRampToValueAtTime(0.001, st + 0.45);
+                            o.connect(g).connect(ctx.destination);
+                            o.start(st);
+                            o.stop(st + 0.48);
+                        });
+                    }
+                }
+                for (let i = 0; i < 26; i++) {
+                    const fl = document.createElement('div');
+                    fl.className = 'snowstorm-flake';
+                    const sz = (3.5 + Math.random() * 5.5).toFixed(1);
+                    fl.style.width = sz + 'px';
+                    fl.style.height = sz + 'px';
+                    fl.style.left = (Math.random() * 100).toFixed(1) + 'vw';
+                    fl.style.setProperty('--sd', (1.3 + Math.random() * 1.1).toFixed(2) + 's');
+                    fl.style.setProperty('--sx', Math.round((Math.random() - 0.5) * 140) + 'px');
+                    fl.style.animationDelay = (Math.random() * 0.35).toFixed(2) + 's';
+                    document.body.appendChild(fl);
+                    setTimeout(() => fl.remove(), 2600);
+                }
+            };
+
+            function isBgTarget(target) {
+                if (!target || typeof target.closest !== 'function') return false;
+                if (target.closest('button, a, input, textarea, .robot-btn, .bubble, .skin-toggle, .favs-toggle, .settings-toggle, .streak')) return false;
+                const anyModal = document.querySelector('.skin-panel.open, .favs-panel.open, .sync-panel.open, .settings-panel.open, .streak-panel.open, .skin-preview-overlay.open, .gift-game-overlay.open');
+                if (anyModal) return false;
+                return true;
+            }
+
+            let lastTapMs = 0;
+            document.addEventListener('touchend', function (e) {
+                if (!isBgTarget(e.target)) return;
+                const t = Date.now();
+                if (t - lastTapMs < 340) {
+                    lastTapMs = 0;
+                    window.triggerSnowFlurry();
+                } else {
+                    lastTapMs = t;
+                }
+            }, { passive: true });
+
+            document.addEventListener('dblclick', function (e) {
+                if (isBgTarget(e.target)) window.triggerSnowFlurry();
+            });
+
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', function (e) {
+                    const acc = e.accelerationIncludingGravity;
+                    if (!acc) return;
+                    const mag = Math.sqrt((acc.x || 0) ** 2 + (acc.y || 0) ** 2 + (acc.z || 0) ** 2);
+                    if (mag > 22 && isBgTarget(document.body)) {
+                        window.triggerSnowFlurry();
+                    }
+                }, { passive: true });
+            }
+        })();
 
         // ========== DRAG (húzd meg a robotot) ==========
         let isDragging = false, dragStartX = 0, dragStartY = 0, hasMoved = false;
@@ -20908,8 +21777,8 @@
 
         // Rarity — by price (or winter exclusivity)
         function getRarity(id) {
-            if (id === 'gingerbread' || id === 'frost') return 'epic';
-            if (id === 'santa') return 'legendary';
+            if (id === 'gingerbread' || id === 'frost' || id === 'snowman') return 'epic';
+            if (id === 'santa' || id === 'reindeer') return 'legendary';
             const p = ITEM_PRICES[id] || 0;
             if (p === 0) return 'free';
             if (p <= 100) return 'common';
@@ -23083,6 +23952,7 @@
             } catch (e) { return null }
         }
         function playSfx(type) {
+            if (window.isSfxMuted && window.isSfxMuted()) return;
             const ctx = _sfxCtx();
             if (!ctx) return;
             const now = ctx.currentTime;
@@ -23202,7 +24072,7 @@
         function setActiveBg(name) { localStorage.setItem('nu_active_bg', name) }
         function applyRobotSkin() {
             const r = document.getElementById('robot');
-            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream|beach|sunset|racer-red|racer-blue|santa|frost|gingerbread|aura-snowfall|aura-xmas-lights|aura-aurora-ice|aura-fireplace)\b/g, '').trim();
+            r.className = r.className.replace(/\b(golden|rainbow|diamond|galaxy|sakura|fire|stealth|graffiti|gamer|tulip|horse|glass|dragon|dragon-week|super|prism|phoenix|aurora|ultra|ultra-black|tech-event|comic-hero|comic-villain|ice-cream|beach|sunset|racer-red|racer-blue|santa|frost|gingerbread|snowman|reindeer|aura-snowfall|aura-xmas-lights|aura-aurora-ice|aura-fireplace)\b/g, '').trim();
             const skin = getActiveSkin();
             if (skin && owns(skin)) r.classList.add(skin);
             if (typeof applyAcc === 'function') applyAcc();
@@ -23480,17 +24350,31 @@
                         (now.getMonth() === 7 && now.getDate() <= 10)));
                 if (isRacingEvent) return;
 
+                if (window.isMusicMuted && window.isMusicMuted()) return;
                 if (window._techEventActive) return;
                 if (appAudioCtx) return;
                 try { appAudioCtx = _sfxCtx(); } catch (e) { return; }
                 if (appAudioCtx.state === 'suspended') appAudioCtx.resume();
                 startMood(getMood());
-                // Óránkénti ellenőrzés — ha változott a napszak, váltunk
                 setInterval(() => {
+                    if (window.isMusicMuted && window.isMusicMuted()) return;
                     const m = getMood();
                     if (m !== currentMood) startMood(m);
-                }, 10 * 60 * 1000); // 10 percenként ellenőriz
+                }, 10 * 60 * 1000);
             }
+            window.setAppMusicEnabled = function (enabled) {
+                localStorage.setItem('nu_music_muted', enabled ? '0' : '1');
+                if (!enabled) {
+                    stopAllNodes();
+                    currentMood = null;
+                } else {
+                    if (!appAudioCtx) {
+                        try { appAudioCtx = _sfxCtx(); } catch (e) { return; }
+                    }
+                    if (appAudioCtx && appAudioCtx.state === 'suspended') appAudioCtx.resume();
+                    startMood(getMood());
+                }
+            };
             document.addEventListener('click', initAppAmbient, { once: true, passive: true });
             document.addEventListener('touchstart', initAppAmbient, { once: true, passive: true });
         })();
@@ -23525,9 +24409,11 @@
                 { id: 'sunset', name: 'Sunset', desc: 'Orange-violet sunset bot', icon: '🌅', cost: 0, tier: 'free', hide: true },
                 { id: 'racer-red', name: 'Racer Red', desc: 'Red speedster champion', icon: '🏎️', cost: 0, tier: 'free', hide: true },
                 { id: 'racer-blue', name: 'Racer Blue', desc: 'Blue speedster champion', icon: '🏁', cost: 0, tier: 'free', hide: true },
-                { id: 'santa', name: 'Santa', desc: 'Christmas bot', icon: '🎅', cost: 0, tier: 'legendary', winterExclusive: true },
-                { id: 'frost', name: 'Frost', desc: 'Winter ice bot', icon: '❄️', cost: 0, tier: 'epic', winterExclusive: true },
-                { id: 'gingerbread', name: 'Gingerbread', desc: 'Festive cookie bot', icon: '🍪', cost: 0, tier: 'epic', winterExclusive: true }
+                { id: 'santa', name: 'Santa', desc: 'Christmas bot', icon: '🎅', cost: 0, tier: 'legendary', winterExclusive: true, adventDay: 24 },
+                { id: 'frost', name: 'Frost', desc: 'Winter ice bot', icon: '❄️', cost: 0, tier: 'epic', winterExclusive: true, adventDay: 15 },
+                { id: 'gingerbread', name: 'Gingerbread', desc: 'Festive cookie bot', icon: '🍪', cost: 0, tier: 'epic', winterExclusive: true, adventDay: 6 },
+                { id: 'snowman', name: 'Snowman', desc: 'Frosty snow bot', icon: '⛄', cost: 0, tier: 'epic', winterExclusive: true, adventDay: 10 },
+                { id: 'reindeer', name: 'Reindeer', desc: 'Rudolph holiday bot', icon: '🦌', cost: 0, tier: 'legendary', winterExclusive: true, adventDay: 20 }
 
             ];
             const BGS = [
@@ -23604,7 +24490,9 @@
                             });
                         } else if (isWinterExclusive) {
                             el.addEventListener('click', () => {
-                                if (typeof showLootToast === 'function') {
+                                if (typeof window.openSkinPreview === 'function') {
+                                    window.openSkinPreview(s);
+                                } else if (typeof showLootToast === 'function') {
                                     showLootToast('Winter Exclusive', 'Unlock from the Advent Calendar (Dec 1+) or rarely from Winter Box!', '🎄');
                                 }
                             });
@@ -23619,21 +24507,23 @@
             if (typeof window.owns !== 'function') window.owns = owns;
             toggle.addEventListener('click', () => {
                 if (typeof hapticTap === 'function') hapticTap(10);
+                if (typeof window.cancelHomeSkinPreview === 'function') window.cancelHomeSkinPreview();
                 renderShop();
                 if (typeof renderAdventCalendar === 'function') renderAdventCalendar();
+                if (typeof renderGiftGameCard === 'function') renderGiftGameCard();
                 if (typeof updateLootBadges === 'function') updateLootBadges();
                 if (typeof renderDailyDeal === 'function') renderDailyDeal();
                 panel.classList.add('open');
             });
             closeBtn.addEventListener('click', () => panel.classList.remove('open'));
 
-            // ========== VÁSÁRLÁSI HANDLER ==========
+            // ========== PURCHASE HANDLER ==========
             document.body.addEventListener('click', (e) => {
                 const btn = e.target.closest('.buy-tag');
                 if (!btn || !btn.dataset.buy) return;
                 e.stopPropagation();
                 const id = btn.dataset.buy;
-                if (['santa', 'frost', 'gingerbread'].includes(id)) return;
+                if (['santa', 'frost', 'gingerbread', 'snowman', 'reindeer'].includes(id)) return;
                 const price = parseInt(btn.dataset.price, 10);
 
                 if (!confirm('Buy this item for ' + price + ' gems? Balance: ' + getGems() + ' gems.')) return;
@@ -23692,7 +24582,7 @@
             syncClose.addEventListener('click', () => syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
+            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
 
             exportBtn.addEventListener('click', () => {
                 const data = {};
@@ -23760,7 +24650,19 @@
                     if (data.nu_l) localStorage.setItem('nu_l', data.nu_l);
                     if (data.nu_uid) localStorage.setItem('nu_uid', data.nu_uid);
 
-                    // Gém egyenleg: MAX(local, imported)
+                    const impBestS = parseInt(data.nu_best_s || '0', 10);
+                    const locBestS = parseInt(localStorage.getItem('nu_best_s') || '0', 10);
+                    if (Math.max(locBestS, impBestS) > 0) localStorage.setItem('nu_best_s', String(Math.max(locBestS, impBestS)));
+                    const impGb = parseInt(data.nu_giftgame_best || '0', 10);
+                    const locGb = parseInt(localStorage.getItem('nu_giftgame_best') || '0', 10);
+                    if (Math.max(locGb, impGb) > 0) localStorage.setItem('nu_giftgame_best', String(Math.max(locGb, impGb)));
+                    try {
+                        const locSc = JSON.parse(localStorage.getItem('nu_streak_claimed') || '[]');
+                        const impSc = JSON.parse(data.nu_streak_claimed || '[]');
+                        const mergedSc = [...new Set([...(Array.isArray(locSc) ? locSc : []), ...(Array.isArray(impSc) ? impSc : [])])];
+                        if (mergedSc.length) localStorage.setItem('nu_streak_claimed', JSON.stringify(mergedSc));
+                    } catch (e) { }
+
                     const impG = parseInt(data.nu_gems || '0', 10);
                     const locG = parseInt(localStorage.getItem('nu_gems') || '0', 10);
                     localStorage.setItem('nu_gems', String(Math.max(locG, impG)));
@@ -24292,7 +25194,7 @@
 
         // Helper to hide toggles
         window.toggleMainButtons = (show) => {
-            const ids = ['skinToggle', 'favsToggle', 'newsToggle'];
+            const ids = ['skinToggle', 'favsToggle', 'settingsToggle', 'newsToggle'];
             ids.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.toggle('hidden', !show);
@@ -26211,6 +27113,85 @@
         <img class="zoom-content" id="imgZoomTarget" alt="Zoomed image">
     </div>
 
+    <!-- Settings & Stats Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-card">
+            <div class="modal-card-head">
+                <div class="modal-card-title">⚙️ Settings & Stats</div>
+                <button type="button" class="shop-close-btn" id="settingsClose">✕</button>
+            </div>
+            <div class="settings-row">
+                <span>🔊 Sound Effects</span>
+                <button type="button" class="toggle-switch on" id="toggleSfxBtn" aria-label="Toggle Sound Effects"></button>
+            </div>
+            <div class="settings-row">
+                <span>🎵 Background Music</span>
+                <button type="button" class="toggle-switch on" id="toggleMusicBtn" aria-label="Toggle Background Music"></button>
+            </div>
+            <div class="settings-name-row">
+                <input type="text" class="settings-name-input" id="settingsNameInput" maxlength="16" placeholder="Nickname..." autocomplete="off">
+                <button type="button" class="settings-name-save" id="settingsNameSave">Save</button>
+            </div>
+            <div class="settings-stats-grid" id="settingsStatsGrid"></div>
+            <div class="settings-action-row">
+                <button type="button" class="settings-action-btn" id="settingsOpenStreak">🔥 Streak Rewards</button>
+                <button type="button" class="settings-action-btn" id="settingsOpenSync">🔄 Sync</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Streak Milestones Panel -->
+    <div class="streak-panel" id="streakPanel">
+        <div class="streak-card">
+            <div class="modal-card-head">
+                <div class="modal-card-title">🔥 Streak Rewards</div>
+                <button type="button" class="shop-close-btn" id="streakClose">✕</button>
+            </div>
+            <div class="streak-summary">
+                <span>⚡ Level: <strong id="streakCurVal">1</strong></span>
+                <span>🏆 Best: <strong id="streakBestVal">1</strong></span>
+            </div>
+            <div id="streakMilestoneList"></div>
+        </div>
+    </div>
+
+    <!-- Gift Catch Mini-Game Overlay -->
+    <div class="gift-game-overlay" id="giftGameOverlay">
+        <div class="gift-game-hud">
+            <div class="gift-timer-track"><div class="gift-timer-fill" id="giftTimerFill"></div></div>
+            <div class="gift-hud-pill" id="giftTimerText">15s</div>
+            <div class="gift-hud-pill" id="giftScoreText">💎 0</div>
+            <button type="button" class="shop-close-btn" id="giftGameClose">✕</button>
+        </div>
+        <div class="gift-game-arena" id="giftGameArena"></div>
+        <div class="gift-game-end" id="giftGameEnd">
+            <div class="gift-end-card">
+                <div style="font-size:48px;line-height:1;">🎁</div>
+                <h3 style="margin:10px 0 4px;font-size:22px;font-weight:900;color:#fef08a;">Round Complete!</h3>
+                <div id="giftEndScore" style="font-size:24px;font-weight:900;color:#6ee7b7;margin:6px 0;">+0 Gems</div>
+                <div id="giftEndBest" style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.75);margin-bottom:16px;">Best: 0</div>
+                <button type="button" class="unbox-collect-btn" id="giftEndCollectBtn">Collect ✓</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skin Preview Overlay -->
+    <div class="skin-preview-overlay" id="skinPreviewOverlay">
+        <div class="skin-preview-card">
+            <div class="modal-card-head">
+                <div class="modal-card-title" id="skinPreviewName">Skin Bot</div>
+                <button type="button" class="shop-close-btn" id="skinPreviewClose">✕</button>
+            </div>
+            <div class="skin-preview-stage" id="skinPreviewRobot"></div>
+            <div id="skinPreviewRarity" style="display:inline-block;"></div>
+            <div class="skin-preview-sources" id="skinPreviewSources"></div>
+            <div class="skin-preview-actions">
+                <button type="button" class="skin-preview-try" id="skinPreviewTryBtn">👀 Try on Home (5s)</button>
+                <button type="button" class="skin-preview-boxbtn" id="skinPreviewBoxBtn">❄️ Winter Box</button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- ========== ORIGINAL & VIP BOX JS ========== -->
     <script>
@@ -26246,7 +27227,7 @@
 
 
         window.switchShopCategory = function(catId) {
-            const categories = ['boxes', 'advent', 'gems', 'skins'];
+            const categories = ['boxes', 'advent', 'gems', 'play', 'skins'];
             categories.forEach(c => {
                 const el = document.getElementById('cat-' + c);
                 if (el) el.style.display = 'none';
@@ -26264,6 +27245,8 @@
             });
             if (catId === 'advent' && typeof renderAdventCalendar === 'function') {
                 renderAdventCalendar();
+            } else if (catId === 'play' && typeof renderGiftGameCard === 'function') {
+                renderGiftGameCard();
             }
         };
 
@@ -26365,9 +27348,11 @@
                 const roll = Math.random();
                 if (roll < 0.10) {
                     const winterExclusives = [
-                        { id: 'gingerbread', weight: 45 },
-                        { id: 'frost', weight: 35 },
-                        { id: 'santa', weight: 20 }
+                        { id: 'gingerbread', weight: 28 },
+                        { id: 'frost', weight: 24 },
+                        { id: 'snowman', weight: 22 },
+                        { id: 'reindeer', weight: 14 },
+                        { id: 'santa', weight: 12 }
                     ].filter(item => !owned.includes(item.id));
                     if (winterExclusives.length > 0) {
                         const totalW = winterExclusives.reduce((acc, it) => acc + it.weight, 0);
@@ -26630,7 +27615,7 @@
             7:  { type: 'gems',  amount: 120, icon: '💎', label: '+120 Gems' },
             8:  { type: 'box',   boxType: 'winter', icon: '🎄', label: 'Free Winter Box' },
             9:  { type: 'boost', amount: 1,   icon: '⚡', label: '2× Daily Gem' },
-            10: { type: 'gems',  amount: 150, icon: '💎', label: '+150 Gems' },
+            10: { type: 'skin',  itemId: 'snowman', icon: '⛄', label: 'Snowman Bot' },
             11: { type: 'box',   boxType: 'orig', icon: '🎁', label: 'Free Original Box' },
             12: { type: 'gems',  amount: 175, icon: '💎', label: '+175 Gems' },
             13: { type: 'level', amount: 1,   icon: '📈', label: '+1 Level' },
@@ -26640,7 +27625,7 @@
             17: { type: 'level', amount: 2,   icon: '📈', label: '+2 Levels' },
             18: { type: 'gems',  amount: 250, icon: '💎', label: '+250 Gems' },
             19: { type: 'boost', amount: 2,   icon: '⚡', label: '2× Daily Gem (2x)' },
-            20: { type: 'box',   boxType: 'winter', icon: '🎄', label: 'Free Winter Box' },
+            20: { type: 'skin',  itemId: 'reindeer', icon: '🦌', label: 'Reindeer Bot' },
             21: { type: 'gems',  amount: 300, icon: '💎', label: '+300 Gems' },
             22: { type: 'box',   boxType: 'vip', icon: '👑', label: 'Free VIP Box' },
             23: { type: 'level', amount: 3,   icon: '📈', label: '+3 Levels' },
@@ -26761,10 +27746,13 @@
                 const curS = parseInt(localStorage.getItem('nu_s') || '1', 10);
                 const nextS = curS + (r.amount || 1);
                 localStorage.setItem('nu_s', String(nextS));
+                const prevBest = parseInt(localStorage.getItem('nu_best_s') || '0', 10) || 0;
+                if (nextS > prevBest) localStorage.setItem('nu_best_s', String(nextS));
                 const sn = document.getElementById('sn');
                 const streak = document.getElementById('streak');
                 if (sn) sn.textContent = nextS;
                 if (streak) streak.classList.add('on');
+                if (typeof updateStreakBadge === 'function') updateStreakBadge();
                 try { if (typeof playSfx === 'function') playSfx('bp-claim'); } catch (e) { }
             }
 
@@ -26803,7 +27791,7 @@
                 const r = ADVENT_REWARDS[day];
                 const isOpened = claimed.includes(day);
                 const isAvail = day <= unlocked && !isOpened;
-                const isMilestone = day === 6 || day === 15 || day === 24;
+                const isMilestone = day === 6 || day === 10 || day === 15 || day === 20 || day === 24;
 
                 const door = document.createElement('button');
                 door.type = 'button';
@@ -26829,6 +27817,545 @@
                 grid.appendChild(door);
             }
         };
+
+        // ========== FEATURE 6: SKIN PREVIEW MODAL & 5s HOME PREVIEW ==========
+        let _previewTimer = null;
+        window.cancelHomeSkinPreview = function() {
+            if (_previewTimer) {
+                clearTimeout(_previewTimer);
+                _previewTimer = null;
+            }
+            const pill = document.getElementById('previewBannerPill');
+            if (pill) pill.remove();
+            if (typeof applyRobotSkin === 'function') applyRobotSkin();
+        };
+
+        window.previewSkinOnHome = function(skinObj) {
+            if (!skinObj || !skinObj.id) return;
+            window.cancelHomeSkinPreview();
+            const previewOv = document.getElementById('skinPreviewOverlay');
+            const shopOv = document.getElementById('skinPanel');
+            if (previewOv) previewOv.classList.remove('open');
+            if (shopOv) {
+                shopOv.classList.remove('open');
+                shopOv.style.display = 'none';
+            }
+            if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+
+            const r = document.getElementById('robot');
+            if (r) {
+                if (typeof applyRobotSkin === 'function') applyRobotSkin();
+                r.classList.add(skinObj.id);
+            }
+
+            const pill = document.createElement('button');
+            pill.type = 'button';
+            pill.id = 'previewBannerPill';
+            pill.className = 'preview-banner-pill';
+            pill.textContent = `👀 Previewing ${skinObj.name} Bot (5s)`;
+            pill.addEventListener('click', () => window.cancelHomeSkinPreview());
+            document.body.appendChild(pill);
+
+            try { if (typeof playSfx === 'function') playSfx('skin-equip'); } catch (e) { }
+            _previewTimer = setTimeout(() => {
+                window.cancelHomeSkinPreview();
+            }, 5000);
+        };
+
+        window.openSkinPreview = function(skinObj) {
+            const ov = document.getElementById('skinPreviewOverlay');
+            if (!ov || !skinObj) return;
+            const stage = document.getElementById('skinPreviewRobot');
+            const nameEl = document.getElementById('skinPreviewName');
+            const rarEl = document.getElementById('skinPreviewRarity');
+            const srcEl = document.getElementById('skinPreviewSources');
+            const tryBtn = document.getElementById('skinPreviewTryBtn');
+            const boxBtn = document.getElementById('skinPreviewBoxBtn');
+            const closeBtn = document.getElementById('skinPreviewClose');
+
+            if (nameEl) nameEl.textContent = `${skinObj.icon || '🤖'} ${skinObj.name} Bot`;
+            const rarity = (typeof getRarity === 'function') ? getRarity(skinObj.id) : (skinObj.tier || 'epic');
+            if (rarEl) {
+                rarEl.className = 'shop-item-rarity-label rarity-label-' + rarity;
+                rarEl.textContent = rarity;
+            }
+            if (stage) {
+                stage.innerHTML = (typeof window.buildMiniRobotHtml === 'function')
+                    ? `<div style="transform:scale(1.65);display:flex;align-items:center;justify-content:center;">${window.buildMiniRobotHtml(skinObj.id, false)}</div>`
+                    : `<div style="font-size:64px;">${skinObj.icon || '🤖'}</div>`;
+            }
+            if (srcEl) {
+                const advLine = skinObj.adventDay ? `🎄 Advent Calendar: Dec ${skinObj.adventDay}<br>` : '🎄 Advent Calendar (Dec 1+)<br>';
+                srcEl.innerHTML = `${advLine}❄️ Winter Box: Rare Drop (10% pool)`;
+            }
+            if (tryBtn) tryBtn.onclick = () => window.previewSkinOnHome(skinObj);
+            if (boxBtn) {
+                boxBtn.onclick = () => {
+                    ov.classList.remove('open');
+                    window.switchShopCategory('boxes');
+                };
+            }
+            if (closeBtn) closeBtn.onclick = () => ov.classList.remove('open');
+            ov.onclick = (e) => { if (e.target === ov) ov.classList.remove('open'); };
+            ov.classList.add('open');
+        };
+
+        // ========== FEATURE 3: STREAK MILESTONE REWARDS ==========
+        const STREAK_MILESTONES = [
+            { level: 3,  type: 'gems', amount: 75,  icon: '💎', label: '+75 Gems' },
+            { level: 7,  type: 'box',  boxType: 'orig',   icon: '🎁', label: 'Free Original Box' },
+            { level: 14, type: 'box',  boxType: 'winter', icon: '🎄', label: 'Free Winter Box' },
+            { level: 21, type: 'gems', amount: 250, icon: '💎', label: '+250 Gems' },
+            { level: 30, type: 'box',  boxType: 'vip',    icon: '👑', label: 'Free VIP Box' }
+        ];
+
+        function getStreakClaimed() {
+            try {
+                const arr = JSON.parse(localStorage.getItem('nu_streak_claimed') || '[]');
+                return Array.isArray(arr) ? arr : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveStreakClaimed(arr) {
+            localStorage.setItem('nu_streak_claimed', JSON.stringify(arr));
+        }
+
+        function getStreakLevelForMilestones() {
+            const cur = parseInt(localStorage.getItem('nu_s') || '0', 10) || 0;
+            const best = parseInt(localStorage.getItem('nu_best_s') || '0', 10) || 0;
+            return Math.max(cur, best);
+        }
+
+        window.hasStreakRewardReady = function() {
+            const lvl = getStreakLevelForMilestones();
+            const claimed = getStreakClaimed();
+            return STREAK_MILESTONES.some(m => lvl >= m.level && !claimed.includes(m.level));
+        };
+
+        window.updateStreakBadge = function() {
+            const dot = document.getElementById('streakGiftDot');
+            if (dot) dot.style.display = window.hasStreakRewardReady() ? 'inline-block' : 'none';
+        };
+
+        window.claimStreakMilestone = function(lvl) {
+            const m = STREAK_MILESTONES.find(x => x.level === lvl);
+            if (!m) return;
+            const bestLvl = getStreakLevelForMilestones();
+            const claimed = getStreakClaimed();
+            if (bestLvl < lvl || claimed.includes(lvl)) return;
+
+            claimed.push(lvl);
+            saveStreakClaimed(claimed);
+            try { if (typeof hapticTap === 'function') hapticTap(15); } catch (e) { }
+
+            if (m.type === 'box') {
+                window.renderStreakPanel();
+                window.updateStreakBadge();
+                if (typeof updateLootBadges === 'function') updateLootBadges();
+                const sp = document.getElementById('streakPanel');
+                if (sp) sp.classList.remove('open');
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                window.openFreeBox(m.boxType);
+                return;
+            }
+
+            if (m.type === 'gems') {
+                const cur = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                localStorage.setItem('nu_gems', String(cur + m.amount));
+                if (typeof updateGemUI === 'function') updateGemUI();
+                try { if (typeof playSfx === 'function') playSfx('gem-claim'); } catch (e) { }
+                showLootToast(`Level ${lvl} Reward!`, `+${m.amount} Gems claimed!`, '💎');
+            }
+
+            window.renderStreakPanel();
+            window.updateStreakBadge();
+            if (typeof updateLootBadges === 'function') updateLootBadges();
+        };
+
+        window.renderStreakPanel = function() {
+            const list = document.getElementById('streakMilestoneList');
+            if (!list) return;
+            const cur = parseInt(localStorage.getItem('nu_s') || '0', 10) || 0;
+            const best = Math.max(cur, parseInt(localStorage.getItem('nu_best_s') || '0', 10) || 0);
+            const curEl = document.getElementById('streakCurVal');
+            const bestEl = document.getElementById('streakBestVal');
+            if (curEl) curEl.textContent = cur;
+            if (bestEl) bestEl.textContent = best;
+
+            const claimed = getStreakClaimed();
+            list.innerHTML = '';
+            STREAK_MILESTONES.forEach(m => {
+                const isClaimed = claimed.includes(m.level);
+                const isReady = best >= m.level && !isClaimed;
+                const row = document.createElement('div');
+                row.className = 'streak-milestone-row' + (isReady ? ' ready' : isClaimed ? ' claimed' : '');
+
+                let actionHtml = '';
+                if (isClaimed) actionHtml = '<span class="streak-tag-done">✓ Claimed</span>';
+                else if (isReady) actionHtml = `<button type="button" class="streak-claim-btn" data-claim-lvl="${m.level}">Claim</button>`;
+                else actionHtml = `<span class="streak-tag-locked">🔒 ${best}/${m.level}</span>`;
+
+                row.innerHTML = `
+                    <div class="streak-ms-left">
+                        <span class="streak-ms-ico">${m.icon}</span>
+                        <div>
+                            <div class="streak-ms-lvl">Level ${m.level}</div>
+                            <div class="streak-ms-label">${m.label}</div>
+                        </div>
+                    </div>
+                    <div>${actionHtml}</div>
+                `;
+                const btn = row.querySelector('[data-claim-lvl]');
+                if (btn) btn.addEventListener('click', () => window.claimStreakMilestone(m.level));
+                list.appendChild(row);
+            });
+        };
+
+        window.openStreakPanel = function() {
+            const sp = document.getElementById('streakPanel');
+            if (!sp) return;
+            window.renderStreakPanel();
+            if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+            sp.classList.add('open');
+        };
+
+        (function initStreakPanel() {
+            const streakBtn = document.getElementById('streak');
+            const streakPanel = document.getElementById('streakPanel');
+            const streakClose = document.getElementById('streakClose');
+            if (streakBtn) streakBtn.addEventListener('click', () => window.openStreakPanel());
+            if (streakClose && streakPanel) {
+                streakClose.addEventListener('click', () => {
+                    streakPanel.classList.remove('open');
+                    if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                });
+            }
+            if (streakPanel) {
+                streakPanel.addEventListener('click', (e) => {
+                    if (e.target === streakPanel) {
+                        streakPanel.classList.remove('open');
+                        if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+                    }
+                });
+            }
+            window.updateStreakBadge();
+        })();
+
+        // ========== FEATURE 1: SETTINGS & STATS ==========
+        window.renderSettingsStats = function() {
+            const grid = document.getElementById('settingsStatsGrid');
+            if (!grid) return;
+            const curLvl = parseInt(localStorage.getItem('nu_s') || '0', 10) || 0;
+            const bestLvl = Math.max(curLvl, parseInt(localStorage.getItem('nu_best_s') || '0', 10) || 0);
+            let ownedArr = [];
+            try { ownedArr = JSON.parse(localStorage.getItem('nu_owned') || '[]'); } catch (e) { }
+            const visibleSkins = Array.isArray(window.SKINS)
+                ? window.SKINS.filter(sk => sk.id && (!sk.hide || ownedArr.includes(sk.id)))
+                : [];
+            const ownedSkinsCount = visibleSkins.filter(sk => ownedArr.includes(sk.id)).length;
+            let favCount = 0;
+            try { favCount = JSON.parse(localStorage.getItem('nu_favs') || '[]').length; } catch (e) { }
+            const adventCount = getAdventClaimed().length;
+
+            grid.innerHTML = `
+                <div class="settings-stat-box"><div class="settings-stat-val">${curLvl} (Best ${bestLvl})</div><div class="settings-stat-lbl">⚡ Streak Level</div></div>
+                <div class="settings-stat-box"><div class="settings-stat-val">${ownedSkinsCount} / ${visibleSkins.length}</div><div class="settings-stat-lbl">🤖 Skins Owned</div></div>
+                <div class="settings-stat-box"><div class="settings-stat-val">${favCount}</div><div class="settings-stat-lbl">❤️ Favorites</div></div>
+                <div class="settings-stat-box"><div class="settings-stat-val">${adventCount} / 24</div><div class="settings-stat-lbl">🎄 Advent Doors</div></div>
+            `;
+        };
+
+        window.openSettingsPanel = function() {
+            const sp = document.getElementById('settingsPanel');
+            if (!sp) return;
+            const sfxBtn = document.getElementById('toggleSfxBtn');
+            const musicBtn = document.getElementById('toggleMusicBtn');
+            const nameInput = document.getElementById('settingsNameInput');
+            if (sfxBtn) sfxBtn.classList.toggle('on', !(window.isSfxMuted && window.isSfxMuted()));
+            if (musicBtn) musicBtn.classList.toggle('on', !(window.isMusicMuted && window.isMusicMuted()));
+            if (nameInput) nameInput.value = localStorage.getItem('nu_name') || '';
+            window.renderSettingsStats();
+            if (typeof toggleMainButtons === 'function') toggleMainButtons(false);
+            sp.classList.add('open');
+        };
+
+        (function initSettingsPanel() {
+            const toggle = document.getElementById('settingsToggle');
+            const panel = document.getElementById('settingsPanel');
+            const closeBtn = document.getElementById('settingsClose');
+            const sfxBtn = document.getElementById('toggleSfxBtn');
+            const musicBtn = document.getElementById('toggleMusicBtn');
+            const nameInput = document.getElementById('settingsNameInput');
+            const nameSave = document.getElementById('settingsNameSave');
+            const openStreak = document.getElementById('settingsOpenStreak');
+            const openSync = document.getElementById('settingsOpenSync');
+
+            function closeSettings() {
+                if (panel) panel.classList.remove('open');
+                if (typeof toggleMainButtons === 'function') toggleMainButtons(true);
+            }
+
+            if (toggle) toggle.addEventListener('click', () => window.openSettingsPanel());
+            if (closeBtn) closeBtn.addEventListener('click', closeSettings);
+            if (panel) panel.addEventListener('click', (e) => { if (e.target === panel) closeSettings(); });
+
+            if (sfxBtn) {
+                sfxBtn.addEventListener('click', () => {
+                    const nextOn = !sfxBtn.classList.contains('on');
+                    sfxBtn.classList.toggle('on', nextOn);
+                    if (typeof window.setSfxEnabled === 'function') window.setSfxEnabled(nextOn);
+                    if (nextOn && typeof playSfx === 'function') playSfx('gem-claim');
+                });
+            }
+            if (musicBtn) {
+                musicBtn.addEventListener('click', () => {
+                    const nextOn = !musicBtn.classList.contains('on');
+                    musicBtn.classList.toggle('on', nextOn);
+                    if (typeof window.setAppMusicEnabled === 'function') window.setAppMusicEnabled(nextOn);
+                });
+            }
+            if (nameSave && nameInput) {
+                nameSave.addEventListener('click', () => {
+                    const clean = nameInput.value.trim().replace(/\s+/g, '').slice(0, 16);
+                    if (!clean) {
+                        showLootToast('Error!', 'Please enter a valid name!', '❌');
+                        return;
+                    }
+                    localStorage.setItem('nu_name', clean);
+                    const g = document.getElementById('greeting');
+                    if (g && typeof getActiveGreeting === 'function') g.textContent = getActiveGreeting(clean);
+                    if (typeof renderShop === 'function') renderShop();
+                    showLootToast('Saved!', `Nickname updated to ${clean}`, '✅');
+                    try { if (typeof playSfx === 'function') playSfx('gem-claim'); } catch (e) { }
+                });
+            }
+            if (openStreak) {
+                openStreak.addEventListener('click', () => {
+                    if (panel) panel.classList.remove('open');
+                    window.openStreakPanel();
+                });
+            }
+            if (openSync) {
+                openSync.addEventListener('click', () => {
+                    closeSettings();
+                    const sp = document.getElementById('syncPanel');
+                    if (sp) sp.classList.add('open');
+                });
+            }
+        })();
+
+        // ========== FEATURE 2: GIFT CATCH MINI-GAME (2/DAY, 15s) ==========
+        function giftGameDayKey() {
+            return (typeof tr === 'function') ? tr() : new Date().toDateString();
+        }
+        function getGiftPlaysUsedToday() {
+            const day = giftGameDayKey();
+            if (localStorage.getItem('nu_giftgame_day') !== day) {
+                localStorage.setItem('nu_giftgame_day', day);
+                localStorage.setItem('nu_giftgame_used', '0');
+                return 0;
+            }
+            return parseInt(localStorage.getItem('nu_giftgame_used') || '0', 10) || 0;
+        }
+        window.getGiftPlaysLeft = function() {
+            return Math.max(0, 2 - getGiftPlaysUsedToday());
+        };
+        window.renderGiftGameCard = function() {
+            const leftEl = document.getElementById('giftPlaysLeft');
+            const bestEl = document.getElementById('giftBestScore');
+            const btn = document.getElementById('startGiftGameBtn');
+            const left = window.getGiftPlaysLeft();
+            const best = parseInt(localStorage.getItem('nu_giftgame_best') || '0', 10) || 0;
+            if (leftEl) leftEl.textContent = `🎮 ${left} / 2 left today`;
+            if (bestEl) bestEl.textContent = `🏆 Best: ${best}`;
+            if (btn) {
+                btn.disabled = left <= 0;
+                btn.textContent = left > 0 ? '🎮 Play (15s)' : 'Tomorrow 8:00';
+            }
+        };
+
+        (function initGiftCatchGame() {
+            const overlay = document.getElementById('giftGameOverlay');
+            const arena = document.getElementById('giftGameArena');
+            const timerFill = document.getElementById('giftTimerFill');
+            const timerText = document.getElementById('giftTimerText');
+            const scoreText = document.getElementById('giftScoreText');
+            const closeBtn = document.getElementById('giftGameClose');
+            const endWrap = document.getElementById('giftGameEnd');
+            const endScore = document.getElementById('giftEndScore');
+            const endBest = document.getElementById('giftEndBest');
+            const endCollect = document.getElementById('giftEndCollectBtn');
+            const startBtn = document.getElementById('startGiftGameBtn');
+
+            let active = false;
+            let score = 0;
+            let startMs = 0;
+            let lastFrameMs = 0;
+            let lastSpawnMs = 0;
+            let rafId = null;
+            let items = [];
+            const DURATION_MS = 15000;
+
+            function stopLoop() {
+                active = false;
+                if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+                items.forEach(it => it.el && it.el.remove());
+                items = [];
+            }
+
+            function spawnPop(x, y, text, isBad) {
+                if (!arena) return;
+                const pop = document.createElement('div');
+                pop.className = 'gift-pop' + (isBad ? ' bad' : '');
+                pop.textContent = text;
+                pop.style.left = x + 'px';
+                pop.style.top = y + 'px';
+                arena.appendChild(pop);
+                setTimeout(() => pop.remove(), 680);
+            }
+
+            function spawnToken() {
+                if (!arena || !active) return;
+                const w = arena.clientWidth || window.innerWidth;
+                const r = Math.random();
+                let icon = '🎁', pts = 5, isBomb = false;
+                if (r < 0.14) { icon = '💣'; pts = -10; isBomb = true; }
+                else if (r < 0.28) { icon = '⭐'; pts = 15; }
+                else if (r < 0.55) { icon = '🍬'; pts = 10; }
+
+                const el = document.createElement('div');
+                el.className = 'gift-item';
+                el.textContent = icon;
+                const x = 14 + Math.random() * Math.max(40, w - 84);
+                const y = -58;
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+
+                const obj = {
+                    el,
+                    x,
+                    y,
+                    speed: 195 + Math.random() * 145,
+                    pts,
+                    isBomb,
+                    caught: false
+                };
+
+                el.addEventListener('pointerdown', (e) => {
+                    if (!active || obj.caught) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    obj.caught = true;
+                    score = Math.max(0, score + obj.pts);
+                    if (scoreText) scoreText.textContent = `💎 ${score}`;
+                    spawnPop(obj.x + 30, Math.max(24, obj.y + 16), obj.pts >= 0 ? `+${obj.pts} 💎` : '💣 -10', obj.isBomb);
+                    if (obj.isBomb) {
+                        arena.classList.remove('shake');
+                        void arena.offsetWidth;
+                        arena.classList.add('shake');
+                        try { if (typeof playSfx === 'function') playSfx('error'); } catch (err) { }
+                    } else {
+                        try { if (typeof playSfx === 'function') playSfx(obj.pts >= 15 ? 'pouch-open' : 'gem-claim'); } catch (err) { }
+                        try { if (typeof hapticTap === 'function') hapticTap(10); } catch (err) { }
+                    }
+                    el.remove();
+                });
+
+                arena.appendChild(el);
+                items.push(obj);
+            }
+
+            function finishGame() {
+                stopLoop();
+                const earned = Math.max(0, score);
+                const curGems = parseInt(localStorage.getItem('nu_gems') || '0', 10);
+                if (earned > 0) localStorage.setItem('nu_gems', String(curGems + earned));
+                const prevBest = parseInt(localStorage.getItem('nu_giftgame_best') || '0', 10) || 0;
+                const nextBest = Math.max(prevBest, earned);
+                localStorage.setItem('nu_giftgame_best', String(nextBest));
+                if (typeof updateGemUI === 'function') updateGemUI();
+                if (typeof updateLootBadges === 'function') updateLootBadges();
+                window.renderGiftGameCard();
+
+                if (endScore) endScore.textContent = `+${earned} Gems Earned`;
+                if (endBest) endBest.textContent = `🏆 Best: ${nextBest} Gems`;
+                if (endWrap) endWrap.classList.add('show');
+                try { if (typeof playSfx === 'function') playSfx('bp-claim'); } catch (err) { }
+            }
+
+            function frame(nowMs) {
+                if (!active) return;
+                const elapsed = nowMs - startMs;
+                const remain = Math.max(0, DURATION_MS - elapsed);
+                if (timerFill) timerFill.style.width = ((remain / DURATION_MS) * 100).toFixed(1) + '%';
+                if (timerText) timerText.textContent = Math.ceil(remain / 1000) + 's';
+
+                if (nowMs - lastSpawnMs >= 430) {
+                    lastSpawnMs = nowMs;
+                    spawnToken();
+                }
+
+                const dt = Math.min(0.05, Math.max(0.001, (nowMs - lastFrameMs) / 1000));
+                lastFrameMs = nowMs;
+                const arenaH = (arena && arena.clientHeight) ? arena.clientHeight : window.innerHeight;
+                for (let i = items.length - 1; i >= 0; i--) {
+                    const it = items[i];
+                    if (it.caught) { items.splice(i, 1); continue; }
+                    it.y += it.speed * dt;
+                    it.el.style.top = it.y + 'px';
+                    if (it.y > arenaH + 20) {
+                        it.el.remove();
+                        items.splice(i, 1);
+                    }
+                }
+
+                if (remain <= 0) {
+                    finishGame();
+                    return;
+                }
+                rafId = requestAnimationFrame(frame);
+            }
+
+            window.startGiftGame = function() {
+                if (!overlay || !arena || active) return;
+                if (window.getGiftPlaysLeft() <= 0) {
+                    showLootToast('No Plays Left', 'Come back tomorrow at 8:00 AM!', '⏰');
+                    return;
+                }
+                const used = getGiftPlaysUsedToday();
+                localStorage.setItem('nu_giftgame_used', String(used + 1));
+                window.renderGiftGameCard();
+
+                score = 0;
+                if (scoreText) scoreText.textContent = '💎 0';
+                if (timerFill) timerFill.style.width = '100%';
+                if (timerText) timerText.textContent = '15s';
+                if (endWrap) endWrap.classList.remove('show');
+                arena.innerHTML = '';
+                items = [];
+                overlay.classList.add('open');
+
+                active = true;
+                startMs = performance.now();
+                lastFrameMs = startMs;
+                lastSpawnMs = startMs - 300;
+                rafId = requestAnimationFrame(frame);
+            };
+
+            function closeGiftOverlay() {
+                stopLoop();
+                if (endWrap) endWrap.classList.remove('show');
+                if (overlay) overlay.classList.remove('open');
+                window.renderGiftGameCard();
+            }
+
+            if (startBtn) startBtn.addEventListener('click', () => window.startGiftGame());
+            if (closeBtn) closeBtn.addEventListener('click', closeGiftOverlay);
+            if (endCollect) endCollect.addEventListener('click', closeGiftOverlay);
+            window.renderGiftGameCard();
+        })();
 
         window.renderAdventCalendar();
         if (typeof updateLootBadges === 'function') updateLootBadges();
