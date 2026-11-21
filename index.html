@@ -20815,7 +20815,7 @@
             font-weight: 700;
         }
 
-        /* ========== SANTA'S VILLAGE (3D PANORAMIC EXPLORABLE WORLD + FACTORIES + REINDEER) ========== */
+        /* ========== SANTA'S VILLAGE (3D PANORAMIC EXPLORABLE WORLD + BOT FACTORY + LIFELIKE 3D REINDEER) ========== */
         .village-overlay {
             position: fixed;
             inset: 0;
@@ -20995,7 +20995,7 @@
         }
         .village-plaza-scene.active { display: flex; }
 
-        /* Minimal Floating Corner Pills (Zero Text Clutter) */
+        /* Minimal Floating Corner Pills */
         .v3d-corner-hud {
             position: absolute;
             top: calc(env(safe-area-inset-top, 12px) + 12px);
@@ -21175,9 +21175,6 @@
             pointer-events: none;
             will-change: transform;
             transition: transform 0.12s ease-out;
-            background:
-                polygon(0% 100%, 5% 42%, 11% 100%),
-                radial-gradient(ellipse at 50% 100%, rgba(56, 189, 248, 0.22), transparent 70%);
         }
         .v3d-mountains::before {
             content: '';
@@ -21189,7 +21186,7 @@
             filter: drop-shadow(0 -6px 18px rgba(186, 230, 253, 0.22));
         }
 
-        /* Layer 2: Mid-ground 3D Snowy Hills & Pine Ridge (Parallax 0.48x) */
+        /* Layer 2: Mid-ground 3D Snowy Hills (Parallax 0.48x) */
         .v3d-hills-mid {
             position: absolute;
             bottom: 27%;
@@ -21378,7 +21375,7 @@
             z-index: 6;
         }
 
-        /* ========== MASSIVE 3D ARCHITECTURAL LANDMARKS (1.42x SCALE, ZERO TEXT CLUTTER) ========== */
+        /* ========== MASSIVE 3D ARCHITECTURAL LANDMARKS ========== */
         .v3d-building {
             position: absolute;
             bottom: 23.5%;
@@ -21398,7 +21395,6 @@
             filter: drop-shadow(0 26px 40px rgba(251, 191, 36, 0.55));
         }
 
-        /* Floating Pure-Visual Status Bubble Above Each Landmark (No Wordy Banners) */
         .v3d-status-orb {
             margin-bottom: 12px;
             height: 36px;
@@ -21428,7 +21424,7 @@
             100% { transform: translateY(-7px); }
         }
 
-        /* 1. Giant 3D Candy Factory (Cukorgyár) */
+        /* 1. Giant 3D Candy Factory */
         .b-candy-factory {
             position: relative;
             width: 224px;
@@ -21538,7 +21534,7 @@
             box-shadow: 0 0 18px rgba(251, 191, 36, 0.7);
         }
 
-        /* 2. Santa's 3D Toy Factory (Játékgyár) */
+        /* 2. Santa's 3D Daily Bot & Toy Factory */
         .b-toy-factory {
             position: relative;
             width: 232px;
@@ -21550,7 +21546,7 @@
             left: 0;
             right: 0;
             height: 50px;
-            background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+            background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
             clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
             filter: drop-shadow(0 -4px 0 #ffffff);
             display: flex;
@@ -21561,7 +21557,7 @@
         .tf-clock-gear {
             font-size: 26px;
             animation: spin3dGear 6s linear infinite;
-            filter: drop-shadow(0 0 10px #fde047);
+            filter: drop-shadow(0 0 10px #38bdf8);
         }
         .tf-walls {
             position: absolute;
@@ -21569,8 +21565,8 @@
             left: 14px;
             right: 14px;
             bottom: 0;
-            background: linear-gradient(135deg, #15803d 0%, #166534 55%, #14532d 100%);
-            border: 2.5px solid #fbbf24;
+            background: linear-gradient(135deg, #1e3a8a 0%, #172554 55%, #0f172a 100%);
+            border: 2.5px solid #38bdf8;
             border-radius: 0 0 16px 16px;
             box-shadow: inset -18px 0 0 rgba(0, 0, 0, 0.28);
             display: flex;
@@ -21580,7 +21576,7 @@
             padding: 12px 10px 0;
         }
 
-        /* 3. Central 3D Christmas Tree Plaza + Direct 3D Gift Under Tree */
+        /* 3. Central 3D Christmas Tree Plaza */
         .b-village-tree {
             position: relative;
             width: 196px;
@@ -21660,7 +21656,7 @@
             100% { transform: translateX(-50%) translateY(-8px) scale(1.16); }
         }
 
-        /* 4. 3D Reindeer Stable & Snowy Paddock (Rénszarvas Karám) */
+        /* 4. 3D Reindeer Stable & Snowy Paddock */
         .b-reindeer-stable {
             position: relative;
             width: 244px;
@@ -21822,7 +21818,90 @@
             50% { transform: translate(-50%, -56%) scale(0.51) translateY(-9px) rotate(5deg); }
         }
 
-        /* Floating 3D Reward Pop Above Robot */
+        /* Floating Custom Bot Name Tag (Home Screen & 3D Village) */
+        .cbot-name-tag {
+            position: absolute;
+            top: -36px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 3px 11px;
+            border-radius: 999px;
+            background: rgba(6, 18, 38, 0.88);
+            border: 1.5px solid #38bdf8;
+            color: #fef08a;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 900;
+            white-space: nowrap;
+            z-index: 25;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), 0 0 12px rgba(56, 189, 248, 0.4);
+            pointer-events: none;
+        }
+        .dc-mini-robot .cbot-name-tag {
+            top: -42px;
+            font-size: 20px;
+            padding: 4px 16px;
+            border-width: 2.5px;
+        }
+
+        /* Custom Factory 3D Paint Themes on .robot */
+        .robot[data-cbot-paint="crimson"] .head,
+        .robot[data-cbot-paint="crimson"] .torso,
+        .robot[data-cbot-paint="crimson"] .arm,
+        .robot[data-cbot-paint="crimson"] .leg {
+            background: linear-gradient(145deg, #ef4444 0%, #dc2626 50%, #991b1b 100%) !important;
+            border-color: #fde047 !important;
+        }
+        .robot[data-cbot-paint="arctic"] .head,
+        .robot[data-cbot-paint="arctic"] .torso,
+        .robot[data-cbot-paint="arctic"] .arm,
+        .robot[data-cbot-paint="arctic"] .leg {
+            background: linear-gradient(145deg, #7dd3fc 0%, #0ea5e9 52%, #0369a1 100%) !important;
+            border-color: #e0f2fe !important;
+        }
+        .robot[data-cbot-paint="emerald"] .head,
+        .robot[data-cbot-paint="emerald"] .torso,
+        .robot[data-cbot-paint="emerald"] .arm,
+        .robot[data-cbot-paint="emerald"] .leg {
+            background: linear-gradient(145deg, #34d399 0%, #10b981 52%, #047857 100%) !important;
+            border-color: #fde047 !important;
+        }
+        .robot[data-cbot-paint="gold"] .head,
+        .robot[data-cbot-paint="gold"] .torso,
+        .robot[data-cbot-paint="gold"] .arm,
+        .robot[data-cbot-paint="gold"] .leg {
+            background: linear-gradient(145deg, #fef08a 0%, #fbbf24 50%, #b45309 100%) !important;
+            border-color: #ffffff !important;
+        }
+        .robot[data-cbot-paint="violet"] .head,
+        .robot[data-cbot-paint="violet"] .torso,
+        .robot[data-cbot-paint="violet"] .arm,
+        .robot[data-cbot-paint="violet"] .leg {
+            background: linear-gradient(145deg, #c084fc 0%, #9333ea 52%, #581c87 100%) !important;
+            border-color: #f0abfc !important;
+        }
+        .robot[data-cbot-paint="candy"] .head,
+        .robot[data-cbot-paint="candy"] .torso,
+        .robot[data-cbot-paint="candy"] .arm,
+        .robot[data-cbot-paint="candy"] .leg {
+            background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 52%, #9d174d 100%) !important;
+            border-color: #ffffff !important;
+        }
+        .robot[data-cbot-paint="obsidian"] .head,
+        .robot[data-cbot-paint="obsidian"] .torso,
+        .robot[data-cbot-paint="obsidian"] .arm,
+        .robot[data-cbot-paint="obsidian"] .leg {
+            background: linear-gradient(145deg, #334155 0%, #0f172a 55%, #020617 100%) !important;
+            border-color: #38bdf8 !important;
+        }
+        .robot[data-cbot-eye] .eye,
+        .robot[data-cbot-eye] .antenna-ball,
+        .robot[data-cbot-eye] .chest-dot {
+            background: var(--cbot-eye-color, #38bdf8) !important;
+            box-shadow: 0 0 12px var(--cbot-eye-color, #38bdf8) !important;
+        }
+
+        /* Floating 3D Reward Pop */
         .v3d-floating-reward {
             position: fixed;
             left: 50%;
@@ -21844,7 +21923,7 @@
             100% { transform: translate(-50%, -80px) scale(0.85); opacity: 0; }
         }
 
-        /* Sleek Floating Bottom 5-Icon Radar Pill (Zero Text Clutter!) */
+        /* Sleek Floating Bottom 5-Icon Radar Pill */
         .village-compass-dock {
             position: absolute;
             bottom: calc(env(safe-area-inset-bottom, 12px) + 14px);
@@ -21903,18 +21982,18 @@
             display: flex;
         }
 
-        /* Clean, Pure-Visual 3D Machine Popup (One Big Tactile Button, Zero Text Walls!) */
+        /* ========== INTERACTIVE 3D INTERIOR MODAL ========== */
         .village-interior-modal {
             position: absolute;
             inset: 0;
             z-index: 30;
-            background: rgba(2, 8, 23, 0.68);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(2, 8, 23, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 12px;
             animation: obIn 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .village-interior-modal.open {
@@ -21922,15 +22001,17 @@
         }
         .v-interior-card {
             width: 100%;
-            max-width: 340px;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
             border-radius: 28px;
             background: linear-gradient(165deg, #0b1e38 0%, #0f172a 65%, #1e1b4b 100%);
             border: 2.5px solid #fbbf24;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 191, 36, 0.28);
-            padding: 16px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85), 0 0 40px rgba(251, 191, 36, 0.28);
+            padding: 14px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 10px;
         }
         .v-interior-header {
             display: flex;
@@ -21939,7 +22020,7 @@
             gap: 8px;
         }
         .v-interior-title {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 900;
             color: #fef08a;
             display: flex;
@@ -21948,7 +22029,7 @@
         }
         .v-machine-stage {
             position: relative;
-            height: 176px;
+            height: 170px;
             border-radius: 22px;
             background: radial-gradient(circle at 50% 45%, rgba(251, 191, 36, 0.26) 0%, rgba(15, 23, 42, 0.94) 78%);
             border: 2px solid rgba(186, 230, 253, 0.32);
@@ -22039,7 +22120,6 @@
             100% { transform: translate(85px, -110px) scale(0.3) rotate(25deg); opacity: 0; }
         }
 
-        /* 3 Visual Progress Slots Inside Machine Modal */
         .v-slot-row {
             display: flex;
             align-items: center;
@@ -22068,16 +22148,15 @@
             box-shadow: 0 0 18px rgba(74, 222, 128, 0.6);
         }
 
-        /* Single Big Tactile Action Button */
         .v-big-action-btn {
             width: 100%;
-            height: 56px;
+            height: 52px;
             border-radius: 18px;
             border: 2px solid #fef08a;
             background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
             color: #fff;
             font-family: 'Outfit', sans-serif;
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 900;
             cursor: pointer;
             display: flex;
@@ -22087,13 +22166,359 @@
             box-shadow: 0 10px 24px rgba(220, 38, 38, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.35);
             transition: transform 0.12s ease, box-shadow 0.2s ease;
         }
-        .v-big-action-btn:active {
-            transform: scale(0.95);
-        }
+        .v-big-action-btn:active { transform: scale(0.95); }
         .v-big-action-btn.done {
             background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
             border-color: #86efac;
             box-shadow: 0 10px 24px rgba(22, 163, 74, 0.45);
+        }
+
+        /* ========== 1. 3D DAILY BOT FACTORY BUILDER STUDIO ========== */
+        .cbot-turntable-stage {
+            position: relative;
+            height: 188px;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 50% 42%, rgba(56, 189, 248, 0.32) 0%, rgba(15, 23, 42, 0.96) 76%);
+            border: 2px solid rgba(56, 189, 248, 0.45);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 700px;
+        }
+        .cbot-pedestal-disc {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            width: 150px;
+            height: 36px;
+            transform: translateX(-50%) rotateX(62deg);
+            border-radius: 50%;
+            background: radial-gradient(circle, #38bdf8 0%, #0284c7 55%, #0f172a 100%);
+            border: 3px solid #bae6fd;
+            box-shadow: 0 0 28px rgba(56, 189, 248, 0.85);
+        }
+        .cbot-arm-clamp {
+            position: absolute;
+            top: -6px;
+            font-size: 28px;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+        .cbot-arm-clamp.left { left: 16px; transform: rotate(25deg); }
+        .cbot-arm-clamp.right { right: 16px; transform: scaleX(-1) rotate(25deg); }
+        .cbot-turntable-stage.weld .cbot-arm-clamp.left { transform: translate(34px, 28px) rotate(-12deg); }
+        .cbot-turntable-stage.weld .cbot-arm-clamp.right { transform: translate(-34px, 28px) scaleX(-1) rotate(-12deg); }
+
+        .cbot-preview-mount {
+            position: relative;
+            width: 140px;
+            height: 155px;
+            z-index: 5;
+            transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: grab;
+        }
+        .cbot-preview-mount .dc-mini-robot-frame {
+            width: 140px;
+            height: 155px;
+        }
+        .cbot-preview-mount .dc-mini-robot {
+            transform: translate(-50%, -46%) scale(0.49) !important;
+        }
+
+        .cbot-name-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cbot-name-input {
+            flex: 1;
+            height: 40px;
+            padding: 0 14px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            background: rgba(15, 23, 42, 0.88);
+            color: #fef08a;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            outline: none;
+        }
+        .cbot-name-input:focus {
+            border-color: #fde047;
+            box-shadow: 0 0 14px rgba(253, 224, 71, 0.35);
+        }
+
+        .cbot-swatch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: 4px 2px;
+        }
+        .cbot-color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.16s ease, box-shadow 0.16s ease;
+            flex-shrink: 0;
+        }
+        .cbot-color-dot.active {
+            transform: scale(1.2);
+            border-color: #ffffff;
+            box-shadow: 0 0 16px rgba(253, 224, 71, 0.85);
+        }
+
+        .cbot-acc-strip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 2px;
+            scrollbar-width: none;
+        }
+        .cbot-acc-strip::-webkit-scrollbar { display: none; }
+        .cbot-acc-chip {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.82);
+            font-size: 21px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.14s ease, border-color 0.16s ease, background 0.16s ease;
+        }
+        .cbot-acc-chip.active {
+            border-color: #fde047;
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.65), rgba(234, 179, 8, 0.45));
+            box-shadow: 0 0 14px rgba(253, 224, 71, 0.45);
+            transform: scale(1.08);
+        }
+
+        /* ========== 2. LIFELIKE 3D REINDEER FEEDING PADDOCK ========== */
+        .reindeer-3d-stage {
+            position: relative;
+            height: 256px;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 50% 24%, rgba(251, 191, 36, 0.25) 0%, transparent 55%),
+                linear-gradient(180deg, #071936 0%, #102d52 55%, #e2f1ff 56%, #bae6fd 100%);
+            border: 2px solid #d97706;
+            overflow: hidden;
+            perspective: 650px;
+            touch-action: none;
+            user-select: none;
+        }
+        /* 3D Barn Roof Beams & Warm Lantern Glow */
+        .r3d-barn-arch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 36px;
+            background: linear-gradient(180deg, #451a03, rgba(69, 26, 3, 0));
+            border-bottom: 3px solid rgba(217, 119, 6, 0.4);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .r3d-tabs {
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            right: 10px;
+            z-index: 12;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+        .r3d-deer-tab {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(6, 18, 38, 0.78);
+            border: 1.5px solid rgba(251, 191, 36, 0.35);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.18s ease;
+        }
+        .r3d-deer-tab.active {
+            background: linear-gradient(135deg, #b45309, #dc2626);
+            border-color: #fef08a;
+            box-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
+            transform: scale(1.06);
+        }
+
+        /* Articulated Lifelike 3D Reindeer SVG Mount */
+        .r3d-deer-actor {
+            position: absolute;
+            bottom: 38px;
+            left: 50%;
+            width: 210px;
+            height: 205px;
+            transform: translateX(-50%) translateZ(0) scale(1);
+            transform-origin: bottom center;
+            z-index: 6;
+            cursor: pointer;
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease;
+            filter: drop-shadow(0 14px 18px rgba(15, 23, 42, 0.45));
+        }
+        /* When player holds/drags food near, the reindeer leans forward in 3D right over the fence! */
+        .r3d-deer-actor.lean-forward {
+            transform: translateX(-50%) translateY(10px) scale(1.18);
+            filter: drop-shadow(0 20px 26px rgba(15, 23, 42, 0.6));
+        }
+        .r3d-deer-actor.happy-bounce {
+            animation: deerHappyNod 0.55s ease-in-out 2;
+        }
+        @keyframes deerHappyNod {
+            0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+            50% { transform: translateX(-50%) translateY(-12px) scale(1.12) rotate(3deg); }
+        }
+
+        /* SVG Internal Anatomical Animations */
+        .r3d-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .r3d-head-group {
+            transform-origin: 105px 115px;
+            animation: deerHeadBreathe 3.2s ease-in-out infinite alternate;
+            transition: transform 0.22s ease;
+        }
+        @keyframes deerHeadBreathe {
+            0% { transform: translateY(0) rotate(-1.5deg); }
+            100% { transform: translateY(-4px) rotate(2deg); }
+        }
+        .r3d-ear-l {
+            transform-origin: 72px 72px;
+            animation: deerEarL 2.8s ease-in-out infinite;
+        }
+        .r3d-ear-r {
+            transform-origin: 138px 72px;
+            animation: deerEarR 2.8s ease-in-out infinite 0.4s;
+        }
+        @keyframes deerEarL {
+            0%, 80%, 100% { transform: rotate(0deg); }
+            90% { transform: rotate(-14deg); }
+        }
+        @keyframes deerEarR {
+            0%, 80%, 100% { transform: rotate(0deg); }
+            90% { transform: rotate(14deg); }
+        }
+        .r3d-lower-jaw {
+            transform-origin: 105px 122px;
+            transition: transform 0.16s ease;
+        }
+        .r3d-deer-actor.mouth-open .r3d-lower-jaw {
+            transform: translateY(11px) scaleY(1.15);
+        }
+        .r3d-deer-actor.chewing .r3d-lower-jaw {
+            animation: deerJawChew 0.22s ease-in-out 6;
+        }
+        @keyframes deerJawChew {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(9px) translateX(3px); }
+        }
+        .r3d-mouth-cavity {
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+        .r3d-deer-actor.mouth-open .r3d-mouth-cavity,
+        .r3d-deer-actor.chewing .r3d-mouth-cavity {
+            opacity: 1;
+        }
+        .r3d-breath-puff {
+            opacity: 0;
+            animation: nostrilSteam 2.6s ease-out infinite;
+        }
+        @keyframes nostrilSteam {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0.75; }
+            100% { transform: translate(-18px, -16px) scale(1.7); opacity: 0; }
+        }
+        .r3d-breath-puff.r {
+            animation-name: nostrilSteamR;
+            animation-delay: 0.2s;
+        }
+        @keyframes nostrilSteamR {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0.75; }
+            100% { transform: translate(18px, -16px) scale(1.7); opacity: 0; }
+        }
+
+        /* Foreground 3D Wooden Paddock Fence Rail */
+        .r3d-foreground-fence {
+            position: absolute;
+            left: -8px;
+            right: -8px;
+            bottom: 36px;
+            height: 36px;
+            z-index: 8;
+            pointer-events: none;
+            background:
+                repeating-linear-gradient(90deg, transparent 0 42px, #78350f 42px 56px),
+                linear-gradient(180deg, transparent 8px, #92400e 8px 18px, transparent 18px 24px, #78350f 24px 34px);
+            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
+        }
+
+        /* First-Person 3D Feed Trough & Draggable Treats */
+        .r3d-feed-trough {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 10px 8px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #78350f 0%, #451a03 100%);
+            border: 2.5px solid #f59e0b;
+            box-shadow: inset 0 6px 14px rgba(0, 0, 0, 0.55), 0 10px 24px rgba(0, 0, 0, 0.45);
+        }
+        .r3d-food-item {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            background: radial-gradient(circle at 35% 30%, rgba(254, 240, 138, 0.28), rgba(28, 25, 23, 0.72));
+            border: 2px solid rgba(251, 191, 36, 0.55);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            cursor: grab;
+            touch-action: none;
+            transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.16s ease, box-shadow 0.16s ease;
+        }
+        .r3d-food-item:hover,
+        .r3d-food-item:active {
+            transform: translateY(-6px) scale(1.12);
+            border-color: #fde047;
+            box-shadow: 0 0 18px rgba(253, 224, 71, 0.65);
+        }
+
+        /* Floating Dragged/Tossed 3D Food Proxy */
+        .r3d-flying-food {
+            position: fixed;
+            z-index: 9999;
+            font-size: 46px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.55));
+            transition: none;
+        }
+        .r3d-flying-food.toss-arc {
+            transition: left 0.42s cubic-bezier(0.22, 1, 0.36, 1), top 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.42s ease;
         }
 
     </style>
@@ -22761,7 +23186,7 @@
                 <div class="village-aurora"></div>
                 <div class="village-distant-lodge" id="villageDistantLodge">
                     <div class="mini-lodge-roof"></div>
-                    <div class="mini-lodge-body">🍬🧸🦌🎅</div>
+                    <div class="mini-lodge-body">🍬🤖🦌🎅</div>
                 </div>
                 <div class="village-trail-ground">
                     <div class="village-snow-avenue"></div>
@@ -22794,7 +23219,7 @@
                 <div class="v3d-hud-right">
                     <div class="v3d-cargo-pill" id="villageCargoHud" onclick="focusVillageZone('santa', true)">
                         <div class="v3d-cargo-slot" id="vCargoSlotCandy">🍬</div>
-                        <div class="v3d-cargo-slot" id="vCargoSlotToy">🧸</div>
+                        <div class="v3d-cargo-slot" id="vCargoSlotToy">🤖</div>
                         <div class="v3d-cargo-slot" id="vCargoSlotReindeer">🦌</div>
                         <div class="v3d-cargo-sleigh">🛷 <span id="vSleighLevelBadge">0</span></div>
                     </div>
@@ -22873,18 +23298,18 @@
                         </div>
                     </div>
 
-                    <!-- LANDMARK 2 (x=1480px): Giant 3D Toy Factory (Játékgyár) -->
+                    <!-- LANDMARK 2 (x=1480px): 3D Daily Bot Assembly Factory (Robot- & Játékgyár) -->
                     <div class="v3d-building" style="left:1480px;" onclick="focusVillageZone('toy', true)">
-                        <div class="v3d-status-orb" id="vOrbToy">🧸 0/3</div>
+                        <div class="v3d-status-orb" id="vOrbToy">🤖 Építő</div>
                         <div class="b-toy-factory">
-                            <div class="cf-chimney c1"><span class="cf-steam" style="background:rgba(255,255,255,0.85);box-shadow:none;"></span></div>
-                            <div class="cf-chimney c2"><span class="cf-steam" style="background:rgba(255,255,255,0.85);box-shadow:none;"></span></div>
+                            <div class="cf-chimney c1"><span class="cf-steam" style="background:rgba(56,189,248,0.85);box-shadow:0 0 10px #38bdf8;"></span></div>
+                            <div class="cf-chimney c2"><span class="cf-steam" style="background:rgba(56,189,248,0.85);box-shadow:0 0 10px #38bdf8;"></span></div>
                             <div class="tf-roof"><span class="tf-clock-gear">⚙️</span></div>
                             <div class="tf-walls">
                                 <div class="cf-window-belt">
-                                    <div class="cf-belt-strip">🧸 🚂 🤖 🎁 🧸 🚂 🤖 🎁</div>
+                                    <div class="cf-belt-strip">🤖 🎨 🎅 👑 🤖 🕶️ 🧣 🎸</div>
                                 </div>
-                                <div class="cf-door" style="background:linear-gradient(180deg,#dc2626,#991b1b);">🎁</div>
+                                <div class="cf-door" style="background:linear-gradient(180deg,#38bdf8,#0284c7);">🤖</div>
                             </div>
                         </div>
                     </div>
@@ -22907,7 +23332,7 @@
                         </div>
                     </div>
 
-                    <!-- LANDMARK 4 (x=3320px): Giant 3D Reindeer Ranch (Rénszarvas Karám) -->
+                    <!-- LANDMARK 4 (x=3320px): Lifelike 3D Reindeer Ranch (Rénszarvas Karám) -->
                     <div class="v3d-building" style="left:3320px;" onclick="focusVillageZone('reindeer', true)">
                         <div class="v3d-status-orb" id="vOrbReindeer">🦌 0/3</div>
                         <div class="b-reindeer-stable">
@@ -22943,14 +23368,14 @@
                 </div>
             </div>
 
-            <!-- Minimal Floating 5-Icon Radar Dock (Icons Only, Zero Clutter) -->
+            <!-- Minimal Floating 5-Icon Radar Dock -->
             <div class="village-compass-dock">
                 <button type="button" class="v-compass-btn" data-vzone="candy" onclick="focusVillageZone('candy', true)" aria-label="Candy Factory">
                     <span class="vc-ico">🍬</span>
                     <span class="v-compass-dot">✓</span>
                 </button>
-                <button type="button" class="v-compass-btn" data-vzone="toy" onclick="focusVillageZone('toy', true)" aria-label="Toy Factory">
-                    <span class="vc-ico">🧸</span>
+                <button type="button" class="v-compass-btn" data-vzone="toy" onclick="focusVillageZone('toy', true)" aria-label="Daily Bot Factory">
+                    <span class="vc-ico">🤖</span>
                     <span class="v-compass-dot">✓</span>
                 </button>
                 <button type="button" class="v-compass-btn active" data-vzone="plaza" onclick="focusVillageZone('plaza', false)" aria-label="Christmas Tree">
@@ -22967,11 +23392,11 @@
                 </button>
             </div>
 
-            <!-- Pure-Visual 3D Machine Interior Modal (1 Tactile Button, 3 Visual Slots, No Text Walls) -->
+            <!-- Interactive 3D Building Interior Modal (Dynamic: Bot Builder / Lifelike 3D Reindeer Paddock / Candy Press / Sleigh) -->
             <div class="village-interior-modal" id="villageInteriorModal">
                 <div class="v-interior-card">
                     <div class="v-interior-header">
-                        <div class="v-interior-title" id="vInteriorTitle">🍬</div>
+                        <div class="v-interior-title" id="vInteriorTitle">🤖</div>
                         <button type="button" class="shop-close-btn" style="width:34px;height:34px;font-size:15px;" onclick="closeVillageInterior()">✕</button>
                     </div>
                     <div class="v-machine-stage" id="vMachineStage" onclick="crankFactoryMachine(_currentZone)">
@@ -32513,21 +32938,73 @@
 
             const ZONE_COORDS = {
                 candy:    { x: 560,  title: '🍬 Cukorgyár', stamper: '🍭', belt: '🍬 🍭 🍫 🧁 🍡', slotIcon: '🍬', btnVerb: '⚙️' },
-                toy:      { x: 1480, title: '🧸 Játékgyár', stamper: '🔨', belt: '🧸 🚂 🤖 🔮 🎁', slotIcon: '🎁', btnVerb: '🔨' },
-                plaza:    { x: 2400, title: '🎄 Főtér',     stamper: '⭐', belt: '❄️ ⛄ 🎄 ⭐ 🎁', slotIcon: '🎁', btnVerb: '🎁' },
-                reindeer: { x: 3320, title: '🦌 Rénszarvasok', stamper: '🥕', belt: '🦌 🥕 🍎 🦌 🔔', slotIcon: '🦌', btnVerb: '🥕' },
-                santa:    { x: 4240, title: '🛷 Mikulás Szán', stamper: '🚀', belt: '🍬 🧸 🦌 🛷 ✨', slotIcon: '🛷', btnVerb: '🚀' }
+                toy:      { x: 1480, title: '🤖 Daily Bot Gyár', stamper: '🔧', belt: '🤖 🎨 🎅 👑 🎸', slotIcon: '🤖', btnVerb: '🔧' },
+                plaza:    { x: 2400, title: '🎄 Főtér', stamper: '⭐', belt: '❄️ ⛄ 🎄 ⭐ 🎁', slotIcon: '🎁', btnVerb: '🎁' },
+                reindeer: { x: 3320, title: '🦌 3D Rénszarvas Karám', stamper: '🥕', belt: '🦌 🥕 🍎 🌿 🍬', slotIcon: '🦌', btnVerb: '🥕' },
+                santa:    { x: 4240, title: '🛷 Mikulás Szán', stamper: '🚀', belt: '🍬 🤖 🦌 🛷 ✨', slotIcon: '🛷', btnVerb: '🚀' }
             };
 
-            const VILLAGE_ITEMS = [
-                { id: 'candy-swirl', cat: 'candy', icon: '🍭', name: 'Peppermint', price: 0, action: 'craft' },
-                { id: 'toy-bear', cat: 'workshop', icon: '🧸', name: 'Teddy', price: 0, action: 'craft' },
-                { id: 'rein-carrot', cat: 'reindeer', icon: '🥕', name: 'Carrot', price: 0, action: 'feed' }
+            // Custom Daily Bot Factory Options
+            const CBOT_PAINTS = [
+                { id: '',         bg: 'linear-gradient(135deg,#64748b,#334155)', label: 'Alap' },
+                { id: 'crimson',  bg: 'linear-gradient(135deg,#ef4444,#991b1b)', label: 'Mikulás' },
+                { id: 'arctic',   bg: 'linear-gradient(135deg,#38bdf8,#0369a1)', label: 'Jég' },
+                { id: 'emerald',  bg: 'linear-gradient(135deg,#34d399,#047857)', label: 'Manó' },
+                { id: 'gold',     bg: 'linear-gradient(135deg,#fde047,#b45309)', label: 'Arany' },
+                { id: 'violet',   bg: 'linear-gradient(135deg,#c084fc,#581c87)', label: 'Aurora' },
+                { id: 'candy',    bg: 'linear-gradient(135deg,#f472b6,#9d174d)', label: 'Cukor' },
+                { id: 'obsidian', bg: 'linear-gradient(135deg,#1e293b,#020617)', label: 'Cyber' }
             ];
-            window.VILLAGE_ITEMS = VILLAGE_ITEMS;
+            const CBOT_EYES = [
+                { id: '',        color: '#38bdf8' },
+                { id: '#fde047', color: '#fde047' },
+                { id: '#4ade80', color: '#4ade80' },
+                { id: '#fb7185', color: '#fb7185' },
+                { id: '#c084fc', color: '#c084fc' },
+                { id: '#fb923c', color: '#fb923c' }
+            ];
+            const CBOT_HATS = [
+                { id: '',             icon: '🚫', html: '' },
+                { id: 'santa-hat',    icon: '🎅', html: '🎅' },
+                { id: 'antlers',      icon: '🦌', html: '🦌' },
+                { id: 'acc-crown',    icon: '👑', svgId: 'acc-crown' },
+                { id: 'acc-tophat',   icon: '🎩', svgId: 'acc-tophat' },
+                { id: 'acc-cap',      icon: '🧢', svgId: 'acc-cap' },
+                { id: 'acc-graduate', icon: '🎓', svgId: 'acc-graduate' },
+                { id: 'headphones',   icon: '🎧', html: '🎧' }
+            ];
+            const CBOT_FACES = [
+                { id: '',           icon: '🚫', html: '' },
+                { id: 'acc-shades', icon: '🕶️', svgId: 'acc-shades' },
+                { id: 'acc-goggle', icon: '🥽', svgId: 'acc-goggle' },
+                { id: 'acc-mask',   icon: '🦸', svgId: 'acc-mask' }
+            ];
+            const CBOT_NECKS = [
+                { id: '',           icon: '🚫', html: '' },
+                { id: 'scarf',      icon: '🧣', html: '🧣' },
+                { id: 'acc-ribbon', icon: '🎀', svgId: 'acc-ribbon' },
+                { id: 'acc-gem',    icon: '💎', svgId: 'acc-gem' },
+                { id: 'bell',       icon: '🔔', html: '🔔' }
+            ];
+            const CBOT_HANDS = [
+                { id: '',           icon: '🚫', html: '' },
+                { id: 'lollipop',   icon: '🍭', html: '🍭' },
+                { id: 'acc-guitar', icon: '🎸', svgId: 'acc-guitar' },
+                { id: 'gift',       icon: '🎁', html: '🎁' },
+                { id: 'wand',       icon: '✨', html: '🪄' },
+                { id: 'cocoa',      icon: '☕', html: '☕' }
+            ];
+
+            const REINDEER_ROSTER = [
+                { id: 'rudolph', name: 'Rudolf',  fur: '#854d0e', belly: '#fde68a', nose: '#ef4444', noseGlow: true,  antler: '#fef08a' },
+                { id: 'dasher',  name: 'Táncos',  fur: '#713f12', belly: '#fed7aa', nose: '#1e293b', noseGlow: false, antler: '#d97706' },
+                { id: 'blitzen', name: 'Villám',  fur: '#57534e', belly: '#e2e8f0', nose: '#38bdf8', noseGlow: true,  antler: '#bae6fd' }
+            ];
 
             let _currentZone = 'plaza';
             window._currentZone = 'plaza';
+            let _activeReindeerIdx = 0;
+            let _botTurnYaw = 0;
             let _camX = 2400;
             let _botX = 2400;
             let _isDragging = false;
@@ -32547,7 +33024,129 @@
                 return localStorage.getItem('nu_village_gift_day') !== todayKey();
             }
 
-            // Persistent Village Production State (Candy 0..3, Toy 0..3, Reindeer 0..3, Sleigh Launches)
+            // Custom Daily Bot Persistent Config
+            function getCustomBotConfig() {
+                try {
+                    const raw = JSON.parse(localStorage.getItem('nu_custom_bot') || '{}');
+                    return {
+                        enabled: !!raw.enabled,
+                        name: typeof raw.name === 'string' ? raw.name.slice(0, 18) : '',
+                        paint: typeof raw.paint === 'string' ? raw.paint : '',
+                        eye: typeof raw.eye === 'string' ? raw.eye : '',
+                        hat: typeof raw.hat === 'string' ? raw.hat : '',
+                        face: typeof raw.face === 'string' ? raw.face : '',
+                        neck: typeof raw.neck === 'string' ? raw.neck : '',
+                        hand: typeof raw.hand === 'string' ? raw.hand : ''
+                    };
+                } catch (e) {
+                    return { enabled: false, name: '', paint: '', eye: '', hat: '', face: '', neck: '', hand: '' };
+                }
+            }
+            function saveCustomBotConfig(cfg) {
+                localStorage.setItem('nu_custom_bot', JSON.stringify(cfg));
+                window.applyCustomBotToAllRobots();
+            }
+
+            function renderSlotItemHtml(list, id) {
+                if (!id) return '';
+                const item = list.find(x => x.id === id);
+                if (!item) return '';
+                if (item.svgId && typeof ACCESSORY_SVG === 'object' && ACCESSORY_SVG[item.svgId]) {
+                    return '<span class="acc-vis">' + ACCESSORY_SVG[item.svgId] + '</span>';
+                }
+                return item.html || '';
+            }
+
+            function decorateRobotElement(robotEl, cfg, forceShow) {
+                if (!robotEl) return;
+                const active = forceShow || (cfg && cfg.enabled);
+                if (!active) {
+                    robotEl.removeAttribute('data-cbot-paint');
+                    robotEl.removeAttribute('data-cbot-eye');
+                    robotEl.style.removeProperty('--cbot-eye-color');
+                    const oldTag = robotEl.querySelector('.cbot-name-tag');
+                    if (oldTag) oldTag.remove();
+                    ['.outfit-hat', '.outfit-face', '.outfit-neck', '.outfit-hand'].forEach(sel => {
+                        const sp = robotEl.querySelector(sel);
+                        if (sp && sp.dataset.cbotRendered) {
+                            sp.innerHTML = '';
+                            sp.classList.remove('outfit-acc-rendered');
+                            delete sp.dataset.cbotRendered;
+                        }
+                    });
+                    return;
+                }
+
+                if (cfg.paint) robotEl.setAttribute('data-cbot-paint', cfg.paint);
+                else robotEl.removeAttribute('data-cbot-paint');
+
+                if (cfg.eye) {
+                    robotEl.setAttribute('data-cbot-eye', '1');
+                    robotEl.style.setProperty('--cbot-eye-color', cfg.eye);
+                } else {
+                    robotEl.removeAttribute('data-cbot-eye');
+                    robotEl.style.removeProperty('--cbot-eye-color');
+                }
+
+                // Ensure .outfit-hand exists on mini robots too
+                if (!robotEl.querySelector('.outfit-hand')) {
+                    const hSpan = document.createElement('span');
+                    hSpan.className = 'outfit outfit-hand';
+                    robotEl.insertBefore(hSpan, robotEl.firstChild);
+                }
+
+                const slots = [
+                    { sel: '.outfit-hat',  list: CBOT_HATS,  val: cfg.hat },
+                    { sel: '.outfit-face', list: CBOT_FACES, val: cfg.face },
+                    { sel: '.outfit-neck', list: CBOT_NECKS, val: cfg.neck },
+                    { sel: '.outfit-hand', list: CBOT_HANDS, val: cfg.hand }
+                ];
+                slots.forEach(sl => {
+                    const el = robotEl.querySelector(sl.sel);
+                    if (!el) return;
+                    const html = renderSlotItemHtml(sl.list, sl.val);
+                    el.innerHTML = html;
+                    const item = sl.list.find(x => x.id === sl.val);
+                    const isSvgHand = sl.sel === '.outfit-hand' && item && item.svgId;
+                    el.classList.toggle('outfit-acc-rendered', !!isSvgHand);
+                    el.dataset.cbotRendered = '1';
+                });
+
+                // Custom Name Badge
+                let tag = robotEl.querySelector('.cbot-name-tag');
+                const cleanName = (cfg.name || '').trim();
+                if (cleanName) {
+                    if (!tag) {
+                        tag = document.createElement('div');
+                        tag.className = 'cbot-name-tag';
+                        robotEl.appendChild(tag);
+                    }
+                    tag.textContent = '🤖 ' + cleanName;
+                } else if (tag) {
+                    tag.remove();
+                }
+            }
+
+            window.applyCustomBotToAllRobots = function () {
+                const cfg = getCustomBotConfig();
+                const homeBot = document.getElementById('robot');
+                if (homeBot) decorateRobotElement(homeBot, cfg, false);
+
+                const walkerBot = document.querySelector('#villageRobotMount .robot');
+                if (walkerBot) decorateRobotElement(walkerBot, cfg, false);
+
+                const previewBot = document.querySelector('#vBotBuilderMount .robot');
+                if (previewBot) decorateRobotElement(previewBot, cfg, true);
+            };
+
+            // Hook into applyAcc so equipping skins on Home Screen preserves Custom Bot if enabled
+            const _origApplyAcc = window.applyAcc;
+            window.applyAcc = function () {
+                if (typeof _origApplyAcc === 'function') _origApplyAcc();
+                window.applyCustomBotToAllRobots();
+            };
+
+            // Persistent Village Production State
             function getVillageState() {
                 try {
                     const raw = JSON.parse(localStorage.getItem('nu_village_mission') || '{}');
@@ -32555,12 +33154,13 @@
                         candy: Math.max(0, Math.min(3, parseInt(raw.candy, 10) || 0)),
                         toy: Math.max(0, Math.min(3, parseInt(raw.toy, 10) || 0)),
                         reindeer: Math.max(0, Math.min(3, parseInt(raw.reindeer, 10) || 0)),
+                        deerFed: (raw.deerFed && typeof raw.deerFed === 'object') ? raw.deerFed : { rudolph: 0, dasher: 0, blitzen: 0 },
                         launches: Math.max(0, parseInt(raw.launches, 10) || 0),
                         launchesToday: raw.day === todayKey() ? (parseInt(raw.launchesToday, 10) || 0) : 0,
                         day: todayKey()
                     };
                 } catch (e) {
-                    return { candy: 0, toy: 0, reindeer: 0, launches: 0, launchesToday: 0, day: todayKey() };
+                    return { candy: 0, toy: 0, reindeer: 0, deerFed: { rudolph: 0, dasher: 0, blitzen: 0 }, launches: 0, launchesToday: 0, day: todayKey() };
                 }
             }
             function saveVillageState(st) {
@@ -32600,13 +33200,13 @@
 
             function updateVillageWorldUI() {
                 const st = getVillageState();
+                const cbot = getCustomBotConfig();
                 const giftReady = canClaimVillageGift();
                 const candyDone = st.candy >= 3;
                 const toyDone = st.toy >= 3;
                 const reinDone = st.reindeer >= 3;
                 const allReady = candyDone && toyDone && reinDone;
 
-                // Top-right cargo slots
                 const sCandy = document.getElementById('vCargoSlotCandy');
                 const sToy = document.getElementById('vCargoSlotToy');
                 const sRein = document.getElementById('vCargoSlotReindeer');
@@ -32619,7 +33219,6 @@
                 if (cargoHud) cargoHud.classList.toggle('all-ready', allReady);
                 if (lvlBadge) lvlBadge.textContent = allReady ? '🚀' : String(st.launches);
 
-                // 3D Building Floating Status Orbs
                 const orbCandy = document.getElementById('vOrbCandy');
                 const orbToy = document.getElementById('vOrbToy');
                 const orbPlaza = document.getElementById('vOrbPlaza');
@@ -32631,8 +33230,8 @@
                     orbCandy.classList.toggle('done', candyDone);
                 }
                 if (orbToy) {
-                    orbToy.textContent = toyDone ? '🧸 ✓' : `🧸 ${st.toy}/3`;
-                    orbToy.classList.toggle('done', toyDone);
+                    orbToy.textContent = cbot.enabled && cbot.name ? `🤖 ${cbot.name}` : (toyDone ? '🤖 ✓' : '🤖 Építő');
+                    orbToy.classList.toggle('done', toyDone || cbot.enabled);
                 }
                 if (orbPlaza) {
                     orbPlaza.textContent = giftReady ? '🎁 +25 💎' : '🎄 ✓';
@@ -32648,7 +33247,6 @@
                     orbSanta.classList.toggle('done', allReady);
                 }
 
-                // Visual 3D props on buildings
                 const giftPile = document.getElementById('vTreeGiftPile');
                 if (giftPile) {
                     giftPile.classList.toggle('ready', giftReady);
@@ -32665,7 +33263,6 @@
                     parkedSleigh.classList.toggle('ready', allReady);
                 }
 
-                // Bottom compass dots
                 document.querySelectorAll('.v-compass-btn').forEach(btn => {
                     const z = btn.dataset.vzone;
                     let isDone = false;
@@ -32761,7 +33358,6 @@
 
                 if (!interact) return;
 
-                // Direct 3D World Interactions for Plaza Tree & Santa's Sleigh (Zero Unnecessary Popups!)
                 if (zoneKey === 'plaza') {
                     setTimeout(() => {
                         if (canClaimVillageGift()) {
@@ -32866,8 +33462,8 @@
                         o.stop(st + 0.26);
                     });
                 } else if (kind === 'feed') {
-                    [0, 0.12, 0.24].forEach((off, idx) => {
-                        const len = Math.floor(ctx.sampleRate * 0.06);
+                    [0, 0.13, 0.26, 0.39].forEach((off, idx) => {
+                        const len = Math.floor(ctx.sampleRate * 0.065);
                         const buf = ctx.createBuffer(1, len, ctx.sampleRate);
                         const ch = buf.getChannelData(0);
                         for (let i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / len);
@@ -32875,10 +33471,10 @@
                         ns.buffer = buf;
                         const hp = ctx.createBiquadFilter();
                         hp.type = 'highpass';
-                        hp.frequency.value = 1700 + idx * 400;
+                        hp.frequency.value = 1600 + (idx % 2) * 500;
                         const ng = ctx.createGain();
-                        ng.gain.setValueAtTime(0.06, now + off);
-                        ng.gain.exponentialRampToValueAtTime(0.001, now + off + 0.06);
+                        ng.gain.setValueAtTime(0.075, now + off);
+                        ng.gain.exponentialRampToValueAtTime(0.001, now + off + 0.065);
                         ns.connect(hp).connect(ng).connect(ctx.destination);
                         ns.start(now + off);
                     });
@@ -32902,8 +33498,8 @@
                 }
             }
 
-            function spawnMachineFloat(emojis) {
-                const st = document.getElementById('vMachineStage');
+            function spawnMachineFloat(emojis, customStage) {
+                const st = customStage || document.getElementById('vMachineStage');
                 if (!st) return;
                 emojis.forEach((em, idx) => {
                     const el = document.createElement('div');
@@ -32944,7 +33540,6 @@
             function launchLoadedSleigh() {
                 const st = getVillageState();
                 if (st.candy < 3 || st.toy < 3 || st.reindeer < 3) {
-                    // Jump straight to whichever station still needs work!
                     const nextZone = st.candy < 3 ? 'candy' : (st.toy < 3 ? 'toy' : 'reindeer');
                     window.closeVillageInterior();
                     window.focusVillageZone(nextZone, true);
@@ -32955,6 +33550,7 @@
                 st.candy = 0;
                 st.toy = 0;
                 st.reindeer = 0;
+                st.deerFed = { rudolph: 0, dasher: 0, blitzen: 0 };
                 st.launches = (st.launches || 0) + 1;
                 const reward = st.launchesToday < 3 ? 50 : 15;
                 st.launchesToday = (st.launchesToday || 0) + 1;
@@ -32967,7 +33563,351 @@
                 if (typeof playSfx === 'function') playSfx('gem-claim');
             }
 
-            // Core Tactile Machine Action (3 taps fills station -> +10 Gems & loads Sleigh!)
+            // ========== 1. CUSTOM DAILY BOT FACTORY ACTIONS ==========
+            window.setCustomBotField = function (field, val) {
+                if (typeof hapticTap === 'function') hapticTap(8);
+                const cfg = getCustomBotConfig();
+                cfg[field] = val;
+                cfg.enabled = true;
+                saveCustomBotConfig(cfg);
+                playVillageSfx('craft');
+
+                const stage = document.getElementById('cbotTurntableStage');
+                if (stage) {
+                    stage.classList.remove('weld');
+                    void stage.offsetWidth;
+                    stage.classList.add('weld');
+                    spawnMachineFloat(['⚡', '✨', '🔧'], stage);
+                    setTimeout(() => stage.classList.remove('weld'), 350);
+                }
+                window.renderVillageTab('toy');
+            };
+
+            window.spinCustomBotTurntable = function () {
+                _botTurnYaw += 360;
+                const mount = document.getElementById('vBotBuilderMount');
+                if (mount) {
+                    mount.style.transform = `rotateY(${_botTurnYaw}deg)`;
+                }
+                playVillageSfx('step');
+            };
+
+            window.assembleAndEquipCustomBot = function () {
+                if (typeof hapticTap === 'function') hapticTap(16);
+                const cfg = getCustomBotConfig();
+                const nameInp = document.getElementById('cbotNameInput');
+                if (nameInp) cfg.name = nameInp.value.trim().slice(0, 18);
+                if (!cfg.name) cfg.name = 'MikulásBot';
+                cfg.enabled = true;
+                saveCustomBotConfig(cfg);
+
+                // Also progress the Toy/Bot Factory station for Sleigh Launch (+10 Gems when reaching 3/3)
+                const st = getVillageState();
+                let awarded = false;
+                if (st.toy < 3) {
+                    st.toy = 3;
+                    saveVillageState(st);
+                    addVillageGems(10);
+                    awarded = true;
+                } else {
+                    updateVillageWorldUI();
+                }
+
+                playVillageSfx('craft');
+                if (typeof playSfx === 'function') playSfx('gem-claim');
+                const stage = document.getElementById('cbotTurntableStage');
+                if (stage) {
+                    stage.classList.add('weld');
+                    spawnMachineFloat(['🤖', '⚡', '✨', '🎉'], stage);
+                }
+                spawnFloatingReward(awarded ? `🤖 ${cfg.name} Kész! +10 💎` : `🤖 ${cfg.name} Felszerelve!`);
+                setTimeout(() => {
+                    window.closeVillageInterior();
+                }, 800);
+            };
+
+            window.resetCustomBotToStandard = function () {
+                if (typeof hapticTap === 'function') hapticTap(10);
+                const cfg = getCustomBotConfig();
+                cfg.enabled = false;
+                saveCustomBotConfig(cfg);
+                if (typeof applyRobotSkin === 'function') applyRobotSkin();
+                spawnFloatingReward('🤖 Alap Robot Visszaállítva');
+                window.renderVillageTab('toy');
+            };
+
+            // ========== 2. LIFELIKE 3D REINDEER FEEDING & PETTING ENGINE ==========
+            function buildLifelikeReindeerSvg(deer, isCharged) {
+                const noseGlowFilter = deer.noseGlow
+                    ? `<radialGradient id="rNoseG" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fff"/><stop offset="40%" stop-color="${deer.nose}"/><stop offset="100%" stop-color="#991b1b"/></radialGradient>`
+                    : `<radialGradient id="rNoseG" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#64748b"/><stop offset="100%" stop-color="${deer.nose}"/></radialGradient>`;
+
+                return `
+                <svg class="r3d-svg" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="rFurG" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="${deer.fur}"/>
+                            <stop offset="100%" stop-color="#3f2305"/>
+                        </linearGradient>
+                        <linearGradient id="rAntlerG" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="${isCharged ? '#fef08a' : deer.antler}"/>
+                            <stop offset="100%" stop-color="#92400e"/>
+                        </linearGradient>
+                        ${noseGlowFilter}
+                    </defs>
+
+                    <!-- Torso / Shoulders & Fluffy Chest Fur -->
+                    <ellipse cx="105" cy="186" rx="52" ry="38" fill="url(#rFurG)"/>
+                    <ellipse cx="105" cy="188" rx="32" ry="28" fill="${deer.belly}" opacity="0.92"/>
+                    <!-- Golden Harness Collar & Jingle Bells -->
+                    <path d="M 62,168 Q 105,192 148,168" stroke="#dc2626" stroke-width="10" stroke-linecap="round" fill="none"/>
+                    <circle cx="82" cy="177" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+                    <circle cx="105" cy="181" r="7.5" fill="#fde047" stroke="#92400e" stroke-width="1.5"/>
+                    <circle cx="128" cy="177" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
+
+                    <!-- Neck -->
+                    <path d="M 78,125 L 68,175 L 142,175 L 132,125 Z" fill="url(#rFurG)"/>
+                    <ellipse cx="105" cy="152" rx="18" ry="24" fill="${deer.belly}" opacity="0.85"/>
+
+                    <!-- Articulated 3D Head Group -->
+                    <g class="r3d-head-group" id="r3dHeadGroup">
+                        <!-- Majestic Branched 3D Antlers -->
+                        <path d="M 78,64 C 55,44 38,24 34,8 M 54,40 C 36,38 24,30 18,20 M 64,50 C 56,30 58,18 64,10" stroke="url(#rAntlerG)" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+                        <path d="M 132,64 C 155,44 172,24 176,8 M 156,40 C 174,38 186,30 192,20 M 146,50 C 154,30 152,18 146,10" stroke="url(#rAntlerG)" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+
+                        <!-- Flicking Ears -->
+                        <g class="r3d-ear-l">
+                            <ellipse cx="52" cy="72" rx="20" ry="10" transform="rotate(-24 52 72)" fill="url(#rFurG)"/>
+                            <ellipse cx="52" cy="72" rx="12" ry="5.5" transform="rotate(-24 52 72)" fill="#fbcfe8" opacity="0.75"/>
+                        </g>
+                        <g class="r3d-ear-r">
+                            <ellipse cx="158" cy="72" rx="20" ry="10" transform="rotate(24 158 72)" fill="url(#rFurG)"/>
+                            <ellipse cx="158" cy="72" rx="12" ry="5.5" transform="rotate(24 158 72)" fill="#fbcfe8" opacity="0.75"/>
+                        </g>
+
+                        <!-- Upper Head / Cranium -->
+                        <ellipse cx="105" cy="86" rx="38" ry="34" fill="url(#rFurG)"/>
+                        <!-- Forehead blaze -->
+                        <ellipse cx="105" cy="76" rx="12" ry="16" fill="${deer.belly}" opacity="0.35"/>
+
+                        <!-- Expressive Eyes with Real-Time Food-Tracking Pupils -->
+                        <g id="r3dEyesOpen">
+                            <ellipse cx="83" cy="84" rx="9.5" ry="10.5" fill="#ffffff"/>
+                            <ellipse cx="127" cy="84" rx="9.5" ry="10.5" fill="#ffffff"/>
+                            <g id="r3dPupils">
+                                <circle cx="84" cy="84" r="6" fill="#1e1b4b"/>
+                                <circle cx="126" cy="84" r="6" fill="#1e1b4b"/>
+                                <circle cx="81.5" cy="81.5" r="2.3" fill="#ffffff"/>
+                                <circle cx="123.5" cy="81.5" r="2.3" fill="#ffffff"/>
+                            </g>
+                        </g>
+
+                        <!-- Lower Jaw & Opening Mouth Cavity (Revealed when feeding!) -->
+                        <g class="r3d-lower-jaw" id="r3dLowerJaw">
+                            <ellipse cx="105" cy="126" rx="22" ry="15" fill="#451a03"/>
+                            <g class="r3d-mouth-cavity">
+                                <ellipse cx="105" cy="124" rx="15" ry="10" fill="#7f1d1d"/>
+                                <ellipse cx="105" cy="127" rx="10" ry="6" fill="#f472b6"/>
+                            </g>
+                        </g>
+
+                        <!-- 3D Snout / Muzzle -->
+                        <ellipse cx="105" cy="110" rx="27" ry="19" fill="${deer.belly}"/>
+                        <!-- Nostril Breath Steam Puffs -->
+                        <circle class="r3d-breath-puff" cx="90" cy="114" r="6" fill="rgba(255,255,255,0.65)"/>
+                        <circle class="r3d-breath-puff r" cx="120" cy="114" r="6" fill="rgba(255,255,255,0.65)"/>
+
+                        <!-- 3D Nose (Glowing Red for Rudolph!) -->
+                        ${deer.noseGlow ? `<circle cx="105" cy="103" r="19" fill="${deer.nose}" opacity="0.32"/>` : ''}
+                        <ellipse cx="105" cy="103" rx="13" ry="10.5" fill="url(#rNoseG)"/>
+                        <ellipse cx="101" cy="99.5" rx="4.5" ry="2.6" fill="rgba(255,255,255,0.65)"/>
+                    </g>
+                </svg>`;
+            }
+
+            window.selectReindeerInPaddock = function (idx) {
+                _activeReindeerIdx = Math.max(0, Math.min(REINDEER_ROSTER.length - 1, idx));
+                if (typeof hapticTap === 'function') hapticTap(8);
+                playVillageSfx('step');
+                window.renderVillageTab('reindeer');
+            };
+
+            window.petLifelikeReindeer = function () {
+                const actor = document.getElementById('r3dDeerActor');
+                const stage = document.getElementById('reindeer3dStage');
+                if (!actor) return;
+                if (typeof hapticTap === 'function') hapticTap(10);
+                playVillageSfx('sleigh');
+                actor.classList.remove('happy-bounce');
+                void actor.offsetWidth;
+                actor.classList.add('happy-bounce');
+                if (stage) spawnMachineFloat(['❤️', '🦌', '✨', '🔔'], stage);
+            };
+
+            window.feedLifelikeReindeer = function (foodIcon, fromDrag) {
+                const actor = document.getElementById('r3dDeerActor');
+                const stage = document.getElementById('reindeer3dStage');
+                if (!actor || !stage) return;
+                if (typeof hapticTap === 'function') hapticTap(15);
+
+                const performBite = () => {
+                    playVillageSfx('feed');
+                    actor.classList.remove('lean-forward', 'mouth-open', 'chewing');
+                    void actor.offsetWidth;
+                    actor.classList.add('chewing');
+                    spawnMachineFloat([foodIcon, '😋', '❤️', '✨'], stage);
+
+                    const deer = REINDEER_ROSTER[_activeReindeerIdx] || REINDEER_ROSTER[0];
+                    const st = getVillageState();
+                    st.deerFed = st.deerFed || { rudolph: 0, dasher: 0, blitzen: 0 };
+                    st.deerFed[deer.id] = Math.min(3, (st.deerFed[deer.id] || 0) + 1);
+
+                    let justCompletedStation = false;
+                    if (st.reindeer < 3) {
+                        st.reindeer += 1;
+                        if (st.reindeer === 3) justCompletedStation = true;
+                    }
+                    saveVillageState(st);
+
+                    if (justCompletedStation) {
+                        addVillageGems(10);
+                        spawnFloatingReward('🦌 ✓ +10 💎');
+                        if (typeof playSfx === 'function') playSfx('gem-claim');
+                    }
+
+                    setTimeout(() => {
+                        if (actor) actor.classList.remove('chewing');
+                        if (document.getElementById('reindeer3dStage')) {
+                            window.renderVillageTab('reindeer');
+                        }
+                    }, 950);
+                };
+
+                if (fromDrag) {
+                    performBite();
+                } else {
+                    // Parabolic 3D Toss from Trough right into the Reindeer's Opening Mouth!
+                    actor.classList.add('lean-forward', 'mouth-open');
+                    const rect = stage.getBoundingClientRect();
+                    const flyer = document.createElement('div');
+                    flyer.className = 'r3d-flying-food';
+                    flyer.textContent = foodIcon;
+                    flyer.style.left = (rect.left + rect.width * 0.5) + 'px';
+                    flyer.style.top = (rect.bottom - 10) + 'px';
+                    flyer.style.transform = 'translate(-50%, -50%) scale(1.15)';
+                    document.body.appendChild(flyer);
+
+                    requestAnimationFrame(() => {
+                        flyer.classList.add('toss-arc');
+                        flyer.style.left = (rect.left + rect.width * 0.5) + 'px';
+                        flyer.style.top = (rect.top + rect.height * 0.54) + 'px';
+                        flyer.style.transform = 'translate(-50%, -50%) scale(0.65) rotate(25deg)';
+                    });
+
+                    setTimeout(() => {
+                        flyer.remove();
+                        performBite();
+                    }, 410);
+                }
+            };
+
+            function bindReindeerFoodDrag() {
+                const stage = document.getElementById('reindeer3dStage');
+                const actor = document.getElementById('r3dDeerActor');
+                const pupils = document.getElementById('r3dPupils');
+                if (!stage || !actor) return;
+
+                document.querySelectorAll('.r3d-food-item').forEach(btn => {
+                    let dragging = false;
+                    let moved = 0;
+                    let startX = 0;
+                    let startY = 0;
+                    let flyer = null;
+                    const icon = btn.dataset.food || '🥕';
+
+                    const onDown = (cx, cy) => {
+                        dragging = true;
+                        moved = 0;
+                        startX = cx;
+                        startY = cy;
+                        actor.classList.add('lean-forward', 'mouth-open');
+                    };
+
+                    const onMove = (cx, cy) => {
+                        if (!dragging) return;
+                        const d = Math.hypot(cx - startX, cy - startY);
+                        moved = Math.max(moved, d);
+                        if (moved > 8 && !flyer) {
+                            flyer = document.createElement('div');
+                            flyer.className = 'r3d-flying-food';
+                            flyer.textContent = icon;
+                            document.body.appendChild(flyer);
+                        }
+                        if (flyer) {
+                            flyer.style.left = cx + 'px';
+                            flyer.style.top = cy + 'px';
+                        }
+                        // Real-time 3D pupil tracking & head tilt toward the food!
+                        const sRect = stage.getBoundingClientRect();
+                        const mx = sRect.left + sRect.width * 0.5;
+                        const my = sRect.top + sRect.height * 0.52;
+                        const ox = Math.max(-4.5, Math.min(4.5, (cx - mx) * 0.04));
+                        const oy = Math.max(-3.5, Math.min(4.5, (cy - my) * 0.04));
+                        if (pupils) {
+                            pupils.setAttribute('transform', `translate(${ox.toFixed(1)}, ${oy.toFixed(1)})`);
+                        }
+                    };
+
+                    const onUp = (cx, cy) => {
+                        if (!dragging) return;
+                        dragging = false;
+                        if (pupils) pupils.removeAttribute('transform');
+                        if (flyer) {
+                            flyer.remove();
+                            flyer = null;
+                            const sRect = stage.getBoundingClientRect();
+                            const mouthX = sRect.left + sRect.width * 0.5;
+                            const mouthY = sRect.top + sRect.height * 0.54;
+                            if (Math.hypot(cx - mouthX, cy - mouthY) < 95) {
+                                window.feedLifelikeReindeer(icon, true);
+                                return;
+                            }
+                        }
+                        actor.classList.remove('lean-forward', 'mouth-open');
+                        if (moved <= 8) {
+                            window.feedLifelikeReindeer(icon, false);
+                        }
+                    };
+
+                    btn.addEventListener('mousedown', e => {
+                        e.preventDefault();
+                        onDown(e.clientX, e.clientY);
+                        const mm = ev => onMove(ev.clientX, ev.clientY);
+                        const mu = ev => {
+                            window.removeEventListener('mousemove', mm);
+                            window.removeEventListener('mouseup', mu);
+                            onUp(ev.clientX, ev.clientY);
+                        };
+                        window.addEventListener('mousemove', mm);
+                        window.addEventListener('mouseup', mu);
+                    });
+
+                    btn.addEventListener('touchstart', e => {
+                        if (!e.touches[0]) return;
+                        onDown(e.touches[0].clientX, e.touches[0].clientY);
+                    }, { passive: true });
+                    btn.addEventListener('touchmove', e => {
+                        if (!e.touches[0]) return;
+                        onMove(e.touches[0].clientX, e.touches[0].clientY);
+                    }, { passive: true });
+                    btn.addEventListener('touchend', e => {
+                        const t = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : { clientX: startX, clientY: startY };
+                        onUp(t.clientX, t.clientY);
+                    }, { passive: true });
+                });
+            }
+
+            // Core Machine Action
             window.crankFactoryMachine = function (zoneKey) {
                 const zk = zoneKey || _currentZone;
                 if (typeof hapticTap === 'function') hapticTap(14);
@@ -32991,39 +33931,9 @@
                         window.focusVillageZone(st.toy < 3 ? 'toy' : (st.reindeer < 3 ? 'reindeer' : 'santa'), true);
                     }
                 } else if (zk === 'toy') {
-                    playVillageSfx('craft');
-                    triggerMachineStamp('🎁', 'craft-anim', [{ ms: 120, icons: ['🧸', '🚂', '✨'] }]);
-                    if (st.toy < 3) {
-                        st.toy += 1;
-                        saveVillageState(st);
-                        window.renderVillageTab('toy');
-                        if (st.toy === 3) {
-                            addVillageGems(10);
-                            spawnFloatingReward('🧸 ✓ +10 💎');
-                            if (typeof playSfx === 'function') playSfx('gem-claim');
-                            setTimeout(() => window.closeVillageInterior(), 650);
-                        }
-                    } else {
-                        window.closeVillageInterior();
-                        window.focusVillageZone(st.reindeer < 3 ? 'reindeer' : (st.candy < 3 ? 'candy' : 'santa'), true);
-                    }
+                    window.assembleAndEquipCustomBot();
                 } else if (zk === 'reindeer') {
-                    playVillageSfx('feed');
-                    triggerMachineStamp('🥕', 'feed-anim', [{ ms: 120, icons: ['🦌', '🥕', '⚡'] }]);
-                    if (st.reindeer < 3) {
-                        st.reindeer += 1;
-                        saveVillageState(st);
-                        window.renderVillageTab('reindeer');
-                        if (st.reindeer === 3) {
-                            addVillageGems(10);
-                            spawnFloatingReward('🦌 ✓ +10 💎');
-                            if (typeof playSfx === 'function') playSfx('gem-claim');
-                            setTimeout(() => window.closeVillageInterior(), 650);
-                        }
-                    } else {
-                        window.closeVillageInterior();
-                        window.focusVillageZone('santa', true);
-                    }
+                    window.feedLifelikeReindeer('🥕', false);
                 } else if (zk === 'santa') {
                     launchLoadedSleigh();
                 } else {
@@ -33041,6 +33951,7 @@
                 syncVillageGems();
                 updateVillageWorldUI();
                 window.updateVillageGiftBadge();
+                window.applyCustomBotToAllRobots();
                 _botX = WORLD_CENTER;
                 const bot = document.getElementById('villageRobotStage');
                 if (bot) bot.style.left = WORLD_CENTER + 'px';
@@ -33073,6 +33984,7 @@
                 if (mount) {
                     mount.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:48px">🤖</div>';
                 }
+                window.applyCustomBotToAllRobots();
 
                 const walkScene = document.getElementById('villageWalkScene');
                 const plazaScene = document.getElementById('villagePlazaScene');
@@ -33108,7 +34020,6 @@
                 window.updateVillageGiftBadge();
             };
 
-            // Backwards-compatible aliases
             window.buyVillageItem = function () { window.crankFactoryMachine(_currentZone); };
             window.useVillageItem = function () { window.crankFactoryMachine(_currentZone); };
             window.sendSantaWish = function () { window.triggerVillageSleigh(); };
@@ -33157,13 +34068,14 @@
                 }
             };
 
-            // Pure-Visual 3D Machine Popup Renderer (3 Visual Slots + 1 Big Tactile Action Button)
+            // Dynamic Interior Renderer (Bot Builder / Lifelike 3D Reindeer Paddock / Candy Press / Sleigh)
             window.renderVillageTab = function (zoneKey) {
                 const zk = ZONE_COORDS[zoneKey] ? zoneKey : 'candy';
                 _currentZone = zk;
                 window._currentZone = zk;
                 const zInfo = ZONE_COORDS[zk];
                 const titleEl = document.getElementById('vInteriorTitle');
+                const machineEl = document.getElementById('vMachineStage');
                 const stamperEl = document.getElementById('vStamperHead');
                 const beltEl = document.getElementById('vConveyorItems');
                 if (titleEl) titleEl.textContent = zInfo.title;
@@ -33174,20 +34086,116 @@
                 if (!container) return;
                 const st = getVillageState();
 
-                if (zk === 'candy' || zk === 'toy' || zk === 'reindeer') {
-                    const count = st[zk] || 0;
+                // Show standard conveyor machine ONLY for Candy Factory & Santa Sleigh
+                if (machineEl) {
+                    machineEl.style.display = (zk === 'toy' || zk === 'reindeer') ? 'none' : 'flex';
+                }
+
+                if (zk === 'toy') {
+                    // ========== 1. 3D DAILY BOT FACTORY BUILDER ==========
+                    const cfg = getCustomBotConfig();
+                    const skinId = localStorage.getItem('nu_active_skin') || '';
+                    const miniHtml = typeof window.buildMiniRobotHtml === 'function'
+                        ? window.buildMiniRobotHtml(skinId, false)
+                        : '<div style="font-size:64px">🤖</div>';
+
+                    let paintsHtml = '';
+                    CBOT_PAINTS.forEach(p => {
+                        paintsHtml += `<button type="button" class="cbot-color-dot ${cfg.paint === p.id ? 'active' : ''}" style="background:${p.bg};" onclick="setCustomBotField('paint','${p.id}')" title="${p.label}"></button>`;
+                    });
+
+                    let eyesHtml = '';
+                    CBOT_EYES.forEach(e => {
+                        eyesHtml += `<button type="button" class="cbot-color-dot ${cfg.eye === e.id ? 'active' : ''}" style="width:26px;height:26px;background:${e.color};box-shadow:0 0 8px ${e.color};" onclick="setCustomBotField('eye','${e.id}')"></button>`;
+                    });
+
+                    const buildAccRow = (field, list, curVal) => {
+                        let s = '<div class="cbot-acc-strip">';
+                        list.forEach(item => {
+                            s += `<button type="button" class="cbot-acc-chip ${curVal === item.id ? 'active' : ''}" onclick="setCustomBotField('${field}','${item.id}')">${item.icon}</button>`;
+                        });
+                        s += '</div>';
+                        return s;
+                    };
+
+                    const safeName = String(cfg.name || '').replace(/"/g, '&quot;');
+
+                    container.innerHTML = `
+                        <div class="cbot-turntable-stage" id="cbotTurntableStage" onclick="spinCustomBotTurntable()">
+                            <div class="cbot-arm-clamp left">🦾</div>
+                            <div class="cbot-arm-clamp right">🦾</div>
+                            <div class="cbot-pedestal-disc"></div>
+                            <div class="cbot-preview-mount" id="vBotBuilderMount">${miniHtml}</div>
+                        </div>
+
+                        <div class="cbot-name-row">
+                            <input type="text" class="cbot-name-input" id="cbotNameInput" maxlength="18" placeholder="Robot neve (pl. MikulásBot)..." value="${safeName}" oninput="const c=JSON.parse(localStorage.getItem('nu_custom_bot')||'{}');c.name=this.value;c.enabled=true;localStorage.setItem('nu_custom_bot',JSON.stringify(c));applyCustomBotToAllRobots();">
+                            ${cfg.enabled ? `<button type="button" class="cbot-acc-chip" style="width:38px;height:38px;font-size:15px;" onclick="resetCustomBotToStandard()" title="Alap visszaállítása">↺</button>` : ''}
+                        </div>
+
+                        <div class="cbot-swatch-row">${paintsHtml}</div>
+                        <div class="cbot-swatch-row" style="justify-content:center;gap:10px;">${eyesHtml}</div>
+
+                        ${buildAccRow('hat', CBOT_HATS, cfg.hat)}
+                        ${buildAccRow('face', CBOT_FACES, cfg.face)}
+                        ${buildAccRow('neck', CBOT_NECKS, cfg.neck)}
+                        ${buildAccRow('hand', CBOT_HANDS, cfg.hand)}
+
+                        <button type="button" class="v-big-action-btn done" onclick="assembleAndEquipCustomBot()">
+                            <span>🔧</span>
+                            <span>Összerakás &amp; Felszerelés ${st.toy < 3 ? '(+10 💎)' : '✓'}</span>
+                        </button>
+                    `;
+                    window.applyCustomBotToAllRobots();
+                } else if (zk === 'reindeer') {
+                    // ========== 2. LIFELIKE 3D REINDEER PADDOCK ==========
+                    const deer = REINDEER_ROSTER[_activeReindeerIdx] || REINDEER_ROSTER[0];
+                    const deerCount = (st.deerFed && st.deerFed[deer.id]) ? st.deerFed[deer.id] : 0;
+                    const isCharged = deerCount >= 3 || st.reindeer >= 3;
+
+                    let tabsHtml = '';
+                    REINDEER_ROSTER.forEach((d, idx) => {
+                        const fed = (st.deerFed && st.deerFed[d.id]) ? st.deerFed[d.id] : 0;
+                        tabsHtml += `
+                            <button type="button" class="r3d-deer-tab ${idx === _activeReindeerIdx ? 'active' : ''}" onclick="selectReindeerInPaddock(${idx})">
+                                <span>🦌 ${d.name}</span>
+                                <span style="color:#fde047;">${fed >= 3 ? '⚡' : `${fed}/3`}</span>
+                            </button>
+                        `;
+                    });
+
+                    container.innerHTML = `
+                        <div class="reindeer-3d-stage" id="reindeer3dStage">
+                            <div class="r3d-barn-arch"></div>
+                            <div class="r3d-tabs">${tabsHtml}</div>
+                            <div class="r3d-deer-actor" id="r3dDeerActor" onclick="petLifelikeReindeer()">
+                                ${buildLifelikeReindeerSvg(deer, isCharged)}
+                            </div>
+                            <div class="r3d-foreground-fence"></div>
+                        </div>
+
+                        <div class="r3d-feed-trough">
+                            <div class="r3d-food-item" data-food="🥕" title="Húzd a szájához vagy koppints!">🥕</div>
+                            <div class="r3d-food-item" data-food="🍎" title="Húzd a szájához vagy koppints!">🍎</div>
+                            <div class="r3d-food-item" data-food="🌿" title="Húzd a szájához vagy koppints!">🌿</div>
+                            <div class="r3d-food-item" data-food="🍬" title="Húzd a szájához vagy koppints!">🍬</div>
+                        </div>
+                    `;
+                    bindReindeerFoodDrag();
+                } else if (zk === 'candy') {
+                    const count = st.candy || 0;
                     const isDone = count >= 3;
                     let slotsHtml = '<div class="v-slot-row">';
                     for (let i = 0; i < 3; i++) {
-                        slotsHtml += `<div class="v-slot-orb ${i < count ? 'filled' : ''}">${zInfo.slotIcon}</div>`;
+                        slotsHtml += `<div class="v-slot-orb ${i < count ? 'filled' : ''}">🍬</div>`;
                     }
                     slotsHtml += '</div>';
 
                     container.innerHTML = `
                         ${slotsHtml}
-                        <button type="button" class="v-big-action-btn ${isDone ? 'done' : ''}" onclick="crankFactoryMachine('${zk}')">
-                            <span>${isDone ? '✓' : zInfo.btnVerb}</span>
-                            <span>${isDone ? '🛷 →' : `${count}/3  (+10 💎)`}</span>
+                        <button type="button" class="v-big-action-btn ${isDone ? 'done' : ''}" onclick="crankFactoryMachine('candy')">
+                            <span>${isDone ? '✓' : '⚙️'}</span>
+                            <span>${isDone ? '🤖 →' : `${count}/3  (+10 💎)`}</span>
                         </button>
                     `;
                 } else {
@@ -33195,12 +34203,12 @@
                     const toyDone = st.toy >= 3;
                     const reinDone = st.reindeer >= 3;
                     const allReady = candyDone && toyDone && reinDone;
-                    const nextIcon = !candyDone ? '🍬' : (!toyDone ? '🧸' : '🦌');
+                    const nextIcon = !candyDone ? '🍬' : (!toyDone ? '🤖' : '🦌');
 
                     container.innerHTML = `
                         <div class="v-slot-row">
                             <div class="v-slot-orb ${candyDone ? 'filled' : ''}" onclick="closeVillageInterior();focusVillageZone('candy',true)" style="cursor:pointer;">🍬</div>
-                            <div class="v-slot-orb ${toyDone ? 'filled' : ''}" onclick="closeVillageInterior();focusVillageZone('toy',true)" style="cursor:pointer;">🧸</div>
+                            <div class="v-slot-orb ${toyDone ? 'filled' : ''}" onclick="closeVillageInterior();focusVillageZone('toy',true)" style="cursor:pointer;">🤖</div>
                             <div class="v-slot-orb ${reinDone ? 'filled' : ''}" onclick="closeVillageInterior();focusVillageZone('reindeer',true)" style="cursor:pointer;">🦌</div>
                         </div>
                         <button type="button" class="v-big-action-btn ${allReady ? 'done' : ''}" onclick="crankFactoryMachine('santa')">
@@ -33275,6 +34283,7 @@
 
             updateVillageWorldUI();
             window.updateVillageGiftBadge();
+            window.applyCustomBotToAllRobots();
         })();
 
         window.renderAdventCalendar();
