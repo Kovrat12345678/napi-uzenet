@@ -19537,6 +19537,152 @@
             cursor: pointer;
         }
 
+        /* ========== ROBOT MUSIC SHOP & SINGING ANIMATIONS ========== */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            padding: 0;
+        }
+        .music-card {
+            position: relative;
+            background: linear-gradient(160deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .02));
+            border: 1.5px solid rgba(255, 255, 255, .14);
+            border-radius: 20px;
+            padding: 20px 8px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            user-select: none;
+        }
+        .music-card:active {
+            transform: scale(0.95);
+        }
+        .music-card.active {
+            border-color: rgba(251, 191, 36, 0.85);
+            background: linear-gradient(160deg, rgba(34, 197, 94, 0.22), rgba(251, 191, 36, 0.14));
+            box-shadow: 0 0 22px rgba(251, 191, 36, 0.28), inset 0 0 18px rgba(34, 197, 94, 0.14);
+        }
+        .music-card-preview {
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(15, 23, 42, 0.65);
+            color: #fff;
+            font-size: 10px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+        }
+        .music-card-preview:hover {
+            background: rgba(56, 189, 248, 0.35);
+            border-color: rgba(125, 211, 252, 0.6);
+        }
+        .music-card-preview.playing {
+            background: linear-gradient(135deg, #ef4444, #f59e0b);
+            border-color: #fef08a;
+            animation: previewPulse 0.8s ease-in-out infinite;
+        }
+        @keyframes previewPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .music-card-icon {
+            font-size: 32px;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+        .music-card-tag {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 999px;
+            margin-bottom: 5px;
+        }
+        .music-card-tag.tag-christmas {
+            background: rgba(220, 38, 38, 0.28);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            color: #fef08a;
+        }
+        .music-card-tag.tag-dreamy {
+            background: rgba(56, 189, 248, 0.22);
+            border: 1px solid rgba(250, 204, 21, 0.45);
+            color: #e0f2fe;
+        }
+        .music-card-tag.tag-party {
+            background: rgba(168, 85, 247, 0.26);
+            border: 1px solid rgba(34, 211, 238, 0.5);
+            color: #f3e8ff;
+        }
+        .music-card-name {
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .music-card-status {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.48);
+        }
+        .music-card.active .music-card-status {
+            color: #86efac;
+        }
+
+        .robot-btn.singing .robot {
+            animation: robotSingSway 0.84s ease-in-out infinite !important;
+        }
+        @keyframes robotSingSway {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            25% { transform: translateY(-7px) rotate(0deg) scale(1.03); }
+            50% { transform: translateY(0) rotate(3deg); }
+            75% { transform: translateY(-7px) rotate(0deg) scale(1.03); }
+        }
+        .robot-btn.singing .mouth {
+            width: 18px !important;
+            height: 13px !important;
+            border-radius: 50% !important;
+            animation: robotSingMouth 0.36s ease-in-out infinite !important;
+        }
+        @keyframes robotSingMouth {
+            0%, 100% { transform: scaleX(0.95) scaleY(0.55); }
+            50% { transform: scaleX(1.12) scaleY(1.25); }
+        }
+        .robot-btn.singing .arm-l {
+            animation: robotSingArmL 0.42s ease-in-out infinite !important;
+            transform-origin: top center;
+        }
+        .robot-btn.singing .arm-r {
+            animation: robotSingArmR 0.42s ease-in-out infinite !important;
+            transform-origin: top center;
+        }
+        @keyframes robotSingArmL {
+            0%, 100% { transform: rotate(-18deg); }
+            50% { transform: rotate(22deg); }
+        }
+        @keyframes robotSingArmR {
+            0%, 100% { transform: rotate(18deg); }
+            50% { transform: rotate(-22deg); }
+        }
+        .robot-btn.singing .heart-icon {
+            animation: heartBeat 0.42s ease-in-out infinite !important;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85));
+        }
+
     </style>
 </head>
 
@@ -20068,6 +20214,12 @@
                 </div>
                 <!-- CAT: SKINS -->
                 <div id="cat-skins" style="display: none;">
+                    <!-- Music Selection list -->
+                    <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 12px;">
+                        <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🎵 Music</div>
+                        <div class="music-grid" id="musicList"></div>
+                    </div>
+
                     <!-- Skins Selection list (No border, wide padding for stretching) -->
                     <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 15px;">
                         <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🤖 Skins</div>
@@ -21538,8 +21690,371 @@
             setTimeout(() => r.classList.remove('breathing'), 1200);
         }
 
+        function spawnRobotFxParticles(emojis) {
+            if (!robotBtn) return;
+            const rect = robotBtn.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height * 0.38;
+            for (let i = 0; i < 7; i++) {
+                const el = document.createElement('div');
+                el.className = 'robot-fx-particle';
+                el.textContent = emojis[i % emojis.length];
+                const ang = (-Math.PI * 0.85) + (i / 6) * (Math.PI * 0.7) + (Math.random() - 0.5) * 0.25;
+                const dist = 65 + Math.random() * 65;
+                el.style.left = cx + 'px';
+                el.style.top = cy + 'px';
+                el.style.fontSize = (18 + Math.random() * 10) + 'px';
+                el.style.setProperty('--fx', Math.round(Math.cos(ang) * dist) + 'px');
+                el.style.setProperty('--fy', Math.round(Math.sin(ang) * dist - 18) + 'px');
+                el.style.setProperty('--frot', Math.round((Math.random() - 0.5) * 90) + 'deg');
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 1100);
+            }
+        }
+
+        const ROBOT_SONGS = [
+            {
+                id: 'jingle-bells',
+                name: 'Jingle Bells',
+                tag: 'Christmas',
+                icon: '🎄',
+                style: 'christmas',
+                beat: 0.21,
+                particles: ['🔔', '🎄', '🎵', '❄️'],
+                notes: [
+                    { f: 659.25, d: 0.9, step: 1, b: 130.81, lyric: { emoji: '🎄', text: '🎵 Jingle bells...' } },
+                    { f: 659.25, d: 0.9, step: 1 },
+                    { f: 659.25, d: 1.7, step: 2, b: 130.81 },
+                    { f: 659.25, d: 0.9, step: 1, b: 130.81, lyric: { emoji: '🔔', text: '🎵 Jingle bells, jingle bells...' } },
+                    { f: 659.25, d: 0.9, step: 1 },
+                    { f: 659.25, d: 1.7, step: 2, b: 130.81 },
+                    { f: 659.25, d: 0.9, step: 1, b: 130.81, lyric: { emoji: '🎶', text: '🎵 Jingle all the way!' } },
+                    { f: 783.99, d: 0.9, step: 1 },
+                    { f: 523.25, d: 1.4, step: 1.5, b: 130.81 },
+                    { f: 587.33, d: 0.45, step: 0.5 },
+                    { f: 659.25, d: 3.4, step: 4, b: 130.81 },
+                    { f: 698.46, d: 0.9, step: 1, b: 174.61, lyric: { emoji: '🛷', text: '🎵 Oh what fun it is to ride...' } },
+                    { f: 698.46, d: 0.9, step: 1 },
+                    { f: 698.46, d: 1.4, step: 1.5, b: 174.61 },
+                    { f: 698.46, d: 0.45, step: 0.5 },
+                    { f: 698.46, d: 0.9, step: 1, b: 130.81 },
+                    { f: 659.25, d: 0.9, step: 1 },
+                    { f: 659.25, d: 0.9, step: 1, b: 130.81 },
+                    { f: 659.25, d: 0.45, step: 0.5 },
+                    { f: 659.25, d: 0.45, step: 0.5 },
+                    { f: 783.99, d: 0.9, step: 1, b: 196.00, lyric: { emoji: '❄️', text: '🎵 In a one-horse open sleigh! 🛷' } },
+                    { f: 783.99, d: 0.9, step: 1 },
+                    { f: 698.46, d: 0.9, step: 1, b: 196.00 },
+                    { f: 587.33, d: 0.9, step: 1 },
+                    { f: 523.25, d: 3.5, step: 4, b: 130.81 }
+                ]
+            },
+            {
+                id: 'twinkle-star',
+                name: 'Twinkle Star',
+                tag: 'Classic',
+                icon: '🌟',
+                style: 'dreamy',
+                beat: 0.27,
+                particles: ['⭐', '✨', '🎵', '🌙'],
+                notes: [
+                    { f: 523.25, d: 0.9, step: 1, b: 130.81, lyric: { emoji: '🌟', text: '🌟 Twinkle, twinkle...' } },
+                    { f: 523.25, d: 0.9, step: 1 },
+                    { f: 783.99, d: 0.9, step: 1, b: 130.81 },
+                    { f: 783.99, d: 0.9, step: 1 },
+                    { f: 880.00, d: 0.9, step: 1, b: 174.61, lyric: { emoji: '✨', text: '🌟 Twinkle, twinkle, little star...' } },
+                    { f: 880.00, d: 0.9, step: 1 },
+                    { f: 783.99, d: 1.8, step: 2, b: 130.81 },
+                    { f: 698.46, d: 0.9, step: 1, b: 174.61, lyric: { emoji: '🌙', text: '✨ How I wonder what you are!' } },
+                    { f: 698.46, d: 0.9, step: 1 },
+                    { f: 659.25, d: 0.9, step: 1, b: 130.81 },
+                    { f: 659.25, d: 0.9, step: 1 },
+                    { f: 587.33, d: 0.9, step: 1, b: 196.00, lyric: { emoji: '☁️', text: '✨ Up above the world so high...' } },
+                    { f: 587.33, d: 0.9, step: 1 },
+                    { f: 523.25, d: 1.8, step: 2, b: 130.81 },
+                    { f: 783.99, d: 0.9, step: 1, b: 130.81, lyric: { emoji: '💎', text: '💎 Like a diamond in the sky!' } },
+                    { f: 783.99, d: 0.9, step: 1 },
+                    { f: 698.46, d: 0.9, step: 1, b: 174.61 },
+                    { f: 698.46, d: 0.9, step: 1 },
+                    { f: 659.25, d: 0.9, step: 1, b: 130.81 },
+                    { f: 587.33, d: 0.9, step: 1, b: 196.00 },
+                    { f: 523.25, d: 1.9, step: 2, b: 130.81 }
+                ]
+            },
+            {
+                id: 'beep-boop',
+                name: 'Beep Boop',
+                tag: 'Party',
+                icon: '🎧',
+                style: 'party',
+                beat: 0.19,
+                particles: ['🎵', '🎶', '⚡', '🤖'],
+                notes: [
+                    { f: 523.25, d: 0.85, step: 1, b: 130.81, lyric: { emoji: '🤖', text: '🤖 Beep boop ba-da!' } },
+                    { f: 659.25, d: 0.85, step: 1 },
+                    { f: 783.99, d: 0.85, step: 1, b: 130.81 },
+                    { f: 880.00, d: 0.85, step: 1 },
+                    { f: 783.99, d: 0.85, step: 1, b: 130.81, lyric: { emoji: '🎶', text: '🎶 Dance along with me!' } },
+                    { f: 659.25, d: 0.45, step: 0.5 },
+                    { f: 783.99, d: 0.45, step: 0.5 },
+                    { f: 1046.50, d: 1.8, step: 2, b: 130.81 },
+                    { f: 880.00, d: 0.85, step: 1, b: 174.61 },
+                    { f: 783.99, d: 0.85, step: 1 },
+                    { f: 698.46, d: 0.85, step: 1, b: 174.61 },
+                    { f: 659.25, d: 0.85, step: 1 },
+                    { f: 587.33, d: 0.85, step: 1, b: 196.00, lyric: { emoji: '⚡', text: '⚡ Happy DailyBot...' } },
+                    { f: 698.46, d: 0.85, step: 1 },
+                    { f: 783.99, d: 1.8, step: 2, b: 196.00 },
+                    { f: 523.25, d: 0.85, step: 1, b: 130.81, lyric: { emoji: '🎧', text: '🎧 Sing it loud and free!' } },
+                    { f: 659.25, d: 0.85, step: 1 },
+                    { f: 783.99, d: 0.85, step: 1, b: 130.81 },
+                    { f: 1046.50, d: 0.85, step: 1 },
+                    { f: 987.77, d: 0.85, step: 1, b: 196.00 },
+                    { f: 880.00, d: 0.85, step: 1 },
+                    { f: 783.99, d: 0.85, step: 1, b: 130.81 },
+                    { f: 659.25, d: 0.85, step: 1 },
+                    { f: 698.46, d: 0.85, step: 1, b: 174.61, lyric: { emoji: '🎉', text: '🎉 Beep boop party time! 🎵' } },
+                    { f: 659.25, d: 0.85, step: 1 },
+                    { f: 587.33, d: 0.85, step: 1, b: 196.00 },
+                    { f: 783.99, d: 0.85, step: 1 },
+                    { f: 1046.50, d: 3.1, step: 4, b: 130.81 }
+                ]
+            }
+        ];
+        window.ROBOT_SONGS = ROBOT_SONGS;
+
+        window.getActiveMusic = function () {
+            const rawId = localStorage.getItem('nu_active_music') || '';
+            return ROBOT_SONGS.some(s => s.id === rawId) ? rawId : '';
+        };
+        window.setActiveMusic = function (id) {
+            const valid = ROBOT_SONGS.some(s => s.id === id) ? id : '';
+            localStorage.setItem('nu_active_music', valid);
+        };
+
+        let _songTimers = [];
+        let _songNodes = [];
+        let _songState = null;
+
+        function playSingNote(ctx, freq, durSec, bassFreq, style, isBeat) {
+            if (!ctx || (window.isSfxMuted && window.isSfxMuted())) return;
+            const now = ctx.currentTime;
+            const d = Math.max(0.08, durSec);
+
+            // Robot vocal lead (sawtooth + triangle through formant peaking/bandpass + vibrato)
+            const formant = ctx.createBiquadFilter();
+            formant.type = 'peaking';
+            formant.frequency.value = style === 'party' ? 1150 : 980;
+            formant.Q.value = 2.6;
+            formant.gain.value = 7;
+
+            const vGain = ctx.createGain();
+            vGain.gain.setValueAtTime(0.001, now);
+            vGain.gain.linearRampToValueAtTime(0.085, now + 0.025);
+            vGain.gain.setValueAtTime(0.072, now + d * 0.65);
+            vGain.gain.exponentialRampToValueAtTime(0.001, now + d);
+
+            const osc1 = ctx.createOscillator();
+            const osc2 = ctx.createOscillator();
+            osc1.type = 'sawtooth';
+            osc2.type = 'triangle';
+            osc1.frequency.setValueAtTime(freq, now);
+            osc2.frequency.setValueAtTime(freq * 1.003, now);
+
+            const osc2Mix = ctx.createGain();
+            osc2Mix.gain.value = 0.65;
+            const osc1Mix = ctx.createGain();
+            osc1Mix.gain.value = 0.35;
+
+            const vib = ctx.createOscillator();
+            const vibG = ctx.createGain();
+            vib.type = 'sine';
+            vib.frequency.value = 5.5;
+            vibG.gain.value = 4.2;
+            vib.connect(vibG);
+            vibG.connect(osc1.frequency);
+            vibG.connect(osc2.frequency);
+
+            osc1.connect(osc1Mix).connect(formant);
+            osc2.connect(osc2Mix).connect(formant);
+            formant.connect(vGain).connect(ctx.destination);
+
+            osc1.start(now); osc1.stop(now + d + 0.03);
+            osc2.start(now); osc2.stop(now + d + 0.03);
+            vib.start(now); vib.stop(now + d + 0.03);
+            _songNodes.push(osc1, osc2, vib, vibG, osc1Mix, osc2Mix, formant, vGain);
+
+            // Style accompaniment sparkle
+            if (style === 'christmas' || style === 'dreamy') {
+                const bell = ctx.createOscillator();
+                const bellG = ctx.createGain();
+                bell.type = 'sine';
+                bell.frequency.value = freq * 2;
+                bellG.gain.setValueAtTime(0.001, now);
+                bellG.gain.linearRampToValueAtTime(style === 'christmas' ? 0.032 : 0.028, now + 0.01);
+                bellG.gain.exponentialRampToValueAtTime(0.001, now + Math.min(d + 0.12, 0.42));
+                bell.connect(bellG).connect(ctx.destination);
+                bell.start(now); bell.stop(now + Math.min(d + 0.15, 0.45));
+                _songNodes.push(bell, bellG);
+            }
+
+            if (style === 'christmas' && isBeat) {
+                const len = Math.floor(ctx.sampleRate * 0.07);
+                const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+                const ch = buf.getChannelData(0);
+                for (let k = 0; k < len; k++) ch[k] = (Math.random() * 2 - 1) * (1 - k / len);
+                const ns = ctx.createBufferSource();
+                ns.buffer = buf;
+                const hp = ctx.createBiquadFilter();
+                hp.type = 'highpass';
+                hp.frequency.value = 5200;
+                const ng = ctx.createGain();
+                ng.gain.value = 0.025;
+                ns.connect(hp).connect(ng).connect(ctx.destination);
+                ns.start(now);
+                _songNodes.push(ns, hp, ng);
+            }
+
+            if (style === 'party' && isBeat) {
+                const tick = ctx.createOscillator();
+                const tg = ctx.createGain();
+                tick.type = 'triangle';
+                tick.frequency.setValueAtTime(140, now);
+                tick.frequency.exponentialRampToValueAtTime(48, now + 0.07);
+                tg.gain.setValueAtTime(0.07, now);
+                tg.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                tick.connect(tg).connect(ctx.destination);
+                tick.start(now); tick.stop(now + 0.09);
+                _songNodes.push(tick, tg);
+            }
+
+            // Warm bass root on harmonic changes
+            if (bassFreq) {
+                const bOsc = ctx.createOscillator();
+                const bG = ctx.createGain();
+                bOsc.type = style === 'party' ? 'square' : (style === 'dreamy' ? 'sine' : 'triangle');
+                bOsc.frequency.value = bassFreq;
+                bG.gain.setValueAtTime(0.001, now);
+                bG.gain.linearRampToValueAtTime(style === 'party' ? 0.03 : 0.045, now + 0.02);
+                bG.gain.exponentialRampToValueAtTime(0.001, now + Math.min(d + 0.28, 0.55));
+                bOsc.connect(bG).connect(ctx.destination);
+                bOsc.start(now); bOsc.stop(now + Math.min(d + 0.3, 0.6));
+                _songNodes.push(bOsc, bG);
+            }
+        }
+
+        window.stopRobotSong = function () {
+            _songTimers.forEach(t => clearTimeout(t));
+            _songTimers = [];
+            _songNodes.forEach(n => { try { n.stop && n.stop(); n.disconnect && n.disconnect(); } catch (e) { } });
+            _songNodes = [];
+
+            const st = _songState;
+            _songState = null;
+            window._robotSinging = false;
+            window._previewingSongId = null;
+            if (window.setAppMusicDucked) window.setAppMusicDucked(false);
+
+            if (st && !st.preview) {
+                if (robotBtn) robotBtn.classList.remove('singing', 'talking', 'tap-wave', 'tap-snowball', 'tap-hearts', 'tap-jingle');
+                const bE = document.getElementById('bE');
+                const bT = document.getElementById('bT');
+                if (bE && typeof st.oldE === 'string') bE.textContent = st.oldE;
+                if (bT && typeof st.oldT === 'string') bT.textContent = st.oldT;
+                tapBusy = false;
+            }
+            if (st && st.preview && typeof window.renderMusicList === 'function') {
+                window.renderMusicList();
+            }
+        };
+
+        window.playRobotSong = function (songId, opts) {
+            const song = ROBOT_SONGS.find(s => s.id === songId);
+            if (!song) return;
+            const preview = !!(opts && opts.preview);
+            window.stopRobotSong();
+            initAudio();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                try { audioCtx.resume(); } catch (e) { }
+            }
+
+            const bE = document.getElementById('bE');
+            const bT = document.getElementById('bT');
+            _songState = {
+                songId: song.id,
+                preview: preview,
+                oldE: bE ? bE.textContent : '',
+                oldT: bT ? bT.textContent : ''
+            };
+
+            if (preview) {
+                window._previewingSongId = song.id;
+                if (typeof window.renderMusicList === 'function') window.renderMusicList();
+            } else {
+                window._robotSinging = true;
+                tapBusy = true;
+                if (robotBtn) robotBtn.classList.add('singing', 'talking');
+                if (bubble) bubble.classList.add('show');
+                spawnRobotFxParticles(song.particles);
+            }
+            if (window.setAppMusicDucked) window.setAppMusicDucked(true);
+
+            let notesToPlay = song.notes;
+            if (preview) {
+                let acc = 0;
+                const subset = [];
+                for (let i = 0; i < song.notes.length; i++) {
+                    subset.push(song.notes[i]);
+                    acc += song.notes[i].step;
+                    if (acc >= 9.5) break;
+                }
+                notesToPlay = subset;
+            }
+
+            let curBeat = 0;
+            let lastParticleBeat = -4;
+            notesToPlay.forEach((n, idx) => {
+                const delayMs = Math.round(curBeat * song.beat * 1000);
+                const noteBeat = curBeat;
+                const durSec = n.d * song.beat;
+                const isWholeBeat = Math.abs(noteBeat - Math.round(noteBeat)) < 0.05;
+                curBeat += n.step;
+
+                const tId = setTimeout(() => {
+                    if (!_songState || _songState.songId !== song.id) return;
+                    if (audioCtx) playSingNote(audioCtx, n.f, durSec, n.b, song.style, isWholeBeat);
+                    if (!preview) {
+                        if (n.lyric && bE && bT) {
+                            bE.textContent = n.lyric.emoji;
+                            bT.textContent = n.lyric.text;
+                        }
+                        if (noteBeat - lastParticleBeat >= 6 && idx > 0) {
+                            lastParticleBeat = noteBeat;
+                            spawnRobotFxParticles(song.particles);
+                        }
+                    }
+                }, delayMs);
+                _songTimers.push(tId);
+            });
+
+            const totalMs = Math.round(curBeat * song.beat * 1000) + (preview ? 250 : 750);
+            const endTimer = setTimeout(() => {
+                window.stopRobotSong();
+            }, totalMs);
+            _songTimers.push(endTimer);
+        };
+
         function playTapReaction() {
+            if (window._robotSinging) {
+                window.stopRobotSong();
+                return;
+            }
             if (tapBusy) return;
+            const activeMusicId = typeof window.getActiveMusic === 'function' ? window.getActiveMusic() : '';
+            if (activeMusicId) {
+                window.playRobotSong(activeMusicId, { preview: false });
+                return;
+            }
             tapBusy = true;
             initAudio();
 
@@ -21570,27 +22085,6 @@
             const clsMap = { wave: 'tap-wave', snowball: 'tap-snowball', hearts: 'tap-hearts', jingle: 'tap-jingle' };
             const activeCls = clsMap[mode] || 'tap-wave';
             robotBtn.classList.add(activeCls, 'talking');
-
-            function spawnRobotFxParticles(emojis) {
-                const rect = robotBtn.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2;
-                const cy = rect.top + rect.height * 0.38;
-                for (let i = 0; i < 7; i++) {
-                    const el = document.createElement('div');
-                    el.className = 'robot-fx-particle';
-                    el.textContent = emojis[i % emojis.length];
-                    const ang = (-Math.PI * 0.85) + (i / 6) * (Math.PI * 0.7) + (Math.random() - 0.5) * 0.25;
-                    const dist = 65 + Math.random() * 65;
-                    el.style.left = cx + 'px';
-                    el.style.top = cy + 'px';
-                    el.style.fontSize = (18 + Math.random() * 10) + 'px';
-                    el.style.setProperty('--fx', Math.round(Math.cos(ang) * dist) + 'px');
-                    el.style.setProperty('--fy', Math.round(Math.sin(ang) * dist - 18) + 'px');
-                    el.style.setProperty('--frot', Math.round((Math.random() - 0.5) * 90) + 'deg');
-                    document.body.appendChild(el);
-                    setTimeout(() => el.remove(), 1100);
-                }
-            }
 
             if (mode === 'snowball') {
                 spawnRobotFxParticles(['❄️', '⚪', '⛄', '✨']);
@@ -24390,6 +24884,8 @@
         (function () {
             let appAudioCtx = null;
             let currentMood = null;
+            let currentMaster = null;
+            let currentBaseGain = 0.055;
             let nodes = [];
             let scheduleTimers = [];
 
@@ -24403,6 +24899,7 @@
             function stopAllNodes() {
                 nodes.forEach(n => { try { n.stop && n.stop(); n.disconnect && n.disconnect(); } catch (e) { } });
                 nodes = [];
+                currentMaster = null;
                 scheduleTimers.forEach(t => clearTimeout(t));
                 scheduleTimers = [];
             }
@@ -24413,7 +24910,9 @@
                 currentMood = mood;
                 const ctx = appAudioCtx;
                 const master = ctx.createGain();
-                master.gain.value = mood === 'morning' ? 0.06 : mood === 'day' ? 0.055 : 0.04;
+                currentBaseGain = mood === 'morning' ? 0.06 : mood === 'day' ? 0.055 : 0.04;
+                master.gain.value = currentBaseGain;
+                currentMaster = master;
                 master.connect(ctx.destination);
                 nodes.push(master);
 
@@ -24522,6 +25021,15 @@
                     if (m !== currentMood) startMood(m);
                 }, 10 * 60 * 1000);
             }
+            window.setAppMusicDucked = function (ducked) {
+                if (!appAudioCtx || !currentMaster) return;
+                try {
+                    const t = appAudioCtx.currentTime;
+                    const targetGain = ducked ? 0.004 : currentBaseGain;
+                    currentMaster.gain.cancelScheduledValues(t);
+                    currentMaster.gain.setTargetAtTime(targetGain, t, 0.08);
+                } catch (e) { }
+            };
             window.setAppMusicEnabled = function (enabled) {
                 localStorage.setItem('nu_music_muted', enabled ? '0' : '1');
                 if (!enabled) {
@@ -24586,6 +25094,7 @@
                 const _ncMap = { pink: '#f472b6', cyan: '#22d3ee', gold: '#fbbf24', green: '#34d399', red: '#f87171', white: '#ffffff' };
                 const _ncVal = _ncMap[_nc] || '#a78bfa';
                 greet.innerHTML = `Hello <span class="greet-name" style="color:${_ncVal}">${name}</span>! <br>Welcome to the <span style="color:#38bdf8">DailyBot</span> Shop!`;
+                if (typeof renderMusicList === 'function') renderMusicList();
                 const activeSkin = getActiveSkin();
                 const activeBg = getActiveBg();
                 skinList.innerHTML = '';
@@ -24661,6 +25170,56 @@
                     });
                 });
             }
+            function renderMusicList() {
+                const ml = document.getElementById('musicList');
+                if (!ml || !Array.isArray(window.ROBOT_SONGS)) return;
+                const activeMusic = typeof window.getActiveMusic === 'function' ? window.getActiveMusic() : '';
+                const previewingId = window._previewingSongId || '';
+                ml.innerHTML = '';
+
+                window.ROBOT_SONGS.forEach(song => {
+                    const isActive = song.id === activeMusic;
+                    const isPreviewing = song.id === previewingId;
+                    const tagClass = song.style === 'christmas' ? 'tag-christmas' : (song.style === 'dreamy' ? 'tag-dreamy' : 'tag-party');
+                    const card = document.createElement('div');
+                    card.className = 'music-card' + (isActive ? ' active' : '');
+                    card.innerHTML =
+                        '<button type="button" class="music-card-preview' + (isPreviewing ? ' playing' : '') + '" aria-label="Preview ' + song.name + '">' + (isPreviewing ? '⏹' : '▶') + '</button>' +
+                        '<div class="music-card-icon">' + song.icon + '</div>' +
+                        '<div class="music-card-tag ' + tagClass + '">' + song.tag + '</div>' +
+                        '<div class="music-card-name">' + song.name + '</div>' +
+                        '<div class="music-card-status">' + (isActive ? '✔ Equipped' : 'Select') + '</div>';
+
+                    const prevBtn = card.querySelector('.music-card-preview');
+                    if (prevBtn) {
+                        prevBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (typeof hapticTap === 'function') hapticTap(8);
+                            if (window._previewingSongId === song.id) {
+                                window.stopRobotSong();
+                            } else {
+                                window.playRobotSong(song.id, { preview: true });
+                            }
+                        });
+                    }
+
+                    card.addEventListener('click', () => {
+                        if (typeof hapticTap === 'function') hapticTap(10);
+                        if (isActive) {
+                            window.setActiveMusic('');
+                            if (typeof window.stopRobotSong === 'function') window.stopRobotSong();
+                        } else {
+                            window.setActiveMusic(song.id);
+                            playSfx('skin-equip');
+                            if (typeof window.playRobotSong === 'function') window.playRobotSong(song.id, { preview: true });
+                        }
+                        renderMusicList();
+                    });
+
+                    ml.appendChild(card);
+                });
+            }
+            window.renderMusicList = renderMusicList;
             window.renderShop = renderShop;
             window.SKINS = SKINS;
             window.ACCESSORIES = ACCESSORIES;
@@ -24668,6 +25227,7 @@
             toggle.addEventListener('click', () => {
                 if (typeof hapticTap === 'function') hapticTap(10);
                 if (typeof window.cancelHomeSkinPreview === 'function') window.cancelHomeSkinPreview();
+                if (typeof window.stopRobotSong === 'function') window.stopRobotSong();
                 renderShop();
                 if (typeof renderAdventCalendar === 'function') renderAdventCalendar();
                 if (typeof renderGiftGameCard === 'function') renderGiftGameCard();
@@ -24675,7 +25235,10 @@
                 if (typeof renderDailyDeal === 'function') renderDailyDeal();
                 panel.classList.add('open');
             });
-            closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+            closeBtn.addEventListener('click', () => {
+                if (typeof window.stopRobotSong === 'function') window.stopRobotSong();
+                panel.classList.remove('open');
+            });
 
             // ========== PURCHASE HANDLER ==========
             document.body.addEventListener('click', (e) => {
@@ -24742,7 +25305,7 @@
             syncClose.addEventListener('click', () => syncPanel.classList.remove('open'));
 
             // Exportálandó kulcsok
-            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
+            const SYNC_KEYS = ['nu_owned', 'nu_active_skin', 'nu_active_music', 'nu_active_bg', 'nu_favs', 'nu_s', 'nu_best_s', 'nu_streak_claimed', 'nu_giftgame_best', 'nu_l', 'nu_name', 'nu_uid', 'nu_gems', 'nu_box_day', 'nu_box_count', 'nu_pouch_day', 'nu_pouch_free', 'nu_spin_day', 'nu_cards', 'nu_cards_seen', 'nu_super_day', 'nu_stickers', 'nu_active_sticker', 'nu_comic_clash_bought', 'nu_summer_pass_bought', 'nu_icecatch_total', 'nu_icecatch_day'];
 
             exportBtn.addEventListener('click', () => {
                 const data = {};
