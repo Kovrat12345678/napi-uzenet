@@ -1,10 +1,10 @@
-const CACHE_NAME = 'dailybot-v64';
+const CACHE_NAME = 'dailybot-v65';
 const ASSETS = [
     './',
     './index.html',
     './manifest.json',
-    './icon/app_icon_event.png',
-
+    './icon/app_icon_winter.png',
+    './icon/app_icon_winter_192.png'
 ];
 
 // Install — cache fájlok
@@ -63,8 +63,8 @@ function getRandomNotifMsg() {
 function showDailyNotification() {
     return self.registration.showNotification('DailyBot 🤖', {
         body: getRandomNotifMsg(),
-        icon: './icon/app_icon_event.png',
-        badge: './icon/app_icon_event.png',
+        icon: './icon/app_icon_winter.png',
+        badge: './icon/app_icon_winter_192.png',
         tag: 'daily-' + new Date().toDateString(),
         renotify: true,
         requireInteraction: false,
