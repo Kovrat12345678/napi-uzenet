@@ -18475,11 +18475,44 @@
 
         /* ========== ADVENT CALENDAR ========== */
         .advent-header {
-            background: linear-gradient(135deg, rgba(220, 38, 38, 0.18), rgba(16, 185, 129, 0.12));
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 18px;
-            padding: 14px 16px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, rgba(153, 27, 27, 0.45), rgba(6, 78, 59, 0.35), rgba(15, 23, 42, 0.72));
+            border: 1.5px solid rgba(251, 191, 36, 0.55);
+            border-radius: 20px;
+            padding: 22px 14px 14px;
             margin-bottom: 14px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 0 26px rgba(251, 191, 36, 0.16);
+        }
+
+        .advent-garland {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            right: 10px;
+            height: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .advent-bulb {
+            width: 7px;
+            height: 9px;
+            border-radius: 50% 50% 60% 60%;
+            margin-top: -1px;
+            animation: adventBulbGlow 1.8s ease-in-out infinite;
+        }
+        .advent-bulb:nth-child(4n+1) { background: #ef4444; box-shadow: 0 0 8px #ef4444; animation-delay: 0s; }
+        .advent-bulb:nth-child(4n+2) { background: #fbbf24; box-shadow: 0 0 8px #fbbf24; animation-delay: 0.4s; }
+        .advent-bulb:nth-child(4n+3) { background: #22c55e; box-shadow: 0 0 8px #22c55e; animation-delay: 0.8s; }
+        .advent-bulb:nth-child(4n)   { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; animation-delay: 1.2s; }
+
+        @keyframes adventBulbGlow {
+            0%, 100% { opacity: 0.55; transform: scale(0.92); }
+            50% { opacity: 1; transform: scale(1.12); }
         }
 
         .advent-header-top {
@@ -18494,64 +18527,147 @@
             font-size: 16px;
             font-weight: 900;
             color: #fef08a;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
         }
 
         .advent-counter {
             font-family: 'Outfit', sans-serif;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.12);
+            color: #fef08a;
+            background: rgba(15, 23, 42, 0.55);
             padding: 4px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(251, 191, 36, 0.45);
         }
 
         .advent-progress-track {
             width: 100%;
-            height: 8px;
+            height: 9px;
             border-radius: 999px;
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
         }
 
         .advent-progress-fill {
             height: 100%;
             border-radius: 999px;
-            background: linear-gradient(90deg, #ef4444, #fbbf24, #22c55e);
+            background: linear-gradient(90deg, #ef4444, #fbbf24, #22c55e, #fbbf24);
+            background-size: 200% 100%;
+            animation: adventBarShimmer 2.8s linear infinite;
             transition: width 0.4s ease;
         }
 
+        @keyframes adventBarShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
         .advent-status {
-            margin-top: 8px;
+            margin: 10px auto 0;
+            width: fit-content;
             font-size: 12px;
             font-weight: 800;
-            color: #fde68a;
+            color: #fef08a;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            padding: 5px 12px;
+            border-radius: 999px;
+            box-shadow: 0 0 14px rgba(251, 191, 36, 0.22);
             text-align: center;
         }
 
-        .advent-grid {
+        .advent-milestones-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding-bottom: 18px;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 6px;
+            margin-top: 10px;
         }
 
-        .advent-door {
-            position: relative;
-            aspect-ratio: 1 / 1.08;
-            border-radius: 16px;
-            border: 1.5px solid rgba(255, 255, 255, 0.12);
+        .advent-ms-chip {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 2px;
+            padding: 6px 4px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: #fde68a;
             font-family: 'Outfit', sans-serif;
-            cursor: default;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.14s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .advent-ms-chip:active {
+            transform: scale(0.93);
+        }
+
+        .advent-ms-chip .ms-ico {
+            font-size: 17px;
+            line-height: 1.1;
+        }
+
+        .advent-ms-chip.unlocked {
+            background: linear-gradient(150deg, rgba(16, 185, 129, 0.32), rgba(251, 191, 36, 0.18));
+            border-color: #34d399;
+            color: #a7f3d0;
+            box-shadow: 0 0 12px rgba(52, 211, 153, 0.25);
+        }
+
+        .advent-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 9px;
+            padding-bottom: 20px;
+        }
+
+        .advent-door {
+            grid-column: span 3;
+            min-width: 0;
+            position: relative;
+            aspect-ratio: 1 / 1.12;
+            border-radius: 16px;
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 6px 4px;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
             overflow: hidden;
-            transition: transform 0.15s ease, box-shadow 0.2s ease;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .advent-door.late-row {
+            grid-column: span 4;
+            aspect-ratio: 1 / 0.85;
+        }
+
+        .advent-door.finale {
+            grid-column: 1 / -1;
+            aspect-ratio: auto;
+            min-height: 92px;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 12px 16px;
+            text-align: left;
+            gap: 12px;
+            border-width: 2px;
+        }
+
+        .advent-door-dec {
+            font-size: 8px;
+            font-weight: 900;
+            letter-spacing: 0.7px;
+            color: rgba(186, 230, 253, 0.72);
+            line-height: 1;
         }
 
         .advent-door-num {
@@ -18559,38 +18675,102 @@
             font-weight: 900;
             color: #fff;
             line-height: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .advent-door-icon {
             font-size: 20px;
             line-height: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .advent-door-tag {
-            font-size: 9px;
+            font-size: 8.5px;
             font-weight: 900;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             padding: 2px 6px;
             border-radius: 999px;
-            background: rgba(251, 191, 36, 0.9);
+            background: rgba(251, 191, 36, 0.92);
             color: #1e293b;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .advent-door.locked {
+            background: linear-gradient(155deg, rgba(30, 58, 138, 0.42), rgba(15, 23, 42, 0.78));
+            border-color: rgba(148, 163, 184, 0.28);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .advent-door.locked::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, transparent calc(50% - 2px), rgba(186, 230, 253, 0.08) calc(50% - 2px), rgba(186, 230, 253, 0.08) calc(50% + 2px), transparent calc(50% + 2px)),
+                linear-gradient(0deg, transparent calc(50% - 2px), rgba(186, 230, 253, 0.06) calc(50% - 2px), rgba(186, 230, 253, 0.06) calc(50% + 2px), transparent calc(50% + 2px));
+            pointer-events: none;
+        }
+
+        .advent-door.locked .advent-door-tag {
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            color: rgba(226, 232, 240, 0.86);
         }
 
         .advent-door.available {
-            background: linear-gradient(145deg, rgba(220, 38, 38, 0.88), rgba(153, 27, 27, 0.92));
+            background: linear-gradient(145deg, #dc2626, #991b1b);
             border-color: #fbbf24;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.45), 0 0 14px rgba(251, 191, 36, 0.35);
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.48), 0 0 16px rgba(251, 191, 36, 0.4);
             animation: adventPulse 2s ease-in-out infinite;
         }
 
-        .advent-door.available:active {
+        .advent-door.available::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, transparent calc(50% - 2.5px), rgba(251, 191, 36, 0.26) calc(50% - 2.5px), rgba(251, 191, 36, 0.26) calc(50% + 2.5px), transparent calc(50% + 2.5px)),
+                linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+            background-size: 100% 100%, 220% 100%;
+            animation: adventGloss 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .advent-door.available .advent-door-dec {
+            color: rgba(254, 240, 138, 0.9);
+        }
+
+        .advent-door.available .advent-door-icon {
+            animation: adventGiftBounce 1.4s ease-in-out infinite;
+        }
+
+        @keyframes adventGloss {
+            0% { background-position: 0 0, -140% 0; }
+            65%, 100% { background-position: 0 0, 160% 0; }
+        }
+
+        @keyframes adventGiftBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-2.5px) scale(1.1); }
+        }
+
+        .advent-door:active {
             transform: scale(0.93);
         }
 
         .advent-door.milestone {
             border-width: 2px;
-            border-color: #fde047;
+            border-color: #fbbf24;
+            background: linear-gradient(155deg, rgba(16, 185, 129, 0.28), rgba(251, 191, 36, 0.2), rgba(15, 23, 42, 0.82));
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.22), inset 0 0 14px rgba(251, 191, 36, 0.12);
+        }
+
+        .advent-door.milestone.available {
+            background: linear-gradient(145deg, #b91c1c, #7f1d1d);
         }
 
         .advent-door.milestone::after {
@@ -18598,30 +18778,90 @@
             position: absolute;
             top: 4px;
             right: 6px;
-            font-size: 10px;
+            font-size: 11px;
             color: #fde047;
+            text-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
+            z-index: 2;
         }
 
         .advent-door.opened {
-            background: linear-gradient(145deg, rgba(16, 185, 129, 0.24), rgba(6, 78, 59, 0.42));
-            border-color: rgba(52, 211, 153, 0.45);
-            opacity: 0.78;
+            background: linear-gradient(145deg, rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.55));
+            border-color: rgba(52, 211, 153, 0.65);
+            box-shadow: inset 0 0 14px rgba(16, 185, 129, 0.22);
+        }
+
+        .advent-door.opened .advent-door-dec {
+            color: rgba(167, 243, 208, 0.85);
         }
 
         .advent-door.opened .advent-door-tag {
-            background: rgba(16, 185, 129, 0.85);
+            background: rgba(16, 185, 129, 0.9);
+            border: none;
             color: #fff;
         }
 
-        .advent-door.locked {
-            background: rgba(15, 23, 42, 0.55);
-            border-color: rgba(255, 255, 255, 0.08);
-            opacity: 0.48;
+        .advent-door.finale {
+            background: linear-gradient(135deg, rgba(185, 28, 28, 0.68), rgba(15, 23, 42, 0.85), rgba(217, 119, 6, 0.45));
+            border-color: #fbbf24;
+            box-shadow: 0 8px 26px rgba(220, 38, 38, 0.32), 0 0 24px rgba(251, 191, 36, 0.25);
+        }
+
+        .advent-door.finale.opened {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.38), rgba(6, 78, 59, 0.68));
+            border-color: #34d399;
+        }
+
+        .advent-finale-bot {
+            width: 52px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .advent-finale-bot .robot {
+            transform: scale(0.52);
+            transform-origin: center center;
+        }
+
+        .advent-finale-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .advent-finale-eyebrow {
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.7px;
+            color: #fde68a;
+        }
+
+        .advent-finale-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .advent-door-tag.finale-tag {
+            padding: 5px 10px;
+            font-size: 10px;
+            flex-shrink: 0;
         }
 
         @keyframes adventPulse {
-            0%, 100% { box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35), 0 0 10px rgba(251, 191, 36, 0.25); }
-            50% { box-shadow: 0 6px 22px rgba(220, 38, 38, 0.65), 0 0 22px rgba(251, 191, 36, 0.6); }
+            0%, 100% { box-shadow: 0 4px 14px rgba(220, 38, 38, 0.42), 0 0 12px rgba(251, 191, 36, 0.3); }
+            50% { box-shadow: 0 6px 24px rgba(220, 38, 38, 0.72), 0 0 26px rgba(251, 191, 36, 0.7); }
         }
 
         .advent-reveal-overlay {
@@ -18639,22 +18879,47 @@
         }
 
         .advent-reveal-card {
+            position: relative;
+            overflow: hidden;
             width: 100%;
             max-width: 320px;
-            background: linear-gradient(160deg, rgba(127, 29, 29, 0.78), rgba(15, 23, 42, 0.92));
-            border: 2px solid #fbbf24;
+            background: linear-gradient(160deg, rgba(127, 29, 29, 0.84), rgba(15, 23, 42, 0.95));
+            border: 2px solid #fde047;
             border-radius: 26px;
             padding: 28px 22px;
             text-align: center;
             font-family: 'Outfit', sans-serif;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(251, 191, 36, 0.28);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 48px rgba(251, 191, 36, 0.36);
+        }
+
+        .advent-reveal-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 240px;
+            height: 240px;
+            margin-top: -135px;
+            margin-left: -120px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0) 70%);
+            pointer-events: none;
+            animation: adventGlowSpin 6s linear infinite;
+        }
+
+        @keyframes adventGlowSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .advent-reveal-day {
+            position: relative;
+            z-index: 1;
             display: inline-block;
             padding: 4px 12px;
             border-radius: 999px;
-            background: rgba(251, 191, 36, 0.2);
+            background: rgba(251, 191, 36, 0.22);
+            border: 1px solid rgba(251, 191, 36, 0.45);
             color: #fde68a;
             font-size: 12px;
             font-weight: 900;
@@ -18663,13 +18928,17 @@
         }
 
         .advent-reveal-icon {
+            position: relative;
+            z-index: 1;
             font-size: 72px;
             line-height: 1.05;
             margin: 8px 0 12px;
-            filter: drop-shadow(0 0 22px rgba(251, 191, 36, 0.45));
+            filter: drop-shadow(0 0 24px rgba(251, 191, 36, 0.55));
         }
 
         .advent-reveal-title {
+            position: relative;
+            z-index: 1;
             font-size: 22px;
             font-weight: 900;
             color: #fff;
@@ -18677,6 +18946,8 @@
         }
 
         .advent-reveal-sub {
+            position: relative;
+            z-index: 1;
             font-size: 14px;
             font-weight: 700;
             color: #fde68a;
@@ -19643,6 +19914,48 @@
             color: #86efac;
         }
 
+        /* ========== WINTER SKINS DEDICATED SECTION ========== */
+        .winter-skins-box {
+            background: linear-gradient(155deg, rgba(14, 116, 144, 0.24), rgba(127, 29, 29, 0.18), rgba(15, 23, 42, 0.55));
+            border: 1.5px solid rgba(125, 211, 252, 0.35);
+            border-radius: 22px;
+            padding: 14px 10px 12px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 26px rgba(14, 165, 233, 0.12), inset 0 0 24px rgba(186, 230, 253, 0.06);
+        }
+        .winter-skins-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px 12px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(186, 230, 253, 0.16);
+        }
+        .winter-skins-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.32), rgba(220, 38, 38, 0.28));
+            border: 1px solid rgba(186, 230, 253, 0.45);
+            color: #e0f2fe;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+        }
+        .winter-skins-box .shop-item {
+            border-color: rgba(125, 211, 252, 0.26);
+        }
+        .winter-skins-box .shop-item.active {
+            border-color: rgba(251, 191, 36, 0.85);
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.3), inset 0 0 18px rgba(251, 191, 36, 0.14);
+        }
+        .winter-skins-box .shop-item:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            background: linear-gradient(155deg, rgba(220, 38, 38, 0.24), rgba(251, 191, 36, 0.14), rgba(15, 23, 42, 0.72));
+            border-color: rgba(251, 191, 36, 0.55);
+        }
+
         .robot-btn.singing .robot {
             animation: robotSingSway 0.84s ease-in-out infinite !important;
         }
@@ -20115,6 +20428,10 @@
                 <!-- CAT: ADVENT -->
                 <div id="cat-advent" style="display: none;">
                     <div class="advent-header">
+                        <div class="advent-garland" aria-hidden="true">
+                            <span class="advent-bulb"></span><span class="advent-bulb"></span><span class="advent-bulb"></span><span class="advent-bulb"></span><span class="advent-bulb"></span>
+                            <span class="advent-bulb"></span><span class="advent-bulb"></span><span class="advent-bulb"></span><span class="advent-bulb"></span><span class="advent-bulb"></span>
+                        </div>
                         <div class="advent-header-top">
                             <span class="advent-title">🎄 Advent Calendar</span>
                             <span class="advent-counter" id="adventCounter">0 / 24</span>
@@ -20123,6 +20440,7 @@
                             <div class="advent-progress-fill" id="adventProgressFill" style="width:0%"></div>
                         </div>
                         <div class="advent-status" id="adventStatus" style="display:none"></div>
+                        <div class="advent-milestones-row" id="adventMilestones"></div>
                     </div>
                     <div class="advent-grid" id="adventGrid"></div>
                 </div>
@@ -20218,6 +20536,15 @@
                     <div class="shop-section" style="background:none; border:none; padding: 10px 5px; margin-bottom: 12px;">
                         <div class="shop-section-title" style="margin-bottom: 12px; font-size: 16px; padding: 0 10px 10px;">🎵 Music</div>
                         <div class="music-grid" id="musicList"></div>
+                    </div>
+
+                    <!-- Winter Skins Dedicated Section -->
+                    <div class="winter-skins-box">
+                        <div class="winter-skins-header">
+                            <div class="shop-section-title" style="margin: 0; font-size: 16px; padding: 0; border: none; color: #bae6fd;">❄️ Winter Skins</div>
+                            <span class="winter-skins-badge" id="winterSkinsCount">0 / 5</span>
+                        </div>
+                        <div class="shop-grid" id="winterSkinList" style="padding: 0;"></div>
                     </div>
 
                     <!-- Skins Selection list (No border, wide padding for stretching) -->
@@ -25097,13 +25424,26 @@
                 if (typeof renderMusicList === 'function') renderMusicList();
                 const activeSkin = getActiveSkin();
                 const activeBg = getActiveBg();
+                const winterSkinList = document.getElementById('winterSkinList');
+                const winterSkinsCount = document.getElementById('winterSkinsCount');
+                const winterSkins = SKINS.filter(s => !!s.winterExclusive).sort((a, b) => (a.adventDay || 99) - (b.adventDay || 99));
+                const normalSkins = SKINS.filter(s => !s.winterExclusive);
+
+                if (winterSkinsCount) {
+                    const ownedWinterCount = winterSkins.filter(s => owns(s.id)).length;
+                    winterSkinsCount.textContent = `LIMITED · ${ownedWinterCount}/${winterSkins.length}`;
+                }
+                if (winterSkinList) winterSkinList.innerHTML = '';
                 skinList.innerHTML = '';
                 bgList.innerHTML = '';
 
-                [{ id: 'skinList', items: SKINS, list: skinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin },
-                { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg }
+                [
+                    { id: 'winterSkinList', items: winterSkins, list: winterSkinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin, isSkin: true, keepOrder: true },
+                    { id: 'skinList', items: normalSkins, list: skinList, active: activeSkin, setter: setActiveSkin, applier: applyRobotSkin, isSkin: true, keepOrder: false },
+                    { id: 'bgList', items: BGS, list: bgList, active: activeBg, setter: setActiveBg, applier: applyCustomBg, isSkin: false, keepOrder: false }
                 ].forEach(cfg => {
-                    const sorted = [...cfg.items].sort((a, b) => {
+                    if (!cfg.list) return;
+                    const sorted = cfg.keepOrder ? [...cfg.items] : [...cfg.items].sort((a, b) => {
                         const ra = RARITY_ORDER[getRarity(a.id)] || 0;
                         const rb = RARITY_ORDER[getRarity(b.id)] || 0;
                         return ra - rb;
@@ -25127,7 +25467,8 @@
                         } else if (ownedItem) {
                             status = '<div class="shop-item-status owned">Equip</div>';
                         } else if (isWinterExclusive) {
-                            status = '<div class="shop-item-status winter-lock-tag">🎄 Advent / Box</div>';
+                            const dayTag = s.adventDay ? `🎄 Day ${s.adventDay} / Box` : '🎄 Advent / Box';
+                            status = '<div class="shop-item-status winter-lock-tag">' + dayTag + '</div>';
                         } else if (isDragonLocked) {
                             status = '<div class="shop-item-status lock-tag">🔒 Secret</div>';
                         } else if (price > 0) {
@@ -25137,7 +25478,7 @@
                         }
 
                         const rarityLabel = (rarity !== 'free') ? `<div class="shop-item-rarity-label rarity-label-${rarity}">${rarity}</div>` : '<div class="shop-item-rarity-label rarity-label-free">free</div>';
-                        const isSkinList = cfg.id === 'skinList';
+                        const isSkinList = !!cfg.isSkin;
                         let iconHtml = '';
                         if (isSkinList && typeof buildMiniRobotHtml === 'function') {
                             iconHtml = `<div class="shop-item-icon shop-item-robot">${buildMiniRobotHtml(s.id || '', false)}</div>`;
@@ -28404,13 +28745,32 @@
                 </div>
             `;
             document.body.appendChild(ov);
+
+            const burstIcons = ['✨', '❄️', '🎄', '🎁', '⭐'];
+            for (let i = 0; i < 12; i++) {
+                const sp = document.createElement('div');
+                sp.className = 'robot-fx-particle';
+                sp.textContent = burstIcons[i % burstIcons.length];
+                const ang = (i / 12) * Math.PI * 2 + (Math.random() - 0.5) * 0.25;
+                const dist = 90 + Math.random() * 85;
+                sp.style.left = '50%';
+                sp.style.top = '48%';
+                sp.style.zIndex = '1000000';
+                sp.style.fontSize = (18 + Math.random() * 10) + 'px';
+                sp.style.setProperty('--fx', Math.round(Math.cos(ang) * dist) + 'px');
+                sp.style.setProperty('--fy', Math.round(Math.sin(ang) * dist) + 'px');
+                sp.style.setProperty('--frot', Math.round((Math.random() - 0.5) * 140) + 'deg');
+                document.body.appendChild(sp);
+                setTimeout(() => sp.remove(), 1100);
+            }
+
             const close = () => {
                 ov.style.transition = 'opacity 0.2s ease';
                 ov.style.opacity = '0';
                 setTimeout(() => ov.remove(), 220);
             };
             ov.addEventListener('click', close, { once: true });
-            setTimeout(close, 3000);
+            setTimeout(close, 3200);
         }
 
         window.openAdventDoor = function(day) {
@@ -28492,21 +28852,48 @@
             const counter = document.getElementById('adventCounter');
             const fill = document.getElementById('adventProgressFill');
             const statusEl = document.getElementById('adventStatus');
+            const milestonesEl = document.getElementById('adventMilestones');
             if (counter) counter.textContent = `${claimed.length} / 24`;
             if (fill) fill.style.width = `${Math.round((claimed.length / 24) * 100)}%`;
 
             if (statusEl) {
                 if (unlocked <= 0) {
                     const now = new Date();
-                    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     const decYear = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
                     const dec1 = new Date(decYear, 11, 1);
-                    const daysLeft = Math.max(1, Math.round((dec1 - todayMidnight) / 86400000));
-                    statusEl.textContent = daysLeft === 1 ? '⏳ Opens tomorrow!' : `⏳ Opens Dec 1 · ${daysLeft} days left`;
+                    const diffMs = Math.max(0, dec1 - now);
+                    const dLeft = Math.floor(diffMs / 86400000);
+                    const hLeft = Math.floor((diffMs % 86400000) / 3600000);
+                    const mLeft = Math.floor((diffMs % 3600000) / 60000);
+                    statusEl.textContent = `⏳ Opens Dec 1 · ${dLeft}d ${hLeft}h ${mLeft}m`;
                     statusEl.style.display = 'block';
                 } else {
                     statusEl.style.display = 'none';
                 }
+            }
+
+            if (milestonesEl) {
+                const msDays = [6, 10, 15, 20, 24];
+                milestonesEl.innerHTML = '';
+                msDays.forEach(msDay => {
+                    const mr = ADVENT_REWARDS[msDay];
+                    if (!mr) return;
+                    const skinObj = (mr.itemId && Array.isArray(window.SKINS)) ? window.SKINS.find(s => s.id === mr.itemId) : null;
+                    const isMsUnlocked = claimed.includes(msDay) || (mr.itemId && typeof window.owns === 'function' && window.owns(mr.itemId));
+                    const chip = document.createElement('button');
+                    chip.type = 'button';
+                    chip.className = 'advent-ms-chip' + (isMsUnlocked ? ' unlocked' : '');
+                    chip.innerHTML = `<span class="ms-ico">${mr.icon}</span><span>${isMsUnlocked ? '✔ ' + msDay : 'D' + msDay}</span>`;
+                    chip.addEventListener('click', () => {
+                        if (typeof hapticTap === 'function') hapticTap(8);
+                        if (skinObj && typeof window.openSkinPreview === 'function') {
+                            window.openSkinPreview(skinObj);
+                        } else if (typeof showLootToast === 'function') {
+                            showLootToast('Dec ' + msDay + ' Reward', mr.label, mr.icon);
+                        }
+                    });
+                    milestonesEl.appendChild(chip);
+                });
             }
 
             grid.innerHTML = '';
@@ -28514,20 +28901,48 @@
                 const r = ADVENT_REWARDS[day];
                 const isOpened = claimed.includes(day);
                 const isAvail = day <= unlocked && !isOpened;
-                const isMilestone = day === 6 || day === 10 || day === 15 || day === 20 || day === 24;
+                const isMilestone = day === 6 || day === 10 || day === 15 || day === 20;
+                const isFinale = day === 24;
+                const isLateRow = day >= 21 && day <= 23;
 
                 const door = document.createElement('button');
                 door.type = 'button';
-                door.className = 'advent-door ' + (isOpened ? 'opened' : isAvail ? 'available' : 'locked') + (isMilestone ? ' milestone' : '');
+                door.className = 'advent-door ' +
+                    (isOpened ? 'opened' : isAvail ? 'available' : 'locked') +
+                    (isMilestone ? ' milestone' : '') +
+                    (isLateRow ? ' late-row' : '') +
+                    (isFinale ? ' finale' : '');
 
-                const icon = isOpened ? (r ? r.icon : '✓') : isAvail ? '🎁' : '❄️';
-                const tag = isOpened ? '✓' : isAvail ? 'OPEN' : '🔒';
-                door.innerHTML = `<span class="advent-door-num">${day}</span><span class="advent-door-icon">${icon}</span><span class="advent-door-tag">${tag}</span>`;
+                if (isFinale) {
+                    const botHtml = typeof window.buildMiniRobotHtml === 'function'
+                        ? `<div class="advent-finale-bot">${window.buildMiniRobotHtml('santa', false)}</div>`
+                        : `<div class="advent-finale-bot" style="font-size:36px;">🎅</div>`;
+                    const finaleTag = isOpened ? '✓ CLAIMED' : isAvail ? 'OPEN' : '🔒 DEC 24';
+                    door.innerHTML = `
+                        ${botHtml}
+                        <div class="advent-finale-info">
+                            <div class="advent-finale-eyebrow">★ DEC 24 · GRAND FINALE</div>
+                            <div class="advent-finale-title">🎅 Santa Bot + 500 💎</div>
+                        </div>
+                        <span class="advent-door-tag finale-tag">${finaleTag}</span>
+                    `;
+                } else {
+                    const icon = isOpened ? (r ? r.icon : '✓') : isAvail ? '🎁' : (isMilestone && r ? r.icon : '❄️');
+                    const tag = isOpened
+                        ? (r && r.type === 'gems' ? '+' + r.amount + '💎' : '✓')
+                        : isAvail ? 'OPEN' : '🔒';
+                    door.innerHTML = `<span class="advent-door-dec">DEC</span><span class="advent-door-num">${day}</span><span class="advent-door-icon">${icon}</span><span class="advent-door-tag">${tag}</span>`;
+                }
 
                 if (isAvail) {
                     door.addEventListener('click', () => window.openAdventDoor(day));
                 } else if (!isOpened) {
                     door.addEventListener('click', () => {
+                        const skinObj = (r && r.itemId && Array.isArray(window.SKINS)) ? window.SKINS.find(s => s.id === r.itemId) : null;
+                        if ((isMilestone || isFinale) && skinObj && typeof window.openSkinPreview === 'function') {
+                            window.openSkinPreview(skinObj);
+                            return;
+                        }
                         if (typeof showLootToast === 'function') {
                             if (unlocked <= 0) {
                                 showLootToast('Advent Calendar', 'Opens on December 1!', '🎄');
