@@ -20868,7 +20868,7 @@
             100% { transform: translate3d(var(--bsx, 140px), 105vh, 0) scale(1.15); opacity: 0; }
         }
 
-        /* Entry 3D Walk Scene */
+        /* ========== STAGE 1: CINEMATIC 3D SNOWY FOREST TRAIL WALK TO SANTA'S VILLAGE ========== */
         .village-walk-scene {
             position: relative;
             z-index: 2;
@@ -20879,15 +20879,17 @@
             justify-content: flex-end;
             overflow: hidden;
             padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 28px);
+            background: linear-gradient(180deg, #020818 0%, #091e3a 42%, #13385c 68%, #dbeafe 100%);
         }
         .village-walk-scene.active { display: flex; }
+
         .village-aurora {
             position: absolute;
             top: 4%;
             left: -15%;
             right: -15%;
             height: 38%;
-            background: linear-gradient(115deg, rgba(16, 185, 129, 0.36) 0%, rgba(56, 189, 248, 0.34) 45%, rgba(168, 85, 247, 0.28) 85%, transparent 100%);
+            background: linear-gradient(115deg, rgba(16, 185, 129, 0.38) 0%, rgba(56, 189, 248, 0.36) 45%, rgba(168, 85, 247, 0.3) 85%, transparent 100%);
             filter: blur(26px);
             border-radius: 50%;
             animation: villageAurora 7s ease-in-out infinite alternate;
@@ -20897,94 +20899,112 @@
             0% { transform: translateX(-5%) skewY(-3deg) scaleY(1); opacity: 0.72; }
             100% { transform: translateX(5%) skewY(3deg) scaleY(1.16); opacity: 0.96; }
         }
-        .village-trail-ground {
+
+        /* Distant Glowing 3D Santa's Village Skyline Growing Closer */
+        .vwalk-horizon-village {
             position: absolute;
-            left: -25%;
-            right: -25%;
-            bottom: 0;
-            height: 56%;
-            background:
-                radial-gradient(ellipse at 50% 0%, rgba(186, 230, 253, 0.38) 0%, transparent 65%),
-                linear-gradient(180deg, #153450 0%, #1e4b6e 45%, #e2f1ff 100%);
-            border-top: 2px solid rgba(186, 230, 253, 0.45);
-            overflow: hidden;
-        }
-        .village-snow-avenue {
-            position: absolute;
+            top: 26%;
             left: 50%;
-            top: 0;
-            bottom: -15%;
-            width: 300px;
-            transform: translateX(-50%) perspective(200px) rotateX(48deg);
-            background:
-                repeating-linear-gradient(
-                    180deg,
-                    rgba(255, 255, 255, 0.92) 0px,
-                    rgba(255, 255, 255, 0.92) 22px,
-                    rgba(186, 230, 253, 0.72) 22px,
-                    rgba(186, 230, 253, 0.72) 44px
-                );
-            background-size: 100% 44px;
-            border-left: 8px solid rgba(239, 68, 68, 0.75);
-            border-right: 8px solid rgba(239, 68, 68, 0.75);
-            box-shadow: 0 0 36px rgba(255, 255, 255, 0.65);
-            animation: villagePathRush 0.48s linear infinite;
-        }
-        @keyframes villagePathRush {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 44px; }
-        }
-        .village-distant-lodge {
-            position: absolute;
-            top: 28%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.32);
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: villageLodgeApproach 2.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-            filter: drop-shadow(0 0 34px rgba(251, 191, 36, 0.85));
-        }
-        @keyframes villageLodgeApproach {
-            0% { transform: translate(-50%, -50%) scale(0.26); opacity: 0.45; }
-            100% { transform: translate(-50%, -32%) scale(1.15); opacity: 1; }
-        }
-        .village-candy-pole {
-            position: absolute;
-            bottom: 18%;
-            width: 14px;
-            height: 78px;
-            border-radius: 999px;
-            background: repeating-linear-gradient(45deg, #ef4444 0 8px, #ffffff 8px 16px);
-            box-shadow: 0 0 14px rgba(239, 68, 68, 0.6);
+            width: 320px;
+            height: 120px;
+            transform: translate(-50%, -50%) scale(0.38);
             z-index: 3;
+            pointer-events: none;
+            animation: vwalkVillageZoom 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            filter: drop-shadow(0 0 32px rgba(251, 191, 36, 0.75));
         }
-        .village-candy-pole::after {
-            content: '🏮';
-            position: absolute;
-            top: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 18px;
-            filter: drop-shadow(0 0 10px #fbbf24);
-        }
-        .vp-l1 { left: 16%; animation: poleApproachL 1.3s linear infinite; }
-        .vp-l2 { left: 26%; animation: poleApproachL 1.3s linear infinite 0.65s; }
-        .vp-r1 { right: 16%; animation: poleApproachR 1.3s linear infinite; }
-        .vp-r2 { right: 26%; animation: poleApproachR 1.3s linear infinite 0.65s; }
-        @keyframes poleApproachL {
-            0% { transform: translate(45px, -65px) scale(0.35); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: translate(-65px, 65px) scale(1.3); opacity: 0; }
-        }
-        @keyframes poleApproachR {
-            0% { transform: translate(-45px, -65px) scale(0.35); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: translate(65px, 65px) scale(1.3); opacity: 0; }
+        @keyframes vwalkVillageZoom {
+            0% { transform: translate(-50%, -45%) scale(0.32); opacity: 0.55; }
+            100% { transform: translate(-50%, -25%) scale(1.08); opacity: 1; }
         }
 
-        /* ========== FULL-SCREEN UNCLUTTERED 3D VILLAGE WORLD ========== */
+        /* Winding 3D Snowy Forest Trail Ground */
+        .vwalk-snow-hills {
+            position: absolute;
+            left: -20%;
+            right: -20%;
+            bottom: 0;
+            height: 60%;
+            background:
+                radial-gradient(ellipse at 50% 0%, #ffffff 0%, #e0f2fe 45%, #bae6fd 82%, #7dd3fc 100%);
+            border-top: 4px solid #ffffff;
+            box-shadow: 0 -18px 50px rgba(186, 230, 253, 0.65);
+            overflow: hidden;
+            z-index: 2;
+        }
+        .vwalk-winding-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /* Animated Footprints & Snow Tread Marks Streaming Down Trail */
+        .vwalk-trail-dashes {
+            stroke-dasharray: 18 26;
+            animation: vwalkTrailFlow 0.55s linear infinite;
+        }
+        @keyframes vwalkTrailFlow {
+            0% { stroke-dashoffset: 44; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* Passing 3D Snow Pines & Warm Lanterns Along the Trail */
+        .vwalk-tree {
+            position: absolute;
+            bottom: 32%;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .vwalk-tree.tl1 { left: 26%; animation: vwalkPassL 1.5s linear infinite; }
+        .vwalk-tree.tl2 { left: 16%; animation: vwalkPassL 1.5s linear infinite 0.75s; }
+        .vwalk-tree.tr1 { right: 26%; animation: vwalkPassR 1.5s linear infinite 0.25s; }
+        .vwalk-tree.tr2 { right: 16%; animation: vwalkPassR 1.5s linear infinite 1.0s; }
+        @keyframes vwalkPassL {
+            0% { transform: translate(65px, -85px) scale(0.32); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(-110px, 115px) scale(1.45); opacity: 0; }
+        }
+        @keyframes vwalkPassR {
+            0% { transform: translate(-65px, -85px) scale(0.32); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(110px, 115px) scale(1.45); opacity: 0; }
+        }
+
+        /* Live 3D Robot Walking Forward on the Snowy Trail */
+        .vwalk-hero-bot {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            width: 150px;
+            height: 180px;
+            transform: translateX(-50%);
+            z-index: 6;
+            pointer-events: none;
+            filter: drop-shadow(0 18px 20px rgba(15, 23, 42, 0.45));
+            animation: vwalkBotStride 0.38s ease-in-out infinite alternate;
+        }
+        @keyframes vwalkBotStride {
+            0% { transform: translateX(-50%) translateY(0) rotate(-3.5deg) scale(0.98); }
+            100% { transform: translateX(-50%) translateY(-12px) rotate(3.5deg) scale(1.03); }
+        }
+        .vwalk-bot-shadow {
+            position: absolute;
+            bottom: 13.5%;
+            left: 50%;
+            width: 86px;
+            height: 22px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15, 23, 42, 0.38) 0%, transparent 72%);
+            z-index: 5;
+            animation: vwalkShadowPulse 0.38s ease-in-out infinite alternate;
+        }
+        @keyframes vwalkShadowPulse {
+            0% { transform: translateX(-50%) scale(1.05); opacity: 0.85; }
+            100% { transform: translateX(-50%) scale(0.82); opacity: 0.55; }
+        }
+
+        /* ========== STAGE 2: MASSIVE 5600px 6-ZONE 3D SANTA'S VILLAGE WORLD ========== */
         .village-plaza-scene {
             position: relative;
             z-index: 2;
@@ -21062,7 +21082,7 @@
             -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             cursor: pointer;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
             transition: transform 0.16s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -21087,7 +21107,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 14px;
             opacity: 0.42;
             filter: grayscale(0.7);
             transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -21168,9 +21188,9 @@
             position: absolute;
             bottom: 34%;
             left: 50%;
-            width: 3600px;
+            width: 4200px;
             height: 320px;
-            margin-left: -1800px;
+            margin-left: -2100px;
             z-index: 2;
             pointer-events: none;
             will-change: transform;
@@ -21191,9 +21211,9 @@
             position: absolute;
             bottom: 27%;
             left: 50%;
-            width: 4200px;
+            width: 4800px;
             height: 210px;
-            margin-left: -2100px;
+            margin-left: -2400px;
             z-index: 3;
             pointer-events: none;
             will-change: transform;
@@ -21206,14 +21226,14 @@
                 radial-gradient(ellipse 480px 150px at 91% 100%, #244f78 0%, #173758 75%, transparent 76%);
         }
 
-        /* Layer 3: MASSIVE 4800px 3D Village World Stage */
+        /* Layer 3: MASSIVE 5600px 6-ZONE 3D Village World Stage */
         .v3d-world {
             position: absolute;
             top: 0;
             bottom: 0;
             left: 50%;
-            width: 4800px;
-            margin-left: -2400px;
+            width: 5600px;
+            margin-left: -2800px;
             z-index: 5;
             transform-style: preserve-3d;
             will-change: transform;
@@ -21249,6 +21269,27 @@
             border-top: 4px dashed rgba(125, 211, 252, 0.85);
             border-bottom: 5px solid rgba(148, 163, 184, 0.45);
             box-shadow: inset 0 8px 18px rgba(186, 230, 253, 0.65), 0 8px 24px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Overhead Festive String Lights Connecting the Village */
+        .v3d-string-lights {
+            position: absolute;
+            left: 400px;
+            right: 400px;
+            bottom: 39%;
+            height: 22px;
+            pointer-events: none;
+            z-index: 6;
+            background:
+                radial-gradient(circle 5px at 18px 10px, #fde047 0%, #fde047 70%, transparent 100%) 0 0 / 72px 22px repeat-x,
+                radial-gradient(circle 5px at 42px 14px, #ef4444 0%, #ef4444 70%, transparent 100%) 0 0 / 72px 22px repeat-x,
+                radial-gradient(circle 5px at 64px 9px, #38bdf8 0%, #38bdf8 70%, transparent 100%) 0 0 / 72px 22px repeat-x;
+            filter: drop-shadow(0 0 10px rgba(253, 224, 71, 0.85));
+            animation: lightsTwinkle 1.6s ease-in-out infinite alternate;
+        }
+        @keyframes lightsTwinkle {
+            0% { opacity: 0.72; }
+            100% { opacity: 1; }
         }
 
         /* 3D Frozen Crystal River & Wooden Snow Bridges */
@@ -21408,10 +21449,11 @@
             align-items: center;
             justify-content: center;
             gap: 5px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 900;
             color: #fef08a;
             animation: orbFloat 2.2s ease-in-out infinite alternate;
+            white-space: nowrap;
         }
         .v3d-status-orb.done {
             background: rgba(20, 83, 45, 0.92);
@@ -21534,7 +21576,7 @@
             box-shadow: 0 0 18px rgba(251, 191, 36, 0.7);
         }
 
-        /* 2. Santa's 3D Daily Bot & Toy Factory */
+        /* 2. Custom Bot Factory */
         .b-toy-factory {
             position: relative;
             width: 232px;
@@ -21576,11 +21618,61 @@
             padding: 12px 10px 0;
         }
 
-        /* 3. Central 3D Christmas Tree Plaza */
+        /* 3. Frozen 3D Ice Rink & Snowball Arena Landmark */
+        .b-ice-rink {
+            position: relative;
+            width: 248px;
+            height: 162px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .ir-arch {
+            position: absolute;
+            top: 6px;
+            width: 204px;
+            height: 110px;
+            border-radius: 110px 110px 0 0;
+            border: 5px solid #bae6fd;
+            border-bottom: none;
+            box-shadow: 0 0 22px rgba(56, 189, 248, 0.75), inset 0 0 18px rgba(56, 189, 248, 0.45);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 6px;
+            font-size: 22px;
+        }
+        .ir-pond {
+            position: relative;
+            width: 236px;
+            height: 82px;
+            border-radius: 50%;
+            background:
+                radial-gradient(ellipse at 35% 30%, #ffffff 0%, #bae6fd 35%, #38bdf8 75%, #0284c7 100%);
+            border: 6px solid #ffffff;
+            box-shadow: 0 10px 26px rgba(2, 132, 199, 0.55), inset 0 0 24px rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+        }
+        .ir-skater-figure {
+            position: absolute;
+            top: 14px;
+            left: 30px;
+            font-size: 32px;
+            animation: skaterFigureEight 2.8s ease-in-out infinite alternate;
+            filter: drop-shadow(0 6px 8px rgba(2, 132, 199, 0.5));
+        }
+        @keyframes skaterFigureEight {
+            0% { transform: translateX(0) translateY(0) rotate(-10deg) scaleX(1); }
+            50% { transform: translateX(74px) translateY(14px) rotate(8deg) scaleX(1); }
+            100% { transform: translateX(142px) translateY(-2px) rotate(12deg) scaleX(-1); }
+        }
+
+        /* 4. Central 3D Christmas Tree Plaza + Animated Train */
         .b-village-tree {
             position: relative;
-            width: 196px;
-            height: 224px;
+            width: 206px;
+            height: 232px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -21629,12 +21721,12 @@
             width: 11px;
             height: 11px;
             border-radius: 50%;
-            background: #fbbf24;
+            background: var(--tree-c1, #fbbf24);
             box-shadow: 0 0 12px currentColor;
             animation: orbTwinkle 1.3s ease-in-out infinite alternate;
         }
-        .v3d-orb:nth-child(2n) { background: #ef4444; color: #ef4444; animation-delay: 0.4s; }
-        .v3d-orb:nth-child(3n) { background: #38bdf8; color: #38bdf8; animation-delay: 0.8s; }
+        .v3d-orb:nth-child(2n) { background: var(--tree-c2, #ef4444); color: var(--tree-c2, #ef4444); animation-delay: 0.4s; }
+        .v3d-orb:nth-child(3n) { background: var(--tree-c3, #38bdf8); color: var(--tree-c3, #38bdf8); animation-delay: 0.8s; }
         @keyframes orbTwinkle {
             0% { opacity: 0.45; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1.28); }
@@ -21656,18 +21748,18 @@
             100% { transform: translateX(-50%) translateY(-8px) scale(1.16); }
         }
 
-        /* 4. 3D Reindeer Stable & Snowy Paddock */
+        /* 5. Rudolph's Exclusive 3D Barn */
         .b-reindeer-stable {
             position: relative;
-            width: 244px;
-            height: 170px;
+            width: 236px;
+            height: 174px;
         }
         .rs-barn-roof {
             position: absolute;
-            top: 8px;
+            top: 6px;
             left: 12px;
             right: 12px;
-            height: 44px;
+            height: 46px;
             background: linear-gradient(180deg, #991b1b, #7f1d1d);
             clip-path: polygon(50% 0%, 100% 60%, 92% 100%, 8% 100%, 0% 60%);
             border-top: 6px solid #ffffff;
@@ -21678,28 +21770,23 @@
             left: 22px;
             right: 22px;
             bottom: 0;
-            background: linear-gradient(180deg, #78350f, #451a03);
-            border: 2.5px solid #d97706;
+            background: radial-gradient(circle at 50% 50%, #78350f 0%, #451a03 75%, #290f02 100%);
+            border: 2.5px solid #f59e0b;
             border-radius: 0 0 14px 14px;
             display: flex;
             align-items: center;
-            justify-content: space-around;
-            padding: 12px 10px 20px;
+            justify-content: center;
+            padding-bottom: 14px;
         }
-        .rs-reindeer-actor {
-            font-size: 38px;
-            filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.65));
-            animation: reindeerPrance 1.6s ease-in-out infinite;
-            transition: filter 0.3s ease, transform 0.3s ease;
+        .rs-rudolph-mini-svg {
+            width: 82px;
+            height: 82px;
+            filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.85));
+            animation: reindeerPrance 1.7s ease-in-out infinite;
         }
-        .rs-reindeer-actor.charged {
-            filter: drop-shadow(0 0 18px #fde047) drop-shadow(0 0 28px #4ade80);
-        }
-        .rs-reindeer-actor:nth-child(2) { animation-delay: 0.55s; }
-        .rs-reindeer-actor:nth-child(3) { animation-delay: 1.1s; }
         @keyframes reindeerPrance {
-            0%, 100% { transform: translateY(0) rotate(-4deg); }
-            50% { transform: translateY(-10px) rotate(6deg); }
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-9px) rotate(4deg); }
         }
         .rs-fence {
             position: absolute;
@@ -21713,7 +21800,7 @@
             border-bottom: 3px solid #ffffff;
         }
 
-        /* 5. Santa's Grand Mansion & 3D Sleigh Launchpad */
+        /* 6. Santa's Grand Mansion & 3D Sleigh Launchpad */
         .b-santa-house {
             position: relative;
             width: 260px;
@@ -21786,119 +21873,38 @@
             100% { transform: translateY(-9px) scale(1.12) rotate(-4deg); }
         }
 
-        /* Walking Robot on the 3D Snowy Street */
+        /* ========== DEDICATED CUSTOM VILLAGE ROBOT WALKER IN THE 3D WORLD ========== */
         .v3d-walker-bot {
             position: absolute;
-            bottom: 13%;
-            left: 2400px;
-            width: 140px;
-            height: 134px;
+            bottom: 12.5%;
+            left: 3360px;
+            width: 146px;
+            height: 175px;
             transform: translateX(-50%);
             z-index: 12;
             transition: left 0.72s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s ease;
             cursor: pointer;
-            filter: drop-shadow(0 14px 16px rgba(15, 23, 42, 0.5));
+            filter: drop-shadow(0 16px 18px rgba(15, 23, 42, 0.52));
         }
-        .v3d-walker-bot .dc-mini-robot-frame {
-            width: 140px;
-            height: 134px;
+        .v3d-walker-bot .vbot-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            animation: vbotIdleFloat 2.6s ease-in-out infinite alternate;
         }
-        .v3d-walker-bot .dc-mini-robot {
-            transform: translate(-50%, -50%) scale(0.5) !important;
-            animation: marketRobotIdle 2.8s ease-in-out infinite !important;
-        }
-        .v3d-walker-bot.walking .dc-mini-robot {
-            animation: botSnowWalk 0.28s ease-in-out infinite !important;
+        .v3d-walker-bot.walking .vbot-svg {
+            animation: vbotSnowWalk 0.28s ease-in-out infinite alternate !important;
         }
         .v3d-walker-bot.face-left {
             transform: translateX(-50%) scaleX(-1);
         }
-        @keyframes botSnowWalk {
-            0%, 100% { transform: translate(-50%, -50%) scale(0.5) translateY(0) rotate(-4deg); }
-            50% { transform: translate(-50%, -56%) scale(0.51) translateY(-9px) rotate(5deg); }
+        @keyframes vbotIdleFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px); }
         }
-
-        /* Floating Custom Bot Name Tag (Home Screen & 3D Village) */
-        .cbot-name-tag {
-            position: absolute;
-            top: -36px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 3px 11px;
-            border-radius: 999px;
-            background: rgba(6, 18, 38, 0.88);
-            border: 1.5px solid #38bdf8;
-            color: #fef08a;
-            font-family: 'Outfit', sans-serif;
-            font-size: 12px;
-            font-weight: 900;
-            white-space: nowrap;
-            z-index: 25;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), 0 0 12px rgba(56, 189, 248, 0.4);
-            pointer-events: none;
-        }
-        .dc-mini-robot .cbot-name-tag {
-            top: -42px;
-            font-size: 20px;
-            padding: 4px 16px;
-            border-width: 2.5px;
-        }
-
-        /* Custom Factory 3D Paint Themes on .robot */
-        .robot[data-cbot-paint="crimson"] .head,
-        .robot[data-cbot-paint="crimson"] .torso,
-        .robot[data-cbot-paint="crimson"] .arm,
-        .robot[data-cbot-paint="crimson"] .leg {
-            background: linear-gradient(145deg, #ef4444 0%, #dc2626 50%, #991b1b 100%) !important;
-            border-color: #fde047 !important;
-        }
-        .robot[data-cbot-paint="arctic"] .head,
-        .robot[data-cbot-paint="arctic"] .torso,
-        .robot[data-cbot-paint="arctic"] .arm,
-        .robot[data-cbot-paint="arctic"] .leg {
-            background: linear-gradient(145deg, #7dd3fc 0%, #0ea5e9 52%, #0369a1 100%) !important;
-            border-color: #e0f2fe !important;
-        }
-        .robot[data-cbot-paint="emerald"] .head,
-        .robot[data-cbot-paint="emerald"] .torso,
-        .robot[data-cbot-paint="emerald"] .arm,
-        .robot[data-cbot-paint="emerald"] .leg {
-            background: linear-gradient(145deg, #34d399 0%, #10b981 52%, #047857 100%) !important;
-            border-color: #fde047 !important;
-        }
-        .robot[data-cbot-paint="gold"] .head,
-        .robot[data-cbot-paint="gold"] .torso,
-        .robot[data-cbot-paint="gold"] .arm,
-        .robot[data-cbot-paint="gold"] .leg {
-            background: linear-gradient(145deg, #fef08a 0%, #fbbf24 50%, #b45309 100%) !important;
-            border-color: #ffffff !important;
-        }
-        .robot[data-cbot-paint="violet"] .head,
-        .robot[data-cbot-paint="violet"] .torso,
-        .robot[data-cbot-paint="violet"] .arm,
-        .robot[data-cbot-paint="violet"] .leg {
-            background: linear-gradient(145deg, #c084fc 0%, #9333ea 52%, #581c87 100%) !important;
-            border-color: #f0abfc !important;
-        }
-        .robot[data-cbot-paint="candy"] .head,
-        .robot[data-cbot-paint="candy"] .torso,
-        .robot[data-cbot-paint="candy"] .arm,
-        .robot[data-cbot-paint="candy"] .leg {
-            background: linear-gradient(145deg, #f9a8d4 0%, #ec4899 52%, #9d174d 100%) !important;
-            border-color: #ffffff !important;
-        }
-        .robot[data-cbot-paint="obsidian"] .head,
-        .robot[data-cbot-paint="obsidian"] .torso,
-        .robot[data-cbot-paint="obsidian"] .arm,
-        .robot[data-cbot-paint="obsidian"] .leg {
-            background: linear-gradient(145deg, #334155 0%, #0f172a 55%, #020617 100%) !important;
-            border-color: #38bdf8 !important;
-        }
-        .robot[data-cbot-eye] .eye,
-        .robot[data-cbot-eye] .antenna-ball,
-        .robot[data-cbot-eye] .chest-dot {
-            background: var(--cbot-eye-color, #38bdf8) !important;
-            box-shadow: 0 0 12px var(--cbot-eye-color, #38bdf8) !important;
+        @keyframes vbotSnowWalk {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-11px) rotate(5deg); }
         }
 
         /* Floating 3D Reward Pop */
@@ -21923,7 +21929,7 @@
             100% { transform: translate(-50%, -80px) scale(0.85); opacity: 0; }
         }
 
-        /* Sleek Floating Bottom 5-Icon Radar Pill */
+        /* Sleek Floating Bottom 6-Icon Radar Dock */
         .village-compass-dock {
             position: absolute;
             bottom: calc(env(safe-area-inset-bottom, 12px) + 14px);
@@ -21932,10 +21938,10 @@
             z-index: 24;
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 14px;
+            gap: 8px;
+            padding: 8px 12px;
             border-radius: 999px;
-            background: rgba(6, 18, 38, 0.74);
+            background: rgba(6, 18, 38, 0.76);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border: 1.5px solid rgba(186, 230, 253, 0.26);
@@ -21943,8 +21949,8 @@
         }
         .v-compass-btn {
             position: relative;
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             border: 1.5px solid rgba(255, 255, 255, 0.16);
             background: rgba(15, 23, 42, 0.75);
@@ -21954,7 +21960,7 @@
             justify-content: center;
             transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
         }
-        .v-compass-btn .vc-ico { font-size: 24px; line-height: 1; }
+        .v-compass-btn .vc-ico { font-size: 22px; line-height: 1; }
         .v-compass-btn:active { transform: scale(0.9); }
         .v-compass-btn.active {
             transform: scale(1.14) translateY(-4px);
@@ -21987,13 +21993,13 @@
             position: absolute;
             inset: 0;
             z-index: 30;
-            background: rgba(2, 8, 23, 0.75);
+            background: rgba(2, 8, 23, 0.78);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: none;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 10px;
             animation: obIn 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .village-interior-modal.open {
@@ -22001,8 +22007,8 @@
         }
         .v-interior-card {
             width: 100%;
-            max-width: 400px;
-            max-height: 90vh;
+            max-width: 420px;
+            max-height: 92vh;
             overflow-y: auto;
             border-radius: 28px;
             background: linear-gradient(165deg, #0b1e38 0%, #0f172a 65%, #1e1b4b 100%);
@@ -22150,13 +22156,13 @@
 
         .v-big-action-btn {
             width: 100%;
-            height: 52px;
+            height: 50px;
             border-radius: 18px;
             border: 2px solid #fef08a;
             background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
             color: #fff;
             font-family: 'Outfit', sans-serif;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 900;
             cursor: pointer;
             display: flex;
@@ -22173,59 +22179,129 @@
             box-shadow: 0 10px 24px rgba(22, 163, 74, 0.45);
         }
 
-        /* ========== 1. 3D DAILY BOT FACTORY BUILDER STUDIO ========== */
+        /* ========== PRO 3D CUSTOM VILLAGE BOT STUDIO (LARGE VIEW + PERFECT SVG FIT) ========== */
         .cbot-turntable-stage {
             position: relative;
-            height: 188px;
+            height: 236px;
             border-radius: 22px;
             background:
-                radial-gradient(circle at 50% 42%, rgba(56, 189, 248, 0.32) 0%, rgba(15, 23, 42, 0.96) 76%);
-            border: 2px solid rgba(56, 189, 248, 0.45);
+                radial-gradient(circle at 50% 42%, rgba(56, 189, 248, 0.38) 0%, rgba(15, 23, 42, 0.96) 78%);
+            border: 2px solid rgba(56, 189, 248, 0.55);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 700px;
+            perspective: 800px;
+            transition: height 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .cbot-turntable-stage.large-view {
+            height: 330px;
         }
         .cbot-pedestal-disc {
             position: absolute;
-            bottom: 12px;
+            bottom: 10px;
             left: 50%;
-            width: 150px;
-            height: 36px;
-            transform: translateX(-50%) rotateX(62deg);
+            width: 170px;
+            height: 38px;
+            transform: translateX(-50%) rotateX(64deg);
             border-radius: 50%;
             background: radial-gradient(circle, #38bdf8 0%, #0284c7 55%, #0f172a 100%);
             border: 3px solid #bae6fd;
-            box-shadow: 0 0 28px rgba(56, 189, 248, 0.85);
+            box-shadow: 0 0 32px rgba(56, 189, 248, 0.9);
         }
         .cbot-arm-clamp {
             position: absolute;
-            top: -6px;
+            top: 2px;
             font-size: 28px;
             filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
             transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
             pointer-events: none;
         }
-        .cbot-arm-clamp.left { left: 16px; transform: rotate(25deg); }
-        .cbot-arm-clamp.right { right: 16px; transform: scaleX(-1) rotate(25deg); }
-        .cbot-turntable-stage.weld .cbot-arm-clamp.left { transform: translate(34px, 28px) rotate(-12deg); }
-        .cbot-turntable-stage.weld .cbot-arm-clamp.right { transform: translate(-34px, 28px) scaleX(-1) rotate(-12deg); }
+        .cbot-arm-clamp.left { left: 14px; transform: rotate(25deg); }
+        .cbot-arm-clamp.right { right: 14px; transform: scaleX(-1) rotate(25deg); }
+        .cbot-turntable-stage.weld .cbot-arm-clamp.left { transform: translate(36px, 32px) rotate(-12deg); }
+        .cbot-turntable-stage.weld .cbot-arm-clamp.right { transform: translate(-36px, 32px) scaleX(-1) rotate(-12deg); }
+
+        .cbot-zoom-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 14;
+            padding: 5px 11px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(186, 230, 253, 0.45);
+            background: rgba(6, 18, 38, 0.82);
+            color: #e0f2fe;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .cbot-pose-bar {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 14;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+        .cbot-pose-btn {
+            pointer-events: auto;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(186, 230, 253, 0.35);
+            background: rgba(6, 18, 38, 0.82);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .cbot-preview-mount {
             position: relative;
-            width: 140px;
-            height: 155px;
-            z-index: 5;
-            transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: grab;
+            width: 175px;
+            height: 215px;
+            z-index: 6;
+            transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.28s ease, height 0.28s ease;
+            cursor: pointer;
+            filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.55));
         }
-        .cbot-preview-mount .dc-mini-robot-frame {
-            width: 140px;
-            height: 155px;
+        .cbot-turntable-stage.large-view .cbot-preview-mount {
+            width: 245px;
+            height: 295px;
         }
-        .cbot-preview-mount .dc-mini-robot {
-            transform: translate(-50%, -46%) scale(0.49) !important;
+        .cbot-preview-mount .vbot-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        /* Custom Village Bot Pose Animations */
+        .cbot-preview-mount.pose-wave .vbot-arm-r {
+            transform-origin: 172px 142px;
+            animation: vbotWaveArm 0.35s ease-in-out 4 alternate;
+        }
+        @keyframes vbotWaveArm {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-115deg); }
+        }
+        .cbot-preview-mount.pose-dance .vbot-svg {
+            animation: vbotDanceMove 0.32s ease-in-out 4 alternate;
+        }
+        @keyframes vbotDanceMove {
+            0% { transform: translateY(0) rotate(-8deg) scale(1.03); }
+            100% { transform: translateY(-14px) rotate(8deg) scale(1.06); }
+        }
+        .cbot-preview-mount.pose-hover .vbot-svg {
+            animation: vbotJetHover 0.9s ease-in-out 2 alternate;
+        }
+        @keyframes vbotJetHover {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-24px) scale(1.06); }
         }
 
         .cbot-name-row {
@@ -22235,9 +22311,9 @@
         }
         .cbot-name-input {
             flex: 1;
-            height: 40px;
+            height: 38px;
             padding: 0 14px;
-            border-radius: 14px;
+            border-radius: 13px;
             border: 1.5px solid rgba(56, 189, 248, 0.45);
             background: rgba(15, 23, 42, 0.88);
             color: #fef08a;
@@ -22246,21 +22322,17 @@
             font-weight: 800;
             outline: none;
         }
-        .cbot-name-input:focus {
-            border-color: #fde047;
-            box-shadow: 0 0 14px rgba(253, 224, 71, 0.35);
-        }
 
         .cbot-swatch-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 6px;
-            padding: 4px 2px;
+            padding: 2px;
         }
         .cbot-color-dot {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: 2.5px solid rgba(255, 255, 255, 0.25);
             cursor: pointer;
@@ -22268,9 +22340,9 @@
             flex-shrink: 0;
         }
         .cbot-color-dot.active {
-            transform: scale(1.2);
+            transform: scale(1.18);
             border-color: #ffffff;
-            box-shadow: 0 0 16px rgba(253, 224, 71, 0.85);
+            box-shadow: 0 0 14px rgba(253, 224, 71, 0.85);
         }
 
         .cbot-acc-strip {
@@ -22278,17 +22350,17 @@
             align-items: center;
             gap: 6px;
             overflow-x: auto;
-            padding: 4px 2px;
+            padding: 2px;
             scrollbar-width: none;
         }
         .cbot-acc-strip::-webkit-scrollbar { display: none; }
         .cbot-acc-chip {
-            width: 42px;
-            height: 42px;
-            border-radius: 13px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             border: 1.5px solid rgba(255, 255, 255, 0.15);
             background: rgba(15, 23, 42, 0.82);
-            font-size: 21px;
+            font-size: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -22299,11 +22371,63 @@
         .cbot-acc-chip.active {
             border-color: #fde047;
             background: linear-gradient(135deg, rgba(2, 132, 199, 0.65), rgba(234, 179, 8, 0.45));
-            box-shadow: 0 0 14px rgba(253, 224, 71, 0.45);
+            box-shadow: 0 0 12px rgba(253, 224, 71, 0.45);
             transform: scale(1.08);
         }
 
-        /* ========== 2. LIFELIKE 3D REINDEER FEEDING PADDOCK ========== */
+        /* ========== 3D FROZEN ICE RINK & SNOWBALL ARENA INTERIOR ========== */
+        .icerink-3d-stage {
+            position: relative;
+            height: 230px;
+            border-radius: 22px;
+            background:
+                radial-gradient(ellipse at 50% 62%, #ffffff 0%, #bae6fd 42%, #38bdf8 78%, #0c2544 100%);
+            border: 2.5px solid #7dd3fc;
+            box-shadow: inset 0 0 32px rgba(255, 255, 255, 0.85);
+            overflow: hidden;
+            perspective: 650px;
+        }
+        .ir-skating-bot {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            width: 132px;
+            height: 162px;
+            transform: translateX(-50%);
+            z-index: 6;
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.55s ease;
+            filter: drop-shadow(0 14px 14px rgba(2, 132, 199, 0.45));
+        }
+        .ir-skating-bot.spin360 {
+            animation: iceSpin360 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes iceSpin360 {
+            0% { transform: translateX(-50%) rotateY(0deg) translateY(0); }
+            50% { transform: translateX(-50%) rotateY(180deg) translateY(-28px) scale(1.1); }
+            100% { transform: translateX(-50%) rotateY(360deg) translateY(0); }
+        }
+        .ir-target {
+            position: absolute;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(186, 230, 253, 0.85));
+            border: 2.5px solid #0284c7;
+            box-shadow: 0 8px 18px rgba(2, 132, 199, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 9;
+            animation: targetPop 1.2s ease-in-out infinite alternate;
+        }
+        @keyframes targetPop {
+            0% { transform: translateY(0) scale(0.95); }
+            100% { transform: translateY(-8px) scale(1.08); }
+        }
+
+        /* ========== RUDOLPH'S LIFELIKE 3D FEEDING PADDOCK ========== */
         .reindeer-3d-stage {
             position: relative;
             height: 256px;
@@ -22317,7 +22441,6 @@
             touch-action: none;
             user-select: none;
         }
-        /* 3D Barn Roof Beams & Warm Lantern Glow */
         .r3d-barn-arch {
             position: absolute;
             top: 0;
@@ -22336,38 +22459,29 @@
             right: 10px;
             z-index: 12;
             display: flex;
-            justify-content: center;
-            gap: 6px;
+            justify-content: space-between;
+            align-items: center;
         }
         .r3d-deer-tab {
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 999px;
-            background: rgba(6, 18, 38, 0.78);
-            border: 1.5px solid rgba(251, 191, 36, 0.35);
-            color: #fff;
+            background: rgba(6, 18, 38, 0.82);
+            border: 1.5px solid #fbbf24;
+            color: #fef08a;
             font-family: 'Outfit', sans-serif;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
+            font-size: 13px;
+            font-weight: 900;
             display: flex;
             align-items: center;
-            gap: 4px;
-            transition: all 0.18s ease;
-        }
-        .r3d-deer-tab.active {
-            background: linear-gradient(135deg, #b45309, #dc2626);
-            border-color: #fef08a;
-            box-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
-            transform: scale(1.06);
+            gap: 6px;
         }
 
-        /* Articulated Lifelike 3D Reindeer SVG Mount */
         .r3d-deer-actor {
             position: absolute;
             bottom: 38px;
             left: 50%;
-            width: 210px;
-            height: 205px;
+            width: 215px;
+            height: 210px;
             transform: translateX(-50%) translateZ(0) scale(1);
             transform-origin: bottom center;
             z-index: 6;
@@ -22375,7 +22489,6 @@
             transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease;
             filter: drop-shadow(0 14px 18px rgba(15, 23, 42, 0.45));
         }
-        /* When player holds/drags food near, the reindeer leans forward in 3D right over the fence! */
         .r3d-deer-actor.lean-forward {
             transform: translateX(-50%) translateY(10px) scale(1.18);
             filter: drop-shadow(0 20px 26px rgba(15, 23, 42, 0.6));
@@ -22388,7 +22501,6 @@
             50% { transform: translateX(-50%) translateY(-12px) scale(1.12) rotate(3deg); }
         }
 
-        /* SVG Internal Anatomical Animations */
         .r3d-svg {
             width: 100%;
             height: 100%;
@@ -22458,7 +22570,6 @@
             100% { transform: translate(18px, -16px) scale(1.7); opacity: 0; }
         }
 
-        /* Foreground 3D Wooden Paddock Fence Rail */
         .r3d-foreground-fence {
             position: absolute;
             left: -8px;
@@ -22473,7 +22584,6 @@
             filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
         }
 
-        /* First-Person 3D Feed Trough & Draggable Treats */
         .r3d-feed-trough {
             position: relative;
             display: flex;
@@ -22507,7 +22617,6 @@
             box-shadow: 0 0 18px rgba(253, 224, 71, 0.65);
         }
 
-        /* Floating Dragged/Tossed 3D Food Proxy */
         .r3d-flying-food {
             position: fixed;
             z-index: 9999;
@@ -23123,26 +23232,23 @@
                 <div class="forest-lantern fl-r2"></div>
             </div>
             <div class="forest-walk-ui">
-                <div class="forest-walk-caption" id="marketWalkCaption">🌲 Walking down the snowy forest trail...</div>
+                <div class="forest-walk-caption" id="marketWalkCaption">🌲 Advent Market</div>
                 <button type="button" class="forest-skip-btn" id="marketSkipWalkBtn">Skip →</button>
             </div>
         </div>
 
-        <!-- Christmas Wooden Booth Plaza -->
+        <!-- Clean, Uncluttered Christmas Wooden Booth Plaza -->
         <div class="market-booth-scene" id="marketBoothScene">
-            <div class="market-topbar">
-                <button type="button" class="market-home-btn" id="marketCloseBtn">← Home</button>
-                <div class="market-topbar-title">🎄 Advent Market</div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                    <button type="button" class="market-home-btn" onclick="if(typeof openSantasVillage==='function')openSantasVillage()">🎅 Village</button>
-                    <div class="shop-gems"><span class="gem-img"></span> <span id="marketGemDisplay" data-gem-display>0</span></div>
-                </div>
+            <div class="market-topbar" style="padding:10px 14px;">
+                <button type="button" class="v3d-back-pill" id="marketCloseBtn" aria-label="Back">←</button>
+                <div class="v3d-gem-pill"><span class="gem-img"></span> <span id="marketGemDisplay" data-gem-display>0</span></div>
+                <button type="button" class="v3d-back-pill" onclick="if(typeof openSantasVillage==='function')openSantasVillage()" title="Santa's Village">🎅</button>
             </div>
 
             <div class="market-stall-stage">
                 <div class="market-roof-snow" aria-hidden="true"></div>
                 <div class="market-awning">
-                    <div class="market-sign">✨ WINTER MARKET ✨</div>
+                    <div class="market-sign">🎄 ADVENT MARKET</div>
                     <div class="market-booth-lights" aria-hidden="true">
                         <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
                         <span class="market-booth-bulb"></span><span class="market-booth-bulb"></span>
@@ -23152,23 +23258,23 @@
                 <div class="market-stall-interior" id="marketStallInterior">
                     <div class="market-hang-lantern l" aria-hidden="true"></div>
                     <div class="market-hang-lantern r" aria-hidden="true"></div>
-                    <div class="market-bubble" id="marketBubble">Welcome! Pick cookies, hot tea, cocoa or boxes! 🎄</div>
-                    <div class="market-robot-stage" id="marketRobotStage" title="Tap to enjoy a treat from your basket!">
+                    <div class="market-bubble" id="marketBubble" style="display:none;"></div>
+                    <div class="market-robot-stage" id="marketRobotStage">
                         <div id="marketRobotMount"></div>
                         <div class="market-treat-prop" id="marketTreatProp" aria-hidden="true"></div>
                     </div>
                 </div>
                 <div class="market-wooden-counter">
-                    <span class="market-cozy-label" id="marketCozyLabel">❤️ 0 / 5</span>
+                    <span class="market-cozy-label" id="marketCozyLabel">❤️ 0/5</span>
                     <div class="market-cozy-track"><div class="market-cozy-fill" id="marketCozyFill"></div></div>
                     <span class="market-cozy-reward">+15 💎</span>
                 </div>
             </div>
 
             <div class="market-tabs">
-                <button type="button" class="market-tab-btn active" data-mtab="treats" onclick="renderMarketTab('treats')">🍪 Treats &amp; Tea</button>
+                <button type="button" class="market-tab-btn active" data-mtab="treats" onclick="renderMarketTab('treats')">🍪 Treats</button>
                 <button type="button" class="market-tab-btn" data-mtab="boxes" onclick="renderMarketTab('boxes')">🎁 Boxes</button>
-                <button type="button" class="market-tab-btn" data-mtab="basket" id="marketBasketTabBtn" onclick="renderMarketTab('basket')">🧺 Basket</button>
+                <button type="button" class="market-tab-btn" data-mtab="basket" id="marketBasketTabBtn" onclick="renderMarketTab('basket')">🧺 Bag</button>
             </div>
 
             <div class="market-content" id="marketTabContent"></div>
@@ -23179,36 +23285,67 @@
     <div class="village-overlay" id="villageOverlay">
         <div class="village-snow-layer" id="villageSnowLayer" aria-hidden="true"></div>
 
-        <!-- Stage 1: Animated 3D North Pole Avenue Approach -->
+        <!-- Stage 1: Cinematic 3D Snowy Forest Trail Walk Into Santa's Village -->
         <div class="village-walk-scene" id="villageWalkScene">
-            <div class="forest-walker-stage">
-                <div class="forest-sky-stars"></div>
-                <div class="village-aurora"></div>
-                <div class="village-distant-lodge" id="villageDistantLodge">
-                    <div class="mini-lodge-roof"></div>
-                    <div class="mini-lodge-body">🍬🤖🦌🎅</div>
-                </div>
-                <div class="village-trail-ground">
-                    <div class="village-snow-avenue"></div>
-                </div>
-                <div class="forest-tree ft-l1"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
-                <div class="forest-tree ft-l2"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
-                <div class="forest-tree ft-l3"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
-                <div class="forest-tree ft-r1"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
-                <div class="forest-tree ft-r2"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
-                <div class="forest-tree ft-r3"><div class="ft-top"></div><div class="ft-mid"></div><div class="ft-bot"></div><div class="ft-trunk"></div></div>
-                <div class="village-candy-pole vp-l1"></div>
-                <div class="village-candy-pole vp-l2"></div>
-                <div class="village-candy-pole vp-r1"></div>
-                <div class="village-candy-pole vp-r2"></div>
+            <div class="forest-sky-stars"></div>
+            <div class="village-aurora"></div>
+
+            <!-- Glowing Distant 3D Santa's Village Skyline Growing Closer -->
+            <div class="vwalk-horizon-village" id="villageDistantLodge">
+                <svg viewBox="0 0 320 120" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="35,110 75,55 115,110" fill="#be185d" stroke="#fff" stroke-width="3"/>
+                    <rect x="52" y="78" width="46" height="32" fill="#9d174d" rx="4"/>
+                    <rect x="66" y="88" width="18" height="14" fill="#fde047" rx="3"/>
+                    <polygon points="160,15 122,95 198,95" fill="#15803d" stroke="#86efac" stroke-width="2.5"/>
+                    <circle cx="160" cy="14" r="8" fill="#fde047"/>
+                    <polygon points="205,110 245,52 285,110" fill="#dc2626" stroke="#fff" stroke-width="3"/>
+                    <rect x="222" y="76" width="46" height="34" fill="#7c2d12" rx="4"/>
+                    <rect x="236" y="86" width="18" height="14" fill="#fde047" rx="3"/>
+                </svg>
             </div>
-            <div class="forest-walk-ui">
-                <div class="forest-walk-caption" id="villageWalkCaption">🛷❄️</div>
+
+            <!-- Winding 3D Snowy Forest Path SVG -->
+            <div class="vwalk-snow-hills">
+                <svg class="vwalk-winding-svg" viewBox="0 0 400 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="snowPathG" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#bae6fd"/>
+                            <stop offset="50%" stop-color="#f0f9ff"/>
+                            <stop offset="100%" stop-color="#ffffff"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Winding Snowy Trail -->
+                    <path d="M 182,0 Q 230,75 170,155 Q 115,225 60,300 L 340,300 Q 275,220 230,155 Q 185,75 218,0 Z" fill="url(#snowPathG)" stroke="#7dd3fc" stroke-width="4"/>
+                    <!-- Animated Footstep Trail Dashes -->
+                    <path class="vwalk-trail-dashes" d="M 200,8 Q 210,80 198,155 Q 186,230 200,295" fill="none" stroke="#38bdf8" stroke-width="8" stroke-linecap="round" opacity="0.65"/>
+                </svg>
+            </div>
+
+            <!-- Passing 3D Snow Pines & Trail Lanterns -->
+            <div class="vwalk-tree tl1">
+                <svg width="74" height="105" viewBox="0 0 74 105"><polygon points="37,4 8,52 66,52" fill="#15803d"/><polygon points="37,26 4,84 70,84" fill="#166534"/><polygon points="37,4 22,28 52,28" fill="#fff"/><rect x="31" y="84" width="12" height="18" fill="#78350f"/></svg>
+            </div>
+            <div class="vwalk-tree tl2">
+                <svg width="84" height="115" viewBox="0 0 74 105"><polygon points="37,4 8,52 66,52" fill="#15803d"/><polygon points="37,26 4,84 70,84" fill="#0f5132"/><polygon points="37,4 22,28 52,28" fill="#fff"/><rect x="31" y="84" width="12" height="18" fill="#78350f"/></svg>
+            </div>
+            <div class="vwalk-tree tr1">
+                <svg width="74" height="105" viewBox="0 0 74 105"><polygon points="37,4 8,52 66,52" fill="#15803d"/><polygon points="37,26 4,84 70,84" fill="#166534"/><polygon points="37,4 22,28 52,28" fill="#fff"/><rect x="31" y="84" width="12" height="18" fill="#78350f"/></svg>
+            </div>
+            <div class="vwalk-tree tr2">
+                <svg width="84" height="115" viewBox="0 0 74 105"><polygon points="37,4 8,52 66,52" fill="#15803d"/><polygon points="37,26 4,84 70,84" fill="#0f5132"/><polygon points="37,4 22,28 52,28" fill="#fff"/><rect x="31" y="84" width="12" height="18" fill="#78350f"/></svg>
+            </div>
+
+            <!-- Live Walking Custom Village Robot on the Snowy Trail -->
+            <div class="vwalk-bot-shadow"></div>
+            <div class="vwalk-hero-bot" id="villageTrailWalkerMount"></div>
+
+            <div class="forest-walk-ui" style="position:relative;z-index:10;">
+                <div class="forest-walk-caption" id="villageWalkCaption">❄️ Walking to Santa's Village...</div>
                 <button type="button" class="forest-skip-btn" id="villageSkipWalkBtn">Skip →</button>
             </div>
         </div>
 
-        <!-- Stage 2: Massive 4800px 3D Panoramic Explorable Village World -->
+        <!-- Stage 2: Massive 5600px 6-Zone 3D Panoramic Explorable Village World -->
         <div class="village-plaza-scene" id="villagePlazaScene">
             <!-- Minimal Corner Pills: Back + Gems (Left) & Sleigh Cargo Tracker (Right) -->
             <div class="v3d-corner-hud">
@@ -23220,6 +23357,7 @@
                     <div class="v3d-cargo-pill" id="villageCargoHud" onclick="focusVillageZone('santa', true)">
                         <div class="v3d-cargo-slot" id="vCargoSlotCandy">🍬</div>
                         <div class="v3d-cargo-slot" id="vCargoSlotToy">🤖</div>
+                        <div class="v3d-cargo-slot" id="vCargoSlotIce">⛸️</div>
                         <div class="v3d-cargo-slot" id="vCargoSlotReindeer">🦌</div>
                         <div class="v3d-cargo-sleigh">🛷 <span id="vSleighLevelBadge">0</span></div>
                     </div>
@@ -23233,58 +23371,60 @@
                     <div class="forest-sky-stars"></div>
                     <div class="village-aurora"></div>
                     <div class="v3d-moon"></div>
-                    <div class="village-sleigh" id="villageSleigh">🦌🦌🛷🎅✨</div>
+                    <div class="village-sleigh" id="villageSleigh">🦌🛷🎅✨</div>
                 </div>
 
                 <!-- Layer 1 & 2: Parallax 3D Mountains & Snowy Hills -->
                 <div class="v3d-mountains" id="villageMountainsLayer"></div>
                 <div class="v3d-hills-mid" id="villageHillsLayer"></div>
 
-                <!-- Layer 3: 4800px Massive 3D Snowy Village World -->
+                <!-- Layer 3: 5600px Massive 3D Snowy Village World -->
                 <div class="v3d-world smooth-pan" id="village3dWorld">
                     <div class="v3d-snow-ground"></div>
                     <div class="v3d-snow-road"></div>
+                    <div class="v3d-string-lights"></div>
 
                     <!-- Frozen Crystal Rivers & Wooden Snow Bridges -->
-                    <div class="v3d-ice-bridge" style="left:1020px;">
+                    <div class="v3d-ice-bridge" style="left:1060px;">
                         <div class="v3d-ice-stream"></div>
                         <div class="v3d-bridge-deck"></div>
                         <div class="v3d-bridge-rail"></div>
                     </div>
-                    <div class="v3d-ice-bridge" style="left:2880px;">
+                    <div class="v3d-ice-bridge" style="left:3820px;">
                         <div class="v3d-ice-stream"></div>
                         <div class="v3d-bridge-deck"></div>
                         <div class="v3d-bridge-rail"></div>
                     </div>
 
-                    <!-- Spacious Forest Pines Across the 4800px Valley -->
+                    <!-- Spacious Forest Pines Across the 5600px Valley -->
                     <div class="v3d-bg-tree big" style="left:210px;"></div>
-                    <div class="v3d-bg-tree" style="left:330px;"></div>
-                    <div class="v3d-bg-tree big" style="left:820px;"></div>
-                    <div class="v3d-bg-tree" style="left:1180px;"></div>
-                    <div class="v3d-bg-tree big" style="left:1760px;"></div>
+                    <div class="v3d-bg-tree" style="left:350px;"></div>
+                    <div class="v3d-bg-tree big" style="left:860px;"></div>
+                    <div class="v3d-bg-tree" style="left:1220px;"></div>
+                    <div class="v3d-bg-tree big" style="left:1840px;"></div>
                     <div class="v3d-bg-tree" style="left:2080px;"></div>
-                    <div class="v3d-bg-tree big" style="left:2680px;"></div>
-                    <div class="v3d-bg-tree" style="left:3060px;"></div>
+                    <div class="v3d-bg-tree big" style="left:2860px;"></div>
+                    <div class="v3d-bg-tree" style="left:3080px;"></div>
                     <div class="v3d-bg-tree big" style="left:3680px;"></div>
-                    <div class="v3d-bg-tree" style="left:3920px;"></div>
-                    <div class="v3d-bg-tree big" style="left:4540px;"></div>
+                    <div class="v3d-bg-tree" style="left:4010px;"></div>
+                    <div class="v3d-bg-tree big" style="left:4690px;"></div>
+                    <div class="v3d-bg-tree" style="left:5420px;"></div>
 
                     <!-- Glowing North Pole Streetlamps & Snowmen -->
-                    <div class="v3d-lamp" style="left:310px;"></div>
-                    <div class="v3d-lamp" style="left:790px;"></div>
-                    <div class="v3d-snowman-prop" style="left:1230px;">⛄</div>
-                    <div class="v3d-lamp" style="left:1720px;"></div>
-                    <div class="v3d-lamp" style="left:2140px;"></div>
-                    <div class="v3d-lamp" style="left:2660px;"></div>
-                    <div class="v3d-snowman-prop" style="left:3110px;">⛄</div>
-                    <div class="v3d-lamp" style="left:3640px;"></div>
-                    <div class="v3d-lamp" style="left:3990px;"></div>
-                    <div class="v3d-lamp" style="left:4510px;"></div>
+                    <div class="v3d-lamp" style="left:320px;"></div>
+                    <div class="v3d-lamp" style="left:830px;"></div>
+                    <div class="v3d-snowman-prop" style="left:1260px;">⛄</div>
+                    <div class="v3d-lamp" style="left:1790px;"></div>
+                    <div class="v3d-lamp" style="left:2120px;"></div>
+                    <div class="v3d-lamp" style="left:2820px;"></div>
+                    <div class="v3d-snowman-prop" style="left:3660px;">⛄</div>
+                    <div class="v3d-lamp" style="left:4020px;"></div>
+                    <div class="v3d-lamp" style="left:4660px;"></div>
+                    <div class="v3d-lamp" style="left:5380px;"></div>
 
-                    <!-- LANDMARK 1 (x=560px): Giant 3D Candy Factory (Cukorgyár) -->
-                    <div class="v3d-building" style="left:560px;" onclick="focusVillageZone('candy', true)">
-                        <div class="v3d-status-orb" id="vOrbCandy">🍬 0/3</div>
+                    <!-- LANDMARK 1 (x=600px): 3D Candy Factory -->
+                    <div class="v3d-building" style="left:600px;" onclick="focusVillageZone('candy', true)">
+                        <div class="v3d-status-orb" id="vOrbCandy">🍬 Candy 0/3</div>
                         <div class="b-candy-factory">
                             <div class="cf-chimney c1"><span class="cf-steam"></span><span class="cf-steam s2"></span></div>
                             <div class="cf-chimney c2"><span class="cf-steam"></span><span class="cf-steam s2"></span></div>
@@ -23298,9 +23438,9 @@
                         </div>
                     </div>
 
-                    <!-- LANDMARK 2 (x=1480px): 3D Daily Bot Assembly Factory (Robot- & Játékgyár) -->
-                    <div class="v3d-building" style="left:1480px;" onclick="focusVillageZone('toy', true)">
-                        <div class="v3d-status-orb" id="vOrbToy">🤖 Építő</div>
+                    <!-- LANDMARK 2 (x=1520px): Pro 3D Custom Bot Factory -->
+                    <div class="v3d-building" style="left:1520px;" onclick="focusVillageZone('toy', true)">
+                        <div class="v3d-status-orb" id="vOrbToy">🤖 Bot Studio</div>
                         <div class="b-toy-factory">
                             <div class="cf-chimney c1"><span class="cf-steam" style="background:rgba(56,189,248,0.85);box-shadow:0 0 10px #38bdf8;"></span></div>
                             <div class="cf-chimney c2"><span class="cf-steam" style="background:rgba(56,189,248,0.85);box-shadow:0 0 10px #38bdf8;"></span></div>
@@ -23314,10 +23454,21 @@
                         </div>
                     </div>
 
-                    <!-- LANDMARK 3 (x=2400px): Giant 3D Christmas Tree & Direct Daily Gift Box -->
-                    <div class="v3d-building" style="left:2400px;" onclick="focusVillageZone('plaza', true)">
+                    <!-- LANDMARK 3 (x=2440px): Frozen 3D Ice Rink & Snowball Arena -->
+                    <div class="v3d-building" style="left:2440px;" onclick="focusVillageZone('icerink', true)">
+                        <div class="v3d-status-orb" id="vOrbIce">⛸️ Ice Rink</div>
+                        <div class="b-ice-rink">
+                            <div class="ir-arch">❄️ ⛸️ ❄️</div>
+                            <div class="ir-pond">
+                                <div class="ir-skater-figure">⛸️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LANDMARK 4 (x=3360px): Grand 3D Christmas Tree Plaza -->
+                    <div class="v3d-building" style="left:3360px;" onclick="focusVillageZone('plaza', true)">
                         <div class="v3d-status-orb" id="vOrbPlaza">🎁 +25 💎</div>
-                        <div class="b-village-tree">
+                        <div class="b-village-tree" id="v3dGrandTree">
                             <div class="v3d-tree-star">⭐</div>
                             <div class="v3d-tree-cone c1"></div>
                             <div class="v3d-tree-cone c2"></div>
@@ -23332,23 +23483,33 @@
                         </div>
                     </div>
 
-                    <!-- LANDMARK 4 (x=3320px): Lifelike 3D Reindeer Ranch (Rénszarvas Karám) -->
-                    <div class="v3d-building" style="left:3320px;" onclick="focusVillageZone('reindeer', true)">
-                        <div class="v3d-status-orb" id="vOrbReindeer">🦌 0/3</div>
+                    <!-- LANDMARK 5 (x=4280px): Rudolph's Exclusive 3D Barn -->
+                    <div class="v3d-building" style="left:4280px;" onclick="focusVillageZone('reindeer', true)">
+                        <div class="v3d-status-orb" id="vOrbReindeer">🦌 Rudolph 0/3</div>
                         <div class="b-reindeer-stable">
                             <div class="rs-barn-roof"></div>
                             <div class="rs-barn-body" id="vReindeerBarnActors">
-                                <span class="rs-reindeer-actor">🦌</span>
-                                <span class="rs-reindeer-actor">🦌</span>
-                                <span class="rs-reindeer-actor">🦌</span>
+                                <svg class="rs-rudolph-mini-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 32,34 C 20,22 14,12 12,4 M 22,22 C 14,20 8,16 6,10" stroke="#fde047" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                                    <path d="M 68,34 C 80,22 86,12 88,4 M 78,22 C 86,20 92,16 94,10" stroke="#fde047" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+                                    <ellipse cx="26" cy="40" rx="10" ry="5" transform="rotate(-22 26 40)" fill="#854d0e"/>
+                                    <ellipse cx="74" cy="40" rx="10" ry="5" transform="rotate(22 74 40)" fill="#854d0e"/>
+                                    <ellipse cx="50" cy="52" rx="22" ry="20" fill="#854d0e"/>
+                                    <circle cx="40" cy="49" r="4.5" fill="#fff"/><circle cx="40.5" cy="49" r="2.5" fill="#1e1b4b"/>
+                                    <circle cx="60" cy="49" r="4.5" fill="#fff"/><circle cx="59.5" cy="49" r="2.5" fill="#1e1b4b"/>
+                                    <ellipse cx="50" cy="64" rx="15" ry="11" fill="#fde68a"/>
+                                    <circle cx="50" cy="60" r="11" fill="#ef4444" opacity="0.35"/>
+                                    <ellipse cx="50" cy="60" rx="7.5" ry="6" fill="#ef4444"/>
+                                    <ellipse cx="48" cy="58" rx="2.5" ry="1.5" fill="#fff"/>
+                                </svg>
                             </div>
                             <div class="rs-fence"></div>
                         </div>
                     </div>
 
-                    <!-- LANDMARK 5 (x=4240px): Santa's Grand Mansion & 3D Sleigh Launchpad -->
-                    <div class="v3d-building" style="left:4240px;" onclick="focusVillageZone('santa', true)">
-                        <div class="v3d-status-orb" id="vOrbSanta">🛷 0/3</div>
+                    <!-- LANDMARK 6 (x=5150px): Santa's Grand Mansion & 3D Sleigh Launchpad -->
+                    <div class="v3d-building" style="left:5150px;" onclick="focusVillageZone('santa', true)">
+                        <div class="v3d-status-orb" id="vOrbSanta">🛷 Sleigh 0/3</div>
                         <div class="b-santa-house">
                             <div class="cf-chimney c2" style="background:#991b1b;right:84px;"><span class="cf-steam" style="background:rgba(255,255,255,0.85);"></span></div>
                             <div class="sh-roof"></div>
@@ -23361,28 +23522,32 @@
                         </div>
                     </div>
 
-                    <!-- Player's Live Robot Walking in the 3D Snow Valley -->
+                    <!-- Dedicated Custom Village Bot Walking in the 3D Snow Valley -->
                     <div class="v3d-walker-bot" id="villageRobotStage" onclick="openCurrentZoneModal()">
-                        <div id="villageRobotMount"></div>
+                        <div id="villageRobotMount" style="width:100%;height:100%;"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Minimal Floating 5-Icon Radar Dock -->
+            <!-- Minimal Floating 6-Icon Radar Dock -->
             <div class="village-compass-dock">
                 <button type="button" class="v-compass-btn" data-vzone="candy" onclick="focusVillageZone('candy', true)" aria-label="Candy Factory">
                     <span class="vc-ico">🍬</span>
                     <span class="v-compass-dot">✓</span>
                 </button>
-                <button type="button" class="v-compass-btn" data-vzone="toy" onclick="focusVillageZone('toy', true)" aria-label="Daily Bot Factory">
+                <button type="button" class="v-compass-btn" data-vzone="toy" onclick="focusVillageZone('toy', true)" aria-label="Bot Factory">
                     <span class="vc-ico">🤖</span>
                     <span class="v-compass-dot">✓</span>
                 </button>
-                <button type="button" class="v-compass-btn active" data-vzone="plaza" onclick="focusVillageZone('plaza', false)" aria-label="Christmas Tree">
+                <button type="button" class="v-compass-btn" data-vzone="icerink" onclick="focusVillageZone('icerink', true)" aria-label="Ice Rink">
+                    <span class="vc-ico">⛸️</span>
+                    <span class="v-compass-dot">✓</span>
+                </button>
+                <button type="button" class="v-compass-btn active" data-vzone="plaza" onclick="focusVillageZone('plaza', false)" aria-label="Grand Plaza">
                     <span class="vc-ico">🎄</span>
                     <span class="v-compass-dot">✓</span>
                 </button>
-                <button type="button" class="v-compass-btn" data-vzone="reindeer" onclick="focusVillageZone('reindeer', true)" aria-label="Reindeer Ranch">
+                <button type="button" class="v-compass-btn" data-vzone="reindeer" onclick="focusVillageZone('reindeer', true)" aria-label="Rudolph's Barn">
                     <span class="vc-ico">🦌</span>
                     <span class="v-compass-dot">✓</span>
                 </button>
@@ -23392,7 +23557,7 @@
                 </button>
             </div>
 
-            <!-- Interactive 3D Building Interior Modal (Dynamic: Bot Builder / Lifelike 3D Reindeer Paddock / Candy Press / Sleigh) -->
+            <!-- Interactive 3D Building Interior Modal -->
             <div class="village-interior-modal" id="villageInteriorModal">
                 <div class="v-interior-card">
                     <div class="v-interior-header">
@@ -32798,105 +32963,78 @@
 
             window.renderMarketTab = function(tabId) {
                 _activeMarketTab = tabId || 'treats';
-                document.querySelectorAll('.market-tab-btn').forEach(b => {
-                    b.classList.toggle('active', b.dataset.mtab === _activeMarketTab);
+                document.querySelectorAll('.market-tab-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.mtab === _activeMarketTab);
                 });
                 const container = document.getElementById('marketTabContent');
                 if (!container) return;
                 const bag = getMarketBag();
 
                 if (_activeMarketTab === 'treats') {
-                    let html = '';
-                    ['cookies', 'drinks', 'candies'].forEach(catKey => {
-                        html += `<div class="market-cat-label">${CAT_TITLES[catKey]}</div><div class="market-items-grid">`;
-                        MARKET_ITEMS.filter(x => x.cat === catKey).forEach(item => {
-                            const ownedCount = parseInt(bag[item.id], 10) || 0;
-                            const useLabel = item.action === 'drink' ? '☕ Drink' : '😋 Eat';
-                            html += `
-                                <div class="market-item-card">
-                                    <div class="market-item-icon">${item.icon}</div>
-                                    <div class="market-item-name">${item.name}</div>
-                                    ${ownedCount > 0 ? `<div class="market-item-owned">In Basket: ${ownedCount}</div>` : ''}
-                                    <div class="market-item-actions">
-                                        <button type="button" class="market-item-buy" onclick="buyMarketItem('${item.id}')">${item.price} 💎</button>
-                                        ${ownedCount > 0 ? `<button type="button" class="market-item-use" onclick="consumeMarketItem('${item.id}')">${useLabel}</button>` : ''}
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        html += '</div>';
+                    let html = '<div class="market-items-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">';
+                    MARKET_ITEMS.forEach(item => {
+                        const cnt = parseInt(bag[item.id], 10) || 0;
+                        const actIcon = item.action === 'drink' ? '☕' : '😋';
+                        html += `
+                            <div class="market-item-card" style="padding:10px 6px;gap:6px;">
+                                <div class="market-item-icon" style="font-size:34px;">${item.icon}</div>
+                                ${cnt > 0
+                                    ? `<button type="button" class="market-item-use" style="width:100%;padding:6px 4px;font-size:12px;" onclick="consumeMarketItem('${item.id}')">${actIcon} ${cnt}x</button>`
+                                    : `<button type="button" class="market-item-buy" style="width:100%;padding:6px 4px;font-size:12px;" onclick="buyMarketItem('${item.id}')">${item.price} 💎</button>`
+                                }
+                            </div>
+                        `;
                     });
+                    html += '</div>';
                     container.innerHTML = html;
                 } else if (_activeMarketTab === 'boxes') {
                     const today = new Date().toDateString();
                     const origFree = localStorage.getItem('nu_orig_free_received_today') !== today;
                     const vipFree = localStorage.getItem('nu_free_vip_received') !== 'true';
                     container.innerHTML = `
-                        <div class="market-cat-label">🎁 Market Booth Boxes</div>
-                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(220,38,38,0.22), rgba(56,189,248,0.12));border-color:rgba(251,191,36,0.55);">
-                            <img src="box/winter.png" style="width:68px;height:68px;object-fit:contain;border-radius:12px;flex-shrink:0;" alt="Winter Box">
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#fef08a;">Winter Box ❄️</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">Festive gems, boxes &amp; rare winter skins!</div>
-                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="if(typeof buyWinterBox==='function'){buyWinterBox();setTimeout(()=>renderMarketTab('boxes'),350);}">Open · 350 💎</button>
+                        <div class="market-items-grid" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;">
+                            <div class="market-item-card" style="padding:12px 8px;gap:8px;border-color:rgba(251,191,36,0.55);">
+                                <img src="box/winter.png" style="width:58px;height:58px;object-fit:contain;border-radius:10px;" alt="Winter Box">
+                                <button type="button" class="market-item-buy" style="width:100%;padding:7px 4px;font-size:12px;" onclick="if(typeof buyWinterBox==='function'){buyWinterBox();setTimeout(()=>renderMarketTab('boxes'),350);}">350 💎</button>
                             </div>
-                        </div>
-                        <div class="market-box-card">
-                            <img src="box/normal.png" style="width:64px;height:64px;object-fit:contain;flex-shrink:0;" alt="Original Box">
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#fff;">Original Box 📦</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">Classic skins, gems &amp; daily streak treats.</div>
-                                <button type="button" class="market-item-use" style="width:auto;padding:7px 14px;" onclick="if(typeof buyOriginalBox==='function'){buyOriginalBox();setTimeout(()=>renderMarketTab('boxes'),350);}">${origFree ? 'FREE Today! 🎁' : 'Open · 250 💎'}</button>
+                            <div class="market-item-card" style="padding:12px 8px;gap:8px;">
+                                <img src="box/normal.png" style="width:58px;height:58px;object-fit:contain;" alt="Original Box">
+                                <button type="button" class="market-item-use" style="width:100%;padding:7px 4px;font-size:12px;" onclick="if(typeof buyOriginalBox==='function'){buyOriginalBox();setTimeout(()=>renderMarketTab('boxes'),350);}">${origFree ? 'FREE 🎁' : '250 💎'}</button>
                             </div>
-                        </div>
-                        <div class="market-box-card">
-                            <img src="box/vip.png" style="width:64px;height:64px;object-fit:contain;flex-shrink:0;" alt="VIP Box">
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#fde68a;">VIP Box 👑</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.75);margin:3px 0 8px;">High-tier epic &amp; legendary rewards!</div>
-                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="if(typeof buyVipBox==='function'){buyVipBox();setTimeout(()=>renderMarketTab('boxes'),350);}">${vipFree ? 'FREE! 👑' : 'Open · 550 💎'}</button>
+                            <div class="market-item-card" style="padding:12px 8px;gap:8px;border-color:rgba(56,189,248,0.5);">
+                                <img src="box/vip.png" style="width:58px;height:58px;object-fit:contain;" alt="VIP Box">
+                                <button type="button" class="market-item-buy" style="width:100%;padding:7px 4px;font-size:12px;" onclick="if(typeof buyVipBox==='function'){buyVipBox();setTimeout(()=>renderMarketTab('boxes'),350);}">${vipFree ? 'FREE 👑' : '550 💎'}</button>
                             </div>
-                        </div>
-                        <div class="market-box-card" style="background:linear-gradient(135deg, rgba(168,85,247,0.22), rgba(236,72,153,0.16));border-color:rgba(244,114,182,0.5);">
-                            <div style="font-size:48px;line-height:1;width:64px;text-align:center;flex-shrink:0;">🍬</div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-size:15px;font-weight:900;color:#fbcfe8;">Candy Mystery Bag</div>
-                                <div style="font-size:11px;color:rgba(255,255,255,0.78);margin:3px 0 8px;">Get 3 random cookies, hot drinks or candies!</div>
-                                <button type="button" class="market-item-buy" style="width:auto;padding:7px 14px;" onclick="buyCandyMysteryBag()">Buy 3 Treats · 50 💎</button>
+                            <div class="market-item-card" style="padding:12px 8px;gap:8px;border-color:rgba(244,114,182,0.5);">
+                                <div class="market-item-icon" style="font-size:44px;height:58px;display:flex;align-items:center;justify-content:center;">🍬</div>
+                                <button type="button" class="market-item-buy" style="width:100%;padding:7px 4px;font-size:12px;" onclick="buyCandyMysteryBag()">3x · 50 💎</button>
                             </div>
                         </div>
                     `;
                 } else {
-                    const cozy = getMarketCozy();
                     const ownedItems = MARKET_ITEMS.filter(item => (parseInt(bag[item.id], 10) || 0) > 0);
-                    let html = `<div class="market-cat-label">🧺 Your Basket · Enjoyed Total: ${cozy.total} ❤️</div>`;
                     if (!ownedItems.length) {
-                        html += `
-                            <div class="market-empty">
-                                🧺 Your basket is empty!<br>
-                                <span style="font-size:12px;font-weight:600;opacity:0.8;">Buy cookies, hot tea, cocoa or candies at the stall!</span><br>
-                                <button type="button" class="market-item-buy" style="margin-top:12px;width:auto;padding:8px 18px;" onclick="renderMarketTab('treats')">Browse Treats 🍪</button>
+                        container.innerHTML = `
+                            <div class="market-empty" style="padding:18px;">
+                                <div style="font-size:34px;margin-bottom:6px;">🧺</div>
+                                <button type="button" class="market-item-buy" style="width:auto;padding:8px 18px;" onclick="renderMarketTab('treats')">🍪 Treats</button>
                             </div>
                         `;
                     } else {
-                        html += '<div class="market-items-grid">';
+                        let html = '<div class="market-items-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;">';
                         ownedItems.forEach(item => {
                             const cnt = parseInt(bag[item.id], 10) || 0;
-                            const useLabel = item.action === 'drink' ? '☕ Drink' : '😋 Eat';
+                            const actIcon = item.action === 'drink' ? '☕' : '😋';
                             html += `
-                                <div class="market-item-card">
-                                    <div class="market-item-icon">${item.icon}</div>
-                                    <div class="market-item-name">${item.name}</div>
-                                    <div class="market-item-owned">Owned: ${cnt}</div>
-                                    <div class="market-item-actions">
-                                        <button type="button" class="market-item-use" onclick="consumeMarketItem('${item.id}')">${useLabel}</button>
-                                    </div>
+                                <div class="market-item-card" style="padding:10px 6px;gap:6px;">
+                                    <div class="market-item-icon" style="font-size:34px;">${item.icon}</div>
+                                    <button type="button" class="market-item-use" style="width:100%;padding:6px 4px;font-size:12px;" onclick="consumeMarketItem('${item.id}')">${actIcon} ${cnt}x</button>
                                 </div>
                             `;
                         });
                         html += '</div>';
+                        container.innerHTML = html;
                     }
-                    container.innerHTML = html;
                 }
             };
 
@@ -32932,31 +33070,32 @@
 
         // ========== SANTA'S VILLAGE (3D PANORAMIC EXPLORABLE WORLD + FACTORIES + REINDEER) ==========
         (function () {
-            const WORLD_CENTER = 2400;
-            const CAM_MIN = 420;
-            const CAM_MAX = 4380;
+            const WORLD_CENTER = 3360;
+            const CAM_MIN = 450;
+            const CAM_MAX = 5280;
 
             const ZONE_COORDS = {
-                candy:    { x: 560,  title: '🍬 Cukorgyár', stamper: '🍭', belt: '🍬 🍭 🍫 🧁 🍡', slotIcon: '🍬', btnVerb: '⚙️' },
-                toy:      { x: 1480, title: '🤖 Daily Bot Gyár', stamper: '🔧', belt: '🤖 🎨 🎅 👑 🎸', slotIcon: '🤖', btnVerb: '🔧' },
-                plaza:    { x: 2400, title: '🎄 Főtér', stamper: '⭐', belt: '❄️ ⛄ 🎄 ⭐ 🎁', slotIcon: '🎁', btnVerb: '🎁' },
-                reindeer: { x: 3320, title: '🦌 3D Rénszarvas Karám', stamper: '🥕', belt: '🦌 🥕 🍎 🌿 🍬', slotIcon: '🦌', btnVerb: '🥕' },
-                santa:    { x: 4240, title: '🛷 Mikulás Szán', stamper: '🚀', belt: '🍬 🤖 🦌 🛷 ✨', slotIcon: '🛷', btnVerb: '🚀' }
+                candy:    { x: 600,  title: '🍬 Candy Factory',   stamper: '🍭', belt: '🍬 🍭 🍫 🧁 🍪', slotIcon: '🍬', btnVerb: '⚙️' },
+                toy:      { x: 1520, title: '🤖 Custom Bot Studio', stamper: '🔧', belt: '🤖 🎨 🎅 👑 🎸', slotIcon: '🤖', btnVerb: '🔧' },
+                icerink:  { x: 2440, title: '⛸️ 3D Ice Rink & Snowballs', stamper: '⛸️', belt: '❄️ ⛸️ ⛄ ⚪ ✨', slotIcon: '⛸️', btnVerb: '⛸️' },
+                plaza:    { x: 3360, title: '🎄 Grand Christmas Plaza', stamper: '⭐', belt: '❄️ ⛄ 🎄 ⭐ 🎁', slotIcon: '🎁', btnVerb: '🎁' },
+                reindeer: { x: 4280, title: '🦌 Rudolph’s 3D Barn', stamper: '🥕', belt: '🦌 🥕 🍎 🍪 🍬', slotIcon: '🦌', btnVerb: '🥕' },
+                santa:    { x: 5150, title: '🛷 Santa’s Sleigh Launchpad', stamper: '🚀', belt: '🍬 🤖 🦌 🛷 ✨', slotIcon: '🛷', btnVerb: '🚀' }
             };
 
-            // Custom Daily Bot Factory Options
+            // Dedicated Custom Village Bot Palettes & Precision-Fitted SVG Accessories
             const CBOT_PAINTS = [
-                { id: '',         bg: 'linear-gradient(135deg,#64748b,#334155)', label: 'Alap' },
-                { id: 'crimson',  bg: 'linear-gradient(135deg,#ef4444,#991b1b)', label: 'Mikulás' },
-                { id: 'arctic',   bg: 'linear-gradient(135deg,#38bdf8,#0369a1)', label: 'Jég' },
-                { id: 'emerald',  bg: 'linear-gradient(135deg,#34d399,#047857)', label: 'Manó' },
-                { id: 'gold',     bg: 'linear-gradient(135deg,#fde047,#b45309)', label: 'Arany' },
-                { id: 'violet',   bg: 'linear-gradient(135deg,#c084fc,#581c87)', label: 'Aurora' },
-                { id: 'candy',    bg: 'linear-gradient(135deg,#f472b6,#9d174d)', label: 'Cukor' },
-                { id: 'obsidian', bg: 'linear-gradient(135deg,#1e293b,#020617)', label: 'Cyber' }
+                { id: 'arctic',   c1: '#7dd3fc', c2: '#0284c7', c3: '#0c4a6e', trim: '#e0f2fe', bg: 'linear-gradient(135deg,#38bdf8,#0369a1)', label: 'Arctic Ice' },
+                { id: 'crimson',  c1: '#fca5a5', c2: '#dc2626', c3: '#7f1d1d', trim: '#fde047', bg: 'linear-gradient(135deg,#ef4444,#991b1b)', label: 'Santa Red' },
+                { id: 'emerald',  c1: '#6ee7b7', c2: '#059669', c3: '#064e3b', trim: '#fde047', bg: 'linear-gradient(135deg,#34d399,#047857)', label: 'Elf Green' },
+                { id: 'gold',     c1: '#fef08a', c2: '#f59e0b', c3: '#78350f', trim: '#ffffff', bg: 'linear-gradient(135deg,#fde047,#b45309)', label: 'Royal Gold' },
+                { id: 'violet',   c1: '#e9d5ff', c2: '#9333ea', c3: '#4c1d95', trim: '#f0abfc', bg: 'linear-gradient(135deg,#c084fc,#581c87)', label: 'Aurora' },
+                { id: 'candy',    c1: '#fbcfe8', c2: '#db2777', c3: '#831843', trim: '#ffffff', bg: 'linear-gradient(135deg,#f472b6,#9d174d)', label: 'Peppermint' },
+                { id: 'pearl',    c1: '#ffffff', c2: '#cbd5e1', c3: '#475569', trim: '#38bdf8', bg: 'linear-gradient(135deg,#f8fafc,#64748b)', label: 'Frost Pearl' },
+                { id: 'obsidian', c1: '#475569', c2: '#1e293b', c3: '#020617', trim: '#38bdf8', bg: 'linear-gradient(135deg,#334155,#020617)', label: 'Cyber Dark' }
             ];
             const CBOT_EYES = [
-                { id: '',        color: '#38bdf8' },
+                { id: '#38bdf8', color: '#38bdf8' },
                 { id: '#fde047', color: '#fde047' },
                 { id: '#4ade80', color: '#4ade80' },
                 { id: '#fb7185', color: '#fb7185' },
@@ -32964,52 +33103,52 @@
                 { id: '#fb923c', color: '#fb923c' }
             ];
             const CBOT_HATS = [
-                { id: '',             icon: '🚫', html: '' },
-                { id: 'santa-hat',    icon: '🎅', html: '🎅' },
-                { id: 'antlers',      icon: '🦌', html: '🦌' },
-                { id: 'acc-crown',    icon: '👑', svgId: 'acc-crown' },
-                { id: 'acc-tophat',   icon: '🎩', svgId: 'acc-tophat' },
-                { id: 'acc-cap',      icon: '🧢', svgId: 'acc-cap' },
-                { id: 'acc-graduate', icon: '🎓', svgId: 'acc-graduate' },
-                { id: 'headphones',   icon: '🎧', html: '🎧' }
+                { id: '',           icon: '🚫' },
+                { id: 'santa-hat',  icon: '🎅' },
+                { id: 'antlers',    icon: '🦌' },
+                { id: 'crown',      icon: '👑' },
+                { id: 'tophat',     icon: '🎩' },
+                { id: 'elf-hat',    icon: '🧝' },
+                { id: 'headphones', icon: '🎧' },
+                { id: 'halo',       icon: '😇' }
             ];
             const CBOT_FACES = [
-                { id: '',           icon: '🚫', html: '' },
-                { id: 'acc-shades', icon: '🕶️', svgId: 'acc-shades' },
-                { id: 'acc-goggle', icon: '🥽', svgId: 'acc-goggle' },
-                { id: 'acc-mask',   icon: '🦸', svgId: 'acc-mask' }
+                { id: '',        icon: '🚫' },
+                { id: 'aviator', icon: '🕶️' },
+                { id: 'cyber',   icon: '🥽' },
+                { id: 'stars',   icon: '🤩' },
+                { id: 'gold-gl', icon: '👓' },
+                { id: 'mask',    icon: '🦸' }
             ];
             const CBOT_NECKS = [
-                { id: '',           icon: '🚫', html: '' },
-                { id: 'scarf',      icon: '🧣', html: '🧣' },
-                { id: 'acc-ribbon', icon: '🎀', svgId: 'acc-ribbon' },
-                { id: 'acc-gem',    icon: '💎', svgId: 'acc-gem' },
-                { id: 'bell',       icon: '🔔', html: '🔔' }
+                { id: '',        icon: '🚫' },
+                { id: 'scarf',   icon: '🧣' },
+                { id: 'bowtie',  icon: '🎀' },
+                { id: 'bell',    icon: '🔔' },
+                { id: 'reactor', icon: '💎' }
             ];
             const CBOT_HANDS = [
-                { id: '',           icon: '🚫', html: '' },
-                { id: 'lollipop',   icon: '🍭', html: '🍭' },
-                { id: 'acc-guitar', icon: '🎸', svgId: 'acc-guitar' },
-                { id: 'gift',       icon: '🎁', html: '🎁' },
-                { id: 'wand',       icon: '✨', html: '🪄' },
-                { id: 'cocoa',      icon: '☕', html: '☕' }
-            ];
-
-            const REINDEER_ROSTER = [
-                { id: 'rudolph', name: 'Rudolf',  fur: '#854d0e', belly: '#fde68a', nose: '#ef4444', noseGlow: true,  antler: '#fef08a' },
-                { id: 'dasher',  name: 'Táncos',  fur: '#713f12', belly: '#fed7aa', nose: '#1e293b', noseGlow: false, antler: '#d97706' },
-                { id: 'blitzen', name: 'Villám',  fur: '#57534e', belly: '#e2e8f0', nose: '#38bdf8', noseGlow: true,  antler: '#bae6fd' }
+                { id: '',         icon: '🚫' },
+                { id: 'lollipop', icon: '🍭' },
+                { id: 'guitar',   icon: '🎸' },
+                { id: 'saber',    icon: '⚡' },
+                { id: 'gift',     icon: '🎁' },
+                { id: 'cocoa',    icon: '☕' }
             ];
 
             let _currentZone = 'plaza';
             window._currentZone = 'plaza';
-            let _activeReindeerIdx = 0;
             let _botTurnYaw = 0;
-            let _camX = 2400;
-            let _botX = 2400;
+            let _botLargeView = false;
+            let _botPose = '';
+            let _candyMold = '🍭';
+            let _iceMode = 'skate';
+            let _treeThemeIdx = 0;
+            let _camX = WORLD_CENTER;
+            let _botX = WORLD_CENTER;
             let _isDragging = false;
             let _dragStartX = 0;
-            let _dragStartCamX = 2400;
+            let _dragStartCamX = WORLD_CENTER;
             let _dragMoved = 0;
             let _lastMoveX = 0;
             let _velocityX = 0;
@@ -33024,126 +33163,308 @@
                 return localStorage.getItem('nu_village_gift_day') !== todayKey();
             }
 
-            // Custom Daily Bot Persistent Config
+            // Dedicated Village Custom Bot Config (Separate from Home Screen Robot!)
             function getCustomBotConfig() {
                 try {
-                    const raw = JSON.parse(localStorage.getItem('nu_custom_bot') || '{}');
+                    const raw = JSON.parse(localStorage.getItem('nu_village_custom_bot') || '{}');
                     return {
-                        enabled: !!raw.enabled,
-                        name: typeof raw.name === 'string' ? raw.name.slice(0, 18) : '',
-                        paint: typeof raw.paint === 'string' ? raw.paint : '',
-                        eye: typeof raw.eye === 'string' ? raw.eye : '',
-                        hat: typeof raw.hat === 'string' ? raw.hat : '',
+                        name: typeof raw.name === 'string' && raw.name.trim() ? raw.name.slice(0, 18) : 'NorthBot',
+                        paint: typeof raw.paint === 'string' && raw.paint ? raw.paint : 'crimson',
+                        eye: typeof raw.eye === 'string' && raw.eye ? raw.eye : '#38bdf8',
+                        hat: typeof raw.hat === 'string' ? raw.hat : 'santa-hat',
                         face: typeof raw.face === 'string' ? raw.face : '',
-                        neck: typeof raw.neck === 'string' ? raw.neck : '',
-                        hand: typeof raw.hand === 'string' ? raw.hand : ''
+                        neck: typeof raw.neck === 'string' ? raw.neck : 'scarf',
+                        hand: typeof raw.hand === 'string' ? raw.hand : 'lollipop'
                     };
                 } catch (e) {
-                    return { enabled: false, name: '', paint: '', eye: '', hat: '', face: '', neck: '', hand: '' };
+                    return { name: 'NorthBot', paint: 'crimson', eye: '#38bdf8', hat: 'santa-hat', face: '', neck: 'scarf', hand: 'lollipop' };
                 }
             }
             function saveCustomBotConfig(cfg) {
-                localStorage.setItem('nu_custom_bot', JSON.stringify(cfg));
+                localStorage.setItem('nu_village_custom_bot', JSON.stringify(cfg));
                 window.applyCustomBotToAllRobots();
             }
 
-            function renderSlotItemHtml(list, id) {
-                if (!id) return '';
-                const item = list.find(x => x.id === id);
-                if (!item) return '';
-                if (item.svgId && typeof ACCESSORY_SVG === 'object' && ACCESSORY_SVG[item.svgId]) {
-                    return '<span class="acc-vis">' + ACCESSORY_SVG[item.svgId] + '</span>';
+            // ========================================================================
+            // PRECISION-ENGINEERED 3D/SVG CUSTOM VILLAGE ROBOT RENDERER (240x300)
+            // Every Hat, Glasses/Visor, Scarf & Hand Prop is 100% coordinate-aligned!
+            // ========================================================================
+            function buildCustomVillageBotSvg(cfg) {
+                const p = CBOT_PAINTS.find(x => x.id === cfg.paint) || CBOT_PAINTS[0];
+                const eyeCol = cfg.eye || '#38bdf8';
+                const uid = Math.random().toString(36).slice(2, 7);
+                const cleanName = String(cfg.name || 'NorthBot').replace(/[<>&"]/g, '');
+
+                // 1. Precision-Aligned Headgear (Fits head dome centered at 120, y=54..132)
+                let hatSvg = '';
+                if (cfg.hat === 'santa-hat') {
+                    hatSvg = `
+                        <g>
+                            <path d="M 68,66 C 72,18 148,14 184,54 C 194,64 196,76 190,82 C 166,54 114,54 68,66 Z" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+                            <rect x="62" y="54" width="116" height="18" rx="9" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+                            <circle cx="192" cy="80" r="13" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+                        </g>`;
+                } else if (cfg.hat === 'crown') {
+                    hatSvg = `
+                        <g>
+                            <polygon points="74,60 82,22 104,44 120,14 136,44 158,22 166,60" fill="#fbbf24" stroke="#b45309" stroke-width="2.5" stroke-linejoin="round"/>
+                            <rect x="74" y="54" width="92" height="10" rx="4" fill="#d97706" stroke="#78350f" stroke-width="1.5"/>
+                            <circle cx="120" cy="44" r="5.5" fill="#ef4444"/>
+                            <circle cx="96" cy="48" r="4.5" fill="#38bdf8"/>
+                            <circle cx="144" cy="48" r="4.5" fill="#10b981"/>
+                        </g>`;
+                } else if (cfg.hat === 'antlers') {
+                    hatSvg = `
+                        <g stroke="#d97706" stroke-width="6.5" stroke-linecap="round" fill="none">
+                            <path d="M 84,60 C 62,40 46,22 42,6 M 62,38 C 46,36 34,28 28,18 M 72,46 C 66,28 68,16 74,8"/>
+                            <path d="M 156,60 C 178,40 194,22 198,6 M 178,38 C 194,36 206,28 212,18 M 168,46 C 174,28 172,16 166,8"/>
+                        </g>`;
+                } else if (cfg.hat === 'tophat') {
+                    hatSvg = `
+                        <g>
+                            <ellipse cx="120" cy="58" rx="64" ry="9" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <rect x="82" y="12" width="76" height="46" rx="6" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                            <rect x="82" y="42" width="76" height="10" fill="#dc2626"/>
+                            <rect x="112" y="40" width="16" height="14" rx="2" fill="#fbbf24"/>
+                        </g>`;
+                } else if (cfg.hat === 'elf-hat') {
+                    hatSvg = `
+                        <g>
+                            <path d="M 66,64 C 78,16 144,12 186,44 C 160,48 112,52 66,64 Z" fill="#16a34a" stroke="#14532d" stroke-width="2"/>
+                            <polygon points="62,64 74,48 86,62 98,48 110,62 122,48 134,62 146,48 158,62 170,48 178,64" fill="#dc2626"/>
+                            <circle cx="188" cy="44" r="9" fill="#fde047" stroke="#b45309" stroke-width="1.5"/>
+                        </g>`;
+                } else if (cfg.hat === 'headphones') {
+                    hatSvg = `
+                        <g>
+                            <path d="M 54,96 C 54,36 186,36 186,96" fill="none" stroke="#38bdf8" stroke-width="9" stroke-linecap="round"/>
+                            <rect x="42" y="76" width="18" height="38" rx="9" fill="#0284c7" stroke="#bae6fd" stroke-width="2.5"/>
+                            <rect x="180" y="76" width="18" height="38" rx="9" fill="#0284c7" stroke="#bae6fd" stroke-width="2.5"/>
+                        </g>`;
+                } else if (cfg.hat === 'halo') {
+                    hatSvg = `
+                        <ellipse cx="120" cy="24" rx="48" ry="11" fill="none" stroke="#fde047" stroke-width="6" opacity="0.95"/>
+                        <ellipse cx="120" cy="24" rx="48" ry="11" fill="none" stroke="#ffffff" stroke-width="2"/>`;
                 }
-                return item.html || '';
-            }
 
-            function decorateRobotElement(robotEl, cfg, forceShow) {
-                if (!robotEl) return;
-                const active = forceShow || (cfg && cfg.enabled);
-                if (!active) {
-                    robotEl.removeAttribute('data-cbot-paint');
-                    robotEl.removeAttribute('data-cbot-eye');
-                    robotEl.style.removeProperty('--cbot-eye-color');
-                    const oldTag = robotEl.querySelector('.cbot-name-tag');
-                    if (oldTag) oldTag.remove();
-                    ['.outfit-hat', '.outfit-face', '.outfit-neck', '.outfit-hand'].forEach(sel => {
-                        const sp = robotEl.querySelector(sel);
-                        if (sp && sp.dataset.cbotRendered) {
-                            sp.innerHTML = '';
-                            sp.classList.remove('outfit-acc-rendered');
-                            delete sp.dataset.cbotRendered;
-                        }
-                    });
-                    return;
+                // 2. Precision-Aligned Eyewear / Glasses (Sits EXACTLY over eyes at (98, 94) & (142, 94)!)
+                let faceSvg = '';
+                if (cfg.face === 'aviator') {
+                    faceSvg = `
+                        <g>
+                            <line x1="62" y1="88" x2="178" y2="88" stroke="#fbbf24" stroke-width="3"/>
+                            <path d="M 74,84 L 114,84 C 116,104 108,110 94,110 C 78,110 72,102 74,84 Z" fill="#020617" fill-opacity="0.88" stroke="#fbbf24" stroke-width="2.8"/>
+                            <path d="M 126,84 L 166,84 C 168,102 162,110 146,110 C 132,110 124,104 126,84 Z" fill="#020617" fill-opacity="0.88" stroke="#fbbf24" stroke-width="2.8"/>
+                            <line x1="80" y1="88" x2="92" y2="102" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+                            <line x1="132" y1="88" x2="144" y2="102" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+                        </g>`;
+                } else if (cfg.face === 'cyber') {
+                    faceSvg = `
+                        <g>
+                            <path d="M 66,82 L 174,82 L 168,108 L 126,104 L 120,96 L 114,104 L 72,108 Z" fill="#0ea5e9" fill-opacity="0.65" stroke="#e0f2fe" stroke-width="2.8" stroke-linejoin="round"/>
+                            <line x1="76" y1="88" x2="164" y2="88" stroke="#ffffff" stroke-width="2" opacity="0.75"/>
+                        </g>`;
+                } else if (cfg.face === 'stars') {
+                    faceSvg = `
+                        <g stroke="#fbbf24" stroke-width="2.5" fill="#ec4899" fill-opacity="0.82">
+                            <line x1="64" y1="94" x2="176" y2="94" stroke="#fbbf24" stroke-width="3"/>
+                            <polygon points="96,74 101,86 114,86 104,94 108,107 96,99 84,107 88,94 78,86 91,86"/>
+                            <polygon points="144,74 149,86 162,86 152,94 156,107 144,99 132,107 136,94 126,86 139,86"/>
+                        </g>`;
+                } else if (cfg.face === 'gold-gl') {
+                    faceSvg = `
+                        <g>
+                            <line x1="64" y1="94" x2="78" y2="94" stroke="#fde047" stroke-width="3"/>
+                            <line x1="114" y1="94" x2="126" y2="94" stroke="#fde047" stroke-width="3"/>
+                            <line x1="162" y1="94" x2="176" y2="94" stroke="#fde047" stroke-width="3"/>
+                            <circle cx="96" cy="94" r="18" fill="rgba(56,189,248,0.22)" stroke="#fde047" stroke-width="3.2"/>
+                            <circle cx="144" cy="94" r="18" fill="rgba(56,189,248,0.22)" stroke="#fde047" stroke-width="3.2"/>
+                        </g>`;
+                } else if (cfg.face === 'mask') {
+                    faceSvg = `
+                        <path d="M 64,78 Q 120,68 176,78 Q 178,108 150,112 Q 120,100 90,112 Q 62,108 64,78 Z" fill="#dc2626" fill-opacity="0.85" stroke="#fde047" stroke-width="2.5"/>
+                        <ellipse cx="96" cy="94" rx="14" ry="9" fill="#0f172a"/>
+                        <ellipse cx="144" cy="94" rx="14" ry="9" fill="#0f172a"/>
+                        <ellipse cx="96" cy="94" rx="10" ry="6" fill="${eyeCol}"/>
+                        <ellipse cx="144" cy="94" rx="10" ry="6" fill="${eyeCol}"/>`;
                 }
 
-                if (cfg.paint) robotEl.setAttribute('data-cbot-paint', cfg.paint);
-                else robotEl.removeAttribute('data-cbot-paint');
-
-                if (cfg.eye) {
-                    robotEl.setAttribute('data-cbot-eye', '1');
-                    robotEl.style.setProperty('--cbot-eye-color', cfg.eye);
-                } else {
-                    robotEl.removeAttribute('data-cbot-eye');
-                    robotEl.style.removeProperty('--cbot-eye-color');
+                // 3. Precision-Aligned Neck / Chest Gear (Wraps neck at y=132..152)
+                let neckSvg = '';
+                if (cfg.neck === 'scarf') {
+                    neckSvg = `
+                        <g>
+                            <rect x="76" y="130" width="88" height="20" rx="10" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+                            <rect x="88" y="130" width="12" height="20" fill="#ffffff"/>
+                            <rect x="114" y="130" width="12" height="20" fill="#ffffff"/>
+                            <rect x="140" y="130" width="12" height="20" fill="#ffffff"/>
+                            <path d="M 136,144 L 154,144 L 158,188 L 134,188 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.8"/>
+                            <rect x="135" y="164" width="21" height="8" fill="#ffffff"/>
+                        </g>`;
+                } else if (cfg.neck === 'bowtie') {
+                    neckSvg = `
+                        <g>
+                            <polygon points="94,128 120,140 94,152" fill="#e11d48" stroke="#fff" stroke-width="1.5"/>
+                            <polygon points="146,128 120,140 146,152" fill="#e11d48" stroke="#fff" stroke-width="1.5"/>
+                            <circle cx="120" cy="140" r="6.5" fill="#fbbf24" stroke="#fff" stroke-width="1.5"/>
+                        </g>`;
+                } else if (cfg.neck === 'bell') {
+                    neckSvg = `
+                        <g>
+                            <path d="M 80,136 Q 120,152 160,136" stroke="#dc2626" stroke-width="8" stroke-linecap="round" fill="none"/>
+                            <circle cx="120" cy="148" r="11" fill="#fde047" stroke="#b45309" stroke-width="2"/>
+                            <circle cx="120" cy="151" r="3" fill="#78350f"/>
+                        </g>`;
+                } else if (cfg.neck === 'reactor') {
+                    neckSvg = `
+                        <g>
+                            <circle cx="120" cy="176" r="22" fill="#0284c7" stroke="#e0f2fe" stroke-width="3"/>
+                            <circle cx="120" cy="176" r="13" fill="#bae6fd"/>
+                            <circle cx="120" cy="176" r="6" fill="#ffffff"/>
+                        </g>`;
                 }
 
-                // Ensure .outfit-hand exists on mini robots too
-                if (!robotEl.querySelector('.outfit-hand')) {
-                    const hSpan = document.createElement('span');
-                    hSpan.className = 'outfit outfit-hand';
-                    robotEl.insertBefore(hSpan, robotEl.firstChild);
+                // 4. Precision-Aligned Hand Gadget (Held in Right Hand at 198, 185)
+                let handSvg = '';
+                if (cfg.hand === 'lollipop') {
+                    handSvg = `
+                        <g transform="translate(198, 178) rotate(14)">
+                            <rect x="-3" y="-36" width="6" height="64" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                            <circle cx="0" cy="-52" r="22" fill="#ec4899" stroke="#ffffff" stroke-width="3"/>
+                            <path d="M 0,-52 m -14,0 a 14,14 0 1,0 28,0 a 10,10 0 1,0 -20,0" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                        </g>`;
+                } else if (cfg.hand === 'guitar') {
+                    handSvg = `
+                        <g transform="translate(176, 178) rotate(-28)">
+                            <rect x="-4" y="-65" width="8" height="60" fill="#78350f" stroke="#451a03" stroke-width="1.5"/>
+                            <rect x="-7" y="-76" width="14" height="14" rx="3" fill="#dc2626"/>
+                            <polygon points="0,-14 -24,24 -6,18 0,34 6,18 24,24" fill="#ef4444" stroke="#fde047" stroke-width="2.5"/>
+                            <circle cx="0" cy="6" r="5" fill="#1e293b"/>
+                        </g>`;
+                } else if (cfg.hand === 'saber') {
+                    handSvg = `
+                        <g transform="translate(198, 182) rotate(12)">
+                            <rect x="-4" y="-8" width="8" height="24" rx="3" fill="#475569" stroke="#e2e8f0" stroke-width="1.5"/>
+                            <rect x="-4" y="-92" width="8" height="84" rx="4" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
+                        </g>`;
+                } else if (cfg.hand === 'gift') {
+                    handSvg = `
+                        <g transform="translate(196, 172)">
+                            <rect x="-18" y="-18" width="36" height="34" rx="5" fill="#dc2626" stroke="#fde047" stroke-width="2"/>
+                            <rect x="-4" y="-18" width="8" height="34" fill="#fde047"/>
+                            <rect x="-18" y="-5" width="36" height="8" fill="#fde047"/>
+                        </g>`;
+                } else if (cfg.hand === 'cocoa') {
+                    handSvg = `
+                        <g transform="translate(196, 174)">
+                            <path d="M -14,-14 L 14,-14 L 11,16 C 11,20 -11,20 -11,16 Z" fill="#b91c1c" stroke="#ffffff" stroke-width="2"/>
+                            <path d="M 14,-8 C 22,-8 22,8 12,8" fill="none" stroke="#ffffff" stroke-width="3"/>
+                            <ellipse cx="0" cy="-14" rx="13" ry="4" fill="#fde68a"/>
+                        </g>`;
                 }
 
-                const slots = [
-                    { sel: '.outfit-hat',  list: CBOT_HATS,  val: cfg.hat },
-                    { sel: '.outfit-face', list: CBOT_FACES, val: cfg.face },
-                    { sel: '.outfit-neck', list: CBOT_NECKS, val: cfg.neck },
-                    { sel: '.outfit-hand', list: CBOT_HANDS, val: cfg.hand }
-                ];
-                slots.forEach(sl => {
-                    const el = robotEl.querySelector(sl.sel);
-                    if (!el) return;
-                    const html = renderSlotItemHtml(sl.list, sl.val);
-                    el.innerHTML = html;
-                    const item = sl.list.find(x => x.id === sl.val);
-                    const isSvgHand = sl.sel === '.outfit-hand' && item && item.svgId;
-                    el.classList.toggle('outfit-acc-rendered', !!isSvgHand);
-                    el.dataset.cbotRendered = '1';
-                });
+                return `
+                <svg class="vbot-svg" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="vbBody_${uid}" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="${p.c1}"/>
+                            <stop offset="50%" stop-color="${p.c2}"/>
+                            <stop offset="100%" stop-color="${p.c3}"/>
+                        </linearGradient>
+                        <linearGradient id="vbScreen_${uid}" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#0f172a"/>
+                            <stop offset="100%" stop-color="#020617"/>
+                        </linearGradient>
+                    </defs>
 
-                // Custom Name Badge
-                let tag = robotEl.querySelector('.cbot-name-tag');
-                const cleanName = (cfg.name || '').trim();
-                if (cleanName) {
-                    if (!tag) {
-                        tag = document.createElement('div');
-                        tag.className = 'cbot-name-tag';
-                        robotEl.appendChild(tag);
-                    }
-                    tag.textContent = '🤖 ' + cleanName;
-                } else if (tag) {
-                    tag.remove();
-                }
+                    <!-- Floating Custom Bot Nameplate -->
+                    <g transform="translate(120, 14)">
+                        <rect x="-58" y="-12" width="116" height="22" rx="11" fill="rgba(6,18,38,0.88)" stroke="${p.trim}" stroke-width="1.8"/>
+                        <text x="0" y="3" text-anchor="middle" fill="#fef08a" font-family="Outfit, sans-serif" font-size="11.5" font-weight="900">${cleanName}</text>
+                    </g>
+
+                    <!-- Antenna -->
+                    <line x1="120" y1="34" x2="120" y2="54" stroke="${p.trim}" stroke-width="4.5" stroke-linecap="round"/>
+                    <circle cx="120" cy="32" r="7" fill="${eyeCol}"/>
+
+                    <!-- Legs & Boots -->
+                    <g class="vbot-legs">
+                        <rect x="88" y="216" width="22" height="44" rx="10" fill="url(#vbBody_${uid})" stroke="${p.trim}" stroke-width="2"/>
+                        <rect x="130" y="216" width="22" height="44" rx="10" fill="url(#vbBody_${uid})" stroke="${p.trim}" stroke-width="2"/>
+                        <rect x="80" y="250" width="32" height="16" rx="8" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+                        <rect x="128" y="250" width="32" height="16" rx="8" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+                    </g>
+
+                    <!-- Left Arm -->
+                    <g class="vbot-arm-l">
+                        <circle cx="64" cy="154" r="11" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+                        <rect x="42" y="152" width="20" height="48" rx="10" transform="rotate(14 52 152)" fill="url(#vbBody_${uid})" stroke="${p.trim}" stroke-width="2"/>
+                        <circle cx="42" cy="198" r="9" fill="#334155" stroke="${p.trim}" stroke-width="2"/>
+                    </g>
+
+                    <!-- Torso / 3D Chassis -->
+                    <rect x="68" y="138" width="104" height="86" rx="26" fill="url(#vbBody_${uid})" stroke="${p.trim}" stroke-width="2.5"/>
+                    <!-- 3D Specular Highlight on Torso -->
+                    <path d="M 82,146 L 158,146" stroke="rgba(255,255,255,0.45)" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Chest Screen & Heart Core -->
+                    <rect x="84" y="156" width="72" height="48" rx="14" fill="url(#vbScreen_${uid})" stroke="${p.trim}" stroke-width="1.8"/>
+                    <path d="M 120,186 C 120,186 106,177 106,169 C 106,164 110,161 114,161 C 117,161 119,163 120,165 C 121,163 123,161 126,161 C 130,161 134,164 134,169 C 134,177 120,186 120,186 Z" fill="${eyeCol}"/>
+                    <circle cx="102" cy="194" r="3" fill="${eyeCol}"/>
+                    <circle cx="120" cy="194" r="3" fill="${eyeCol}"/>
+                    <circle cx="138" cy="194" r="3" fill="${eyeCol}"/>
+
+                    <!-- Neck Joint -->
+                    <rect x="104" y="126" width="32" height="16" rx="6" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+
+                    <!-- Right Arm & Hand Gadget -->
+                    <g class="vbot-arm-r">
+                        <circle cx="176" cy="154" r="11" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+                        <rect x="178" y="152" width="20" height="48" rx="10" transform="rotate(-14 188 152)" fill="url(#vbBody_${uid})" stroke="${p.trim}" stroke-width="2"/>
+                        <circle cx="198" cy="198" r="9" fill="#334155" stroke="${p.trim}" stroke-width="2"/>
+                        ${handSvg}
+                    </g>
+
+                    <!-- Neck / Chest Accessory Layer -->
+                    ${neckSvg}
+
+                    <!-- Head / 3D Rounded Dome -->
+                    <rect x="52" y="82" width="12" height="26" rx="6" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+                    <rect x="176" y="82" width="12" height="26" rx="6" fill="#1e293b" stroke="${p.trim}" stroke-width="2"/>
+                    <rect x="62" y="54" width="116" height="78" rx="30" fill="url(#vbBody_${uid})" stroke="${p.trim}" stroke-width="2.8"/>
+                    <path d="M 84,62 L 156,62" stroke="rgba(255,255,255,0.55)" stroke-width="4" stroke-linecap="round"/>
+
+                    <!-- Face Visor Screen -->
+                    <rect x="74" y="68" width="92" height="52" rx="18" fill="url(#vbScreen_${uid})" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+                    <!-- Glowing Eyes & Smile -->
+                    <ellipse cx="98" cy="92" rx="9" ry="10" fill="${eyeCol}"/>
+                    <ellipse cx="142" cy="92" rx="9" ry="10" fill="${eyeCol}"/>
+                    <circle cx="95" cy="88" r="3" fill="#ffffff"/>
+                    <circle cx="139" cy="88" r="3" fill="#ffffff"/>
+                    <path d="M 108,108 Q 120,116 132,108" fill="none" stroke="${eyeCol}" stroke-width="3.2" stroke-linecap="round"/>
+
+                    <!-- Precision-Aligned Eyewear Layer -->
+                    ${faceSvg}
+
+                    <!-- Precision-Aligned Headgear Layer -->
+                    ${hatSvg}
+                </svg>`;
             }
 
             window.applyCustomBotToAllRobots = function () {
                 const cfg = getCustomBotConfig();
-                const homeBot = document.getElementById('robot');
-                if (homeBot) decorateRobotElement(homeBot, cfg, false);
+                const svgHtml = buildCustomVillageBotSvg(cfg);
 
-                const walkerBot = document.querySelector('#villageRobotMount .robot');
-                if (walkerBot) decorateRobotElement(walkerBot, cfg, false);
+                const walkerMount = document.getElementById('villageRobotMount');
+                if (walkerMount) walkerMount.innerHTML = svgHtml;
 
-                const previewBot = document.querySelector('#vBotBuilderMount .robot');
-                if (previewBot) decorateRobotElement(previewBot, cfg, true);
-            };
+                const trailMount = document.getElementById('villageTrailWalkerMount');
+                if (trailMount) trailMount.innerHTML = svgHtml;
 
-            // Hook into applyAcc so equipping skins on Home Screen preserves Custom Bot if enabled
-            const _origApplyAcc = window.applyAcc;
-            window.applyAcc = function () {
-                if (typeof _origApplyAcc === 'function') _origApplyAcc();
-                window.applyCustomBotToAllRobots();
+                const previewMount = document.getElementById('vBotBuilderMount');
+                if (previewMount) previewMount.innerHTML = svgHtml;
+
+                const skaterMount = document.getElementById('irSkatingBotMount');
+                if (skaterMount) skaterMount.innerHTML = svgHtml;
             };
 
             // Persistent Village Production State
@@ -33153,14 +33474,14 @@
                     return {
                         candy: Math.max(0, Math.min(3, parseInt(raw.candy, 10) || 0)),
                         toy: Math.max(0, Math.min(3, parseInt(raw.toy, 10) || 0)),
+                        ice: Math.max(0, Math.min(3, parseInt(raw.ice, 10) || 0)),
                         reindeer: Math.max(0, Math.min(3, parseInt(raw.reindeer, 10) || 0)),
-                        deerFed: (raw.deerFed && typeof raw.deerFed === 'object') ? raw.deerFed : { rudolph: 0, dasher: 0, blitzen: 0 },
                         launches: Math.max(0, parseInt(raw.launches, 10) || 0),
                         launchesToday: raw.day === todayKey() ? (parseInt(raw.launchesToday, 10) || 0) : 0,
                         day: todayKey()
                     };
                 } catch (e) {
-                    return { candy: 0, toy: 0, reindeer: 0, deerFed: { rudolph: 0, dasher: 0, blitzen: 0 }, launches: 0, launchesToday: 0, day: todayKey() };
+                    return { candy: 0, toy: 0, ice: 0, reindeer: 0, launches: 0, launchesToday: 0, day: todayKey() };
                 }
             }
             function saveVillageState(st) {
@@ -33204,59 +33525,61 @@
                 const giftReady = canClaimVillageGift();
                 const candyDone = st.candy >= 3;
                 const toyDone = st.toy >= 3;
+                const iceDone = st.ice >= 3;
                 const reinDone = st.reindeer >= 3;
                 const allReady = candyDone && toyDone && reinDone;
 
                 const sCandy = document.getElementById('vCargoSlotCandy');
                 const sToy = document.getElementById('vCargoSlotToy');
+                const sIce = document.getElementById('vCargoSlotIce');
                 const sRein = document.getElementById('vCargoSlotReindeer');
                 const cargoHud = document.getElementById('villageCargoHud');
                 const lvlBadge = document.getElementById('vSleighLevelBadge');
 
                 if (sCandy) sCandy.classList.toggle('ready', candyDone);
                 if (sToy) sToy.classList.toggle('ready', toyDone);
+                if (sIce) sIce.classList.toggle('ready', iceDone);
                 if (sRein) sRein.classList.toggle('ready', reinDone);
                 if (cargoHud) cargoHud.classList.toggle('all-ready', allReady);
                 if (lvlBadge) lvlBadge.textContent = allReady ? '🚀' : String(st.launches);
 
                 const orbCandy = document.getElementById('vOrbCandy');
                 const orbToy = document.getElementById('vOrbToy');
+                const orbIce = document.getElementById('vOrbIce');
                 const orbPlaza = document.getElementById('vOrbPlaza');
                 const orbRein = document.getElementById('vOrbReindeer');
                 const orbSanta = document.getElementById('vOrbSanta');
 
                 if (orbCandy) {
-                    orbCandy.textContent = candyDone ? '🍬 ✓' : `🍬 ${st.candy}/3`;
+                    orbCandy.textContent = candyDone ? '🍬 Ready ✓' : `🍬 ${st.candy}/3`;
                     orbCandy.classList.toggle('done', candyDone);
                 }
                 if (orbToy) {
-                    orbToy.textContent = cbot.enabled && cbot.name ? `🤖 ${cbot.name}` : (toyDone ? '🤖 ✓' : '🤖 Építő');
-                    orbToy.classList.toggle('done', toyDone || cbot.enabled);
+                    orbToy.textContent = `🤖 ${cbot.name || 'Bot Studio'}`;
+                    orbToy.classList.toggle('done', toyDone);
+                }
+                if (orbIce) {
+                    orbIce.textContent = iceDone ? '⛸️ Arena ✓' : `⛸️ ${st.ice}/3`;
+                    orbIce.classList.toggle('done', iceDone);
                 }
                 if (orbPlaza) {
-                    orbPlaza.textContent = giftReady ? '🎁 +25 💎' : '🎄 ✓';
+                    orbPlaza.textContent = giftReady ? '🎁 +25 💎' : '🎄 Plaza';
                     orbPlaza.classList.toggle('done', !giftReady);
                 }
                 if (orbRein) {
-                    orbRein.textContent = reinDone ? '🦌 ✓' : `🦌 ${st.reindeer}/3`;
+                    orbRein.textContent = reinDone ? '🦌 Rudolph ✓' : `🦌 Rudolph ${st.reindeer}/3`;
                     orbRein.classList.toggle('done', reinDone);
                 }
                 const readyCount = (candyDone ? 1 : 0) + (toyDone ? 1 : 0) + (reinDone ? 1 : 0);
                 if (orbSanta) {
-                    orbSanta.textContent = allReady ? '🚀 +50 💎' : `🛷 ${readyCount}/3`;
+                    orbSanta.textContent = allReady ? '🚀 Launch +50 💎' : `🛷 Sleigh ${readyCount}/3`;
                     orbSanta.classList.toggle('done', allReady);
                 }
 
                 const giftPile = document.getElementById('vTreeGiftPile');
                 if (giftPile) {
                     giftPile.classList.toggle('ready', giftReady);
-                    giftPile.textContent = giftReady ? '🎁' : '🎄';
-                }
-                const barnActors = document.getElementById('vReindeerBarnActors');
-                if (barnActors) {
-                    [...barnActors.children].forEach((el, idx) => {
-                        el.classList.toggle('charged', idx < st.reindeer);
-                    });
+                    giftPile.textContent = giftReady ? '🎁' : '🚂';
                 }
                 const parkedSleigh = document.getElementById('vParkedSleigh');
                 if (parkedSleigh) {
@@ -33268,6 +33591,7 @@
                     let isDone = false;
                     if (z === 'candy') isDone = candyDone;
                     else if (z === 'toy') isDone = toyDone;
+                    else if (z === 'icerink') isDone = iceDone;
                     else if (z === 'plaza') isDone = giftReady;
                     else if (z === 'reindeer') isDone = reinDone;
                     else if (z === 'santa') isDone = allReady;
@@ -33301,7 +33625,7 @@
 
             function apply3dCamera(x, smooth, tiltDeg) {
                 _camX = Math.max(CAM_MIN, Math.min(CAM_MAX, x));
-                const offset = WORLD_CENTER - _camX;
+                const offset = 2800 - _camX;
                 const world = document.getElementById('village3dWorld');
                 const mountains = document.getElementById('villageMountainsLayer');
                 const hills = document.getElementById('villageHillsLayer');
@@ -33357,18 +33681,6 @@
                 walkRobotTo(z.x);
 
                 if (!interact) return;
-
-                if (zoneKey === 'plaza') {
-                    setTimeout(() => {
-                        if (canClaimVillageGift()) {
-                            window.claimVillageDailyGift();
-                        } else {
-                            window.triggerVillageBlizzard();
-                            spawnFloatingReward('🎄✨❄️');
-                        }
-                    }, 320);
-                    return;
-                }
 
                 if (zoneKey === 'santa') {
                     const st = getVillageState();
@@ -33550,7 +33862,6 @@
                 st.candy = 0;
                 st.toy = 0;
                 st.reindeer = 0;
-                st.deerFed = { rudolph: 0, dasher: 0, blitzen: 0 };
                 st.launches = (st.launches || 0) + 1;
                 const reward = st.launchesToday < 3 ? 50 : 15;
                 st.launchesToday = (st.launchesToday || 0) + 1;
@@ -33563,12 +33874,11 @@
                 if (typeof playSfx === 'function') playSfx('gem-claim');
             }
 
-            // ========== 1. CUSTOM DAILY BOT FACTORY ACTIONS ==========
+            // ========== 1. CUSTOM VILLAGE BOT STUDIO ACTIONS ==========
             window.setCustomBotField = function (field, val) {
                 if (typeof hapticTap === 'function') hapticTap(8);
                 const cfg = getCustomBotConfig();
                 cfg[field] = val;
-                cfg.enabled = true;
                 saveCustomBotConfig(cfg);
                 playVillageSfx('craft');
 
@@ -33581,6 +33891,34 @@
                     setTimeout(() => stage.classList.remove('weld'), 350);
                 }
                 window.renderVillageTab('toy');
+            };
+
+            window.toggleCustomBotLargeView = function (ev) {
+                if (ev) ev.stopPropagation();
+                _botLargeView = !_botLargeView;
+                if (typeof hapticTap === 'function') hapticTap(8);
+                const stage = document.getElementById('cbotTurntableStage');
+                if (stage) stage.classList.toggle('large-view', _botLargeView);
+                const btn = document.getElementById('cbotZoomBtn');
+                if (btn) btn.textContent = _botLargeView ? '🔍 Compact' : '🔍 Full View';
+            };
+
+            window.triggerCustomBotPose = function (pose, ev) {
+                if (ev) ev.stopPropagation();
+                if (typeof hapticTap === 'function') hapticTap(10);
+                playVillageSfx('craft');
+                _botPose = pose;
+                const mount = document.getElementById('vBotBuilderMount');
+                const stage = document.getElementById('cbotTurntableStage');
+                if (mount) {
+                    mount.classList.remove('pose-wave', 'pose-dance', 'pose-hover');
+                    void mount.offsetWidth;
+                    mount.classList.add('pose-' + pose);
+                }
+                if (stage) {
+                    const fx = pose === 'wave' ? ['👋', '🤖'] : (pose === 'dance' ? ['💃', '🎵', '✨'] : ['🚀', '🔥', '⚡']);
+                    spawnMachineFloat(fx, stage);
+                }
             };
 
             window.spinCustomBotTurntable = function () {
@@ -33597,11 +33935,9 @@
                 const cfg = getCustomBotConfig();
                 const nameInp = document.getElementById('cbotNameInput');
                 if (nameInp) cfg.name = nameInp.value.trim().slice(0, 18);
-                if (!cfg.name) cfg.name = 'MikulásBot';
-                cfg.enabled = true;
+                if (!cfg.name) cfg.name = 'NorthBot';
                 saveCustomBotConfig(cfg);
 
-                // Also progress the Toy/Bot Factory station for Sleigh Launch (+10 Gems when reaching 3/3)
                 const st = getVillageState();
                 let awarded = false;
                 if (st.toy < 3) {
@@ -33620,45 +33956,43 @@
                     stage.classList.add('weld');
                     spawnMachineFloat(['🤖', '⚡', '✨', '🎉'], stage);
                 }
-                spawnFloatingReward(awarded ? `🤖 ${cfg.name} Kész! +10 💎` : `🤖 ${cfg.name} Felszerelve!`);
+                spawnFloatingReward(awarded ? `🤖 ${cfg.name} Ready! +10 💎` : `🤖 ${cfg.name} Saved!`);
                 setTimeout(() => {
                     window.closeVillageInterior();
-                }, 800);
+                }, 750);
             };
 
             window.resetCustomBotToStandard = function () {
                 if (typeof hapticTap === 'function') hapticTap(10);
-                const cfg = getCustomBotConfig();
-                cfg.enabled = false;
-                saveCustomBotConfig(cfg);
-                if (typeof applyRobotSkin === 'function') applyRobotSkin();
-                spawnFloatingReward('🤖 Alap Robot Visszaállítva');
+                saveCustomBotConfig({ name: 'NorthBot', paint: 'arctic', eye: '#38bdf8', hat: '', face: '', neck: '', hand: '' });
+                spawnFloatingReward('🤖 Reset to Default');
                 window.renderVillageTab('toy');
             };
 
-            // ========== 2. LIFELIKE 3D REINDEER FEEDING & PETTING ENGINE ==========
-            function buildLifelikeReindeerSvg(deer, isCharged) {
-                const noseGlowFilter = deer.noseGlow
-                    ? `<radialGradient id="rNoseG" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fff"/><stop offset="40%" stop-color="${deer.nose}"/><stop offset="100%" stop-color="#991b1b"/></radialGradient>`
-                    : `<radialGradient id="rNoseG" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#64748b"/><stop offset="100%" stop-color="${deer.nose}"/></radialGradient>`;
-
+            // ========== 2. RUDOLPH'S EXCLUSIVE LIFELIKE 3D FEEDING & PETTING ENGINE ==========
+            function buildLifelikeRudolphSvg(isCharged) {
                 return `
                 <svg class="r3d-svg" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="rFurG" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="${deer.fur}"/>
+                            <stop offset="0%" stop-color="#a16207"/>
+                            <stop offset="55%" stop-color="#713f12"/>
                             <stop offset="100%" stop-color="#3f2305"/>
                         </linearGradient>
                         <linearGradient id="rAntlerG" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="${isCharged ? '#fef08a' : deer.antler}"/>
+                            <stop offset="0%" stop-color="${isCharged ? '#fef08a' : '#fbbf24'}"/>
                             <stop offset="100%" stop-color="#92400e"/>
                         </linearGradient>
-                        ${noseGlowFilter}
+                        <radialGradient id="rNoseG" cx="35%" cy="35%" r="65%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="38%" stop-color="#ef4444"/>
+                            <stop offset="100%" stop-color="#991b1b"/>
+                        </radialGradient>
                     </defs>
 
                     <!-- Torso / Shoulders & Fluffy Chest Fur -->
                     <ellipse cx="105" cy="186" rx="52" ry="38" fill="url(#rFurG)"/>
-                    <ellipse cx="105" cy="188" rx="32" ry="28" fill="${deer.belly}" opacity="0.92"/>
+                    <ellipse cx="105" cy="188" rx="32" ry="28" fill="#fde68a" opacity="0.92"/>
                     <!-- Golden Harness Collar & Jingle Bells -->
                     <path d="M 62,168 Q 105,192 148,168" stroke="#dc2626" stroke-width="10" stroke-linecap="round" fill="none"/>
                     <circle cx="82" cy="177" r="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.5"/>
@@ -33667,7 +34001,7 @@
 
                     <!-- Neck -->
                     <path d="M 78,125 L 68,175 L 142,175 L 132,125 Z" fill="url(#rFurG)"/>
-                    <ellipse cx="105" cy="152" rx="18" ry="24" fill="${deer.belly}" opacity="0.85"/>
+                    <ellipse cx="105" cy="152" rx="18" ry="24" fill="#fde68a" opacity="0.85"/>
 
                     <!-- Articulated 3D Head Group -->
                     <g class="r3d-head-group" id="r3dHeadGroup">
@@ -33687,8 +34021,7 @@
 
                         <!-- Upper Head / Cranium -->
                         <ellipse cx="105" cy="86" rx="38" ry="34" fill="url(#rFurG)"/>
-                        <!-- Forehead blaze -->
-                        <ellipse cx="105" cy="76" rx="12" ry="16" fill="${deer.belly}" opacity="0.35"/>
+                        <ellipse cx="105" cy="76" rx="12" ry="16" fill="#fde68a" opacity="0.35"/>
 
                         <!-- Expressive Eyes with Real-Time Food-Tracking Pupils -->
                         <g id="r3dEyesOpen">
@@ -33702,7 +34035,7 @@
                             </g>
                         </g>
 
-                        <!-- Lower Jaw & Opening Mouth Cavity (Revealed when feeding!) -->
+                        <!-- Lower Jaw & Opening Mouth Cavity -->
                         <g class="r3d-lower-jaw" id="r3dLowerJaw">
                             <ellipse cx="105" cy="126" rx="22" ry="15" fill="#451a03"/>
                             <g class="r3d-mouth-cavity">
@@ -33712,23 +34045,20 @@
                         </g>
 
                         <!-- 3D Snout / Muzzle -->
-                        <ellipse cx="105" cy="110" rx="27" ry="19" fill="${deer.belly}"/>
+                        <ellipse cx="105" cy="110" rx="27" ry="19" fill="#fde68a"/>
                         <!-- Nostril Breath Steam Puffs -->
                         <circle class="r3d-breath-puff" cx="90" cy="114" r="6" fill="rgba(255,255,255,0.65)"/>
                         <circle class="r3d-breath-puff r" cx="120" cy="114" r="6" fill="rgba(255,255,255,0.65)"/>
 
-                        <!-- 3D Nose (Glowing Red for Rudolph!) -->
-                        ${deer.noseGlow ? `<circle cx="105" cy="103" r="19" fill="${deer.nose}" opacity="0.32"/>` : ''}
-                        <ellipse cx="105" cy="103" rx="13" ry="10.5" fill="url(#rNoseG)"/>
-                        <ellipse cx="101" cy="99.5" rx="4.5" ry="2.6" fill="rgba(255,255,255,0.65)"/>
+                        <!-- Rudolph's Iconic Glowing Red Nose -->
+                        <circle cx="105" cy="103" r="22" fill="#ef4444" opacity="0.38"/>
+                        <ellipse cx="105" cy="103" rx="13.5" ry="11" fill="url(#rNoseG)"/>
+                        <ellipse cx="101" cy="99.5" rx="4.5" ry="2.6" fill="rgba(255,255,255,0.75)"/>
                     </g>
                 </svg>`;
             }
 
-            window.selectReindeerInPaddock = function (idx) {
-                _activeReindeerIdx = Math.max(0, Math.min(REINDEER_ROSTER.length - 1, idx));
-                if (typeof hapticTap === 'function') hapticTap(8);
-                playVillageSfx('step');
+            window.selectReindeerInPaddock = function () {
                 window.renderVillageTab('reindeer');
             };
 
@@ -33757,11 +34087,7 @@
                     actor.classList.add('chewing');
                     spawnMachineFloat([foodIcon, '😋', '❤️', '✨'], stage);
 
-                    const deer = REINDEER_ROSTER[_activeReindeerIdx] || REINDEER_ROSTER[0];
                     const st = getVillageState();
-                    st.deerFed = st.deerFed || { rudolph: 0, dasher: 0, blitzen: 0 };
-                    st.deerFed[deer.id] = Math.min(3, (st.deerFed[deer.id] || 0) + 1);
-
                     let justCompletedStation = false;
                     if (st.reindeer < 3) {
                         st.reindeer += 1;
@@ -33771,7 +34097,7 @@
 
                     if (justCompletedStation) {
                         addVillageGems(10);
-                        spawnFloatingReward('🦌 ✓ +10 💎');
+                        spawnFloatingReward('🦌 Rudolph Powered! +10 💎');
                         if (typeof playSfx === 'function') playSfx('gem-claim');
                     }
 
@@ -33786,7 +34112,6 @@
                 if (fromDrag) {
                     performBite();
                 } else {
-                    // Parabolic 3D Toss from Trough right into the Reindeer's Opening Mouth!
                     actor.classList.add('lean-forward', 'mouth-open');
                     const rect = stage.getBoundingClientRect();
                     const flyer = document.createElement('div');
@@ -33847,7 +34172,6 @@
                             flyer.style.left = cx + 'px';
                             flyer.style.top = cy + 'px';
                         }
-                        // Real-time 3D pupil tracking & head tilt toward the food!
                         const sRect = stage.getBoundingClientRect();
                         const mx = sRect.left + sRect.width * 0.5;
                         const my = sRect.top + sRect.height * 0.52;
@@ -33907,6 +34231,90 @@
                 });
             }
 
+            // ========== 3. 3D FROZEN ICE RINK & SNOWBALL ARENA ACTIONS ==========
+            window.performIceSkateMove = function (move) {
+                if (typeof hapticTap === 'function') hapticTap(12);
+                playVillageSfx('craft');
+                const bot = document.getElementById('irSkatingBot');
+                const stage = document.getElementById('icerink3dStage');
+                if (bot) {
+                    const randLeft = 25 + Math.floor(Math.random() * 50);
+                    bot.style.left = randLeft + '%';
+                    bot.classList.remove('spin360');
+                    void bot.offsetWidth;
+                    bot.classList.add('spin360');
+                }
+                if (stage) spawnMachineFloat(['⛸️', '❄️', '✨'], stage);
+
+                const st = getVillageState();
+                if (st.ice < 3) {
+                    st.ice += 1;
+                    saveVillageState(st);
+                    if (st.ice === 3) {
+                        addVillageGems(10);
+                        spawnFloatingReward('⛸️ Ice Pro! +10 💎');
+                        if (typeof playSfx === 'function') playSfx('gem-claim');
+                    }
+                    setTimeout(() => window.renderVillageTab('icerink'), 520);
+                }
+            };
+
+            window.hitSnowballTarget = function (el) {
+                if (typeof hapticTap === 'function') hapticTap(14);
+                playVillageSfx('feed');
+                const stage = document.getElementById('icerink3dStage');
+                if (el) {
+                    el.textContent = '💥';
+                    el.style.transform = 'scale(1.35)';
+                    setTimeout(() => {
+                        el.textContent = ['⛄', '🎯', '❄️'][Math.floor(Math.random() * 3)];
+                        el.style.left = (15 + Math.floor(Math.random() * 68)) + '%';
+                        el.style.top = (18 + Math.floor(Math.random() * 52)) + '%';
+                        el.style.transform = '';
+                    }, 260);
+                }
+                if (stage) spawnMachineFloat(['⚪', '💥', '❄️'], stage);
+
+                const st = getVillageState();
+                if (st.ice < 3) {
+                    st.ice += 1;
+                    saveVillageState(st);
+                    if (st.ice === 3) {
+                        addVillageGems(10);
+                        spawnFloatingReward('❄️ Bullseye! +10 💎');
+                        if (typeof playSfx === 'function') playSfx('gem-claim');
+                    }
+                    setTimeout(() => window.renderVillageTab('icerink'), 320);
+                }
+            };
+
+            // ========== 4. GRAND PLAZA LIGHT SHOW & CANDY MOLD PICKER ==========
+            window.cyclePlazaTreeLights = function () {
+                if (typeof hapticTap === 'function') hapticTap(10);
+                playVillageSfx('sleigh');
+                const themes = [
+                    { c1: '#fbbf24', c2: '#ef4444', c3: '#38bdf8', name: 'Classic Gold' },
+                    { c1: '#38bdf8', c2: '#a855f7', c3: '#4ade80', name: 'Aurora Glow' },
+                    { c1: '#f472b6', c2: '#ffffff', c3: '#ef4444', name: 'Peppermint' },
+                    { c1: '#fde047', c2: '#4ade80', c3: '#f43f5e', name: 'Festive Disco' }
+                ];
+                _treeThemeIdx = (_treeThemeIdx + 1) % themes.length;
+                const t = themes[_treeThemeIdx];
+                const tree = document.getElementById('v3dGrandTree');
+                if (tree) {
+                    tree.style.setProperty('--tree-c1', t.c1);
+                    tree.style.setProperty('--tree-c2', t.c2);
+                    tree.style.setProperty('--tree-c3', t.c3);
+                }
+                spawnFloatingReward('🎄 ' + t.name);
+            };
+
+            window.selectCandyMold = function (icon) {
+                _candyMold = icon;
+                if (typeof hapticTap === 'function') hapticTap(8);
+                window.renderVillageTab('candy');
+            };
+
             // Core Machine Action
             window.crankFactoryMachine = function (zoneKey) {
                 const zk = zoneKey || _currentZone;
@@ -33915,14 +34323,14 @@
 
                 if (zk === 'candy') {
                     playVillageSfx('craft');
-                    triggerMachineStamp('🍭', 'craft-anim', [{ ms: 120, icons: ['🍬', '🍭', '✨'] }]);
+                    triggerMachineStamp(_candyMold, 'craft-anim', [{ ms: 120, icons: [_candyMold, '🍬', '✨'] }]);
                     if (st.candy < 3) {
                         st.candy += 1;
                         saveVillageState(st);
                         window.renderVillageTab('candy');
                         if (st.candy === 3) {
                             addVillageGems(10);
-                            spawnFloatingReward('🍬 ✓ +10 💎');
+                            spawnFloatingReward('🍬 Candy Packed! +10 💎');
                             if (typeof playSfx === 'function') playSfx('gem-claim');
                             setTimeout(() => window.closeVillageInterior(), 650);
                         }
@@ -33932,6 +34340,8 @@
                     }
                 } else if (zk === 'toy') {
                     window.assembleAndEquipCustomBot();
+                } else if (zk === 'icerink') {
+                    window.performIceSkateMove('spin');
                 } else if (zk === 'reindeer') {
                     window.feedLifelikeReindeer('🥕', false);
                 } else if (zk === 'santa') {
@@ -33978,12 +34388,6 @@
                 syncVillageGems();
                 updateVillageWorldUI();
                 window.updateVillageGiftBadge();
-
-                const mount = document.getElementById('villageRobotMount');
-                const skinId = localStorage.getItem('nu_active_skin') || '';
-                if (mount) {
-                    mount.innerHTML = typeof window.buildMiniRobotHtml === 'function' ? window.buildMiniRobotHtml(skinId, false) : '<div style="font-size:48px">🤖</div>';
-                }
                 window.applyCustomBotToAllRobots();
 
                 const walkScene = document.getElementById('villageWalkScene');
@@ -34000,10 +34404,10 @@
 
                 ov.classList.add('open');
 
-                [200, 560, 920].forEach(ms => {
+                [220, 600, 980, 1360].forEach(ms => {
                     _vWalkTimers.push(setTimeout(() => playVillageSfx('step'), ms));
                 });
-                _vWalkTimers.push(setTimeout(finishVillageWalk, 1350));
+                _vWalkTimers.push(setTimeout(finishVillageWalk, 1750));
             };
 
             window.closeSantasVillage = function (silent) {
@@ -34022,12 +34426,21 @@
 
             window.buyVillageItem = function () { window.crankFactoryMachine(_currentZone); };
             window.useVillageItem = function () { window.crankFactoryMachine(_currentZone); };
-            window.sendSantaWish = function () { window.triggerVillageSleigh(); };
+            window.sendSantaWish = function () {
+                const inp = document.getElementById('vPlazaWishInput');
+                if (inp && inp.value.trim()) {
+                    inp.value = '';
+                    spawnFloatingReward('📮 Wish Sent to Santa! ✨');
+                    window.triggerVillageSleigh();
+                } else {
+                    window.triggerVillageSleigh();
+                }
+            };
 
             window.claimVillageDailyGift = function () {
                 if (typeof hapticTap === 'function') hapticTap(14);
                 if (!canClaimVillageGift()) {
-                    spawnFloatingReward('🎄 ✓');
+                    spawnFloatingReward('🎄 Claimed Today ✓');
                     return;
                 }
                 localStorage.setItem('nu_village_gift_day', todayKey());
@@ -34036,6 +34449,9 @@
                 updateVillageWorldUI();
                 window.updateVillageGiftBadge();
                 spawnFloatingReward('🎁 +25 💎');
+                if (document.getElementById('villageInteriorModal').classList.contains('open')) {
+                    window.renderVillageTab(_currentZone);
+                }
             };
 
             window.triggerVillageSleigh = function () {
@@ -34068,7 +34484,7 @@
                 }
             };
 
-            // Dynamic Interior Renderer (Bot Builder / Lifelike 3D Reindeer Paddock / Candy Press / Sleigh)
+            // Dynamic Interior Renderer (All in English, Zero Clutter!)
             window.renderVillageTab = function (zoneKey) {
                 const zk = ZONE_COORDS[zoneKey] ? zoneKey : 'candy';
                 _currentZone = zk;
@@ -34086,18 +34502,14 @@
                 if (!container) return;
                 const st = getVillageState();
 
-                // Show standard conveyor machine ONLY for Candy Factory & Santa Sleigh
                 if (machineEl) {
-                    machineEl.style.display = (zk === 'toy' || zk === 'reindeer') ? 'none' : 'flex';
+                    machineEl.style.display = (zk === 'candy' || zk === 'santa') ? 'flex' : 'none';
                 }
 
                 if (zk === 'toy') {
-                    // ========== 1. 3D DAILY BOT FACTORY BUILDER ==========
+                    // ========== 1. PRO 3D CUSTOM VILLAGE BOT STUDIO ==========
                     const cfg = getCustomBotConfig();
-                    const skinId = localStorage.getItem('nu_active_skin') || '';
-                    const miniHtml = typeof window.buildMiniRobotHtml === 'function'
-                        ? window.buildMiniRobotHtml(skinId, false)
-                        : '<div style="font-size:64px">🤖</div>';
+                    const botSvg = buildCustomVillageBotSvg(cfg);
 
                     let paintsHtml = '';
                     CBOT_PAINTS.forEach(p => {
@@ -34118,19 +34530,25 @@
                         return s;
                     };
 
-                    const safeName = String(cfg.name || '').replace(/"/g, '&quot;');
+                    const safeName = String(cfg.name || 'NorthBot').replace(/"/g, '&quot;');
 
                     container.innerHTML = `
-                        <div class="cbot-turntable-stage" id="cbotTurntableStage" onclick="spinCustomBotTurntable()">
+                        <div class="cbot-turntable-stage ${_botLargeView ? 'large-view' : ''}" id="cbotTurntableStage" onclick="spinCustomBotTurntable()">
+                            <button type="button" class="cbot-zoom-toggle" id="cbotZoomBtn" onclick="toggleCustomBotLargeView(event)">${_botLargeView ? '🔍 Compact' : '🔍 Full View'}</button>
                             <div class="cbot-arm-clamp left">🦾</div>
                             <div class="cbot-arm-clamp right">🦾</div>
                             <div class="cbot-pedestal-disc"></div>
-                            <div class="cbot-preview-mount" id="vBotBuilderMount">${miniHtml}</div>
+                            <div class="cbot-preview-mount" id="vBotBuilderMount">${botSvg}</div>
+                            <div class="cbot-pose-bar">
+                                <button type="button" class="cbot-pose-btn" onclick="triggerCustomBotPose('wave',event)" title="Wave">👋</button>
+                                <button type="button" class="cbot-pose-btn" onclick="triggerCustomBotPose('dance',event)" title="Dance">💃</button>
+                                <button type="button" class="cbot-pose-btn" onclick="triggerCustomBotPose('hover',event)" title="Hover">🚀</button>
+                            </div>
                         </div>
 
                         <div class="cbot-name-row">
-                            <input type="text" class="cbot-name-input" id="cbotNameInput" maxlength="18" placeholder="Robot neve (pl. MikulásBot)..." value="${safeName}" oninput="const c=JSON.parse(localStorage.getItem('nu_custom_bot')||'{}');c.name=this.value;c.enabled=true;localStorage.setItem('nu_custom_bot',JSON.stringify(c));applyCustomBotToAllRobots();">
-                            ${cfg.enabled ? `<button type="button" class="cbot-acc-chip" style="width:38px;height:38px;font-size:15px;" onclick="resetCustomBotToStandard()" title="Alap visszaállítása">↺</button>` : ''}
+                            <input type="text" class="cbot-name-input" id="cbotNameInput" maxlength="18" placeholder="Bot Name..." value="${safeName}" oninput="const c=JSON.parse(localStorage.getItem('nu_village_custom_bot')||'{}');c.name=this.value;localStorage.setItem('nu_village_custom_bot',JSON.stringify(c));applyCustomBotToAllRobots();">
+                            <button type="button" class="cbot-acc-chip" style="width:38px;height:38px;font-size:15px;" onclick="resetCustomBotToStandard()" title="Reset">↺</button>
                         </div>
 
                         <div class="cbot-swatch-row">${paintsHtml}</div>
@@ -34143,62 +34561,104 @@
 
                         <button type="button" class="v-big-action-btn done" onclick="assembleAndEquipCustomBot()">
                             <span>🔧</span>
-                            <span>Összerakás &amp; Felszerelés ${st.toy < 3 ? '(+10 💎)' : '✓'}</span>
+                            <span>Build Village Bot ${st.toy < 3 ? '(+10 💎)' : '✓'}</span>
                         </button>
                     `;
-                    window.applyCustomBotToAllRobots();
                 } else if (zk === 'reindeer') {
-                    // ========== 2. LIFELIKE 3D REINDEER PADDOCK ==========
-                    const deer = REINDEER_ROSTER[_activeReindeerIdx] || REINDEER_ROSTER[0];
-                    const deerCount = (st.deerFed && st.deerFed[deer.id]) ? st.deerFed[deer.id] : 0;
-                    const isCharged = deerCount >= 3 || st.reindeer >= 3;
-
-                    let tabsHtml = '';
-                    REINDEER_ROSTER.forEach((d, idx) => {
-                        const fed = (st.deerFed && st.deerFed[d.id]) ? st.deerFed[d.id] : 0;
-                        tabsHtml += `
-                            <button type="button" class="r3d-deer-tab ${idx === _activeReindeerIdx ? 'active' : ''}" onclick="selectReindeerInPaddock(${idx})">
-                                <span>🦌 ${d.name}</span>
-                                <span style="color:#fde047;">${fed >= 3 ? '⚡' : `${fed}/3`}</span>
-                            </button>
-                        `;
-                    });
+                    // ========== 2. RUDOLPH'S EXCLUSIVE 3D PADDOCK ==========
+                    const isCharged = st.reindeer >= 3;
 
                     container.innerHTML = `
                         <div class="reindeer-3d-stage" id="reindeer3dStage">
                             <div class="r3d-barn-arch"></div>
-                            <div class="r3d-tabs">${tabsHtml}</div>
+                            <div class="r3d-tabs">
+                                <div class="r3d-deer-tab">🔴 Rudolph</div>
+                                <div class="r3d-deer-tab" style="color:#4ade80;">${isCharged ? '⚡ 3/3 Ready!' : `❤️ ${st.reindeer}/3 (+10 💎)`}</div>
+                            </div>
                             <div class="r3d-deer-actor" id="r3dDeerActor" onclick="petLifelikeReindeer()">
-                                ${buildLifelikeReindeerSvg(deer, isCharged)}
+                                ${buildLifelikeRudolphSvg(isCharged)}
                             </div>
                             <div class="r3d-foreground-fence"></div>
                         </div>
 
                         <div class="r3d-feed-trough">
-                            <div class="r3d-food-item" data-food="🥕" title="Húzd a szájához vagy koppints!">🥕</div>
-                            <div class="r3d-food-item" data-food="🍎" title="Húzd a szájához vagy koppints!">🍎</div>
-                            <div class="r3d-food-item" data-food="🌿" title="Húzd a szájához vagy koppints!">🌿</div>
-                            <div class="r3d-food-item" data-food="🍬" title="Húzd a szájához vagy koppints!">🍬</div>
+                            <div class="r3d-food-item" data-food="🥕" title="Drag to mouth or tap!">🥕</div>
+                            <div class="r3d-food-item" data-food="🍎" title="Drag to mouth or tap!">🍎</div>
+                            <div class="r3d-food-item" data-food="🍪" title="Drag to mouth or tap!">🍪</div>
+                            <div class="r3d-food-item" data-food="🍬" title="Drag to mouth or tap!">🍬</div>
                         </div>
                     `;
                     bindReindeerFoodDrag();
+                } else if (zk === 'icerink') {
+                    // ========== 3. 3D FROZEN ICE RINK & SNOWBALL ARENA ==========
+                    const cfg = getCustomBotConfig();
+                    const botSvg = buildCustomVillageBotSvg(cfg);
+                    const count = st.ice || 0;
+                    const isDone = count >= 3;
+
+                    container.innerHTML = `
+                        <div class="icerink-3d-stage" id="icerink3dStage">
+                            <div class="ir-target" style="left:16%;top:22%;" onclick="hitSnowballTarget(this)">⛄</div>
+                            <div class="ir-target" style="left:72%;top:28%;animation-delay:0.4s;" onclick="hitSnowballTarget(this)">🎯</div>
+                            <div class="ir-skating-bot" id="irSkatingBot">
+                                <div id="irSkatingBotMount" style="width:100%;height:100%;">${botSvg}</div>
+                            </div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <button type="button" class="v-big-action-btn" style="height:46px;font-size:14px;" onclick="performIceSkateMove('spin')">⛸️ 3D Ice Spin</button>
+                            <button type="button" class="v-big-action-btn done" style="height:46px;font-size:14px;" onclick="performIceSkateMove('jump')">❄️ Skate ${isDone ? '✓' : `${count}/3 (+10 💎)`}</button>
+                        </div>
+                    `;
+                } else if (zk === 'plaza') {
+                    // ========== 4. GRAND CHRISTMAS PLAZA & LIGHT SHOW ==========
+                    const giftReady = canClaimVillageGift();
+                    container.innerHTML = `
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <button type="button" class="v-big-action-btn ${giftReady ? '' : 'done'}" style="height:54px;font-size:14px;" onclick="claimVillageDailyGift()">
+                                <span>🎁</span>
+                                <span>${giftReady ? 'Daily +25 💎' : 'Claimed ✓'}</span>
+                            </button>
+                            <button type="button" class="v-big-action-btn" style="height:54px;font-size:14px;background:linear-gradient(135deg,#0284c7,#7c3aed);" onclick="cyclePlazaTreeLights()">
+                                <span>🎄</span>
+                                <span>Tree Lights</span>
+                            </button>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                            <button type="button" class="v-big-action-btn" style="height:46px;font-size:13px;background:rgba(15,23,42,0.85);border-color:#38bdf8;" onclick="triggerVillageBlizzard();closeVillageInterior();">🌨️ Snowstorm</button>
+                            <button type="button" class="v-big-action-btn" style="height:46px;font-size:13px;background:rgba(15,23,42,0.85);border-color:#fbbf24;" onclick="triggerVillageSleigh();closeVillageInterior();">🛷 Fly Sleigh</button>
+                        </div>
+                        <div class="cbot-name-row">
+                            <input type="text" class="cbot-name-input" id="vPlazaWishInput" maxlength="60" placeholder="Send a wish to Santa..." onkeydown="if(event.key==='Enter')sendSantaWish()">
+                            <button type="button" class="cbot-acc-chip active" style="width:44px;height:38px;" onclick="sendSantaWish()">📮</button>
+                        </div>
+                    `;
                 } else if (zk === 'candy') {
+                    // ========== 5. 3D CANDY FACTORY & MOLD PICKER ==========
                     const count = st.candy || 0;
                     const isDone = count >= 3;
+                    const molds = ['🍭', '🍪', '🍫', '🧁', '🍬', '🥕'];
+                    let moldsHtml = '<div class="cbot-acc-strip" style="justify-content:center;">';
+                    molds.forEach(m => {
+                        moldsHtml += `<button type="button" class="cbot-acc-chip ${_candyMold === m ? 'active' : ''}" onclick="selectCandyMold('${m}')">${m}</button>`;
+                    });
+                    moldsHtml += '</div>';
+
                     let slotsHtml = '<div class="v-slot-row">';
                     for (let i = 0; i < 3; i++) {
-                        slotsHtml += `<div class="v-slot-orb ${i < count ? 'filled' : ''}">🍬</div>`;
+                        slotsHtml += `<div class="v-slot-orb ${i < count ? 'filled' : ''}">${_candyMold}</div>`;
                     }
                     slotsHtml += '</div>';
 
                     container.innerHTML = `
+                        ${moldsHtml}
                         ${slotsHtml}
                         <button type="button" class="v-big-action-btn ${isDone ? 'done' : ''}" onclick="crankFactoryMachine('candy')">
                             <span>${isDone ? '✓' : '⚙️'}</span>
-                            <span>${isDone ? '🤖 →' : `${count}/3  (+10 💎)`}</span>
+                            <span>${isDone ? 'Next Station →' : `Press Candy ${count}/3 (+10 💎)`}</span>
                         </button>
                     `;
                 } else {
+                    // ========== 6. SANTA'S SLEIGH LAUNCHPAD ==========
                     const candyDone = st.candy >= 3;
                     const toyDone = st.toy >= 3;
                     const reinDone = st.reindeer >= 3;
@@ -34213,13 +34673,13 @@
                         </div>
                         <button type="button" class="v-big-action-btn ${allReady ? 'done' : ''}" onclick="crankFactoryMachine('santa')">
                             <span>${allReady ? '🚀' : nextIcon}</span>
-                            <span>${allReady ? '+50 💎' : '→'}</span>
+                            <span>${allReady ? 'Launch Sleigh (+50 💎)' : 'Prepare Cargo →'}</span>
                         </button>
                     `;
                 }
             };
 
-            // 3D Viewport Momentum Drag / Swipe Panning Across the 4800px Valley
+            // 3D Viewport Momentum Drag / Swipe Panning Across the 5600px Valley
             const viewport = document.getElementById('village3dViewport');
             if (viewport) {
                 const onStart = (clientX) => {
@@ -34236,14 +34696,14 @@
                     _velocityX = clientX - _lastMoveX;
                     _lastMoveX = clientX;
                     _dragMoved = Math.max(_dragMoved, Math.abs(dx));
-                    const nextX = _dragStartCamX - dx * 2.1;
+                    const nextX = _dragStartCamX - dx * 2.2;
                     const tilt = Math.max(-8, Math.min(8, _velocityX * 0.22));
                     apply3dCamera(nextX, false, tilt);
                 };
                 const onEnd = () => {
                     if (!_isDragging) return;
                     _isDragging = false;
-                    const inertiaX = _camX - _velocityX * 14;
+                    const inertiaX = _camX - _velocityX * 15;
                     apply3dCamera(inertiaX, true, 0);
                     walkRobotTo(_camX);
                     setTimeout(() => { _dragMoved = 0; }, 60);
